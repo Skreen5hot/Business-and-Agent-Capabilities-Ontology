@@ -171,6 +171,20 @@ components:
       decided about. ADR-002, once ratified, is a separate document under
       docs/adr/ (spec section 2); its ratification act is recorded here.
 
+  - id: docs.sources
+    path: docs/sources
+    role: documentation
+    description: >-
+      The citation register of authoritative sources on business
+      capability (business-capability-definition-sources.md), with stable
+      SRC-<family>-<nn> identifiers the specification can cite, and the
+      five research notes behind it (notes/). Every entry carries its
+      licence terms and a verification status (V, P, S, K, L); entries not
+      read in the primary text are research input, not evidence. Holds
+      citations and paraphrase only -- no copyrighted source text, which
+      belongs in docs/Reference/ and is never tracked. Compiled
+      2026-10-23 by AI research agents at the architect's direction.
+
   - id: docs.import-inventory
     path: docs/ARTIFACT-INVENTORY.md
     role: documentation

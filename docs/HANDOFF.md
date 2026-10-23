@@ -33,6 +33,7 @@ evidence the checks work.
 | `config/` | layout contract, pins, manifests, baseline, digest | see `docs/DEVELOPMENT.md` |
 | `tools/`, `tests/` | ARO's generic tooling, adapted | the suite and CI |
 | `docs/decisions/` | the architect's acts and choices, verbatim | one entry: setup choices |
+| `docs/sources/` | citation register of 63 sources on business capability, with the research notes behind it | research input, not evidence; entries marked S, K or L are unverified against their primary text |
 | `communications/` | messages to and from BPO and ARO, under `communications/README.md` | checked by `tools/communications.py`; the vendoring-pin request to BPO was acknowledged (BPO `8f6622c`), and BPO announced a namespace move to `https://fandaws.com/ontology/bpo#` |
 | `docs/ARTIFACT-INVENTORY.md`, `docs/artifact-manifest.json` | the 2026-10-22 import record | held to its digests by a test |
 
