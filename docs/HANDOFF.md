@@ -33,6 +33,7 @@ evidence the checks work.
 | `config/` | layout contract, pins, manifests, baseline, digest | see `docs/DEVELOPMENT.md` |
 | `tools/`, `tests/` | ARO's generic tooling, adapted | the suite and CI |
 | `docs/decisions/` | the architect's acts and choices, verbatim | one entry: setup choices |
+| `communications/` | messages to and from BPO and ARO, under `communications/README.md` | checked by `tools/communications.py`; one outgoing request to BPO, open, not yet delivered |
 | `docs/ARTIFACT-INVENTORY.md`, `docs/artifact-manifest.json` | the 2026-10-22 import record | held to its digests by a test |
 
 ## 3. What is ready to rely on

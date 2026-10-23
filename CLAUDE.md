@@ -31,6 +31,10 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
 - **Decisions are the architect's.** Record an act verbatim in `docs/decisions/` with the
   digest of what it is about; never perform one.
 - **Line endings are LF** (`.gitattributes`). Digests in this repository are over LF bytes.
+  On Windows, write files as bytes (`write_bytes`), not `write_text`, which writes CRLF.
+- **Communications with other teams** go in `communications/<team>/{incoming,outgoing}/`
+  under the protocol in `communications/README.md`. A committed message is never edited;
+  a correction is a new message replying to it. Sending one is the architect's call.
 
 ## Before committing
 
@@ -39,6 +43,7 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
 .venv/Scripts/python tools/licensing/disposition.py --check
 .venv/Scripts/python tools/ontology/vendor_upstream.py
 .venv/Scripts/python tools/ontology/validate.py --gate
+.venv/Scripts/python tools/communications.py
 .venv/Scripts/python -m pytest tests/ -q -p no:randomly
 .venv/Scripts/python tools/site/build_site.py && .venv/Scripts/python tools/site/check_site.py
 ```

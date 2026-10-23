@@ -80,6 +80,9 @@ jobs:
       - name: No new ontology findings
         run: python tools/ontology/validate.py --gate
 
+      - name: The communications record follows its protocol
+        run: python tools/communications.py
+
       - name: Tests
         run: python -m pytest tests/ -q -p no:randomly
 

@@ -166,10 +166,16 @@ ADJUDICATIONS = "config/licensing-adjudications.yaml"
 #: and the two scripts are carried from BFO-Aligned ValueNet, the same
 #: author's project, and keep their original SPDX headers -- see
 #: docs/HANDOFF.md for that open question.
+#:
+#: `communication`: messages to and from other teams (communications/).
+#: Content under the project licence. Incoming messages are other teams'
+#: words, copied verbatim -- today only BPO and ARO, which have the same
+#: author as this repository. A message from a team with a different
+#: owner would need its own role and rule, as cited references do.
 CONTENT_ROLES = {"ontology-module", "ontology-module-set",
                  "ontology-validation", "test-fixture", "documentation",
                  "generated-artifact", "specification", "historical-draft",
-                 "site-source"}
+                 "site-source", "communication"}
 
 #: Roles that are software rather than published content.
 SOFTWARE_ROLES = {"tool", "configuration"}

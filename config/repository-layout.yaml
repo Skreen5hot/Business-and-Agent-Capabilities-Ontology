@@ -326,6 +326,25 @@ components:
       every internal link and fragment resolving, downloads matching their
       checksums, the bundle matching its SHA256SUMS.
 
+  # ---- Communications ------------------------------------------------
+
+  - id: communications
+    path: communications
+    role: communication
+    description: >-
+      What this repository has said to, and heard from, other teams: one
+      folder per team (BPO, ARO) with incoming/ and outgoing/. The
+      protocol is communications/README.md; tools/communications.py checks
+      every header, refuses an edited message, and derives which threads
+      are open. Not published on the site.
+
+  - id: tool.communications
+    path: tools/communications.py
+    role: tool
+    description: >-
+      Checks the communications record against its protocol and lists
+      open threads. Status is derived from replies, never stored.
+
   # ---- Configuration and tooling --------------------------------------
 
   - id: config.layout
