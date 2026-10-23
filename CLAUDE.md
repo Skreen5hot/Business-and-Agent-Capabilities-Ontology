@@ -40,7 +40,12 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
 .venv/Scripts/python tools/ontology/vendor_upstream.py
 .venv/Scripts/python tools/ontology/validate.py --gate
 .venv/Scripts/python -m pytest tests/ -q -p no:randomly
+.venv/Scripts/python tools/site/build_site.py && .venv/Scripts/python tools/site/check_site.py
 ```
+
+The public site is for external validators and is built from the repository at deploy
+time; never commit `_site/`, and never type a figure into `site/` that the build can
+read.
 
 If the ontology changed: `tools/ontology/corpus_digest.py -o config/corpus-digest.json`, and
 `tools/ontology/validate.py --record` if a finding was fixed. Commit messages carry the

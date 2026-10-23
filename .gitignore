@@ -30,6 +30,11 @@ docs/Reference/
 *.pdf
 *.xlsx
 
+# The built site. Deployed from an Actions artifact, never committed: a
+# committed copy would agree with the repository only until the next edit.
+_site/
+_site_again/
+
 # Upstream sources, downloaded to rebuild the vendored extracts. The
 # extracts are committed; these are not -- the pins in
 # config/upstream-sources.yaml fetch them again byte-for-byte.

@@ -158,9 +158,18 @@ ADJUDICATIONS = "config/licensing-adjudications.yaml"
 #: A role of its own so that nothing loads its Turtle as ontology: it
 #: uses a namespace v0.4 renames away from, and its defects are not this
 #: corpus's defects.
+#:
+#: `site-source`: the public site's page fragments, curated copy,
+#: stylesheet and scripts. Content rather than software, JavaScript
+#: included, because the site is a published document: what it says is
+#: the point, and the scripts only search and display it. The stylesheet
+#: and the two scripts are carried from BFO-Aligned ValueNet, the same
+#: author's project, and keep their original SPDX headers -- see
+#: docs/HANDOFF.md for that open question.
 CONTENT_ROLES = {"ontology-module", "ontology-module-set",
                  "ontology-validation", "test-fixture", "documentation",
-                 "generated-artifact", "specification", "historical-draft"}
+                 "generated-artifact", "specification", "historical-draft",
+                 "site-source"}
 
 #: Roles that are software rather than published content.
 SOFTWARE_ROLES = {"tool", "configuration"}

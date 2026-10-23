@@ -1,0 +1,53 @@
+{
+  "format_version": 1,
+  "note": "Curated public copy only: the words a person has to choose. Nothing here is a value the build can derive -- titles, counts, digests, versions, licences and paths are read from the ontology, the layout contract and the pins at build time, because a figure typed here is a second description that can drift from the first.",
+  "site": {
+    "name": "Business Capability Ontology",
+    "tagline": "What an organization can do, as BFO dispositions realized in business processes",
+    "repository": "https://github.com/Skreen5hot/Business-and-Agent-Capabilities-Ontology",
+    "companion": {
+      "label": "Business Process Ontology",
+      "url": "https://github.com/Skreen5hot/BusinessProcessOntology"
+    }
+  },
+  "navigation": [
+    {"key": "home", "label": "Home", "path": ""},
+    {"key": "specification", "label": "Specification", "path": "specification/"},
+    {"key": "explore", "label": "Explore terms", "path": "explore/"},
+    {"key": "modules", "label": "Modules", "path": "modules/"},
+    {"key": "status", "label": "Status", "path": "status/"},
+    {"key": "review", "label": "Review R5", "path": "review/"},
+    {"key": "downloads", "label": "Downloads", "path": "downloads/"}
+  ],
+  "notices": {
+    "draft": {
+      "text": "Draft. The specification awaits ratification, and nothing in it is normative until the architect ratifies it.",
+      "why": "A validator reading a requirement on a public site will reasonably take it as settled. Every page says otherwise, because the one page that does not is the one somebody links to."
+    },
+    "iri_resolution": {
+      "text": "BCO IRIs identify terms but do not resolve over HTTP, and the namespace https://fandaws.com/ontology/bco# is provisional until RP-5 mints a permanent one. Use the explorer or the downloads to inspect a term.",
+      "why": "An IRI rendered as a link would send a reader to a 404 and imply the ontology is broken. IRIs are copyable text, never anchors."
+    },
+    "license": {
+      "text": "Project-authored ontology, documentation and site content are offered under the MIT License. The vendored BFO, CCO and BPO extracts carry their own licences (CC BY 4.0, BSD-3-Clause, MIT) and attribution, listed on the Modules and Downloads pages.",
+      "why": "A licence printed without the upstream exception reads as covering everything on the page, including terms this project did not write."
+    },
+    "acknowledgment": {
+      "text": "Developed by Aaron Damiano with substantial assistance from Anthropic Claude and OpenAI ChatGPT agents.",
+      "why": "Carried from ValueNet's practice: the assistance was substantive, so it is credited on every page rather than in a footnote most readers never reach. The human author is the one answerable for the content."
+    },
+    "build_label": {
+      "text": "latest from main",
+      "why": "A Pages build is not a release. The source commit is shown beside this label."
+    }
+  },
+  "home": {
+    "summary": "The Business Capability Ontology (BCO) says what an organization can do. The Business Process Ontology (BPO) says what it does. The BCO takes its act types from the BPO reality layer and adds the dispositions those acts realize.",
+    "for_validators": [
+      "Read the specification. It states seventeen design decisions (CD1 to CD17), the requirements that would check them (CAP-01 onward), and ten ratification points (RP-1 to RP-10) that are open.",
+      "Explore the terms. Today the explorer holds the upstream BFO, CCO and BPO terms the specification builds on, each marked upstream. BCO terms appear beside them as they are written.",
+      "Check the status page for what has been ratified, what the validation gate currently finds, and which terms the specification names that nothing yet defines.",
+      "Raise anything you find as an issue in the repository. A finding with the section or term it concerns is the most useful kind."
+    ]
+  }
+}

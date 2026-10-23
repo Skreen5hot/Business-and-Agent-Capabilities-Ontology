@@ -217,6 +217,48 @@ requires the committed extracts to be byte-identical.
 
 ---
 
+## The public site
+
+Published at https://skreen5hot.github.io/Business-and-Agent-Capabilities-Ontology/ by `.github/workflows/pages.yml`, for external validators: the rendered
+specification and R5 review, a term explorer, module and status pages, and downloads with
+checksums. The method is BFO-Aligned ValueNet's; the builder is rewritten for this
+repository.
+
+```bash
+python tools/site/build_site.py      # into _site/ (gitignored)
+python tools/site/check_site.py      # the checks the workflow runs before deploying
+python -m pytest tests/test_site.py -q -p no:randomly
+```
+
+To look at it locally, serve `_site/` and open it — every URL is relative, so it works
+from any path:
+
+```bash
+python -m http.server 8765 --directory _site
+```
+
+| Where | What lives there |
+|---|---|
+| `site/pages/<key>.html` | one body fragment per page, with `{{placeholders}}` |
+| `site/content/site.json` | navigation, notices, and words a person chose — never a figure |
+| `site/src/assets/` | the stylesheet and the explorer's scripts, copied verbatim |
+| `tools/site/build_site.py` | fills the placeholders from the repository; one function per value |
+
+**Nothing on the site is typed if it can be read.** Versions, counts, digests, licences
+and the RP table come from the spec, the layout contract, the pins and the manifests at
+build time. A new page is a fragment plus a navigation entry; the build refuses a fragment
+no navigation entry reaches and a placeholder nothing fills.
+
+**The build refuses ambiguity in authored terms**: no label, no definition, or two of
+either in one language stops it, because which one is published would otherwise be
+decided by traversal order. This will matter the day the first BCO term lands.
+
+**Deployment** is from the artifact the checks ran against, after a second build on the
+same runner has produced an identical tree. Pull requests build, check, and upload a
+preview artifact; only `main` deploys.
+
+---
+
 ## Conventions
 
 ### Paying down a finding

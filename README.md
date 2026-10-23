@@ -15,6 +15,10 @@ It is developed in alignment with BFO 2020, CCO 2.0, and the companion
 
 **Status: draft.** No ADR-002 ratification and no v0.4 ontology implementation is implied.
 
+**Reviewing it?** The site at https://skreen5hot.github.io/Business-and-Agent-Capabilities-Ontology/ renders the specification and the
+review, lets you search the terms, and shows what is ratified and what is not — no clone
+needed.
+
 ## Current sources
 
 - **[BCO specification v0.4.0-draft.1](specifications/Business-Capability-Ontology-v0.4.0-draft.1.md)**
@@ -38,6 +42,7 @@ vendor/           pinned partial extracts of BFO, CCO and BPO, with attribution
 drafts/           the v0.1 package, preserved
 config/           layout contract, upstream pins, manifests, baseline, digest
 tools/            layout, licensing, vendoring, validation and digest tools
+site/             the public site's pages, copy and assets (built by tools/site/)
 tests/            the suite, including the falsifications
 docs/             handoff, development, process, decisions, import record
 ```

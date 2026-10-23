@@ -17,6 +17,9 @@
 #               and vendoring tools read the pins and adjudications
 #   rdflib      reading the ontology without a reasoner
 #   pyshacl     the SHACL validation ladder
+#   Markdown    tools/site/build_site.py renders the specification and the
+#               review for the public site. 3.11 rather than the newest
+#               3.11.x: the newest was days old when this was pinned.
 #
 # ARO also pins jsonschema and owlrl. Nothing ported here imports either,
 # and ARO's own rule is to take out a pin nothing exercises, so they are
@@ -27,3 +30,4 @@ pytest==9.1.1
 PyYAML==6.0.3
 rdflib==7.6.0
 pyshacl==0.40.1
+Markdown==3.11

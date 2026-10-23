@@ -118,6 +118,28 @@ annotations on BFO terms land in the BFO extract under BFO's licence (4 `skos:sc
 triples against these pins). This repository's copy attributes each triple to the file
 that asserts it. ARO's has not been changed.
 
+### 5.8 The public site is new, and less reviewed than ValueNet's
+
+The site (https://skreen5hot.github.io/Business-and-Agent-Capabilities-Ontology/) is built by `tools/site/build_site.py`, checked by
+`tools/site/check_site.py` and `tests/test_site.py`, and deployed by
+`.github/workflows/pages.yml`. Its stylesheet and explorer scripts are ValueNet's, which
+were contrast-checked and reviewed in four browser engines there. What was **not**
+carried over, and so has not been done for this site:
+
+- ValueNet's browser review (`tools/site/browser_review.py`: four engines, three
+  viewports, a committed record) and its accessibility suite. This site was looked at in
+  one engine (the Claude desktop app's browser) at desktop and phone width, by eye.
+- Running `ranking.js` under Node in the tests, as ValueNet does. The ranking code is
+  ValueNet's, unchanged apart from its global name, and is untested here.
+- A models page. ValueNet's diagrams are drawn from its ontology; the BCO has no
+  authored term to draw yet.
+
+The stylesheet and the two scripts keep ValueNet's `SPDX-License-Identifier: Apache-2.0`
+headers, and the tools carried from ARO keep theirs, while this repository's `LICENSE` is
+MIT and the licensing tool classifies all of them as MIT. Both source projects are the
+same author's, so this is an owner decision rather than a conflict -- but it is
+undecided, and the headers and the classifier currently disagree.
+
 ## 6. Outside the repository
 
 - **Nothing is pushed.** The import (`b4d4493`) and the setup commit are local to the
