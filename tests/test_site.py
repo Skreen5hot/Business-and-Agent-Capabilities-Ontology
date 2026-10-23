@@ -105,6 +105,22 @@ def test_the_bundle_holds_authored_files_only(built):
     assert "bco/apqc-cap.ttl" in names
 
 
+def test_a_crlf_source_file_stops_the_build(builder, tmp_path):
+    """The guard behind cross-machine determinism. CRLF in the working tree
+    -- from core.autocrlf=true, or from Python's write_text on Windows --
+    made a local build publish six files that differed from CI's under the
+    same commit."""
+    lf = tmp_path / "lf.css"
+    crlf = tmp_path / "crlf.css"
+    lf.write_bytes(b"a {}\nb {}\n")
+    crlf.write_bytes(b"a {}\r\nb {}\r\n")
+    assert lf.read_bytes() != crlf.read_bytes()
+    assert builder.source_bytes(lf) == b"a {}\nb {}\n"
+    with pytest.raises(SystemExit) as error:
+        builder.source_bytes(crlf)
+    assert "CRLF" in str(error.value)
+
+
 # ------------------------------------------------------- the term index
 
 

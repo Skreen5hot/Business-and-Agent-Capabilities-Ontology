@@ -165,6 +165,33 @@ def pins() -> list[dict]:
     return raw.get("sources") or []
 
 
+def source_bytes(path: Path) -> bytes:
+    """A file's bytes, refused if they carry CRLF.
+
+    Every download is these bytes, so they have to be the bytes git
+    publishes. .gitattributes pins LF in the index, but a checkout made
+    with core.autocrlf=true -- the Windows default -- writes CRLF into the
+    working tree, and a build there would publish different files from
+    CI's under the same commit. That happened: the first deployment
+    (9d89781) matched a Windows build of the same commit in 15 of 21
+    files, and the other 6 were the CRLF stylesheet, scripts and LICENSE
+    and the bundle and manifest built from them. Refusing here makes a
+    local build either identical to CI's or a failure that names the file.
+    """
+    data = path.read_bytes()
+    if b"\r\n" in data:
+        try:
+            name = relative(path)
+        except ValueError:
+            name = str(path)
+        raise Refused(
+            "%s has CRLF line endings in the working tree, so this build "
+            "would publish different bytes from CI's. Rewrite it from the "
+            "index (with no uncommitted change to it): delete it, then "
+            "git checkout -- %s" % (name, name))
+    return data
+
+
 def relative(path: Path) -> str:
     return path.resolve().relative_to(_root.resolve()).as_posix()
 
@@ -600,7 +627,7 @@ def build(out: Path) -> list[tuple[str, str]]:
     authored_terms = [r for r in data["records"] if r["origin"] == "authored"]
     upstream_terms = [r for r in data["records"] if r["origin"] == "upstream"]
     spec_text = data["spec_path"].read_text(encoding="utf-8")
-    spec_bytes = data["spec_path"].read_bytes()
+    spec_bytes = source_bytes(data["spec_path"])
     version = spec_version(spec_text)
     findings = sum(r.get("authored_findings", 0)
                    for r in data["baseline"]["rungs"].values())
@@ -637,14 +664,14 @@ def build(out: Path) -> list[tuple[str, str]]:
     bundle_members = []
     sums = []
     for path in authored_files:
-        raw = path.read_bytes()
+        raw = source_bytes(path)
         files["downloads/" + path.name] = raw
         download_rows.append({"file": path.name, "path": relative(path),
                               "bytes": len(raw), "sha256": sha256(raw),
                               "origin": "authored"})
         bundle_members.append((BUNDLE_ROOT + "/" + path.name, raw))
         sums.append("%s  %s" % (sha256(raw), path.name))
-    licence = (_root / "LICENSE").read_bytes()
+    licence = source_bytes(_root / "LICENSE")
     bundle_members.append((BUNDLE_ROOT + "/LICENSE", licence))
     sums.append("%s  %s" % (sha256(licence), "LICENSE"))
     sums_bytes = ("\n".join(sorted(sums, key=lambda s: s[66:])) + "\n"
@@ -657,13 +684,13 @@ def build(out: Path) -> list[tuple[str, str]]:
     files["downloads/" + spec_name] = spec_bytes
     upstream_rows = []
     for source in data["upstream"]:
-        raw = source["file"].read_bytes()
+        raw = source_bytes(source["file"])
         files["downloads/upstream/" + source["file"].name] = raw
         upstream_rows.append({"file": source["file"].name,
                               "path": source["path"], "bytes": len(raw),
                               "sha256": sha256(raw), "origin": "upstream",
                               "licence": source["pin"]["licence"]["spdx"]})
-    notice = (_root / "vendor/NOTICE.md").read_bytes()
+    notice = source_bytes(_root / "vendor/NOTICE.md")
     files["downloads/upstream/NOTICE.md"] = notice
 
     manifest = {
@@ -714,7 +741,7 @@ def build(out: Path) -> list[tuple[str, str]]:
     if len(data["reviews"]) != 1:
         raise Refused("expected one review, found %d" % len(data["reviews"]))
     review_path = data["reviews"][0]
-    review_bytes = review_path.read_bytes()
+    review_bytes = source_bytes(review_path)
     review_body, _ = render_markdown(review_bytes.decode("utf-8"))
     review_facts = definition_list([
         ("Source", source_link(ctx, relative(review_path))),
@@ -912,7 +939,7 @@ def build(out: Path) -> list[tuple[str, str]]:
                 ALLOWED_ASSET_SUFFIXES:
             refused.append(path.relative_to(assets).as_posix())
             continue
-        files[path.relative_to(assets).as_posix()] = path.read_bytes()
+        files[path.relative_to(assets).as_posix()] = source_bytes(path)
     if refused:
         raise Refused("%s holds files this build has no rule for: %s"
                       % (ASSETS, refused))
