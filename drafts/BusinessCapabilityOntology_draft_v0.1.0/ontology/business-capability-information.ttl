@@ -1,0 +1,64 @@
+@prefix bc: <https://example.org/BusinessCapabilityOntology#> .
+@prefix cco: <https://www.commoncoreontologies.org/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+<https://example.org/BusinessCapabilityInformationOntology>
+    a owl:Ontology ;
+    owl:versionIRI <https://example.org/BusinessCapabilityInformationOntology/0.1.0> ;
+    owl:imports <https://example.org/BusinessCapabilityOntology> ,
+                <https://www.commoncoreontologies.org/InformationEntityOntology> ;
+    owl:versionInfo "0.1.0 — proposed draft, not adopted"@en ;
+    dct:title "Business Capability Ontology — Description and Assessment Layer (draft)"@en ;
+    rdfs:comment "The classes below represent information, not actual organizational dispositions. A capability-map entry or desired capability is not proof that a corresponding disposition exists. The namespace is provisional."@en .
+
+bc:BusinessCapabilityDescription
+    a owl:Class ;
+    rdfs:subClassOf cco:ont00000853 ;
+    rdfs:label "Business Capability Description"@en ;
+    skos:definition "A Descriptive Information Content Entity that describes an asserted, observed, or proposed organizational capacity to perform Planned Acts of a specified type."@en ;
+    skos:example "An enterprise capability catalog entry describing competitive analysis capacity without asserting that its organization actually bears the disposition."@en ;
+    rdfs:comment "May be about an Organization when no existing Business Capability instance has been established; do not require aboutness to an actual capability instance."@en .
+
+bc:BusinessCapabilityMap
+    a owl:Class ;
+    rdfs:subClassOf cco:ont00000853 ;
+    rdfs:label "Business Capability Map"@en ;
+    skos:definition "A Descriptive Information Content Entity that organizes descriptions of asserted, observed, or proposed organizational capacities for business-architecture analysis."@en ;
+    skos:example "A departmental capability map showing strategic planning, financial analysis, and customer service as descriptions."@en ;
+    rdfs:comment "Map nesting and APQC catalog structure are curatorial arrangements, not automatically disposition subclass relations or process parthood."@en .
+
+bc:BusinessCapabilityAssessment
+    a owl:Class ;
+    rdfs:subClassOf cco:ont00000853 ;
+    rdfs:label "Business Capability Assessment"@en ;
+    skos:definition "A Descriptive Information Content Entity that describes the evidence and judgement concerning an organization's capacity to perform Planned Acts of a specified type."@en ;
+    skos:example "An assessment concluding that a firm cannot independently perform certain analysis acts because the relevant personnel and arrangements are absent."@en ;
+    rdfs:comment "An assessment may be about an Organization rather than an actual disposition. Evaluation statements are claims and do not ontologically create or prove their referents."@en .
+
+bc:BusinessCapabilityMaturityAssessment
+    a owl:Class ;
+    rdfs:subClassOf bc:BusinessCapabilityAssessment ,
+                    cco:ont00001010 ;
+    rdfs:label "Business Capability Maturity Assessment"@en ;
+    skos:definition "An Ordinal Measurement Information Content Entity that assesses an organization's capacity or an established Business Capability by assigning an ordinal rank according to a specified maturity scale."@en ;
+    skos:example "A documented maturity rating of 3 on a declared five-level scale for a firm's capacity to conduct competitive analysis."@en ;
+    rdfs:comment "A maturity level is an ordinal measurement of an entity, never an ontological subtype of the underlying disposition. Use CCO 'is a ordinal measurement of' for a specific assessed Organization or an independently established disposition. The rank value, methodology, scale and evidence require a separate assessment-information profile; this draft does not mint properties for them."@en .
+
+bc:BusinessCapabilitySourcingAssessment
+    a owl:Class ;
+    rdfs:subClassOf bc:BusinessCapabilityAssessment ;
+    rdfs:label "Business Capability Sourcing Assessment"@en ;
+    skos:definition "A Business Capability Assessment that describes the extent to which an organization's performance of Planned Acts or delivery of outcomes depends on capacities of other agents or external resources."@en ;
+    skos:example "An assessment distinguishing an organization's capacity to coordinate outsourced fraud analysis from a vendor's ability to perform the analysis."@en ;
+    rdfs:comment "The contractual supplier and its resources are not asserted to be parts of the organization. This class records the distinction as information."@en .
+
+bc:BusinessCapabilityTargetStateSpecification
+    a owl:Class ;
+    rdfs:subClassOf cco:ont00000965 ;
+    rdfs:label "Business Capability Target-State Specification"@en ;
+    skos:definition "A Prescriptive Information Content Entity that specifies a desired organizational capacity and prescribes measures intended to develop, preserve, or obtain access to it."@en ;
+    skos:example "A target-state specification directing recruitment, training and process improvement to develop in-house market-analysis capacity."@en ;
+    rdfs:comment "A target state prescribes an intended condition or acts; it does not assert that a future disposition presently exists. This description does not require an actually executed improvement process."@en .

@@ -1,0 +1,41 @@
+@prefix bc: <https://example.org/BusinessCapabilityOntology#> .
+@prefix demo: <https://example.org/BusinessCapabilityOntology/example#> .
+@prefix cco: <https://www.commoncoreontologies.org/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# ALL individuals are SYNTHETIC. No claims about an actual organization.
+# This example assumes independently verified material grounding of the
+# disposition for the sake of illustration; it is NOT itself evidence.
+# Critically, there is no has-realization triple.
+
+<https://example.org/BusinessCapabilityOntology/example>
+    a owl:Ontology ;
+    owl:imports <https://example.org/BusinessCapabilityInformationOntology> ;
+    rdfs:comment "Illustrative fictional example only."@en .
+
+demo:IllustrativeOrganization
+    a cco:ont00001180 ;
+    cco:ont00001954 demo:UnexercisedPlanningCapability .
+
+demo:UnexercisedPlanningCapability
+    a bc:BusinessCapability ;
+    cco:ont00001889 demo:IllustrativeOrganization ;
+    rdfs:comment "Fictional internally grounded disposition, not asserted to have been realized."@en .
+
+demo:PlanningCapabilityDescription
+    a bc:BusinessCapabilityDescription ;
+    cco:ont00001808 demo:IllustrativeOrganization .
+
+demo:PotentialSourcingConcern
+    a bc:BusinessCapabilitySourcingAssessment ;
+    cco:ont00001808 demo:IllustrativeOrganization .
+
+demo:MaturityRating
+    a bc:BusinessCapabilityMaturityAssessment ;
+    cco:ont00001811 demo:UnexercisedPlanningCapability ;
+    rdfs:comment "Illustrative ordinal rating; the actual ordered scale and rank value have not been encoded."@en .
+
+demo:DesiredFutureCapacity
+    a bc:BusinessCapabilityTargetStateSpecification ;
+    cco:ont00001808 demo:IllustrativeOrganization .

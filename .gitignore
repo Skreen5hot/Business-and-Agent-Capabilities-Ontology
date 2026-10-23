@@ -1,0 +1,9 @@
+# Local tooling caches and build products
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.venv/
+.env
+*.log
+dist/
+build/

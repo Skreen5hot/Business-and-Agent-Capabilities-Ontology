@@ -1,0 +1,33 @@
+@prefix bc: <https://example.org/BusinessCapabilityOntology#> .
+@prefix ex: <http://example.org/apqc#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# SAFE ALIGNMENT NOTES ONLY. No equivalence, subclass, or process-realization
+# restrictions are asserted for existing Business Process Ontology classes.
+# Provenance: https://github.com/Skreen5hot/BusinessProcessOntology/
+# blob/main/ontology/slices/apqc_1_0.ttl inspected 2026-10-22.
+
+<https://example.org/BusinessCapabilityBPOAlignment>
+    a owl:Ontology ;
+    owl:versionIRI <https://example.org/BusinessCapabilityBPOAlignment/0.1.0> ;
+    owl:imports <https://example.org/BusinessCapabilityOntology> ;
+    dct:title "Business Capability / Business Process Ontology candidate alignments"@en ;
+    rdfs:comment "Only review pointers to existing process-ontology classes. No BPO import is asserted, because the current BPO slice carries existential has-realization axioms requiring migration review."@en .
+
+ex:StrategicPlanningCapability
+    rdfs:seeAlso bc:BusinessCapability ;
+    rdfs:comment "CANDIDATE FOR REVIEW ONLY: Current BPO class is a CCO Organization Capability. Determine whether all intended instances are materially grounded dispositions before adding a Business Capability subclass axiom."@en .
+
+ex:BusinessModelGovernanceCapability
+    rdfs:seeAlso bc:BusinessCapability ;
+    rdfs:comment "CANDIDATE FOR REVIEW ONLY: distinguish establishing governance from maintaining or exercising it; do not add a has-realization existential restriction to latent dispositions."@en .
+
+ex:CustomerExperienceManagementCapability
+    rdfs:seeAlso bc:BusinessCapability ;
+    rdfs:comment "CANDIDATE FOR REVIEW ONLY: check whether capability depends on external platforms, agencies, or providers; scope the actual bearer."@en .
+
+ex:CompetitiveAnalysisCapability
+    rdfs:seeAlso bc:BusinessCapability, ex:P19945 ;
+    rdfs:comment "CANDIDATE FOR REVIEW ONLY: currently a CCO Agent Capability rather than Organization Capability, with existential has-realization some ex:P19945. Clarify bearer (person vs organization) and remove obligatory historical realization for truly latent dispositions. ex:P19945 is the existing BPO act 'Analyze competitors'."@en .

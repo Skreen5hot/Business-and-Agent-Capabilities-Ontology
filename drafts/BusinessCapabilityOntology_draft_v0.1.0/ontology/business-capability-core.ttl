@@ -1,0 +1,47 @@
+@prefix bc: <https://example.org/BusinessCapabilityOntology#> .
+@prefix cco: <https://www.commoncoreontologies.org/> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+# STATUS: PROPOSED. Do not treat these IRIs as published or adopted.
+# Namespace and import-resolution configuration must be approved before release.
+# Source basis: BFO 2020; CCO 2.0 Agent Ontology version 2024-11-05,
+# Extended Relation, Information Entity, and Event Ontologies version 2024-11-06.
+# No new object properties; no disjointness with BFO Function.
+# The conceptual correlation with process types is not an OWL existential
+# has-realization restriction: unrealized dispositions must remain admissible.
+
+<https://example.org/BusinessCapabilityOntology>
+    a owl:Ontology ;
+    owl:versionIRI <https://example.org/BusinessCapabilityOntology/0.1.0> ;
+    owl:imports <https://www.commoncoreontologies.org/AgentOntology> ;
+    owl:versionInfo "0.1.0 — proposed draft, not adopted"@en ;
+    dct:title "Business Capability Ontology — Realist Core (draft)"@en ;
+    dct:description "Companion to the Business Process Ontology. Models only internally grounded organizational dispositions; business claims and evaluations are handled in a separate ICE module."@en ;
+    dct:source <https://github.com/Skreen5hot/BusinessProcessOntology> ;
+    rdfs:comment "Imports use CCO ontology IRIs; deployment must resolve them to the pinned CCO 2.0 dependency closure locally. The example.org namespace is provisional."@en .
+
+bc:BusinessCapability
+    a owl:Class ;
+    rdfs:subClassOf cco:ont00000568 , obo:BFO_0000016 ;
+    rdfs:label "Business Capability"@en ;
+    skos:definition "An Organization Capability that is a Disposition inhering in an Organization in virtue of the material constitution of that Organization and that can be realized in Planned Acts of a specified type."@en ;
+    skos:example "The internally grounded capacity of an organization to conduct strategic planning through the coordinated capacities of its members, where that grounding has been established."@en ;
+    rdfs:comment """PROVISIONAL DIFFERENTIA / ADMISSION RULE:
+1. Bearer: a CCO Organization (an object aggregate of agents), not a supplier network.
+2. Basis: the organization members and their materially grounded coordination. A contract,
+   remote vendor's equipment, or permission is not automatically part of the bearer.
+3. Act index: a type of Planned Act identified in the Business Process Ontology or another
+   validated CCO-compatible act ontology; legal standing or institutional success may not
+   be necessary for identifying the act type that indexes this disposition.
+4. Latency: a disposition need not yet have an actual realization. Accordingly this class
+   has NO existential restriction on BFO 'has realization'.
+5. Function: no disjointness from BFO Function is asserted; a function attribution
+   requires its own independent justification.
+6. Organization identity and numerical persistence of a capability over membership
+   replacement are open metaphysical questions, not settled by this subclass assertion.
+This draft does not promote any existing BPO capability class under this class.
+See docs/ADR-002-business-capabilities.md for the review gates."""@en .

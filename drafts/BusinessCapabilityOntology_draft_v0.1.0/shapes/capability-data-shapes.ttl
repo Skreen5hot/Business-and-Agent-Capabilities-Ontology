@@ -1,0 +1,33 @@
+@prefix bc: <https://example.org/BusinessCapabilityOntology#> .
+@prefix cco: <https://www.commoncoreontologies.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# OPTIONAL OPERATIONAL SHAPES (closed-world data-quality checks).
+# These are not BFO/CCO axioms. Validation requires SHACL and appropriate
+# inference/class expansion when BFO/CCO closure is included.
+
+bc:BusinessCapabilityBearerShape
+    a sh:NodeShape ;
+    sh:targetClass bc:BusinessCapability ;
+    sh:property [
+      sh:path cco:ont00001889 ;
+      sh:minCount 1 ;
+      sh:maxCount 1 ;
+      sh:class cco:ont00001180 ;
+      sh:message "Document one explicit organizational bearer for each asserted actual business-capability instance."@en
+    ] .
+
+bc:BusinessCapabilityMaturityTargetShape
+    a sh:NodeShape ;
+    sh:targetClass bc:BusinessCapabilityMaturityAssessment ;
+    sh:property [
+      sh:path cco:ont00001811 ;
+      sh:minCount 1 ;
+      sh:maxCount 1 ;
+      sh:or (
+        [ sh:class bc:BusinessCapability ]
+        [ sh:class cco:ont00001180 ]
+      ) ;
+      sh:message "Document one explicit ordinal assessment target: an established Business Capability instance or an Organization."@en
+    ] .
