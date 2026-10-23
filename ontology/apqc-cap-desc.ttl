@@ -1,0 +1,24 @@
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix bco:   <https://fandaws.com/ontology/bco#> .
+
+# BCO description module -- specified, not yet written.
+#
+# Specification v0.4.0-draft.1, section 2 ("Module layout (proposed)"):
+# the seven description-layer classes and the Authorization Record --
+# capability maps, assessments, maturity, sourcing and target state, as
+# information content entities about capabilities (section 1, in scope).
+#
+# Nothing below is a description-layer term. As with apqc-cap.ttl, the
+# file exists so the module the spec names is in scope from the first
+# commit; ADR-002 ratification is pending, and no term is minted before
+# it.
+#
+# Namespace: https://fandaws.com/ontology/bco# is PROVISIONAL pending
+# RP-5 (architect's choice of 2026-10-23, docs/decisions).
+
+<https://fandaws.com/ontology/bco/apqc-cap-desc> a owl:Ontology ;
+    dct:title "Business Capability Ontology: description module" ;
+    owl:versionInfo "0.0.0 -- empty; specified by BCO v0.4.0-draft.1 section 2, not yet written" ;
+    rdfs:comment "Will hold the description-layer classes and the Authorization Record. Empty until ADR-002 is ratified. Namespace provisional pending RP-5." .

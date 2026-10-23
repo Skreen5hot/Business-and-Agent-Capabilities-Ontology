@@ -1,0 +1,126 @@
+# Pinned upstream ontologies, and what may be done with them.
+#
+# The BCO builds on three ontologies it does not author. BFO 2020 is the
+# upper ontology; CCO supplies Organization, Agent Capability, Skill,
+# Action Permission and the measurement ICEs; the Business Process
+# Ontology (BPO) supplies the act types a capability is realized by
+# (spec v0.4 section 1: "Act types come from the BPO reality layer and
+# apqc-ext.ttl only"). A shape asking whether a realizing act type
+# reaches obo:BFO_0000015 cannot answer without all three, so all three
+# are vendored as pinned partial extracts.
+#
+# WHY EXTRACTS RATHER THAN owl:imports
+#
+# An owl:imports resolves over the network at validation time. That makes
+# the result depend on when it ran and on what the far end served, which
+# is the opposite of what a check is for. A pinned extract is part of the
+# repository, identical on every machine, and reviewable.
+#
+# WHY PINNED TO A COMMIT RATHER THAN A TAG
+#
+# A tag can be moved to a different commit. The raw URLs below name the
+# commit, so the bytes they serve cannot change; `sha256` records what
+# those bytes were, so a proxy or a cache that serves something else is a
+# refusal rather than a silent substitution.
+#
+# LICENSING
+#
+# All three may be redistributed on condition of attribution, which is
+# what makes vendoring legitimate here. `licence_statement_contains` is
+# checked against what the source itself says: for BFO and CCO, the
+# file's own dcterms:license; for BPO, whose Turtle carries no licence
+# statement, the LICENSE file at the same pinned commit (`statement_url`).
+# Either way the SPDX identifier below is verified against an artifact at
+# the pin rather than asserted by whoever wrote this file.
+#
+# `prefix` is what the extract is serialised with, and what the
+# vendoring tool reads in the specification when it looks for the
+# upstream terms the design names (spec text writes `cco:ont00001180`,
+# not the full IRI).
+
+version: 1
+
+sources:
+
+  - id: bfo
+    project: Basic Formal Ontology
+    release: release-2024-01-29
+    commit: 044490fc5100ffed6df7d4d15cbc167698b6fdee
+    url: >-
+      https://raw.githubusercontent.com/BFO-ontology/BFO-2020/044490fc5100ffed6df7d4d15cbc167698b6fdee/src/owl/bfo-core.ttl
+    sha256: 6944e2c96a0d8709dc15ae5364792019e208061eda3f32311af4f3b8d8443a3b
+    namespace: http://purl.obolibrary.org/obo/
+    prefix: obo
+    extract: vendor/bfo/bfo-core-bco-extract.ttl
+    licence:
+      spdx: CC-BY-4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+      licence_statement_contains: creativecommons.org/licenses/by/4.0
+      attribution: >-
+        Basic Formal Ontology (BFO) 2020, ISO/IEC 21838-2. Copyright the
+        BFO contributors, licensed CC BY 4.0.
+    note: >-
+      The same pin the Application Requirement Ontology uses: the commit
+      behind the release-2024-01-29 tag.
+
+  - id: cco
+    project: Common Core Ontologies
+    release: v2.0-2024-11-06
+    commit: 510dad76be0ef710b65a421075af912af25342b7
+    url: >-
+      https://raw.githubusercontent.com/CommonCoreOntology/CommonCoreOntologies/510dad76be0ef710b65a421075af912af25342b7/src/cco-merged/CommonCoreOntologiesMerged.ttl
+    sha256: e609db27478a2c8b52b9bb5eb5ac979ac323510e851c368e4d9ec7d1c153fe5b
+    namespace: https://www.commoncoreontologies.org/
+    prefix: cco
+    extract: vendor/cco/cco-bco-extract.ttl
+    licence:
+      spdx: BSD-3-Clause
+      url: >-
+        https://github.com/CommonCoreOntology/CommonCoreOntologies/blob/510dad76be0ef710b65a421075af912af25342b7/LICENSE
+      licence_statement_contains: BSD 3-Clause
+      attribution: >-
+        Common Core Ontologies v2.0. Copyright (c) 2017 CUBRC, Inc.,
+        licensed BSD-3-Clause.
+    note: >-
+      v2.0, not the v2.2 ARO pins, because BPO's act genera were anchored
+      and verified against v2.0 (its CLAUDE.md and vendor/cco/README.md:
+      "CommonCoreOntologiesMerged v2.0 (2024-11-06)"), and the spec's
+      dependency table names CCO 2.0. The file declares version IRI
+      https://www.commoncoreontologies.org/2024-11-06/CommonCoreOntologiesMerged,
+      which settles the 2024-11-05 / 2024-11-06 question OI-1 raises for
+      the merged file. The commit is the target of the v2.0-2024-11-06
+      tag, resolved through the GitHub API rather than taken from the
+      tag name. Chosen 2026-10-23; see docs/decisions.
+
+  - id: bpo
+    project: Business Process Ontology
+    release: main@6613194
+    commit: 66131945b525c54f44e4962f32bb1f52dfa0cd12
+    url: >-
+      https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/66131945b525c54f44e4962f32bb1f52dfa0cd12/ontology/apqc-ext.ttl
+    sha256: 1b9a9375cb7303003556004effd712b63913d6aa4935dbf604a653aec65cab4b
+    namespace: http://example.org/apqc#
+    prefix: ex
+    extract: vendor/bpo/bpo-ext-bco-extract.ttl
+    licence:
+      spdx: MIT
+      url: >-
+        https://github.com/Skreen5hot/BusinessProcessOntology/blob/66131945b525c54f44e4962f32bb1f52dfa0cd12/LICENSE
+      statement_url: >-
+        https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/66131945b525c54f44e4962f32bb1f52dfa0cd12/LICENSE
+      statement_sha256: 2154e0221f7e5119b2d45842fcd4be421c11c5d64a459601f2c35f53710c487a
+      licence_statement_contains: MIT License
+      attribution: >-
+        Business Process Ontology (BPO). Copyright (c) 2026 Aaron Damiano,
+        licensed under the MIT License; the full licence text is at the
+        licence url above, at the pinned commit.
+    note: >-
+      apqc-ext.ttl only: the D9 registry of shared act genera. The
+      reality-layer slices, the catalog and capabilities_*.ttl are not
+      vendored yet, so BPO process classes the spec names (ex:P10020 and
+      the like) are listed in config/upstream-extracts.json as named by
+      the specification and described by no pinned file. Widening this is
+      a change to the vendoring tool (one url per source today), not just
+      to this file. The namespace is example.org, which is reserved for
+      documentation; that is BPO's RP-5 to settle, and it is why the BCO's
+      own terms do not share it.

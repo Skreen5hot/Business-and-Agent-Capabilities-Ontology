@@ -1,0 +1,29 @@
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix bco:   <https://fandaws.com/ontology/bco#> .
+
+# BCO capability module -- specified, not yet written.
+#
+# Specification v0.4.0-draft.1, section 2 ("Module layout (proposed)"):
+# ex:BusinessCapability, all capability classes with their
+# ex:enablesProcess index, and any reviewed K2 unions, moved out of the
+# BPO slices.
+#
+# Nothing below is a capability term. The file exists so that the layout
+# contract, the corpus digest and the validation ladder have the module
+# the spec names in scope from the first commit, and so that the first
+# term written here is checked by the wellformedness shapes on the day it
+# lands. ADR-002 ratification is pending RP-1, RP-2 and RP-7 to RP-10;
+# no term is minted before it.
+#
+# Namespace: https://fandaws.com/ontology/bco# is PROVISIONAL (architect's
+# choice of 2026-10-23, docs/decisions). The spec writes these terms as
+# ex: in BPO's http://example.org/apqc#; RP-5 asks for a permanent
+# namespace before release, and authoring in a namespace of our own keeps
+# BCO terms separable from the vendored BPO ones until it does.
+
+<https://fandaws.com/ontology/bco/apqc-cap> a owl:Ontology ;
+    dct:title "Business Capability Ontology: capability module" ;
+    owl:versionInfo "0.0.0 -- empty; specified by BCO v0.4.0-draft.1 section 2, not yet written" ;
+    rdfs:comment "Will hold the Business Capability class, the capability classes with their realization index, and reviewed unions. Empty until ADR-002 is ratified. Namespace provisional pending RP-5." .

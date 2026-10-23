@@ -1,0 +1,48 @@
+{
+  "format_version": 1,
+  "generated_by": "tools/ontology/corpus_digest.py",
+  "merged": {
+    "blank_nodes": {
+      "blank_nodes": 0,
+      "distinct_shapes": 0,
+      "shape_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "triples_touching": 0
+    },
+    "ground_sha256": "fe69ff4563fc03d55f4be90b3588f62a2bd950bcf2fc54d9bda69ce4afcab56e",
+    "ground_triples": 8,
+    "triples": 8
+  },
+  "note": "Ground triples and blank-node shape together cover every triple. Blank nodes are renamed by every parse, so their identities are erased and only their structure is digested.",
+  "per_file": {
+    "ontology/apqc-cap-desc.ttl": {
+      "blank_nodes": {
+        "blank_nodes": 0,
+        "distinct_shapes": 0,
+        "shape_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "triples_touching": 0
+      },
+      "ground_sha256": "607d97a3a0c5bd4ff6f2489151412af27c66858e00ef1c50d5810d77f88f324b",
+      "ground_triples": 4,
+      "triples": 4
+    },
+    "ontology/apqc-cap.ttl": {
+      "blank_nodes": {
+        "blank_nodes": 0,
+        "distinct_shapes": 0,
+        "shape_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "triples_touching": 0
+      },
+      "ground_sha256": "dd554a9fe0c5215b51246db31b07c03e0189b51eae45b8f55a6eff1f849463a9",
+      "ground_triples": 4,
+      "triples": 4
+    }
+  },
+  "scope": {
+    "files": 2,
+    "from": "config/repository-layout.yaml, roles ontology-module and ontology-module-set",
+    "paths": [
+      "ontology/apqc-cap-desc.ttl",
+      "ontology/apqc-cap.ttl"
+    ]
+  }
+}

@@ -1,0 +1,347 @@
+# Repository layout contract.
+#
+# One declaration per component, addressed by a logical id. Everything that
+# needs a path asks this file for it, so moving a file is a change here
+# rather than an edit across twenty modules.
+#
+# Carried from the Application Requirement Ontology with its tooling. Ids
+# are stable: a scope marker in a query, a group name in a report, or a
+# reference from a test survives relocation untouched.
+#
+# `role` is what a component *is*, and it carries consequences. A
+# `generated-artifact` is not hand-edited. A `third-party-reference` is
+# never redistributed. A `test-fixture` is expected to be invalid on
+# purpose and must not be loaded as if it were part of the ontology. A
+# `specification` is read by the vendoring tool for the upstream terms
+# the design names. A `historical-draft` is preserved, and never loaded.
+#
+# A `generated-artifact` must name the `generator` that writes it, or
+# declare itself `orphaned` with the reason. In ARO that field exists
+# because three components claimed to be regenerated while the tools that
+# wrote them were not in the repository. Nothing here is orphaned, and the
+# test that pins the orphan list keeps it that way unless a commit says
+# otherwise.
+#
+# Adding a file to the repository without declaring it here is a test
+# failure, in both directions: an undeclared file has no stated role, and
+# a declared component whose path does not exist is a contract describing
+# something that is not there.
+
+version: 1
+
+components:
+
+  # ---- Authored ontology -------------------------------------------
+  #
+  # The two modules specification v0.4 section 2 names. Both are an
+  # owl:Ontology header and nothing else until ADR-002 is ratified. They
+  # are declared now so that the first term written into either is in
+  # the corpus digest and under the wellformedness shapes on the commit
+  # that adds it.
+
+  - id: ontology.cap
+    path: ontology/apqc-cap.ttl
+    role: ontology-module
+    description: >-
+      The capability module: Business Capability, the capability classes
+      with their realization index, reviewed unions. Empty; specified, not
+      written.
+
+  - id: ontology.cap-desc
+    path: ontology/apqc-cap-desc.ttl
+    role: ontology-module
+    description: >-
+      The description module: the seven description-layer classes and the
+      Authorization Record. Empty; specified, not written.
+
+  # ---- Validation ---------------------------------------------------
+
+  - id: validation.wellformedness
+    path: shapes/wellformedness_shapes.ttl
+    role: ontology-validation
+    description: >-
+      Well-formedness of an authored term, whatever module it lives in:
+      a label and a definition on every class, a prefLabel on every
+      concept, and no two values of either in the same language. Carried
+      from ARO. Targets the authored namespace only, so the vendored
+      extracts in the same data graph are never asked the question. The
+      spec's CAP shapes (section 2: "CAP shapes beside the existing ones")
+      arrive as their own component, each with a negative fixture in the
+      same commit.
+
+  # ---- Deliberately invalid ------------------------------------------
+
+  - id: fixture.wellformedness-bad-examples
+    path: shapes/wellformedness_bad_examples.ttl
+    role: test-fixture
+    description: >-
+      Cases built to break wellformedness_shapes.ttl, with positive
+      controls beside them -- including the multilingual label pair that
+      sh:maxCount 1 would have rejected, so the false positive is a test
+      rather than something somebody remembers.
+
+  # ---- Specification and review --------------------------------------
+
+  - id: spec.current
+    path: specifications/Business-Capability-Ontology-v0.4.0-draft.1.md
+    role: specification
+    description: >-
+      BCO specification v0.4.0-draft.1 (2026-10-22): seventeen design
+      decisions CD1-CD17, the ratification points RP-n, and the module
+      layout this repository follows. DRAFT -- nothing in it is normative
+      until the architect ratifies it. The vendoring tool reads it for
+      the cco:, obo: and ex: terms it names.
+
+  - id: spec.v0.3
+    path: specifications/Business-Capability-Ontology-v0.3.0-draft.1.md
+    role: documentation
+    description: >-
+      Superseded by v0.4.0-draft.1; kept for design provenance. Not a
+      `specification`, so it does not seed the vendored extracts.
+
+  - id: reviews
+    path: reviews
+    role: documentation
+    description: >-
+      Review findings against the specification and the artifacts. R5
+      (v0.4 against the v0.1 package) is the first. Recommendations, not
+      ratified changes.
+
+  # ---- Historical draft ------------------------------------------------
+
+  - id: draft.v0.1
+    path: drafts/BusinessCapabilityOntology_draft_v0.1.0
+    role: historical-draft
+    description: >-
+      The reviewer's v0.1 Turtle package (`bc:` namespace): ontology,
+      SHACL sketches, a synthetic example, a proposed ADR-002, audit and
+      validation notes, and its own check script. Preserved byte-for-byte
+      as imported, and checked against its own SHA256SUMS.txt. Never
+      loaded as ontology: v0.4 section 9.1 renames every term, and its
+      Turtle uses https://example.org/. Its `.ttl` files are not
+      ontology-module, ontology-validation or test-fixture, which is
+      what keeps them out of the digest, the ladder and the vendoring
+      seeds.
+
+  # ---- Documentation -------------------------------------------------
+
+  - id: docs.readme
+    path: README.md
+    role: documentation
+    description: The public front door.
+
+  - id: docs.claude
+    path: CLAUDE.md
+    role: documentation
+    description: >-
+      Grounding for an agent working here: where the spec, the state and
+      the method live, what to run before committing, and what not to
+      touch.
+
+  - id: docs.handoff
+    path: docs/HANDOFF.md
+    role: documentation
+    description: >-
+      What is actually in this repository, what is trustworthy, and what
+      is not. Dated at the commit it describes: it is a snapshot, and a
+      snapshot that pretends otherwise is worse than none.
+
+  - id: docs.development
+    path: docs/DEVELOPMENT.md
+    role: documentation
+    description: >-
+      How to set up, run the checks, add a module or a shape set, and
+      re-vendor the upstream. The conventions and the traps, separated
+      from the reasoning behind them in PROCESS.md.
+
+  - id: docs.process
+    path: docs/process/PROCESS.md
+    role: documentation
+    description: >-
+      How this repository is built, and why. Carried from ARO, which
+      carried it from BFO-Aligned ValueNet, where the method was worked
+      out.
+
+  - id: docs.decisions
+    path: docs/decisions
+    role: documentation
+    description: >-
+      The decision record: the architect's acts and choices, recorded
+      verbatim and dated, each citing the digest or commit of what it
+      decided about. ADR-002, once ratified, is a separate document under
+      docs/adr/ (spec section 2); its ratification act is recorded here.
+
+  - id: docs.import-inventory
+    path: docs/ARTIFACT-INVENTORY.md
+    role: documentation
+    description: >-
+      The record of the initial import (2026-10-22): which file came from
+      where, and its SHA-256 at import. A test holds the files that are
+      still as imported to those digests.
+
+  - id: docs.import-manifest
+    path: docs/artifact-manifest.json
+    role: documentation
+    description: The same import record, machine-readable.
+
+  - id: licence.project
+    path: LICENSE
+    role: project-licence
+    description: >-
+      The terms this repository is offered under. Read by the licensing
+      tool rather than assumed.
+
+  # ---- Vendored upstream ontology ------------------------------------
+  #
+  # Redistributed, unlike docs/Reference, and the difference is the
+  # licence rather than the convenience. BFO is CC BY 4.0, CCO is
+  # BSD-3-Clause and BPO is MIT; all permit redistribution with
+  # attribution, and vendor/NOTICE.md is that attribution.
+  #
+  # A separate role from `ontology-module` on purpose. These files are not
+  # authored here and must not be counted as this repository's ontology:
+  # the corpus digest would move when an upstream pin changed, and the
+  # licensing tool would report third-party triples as project content.
+
+  - id: vendor.bfo
+    path: vendor/bfo/bfo-core-bco-extract.ttl
+    role: vendored-ontology
+    generator: tool.vendor-upstream
+    redistributable: true
+    description: >-
+      The BFO terms this repository and its specification name, plus
+      their named ancestry. Generated from a pinned commit; the file
+      header records which one.
+
+  - id: vendor.cco
+    path: vendor/cco/cco-bco-extract.ttl
+    role: vendored-ontology
+    generator: tool.vendor-upstream
+    redistributable: true
+    description: >-
+      The CCO v2.0 terms this repository, its specification and the
+      vendored BPO act genera name, plus their named ancestry.
+
+  - id: vendor.bpo
+    path: vendor/bpo/bpo-ext-bco-extract.ttl
+    role: vendored-ontology
+    generator: tool.vendor-upstream
+    redistributable: true
+    description: >-
+      The BPO act genera from apqc-ext.ttl that the specification names,
+      plus their ancestry. The realizing act types a capability points
+      down to (spec section 2) come from here. apqc-ext.ttl only: slices,
+      catalog and capability modules are not vendored yet.
+
+  - id: docs.vendor-notice
+    path: vendor/NOTICE.md
+    role: documentation
+    generator: tool.vendor-upstream
+    description: >-
+      Attribution for the vendored extracts, as every upstream licence
+      here requires. Generated, because an attribution file is exactly the
+      kind of document that is right when written and quietly wrong after
+      the next source is added.
+
+  - id: config.upstream-sources
+    path: config/upstream-sources.yaml
+    role: configuration
+    description: >-
+      The pins: url, commit, digest, prefix and licence for each upstream.
+      The url names the commit, so the bytes it serves cannot change.
+
+  - id: generated.upstream-extracts
+    path: config/upstream-extracts.json
+    role: generated-artifact
+    generator: tool.vendor-upstream
+    description: >-
+      What was taken from each upstream and what was left behind:
+      dropped-axiom counts, and the terms the specification names that no
+      pinned file describes.
+
+  # ---- Third-party reference material --------------------------------
+  #
+  # Consulted, cited, and never redistributed. Declared so the licensing
+  # tool can see it and refuse to treat it as publishable, rather than
+  # leaving that to whoever remembers.
+
+  - id: reference.third-party
+    path: docs/Reference
+    role: third-party-reference
+    redistributable: false
+    tracked: false
+    description: >-
+      Licensed sources the work consults: capability frameworks (BIZBOK,
+      TOGAF, BIAN -- spec section 1 names them as later catalog schemes)
+      and the APQC Process Classification Framework. None is ours to
+      publish. `tracked: false` is the load-bearing part: the files may
+      live on disk because the work needs them, and a test requires them
+      to be absent from the index. In ARO, four PDFs including a paid ISO
+      standard were committed and served publicly while the README said
+      they were not redistributed, and the history had to be rewritten.
+
+  # ---- Configuration and tooling --------------------------------------
+
+  - id: config.layout
+    path: config/repository-layout.yaml
+    role: configuration
+    description: This file.
+
+  - id: config.licensing-adjudications
+    path: config/licensing-adjudications.yaml
+    role: configuration
+    description: >-
+      Owner rulings where a derived disposition is wrong for one named
+      file. Empty, and policed: an adjudication naming no file fails.
+
+  - id: tool.layout
+    path: tools/layout.py
+    role: tool
+    description: Resolves component ids to paths. Reads this file.
+
+  - id: tool.licensing
+    path: tools/licensing/disposition.py
+    role: tool
+    description: >-
+      Exactly one disposition per tracked file, derived from role and
+      adjudication rather than from a list of filenames.
+
+  - id: tool.vendor-upstream
+    path: tools/ontology/vendor_upstream.py
+    role: tool
+    description: >-
+      Fetches the pinned upstreams, extracts the referenced terms and
+      their ancestry, and writes the extracts, the notice and the
+      manifest. Verifies offline by default; rebuilding needs the network.
+
+  - id: tool.validate
+    path: tools/ontology/validate.py
+    role: tool
+    description: >-
+      The SHACL ladder: every shape set against the authored ontology plus
+      the vendored extracts, and against the fixtures built to break it.
+      Gates against the baseline.
+
+  - id: tool.corpus-digest
+    path: tools/ontology/corpus_digest.py
+    role: tool
+    description: >-
+      Ground digest and blank-node fingerprint of the authored ontology.
+
+  - id: generated.validation-baseline
+    path: config/validation-baseline.json
+    role: generated-artifact
+    generator: tool.validate
+    description: >-
+      The findings this repository is known to carry, per shape set. Zero
+      today, because nothing is authored yet; the gate keeps it from
+      growing without a recorded reason.
+
+  - id: generated.corpus-digest
+    path: config/corpus-digest.json
+    role: generated-artifact
+    generator: tool.corpus-digest
+    description: >-
+      Ground digest and blank-node fingerprint of the authored ontology,
+      committed because a test compares it against a fresh measure. An
+      artifact nothing compares is a claim, not a measurement.
