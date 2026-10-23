@@ -6,7 +6,7 @@
 | Date | 2026-10-23 |
 | Drafted by | Claude Code (`claude-opus-5-5`), a software agent, at the direction of Aaron Damiano |
 | Ratifies | The architect, Aaron Damiano |
-| Rests on | `docs/decisions/2026-10-23-ccv-plan-approved.md` (the direction and P0–P5 plan, approved verbatim) |
+| Rests on | `docs/decisions/2026-10-23-ccv-plan-approved.md` (the direction and P0–P5 plan, approved verbatim); `docs/decisions/2026-10-23-adr-003-questions-answered.md` (the architect's answers to this ADR's three open questions, folded in below) |
 | Numbering | ADR-001 is BPO's (category and upper-level modelling). ADR-002 is reserved for specification v0.4 ("Organizational Capabilities and Their Realization"). This is the BCO's next number. |
 
 ## Context
@@ -41,20 +41,20 @@ Every decision below keeps a rule this repository already enforces:
 | `bco:` | `https://fandaws.com/ontology/bco#` | The ontology itself (TBox): classes, properties, `bco:designatesClass`, the vocabulary's annotation properties, the `bco:PCFCode` datatype | yes, as today (`owl:Class`) |
 | `bcom:` | `https://fandaws.com/ontology/bco-metamodel#` | Metamodel concepts and `bcom:MetamodelScheme` | yes (`skos:Concept`) |
 | `bcoc:` | `https://fandaws.com/ontology/bco-catalog#` | Catalog concepts and `bcoc:CapabilityCatalogScheme` | yes (`skos:Concept`) |
-| `bcos:` | `https://fandaws.com/ontology/bco-sources#` **(to confirm)** | One record per register entry (`bcos:SRC-OMG-03`), generated from `docs/sources/register.yaml` | **no**: its own graph and its own shape |
-| `bcoa:` | `https://fandaws.com/ontology/bco-agents#` **(to confirm)** | Declared agents: people and software agents | **no**: its own graph and its own shape |
+| `bcos:` | `https://fandaws.com/ontology/bco-sources#` | One record per register entry (`bcos:SRC-OMG-03`), generated from `docs/sources/register.yaml` | **no**: its own graph and its own shape |
+| `bcoa:` | `https://fandaws.com/ontology/bco-agents#` | Declared agents: people and software agents | **no**: its own graph and its own shape |
 
 Why siblings: no namespace is a prefix of another, so a `STRSTARTS` filter on one can never
 select another's terms. `AUTHORED_NAMESPACE` in `tools/ontology/validate.py` becomes
 `AUTHORED_NAMESPACES`, a list. The wellformedness targets name each SKOS-bearing namespace
 explicitly, and `tests/test_namespace.py` requires the list and the shapes to agree.
 
-**To confirm.** The approval wrote `sources#` with no project prefix. A bare
+**Sources and agents are per project** (the architect's answer, 2026-10-23). A bare
 `https://fandaws.com/ontology/sources#` would be shared by every project under that domain,
 so ARO's or BPO's registers could mint the same `SRC-` identifiers for different works.
-`bco-sources#` and `bco-agents#` keep them per project. If the architect wants one register
-shared across projects, that is a different decision, and the `SRC-` identifiers would then
-need a project segment.
+`bco-sources#` and `bco-agents#` prevent those collisions. Federating sources across projects,
+if it is ever needed, is a future cross-project alignment ADR. It does not happen by
+widening these namespaces.
 
 Whether these are `#` or `/` namespaces stays with RP-5. Changing it means changing every row
 of this table in one commit.
@@ -115,7 +115,11 @@ along with `owl:deprecated`, in this order:
 1. **Deprecated** if the concept has `dcterms:isReplacedBy` pointing at a concept that exists
    and is not itself Deprecated. `owl:deprecated true` is emitted.
 2. **Ratified** if a ratification act, cited per D2, names this concept's IRI and the SHA-256
-   of its current record.
+   of its current record. One act may ratify a **batch** of concepts, but only by listing
+   every ratified concept IRI explicitly. An act that admits concepts by scheme ("all of
+   `bcom:MetamodelScheme`"), by pattern, or by any rule other than an explicit list is
+   refused. Every concept in the batch has its own `ratified_by` citing the shared act's
+   path, commit and SHA-256. (The architect's answer, 2026-10-23.)
 3. **Otherwise**, the authored `Draft` or `Candidate`.
 
 `lifecycleStatus` and `owl:deprecated` in authored YAML are build failures. All P5 pilot terms
@@ -145,12 +149,14 @@ today:
 
 The ArchiMate claim (SRC-OG-03) is `S` and cannot be cited for a departure until it is read.
 
-### D7 — `skos:notation` is typed, and the PCF edition is 7.4
+### D7 — `skos:notation` is typed, and the PCF edition is 7.4 (confirmed)
 
 APQC PCF element identifiers are typed with the datatype `bco:PCFCode`, declared in `bco:`
 with the lexical form of a PCF 7.4 Cross-Industry element ID. The edition is part of the
 datatype's definition, not of each literal. Adopting PCF 8.0 (published March 2026) would mean
-a new datatype and a decision, not a quiet change. 7.4 matches BPO, whose `CLAUDE.md` at
+a new datatype and a decision, not a quiet change. The architect confirmed 7.4 for all
+catalog notations on 2026-10-23. Moving the catalog to 8.0 is its own evaluation and decision
+record, taken once the pilot is stable. 7.4 matches BPO, whose `CLAUDE.md` at
 `66131945b525c54f44e4962f32bb1f52dfa0cd12` names it. An untyped `skos:notation` fails the
 build.
 
@@ -201,15 +207,21 @@ build.
   `tests/test_namespace.py` change in P4 to take a list of namespaces. Until then, the single
   `bco#` namespace stays authoritative and the gate is unchanged.
 
-## Questions for the architect before ratifying
+## Questions for the architect: answered
 
-1. **D1:** `bco-sources#` and `bco-agents#`, per project (recommended), or one shared
-   namespace across projects?
-2. **D3:** is "a ratification act names the concept IRI and its record digest" the right unit,
-   or should one act be able to ratify a whole scheme version at once? Per-concept is stricter;
-   per-scheme is less ceremony for the P5 pilot.
-3. **D7:** confirm 7.4 is pinned *for the catalog's notations* even though PCF 8.0 exists.
-   Moving to 8.0 is then its own decision, which BPO's edition would need to follow.
+The three questions this ADR raised were answered on 2026-10-23, and the answers are recorded
+verbatim in `docs/decisions/2026-10-23-adr-003-questions-answered.md`:
+
+1. **D1:** `bco-sources#` and `bco-agents#`, per project. Cross-project federation is a
+   future alignment ADR.
+2. **D5:** batch ratification is allowed, by an explicit list of concept IRIs. Wildcard and
+   scheme-level acts are refused.
+3. **D7:** PCF 7.4 is confirmed. Moving to 8.0 is a separate decision after the pilot.
+
+**One detail for the architect to confirm or strike when ratifying:** in the batch format,
+each listed IRI also carries the SHA-256 of the concept record it ratifies (D5 item 2). The
+answer named the IRIs; the digest is what lets CI detect an edit to a Ratified definition
+after the act (D3).
 
 ## How this becomes ratified
 
