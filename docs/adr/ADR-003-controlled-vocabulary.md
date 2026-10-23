@@ -115,7 +115,7 @@ along with `owl:deprecated`, in this order:
 1. **Deprecated** if the concept has `dcterms:isReplacedBy` pointing at a concept that exists
    and is not itself Deprecated. `owl:deprecated true` is emitted.
 2. **Ratified** if a ratification act, cited per D2, names this concept's IRI and the SHA-256
-   of its current record. One act may ratify a **batch** of concepts, but only by listing
+   of its current record (confirmed 2026-10-23). One act may ratify a **batch** of concepts, but only by listing
    every ratified concept IRI explicitly. An act that admits concepts by scheme ("all of
    `bcom:MetamodelScheme`"), by pattern, or by any rule other than an explicit list is
    refused. Every concept in the batch has its own `ratified_by` citing the shared act's
@@ -218,10 +218,13 @@ verbatim in `docs/decisions/2026-10-23-adr-003-questions-answered.md`:
    scheme-level acts are refused.
 3. **D7:** PCF 7.4 is confirmed. Moving to 8.0 is a separate decision after the pilot.
 
-**One detail for the architect to confirm or strike when ratifying:** in the batch format,
-each listed IRI also carries the SHA-256 of the concept record it ratifies (D5 item 2). The
-answer named the IRIs; the digest is what lets CI detect an edit to a Ratified definition
-after the act (D3).
+**The record digest in a batch act is confirmed** (`docs/decisions/2026-10-23-adr-003-batch-digest-confirmed.md`).
+Each IRI a batch act lists carries the SHA-256 of the concept record it ratifies (D5 item 2).
+The act pins each concept's state, and each concept's `ratified_by` pins the act's commit and
+digest, so an edit on either side breaks the lock and fails CI (D3).
+
+**Ratification timing:** this ADR is ratified and merged once the P2 LinkML trial's findings
+are signed off.
 
 ## How this becomes ratified
 
