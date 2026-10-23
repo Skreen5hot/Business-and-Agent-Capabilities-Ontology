@@ -67,9 +67,13 @@ def test_the_record_is_not_empty(comms):
     assert "BCO-BPO-2026-10-23-vendoring-pin" in record["messages"]
 
 
-def test_the_first_request_to_bpo_is_open_until_answered(comms):
-    """Status is derived: nothing has replied to it, so it is open."""
-    assert "BCO-BPO-2026-10-23-vendoring-pin" in comms.check()["open"]
+def test_the_first_request_to_bpo_was_closed_by_its_acknowledgment(comms):
+    """Status is derived. This asserted "open" until BPO's acknowledgment
+    (BPO 8f6622c) was filed as incoming; filing it is what closed it, with
+    no field edited anywhere."""
+    record = comms.check()
+    assert "BCO-BPO-2026-10-23-vendoring-pin" not in record["open"]
+    assert "BPO-BCO-2026-10-23-vendoring-pin-ack" in record["messages"]
 
 
 def test_the_good_header_passes(comms):

@@ -16,6 +16,11 @@ partial extract — see `config/upstream-sources.yaml` (id `bpo`) for the commit
 on that commit staying reachable; and that the spec proposes moving BPO's capability
 classes into a BCO module (spec section 2), which is BPO's call as much as this one's.
 
-BPO has no communications folder of its own yet, so there is no path for an incoming
-message to cite. Until there is, an incoming message's `source` points at wherever the
-original was written.
+BPO keeps its side of the record in its own `communications/bco/` (from BPO commit
+`8f6622c`), under this protocol adopted unchanged, with its own copy of the checker
+(`scripts/communications.py`). A message BPO sends is written in its `outgoing/` there;
+the copy here, in `incoming/`, names that file and commit as its `source`.
+
+**Announced by BPO (2026-10-23):** it will move every IRI it owns from
+`http://example.org/apqc#` to `https://fandaws.com/ontology/bpo#`, and send the mapping
+and landing commit here first. Every BPO IRI the BCO references changes with it.
