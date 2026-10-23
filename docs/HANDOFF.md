@@ -33,7 +33,7 @@ evidence the checks work.
 | `config/` | layout contract, pins, manifests, baseline, digest | see `docs/DEVELOPMENT.md` |
 | `tools/`, `tests/` | ARO's generic tooling, adapted | the suite and CI |
 | `docs/decisions/` | the architect's acts and choices, verbatim | one entry: setup choices |
-| `docs/sources/` | citation register of 63 sources on business capability, with the research notes behind it | research input, not evidence; entries marked S, K or L are unverified against their primary text |
+| `docs/sources/` | citation register of 63 sources on business capability, with the research notes behind it. The entries are data (`register.yaml`), the analysis prose is `register-companion.md`, and the Markdown register is generated from both by `tools/sources/build_register.py` | research input, not evidence; entries marked S, K or L are unverified against their primary text. The register's rules (claim status, quote length and keys, SRC ids, entry count, freshness) are hard failures (`tests/test_sources_register.py`) |
 | `communications/` | messages to and from BPO and ARO, under `communications/README.md` | checked by `tools/communications.py`; the vendoring-pin request to BPO was acknowledged (BPO `8f6622c`), and BPO announced a namespace move to `https://fandaws.com/ontology/bpo#` |
 | `docs/ARTIFACT-INVENTORY.md`, `docs/artifact-manifest.json` | the 2026-10-22 import record | held to its digests by a test |
 
@@ -141,6 +141,26 @@ headers, and the tools carried from ARO keep theirs, while this repository's `LI
 MIT and the licensing tool classifies all of them as MIT. Both source projects are the
 same author's, so this is an owner decision rather than a conflict -- but it is
 undecided, and the headers and the classifier currently disagree.
+
+### 5.9 The citation register is data, and only data
+
+P1 of the controlled-vocabulary plan made `docs/sources/register.yaml` the source of
+truth for the 63 entries, with the Markdown generated from it (ADR-003 D6, which is
+still PROPOSED). What it does not do yet:
+
+- **No RDF.** The `bco-sources#` records ADR-003 D8 describes are P3/P4; nothing
+  reads the register as a graph, and no shape checks it.
+- **Claims are one per verified part, not per assertion.** Each claim carries the
+  verification status the Markdown gave the entry (83 claims across 63 entries), with a
+  `scope` and a `note`. It has no locator and no key. A `departs-from` in P3 that needs
+  a claim about, say, BACM's OrgUnit can only cite the entry's V claim as a whole until
+  claims are split.
+- **The companion's quoted phrases are not keyed.** The analysis prose quotes a few
+  short phrases (several repeat an entry's quote); the 15-word and key checks cover
+  entry quotes only.
+- **Two entries broke the one-quote rule** when converted (SRC-GOV-01, SRC-OG-02). The
+  second quotation in each was paraphrased; the PR that made the register data lists
+  both.
 
 ## 6. Outside the repository
 

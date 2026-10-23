@@ -1,0 +1,1079 @@
+# The citation register for the Business Capability Ontology, as data.
+#
+# The source of truth for every register entry (ADR-003 D6, proposed).
+# docs/sources/business-capability-definition-sources.md is generated from
+# this file and from register-companion.md by
+# tools/sources/build_register.py; edit here, then run it with --write.
+#
+# Each entry:
+#   id            SRC-<family>-<nn>; the family must be listed in a section
+#   authority     A1 to A9, the scale explained in the companion
+#   citation      publisher, title, version, date (the Source column)
+#   urls          [{label, url, prefix?, suffix?}]; empty renders "none retrieved"
+#   access_terms  licence and access terms
+#   definition    the definition, paraphrased
+#   quotes        [{key: SRC-<family>-<nn>-Q<n>, text}]; at most one per
+#                 entry, at most 15 words, placed in prose as {Q<n>}
+#   claims        [{status, scope?, note?}]; status is exactly one of
+#                 V, P, S, K, L. scope says what part of the source the
+#                 status covers; note carries any other qualifier
+#
+# Quotation marks are never typed into prose. A verbatim quotation is a
+# quote, placed with {Q1}. A title or a term's name that needs quotation
+# marks is a declared mention, {mention:...}. Neither may contain '|'.
+
+version: 1
+sections:
+- heading: 'Standards bodies: ISO and IEC'
+  families:
+  - ISO
+- heading: 'Standards bodies: OMG and The Open Group'
+  families:
+  - OMG
+  - OG
+- heading: Government and defence
+  families:
+  - GOV
+- heading: Industry reference models and assessment frameworks
+  families:
+  - IND
+- heading: Formal ontology and conceptual modelling
+  families:
+  - FO
+- heading: Management science and business-architecture practice
+  families:
+  - MS
+  - BA
+entries:
+- id: SRC-ISO-01
+  authority: A1
+  citation: 'ISO/IEC 21838-2:2021, *Top-level ontologies — Part 2: Basic Formal
+    Ontology*. ISO/IEC JTC 1. OWL artefact: BFO-2020 `bfo-core.ttl` at commit 044490fc'
+  urls:
+  - label: IEC webstore
+    url: https://webstore.iec.ch/publication/72703
+  - label: ISO 74572
+    url: https://www.iso.org/standard/74572.html
+  - label: bfo-core.ttl
+    url: https://raw.githubusercontent.com/BFO-ontology/BFO-2020/044490fc5100ffed6df7d4d15cbc167698b6fdee/src/owl/bfo-core.ttl
+  access_terms: ISO text paid, all rights reserved. OWL files CC BY 4.0
+  definition: Has no capability class. Disposition (BFO_0000016) is a realizable
+    entity grounded in the bearer's physical make-up; its loss physically changes
+    the bearer. Role (BFO_0000023) is externally grounded, and losing it leaves
+    the bearer physically unchanged. `has material basis` (BFO_0000218) has domain
+    disposition, and its object must be a material continuant part of the bearer
+  claims:
+  - status: V
+    scope: OWL
+    note: ISO text not compared word for word; ISO catalogue returned 403
+- id: SRC-ISO-02
+  authority: A1
+  citation: ISO 19440:2020, *Enterprise modelling and architecture — Constructs
+    for enterprise modelling*, ed. 2, 2020-05. ISO/TC 184/SC 5. Replaces ISO 19440:2007
+  urls:
+  - label: ISO 74491
+    url: https://www.iso.org/standard/74491.html
+  - label: iTeh preview
+    url: https://cdn.standards.iteh.ai/samples/74491/2045fbd5664f4ea387f29eaa07fd903e/ISO-19440-2020.pdf
+  access_terms: Paid, all rights reserved
+  definition: 'Two senses. 3.5, general: {Q1}. 3.6, the Capability construct: a
+    collection of capability attributes of a Resource (the capability it provides)
+    or of an Enterprise Activity (the capability it requires). Construct names are
+    capitalized to keep the construct apart from the ordinary word. The 2020 edition
+    replaced Functional Entity with {mention:active Resource}'
+  quotes:
+  - key: SRC-ISO-02-Q1
+    text: ability to perform a specified activity
+  claims:
+  - status: P
+    scope: clause 3 to 3.51 only
+  - status: L
+    scope: clause 7.14
+- id: SRC-ISO-03
+  authority: A1
+  citation: ISO 19439:2006, *Enterprise integration — Framework for enterprise modelling*,
+    ed. 1; confirmed 2015
+  urls:
+  - label: ISO 33833
+    url: https://www.iso.org/standard/33833.html
+  access_terms: Paid
+  definition: Used {mention:capabilities} in its design-specification-phase definition
+    (3.13). ISO 19440:2020 3.23 replaced the word with {mention:Enterprise Activities}
+  claims:
+  - status: P
+    scope: via the 19440 source note
+    note: status after 2015 unverified
+- id: SRC-ISO-04
+  authority: A1
+  citation: ISO 15704:2019, *Requirements for enterprise-referencing architectures
+    and methodologies*, ed. 2, 2019-12
+  urls:
+  - label: ISO 71890
+    url: https://www.iso.org/standard/71890.html
+  access_terms: Paid
+  definition: Reference base of concepts for enterprise architectures; does not
+    define standard enterprises or processes. Whether it defines capability is unknown
+  claims:
+  - status: P
+    scope: catalogue only
+  - status: L
+- id: SRC-ISO-05
+  authority: A1
+  citation: ISO 9000:2015, *Quality management systems — Fundamentals and vocabulary*,
+    3.6.12
+  urls:
+  - label: ISO 45481
+    url: https://www.iso.org/standard/45481.html
+    suffix: (number unverified)
+  - label: ERA terminology reproduction
+    url: https://www.era.europa.eu/era-railway-terminology-collection/capability/term_1/sms_safety_culture_human_and_organisational_factor
+  access_terms: Paid
+  definition: The ability of any object to realize an output that meets the requirements
+    for that output. Note 1 points statistical process capability to ISO 3534-2
+  claims:
+  - status: S
+    scope: via the ERA collection
+- id: SRC-ISO-06
+  authority: A1
+  citation: ISO/IEC 33020:2019, *Process measurement framework for assessment of
+    process capability*, ed. 2; confirmed 2026
+  urls:
+  - label: ISO 78526
+    url: https://www.iso.org/standard/78526.html
+  access_terms: Paid
+  definition: 'Process capability is a quality characteristic of a process: its
+    ability to meet current or projected business goals consistently. Attribute
+    ratings form a process profile, from which a capability level is derived'
+  claims:
+  - status: P
+    scope: catalogue abstract
+- id: SRC-ISO-07
+  authority: A1
+  citation: ISO/IEC 33001:2015, *Process assessment — Concepts and terminology*
+  urls: []
+  access_terms: Paid
+  definition: Terminology for process capability, capability level and process attribute.
+    Not read
+  claims:
+  - status: K
+  - status: L
+- id: SRC-ISO-08
+  authority: A1
+  citation: ISO/IEC/IEEE 42010:2022, *Architecture description*, ed. 2, Nov 2022
+  urls:
+  - label: ISO 74393
+    url: https://committee.iso.org/standard/74393.html
+  - label: NORA wiki
+    url: https://noraonline.nl/wiki/ISO_42010
+  access_terms: Paid
+  definition: No evidence that it defines capability. Its terms centre on entity
+    of interest, stakeholder, concern, viewpoint and view
+  claims:
+  - status: S
+    note: absence unverified
+- id: SRC-OMG-01
+  authority: A2
+  citation: 'OMG, *Value Delivery Modeling Language (VDML)* 1.1, formal/18-09-03.
+    PDF says Oct 2018; spec page says Mar 2018. IPR: Non-Assert'
+  urls:
+  - label: OMG VDML
+    url: https://www.omg.org/spec/VDML/
+  - label: PDF
+    url: https://www.omg.org/spec/VDML/1.1/PDF
+  access_terms: Free download under the OMG licence. Informational copies only;
+    no network posting or resale; whole-document redistribution not permitted
+  definition: '§7.2.5.3.1: a Capability is {Q1}. §7.2.2.3.3: a CapabilityOffer is
+    that ability gained by applying resources managed together, with exactly one
+    OrgUnit provider. CapabilityMethods (activity networks) deliver it. The methodOwner
+    OrgUnit, which has authority over the method''s design, is kept apart from provider
+    OrgUnits (§7.1.8). An Activity names the capability it requires (§7.1.9)'
+  quotes:
+  - key: SRC-OMG-01-Q1
+    text: the ability to perform a particular kind of work and deliver desired value
+  claims:
+  - status: V
+- id: SRC-OMG-02
+  authority: A2
+  citation: OMG, *Business Motivation Model (BMM)* 1.3, formal/15-05-19, May 2015
+  urls:
+  - label: OMG BMM
+    url: https://www.omg.org/spec/BMM/
+  - label: PDF
+    url: https://www.omg.org/spec/BMM/1.3/PDF
+  access_terms: OMG licence (as for VDML)
+  definition: No capability concept. Capability is one item in the list defining
+    Means (§8.3). A Means names {Q1}, not process steps or responsibility. Business
+    Processes realize Courses of Action, not capabilities (§8.3.3)
+  quotes:
+  - key: SRC-OMG-02-Q1
+    text: the capabilities that can be exploited to achieve the desired Ends
+  claims:
+  - status: V
+- id: SRC-OMG-03
+  authority: A2
+  citation: OMG, *Business Architecture Core Metamodel (BACM)* 1.1, formal/26-09-01,
+    Sep 2026. 1.0 formal Aug 2024; 1.2 Beta 1 Sep 2026 (dtc/26-03-26). Developed
+    with the Business Architecture Guild
+  urls:
+  - label: OMG BACM
+    url: https://www.omg.org/spec/BACM
+  - label: 1.1 PDF
+    url: https://www.omg.org/spec/BACM/1.1/PDF
+  - label: 1.2 Beta1
+    url: https://www.omg.org/spec/BACM/1.2/Beta1/PDF
+  access_terms: OMG licence; non-assert IPR
+  definition: '§7.3.2.7: Capability generalizes over the variant behaviours that
+    produce the same Outcome, and is {Q1} without saying how. CapabilityBehavior
+    (process diagrams, procedures, rules) delivers it (§7.3.2.8). CapabilityImplementation
+    groups the Roles, Performers and resources (§7.3.2.9). Assigning a PerformerRole
+    confers authority and responsibility (§7.3.2.16). Capabilities decompose in
+    a strict hierarchy but may not be specialized (§7.3.2.7). OrgUnit includes individuals
+    (§7.3.4.5)'
+  quotes:
+  - key: SRC-OMG-03-Q1
+    text: the ability a business has to produce an Outcome
+  claims:
+  - status: V
+    scope: '1.1'
+    note: 1.2 changes and Annex A not read
+- id: SRC-OMG-04
+  authority: A2
+  citation: OMG, *Unified Architecture Framework (UAF) Domain Metamodel* 1.3, formal/25-10-01.
+    PDF dated Sep 2025; spec page gives Apr 2026
+  urls:
+  - label: OMG UAF
+    url: https://www.omg.org/spec/UAF/
+  - label: DMM PDF
+    url: https://www.omg.org/spec/UAF/1.3/DMM/PDF
+  access_terms: OMG licence
+  definition: 'Strategic::Taxonomy::Capability: {Q1}, realized through ways and
+    means such as CapabilityConfigurations. Modelled as a PropertySet. Any CapableElement
+    (operational agent, service, actual resource, actual organization) can exhibit
+    a capability under given conditions. Activities map to the capabilities they
+    help provide. Personnel Competence is a separate concept'
+  quotes:
+  - key: SRC-OMG-04-Q1
+    text: An enterprise's ability to Achieve a desired effect
+  claims:
+  - status: V
+    note: generalization chain partly traced
+- id: SRC-OG-01
+  authority: A2
+  citation: The Open Group, *TOGAF Standard, 10th Edition*, C220, Apr 2022; definitions
+    in {mention:Introduction and Core Concepts}
+  urls:
+  - label: Van Haren sample (front matter, references)
+    url: https://download.boekhuis.nl/9789401809054_fragm-docb.pdf
+  - label: Unicom TOGAF help
+    url: https://support.unicomsi.com/manuals/systemarchitect/114100/Architecting_and_designing/TOGAF1495890.html
+  access_terms: Online reading now behind Open Group SSO; book editions single-user
+    licence; treat as not redistributable
+  definition: 'Business Capability (added in TOGAF 9.2, per a vendor): an ability
+    a business possesses or exchanges to achieve a purpose. The older generic Capability
+    is reported, from memory only, to admit an organization, person or system as
+    possessor. Capability-based planning {mention:Capability} is an outcome delivered
+    by work packages, built in increments'
+  claims:
+  - status: S
+  - status: K
+  - status: L
+- id: SRC-OG-02
+  authority: A2
+  citation: 'The Open Group, *TOGAF Series Guide: Business Capabilities, Version
+    2*, G211, 25 Apr 2022; supersedes G189 (Jun 2018). Companions: Value Streams
+    G178, Business Models G18A, Organization Mapping; Capability-Based Planning
+    G193 (Jul 2019)'
+  urls:
+  - label: Catalogue G211
+    url: https://publications.opengroup.org/g211
+  - label: Van Haren sample ToC
+    url: https://download.boekhuis.nl/9789401809054_fragm-docb.pdf
+  - label: Van Haren 2025 update
+    url: https://www.vanharen.net/store/the-togafr-standard-10th-edition-business-architecture-2025-update
+  access_terms: HTML readable online after login; download needs login
+  definition: 'The table of contents lists people, processes, information and resources
+    as elements that *implement* a capability. Capability maps are cross-mapped
+    to organization, value streams and processes, and heat-mapped. The Organization
+    Mapping guide says business units or third parties possess or use capabilities.
+    Short quote (front matter): {Q1}. The text of §10.1 was not read'
+  quotes:
+  - key: SRC-OG-02-Q1
+    text: possess or use those capabilities
+  claims:
+  - status: P
+    scope: ToC, front matter
+  - status: L
+- id: SRC-OG-03
+  authority: A2
+  citation: 'The Open Group, *ArchiMate 3.2 Specification*. Date conflict: 2022
+    in one note, 2023 in another (see the discrepancy table). Document number believed
+    to be C226, unverified. 3.1 is C197, Nov 2019'
+  urls:
+  - label: 'Community issue #13'
+    url: https://community.opengroup.org/archimate-community/workgroups/archimate-feedback/-/issues/13
+  - label: Calhau et al. 2024 §2
+    url: https://conferences.big.tuwien.ac.at/biweek2024/pdfs/biweek2024_paper_150.pdf
+  access_terms: Open Group copyright; registration
+  definition: 'A strategy-layer behaviour element: {Q1}, with organization, person
+    or system as examples. Core behaviour elements (business, application, technology)
+    realize it. Capabilities can serve other capabilities; resources are assigned
+    to them'
+  quotes:
+  - key: SRC-OG-03-Q1
+    text: an ability that an active structure element … possesses
+  claims:
+  - status: S
+  - status: L
+- id: SRC-OG-04
+  authority: A2
+  citation: 'The Open Group, *ArchiMate 4 Specification*, released Apr 2026 (listings:
+    24 Apr 2026); document number not found. Snapshot 1: S250, mid-2025'
+  urls:
+  - label: Licensed downloads
+    url: https://www.opengroup.org/archimate-licensed-downloads
+  - label: Van Haren
+    url: https://www.vanharen.net/store/archimater-4-specification
+  - label: Visual Paradigm summary
+    url: https://guides.visual-paradigm.com/2026/02/
+  access_terms: Registration. Member licence; free 90-day evaluation, then free
+    non-commercial or paid commercial licence; no redistribution terms stated
+  definition: Strategy text not read. Vendors report the concept count cut from
+    about 60 to 42, with layers renamed domains and behaviour merged. Capability
+    and Resource are not reported as removed
+  claims:
+  - status: S
+  - status: L
+- id: SRC-GOV-01
+  authority: A3
+  citation: US DoD CIO, *DoD Architecture Framework* 2.02 and DM2 Capability data
+    group, Aug 2010. Change 1 draft 2015-01-19. Still presented by the DoD CIO as
+    current and official
+  urls:
+  - label: DoDAF home
+    url: https://dodcio.defense.gov/DODAF/
+  - label: Capability data group
+    url: https://dodcio.defense.gov/DODAF/dodaf20_capability_mm
+  - label: glossary
+    url: https://dodcio.defense.gov/DODAF/dodaf20_glossary.aspx
+  - label: v2.02 PDF
+    url: https://dodcio.defense.gov/Portals/0/Documents/DODAF/DoDAF_v2-02_web.pdf
+  access_terms: US Government work, public domain; redistributable
+  definition: '{Q1}, through combinations of ways and means (activities and resources).
+    A Desired Effect is a desired state of a Resource. A Service gives access to
+    the activities and resources that would produce the effect'
+  quotes:
+  - key: SRC-GOV-01-Q1
+    text: The ability to achieve a Desired Effect under specified [performance]
+      standards and conditions
+  claims:
+  - status: S
+    scope: search extracts
+    note: site returned 403
+- id: SRC-GOV-02
+  authority: A3
+  citation: CJCSI 5123.01 and the JCIDS Manual (last public update 2021); SecDef
+    memo directing JCIDS disestablishment (official PDF dated 7 Nov 2025; press
+    reports Aug 2025)
+  urls:
+  - label: CRS IF12817
+    url: https://www.congress.gov/crs_external_products/IF/PDF/IF12817/IF12817.4.pdf
+  - label: memo PDF
+    url: https://media.defense.gov/2025/Nov/10/2003819442/-1/-1/1/REFORMING-THE-JOINT-REQUIREMENTS-PROCESS-TO-ACCELERATE-FIELDING-OF-WARFIGHTING-CAPABILITIES.PDF
+  - label: Breaking Defense
+    url: https://breakingdefense.com/2025/08/pentagon-terminating-jcids-process-as-part-of-larger-acquisition-reform-memo/
+  access_terms: Public domain unless marked
+  definition: DM2 says its definition matches JCIDS. DOTMLPF-P is the JCIDS lens
+    for closing capability gaps ([AcqNotes](https://acqnotes.com/acqnote/acquisitions/dotmlpf-analysis),
+    secondary). The JCIDS anchor is being dismantled
+  claims:
+  - status: P
+    scope: memo
+    note: CJCSI text not read
+- id: SRC-GOV-03
+  authority: A3
+  citation: DoD Dictionary of Military and Associated Terms (formerly JP 1-02),
+    2010 ed. amended to Feb 2016
+  urls:
+  - label: DTIC AD1029823
+    url: https://apps.dtic.mil/sti/html/tr/AD1029823/index.html
+  - label: SEBoK glossary
+    url: https://sebokwiki.org/wiki/Capability_(glossary)
+  access_terms: Public domain
+  definition: 'Two senses reported: the ability to execute a specified course of
+    action (with or without intent), and the desired-effect form used in DM2'
+  claims:
+  - status: S
+- id: SRC-GOV-04
+  authority: A3
+  citation: NATO, *NATO Architecture Framework v4.1, ArchiMate Implementation Guide*,
+    Architecture Capability Team, Digital Policy Committee, 2026.06. Based on UAF
+    1.2 and ArchiMate 3.2
+  urls:
+  - label: NATO PDF
+    url: https://www.nato.int/content/dam/nato/webready/documents/publications-and-reports/NATO-Architecture-Framework-ArchiMate-v4-1-en.pdf
+  access_terms: Openly published; no licence statement found
+  definition: 'Glossary p.154: Capability is the {Q1}, outcome or course of action.
+    A Capability Configuration combines physical resources (people, technology)
+    and implements processes to realize a capability. The C1 view builds specialization
+    and aggregation taxonomies independent of implementation'
+  quotes:
+  - key: SRC-GOV-04-Q1
+    text: expected ability of one or more resources to deliver a specified type
+      of effect
+  claims:
+  - status: V
+- id: SRC-GOV-05
+  authority: A3
+  citation: US GSA Office of Shared Solutions and Performance Improvement, *Federal
+    Integrated Business Framework (FIBF)*; FFM business capabilities published as
+    FFMSRs (FMCF-3, FY 2024)
+  urls:
+  - label: GSA FIBF
+    url: https://ussm.gsa.gov/fibf/
+  - label: FMCF-3 FY2024
+    url: https://ussm.gsa.gov/assets/files/downloads/fm/FMCF-3%20FFM%20Business%20Capabilities%20(FFMSRs)_FY%202024%20Release.pdf
+  access_terms: Public domain
+  definition: Business capabilities are outcome-based needs linked to authoritative
+    references, inputs, outputs and data standards; that is, requirement records.
+    Lifecycles are {Q1}
+  quotes:
+  - key: SRC-GOV-05-Q1
+    text: comprised of functions and activities
+  claims:
+  - status: V
+    scope: page
+    note: FFMSR front matter not read
+- id: SRC-GOV-06
+  authority: A3
+  citation: US OMB, FEAF-II Consolidated Reference Model / Business Reference Model
+    (BRM 3.1, 2013)
+  urls:
+  - label: 'Wikipedia: FEA'
+    url: https://en.wikipedia.org/wiki/Federal_enterprise_architecture
+  - label: CIO-Wiki CRM
+    url: https://cio-wiki.com/wiki/Consolidated_Reference_Model_(CRM)
+  access_terms: Public domain
+  definition: The BRM organizes federal operations by mission and support areas
+    and business functions, not by agency. Legacy, largely dormant
+  claims:
+  - status: S
+- id: SRC-IND-01
+  authority: A4
+  citation: APQC, *Process Classification Framework* (cross-industry). PCF 8.0,
+    24 Mar 2026; 7.4, Aug 2024. Category 13.0 {mention:Develop and Manage Business
+    Capabilities} (12.0 in v6.1.1)
+  urls:
+  - label: 13.0, PCF 8.0
+    url: https://www.apqc.org/resource-library/resource-listing/130-develop-and-manage-business-capabilities-definitions-and-1
+  - label: PCF 7.4 (IFRC copy)
+    url: https://solutions.ifrc.org/sites/default/files/2024-10/K014750_APQC%20Process%20Classification%20Framework%20(PCF)%20-%20Cross%20Industry%20-%20PDF%20Version%207.4.pdf
+  access_terms: Free with registration under licence terms shipped in the download
+    (file not read); redistribution appears restricted
+  definition: A process taxonomy, not a capability model. Category 13.0 makes defining
+    and managing business capabilities a process in its own right
+  claims:
+  - status: P
+- id: SRC-IND-02
+  authority: A4
+  citation: APQC, {mention:Business Capabilities and How They Relate to Processes},
+    Jun 2024
+  urls:
+  - label: APQC resource
+    url: https://www.apqc.org/resource-library/resource-listing/business-capabilities-and-how-they-relate-processes
+  access_terms: Full text members only
+  definition: Capability models combine people, process, information and technology,
+    and identify the assets needed to do work. Processes are the work
+  claims:
+  - status: P
+    scope: summary
+  - status: L
+- id: SRC-IND-03
+  authority: A4
+  citation: BIAN, *Service Landscape* 14.0 (Feb 2026) and Business Capability Model;
+    alignment paper 2023
+  urls:
+  - label: BIAN BCM
+    url: https://bian.org/bian-business-capability-model/
+  - label: alignment PDF
+    url: https://bian.org/wp-content/uploads/2023/08/BIAN-BCM-Relationship-with-BIAN-Service-Landscape-Final.pdf
+  - label: ArchiMate-BIAN ch.3
+    url: https://digital-portfolio.opengroup.org/archimate-bian/latest/01-doc/chap03.html
+  access_terms: '{mention:All rights reserved}; registration or membership; not
+    CC-BY'
+  definition: Business Domains are coarse capabilities that partition banking exhaustively.
+    Service Domains are the finest partition, each a unique, discrete business capacity
+  claims:
+  - status: P
+- id: SRC-IND-04
+  authority: A4
+  citation: TM Forum, GB1029C *Business Capability Map* v2.0.0; GB1007A *Capability
+    Reference Map* v4.0.0; GB1007 v3.0
+  urls:
+  - label: GB1029C
+    url: https://www.tmforum.org/resources/standard/gb1029c-business-capability-map-v2-0-0
+  - label: Business Capability Framework
+    url: https://www.tmforum.org/oda/business-capability-framework-2
+  - label: community thread
+    url: https://engage.tmforum.org/discussion/business-capability-missing-from-oda
+  access_terms: Mixed member and public; unconfirmed (403)
+  definition: 'Takes ArchiMate''s definition: an ability possessed by an active
+    structure element (organization, person or system), focused on business outcomes.
+    ODA had no capability mapping as of Oct 2024'
+  claims:
+  - status: S
+  - status: L
+- id: SRC-IND-05
+  authority: A4
+  citation: 'ISACA, *COBIT 2019 Framework: Introduction and Methodology*, Fig. 6.2'
+  urls:
+  - label: ISACA 2020
+    url: https://www.isaca.org/resources/news-and-trends/industry-news/2020/effective-capability-and-maturity-assessment-using-cobit-2019
+  - label: ISACA 2019
+    url: https://www.isaca.org/resources/news-and-trends/industry-news/2019/defining-target-capability-levels-in-cobit-2019-a-proposal-for-refinement
+  access_terms: Paid or member-discounted
+  definition: Capability levels 0 to 5 rate how well a process is implemented and
+    performs. Maturity levels apply to focus areas
+  claims:
+  - status: S
+- id: SRC-IND-06
+  authority: A4
+  citation: Axelos/PeopleCert, ITIL (v3 glossary lineage; ITIL 4 not retrieved)
+  urls:
+  - label: ITIL V3 Glossary (Utah copy)
+    url: https://it.utah.edu/_resources/documents/itil/ITILV3_Glossary.pdf
+  - label: ITIL V3 slides
+    url: https://www.slideshare.net/slideshow/itil-v3-foundations-introduction-lifecycle-and-phases-29544649/29544649
+  access_terms: Proprietary, paid
+  definition: Assets are resources or capabilities. Resources are things; {Q1}.
+    Organizations, people, processes, applications and services can all have capabilities
+  quotes:
+  - key: SRC-IND-06-Q1
+    text: Capabilities are the ability to use resources to create value
+  claims:
+  - status: S
+- id: SRC-IND-07
+  authority: A4
+  citation: ISACA/CMMI Institute, CMMI (v3.0 current)
+  urls:
+  - label: 'CMMI Institute: levels'
+    url: https://cmmiinstitute.com/learning/appraisals/levels
+  - label: Process Group on v3
+    url: https://processgroup.com/changes-in-cmmi-v3
+  access_terms: Proprietary, licensed
+  definition: Capability levels 0 to 3 rate performance in one practice area. Maturity
+    levels 1 to 5 describe the organization across a set of practice areas
+  claims:
+  - status: P
+    scope: web page
+  - status: L
+    scope: model text
+- id: SRC-IND-08
+  authority: A9
+  citation: Gartner IT Glossary, {mention:business capability modeling}
+  urls:
+  - label: Gartner glossary
+    url: https://gcom.pdo.aws.gartner.com/en/information-technology/glossary/business-capability-modeling
+  access_terms: Glossary free; research paywalled
+  definition: A technique for representing an organization's business anchor model
+    {Q1}
+  quotes:
+  - key: SRC-IND-08-Q1
+    text: independent of the organization's structure, processes, people or domains
+  claims:
+  - status: V
+    scope: entry
+- id: SRC-FO-01
+  authority: A5
+  citation: CUBRC / CCO community, *Common Core Ontologies*. v2.0-2024-11-06 (repo
+    extract, commit 510dad7); v2.1, 2026-04-04; v2.2, 2026-08-14; `develop` merged
+    file versionIRI 2026-08-13
+  urls:
+  - label: Repository
+    url: https://github.com/CommonCoreOntology/CommonCoreOntologies
+  - label: merged TTL (develop)
+    url: https://raw.githubusercontent.com/CommonCoreOntology/CommonCoreOntologies/develop/src/cco-merged/CommonCoreOntologiesMerged.ttl
+  - label: v2.0
+    url: https://raw.githubusercontent.com/CommonCoreOntology/CommonCoreOntologies/510dad76be0ef710b65a421075af912af25342b7/src/cco-merged/CommonCoreOntologiesMerged.ttl
+  access_terms: BSD 3-Clause
+  definition: Agent Capability (ont00001379) ⊑ realizable entity (BFO_0000017),
+    not disposition. It inheres in a material entity {Q1}. Organization Capability
+    (ont00000568) and Skill (ont00000089) are its subclasses. Organization ⊑ Group
+    of Agents ⊑ object aggregate, whose member parts are only Agents
+  quotes:
+  - key: SRC-FO-01-Q1
+    text: in virtue of that Material Entity's capacity to realize it in some Planned
+      Act
+  claims:
+  - status: V
+    scope: v2.0 and develop
+    note: v2.1 and the v2.2 tag not byte-checked
+- id: SRC-FO-02
+  authority: A5
+  citation: Industrial Ontologies Foundry, *IOF Core* release 202603; Production
+    Planning module 202601
+  urls:
+  - label: Core.rdf
+    url: https://raw.githubusercontent.com/iofoundry/ontology/master/core/Core.rdf
+  - label: portal 202603
+    url: https://spec.industrialontologies.org/portal/release/202603/core.html
+  - label: AgentialCapability
+    url: https://spec.industrialontologies.org/portal/release/202601/productionplanning/AgentialCapability.html
+  access_terms: MIT
+  definition: 'Capability ⊑ disposition (BFO_0000016): {Q1}. Asserts BFO function
+    ⊑ Capability. Any independent continuant can bear one. Annotated as adapted
+    from the CCO Agent Ontology. Agential capability is borne by an Agent, synonym
+    skill'
+  quotes:
+  - key: SRC-FO-02-Q1
+    text: disposition in whose realization some agent has an interest
+  claims:
+  - status: V
+    scope: master Core.rdf, versionIRI 202603
+- id: SRC-FO-03
+  authority: A8
+  citation: 'Beverley J, Limbaugh D, Merrell E, Koch PM, Smith B. {mention:Capabilities:
+    An Ontology.} arXiv:2405.00183, v2 16 Aug 2024'
+  urls:
+  - label: arXiv
+    url: https://arxiv.org/abs/2405.00183v2
+  access_terms: CC BY 4.0
+  definition: A capability is a disposition in whose realization some organism or
+    group of organisms has, or had, an interest. It sits between disposition and
+    function. Organizations and configured collectives can bear capabilities. The
+    authority sense of the word is a role, {Q1}. Not proposed for BFO itself
+  quotes:
+  - key: SRC-FO-03-Q1
+    text: orthogonal to the sense at issue here
+  claims:
+  - status: V
+- id: SRC-FO-04
+  authority: A6
+  citation: Arp R, Smith B, Spear AD. *Building Ontologies with Basic Formal Ontology*.
+    MIT Press, 2015
+  urls:
+  - prefix: via
+    label: Beverley et al. ref. 25
+    url: https://arxiv.org/abs/2405.00183v2
+  access_terms: Commercial book
+  definition: 'Source of the role-or-disposition test: does gaining or losing the
+    entity require a physical change in the bearer?'
+  claims:
+  - status: S
+- id: SRC-FO-05
+  authority: A7
+  citation: Merrell E, Limbaugh D, Anderson, Smith B. {mention:Mental Capabilities.}
+    ICBO 2019
+  urls:
+  - label: PhilArchive MERC-14
+    url: https://philarchive.org/rec/MERC-14
+  access_terms: Not checked
+  definition: Earlier placement of capability between function and disposition
+  claims:
+  - status: S
+    note: record not opened
+- id: SRC-FO-06
+  authority: A8
+  citation: Jensen M, De Colle G, Kindya S, More C, Cox AP, Beverley J. {mention:The
+    Common Core Ontologies.} arXiv:2404.17758 v2; FOIS 2024
+  urls:
+  - label: arXiv PDF
+    url: https://arxiv.org/pdf/2404.17758v2
+  access_terms: arXiv
+  definition: No discussion of capability; no rationale given for CCO's realizable-entity
+    parent
+  claims:
+  - status: V
+    scope: text search
+- id: SRC-FO-07
+  authority: A7
+  citation: 'Azevedo CLB, Iacob M-E, Almeida JPA, van Sinderen M, Ferreira Pires
+    L, Guizzardi G. {mention:Modeling resources and capabilities in enterprise architecture.}
+    *Information Systems* 54 (2015) 235–262, DOI 10.1016/j.is.2015.04.008. Predecessor:
+    IEEE EDOC 2013'
+  urls:
+  - label: Twente record
+    url: https://research.utwente.nl/en/publications/modeling-resources-and-capabilities-in-enterprise-architecture-a-/
+  access_terms: Elsevier subscription; Twente open copy ({mention:Taverne})
+  definition: UFO analysis of an ArchiMate extension. Per Calhau et al., capabilities
+    are dispositions that characterise objects and are manifested in events, neither
+    behaviour nor structure
+  claims:
+  - status: P
+    scope: abstract
+  - status: S
+- id: SRC-FO-08
+  authority: A7
+  citation: Calhau RF, Almeida JPA, Guizzardi G. {mention:Ontological Analysis of
+    Advanced Capability Modeling in ArchiMate.} BIWEEK 2024, TU Wien (series unconfirmed)
+  urls:
+  - label: PDF
+    url: https://conferences.big.tuwien.ac.at/biweek2024/pdfs/biweek2024_paper_150.pdf
+  access_terms: Free PDF
+  definition: Capabilities are valuable dispositions of capable objects, including
+    organizations as systems, with a capability level (maturity) as a quality. Emergent
+    capabilities are distinguished from resultant ones, and map decomposition by
+    detailing from decomposition by partitioning. Holds that {Q1}
+  quotes:
+  - key: SRC-FO-08-Q1
+    text: capabilities do not correspond to behaviors (events)
+  claims:
+  - status: V
+- id: SRC-FO-09
+  authority: A6
+  citation: Uschold M, King M, Moralee S, Zorgios Y. {mention:The Enterprise Ontology.}
+    *Knowledge Engineering Review* 13(1) 31–89, 1998, DOI 10.1017/S0269888998001088
+  urls:
+  - label: Cambridge
+    url: https://www.cambridge.org/core/journals/knowledge-engineering-review/article/enterpriseontology/17080176D5F06DEAEA8DBB2BAA9F8398
+  - label: AIAI author PDF
+    url: https://www.aiai.ed.ac.uk/publications/documents/1998/98-ker-ent-ontology.pdf
+  access_terms: Paywalled; free author draft
+  definition: 'CAPABILITY is a relationship between a potential actor and an activity
+    specification. SKILL is a person''s capability. AUTHORITY is a right to execute,
+    held independently of capability: {Q1}. Activity Owner (responsibility) is a
+    separate term'
+  quotes:
+  - key: SRC-FO-09-Q1
+    text: CAPABILITY vs AUTHORITY is analogous to that of `can' vs `may'
+  claims:
+  - status: V
+- id: SRC-FO-10
+  authority: A7
+  citation: Fox MS, Barbuceanu M, Gruninger M, Lin J. {mention:An Organisation Ontology
+    for Enterprise Modelling} (TOVE), reported as *Computers in Industry* 1996
+  urls:
+  - label: EIL TOVE project
+    url: https://eil.mie.utoronto.ca/projects/tove-project/
+  access_terms: Not checked
+  definition: Roles, authority, commitment and empowerment (a right to act). No
+    capability construct found
+  claims:
+  - status: S
+- id: SRC-FO-11
+  authority: A7
+  citation: Bērziša S et al. (20 authors). {mention:Capability Driven Development.}
+    *Business & Information Systems Engineering* 57(1) 15–25, 2015, DOI 10.1007/s12599-014-0362-0
+  urls:
+  - label: AIS eLibrary
+    url: https://aisel.aisnet.org/bise/vol57/iss1/3
+  access_terms: Springer
+  definition: CDD meta-model linking goals, KPIs, capability, context and delivery
+    patterns
+  claims:
+  - status: P
+    scope: record
+- id: SRC-FO-12
+  authority: A9
+  citation: CaaS FP7 project, {mention:Definitions of concepts — the full meta-model
+    of CDD}
+  urls:
+  - label: CaaS definitions
+    url: https://caas-project.eu/definitions/
+  access_terms: Open web; no licence
+  definition: Capability is {Q1} in context. It requires business processes, is
+    delivered by executing them, and serves to state requirements
+  quotes:
+  - key: SRC-FO-12-Q1
+    text: the ability and capacity that enable an enterprise to achieve a business
+      goal
+  claims:
+  - status: V
+- id: SRC-FO-13
+  authority: A7
+  citation: 'Loucopoulos P, Kavakli E. {mention:Capability Oriented Enterprise Knowledge
+    Modeling: The CODEK Approach.} In *Domain-Specific Conceptual Modeling*, Springer
+    2016, pp. 197–215'
+  urls:
+  - label: NEMO 2016 lecture
+    url: https://nemo.omilab.org/nemo/2016/lectures/14-Kavakli.html
+  access_terms: Springer
+  definition: Capability integrates the contextual, service, operational and goal
+    views of an enterprise and is tied to dynamic capability
+  claims:
+  - status: S
+- id: SRC-MS-01
+  authority: A6
+  citation: Wernerfelt B. {mention:A resource-based view of the firm.} *Strategic
+    Management Journal* 5(2) 171–180, 1984
+  urls:
+  - prefix: cited in
+    label: Offerman et al. 2017
+    url: https://liacs.leidenuniv.nl/~plaata1/Offerman2017_SLR.pdf
+  access_terms: Wiley paywall
+  definition: Defines resources, not capability. Origin of the RBV stream from which
+    business capability descends
+  claims:
+  - status: K
+    scope: bibliography
+- id: SRC-MS-02
+  authority: A6
+  citation: Barney J. {mention:Firm resources and sustained competitive advantage.}
+    *Journal of Management* 17(1) 99–120, 1991
+  urls: []
+  access_terms: SAGE paywall
+  definition: Capabilities are one kind of firm resource, alongside assets, processes
+    and knowledge. VRIN is a test of value
+  claims:
+  - status: K
+- id: SRC-MS-03
+  authority: A6
+  citation: Grant RM. {mention:The resource-based theory of competitive advantage.}
+    *California Management Review* 33(3) 114–135, 1991
+  urls: []
+  access_terms: Paywall
+  definition: A capability is the capacity of a team of resources to perform a task;
+    it rests on coordinated routines among people and other resources
+  claims:
+  - status: K
+- id: SRC-MS-04
+  authority: A6
+  citation: Amit R, Schoemaker PJH. {mention:Strategic assets and organizational
+    rent.} *Strategic Management Journal* 14(1) 33–46, 1993
+  urls:
+  - label: citation record
+    url: https://papers.mewayz.com/paper/oa_W2102469678
+  access_terms: Wiley/JSTOR paywall
+  definition: Capabilities are a firm's capacity to deploy resources, in combination
+    and through organizational processes, to an end; resources are stocks of factors
+  claims:
+  - status: V
+    scope: citation
+  - status: K
+    scope: definition
+- id: SRC-MS-05
+  authority: A6
+  citation: 'Helfat CE, Peteraf MA. {mention:The dynamic resource-based view: capability
+    lifecycles.} *Strategic Management Journal* 24(10) 997–1010, 2003, DOI 10.1002/smj.332'
+  urls:
+  - label: RePEc
+    url: https://ideas.repec.org/a/bla/stratm/v24y2003i10p997-1010.html
+  access_terms: Wiley paywall
+  definition: An organization's ability to perform a coordinated set of tasks, using
+    resources, for a particular end result. Capabilities have lifecycles (founding,
+    development, maturity, branching) and originate in a team
+  claims:
+  - status: V
+    scope: abstract
+  - status: K
+    scope: definition
+- id: SRC-MS-06
+  authority: A6
+  citation: Winter SG. {mention:Understanding dynamic capabilities.} *Strategic
+    Management Journal* 24(10) 991–995, 2003, DOI 10.1002/smj.318
+  urls:
+  - label: RePEc
+    url: https://ideas.repec.org/a/bla/stratm/v24y2003i10p991-995.html
+  access_terms: Wiley paywall
+  definition: A capability is a high-level routine, or set of routines, that with
+    its input flows gives management decision options. Distinguishes zero-level
+    (ordinary) from dynamic capabilities
+  claims:
+  - status: V
+    scope: abstract
+  - status: K
+    scope: definition
+- id: SRC-MS-07
+  authority: A6
+  citation: Dosi G, Nelson RR, Winter SG (eds.). *The Nature and Dynamics of Organizational
+    Capabilities*. Oxford University Press, 2000
+  urls: []
+  access_terms: OUP
+  definition: Capabilities are know-how, built from routines, for carrying out characteristic
+    activities
+  claims:
+  - status: K
+- id: SRC-MS-08
+  authority: A6
+  citation: Teece DJ, Pisano G, Shuen A. {mention:Dynamic capabilities and strategic
+    management.} *Strategic Management Journal* 18(7) 509–533, 1997
+  urls:
+  - prefix: via
+    label: Offerman et al. Table II
+    url: https://liacs.leidenuniv.nl/~plaata1/Offerman2017_SLR.pdf
+  access_terms: Wiley paywall
+  definition: The firm's {Q1} in fast-changing environments
+  quotes:
+  - key: SRC-MS-08-Q1
+    text: ability to integrate, build, and reconfigure internal and external competences
+  claims:
+  - status: S
+  - status: K
+    scope: bibliography
+- id: SRC-MS-09
+  authority: A6
+  citation: Teece DJ. {mention:Explicating dynamic capabilities.} *Strategic Management
+    Journal* 28(13) 1319–1350, 2007
+  urls:
+  - prefix: via
+    label: Offerman et al. ref. 23
+    url: https://liacs.leidenuniv.nl/~plaata1/Offerman2017_SLR.pdf
+  access_terms: Wiley paywall
+  definition: Sensing, seizing and reconfiguring; their microfoundations are skills,
+    processes, structures and decision rules
+  claims:
+  - status: S
+  - status: K
+- id: SRC-MS-10
+  authority: A6
+  citation: 'Eisenhardt KM, Martin JA. {mention:Dynamic capabilities: what are they?}
+    *Strategic Management Journal* 21(10–11) 1105–1121, 2000'
+  urls:
+  - prefix: via
+    label: Offerman et al. Table II
+    url: https://liacs.leidenuniv.nl/~plaata1/Offerman2017_SLR.pdf
+  access_terms: Wiley paywall
+  definition: Dynamic capabilities are organizational and strategic routines that
+    produce new resource configurations; they are identifiable processes
+  claims:
+  - status: S
+- id: SRC-MS-11
+  authority: A6
+  citation: Helfat CE, Finkelstein S, Mitchell W, Peteraf MA, Singh H, Teece DJ,
+    Winter SG. *Dynamic Capabilities*. Blackwell, 2007
+  urls:
+  - prefix: attributed via Pult & Manwani in
+    label: Offerman et al. Table II
+    url: https://liacs.leidenuniv.nl/~plaata1/Offerman2017_SLR.pdf
+  access_terms: Book
+  definition: An organization's capacity to purposefully create, extend or modify
+    its resource base
+  claims:
+  - status: S
+  - status: K
+    scope: origin
+- id: SRC-BA-01
+  authority: A4
+  citation: Business Architecture Guild, *A Guide to the Business Architecture Body
+    of Knowledge (BIZBOK Guide)* v15, announced 8 Apr 2026; v14, 26 Mar 2025
+  urls:
+  - label: v15 release
+    url: https://digital-release.kxan.com/business/press-releases/cision/20260408SF29398/business-architecture-guild-releases-bizbok-guide-v15
+  - label: v14 release
+    url: https://redmondspokesman.com/?p=22215
+  access_terms: Free to Guild members (membership paid); not redistributable
+  definition: 'As quoted in 2017: {Q1} for a purpose or outcome. Capabilities are
+    what, not how; agnostic of organization and technology; defined once per enterprise;
+    many-to-many with processes and value streams. v14 and v15 both revised capability
+    language'
+  quotes:
+  - key: SRC-BA-01-Q1
+    text: a particular ability or capacity that a business may possess or exchange
+  claims:
+  - status: S
+    scope: via SRC-BA-02
+  - status: L
+- id: SRC-BA-02
+  authority: A9
+  citation: Burlton R. Article in *Business Rules Journal* 18(10), Oct 2017
+  urls:
+  - label: BRCommunity
+    url: https://www.brcommunity.com/articles.php?id=b927
+  access_terms: Free web
+  definition: 'Reports the Guild''s definition and mapping principles: noun or gerund
+    names, tiers, three to four levels, no performance level in a name'
+  claims:
+  - status: V
+- id: SRC-BA-03
+  authority: A9
+  citation: Homann U. {mention:A Business-Oriented Foundation for Service Orientation.}
+    Microsoft MSDN, Feb 2006 (URL retired)
+  urls:
+  - prefix: via
+    label: Offerman et al. Table II
+    url: https://liacs.leidenuniv.nl/~plaata1/Offerman2017_SLR.pdf
+  - label: Crossref citing list
+    url: https://api.crossref.org/works/10.1145%2F2739011.2739021
+  access_terms: Microsoft copyright; archives only
+  definition: 'Two formulations: what the business does regardless of resources,
+    sourcing or automation; and an ability or capacity a business may possess or
+    exchange for a purpose. Origin of the business-architecture community''s standard
+    wording'
+  claims:
+  - status: S
+- id: SRC-BA-04
+  authority: A8
+  citation: 'Ulrich W, Rosen M. {mention:The Business Capability Map: The ''Rosetta
+    Stone'' of Business/IT Alignment.} Cutter *Enterprise Architecture Executive
+    Report* 14(2), Mar 2011'
+  urls:
+  - label: Cutter summary
+    url: https://www.cutter.com/article/business-capability-map-rosetta-stone-businessit-alignment-executive-summary-389961
+  access_terms: Registration or paywall
+  definition: 'Capability is the basic description of what a business does: stable,
+    noun-based, what not how. It maps to business units, processes and value streams
+    but is none of them. Automated capabilities remain business capabilities'
+  claims:
+  - status: P
+    scope: summary
+- id: SRC-BA-05
+  authority: A8
+  citation: 'Ulrich W, McWhorter N. *Business Architecture: The Art and Practice
+    of Business Transformation*. Meghan-Kiffer, 2010'
+  urls:
+  - label: Goodreads editions
+    url: https://www.goodreads.com/work/editions/16835534-business-architecture-the-art-and-practice-of-business-transformation
+  access_terms: Book
+  definition: Definition not retrieved. No second edition found; Whynde Kuehn is
+    not a co-author
+  claims:
+  - status: P
+    scope: edition only
+  - status: K
+    scope: co-author
+- id: SRC-BA-06
+  authority: A7
+  citation: Wißotzki M. {mention:An exploration of capability research.} IEEE EDOCW
+    2015, pp. 179–184
+  urls:
+  - prefix: via
+    label: Offerman et al.
+    url: https://liacs.leidenuniv.nl/~plaata1/Offerman2017_SLR.pdf
+  access_terms: IEEE paywall
+  definition: Reviewed 184 articles. Treats resources, information and role/actor
+    as elements of a capability, whose aim is to activate and maintain resources
+    for business activities
+  claims:
+  - status: S
+- id: SRC-BA-07
+  authority: A7
+  citation: 'Khosroshahi PA, Hauder M, Volkert S, Matthes F, Gernegroß M. {mention:Business
+    Capability Maps: Current Practices and Use Cases.} HICSS-51, 2018'
+  urls:
+  - label: ScholarSpace 10125/50470
+    url: https://scholarspace.manoa.hawaii.edu/handle/10125/50470
+  access_terms: Open access, CC BY-NC-ND 4.0 (per search)
+  definition: Interviews at 25 organizations; 14 map use cases, including compliance
+    assessment, sourcing and investment decisions
+  claims:
+  - status: P
+    scope: abstract
+- id: SRC-BA-08
+  authority: A7
+  citation: 'Offerman T, Stettina CJ, Plaat A. {mention:Business Capabilities: A
+    Systematic Literature Review and a Research Agenda.} IEEE ICE/ITMC 2017, pp.
+    383–393, DOI 10.1109/ICE.2017.8279911'
+  urls:
+  - label: author PDF
+    url: https://liacs.leidenuniv.nl/~plaata1/Offerman2017_SLR.pdf
+  access_terms: IEEE paywall; free author copy
+  definition: 'No dominant definition exists. Synthesis: {Q1} to achieve a goal.
+    People and assets are listed as counter-examples. Two lineages: RBV and enterprise
+    architecture'
+  quotes:
+  - key: SRC-BA-08-Q1
+    text: A particular ability that a business may possess or exchange
+  claims:
+  - status: V
+- id: SRC-BA-09
+  authority: A9
+  citation: Berrisford G. {mention:Functions and capabilities in business architecture
+    and TOGAF} (commentary on TOGAF 9.2)
+  urls:
+  - label: Berrisford
+    url: https://grahamberrisford.com/00EAframeworks/03TOGAF/AMTOGpapers/Business%20architecture%20(inc%20capabilities%20and%20value%20streams)%20in%20TOGAF.htm
+  access_terms: Free web
+  definition: Reports that TOGAF 9.2 treats a business function as a unit of capability
+    that delivers capabilities. Argues that capabilities are used, not delivered
+  claims:
+  - status: V
+    scope: as commentary

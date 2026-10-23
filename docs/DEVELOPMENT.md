@@ -43,6 +43,7 @@ python tools/ontology/vendor_upstream.py      # the extracts cover what is named
 python tools/ontology/validate.py --gate      # no new ontology findings
 python tools/ontology/corpus_digest.py        # measure the authored ontology
 python tools/ontology/validate.py             # the SHACL ladder
+python tools/sources/build_register.py        # the citation register's rules; Markdown is fresh
 python -m pytest tests/ -q -p no:randomly     # all of the above, plus the falsifications
 ```
 
@@ -54,6 +55,7 @@ python -m pytest tests/ -q -p no:randomly     # all of the above, plus the falsi
 | `vendor_upstream.py` | an upstream term the corpus, the shapes or the specification names that no extract describes (spec terms the last build recorded as unresolvable excepted); an extract whose digest is not what the manifest records |
 | `validate.py --gate` | a rung with more findings than `config/validation-baseline.json` records, a rung with fewer that has not been re-recorded, a shape set the fixture does not exercise, a rung blocked on missing vocabulary, a violation against a vendored term, and a rung the baseline does not mention |
 | `validate.py --record` | raising any recorded count without `--accept-regression "<why>"`. Lowering is always free |
+| `build_register.py` | a claim status other than exactly V, P, S, K or L; a quote over 15 words, with a missing, malformed or duplicate key, placed other than once, or a second quote in one entry; a quotation mark typed into entry prose; an SRC id in any tracked file that names no entry; an entry count other than 63; a committed Markdown register that is not a fresh generation |
 
 `validate.py` writes a report with `-o config/validation-report.json`. That file is
 gitignored on purpose: it is a measurement, not a pin. `config/corpus-digest.json`
@@ -256,6 +258,51 @@ decided by traversal order. This will matter the day the first BCO term lands.
 **Deployment** is from the artifact the checks ran against, after a second build on the
 same runner has produced an identical tree. Pull requests build, check, and upload a
 preview artifact; only `main` deploys.
+
+---
+
+## The citation register
+
+`docs/sources/business-capability-definition-sources.md` is generated. Never edit it;
+the suite compares it byte for byte with a fresh generation.
+
+| File | Holds | Edited by |
+|---|---|---|
+| `docs/sources/register.yaml` | every entry: id, authority, citation, URLs, licence and access terms, paraphrased definition, quotes, claims | hand |
+| `docs/sources/register-companion.md` | the analysis prose: summary, how to read the register, consensus, fault lines and conflict matrix, discrepancies, SF-01 to SF-13, gaps | hand |
+| `docs/sources/business-capability-definition-sources.md` | the two combined, the entry tables rendered where the companion's directive line stands | `build_register.py --write` |
+
+```bash
+python tools/sources/build_register.py            # check: findings, then freshness
+python tools/sources/build_register.py --write    # regenerate after editing either source
+python tools/sources/build_register.py --claims SRC-OMG-03 --at-least P
+```
+
+**A claim's status is one letter.** V, P, S, K or L, as the companion defines them.
+Anything that qualifies it goes in `scope` (the part of the source the status covers,
+rendered in parentheses) or `note` (rendered after a semicolon). `V (OWL)` as a status is
+refused.
+
+**Quotation marks are never typed into entry prose.** A verbatim quotation is a quote:
+`{key: SRC-OMG-01-Q1, text: ...}` in the entry's `quotes`, at most 15 words, placed in
+prose as `{Q1}`, exactly once. A title or a term's name that needs quotation marks is a
+declared mention, `{mention:...}`. The register's own rule allows one quote per entry
+(`MAX_QUOTES_PER_ENTRY`); the `Qn` keys would allow more if the architect relaxes it.
+The companion's analysis prose is not under these rules: its few quoted phrases are
+not keyed.
+
+**SRC ids are checked everywhere.** Every tracked UTF-8 file is scanned for
+`SRC-<family>-<nn>`, with the shorthand the analysis uses (`SRC-FO-01, -02`,
+`SRC-OG-01/02`) expanded, and an id that names no entry is a finding. A test that needs
+an unknown id builds it at run time, or the scan finds the test.
+
+**The entry count is pinned** at 63 (`EXPECTED_ENTRY_COUNT`), the count when the register
+became data. Adding or retiring an entry changes the constant and the companion's
+"records N sources" in the same commit; the tool checks the companion states the real
+count.
+
+For P3, `claims_at_or_above(data, src_id, "P")` returns an entry's claims at V or P, and
+raises on an unknown id rather than returning the empty list an unverified entry returns.
 
 ---
 

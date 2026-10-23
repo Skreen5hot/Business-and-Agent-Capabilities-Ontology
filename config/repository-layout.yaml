@@ -184,6 +184,40 @@ components:
       citations and paraphrase only -- no copyrighted source text, which
       belongs in docs/Reference/ and is never tracked. Compiled
       2026-10-23 by AI research agents at the architect's direction.
+      The register itself is three components declared below: the data,
+      the companion prose, and the Markdown generated from both.
+
+  - id: sources.register
+    path: docs/sources/register.yaml
+    role: documentation
+    description: >-
+      The source of truth for every register entry (ADR-003 D6,
+      proposed): id, citation, URLs, licence and access terms, the
+      paraphrased definition, the authority rating, at most one keyed
+      quote, and claims whose status is exactly one of V, P, S, K, L.
+      Content, not configuration: it is citations and paraphrase, read
+      by tools/sources/build_register.py.
+
+  - id: sources.register-companion
+    path: docs/sources/register-companion.md
+    role: documentation
+    description: >-
+      The register's analysis prose -- the summary, how to read it, the
+      consensus, the fault lines and conflict matrix, the discrepancies,
+      SF-01 to SF-13, the access gaps -- hand-authored, with one directive
+      line marking where the generated entry tables go. Copied verbatim
+      into the Markdown register.
+
+  - id: generated.sources-register
+    path: docs/sources/business-capability-definition-sources.md
+    role: generated-artifact
+    generator: tool.build-register
+    description: >-
+      The citation register as one Markdown document, with the stable
+      SRC-<family>-<nn> identifiers the specification cites. Generated
+      from register.yaml and register-companion.md; a test requires the
+      committed bytes to equal a fresh generation, so an edit here fails
+      the suite.
 
   - id: docs.import-inventory
     path: docs/ARTIFACT-INVENTORY.md
@@ -406,6 +440,17 @@ components:
     role: tool
     description: >-
       Ground digest and blank-node fingerprint of the authored ontology.
+
+  - id: tool.build-register
+    path: tools/sources/build_register.py
+    role: tool
+    description: >-
+      Generates the Markdown citation register from register.yaml and its
+      companion, deterministically, and refuses a claim status outside
+      V/P/S/K/L, a quote over 15 words or with a bad key, an unknown SRC
+      id anywhere in the tracked tree, a changed entry count, and a
+      committed Markdown that differs from a fresh generation. Also
+      answers which claims of an entry reach a given status.
 
   - id: generated.validation-baseline
     path: config/validation-baseline.json
