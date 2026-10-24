@@ -327,9 +327,16 @@ def test_the_wellformedness_fixture_does_not_flag_what_is_legitimate(
     rung = validation["rungs"]["validation.wellformedness"]
     flagged = {v["focus"] for v in rung["fixture"]["detail"]}
     for good in ("FixtureMultilingual", "FixtureWellFormed",
-                 "FixtureRepeatedValue", "FixtureConceptWellFormed"):
+                 "FixtureRepeatedValue", "FixtureConceptWellFormed",
+                 "FixtureNotInThePopulation",
+                 "FixtureConceptOutsideThePopulation"):
         assert not [f for f in flagged if f and f.endswith("#" + good)], (
             "%s was built to conform and did not" % good)
+    # FixtureConceptWellFormed exists in both concept namespaces; guard
+    # that the loop above was looking at both.
+    assert {"https://fandaws.com/ontology/bco-metamodel#",
+            "https://fandaws.com/ontology/bco-catalog#"} <= {
+        f.rsplit("#", 1)[0] + "#" for f in flagged if f}
 
 
 def test_the_fixtures_come_from_the_contract(validator, layout):
@@ -386,6 +393,283 @@ def test_the_shapes_are_still_wired_to_a_fixture(validation):
         "distinguished from a constraint that selects nothing" % unexercised)
 
 
+
+
+# ------------------------------------------------- the vocabulary set
+
+
+BCOM = "https://fandaws.com/ontology/bco-metamodel#"
+BCOC = "https://fandaws.com/ontology/bco-catalog#"
+BCOS = "https://fandaws.com/ontology/bco-sources#"
+BCOA = "https://fandaws.com/ontology/bco-agents#"
+
+#: Every constraint in shapes/vocabulary_shapes.ttl, by its message, with
+#: the case in shapes/vocabulary_bad_examples.ttl named for it. Named, not
+#: counted: any 47 violations would satisfy a count.
+VOCABULARY_CONSTRAINTS = {
+    # concepts
+    "Concept is in no skos:inScheme.": BCOC + "VocabNoScheme",
+    "Concept is in more than one skos:inScheme.": BCOC + "VocabTwoSchemes",
+    "Concept has a skos:prefLabel with no language tag.":
+        BCOC + "VocabUntaggedLabel",
+    "Concept has two skos:prefLabel values in one language.":
+        BCOC + "VocabTwoEnglishLabels",
+    "Concept has no skos:definition.": BCOC + "VocabNoDefinition",
+    "Concept stores skos:narrower; the hierarchy is stated with "
+    "skos:broader only.": BCOC + "VocabStoresNarrower",
+    "Concept has no bco:lifecycleStatus.": BCOC + "VocabNoStatus",
+    "Concept has more than one bco:lifecycleStatus.":
+        BCOC + "VocabTwoStatuses",
+    "Concept has a bco:lifecycleStatus outside Draft, Candidate, Ratified "
+    "and Deprecated.": BCOC + "VocabUnknownStatus",
+    "Concept is owl:deprecated true with no dcterms:isReplacedBy.":
+        BCOC + "VocabDeprecatedUnreplaced",
+    "Concept has dcterms:isReplacedBy and is not owl:deprecated true.":
+        BCOC + "VocabReplacedNotDeprecated",
+    "Concept is replaced by something that is not a skos:Concept in scope.":
+        BCOC + "VocabReplacedByNothing",
+    "Concept's bco:lifecycleStatus and owl:deprecated disagree.":
+        BCOC + "VocabStatusDisagrees",
+    "Concept is Ratified with no bco:ratifiedBy.":
+        BCOC + "VocabRatifiedUncited",
+    "Concept has no prov:wasAttributedTo.": BCOC + "VocabUnattributed",
+    "Concept is attributed to an agent not declared in bco-agents.":
+        BCOC + "VocabUndeclaredAgent",
+    # metamodel and catalog
+    "Metamodel concept is not in bcom:MetamodelScheme.":
+        BCOM + "VocabWrongScheme",
+    "Metamodel concept has no bco:designatesClass.":
+        BCOM + "VocabNoDesignatedClass",
+    "Metamodel concept designates a class outside the bco: namespace.":
+        BCOM + "VocabDesignatesElsewhere",
+    "Catalog concept is not in bcoc:CapabilityCatalogScheme.":
+        BCOC + "VocabCatalogWrongScheme",
+    "Catalog skos:notation is not typed bco:PCFCode.":
+        BCOC + "VocabUntypedNotation",
+    # source references
+    "Source reference cites no source.": BCOC + "source-no-source",
+    "Source reference cites something that is not a bco-sources record.":
+        BCOC + "source-not-a-record",
+    "Source reference has no bco:locator.": BCOC + "source-no-locator",
+    "Source reference has no bco:relation.": BCOC + "source-no-relation",
+    "Source reference has a bco:relation other than adapted-from, "
+    "consistent-with or departs-from.": BCOC + "source-bad-relation",
+    "A departs-from source reference has no bco:departureNote.":
+        BCOC + "source-departs-no-note",
+    "A departs-from source reference cites no claim.":
+        BCOC + "source-departs-no-claim",
+    # source records
+    "Source record is not a dcterms:BibliographicResource.":
+        BCOS + "SRC-BA-01",
+    "Source record has no dcterms:identifier.": BCOS + "SRC-BA-02",
+    "Source record's dcterms:identifier is not its IRI's local name.":
+        BCOS + "SRC-BA-03",
+    "Source record has no dcterms:bibliographicCitation.":
+        BCOS + "SRC-BA-04",
+    "Source record has no bco:claimStatus.": BCOS + "SRC-BA-05",
+    "Source record has a bco:claimStatus other than V, P, S, K or L.":
+        BCOS + "SRC-BA-06",
+    # agents
+    "Declared agent is not a prov:Agent.": BCOA + "fixture-untyped-agent",
+    "Declared agent is not exactly one of prov:Person and "
+    "prov:SoftwareAgent.": BCOA + "fixture-no-kind",
+    "Person has no name (rdfs:label).": BCOA + "fixture-nameless-person",
+    "Software agent has no bco:modelIdentifier.":
+        BCOA + "fixture-software-no-model",
+    "Software agent has no prov:actedOnBehalfOf.":
+        BCOA + "fixture-software-unaccountable",
+    "Software agent acted on behalf of something that is not a declared "
+    "prov:Person.": BCOA + "fixture-software-for-software",
+    # ratification references
+    "Ratification reference has no bco:actPath.":
+        BCOC + "ratification-no-path",
+    "Ratification reference's bco:actPath is not a file under "
+    "docs/decisions/ or docs/adr/.": BCOC + "ratification-path-elsewhere",
+    "Ratification reference has no bco:actCommit.":
+        BCOC + "ratification-no-commit",
+    "Ratification reference's bco:actCommit is not a full 40-hex commit.":
+        BCOC + "ratification-short-commit",
+    "Ratification reference has no bco:actSha256.":
+        BCOC + "ratification-no-sha",
+    "Ratification reference's bco:actSha256 is not a 64-hex SHA-256.":
+        BCOC + "ratification-bad-sha",
+    "Ratification reference cites the SHA-256 of the empty file.":
+        BCOC + "ratification-empty-file",
+}
+
+#: Built to conform. None may be the focus of a vocabulary violation.
+VOCABULARY_POSITIVE_CONTROLS = [
+    BCOA + "fixture-person", BCOA + "fixture-software",
+    BCOS + "SRC-OMG-01", BCOS + "SRC-OMG-03",
+    BCOM + "GoodMetamodelConcept", BCOC + "GoodCatalogConcept",
+    BCOC + "source-good-adapted", BCOC + "GoodRatifiedConcept",
+    BCOC + "ratification-good", BCOC + "GoodDeprecatedConcept",
+    BCOC + "GoodDepartingConcept", BCOC + "source-good-departs",
+    # Hosts: valid concepts that carry the broken references.
+    BCOC + "VocabSourceHost", BCOC + "VocabRatificationHost",
+]
+
+
+def shape_messages(path) -> tuple[list, list]:
+    """(messages, constraint nodes with no message) of a shape file."""
+    import rdflib
+
+    SH = rdflib.Namespace("http://www.w3.org/ns/shacl#")
+    graph = rdflib.Graph()
+    graph.parse(path, format="turtle")
+    constraints = (list(graph.objects(None, SH.property))
+                   + list(graph.objects(None, SH.sparql)))
+    messages = [str(graph.value(node, SH.message)) for node in constraints
+                if graph.value(node, SH.message) is not None]
+    silent = [node for node in constraints
+              if graph.value(node, SH.message) is None]
+    return messages, silent
+
+
+def test_every_vocabulary_constraint_has_a_message_and_is_listed(layout):
+    """Both directions. A constraint with no sh:message reports nothing a
+    reader can act on (gen-shacl's failing, and why it was no-go); one
+    missing from the list above has no named case; a listed message the
+    shapes no longer carry is a test for nothing."""
+    messages, silent = shape_messages(layout.path("validation.vocabulary"))
+    assert not silent, "%d constraint(s) carry no sh:message" % len(silent)
+    assert len(messages) == len(set(messages)), (
+        "two constraints share a message, so the fixture cannot tell "
+        "which one fired")
+    assert set(messages) == set(VOCABULARY_CONSTRAINTS), (
+        "unlisted: %s; listed but absent: %s"
+        % (sorted(set(messages) - set(VOCABULARY_CONSTRAINTS)),
+           sorted(set(VOCABULARY_CONSTRAINTS) - set(messages))))
+
+
+def test_every_vocabulary_constraint_fires_on_its_own_case(validation):
+    """Each message, on the focus node named for it -- not merely
+    somewhere. A constraint firing only on some other case's incidental
+    defect would pass a message-only check while its own case slipped
+    through."""
+    rung = validation["rungs"]["validation.vocabulary"]
+    fired = {(v["focus"], v["message"]) for v in rung["fixture"]["detail"]}
+    missing = sorted(message for message, focus
+                     in VOCABULARY_CONSTRAINTS.items()
+                     if (focus, message) not in fired)
+    assert not missing, (
+        "%d vocabulary constraint(s) did not fire on their own case: %s"
+        % (len(missing), missing))
+
+
+def test_the_vocabulary_fixture_does_not_flag_what_is_legitimate(validation):
+    """The positive controls: a ratified, a deprecated, a departing and a
+    multilingual concept, a typed notation, the agents and the records the
+    cases rely on. The bug this caught on the day it was written: the
+    "exactly one kind" rule, written as a COUNT in a sub-select, reported
+    every agent there was."""
+    rung = validation["rungs"]["validation.vocabulary"]
+    flagged = {v["focus"]: v["message"] for v in rung["fixture"]["detail"]}
+    wrong = {good: flagged[good] for good in VOCABULARY_POSITIVE_CONTROLS
+             if good in flagged}
+    assert not wrong, wrong
+
+
+def test_the_vocabulary_is_in_the_data_graph_and_not_the_digest(
+        validation, digest, layout, repo):
+    """The vocabulary enters the ladder by declaration (`vocabulary:
+    true`, layout.vocabulary_files), and stays out of the corpus digest:
+    it is generated, and compared byte for byte by tools/vocab/build.py,
+    so it is its own measurement -- and bco-sources.ttl is built from the
+    register, which would move the ontology's digest on a citation
+    edit."""
+    vocabulary = sorted(p.relative_to(repo).as_posix()
+                        for p in layout.vocabulary_files())
+    assert vocabulary == sorted(
+        "vocab/generated/%s.ttl" % name for name in (
+            "bco-vocabulary", "bco-metamodel", "bco-catalog", "bco-sources",
+            "bco-agents")), vocabulary
+    assert sorted(validation["scope"]["vocabulary_files"]) == vocabulary
+    assert not set(vocabulary) & set(digest["scope"]["paths"]), (
+        digest["scope"]["paths"])
+
+    # Listed is not loaded: the graph the shapes ran over holds exactly
+    # the ontology, the vocabulary and the extracts.
+    import rdflib
+
+    expected = rdflib.Graph()
+    for path in (layout.ontology_files() + layout.vocabulary_files()
+                 + layout.vendored_files()):
+        expected.parse(path, format="turtle")
+    without = rdflib.Graph()
+    for path in layout.ontology_files() + layout.vendored_files():
+        without.parse(path, format="turtle")
+    assert len(expected) > len(without), "the vocabulary adds no triple"
+    assert validation["scope"]["data_triples"] == len(expected), (
+        validation["scope"]["data_triples"], len(expected), len(without))
+
+
+def test_the_layout_refuses_vocabulary_on_anything_but_generated(layout,
+                                                                 tmp_path):
+    """Only a generated artifact can be vocabulary Turtle: the vocabulary
+    is authored as YAML and built, never written as Turtle by hand."""
+    with pytest.raises(layout.LayoutError) as error:
+        layout.Component({"id": "x", "path": "x.ttl",
+                          "role": "ontology-module", "vocabulary": True},
+                         tmp_path)
+    assert "only a generated-artifact" in str(error.value)
+    with pytest.raises(layout.LayoutError):
+        layout.Component({"id": "x", "path": "x.ttl",
+                          "role": "generated-artifact", "generator": "t",
+                          "vocabulary": "yes"}, tmp_path)
+
+
+def real_vocabulary(layout):
+    import rdflib
+
+    graph = rdflib.Graph()
+    for path in layout.vocabulary_files():
+        graph.parse(path, format="turtle")
+    return graph
+
+
+def vocabulary_violations(layout, graph) -> list[tuple[str, str]]:
+    import rdflib
+    from pyshacl import validate as shacl
+
+    shapes = rdflib.Graph()
+    shapes.parse(layout.path("validation.vocabulary"), format="turtle")
+    _c, results, _t = shacl(data_graph=graph, shacl_graph=shapes,
+                            inference="none", advanced=True)
+    SH = rdflib.Namespace("http://www.w3.org/ns/shacl#")
+    return sorted((str(results.value(r, SH.focusNode)),
+                   str(results.value(r, SH.resultMessage)))
+                  for r in results.subjects(rdflib.RDF.type,
+                                            SH.ValidationResult))
+
+
+def test_the_real_records_and_agents_are_selected(layout):
+    """The zero the source-record and agent shapes report against the
+    real vocabulary is not a constraint selecting nothing: strip every
+    record's citation and the architect's name, in memory, and every one
+    of the 63 records and the one person is reported. (The concept shapes
+    have no such guard on real data: there is no real concept until P5,
+    so they conform vacuously and only the fixture shows they work.)"""
+    import rdflib
+
+    graph = real_vocabulary(layout)
+    assert vocabulary_violations(layout, graph) == []
+
+    citation = rdflib.URIRef("http://purl.org/dc/terms/bibliographicCitation")
+    records = set(graph.subjects(citation, None))
+    assert len(records) == 63, len(records)
+    graph.remove((None, citation, None))
+    person = rdflib.URIRef(BCOA + "aaron-damiano")
+    label = rdflib.URIRef("http://www.w3.org/2000/01/rdf-schema#label")
+    assert (person, label, None) in graph
+    graph.remove((person, label, None))
+
+    found = vocabulary_violations(layout, graph)
+    uncited = {f for f, m in found
+               if m == "Source record has no dcterms:bibliographicCitation."}
+    assert uncited == {str(r) for r in records}, len(uncited)
+    assert (str(person), "Person has no name (rdfs:label).") in found
+    assert len(found) == 64, found[:5]
 
 
 # ------------------------------------------- the committed measurement

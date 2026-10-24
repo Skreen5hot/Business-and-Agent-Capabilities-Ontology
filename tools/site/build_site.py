@@ -249,10 +249,31 @@ def literal(graph, subject, predicate: str, what: str, required: bool) -> str:
     return ""
 
 
-def prefixes(authored_namespace: str) -> list[tuple[str, str]]:
+def prefixes(authored: list[tuple[str, str]]) -> list[tuple[str, str]]:
+    """Pinned upstream prefixes plus the authored (prefix, namespace)
+    pairs, longest namespace first so the most specific one wins."""
     found = [(entry["prefix"], entry["namespace"]) for entry in pins()]
-    found.append(("bco", authored_namespace))
-    return sorted(found, key=lambda pair: -len(pair[1]))
+    found.extend(authored)
+    return sorted(found, key=lambda pair: (-len(pair[1]), pair[0]))
+
+
+def authored_prefixes(namespaces, graphs) -> list[tuple[str, str]]:
+    """(prefix, namespace) for each authored namespace, read from the
+    @prefix bindings of the generated vocabulary Turtle -- which declares
+    all five -- rather than typed here. A namespace the vocabulary binds
+    to no prefix, or to two, is refused: the short ids on every page
+    depend on it."""
+    out = []
+    for namespace in namespaces:
+        bound = sorted({prefix for graph in graphs
+                        for prefix, iri in graph.namespaces()
+                        if str(iri) == namespace})
+        if len(bound) != 1:
+            raise Refused(
+                "the generated vocabulary binds %s to %s; expected exactly "
+                "one prefix" % (namespace, bound or "no prefix"))
+        out.append((bound[0], namespace))
+    return out
 
 
 def short_id(iri: str, known: list[tuple[str, str]]) -> str:
@@ -286,12 +307,12 @@ def category_of(iri: str, kind: str, merged) -> str:
     return CATEGORY_ROOTS[specific[0]] if specific else "other"
 
 
-def term_records(sources: list[dict], merged, authored_namespace: str,
+def term_records(sources: list[dict], merged, authored_namespaces: tuple,
                  known: list[tuple[str, str]]) -> list[dict]:
     """One record per term, authored and upstream.
 
     `sources` is [{key, path, graph, origin}]. Authored terms are those in
-    the authored namespace declared in an authored module, and must carry
+    an authored namespace declared in an authored module, and must carry
     a label and a definition. Upstream terms are those typed and labelled
     in a vendored extract; a stub has no definition and is published as
     having none.
@@ -308,7 +329,7 @@ def term_records(sources: list[dict], merged, authored_namespace: str,
                     continue
                 iri = str(subject)
                 authored = source["origin"] == "authored"
-                if authored and not iri.startswith(authored_namespace):
+                if authored and not iri.startswith(tuple(authored_namespaces)):
                     continue
                 if not authored and not list(graph.objects(
                         subject, rdflib.URIRef(RDFS + "label"))):
@@ -537,6 +558,196 @@ def notice_block(text: str) -> str:
             "  <p><strong>%s</strong></p>\n</section>" % esc(text))
 
 
+# --------------------------------------------------------- vocabulary
+
+
+PROV = "http://www.w3.org/ns/prov#"
+
+
+def vocabulary_values(graph, namespaces, known: list[tuple[str, str]],
+                      empty_notice: str) -> dict:
+    """The Vocabulary page's placeholders, from the generated Turtle.
+
+    `graph` is vocab/generated/*.ttl merged -- never the YAML: what the
+    site publishes is what tools/vocab/build.py published, after its
+    checks, not a second reading of its inputs. `namespaces` is
+    validate.AUTHORED_NAMESPACES, whose first entry is bco:, where the
+    vocabulary's annotation properties live.
+
+    Shown: the authored namespaces, each scheme with its concepts (label,
+    definition, derived status, designated class, notation, sources,
+    drafting agent), the citations of the register entries concepts
+    actually cite -- not the register, whose publication the architect
+    has not decided -- and the declared agents. The same refusals as
+    the term index: a concept with no label, definition or status, or
+    two in the published language, stops the build, and so does a
+    concept in no scheme or in two.
+    """
+    import rdflib
+
+    bco = namespaces[0]
+    U = rdflib.URIRef
+    rdf_type = U(RDF_TYPE)
+
+    def short(iri) -> str:
+        return short_id(str(iri), known)
+
+    def objects(subject, predicate: str) -> list:
+        return sorted(graph.objects(subject, U(predicate)), key=str)
+
+    def one(subject, predicate: str, what: str, required: bool) -> str:
+        return literal(graph, subject, predicate, what, required)
+
+    def agent_name(agent) -> str:
+        name = one(agent, RDFS + "label", "rdfs:label", required=False)
+        return ("%s (%s)" % (esc(name), code(short(agent))) if name
+                else code(short(agent)) + " (not a declared agent)")
+
+    schemes = sorted(s for s in graph.subjects(
+        rdf_type, U(SKOS + "ConceptScheme")) if isinstance(s, rdflib.URIRef))
+    concepts = sorted(s for s in graph.subjects(
+        rdf_type, U(SKOS + "Concept")) if isinstance(s, rdflib.URIRef))
+    by_scheme = {scheme: [] for scheme in schemes}
+    for concept in concepts:
+        homes = objects(concept, SKOS + "inScheme")
+        if len(homes) != 1 or homes[0] not in by_scheme:
+            raise Refused(
+                "%s is in %d scheme(s) %s; the page places a concept under "
+                "exactly one declared scheme" % (concept, len(homes),
+                                                [str(h) for h in homes]))
+        by_scheme[homes[0]].append(concept)
+
+    cited = {}
+    parts = []
+    for scheme in schemes:
+        members = by_scheme[scheme]
+        title = one(scheme, SKOS + "prefLabel", "skos:prefLabel",
+                    required=True)
+        parts.append("<h3>%s</h3>\n%s" % (esc(title), definition_list([
+            ("IRI", code(str(scheme))),
+            ("Definition", esc(one(scheme, SKOS + "definition",
+                                   "skos:definition", required=True))),
+            ("Concepts", "%d" % len(members)),
+        ])))
+        for concept in members:
+            labels = sorted(objects(concept, SKOS + "prefLabel"),
+                            key=lambda v: (v.language or "", str(v)))
+            rows = [
+                ("IRI", code(str(concept))),
+                ("Labels", "; ".join(
+                    "%s%s" % (esc(str(v)), " (%s)" % esc(v.language)
+                              if v.language else "") for v in labels)),
+                ("Definition", esc(one(concept, SKOS + "definition",
+                                       "skos:definition", required=True))),
+                ("Status", esc(one(concept, bco + "lifecycleStatus",
+                                   "bco:lifecycleStatus", required=True))),
+            ]
+            notation = one(concept, SKOS + "notation", "skos:notation",
+                           required=False)
+            if notation:
+                rows.append(("Notation", code(notation)))
+            for predicate, name in ((bco + "designatesClass",
+                                     "Designated class"),
+                                    (SKOS + "broader", "Broader"),
+                                    (DCTERMS + "isReplacedBy",
+                                     "Replaced by")):
+                values = objects(concept, predicate)
+                if values:
+                    rows.append((name, ", ".join(code(short(v))
+                                                 for v in values)))
+            drafted = objects(concept, PROV + "wasAttributedTo")
+            rows.append(("Drafted by", ", ".join(agent_name(a)
+                                                 for a in drafted)
+                         or "not stated"))
+            references = []
+            for node in objects(concept, bco + "sourceReference"):
+                source = graph.value(node, U(bco + "citesSource"))
+                src_id = (str(graph.value(source, U(DCTERMS + "identifier"))
+                              or short(source)) if source else "no source")
+                if source is not None:
+                    cited[src_id] = source
+                note = one(node, bco + "departureNote", "bco:departureNote",
+                           required=False)
+                references.append((src_id, "<li>%s &mdash; %s &mdash; %s%s"
+                                   "</li>" % (
+                    code(src_id),
+                    esc(one(node, bco + "relation", "bco:relation",
+                            required=False) or "no relation"),
+                    esc(one(node, bco + "locator", "bco:locator",
+                            required=False) or "no locator"),
+                    " &mdash; %s" % esc(note) if note else "")))
+            rows.append(("Sources", '<ul class="term-list">%s</ul>'
+                         % "".join(item for _key, item in sorted(references))
+                         if references else "none cited"))
+            heading = one(concept, SKOS + "prefLabel", "skos:prefLabel",
+                          required=True)
+            parts.append("<h4>%s</h4>\n%s" % (esc(heading),
+                                              definition_list(rows)))
+    schemes_html = "\n".join(parts) or "<p>No concept scheme is declared.</p>"
+
+    prefix_of = {ns: prefix for prefix, ns in known}
+    namespaces_html = ('<div class="scroll-x"><table>\n<thead><tr><th>Prefix'
+                       "</th><th>Namespace</th></tr></thead>\n<tbody>\n%s\n"
+                       "</tbody></table></div>" % "\n".join(
+                           "<tr><td>%s</td><td>%s</td></tr>" % (
+                               code(prefix_of[ns] + ":"), code(ns))
+                           for ns in namespaces))
+
+    if cited:
+        sources_html = ('<div class="scroll-x"><table>\n<thead><tr><th>'
+                        "Source</th><th>Citation</th></tr></thead>\n<tbody>\n"
+                        "%s\n</tbody></table></div>" % "\n".join(
+                            "<tr><td>%s</td><td>%s</td></tr>" % (
+                                code(src_id), esc(one(
+                                    source, DCTERMS + "bibliographicCitation",
+                                    "dcterms:bibliographicCitation",
+                                    required=False) or "not in the register"))
+                            for src_id, source in sorted(cited.items())))
+    else:
+        sources_html = ("<p>No concept cites a source yet, so no citation is "
+                        "shown.</p>")
+
+    agents = sorted(s for s in graph.subjects(rdf_type, U(PROV + "Agent"))
+                    if isinstance(s, rdflib.URIRef))
+    agent_rows = []
+    for agent in agents:
+        kinds = sorted(str(k).rsplit("#", 1)[-1] for k in objects(
+            agent, RDF_TYPE) if str(k) in (PROV + "Person",
+                                           PROV + "SoftwareAgent"))
+        model = one(agent, bco + "modelIdentifier", "bco:modelIdentifier",
+                    required=False)
+        behalf = objects(agent, PROV + "actedOnBehalfOf")
+        agent_rows.append("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td>"
+                          "<td>%s</td></tr>" % (
+                              code(short(agent)),
+                              esc(one(agent, RDFS + "label", "rdfs:label",
+                                      required=True)),
+                              esc(", ".join(kinds) or "undeclared kind"),
+                              code(model) if model else "&mdash;",
+                              ", ".join(agent_name(b) for b in behalf)
+                              or "&mdash;"))
+    agents_html = ('<div class="scroll-x"><table>\n<thead><tr><th>Agent</th>'
+                   "<th>Name</th><th>Kind</th><th>Model identifier</th>"
+                   "<th>On behalf of</th></tr></thead>\n<tbody>\n%s\n</tbody>"
+                   "</table></div>" % "\n".join(agent_rows)
+                   if agent_rows else "<p>No agent is declared.</p>")
+
+    return {
+        "vocabulary_notice": (notice_block(empty_notice) if not concepts
+                              else ""),
+        "vocabulary_counts": definition_list(
+            [("Concepts", "%d" % len(concepts))]
+            + [(one(s, SKOS + "prefLabel", "skos:prefLabel", required=True),
+                "%d" % len(by_scheme[s])) for s in schemes]
+            + [("Sources cited", "%d" % len(cited)),
+               ("Declared agents", "%d" % len(agents))]),
+        "vocabulary_namespaces": namespaces_html,
+        "vocabulary_schemes": schemes_html,
+        "vocabulary_sources": sources_html,
+        "vocabulary_agents": agents_html,
+    }
+
+
 # ------------------------------------------------------------- build
 
 
@@ -545,8 +756,22 @@ def gather() -> dict:
     import rdflib
 
     validate = load_tool("bco_site_validate", "tools/ontology/validate.py")
-    authored_namespace = validate.AUTHORED_NAMESPACE
-    known = prefixes(authored_namespace)
+    authored_namespaces = validate.AUTHORED_NAMESPACES
+
+    # The generated vocabulary Turtle, from the layout contract
+    # (`vocabulary: true`). Never vocab/*.yaml: the page publishes what
+    # tools/vocab/build.py built, and tests/test_site.py checks that no
+    # YAML under vocab/ is opened by this build.
+    vocabulary_graphs = [parse(path) for path in layout.vocabulary_files()]
+    if not vocabulary_graphs:
+        raise Refused("the layout contract marks no file vocabulary: true, "
+                      "so the Vocabulary page would describe nothing")
+    vocabulary = rdflib.Graph()
+    for graph in vocabulary_graphs:
+        for triple in graph:
+            vocabulary.add(triple)
+    known = prefixes(authored_prefixes(authored_namespaces,
+                                       vocabulary_graphs))
 
     authored, upstream = [], []
     for entry in layout.components("ontology-module"):
@@ -570,7 +795,7 @@ def gather() -> dict:
         for triple in source["graph"]:
             merged.add(triple)
 
-    records = term_records(authored + upstream, merged, authored_namespace,
+    records = term_records(authored + upstream, merged, authored_namespaces,
                            known)
 
     specs = layout.components("specification")
@@ -581,7 +806,9 @@ def gather() -> dict:
     reviews = layout.component("reviews").members("*.md")
 
     return {
-        "authored_namespace": authored_namespace,
+        "authored_namespaces": authored_namespaces,
+        "known": known,
+        "vocabulary": vocabulary,
         "authored": authored,
         "upstream": upstream,
         "records": records,
@@ -644,7 +871,7 @@ def build(out: Path) -> list[tuple[str, str]]:
         "format_version": 1,
         "generated_by": "tools/site/build_site.py",
         "source_commit": commit,
-        "authored_namespace": data["authored_namespace"],
+        "authored_namespaces": list(data["authored_namespaces"]),
         "modules": modules,
         "counts": {"authored": len(authored_terms),
                    "upstream": len(upstream_terms)},
@@ -762,7 +989,10 @@ def build(out: Path) -> list[tuple[str, str]]:
                                         "written" if not count else "")),
                     ("Version", esc(header["version"] or "none stated")),
                     ("Ontology IRI", code(header["iri"])),
-                    ("Namespace", code(data["authored_namespace"])
+                    # The ontology's own namespace: the first of
+                    # AUTHORED_NAMESPACES, as ADR-003 D1 orders them
+                    # (tests/test_namespace.py pins the order).
+                    ("Namespace", code(data["authored_namespaces"][0])
                      + " (provisional)"),
                     ("Source", source_link(ctx, source["path"])),
                     ("Download", '<a href="../downloads/%s">%s</a>' % (
@@ -844,8 +1074,8 @@ def build(out: Path) -> list[tuple[str, str]]:
         unresolved_parts.append(
             "<h3>%s namespace (%d)</h3>\n<ul class=\"term-list\">\n%s\n</ul>"
             % (esc(key.upper()), len(names), "\n".join(
-                "  <li>%s</li>" % code(short_id(iri, prefixes(
-                    data["authored_namespace"]))) for iri in names)))
+                "  <li>%s</li>" % code(short_id(iri, data["known"]))
+                for iri in names)))
     unresolved = "\n".join(unresolved_parts) or "<p>None.</p>"
 
     def file_table(rows: list[dict], href_prefix: str, licence: bool) -> str:
@@ -909,6 +1139,9 @@ def build(out: Path) -> list[tuple[str, str]]:
           "NOTICE.md</a>.</p>",
         "explore_notice": explore_notice,
     }
+    values.update(vocabulary_values(
+        data["vocabulary"], data["authored_namespaces"], data["known"],
+        ctx_site["notices"]["vocabulary_empty"]["text"]))
 
     labels = {item["key"]: item["label"]
               for item in ctx_site["navigation"]}

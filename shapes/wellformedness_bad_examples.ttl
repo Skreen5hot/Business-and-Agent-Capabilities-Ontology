@@ -2,14 +2,21 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix bco:  <https://fandaws.com/ontology/bco#> .
+@prefix bcom: <https://fandaws.com/ontology/bco-metamodel#> .
+@prefix bcoc: <https://fandaws.com/ontology/bco-catalog#> .
+@prefix bcos: <https://fandaws.com/ontology/bco-sources#> .
 
 # Graphs built to break wellformedness_shapes.ttl.
 #
 # Loaded ALONE, so each case states everything it needs. The terms use
-# the authored namespace deliberately: the shape's target filters on that
-# prefix string, and a fixture in some other namespace would leave the
-# target selecting nothing while every constraint reported success --
-# which is the failure mode the shape file's own comment warns about.
+# the authored namespaces deliberately -- classes in bco#, concepts in
+# bco-metamodel# and bco-catalog# -- because the shapes' targets filter
+# on those strings, and a fixture in some other namespace would leave a
+# target selecting nothing while every constraint reported success, which
+# is the failure mode the shape file's own comment warns about. Each of
+# the three namespaces has at least one case that fires, so the
+# stale-filter demonstration in tests/test_namespace.py has something to
+# lose in each.
 #
 # The positive controls are not decoration. A fixture where every case
 # violates cannot show that a constraint discriminates, and the
@@ -78,22 +85,50 @@ bco:FixtureRepeatedValue a owl:Class ;
 # -- SKOS concepts ----------------------------------------------------
 #
 # A catalog concept is a different kind of thing from a class: it is
-# labelled with skos:prefLabel and carries neither rdfs:label nor
-# skos:definition. Asking it for those was the first draft of the shape
-# file and produced 3,842 findings that were the catalog being told to
-# look like a class. These cases exist so that the split is exercised
-# rather than asserted.
+# labelled with skos:prefLabel and carries no rdfs:label. Asking it for
+# one was the first draft of the shape file and produced 3,842 findings
+# that were the catalog being told to look like a class. These cases
+# exist so that the split is exercised rather than asserted.
+#
+# Since P4 the concept population is ADR-003 D1's: concepts in
+# bco-metamodel# and bco-catalog#, each case in one of the two so that
+# both filters are shown to select.
 
-# W6: a concept with no prefLabel.
-bco:FixtureConceptUnlabelled a skos:Concept ;
-    skos:inScheme <https://fandaws.com/ontology/bco/scheme#FixtureScheme> .
+# W6: a metamodel concept with no prefLabel.
+bcom:FixtureConceptUnlabelled a skos:Concept ;
+    skos:inScheme bcom:MetamodelScheme .
 
-# W7: two prefLabels in the same language.
-bco:FixtureConceptDrifted a skos:Concept ;
+# W7: a catalog concept with two prefLabels in the same language.
+bcoc:FixtureConceptDrifted a skos:Concept ;
     skos:prefLabel "Develop Vision and Strategy" , "Develop Vision" .
 
-# positive control: the ordinary catalog concept. Carries no rdfs:label
-# and no skos:definition, and must NOT be reported for either.
-bco:FixtureConceptWellFormed a skos:Concept ;
-    skos:prefLabel "Manage Customer Service" ;
-    skos:inScheme <https://fandaws.com/ontology/bco/scheme#FixtureScheme> .
+# W8: a catalog concept with no prefLabel -- W6 in the other namespace.
+bcoc:FixtureCatalogConceptUnlabelled a skos:Concept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme .
+
+# W9: a metamodel concept with two English prefLabels -- W7 in the other
+# namespace, with the tag written out.
+bcom:FixtureMetamodelConceptDrifted a skos:Concept ;
+    skos:prefLabel "Capability Map"@en , "Capability Mapping"@en .
+
+# positive controls: the ordinary concept in each namespace. Neither
+# carries an rdfs:label, and neither must be reported for lacking one.
+bcom:FixtureConceptWellFormed a skos:Concept ;
+    skos:prefLabel "Capability Assessment"@en ;
+    skos:inScheme bcom:MetamodelScheme .
+
+bcoc:FixtureConceptWellFormed a skos:Concept ;
+    skos:prefLabel "Manage Customer Service"@en ;
+    skos:inScheme bcoc:CapabilityCatalogScheme .
+
+# positive control: outside the population. Sources are not SKOS concepts
+# (ADR-003 D8), so the concept filter must not reach bco-sources# even
+# when something there is typed as one; this has no prefLabel and must
+# NOT be reported by these shapes. (vocabulary_shapes.ttl rejects it as a
+# malformed source record, which is the other rung's business.)
+bcos:FixtureNotInThePopulation a skos:Concept .
+
+# A concept in the ontology namespace is outside the population too: D1
+# puts classes in bco#, not concepts. Unlabelled, and must NOT be
+# reported -- the filter is on the two vocabulary namespaces only.
+bco:FixtureConceptOutsideThePopulation a skos:Concept .

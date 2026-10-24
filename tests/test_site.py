@@ -15,6 +15,7 @@ import json
 import re
 import shutil
 import zipfile
+from pathlib import Path
 
 import pytest
 
@@ -160,7 +161,7 @@ def test_an_authored_term_without_a_definition_stops_the_build(builder):
     source = {"key": "m", "path": "m.ttl", "graph": graph,
               "origin": "authored"}
     with pytest.raises(SystemExit) as error:
-        builder.term_records([source], graph, ns, [("bco", ns)])
+        builder.term_records([source], graph, (ns,), [("bco", ns)])
     assert "no skos:definition" in str(error.value)
 
 
@@ -177,8 +178,208 @@ def test_two_labels_in_one_language_stop_the_build(builder):
     source = {"key": "m", "path": "m.ttl", "graph": graph,
               "origin": "authored"}
     with pytest.raises(SystemExit) as error:
-        builder.term_records([source], graph, ns, [("bco", ns)])
+        builder.term_records([source], graph, (ns,), [("bco", ns)])
     assert "rdfs:label values tagged en" in str(error.value)
+
+
+# ------------------------------------------------------- the vocabulary
+
+
+VOCAB_PREFIXES = """\
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix prov:    <http://www.w3.org/ns/prov#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix bco:     <https://fandaws.com/ontology/bco#> .
+@prefix bcom:    <https://fandaws.com/ontology/bco-metamodel#> .
+@prefix bcoc:    <https://fandaws.com/ontology/bco-catalog#> .
+@prefix bcos:    <https://fandaws.com/ontology/bco-sources#> .
+@prefix bcoa:    <https://fandaws.com/ontology/bco-agents#> .
+"""
+
+#: Two schemes, two agents and two register records, as the generated
+#: Turtle has them -- and no concept.
+VOCAB_BASE = VOCAB_PREFIXES + """\
+bcom:MetamodelScheme a skos:ConceptScheme ;
+    skos:prefLabel "BCO metamodel scheme"@en ;
+    skos:definition "The terms specification section 4 defines."@en .
+bcoc:CapabilityCatalogScheme a skos:ConceptScheme ;
+    skos:prefLabel "BCO capability catalog scheme"@en ;
+    skos:definition "The business capabilities the BCO catalogues."@en .
+bcoa:person a prov:Agent , prov:Person ; rdfs:label "A <em>Person</em>"@en .
+bcoa:software a prov:Agent , prov:SoftwareAgent ;
+    rdfs:label "Software"@en ; bco:modelIdentifier "model-x" ;
+    prov:actedOnBehalfOf bcoa:person .
+bcos:SRC-OMG-03 a dcterms:BibliographicResource ;
+    dcterms:identifier "SRC-OMG-03" ;
+    dcterms:bibliographicCitation "Cited <i>work</i> & co" ;
+    bco:claimStatus "V" .
+bcos:SRC-OMG-04 a dcterms:BibliographicResource ;
+    dcterms:identifier "SRC-OMG-04" ;
+    dcterms:bibliographicCitation "UNCITED-REGISTER-ENTRY" ;
+    bco:claimStatus "V" .
+"""
+
+#: One catalog concept whose every displayed field carries markup.
+VOCAB_CONCEPT = """\
+bcoc:Treasury a skos:Concept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "<b>Treasury</b> & Co"@en , "Tresorerie"@fr ;
+    skos:definition "Manages <script>alert(1)</script> cash."@en ;
+    skos:notation "10002"^^bco:PCFCode ;
+    bco:lifecycleStatus "Draft" ;
+    bco:designatesClass bco:TreasuryCapability ;
+    prov:wasAttributedTo bcoa:software ;
+    bco:sourceReference bcoc:source-1 .
+bcoc:source-1 bco:citesSource bcos:SRC-OMG-03 ;
+    bco:locator "section \\"7\\" <b>2</b>" ;
+    bco:relation "departs-from" ;
+    bco:departureNote "Organization <u>only</u>."@en ;
+    bco:citesClaim "1"^^xsd:integer .
+"""
+
+
+def vocabulary_page(builder, validator, turtle, notice="EMPTY-NOTICE"):
+    import rdflib
+
+    graph = rdflib.Graph()
+    graph.parse(data=turtle, format="turtle")
+    namespaces = validator.AUTHORED_NAMESPACES
+    known = builder.prefixes(builder.authored_prefixes(namespaces, [graph]))
+    values = builder.vocabulary_values(graph, namespaces, known, notice)
+    return "\n".join(values[key] for key in sorted(values))
+
+
+@pytest.fixture(scope="module")
+def validator():
+    return load_tool("bco_validate_site", "tools/ontology/validate.py")
+
+
+def test_the_vocabulary_page_is_built_and_in_the_navigation(built, repo):
+    """A page no navigation entry reaches is refused by the build; this is
+    the other direction -- the entry exists and every page links to it."""
+    out, _ = built
+    site = json.loads((repo / "site/content/site.json")
+                      .read_text(encoding="utf-8"))
+    entries = [i for i in site["navigation"] if i["key"] == "vocabulary"]
+    assert entries == [{"key": "vocabulary", "label": "Vocabulary",
+                        "path": "vocabulary/"}], entries
+    page = (out / "vocabulary/index.html").read_text(encoding="utf-8")
+    assert "<h1>Vocabulary</h1>" in page
+    assert 'href="../vocabulary/" aria-current="page"' in page
+    for other in ("index.html", "modules/index.html", "status/index.html"):
+        text = (out / other).read_text(encoding="utf-8")
+        assert re.search(r'href="(\.\./)?vocabulary/"', text), other
+
+
+def test_the_real_vocabulary_page_matches_the_real_vocabulary(built, repo,
+                                                              layout):
+    """Read from the generated Turtle: both schemes and both declared
+    agents appear, and the empty-state notice shows exactly while no
+    concept exists. At P4 there is none; P5 flips the second half, and
+    this test asserts the flipped state too rather than skipping."""
+    import rdflib
+
+    out, _ = built
+    page = (out / "vocabulary/index.html").read_text(encoding="utf-8")
+    graph = rdflib.Graph()
+    for path in layout.vocabulary_files():
+        graph.parse(path, format="turtle")
+    concepts = set(graph.subjects(rdflib.RDF.type, rdflib.URIRef(
+        "http://www.w3.org/2004/02/skos/core#Concept")))
+    notice = json.loads((repo / "site/content/site.json").read_text(
+        encoding="utf-8"))["notices"]["vocabulary_empty"]["text"]
+    for needle in ("BCO metamodel scheme", "BCO capability catalog scheme",
+                   "bcoa:aaron-damiano", "bcoa:claude-opus-5-5",
+                   "https://fandaws.com/ontology/bco-sources#"):
+        assert needle in page, needle
+    assert (notice in page) == (not concepts), (len(concepts), notice)
+
+
+def test_the_empty_state_shows_when_there_are_no_concepts(builder,
+                                                          validator):
+    page = vocabulary_page(builder, validator, VOCAB_BASE)
+    assert "EMPTY-NOTICE" in page
+    assert "No concept cites a source yet" in page
+    # The register is not published: an uncited record stays off the page.
+    assert "UNCITED-REGISTER-ENTRY" not in page
+
+
+def test_a_constructed_concept_renders_every_field_escaped(builder,
+                                                           validator):
+    """One concept, every field carrying markup: each arrives as text, and
+    none of it as markup. The cited source's citation is shown, the
+    uncited one is not, and the empty-state notice is gone."""
+    page = vocabulary_page(builder, validator, VOCAB_BASE + VOCAB_CONCEPT)
+    assert "EMPTY-NOTICE" not in page
+    for raw in ("<b>Treasury</b>", "<script>", "<i>work</i>", "<u>only</u>",
+                "<em>Person</em>", "<b>2</b>"):
+        assert raw not in page, raw
+    for escaped in ("&lt;b&gt;Treasury&lt;/b&gt; &amp; Co",
+                    "Manages &lt;script&gt;alert(1)&lt;/script&gt; cash.",
+                    "Tresorerie (fr)", "<dd>Draft</dd>",
+                    "<code>10002</code>",
+                    "<code>bco:TreasuryCapability</code>",
+                    "<code>SRC-OMG-03</code> &mdash; departs-from &mdash; "
+                    "section &quot;7&quot; &lt;b&gt;2&lt;/b&gt; &mdash; "
+                    "Organization &lt;u&gt;only&lt;/u&gt;.",
+                    "Cited &lt;i&gt;work&lt;/i&gt; &amp; co",
+                    "Software (<code>bcoa:software</code>)",
+                    "A &lt;em&gt;Person&lt;/em&gt;"):
+        assert escaped in page, escaped
+    assert "UNCITED-REGISTER-ENTRY" not in page
+
+
+def test_a_concept_in_no_scheme_stops_the_build(builder, validator):
+    """Where it would be listed is a question for the vocabulary, not a
+    choice the page makes by traversal order."""
+    unplaced = VOCAB_CONCEPT.replace(
+        "    skos:inScheme bcoc:CapabilityCatalogScheme ;\n", "")
+    assert unplaced != VOCAB_CONCEPT
+    with pytest.raises(SystemExit) as error:
+        vocabulary_page(builder, validator, VOCAB_BASE + unplaced)
+    assert "scheme" in str(error.value)
+
+
+def test_the_site_build_reads_no_vocabulary_yaml(builder, repo, tmp_path,
+                                                 monkeypatch):
+    """The page is the generated Turtle's, never the authored YAML's.
+
+    Every file the build opens is recorded. The generated Turtle must be
+    among them -- otherwise this would pass for a build that read nothing
+    -- and no YAML under vocab/, nor the register YAML the source records
+    are generated from, may be.
+    """
+    import builtins
+    import io
+
+    opened = []
+    real_open = io.open
+
+    def recording(file, *args, **kwargs):
+        try:
+            opened.append(Path(file).resolve())
+        except TypeError:
+            pass
+        return real_open(file, *args, **kwargs)
+
+    monkeypatch.setattr(io, "open", recording)
+    monkeypatch.setattr(builtins, "open", recording)
+    builder.build(tmp_path / "_site")
+    monkeypatch.undo()
+
+    root = repo.resolve()
+    relative = {p.relative_to(root).as_posix() for p in opened
+                if p.is_relative_to(root)}
+    generated = {r for r in relative if r.startswith("vocab/generated/")
+                 and r.endswith(".ttl")}
+    assert len(generated) == 5, sorted(relative)[:40]
+    yaml_read = sorted(r for r in relative
+                       if (r.startswith("vocab/") and r.endswith(".yaml"))
+                       or r == "docs/sources/register.yaml")
+    assert yaml_read == [], yaml_read
 
 
 # --------------------------------------------------- text is not markup

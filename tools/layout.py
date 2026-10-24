@@ -50,7 +50,7 @@ class Component:
     """One declaration, with the questions worth asking of it."""
 
     __slots__ = ("id", "path", "role", "description", "redistributable",
-                 "tracked", "generator", "orphaned", "_root")
+                 "tracked", "generator", "orphaned", "vocabulary", "_root")
 
     def __init__(self, raw: dict, root: Path):
         for required in ("id", "path", "role"):
@@ -83,6 +83,24 @@ class Component:
             raise LayoutError(
                 "%s declares both a generator and a reason it is orphaned; "
                 "it is one or the other" % self.id)
+        #: Whether this component is part of the controlled vocabulary's
+        #: generated Turtle (ADR-003), which the validation ladder loads
+        #: into its data graph beside the ontology. An attribute rather
+        #: than a role, because these files already have one -- they are
+        #: generated artifacts, with a generator -- and a second role
+        #: would take that away. Only a generated artifact may carry it:
+        #: the vocabulary is authored as YAML and built, never written as
+        #: Turtle by hand.
+        self.vocabulary = raw.get("vocabulary", False)
+        if self.vocabulary not in (True, False):
+            raise LayoutError(
+                "%s declares vocabulary: %r; it is true or absent"
+                % (self.id, self.vocabulary))
+        if self.vocabulary and self.role != "generated-artifact":
+            raise LayoutError(
+                "%s is marked vocabulary but its role is %s; only a "
+                "generated-artifact can be vocabulary Turtle"
+                % (self.id, self.role))
         self._root = root
 
     def resolve(self) -> Path:
@@ -209,6 +227,27 @@ def vendored_files() -> list[Path]:
     out: list[Path] = []
     for entry in components("vendored-ontology"):
         out.extend(entry.members("*.ttl"))
+    return out
+
+
+def vocabulary_files() -> list[Path]:
+    """The controlled vocabulary's generated Turtle (ADR-003; P4).
+
+    Every component marked `vocabulary: true`. In the validation data
+    graph, so the vocabulary shapes have something to check and a
+    violation against a vocabulary term is a finding about this
+    repository. Separate from `ontology_files`, and deliberately absent
+    from the corpus digest: the vocabulary is its own generated
+    measurement -- tools/vocab/build.py rebuilds it and compares it byte
+    for byte -- and bco-sources.ttl is generated from the citation
+    register, so folding it into the digest would move the ontology's
+    measure on every register edit. That is the same reason the vendored
+    extracts are kept out.
+    """
+    out: list[Path] = []
+    for entry in components():
+        if entry.vocabulary:
+            out.extend(entry.members("*.ttl"))
     return out
 
 

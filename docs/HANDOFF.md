@@ -28,7 +28,7 @@ evidence the checks work.
 | `reviews/R5-v0.4-artifact-review.md` | review of v0.4 against the v0.1 package | recommendations, not ratified |
 | `drafts/BusinessCapabilityOntology_draft_v0.1.0/` | the earlier `bc:` Turtle package | preserved byte-for-byte; **never loaded** |
 | `ontology/apqc-cap.ttl`, `ontology/apqc-cap-desc.ttl` | the two modules spec §2 names | `owl:Ontology` headers only |
-| `shapes/` | wellformedness shapes + fixture, from ARO | exercised by the fixture |
+| `shapes/` | wellformedness shapes (from ARO) and the vocabulary shapes (P4), each with its fixture | exercised by the fixtures, constraint by constraint |
 | `vendor/` | BFO, CCO, BPO partial extracts + NOTICE | generated from pins; digest-checked |
 | `config/` | layout contract, pins, manifests, baseline, digest | see `docs/DEVELOPMENT.md` |
 | `tools/`, `tests/` | ARO's generic tooling, adapted | the suite and CI |
@@ -51,9 +51,11 @@ evidence the checks work.
   setup matches the inventory's digest, and the v0.1 package passes its own
   `SHA256SUMS.txt` (`tests/test_imported_artifacts.py`).
 - **The wellformedness shapes fire,** on the fixture, constraint by constraint, and do not
-  fire on the positive controls (`tests/test_ontology_checks.py`). With the namespace filter
-  pointed elsewhere they select nothing, which is shown rather than assumed
-  (`tests/test_namespace.py`).
+  fire on the positive controls (`tests/test_ontology_checks.py`). With a namespace filter
+  pointed elsewhere they select nothing, which is shown rather than assumed, once per
+  namespace each shape set filters on (`tests/test_namespace.py`).
+- **The vocabulary shapes fire** (P4): each of 47 constraint messages on the fixture case
+  named for it, and none on the positive controls (`tests/test_ontology_checks.py`).
 
 ## 4. Where the specification stands
 
@@ -69,11 +71,14 @@ evidence, and migration of BPO existential restrictions.
 ### 5.1 The namespace is provisional
 
 BCO terms are to be authored in `https://fandaws.com/ontology/bco#`, the architect's
-choice of 2026-10-23 pending **RP-5**. The spec writes them as `ex:` in BPO's
-`http://example.org/apqc#`. When RP-5 is decided, change `AUTHORED_NAMESPACE` in
-`tools/ontology/validate.py` and the two SPARQL targets in
-`shapes/wellformedness_shapes.ttl` in one commit; `tests/test_namespace.py` fails until
-both agree. The module headers name the provisional namespace in comments too.
+choice of 2026-10-23 pending **RP-5**; ADR-003 D1 adds four sibling namespaces for the
+vocabulary (`bco-metamodel#`, `bco-catalog#`, `bco-sources#`, `bco-agents#`). The spec
+writes terms as `ex:` in BPO's `http://example.org/apqc#`. When RP-5 is decided, change
+`AUTHORED_NAMESPACES` in `tools/ontology/validate.py`, `NAMESPACES` in
+`tools/vocab/build.py`, and every SPARQL filter in `shapes/wellformedness_shapes.ttl` and
+`shapes/vocabulary_shapes.ttl` in one commit; `tests/test_namespace.py` fails until all
+agree. The module headers and the site's IRI notice name the provisional namespace in prose
+too.
 
 ### 5.2 BPO is vendored from one file
 
@@ -178,9 +183,9 @@ controlled vocabulary (P3)" says how. State at P3:
   Business Capability, the seven description-layer classes, and Authorization Record.
   Two template rows are excluded by rule. The coverage check (`D4-row-uncovered`) starts
   with the first metamodel record, so P5 brings all nine.
-- **Outside the gate.** The vocabulary is not an `ontology-module`: it is not in the
-  SHACL data graph, the corpus digest or the site. `AUTHORED_NAMESPACES`, the
-  vocabulary shapes and the Vocabulary page are P4.
+- **Inside the gate since P4.** The vocabulary is not an `ontology-module`, so it is
+  not in the corpus digest; since P4 it is in the SHACL data graph and on the site. See
+  section 5.11.
 - **`bco:` holds 19 annotation properties and `bco:PCFCode`,** declared in the generated
   `vocab/generated/bco-vocabulary.ttl`, as ADR-003 D1 places them. They are not in
   `ontology/`, and no class is minted.
@@ -192,6 +197,31 @@ controlled vocabulary (P3)" says how. State at P3:
 - **LinkML runs in its own CI job** (`vocab-schema`, `requirements-vocab.txt`, 91
   packages). How the pin enters the repository is proposed on the P3 pull request, and
   the architect's acceptance decides it.
+
+### 5.11 The vocabulary is checked and published; there is still nothing in it (P4)
+
+P4 widened `AUTHORED_NAMESPACE` to the list `AUTHORED_NAMESPACES` (ADR-003 D1), moved the
+wellformedness concept target to `bco-metamodel#` and `bco-catalog#`, put the generated
+vocabulary into the validation data graph (layout `vocabulary: true`), added
+`shapes/vocabulary_shapes.ttl` with its fixture, and added the site's Vocabulary page.
+State at P4:
+
+- **The concept shapes conform vacuously.** There is no metamodel or catalog concept
+  until P5; only the fixture shows those 21 constraints work.
+- **The source-record and agent shapes run on real data** -- 63 records, 2 agents -- and
+  find nothing. A test strips every citation in memory to show all 63 are selected.
+- **Baseline:** `validation.vocabulary` 0 and `validation.wellformedness` 0 authored
+  findings.
+- **Not in the corpus digest,** deliberately: the vocabulary is its own generated
+  measurement, and the sources graph would tie the ontology's digest to the register.
+- **What the shapes do not check:** the PCF lexical form (assumed by the build); that a
+  ratification act exists and lists the record (the build checks that against the
+  repository's history); `prov:wasRevisionOf` chains and record digests;
+  `dcterms:created`; `skos:broader` pointing at a catalog concept; a `skos:Concept` minted
+  in `bco#`, which is outside both populations and is reported by neither shape set.
+- **The site page** reads the generated Turtle, never the YAML; it shows citations only
+  for register entries a concept cites, so today it shows none. Vocabulary concepts are not
+  in the explorer's term index.
 
 ## 6. Outside the repository
 

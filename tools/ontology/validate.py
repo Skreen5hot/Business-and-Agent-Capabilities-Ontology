@@ -25,8 +25,9 @@ not optional.
 
 SCOPE
 
-The data graph is the authored ontology *plus* the vendored upstream
-extracts. Both are needed: a shape asking whether a class reaches
+The data graph is the authored ontology, the generated controlled
+vocabulary (layout components marked `vocabulary: true`, ADR-003; P4) and
+the vendored upstream extracts. Both are needed: a shape asking whether a class reaches
 cco:ont00001379 through subClassOf has nothing to walk without CCO, and
 answers "no" for every subject. That report is indistinguishable from a
 real defect, and in the Application Requirement Ontology, where this
@@ -35,8 +36,9 @@ property of the scope.
 
 Loading the extracts creates the opposite risk, so violations are split
 by whose term the focus node is. A violation against an upstream IRI is a
-finding about the extract; only violations against terms this repository
-authored are findings about this ontology.
+finding about the extract; every other violation -- against an ontology
+term or a vocabulary record in any of AUTHORED_NAMESPACES -- is a finding
+about this repository.
 """
 
 from __future__ import annotations
@@ -129,13 +131,25 @@ def run(data, shapes) -> dict:
 
 PINS = "config/upstream-sources.yaml"
 
-#: The namespace this repository mints terms in. Provisional: RP-5 asks
-#: for a permanent namespace before release, and the architect's choice of
-#: 2026-10-23 (docs/decisions) is to author under this one until then.
-#: It is the one string the wellformedness shapes filter on, and
-#: tests/test_namespace.py requires the two to agree -- a SPARQL filter on
-#: a stale namespace string selects nothing and reports success.
-AUTHORED_NAMESPACE = "https://fandaws.com/ontology/bco#"
+#: The namespaces this repository mints IRIs in: exactly ADR-003 D1's
+#: table, in its order. The first is the ontology's own (TBox) namespace,
+#: the architect's provisional choice of 2026-10-23 pending RP-5; the other
+#: four hold the controlled vocabulary -- metamodel and catalog concepts,
+#: source records and declared agents. Siblings, not nested: none is a
+#: prefix of another, so a STRSTARTS filter on one can never select
+#: another's terms (tests/test_namespace.py checks this).
+#:
+#: The SPARQL in the shapes names these strings inside literals, and
+#: tests/test_namespace.py requires the shapes and this list to agree --
+#: a filter on a stale namespace string selects nothing and reports
+#: success.
+AUTHORED_NAMESPACES = (
+    "https://fandaws.com/ontology/bco#",
+    "https://fandaws.com/ontology/bco-metamodel#",
+    "https://fandaws.com/ontology/bco-catalog#",
+    "https://fandaws.com/ontology/bco-sources#",
+    "https://fandaws.com/ontology/bco-agents#",
+)
 
 
 def _upstream() -> dict:
@@ -158,11 +172,18 @@ def _upstream() -> dict:
         raise SystemExit(
             PINS + " declares no upstream, so every violation would be "
             "attributed to this repository whoever's term it is against")
-    if AUTHORED_NAMESPACE in found:
-        raise SystemExit(
-            "%s is pinned as an upstream namespace and is also the one this "
-            "repository authors in; the two cannot be told apart"
-            % AUTHORED_NAMESPACE)
+    for authored in AUTHORED_NAMESPACES:
+        # Attribution below is by string prefix, so overlap in either
+        # direction -- not only equality -- would hand one side's
+        # violations to the other.
+        clash = sorted(upstream for upstream in found
+                       if authored.startswith(upstream)
+                       or upstream.startswith(authored))
+        if clash:
+            raise SystemExit(
+                "%s is one of the namespaces this repository authors in, "
+                "and overlaps the pinned upstream namespace(s) %s; the two "
+                "cannot be told apart" % (authored, clash))
     return found
 
 
@@ -236,8 +257,8 @@ def vendoring() -> dict:
     }
 
 
-def authored_namespace() -> str:
-    return AUTHORED_NAMESPACE
+def authored_namespaces() -> tuple:
+    return AUTHORED_NAMESPACES
 
 
 def passed_of(rungs: dict) -> bool:
@@ -258,6 +279,12 @@ def passed_of(rungs: dict) -> bool:
 def measure() -> dict:
     root = layout.repository_root()
     scope = layout.ontology_files()
+    # The generated vocabulary (ADR-003; P4). In the data graph, so its
+    # concepts, source records and agents are checked, and a violation
+    # against one counts as an authored finding -- none of its namespaces
+    # is upstream. Not in `scope`, which is what the corpus digest
+    # measures: see layout.vocabulary_files.
+    vocabulary = layout.vocabulary_files()
     vendored = layout.vendored_files()
     fixture_paths = fixtures()
     sets = shape_sets()
@@ -268,7 +295,7 @@ def measure() -> dict:
             "no test-fixture component is declared, so every shape set "
             "below would report a green result with nothing behind it")
 
-    data = load(list(scope) + list(vendored))
+    data = load(list(scope) + list(vocabulary) + list(vendored))
     bad = load(fixture_paths)
     vocabularies = unresolved_vocabularies(data)
     missing = sorted(name for name, info in vocabularies.items()
@@ -310,11 +337,13 @@ def measure() -> dict:
             "fixture": {
                 "conforms": against_fixture["conforms"],
                 "violations": len(against_fixture["violations"]),
-                # Not truncated as tightly as the corpus detail above.
-                # This list is the evidence that each constraint fires,
-                # and a cap short enough to hide one of them would make
-                # the falsification report a subset of itself.
-                "detail": against_fixture["violations"][:60],
+                # Not truncated at all. This list is the evidence that
+                # each constraint fires, and a cap short enough to hide
+                # one of them would make the falsification report a
+                # subset of itself. It was capped at 60 until P4: every
+                # fixture is loaded against every shape set, and the
+                # vocabulary shapes alone report more than that.
+                "detail": against_fixture["violations"],
             },
             # The fixture conforming means the shapes did not fire on data
             # built to break them, which is a broken check reporting
@@ -329,6 +358,11 @@ def measure() -> dict:
         "generated_by": GENERATOR,
         "scope": {
             "data_files": len(scope),
+            "vocabulary_files": [p.relative_to(root).as_posix()
+                                 for p in vocabulary],
+            # What was actually loaded, so a test can tell a file listed
+            # here from a file in the graph the shapes ran over.
+            "data_triples": len(data),
             "vendored_files": [p.relative_to(root).as_posix()
                                for p in vendored],
             "fixtures": [p.relative_to(root).as_posix()
@@ -449,7 +483,7 @@ def as_baseline(record: dict, reasons: dict) -> dict:
             "Findings this repository is known to carry. The gate requires "
             "reality to match: more is a regression, fewer means re-record "
             "so the reduction appears in a diff. These are defects in the "
-            "ontology, not in the tools."),
+            "ontology or the generated vocabulary, not in the tools."),
         "rungs": {
             name: dict({"authored_findings":
                         rung["corpus"]["against_authored_terms"]},
@@ -514,8 +548,10 @@ def main(argv=None) -> int:
     args = ap.parse_args(argv)
 
     record = measure()
-    print("  %d data file(s) + %d vendored extract(s), %d shape set(s)"
+    print("  %d data file(s) + %d vocabulary file(s) + %d vendored "
+          "extract(s), %d shape set(s)"
           % (record["scope"]["data_files"],
+             len(record["scope"]["vocabulary_files"]),
              len(record["scope"]["vendored_files"]), len(record["rungs"])))
     vendored = record["vendoring"]
     if vendored.get("available"):

@@ -85,10 +85,14 @@ Before the first term is minted:
    architect ratifies it (RP-1, RP-2, RP-7 to RP-10 pending). Record the act in
    `docs/decisions/`, and land the ADR itself under `docs/adr/` (spec §2).
 2. **The namespace is the provisional one.** Author in `https://fandaws.com/ontology/bco#`,
-   not the spec's `ex:`. That string appears in exactly two places — `AUTHORED_NAMESPACE`
-   in `tools/ontology/validate.py` and the SPARQL targets in
-   `shapes/wellformedness_shapes.ttl` — and `tests/test_namespace.py` requires them to
-   agree. When RP-5 mints the permanent namespace, change both in one commit.
+   not the spec's `ex:`. It is the first of `AUTHORED_NAMESPACES` in
+   `tools/ontology/validate.py`, ADR-003 D1's five (the other four are the vocabulary's,
+   minted only by `tools/vocab/build.py`). The shapes' SPARQL filters name the same strings
+   inside literals -- `shapes/wellformedness_shapes.ttl` names `bco#`, `bco-metamodel#` and
+   `bco-catalog#`; `shapes/vocabulary_shapes.ttl` names all five -- and
+   `tests/test_namespace.py` requires the list, the shapes and `tools/vocab/build.py`'s
+   `NAMESPACES` to agree, and shows, filter by filter, that a stale string selects nothing.
+   When RP-5 mints permanent namespaces, change all of them in one commit.
 3. **BPO terms are referenced, not redeclared.** A realizing act type is an `ex:` IRI
    from the vendored BPO extract. If the term you need is not in
    `vendor/bpo/bpo-ext-bco-extract.ttl`, re-vendor (below); if it lives in a BPO file
@@ -154,6 +158,10 @@ letting a file inherit a guess.
 that break it, each named for the constraint it targets, plus positive controls that must
 survive. Declare the fixture as its own `test-fixture` component; `validate.py` loads every
 one the contract declares.
+
+`shapes/vocabulary_shapes.ttl` with `shapes/vocabulary_bad_examples.ttl` (P4) is the
+worked example: one case per constraint, named for it, and `VOCABULARY_CONSTRAINTS` in
+`tests/test_ontology_checks.py` mapping each message to the focus node it must fire on.
 
 The spec's CAP requirements (CAP-01 to CAP-29, §6) are the obvious next set. Each row of
 that table already names a falsifying case — the "Fixture (fails unless noted)" column —
@@ -257,6 +265,19 @@ no navigation entry reaches and a placeholder nothing fills.
 either in one language stops it, because which one is published would otherwise be
 decided by traversal order. This will matter the day the first BCO term lands.
 
+**The Vocabulary page (P4)** is `site/pages/vocabulary.html`, filled by
+`vocabulary_values` in `tools/site/build_site.py` from the generated Turtle
+(`layout.vocabulary_files()`), never from `vocab/*.yaml` -- a test records every file the
+build opens and refuses one. It shows the authored namespaces (prefixes read from the
+Turtle's own bindings), both schemes, each concept's labels, definition, derived status,
+notation, designated class, drafting agent and sources (SRC id, relation, locator,
+departure note), the citations of only those register entries a concept cites -- the full
+register is not published; that is the architect's call -- and the declared agents. While
+there is no concept it shows the `vocabulary_empty` notice from `site.json`. A concept in
+no scheme or two, or with no label, definition or status, stops the build. Vocabulary
+concepts are not in the explorer's `data/terms.json`; that was optional in P4 and is not
+done.
+
 **Deployment** is from the artifact the checks ran against, after a second build on the
 same runner has produced an identical tree. Pull requests build, check, and upload a
 preview artifact; only `main` deploys.
@@ -336,8 +357,9 @@ py -3.12 -m venv .venv-vocab
 ```
 
 The three YAML files must exist; an absent file is a finding, not an empty list. The
-vocabulary is not an `ontology-module`: it is outside the SHACL data graph, the corpus
-digest and the wellformedness population until P4 widens `AUTHORED_NAMESPACES`.
+vocabulary is not an `ontology-module`, so it is not in the corpus digest. Since P4 its
+generated Turtle is in the SHACL data graph and the wellformedness population -- see "The
+vocabulary in the validation ladder (P4)" below.
 
 **The metamodel comes from section 4 (D4).** `tools/vocab/spec_terms.py` reads every
 table in `## 4. Terms` whose header is `Term | Definition | Parent(s) | Does not imply`.
@@ -404,6 +426,43 @@ re-checks everything it says, so the main suite never imports LinkML.
 Schema three times (twice from the root, once from a copy at another path), requires the
 LF bytes to match the committed file, and runs `linkml validate` over the authored files
 and 33 cases built to break the schema. `gen-shacl` and `gen-owl` are never run.
+
+---
+
+## The vocabulary in the validation ladder (P4)
+
+**How it gets in.** The five generated files in `vocab/generated/` carry `vocabulary: true`
+in `config/repository-layout.yaml`; `layout.vocabulary_files()` returns them, and
+`tools/ontology/validate.py` loads them into the data graph beside the ontology modules and
+the vendored extracts. Only a `generated-artifact` may carry the attribute. A violation
+against any IRI in `AUTHORED_NAMESPACES` -- a concept, a source record, an agent -- counts
+as an authored finding. `tools/ontology/vendor_upstream.py` seeds from them too, so an
+upstream term a concept names (a section 4 parent, a catalog genus) gets vendored.
+
+**Not in the corpus digest,** on purpose. The vocabulary is its own generated measurement:
+`tools/vocab/build.py` rebuilds it and compares it byte for byte. And `bco-sources.ttl` is
+generated from the citation register, so folding it into the digest would move the
+ontology's measure on every register edit -- the same reason the vendored extracts are kept
+out.
+
+**Two shape sets see it.**
+
+| Shapes | Population |
+|---|---|
+| `wellformedness_shapes.ttl` | `owl:Class` in `bco#`; `skos:Concept` in `bco-metamodel#` and `bco-catalog#` (D1). Not sources or agents (D8) |
+| `vocabulary_shapes.ttl` | concepts (scheme, tagged prefLabel per language, definition, no stored narrower, derived status, deprecation iff replacement, ratified only with a citation, a declared drafting agent); metamodel concepts' designated class; catalog notations typed `bco:PCFCode`; source references (resolves to a `bcos:` record, locator, relation enum, `departs-from` with a note and a claim); every subject in `bcos:` and `bcoa:`; persons named; software agents with a model identifier acting for a declared person; ratification references with an act path, a 40-hex commit and a 64-hex digest other than the empty file's |
+
+`vocabulary_shapes.ttl` is hand-written (P2: `gen-shacl` is no-go), every constraint has a
+fixed `sh:message` with no substitution, and `tests/test_ontology_checks.py` maps every
+message to its case in `shapes/vocabulary_bad_examples.ttl` and requires it to fire on that
+focus node. Note that `validate.py` runs every shape set against **all** fixtures loaded
+together, so a case in one fixture is also seen by the other shape set; the positive-control
+checks are per rung.
+
+**What the real data shows at P4:** the concept shapes conform vacuously -- there are no
+concepts until P5 -- and only the fixture shows they work. The source-record and agent shapes
+run over the 63 records and 2 agents and find nothing; `test_the_real_records_and_agents_are_selected`
+strips every citation in memory to show all 63 records really are selected.
 
 ---
 

@@ -13,14 +13,21 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
   No BCO ontology term exists. The only `bco:` IRIs with triples are the controlled
   vocabulary's annotation properties and the `bco:PCFCode` datatype, declared in the generated
   `vocab/generated/bco-vocabulary.ttl` (accepted 2026-10-24, `docs/decisions/2026-10-24-p3-accepted.md`).
+  The vocabulary has no concepts until P5; its generated Turtle is in the validation data graph
+  (layout `vocabulary: true`) under `shapes/vocabulary_shapes.ttl`, and not in the corpus digest.
 - `drafts/BusinessCapabilityOntology_draft_v0.1.0/` is preserved byte-for-byte and checked
   against its own checksums. **Never edit it**, and never load its Turtle as ontology.
 
 ## Rules that are easy to break
 
-- **Namespace.** Author BCO terms in `https://fandaws.com/ontology/bco#` (provisional,
-  pending RP-5). The spec writes them as `ex:`, which is BPO's namespace — do not copy spec
-  Turtle examples verbatim. Reference BPO act types by their `ex:` IRIs; never redeclare them.
+- **Namespaces.** This repository mints IRIs only in the five namespaces of ADR-003 D1, listed
+  as `AUTHORED_NAMESPACES` in `tools/ontology/validate.py` (all provisional, pending RP-5):
+  `https://fandaws.com/ontology/bco#` for ontology terms; `bco-metamodel#` and `bco-catalog#`
+  for vocabulary concepts; `bco-sources#` and `bco-agents#` for source records and agents.
+  Vocabulary IRIs are minted by `tools/vocab/build.py`, never by hand. The spec writes terms
+  as `ex:`, which is BPO's namespace — do not copy spec Turtle examples verbatim. Reference BPO
+  act types by their `ex:` IRIs; never redeclare them. A namespace change edits the list and
+  every shape's SPARQL filter in one commit; `tests/test_namespace.py` fails until they agree.
 - **Every tracked file is declared** in `config/repository-layout.yaml` with a role. A new
   file without a declaration fails the suite.
 - **A new shape set arrives with its negative fixture** and positive controls in the same
