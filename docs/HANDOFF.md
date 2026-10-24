@@ -34,6 +34,7 @@ evidence the checks work.
 | `tools/`, `tests/` | ARO's generic tooling, adapted | the suite and CI |
 | `docs/decisions/` | the architect's acts and choices, verbatim | one entry: setup choices |
 | `docs/sources/` | citation register of 63 sources on business capability, with the research notes behind it. The entries are data (`register.yaml`), the analysis prose is `register-companion.md`, and the Markdown register is generated from both by `tools/sources/build_register.py` | research input, not evidence; entries marked S, K or L are unverified against their primary text. The register's rules (claim status, quote length and keys, SRC ids, entry count, freshness) are hard failures (`tests/test_sources_register.py`) |
+| `vocab/`, `tools/vocab/`, `config/vocab-schema.*`, `requirements-vocab.txt` | the controlled-vocabulary build (ADR-003, P3): authored YAML, generated Turtle in `vocab/generated/`, the LinkML schema and its JSON Schema | the tool and its checks; **no terms yet** (P5). See section 5.10 |
 | `communications/` | messages to and from BPO and ARO, under `communications/README.md` | checked by `tools/communications.py`; the vendoring-pin request to BPO was acknowledged (BPO `8f6622c`), and BPO announced a namespace move to `https://fandaws.com/ontology/bpo#` |
 | `docs/ARTIFACT-INVENTORY.md`, `docs/artifact-manifest.json` | the 2026-10-22 import record | held to its digests by a test |
 
@@ -148,8 +149,9 @@ P1 of the controlled-vocabulary plan made `docs/sources/register.yaml` the sourc
 truth for the 63 entries, with the Markdown generated from it (ADR-003 D6, which is
 still PROPOSED). What it does not do yet:
 
-- **No RDF.** The `bco-sources#` records ADR-003 D8 describes are P3/P4; nothing
-  reads the register as a graph, and no shape checks it.
+- **RDF since P3, no shape yet.** `tools/vocab/build.py` generates the `bcos:` records
+  ADR-003 D8 describes into `vocab/generated/bco-sources.ttl` (id, citation, claim
+  statuses); the shape that checks them is P4.
 - **Claims are one per verified part, not per assertion.** Each claim carries the
   verification status the Markdown gave the entry (83 claims across 63 entries), with a
   `scope` and a `note`. It has no locator and no key. A `departs-from` in P3 that needs
@@ -161,6 +163,35 @@ still PROPOSED). What it does not do yet:
 - **Two entries broke the one-quote rule** when converted (SRC-GOV-01, SRC-OG-02). The
   second quotation in each was paraphrased; the PR that made the register data lists
   both.
+
+### 5.10 The vocabulary tool exists; the vocabulary does not (P3)
+
+`tools/vocab/build.py` turns `vocab/{metamodel,catalog,agents}.yaml` into five Turtle
+files in `vocab/generated/`, committed and compared with a fresh build in CI and in
+`tests/test_vocab.py`. ADR-003 D1-D9 are enforced there; `docs/DEVELOPMENT.md` "The
+controlled vocabulary (P3)" says how. State at P3:
+
+- **No terms.** `vocab/metamodel.yaml` and `vocab/catalog.yaml` hold empty lists. The
+  generated metamodel and catalog files carry their scheme and nothing else. Every check
+  is exercised by fixtures built in the tests, not by real records.
+- **Section 4 has 9 concrete rows**, not the 8 the approved plan's P5 row names:
+  Business Capability, the seven description-layer classes, and Authorization Record.
+  Two template rows are excluded by rule. The coverage check (`D4-row-uncovered`) starts
+  with the first metamodel record, so P5 brings all nine.
+- **Outside the gate.** The vocabulary is not an `ontology-module`: it is not in the
+  SHACL data graph, the corpus digest or the site. `AUTHORED_NAMESPACES`, the
+  vocabulary shapes and the Vocabulary page are P4.
+- **`bco:` holds 19 annotation properties and `bco:PCFCode`,** declared in the generated
+  `vocab/generated/bco-vocabulary.ttl`, as ADR-003 D1 places them. They are not in
+  `ontology/`, and no class is minted.
+- **The PCF lexical form is assumed** (five digits), not checked against the PCF 7.4
+  workbook, which is licensed and not here.
+- **D3 history is declared, not verified.** A record's `revises` names the previous
+  record's digest and the graph links the two; nothing yet checks that digest against
+  the file's git history.
+- **LinkML runs in its own CI job** (`vocab-schema`, `requirements-vocab.txt`, 91
+  packages). How the pin enters the repository is proposed on the P3 pull request, and
+  the architect's acceptance decides it.
 
 ## 6. Outside the repository
 

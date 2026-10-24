@@ -1,0 +1,18 @@
+# Declared agents (bcoa:), ADR-003 D8. Edited by hand; built by
+# tools/vocab/build.py into vocab/generated/bco-agents.ttl.
+#
+# A Person has an id and a name. A SoftwareAgent also has its exact model
+# identifier -- never a guessed one -- and the declared Person it acted
+# on behalf of. drafted_by may name either; an act that sets status may
+# be attributed only to a Person.
+
+version: 1
+agents:
+  - id: aaron-damiano
+    type: Person
+    name: Aaron Damiano
+  - id: claude-opus-5-5
+    type: SoftwareAgent
+    name: Claude Code (claude-opus-5-5)
+    model: claude-opus-5-5
+    acted_on_behalf_of: aaron-damiano

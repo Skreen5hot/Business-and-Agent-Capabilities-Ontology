@@ -1,0 +1,25 @@
+# Catalog concept records (bcoc:). Edited by hand; built by
+# tools/vocab/build.py into vocab/generated/bco-catalog.ttl.
+#
+# Empty in P3; the pilot terms arrive in P5.
+#
+#   - id: bcoc:TreasuryManagement
+#     pref_label:                       # one per language; English required
+#       - {value: Treasury Management, language: en}
+#     definition: >-                    # English, genus-differentia:
+#       A ... that ...                  #   "A <genus> that <differentia>"
+#     genus: cco:ont00000568            # a BFO/CCO class a vendored extract describes
+#     broader: [bcoc:FinancialManagement]   # broader only; narrower is refused
+#     notation: "10759"                 # PCF 7.4 element ID, quoted (bco:PCFCode)
+#     designates_class: bco:TreasuryManagementCapability   # optional
+#     sources: [...]                    # as in metamodel.yaml
+#     drafted_by: bcoa:claude-opus-5-5
+#     created: "2026-11-01T00:00:00Z"
+#     authored_status: Draft
+#
+# The definition must share no 6-word run with any quote in the register
+# (D6's tripwire). Never authored: lifecycle_status, owl:deprecated,
+# narrower.
+
+version: 1
+concepts: []

@@ -1,0 +1,30 @@
+# Metamodel concept records (bcom:), ADR-003 D4. Edited by hand; built by
+# tools/vocab/build.py into vocab/generated/bco-metamodel.ttl.
+#
+# Empty in P3: the tool ships before the terms, which arrive in P5. While
+# this list is empty the build does not require a record per section 4
+# row; once it holds one concept, every concrete row of specification
+# section 4 needs a record and every record must name a row.
+#
+# One record per row:
+#
+#   - id: bcom:CapabilityMap            # bcom:<the row's ex: local name>
+#     spec_row: ex:CapabilityMap        # the row, as section 4 writes it
+#     sources:                          # at least one (D6)
+#       - source: SRC-OMG-03            # an id in docs/sources/register.yaml
+#         locator: BACM 1.1, clause 7.2 # required
+#         relation: departs-from        # adapted-from | consistent-with | departs-from
+#         departure_note: ...           # departs-from only, required there
+#         claim: 1                      # departs-from only: the entry's claim, at V or P
+#     drafted_by: bcoa:claude-opus-5-5  # a declared agent (vocab/agents.yaml)
+#     created: "2026-11-01T00:00:00Z"   # quoted, UTC
+#     authored_status: Draft            # Draft or Candidate, nothing else
+#     # optional: ratified_by {path, commit, sha256}, is_replaced_by,
+#     #           revises (the previous record digest), change_note [..]
+#
+# Never authored: definition (it is section 4's), prefLabel and
+# designatesClass (derived from the row), lifecycle_status and
+# owl:deprecated (derived, D5).
+
+version: 1
+concepts: []

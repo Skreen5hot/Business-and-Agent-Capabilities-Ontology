@@ -8,6 +8,8 @@ __pycache__/
 .venv/
 # The P2 LinkML trial's environment (trials/p2-linkml/requirements-linkml-trial.txt).
 .venv-linkml/
+# The vocab job's LinkML environment (requirements-vocab.txt).
+.venv-vocab/
 venv/
 .env
 *.log

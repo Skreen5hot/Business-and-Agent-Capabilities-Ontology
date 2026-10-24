@@ -1,0 +1,405 @@
+# The authored vocabulary YAML, described in LinkML (ADR-003 D9, as
+# ratified; LinkML go-limited by docs/decisions/2026-10-24-p2-linkml-signoff.md).
+#
+# What this file is for: the shape of vocab/metamodel.yaml,
+# vocab/catalog.yaml and vocab/agents.yaml, as readable documentation and
+# as the input to the one generator adopted, gen-json-schema, whose output
+# is committed as config/vocab-schema.json. `linkml validate` runs it over
+# the authored files in the vocab CI job (tools/vocab/schema_check.py).
+#
+# What it is not: the build. Every rule LinkML cannot carry is in
+# tools/vocab/build.py, which also re-checks every rule written here, so
+# the main suite never needs LinkML installed: derived status (D5), the
+# citation check against git (D2), D3 history, the section 4 extraction
+# (D4), claim status and the quote tripwire (D6), declared agents (D8),
+# content-minted IRIs (D9). gen-shacl and gen-owl are no-go and never run.
+#
+# Derived from trials/p2-linkml/bco_vocab_trial.yaml. Corrected to the
+# ratified ADR-003 and to P3's layout:
+#   - three documents, one root class each, not one ConceptCollection;
+#   - BuiltConceptStatus and LifecycleStatus removed: build output is not
+#     authored, and an authored status is refused by the classes being
+#     closed (additionalProperties false), never by value_presence ABSENT,
+#     which the trial measured as unreliable for more than one slot;
+#   - a metamodel record carries no prefLabel, inScheme or designatesClass:
+#     section 4 supplies them (D4), so it names its row by its ex: IRI;
+#   - ratified_by is path, commit and sha256 only. The record digest lives
+#     in the act, per concept (the batch-digest confirmation of
+#     2026-10-23), not in the concept's citation of it;
+#   - locator is required of every source reference; departs-from also
+#     requires a departure_note and the claim it rests on;
+#   - catalog definitions name their genus; revises and change_note
+#     carry D3's record history; agents are a document of their own.
+
+id: https://fandaws.com/ontology/bco/vocab-schema
+name: bco_vocab
+title: BCO controlled vocabulary, authored YAML
+description: >-
+  The authored records of the BCO controlled vocabulary (ADR-003): metamodel
+  and catalog concepts with their provenance, and the declared agents.
+license: MIT
+version: 1.0.0
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  bco: https://fandaws.com/ontology/bco#
+  bcom: https://fandaws.com/ontology/bco-metamodel#
+  bcoc: https://fandaws.com/ontology/bco-catalog#
+  bcos: https://fandaws.com/ontology/bco-sources#
+  bcoa: https://fandaws.com/ontology/bco-agents#
+  bcovocab: https://fandaws.com/ontology/bco/vocab-schema#
+  skos: http://www.w3.org/2004/02/skos/core#
+  dcterms: http://purl.org/dc/terms/
+  prov: http://www.w3.org/ns/prov#
+
+default_prefix: bcovocab
+default_range: string
+
+imports:
+  - linkml:types
+
+types:
+  PCFCode:
+    typeof: string
+    uri: bco:PCFCode
+    description: >-
+      ADR-003 D7: an APQC PCF 7.4 Cross-Industry element ID. Five digits is
+      assumed, not yet checked against the PCF 7.4 workbook.
+    pattern: "^[0-9]{5}$"
+
+  Sha256Hex:
+    typeof: string
+    description: >-
+      A lowercase SHA-256. The empty-file digest is refused by name
+      (ADR-003 D2).
+    pattern: "^(?!e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855$)[0-9a-f]{64}$"
+
+  GitCommit:
+    typeof: string
+    description: A full 40-character commit SHA (ADR-003 D2).
+    pattern: "^[0-9a-f]{40}$"
+
+  UtcTimestamp:
+    typeof: string
+    description: A quoted UTC timestamp, YYYY-MM-DDTHH:MM:SSZ.
+    pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+
+enums:
+  AuthoredStatus:
+    description: ADR-003 D5. The only statuses an author may write.
+    permissible_values:
+      Draft:
+      Candidate:
+
+  SourceRelation:
+    description: How a concept stands to a registered source (ADR-003 D6).
+    permissible_values:
+      adapted-from:
+      consistent-with:
+      departs-from:
+
+  AgentType:
+    description: ADR-003 D8. prov:Person or prov:SoftwareAgent.
+    permissible_values:
+      Person:
+      SoftwareAgent:
+
+slots:
+  version:
+    range: integer
+    required: true
+    minimum_value: 1
+    maximum_value: 1
+
+  id:
+    identifier: true
+    range: string
+
+  pref_label:
+    slot_uri: skos:prefLabel
+    range: LanguageTaggedString
+    multivalued: true
+    inlined_as_list: true
+    required: true
+
+  definition:
+    slot_uri: skos:definition
+    range: string
+
+  genus:
+    slot_uri: bco:definitionGenus
+    range: string
+    pattern: "^(cco|obo):[A-Za-z_][A-Za-z0-9_]*$"
+
+  sources:
+    slot_uri: dcterms:source
+    range: SourceReference
+    multivalued: true
+    inlined_as_list: true
+    required: true
+    minimum_cardinality: 1
+
+  drafted_by:
+    slot_uri: prov:wasAttributedTo
+    range: string
+    required: true
+    pattern: "^bcoa:[a-z0-9][a-z0-9-]*$"
+    description: >-
+      A declared agent (ADR-003 D8). That the agent is declared is checked
+      by tools/vocab/build.py.
+
+  created:
+    slot_uri: dcterms:created
+    range: UtcTimestamp
+    required: true
+
+  ratified_by:
+    slot_uri: bco:ratifiedBy
+    range: DecisionCitation
+    inlined: true
+
+  is_replaced_by:
+    slot_uri: dcterms:isReplacedBy
+    range: string
+    pattern: "^bco[mc]:[A-Z][A-Za-z0-9]*$"
+
+  revises:
+    slot_uri: prov:wasRevisionOf
+    range: Sha256Hex
+    description: The record digest of the version this record revises (D3).
+
+  change_note:
+    slot_uri: skos:changeNote
+    range: string
+    multivalued: true
+
+  authored_status:
+    slot_uri: bcovocab:authoredStatus
+    range: AuthoredStatus
+    required: true
+
+  designates_class:
+    slot_uri: bco:designatesClass
+    range: string
+    pattern: "^bco:[A-Z][A-Za-z0-9]*$"
+
+  spec_row:
+    slot_uri: bcovocab:specRow
+    range: string
+    pattern: "^ex:[A-Z][A-Za-z0-9]*$"
+    description: >-
+      ADR-003 D4: the specification section 4 row this metamodel concept
+      wraps, by the ex: IRI the row names.
+
+  broader:
+    slot_uri: skos:broader
+    range: string
+    multivalued: true
+    pattern: "^bcoc:[A-Z][A-Za-z0-9]*$"
+
+  notation:
+    slot_uri: skos:notation
+    range: PCFCode
+
+  value:
+    range: string
+    required: true
+
+  language:
+    range: string
+    required: true
+    pattern: "^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$"
+
+  source:
+    slot_uri: bco:citesSource
+    range: string
+    required: true
+    pattern: "^SRC-[A-Z]+-[0-9]{2}$"
+
+  locator:
+    slot_uri: bco:locator
+    range: string
+    required: true
+
+  relation:
+    slot_uri: bco:relation
+    range: SourceRelation
+    required: true
+
+  departure_note:
+    slot_uri: bco:departureNote
+    range: string
+
+  claim:
+    slot_uri: bco:citesClaim
+    range: integer
+    minimum_value: 1
+
+  path:
+    slot_uri: bco:actPath
+    range: string
+    required: true
+    pattern: "^docs/(decisions|adr)/[A-Za-z0-9._-]+\\.md$"
+
+  commit:
+    slot_uri: bco:actCommit
+    range: GitCommit
+    required: true
+
+  sha256:
+    slot_uri: bco:actSha256
+    range: Sha256Hex
+    required: true
+
+  model:
+    slot_uri: bco:modelIdentifier
+    range: string
+
+  acted_on_behalf_of:
+    slot_uri: prov:actedOnBehalfOf
+    range: string
+    pattern: "^[a-z0-9][a-z0-9-]*$"
+
+  agents:
+    range: Agent
+    multivalued: true
+    inlined_as_list: true
+    required: true
+
+classes:
+  MetamodelFile:
+    description: vocab/metamodel.yaml.
+    slots:
+      - version
+    attributes:
+      concepts:
+        range: MetamodelConcept
+        multivalued: true
+        inlined_as_list: true
+        required: true
+
+  CatalogFile:
+    description: vocab/catalog.yaml.
+    slots:
+      - version
+    attributes:
+      concepts:
+        range: CatalogConcept
+        multivalued: true
+        inlined_as_list: true
+        required: true
+
+  AgentsFile:
+    description: vocab/agents.yaml.
+    slots:
+      - version
+      - agents
+
+  LanguageTaggedString:
+    description: A label and its language tag.
+    slots:
+      - value
+      - language
+
+  VocabularyConcept:
+    abstract: true
+    description: The record every concept carries (ADR-003 D3, D5, D6, D8).
+    slots:
+      - id
+      - sources
+      - drafted_by
+      - created
+      - authored_status
+      - ratified_by
+      - is_replaced_by
+      - revises
+      - change_note
+
+  MetamodelConcept:
+    is_a: VocabularyConcept
+    description: >-
+      A provenance wrapper for one specification section 4 row (bcom:,
+      ADR-003 D4). No definition: the row supplies it.
+    slots:
+      - spec_row
+    slot_usage:
+      id:
+        pattern: "^bcom:[A-Z][A-Za-z0-9]*$"
+      spec_row:
+        required: true
+
+  CatalogConcept:
+    is_a: VocabularyConcept
+    description: A capability in the catalog (bcoc:).
+    slots:
+      - pref_label
+      - definition
+      - genus
+      - broader
+      - notation
+      - designates_class
+    slot_usage:
+      id:
+        pattern: "^bcoc:[A-Z][A-Za-z0-9]*$"
+      definition:
+        required: true
+      genus:
+        required: true
+
+  SourceReference:
+    description: A concept's citation of a register entry (ADR-003 D6).
+    slots:
+      - source
+      - locator
+      - relation
+      - departure_note
+      - claim
+    rules:
+      - description: D6. departs-from needs a departure_note and a claim.
+        preconditions:
+          slot_conditions:
+            relation:
+              equals_string: departs-from
+        postconditions:
+          slot_conditions:
+            departure_note:
+              required: true
+            claim:
+              required: true
+
+  DecisionCitation:
+    description: ADR-003 D2. A decision by path, full commit and SHA-256.
+    slots:
+      - path
+      - commit
+      - sha256
+
+  Agent:
+    description: A declared agent (ADR-003 D8).
+    attributes:
+      id:
+        identifier: true
+        range: string
+        required: true
+        pattern: "^[a-z0-9][a-z0-9-]*$"
+      type:
+        range: AgentType
+        required: true
+      name:
+        range: string
+        required: true
+    slots:
+      - model
+      - acted_on_behalf_of
+    rules:
+      - description: D8. A software agent names its model and its person.
+        preconditions:
+          slot_conditions:
+            type:
+              equals_string: SoftwareAgent
+        postconditions:
+          slot_conditions:
+            model:
+              required: true
+            acted_on_behalf_of:
+              required: true
