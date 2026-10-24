@@ -19,6 +19,107 @@
 @prefix bcos:    <https://fandaws.com/ontology/bco-sources#> .
 @prefix bcoa:    <https://fandaws.com/ontology/bco-agents#> .
 
+bcoc:BusinessModelGovernance bco:currentRecord bcoc:record-f9f7c4274d6728aeb4315418d2752b36a707df953547272bd2bd8a3bf911e9a5 .
+bcoc:BusinessModelGovernance bco:definitionGenus cco:ont00000568 .
+bcoc:BusinessModelGovernance bco:lifecycleStatus "Draft" .
+bcoc:BusinessModelGovernance bco:sourceReference bcoc:source-5db02ae4cf08a4f9adba9cfe1437c7d219e2550f4cc7603b5c53261c2afbe61d .
+bcoc:BusinessModelGovernance bco:sourceReference bcoc:source-6b60380f3c911adfc13c918300eca9ef0460075474a6d4a8451bf151e804c5f3 .
+bcoc:BusinessModelGovernance bco:sourceReference bcoc:source-e500f3cc665a33adaf855057c176f6420a7494678a34717f9e7bbb9af4721cd3 .
+bcoc:BusinessModelGovernance dcterms:created "2026-10-24T12:14:15+00:00"^^xsd:dateTime .
+bcoc:BusinessModelGovernance prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:BusinessModelGovernance rdf:type skos:Concept .
+bcoc:BusinessModelGovernance skos:definition "A business capability, inhering in an organization, that is realized in planned acts by which that organization keeps its business models current, reviewing them against feedback and changing conditions and revising the models in use; acts that first establish this oversight develop the capability and are not, on that ground alone, realizations of it."@en .
+bcoc:BusinessModelGovernance skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:BusinessModelGovernance skos:prefLabel "Business Model Governance"@en .
+
 bcoc:CapabilityCatalogScheme rdf:type skos:ConceptScheme .
 bcoc:CapabilityCatalogScheme skos:definition "The business capabilities the BCO catalogues."@en .
 bcoc:CapabilityCatalogScheme skos:prefLabel "BCO capability catalog scheme"@en .
+
+bcoc:CompetitiveAnalysis bco:currentRecord bcoc:record-cd88f07a188f6c775301c38b837633efd009229049250ecafea1ff5b8ed6b2bb .
+bcoc:CompetitiveAnalysis bco:definitionGenus cco:ont00000568 .
+bcoc:CompetitiveAnalysis bco:lifecycleStatus "Draft" .
+bcoc:CompetitiveAnalysis bco:sourceReference bcoc:source-4eae5ea2af29ee32384e20ceabdfed003c4c167f3eed22d4624f464877b13d85 .
+bcoc:CompetitiveAnalysis bco:sourceReference bcoc:source-6b60380f3c911adfc13c918300eca9ef0460075474a6d4a8451bf151e804c5f3 .
+bcoc:CompetitiveAnalysis bco:sourceReference bcoc:source-e500f3cc665a33adaf855057c176f6420a7494678a34717f9e7bbb9af4721cd3 .
+bcoc:CompetitiveAnalysis dcterms:created "2026-10-24T12:14:15+00:00"^^xsd:dateTime .
+bcoc:CompetitiveAnalysis prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:CompetitiveAnalysis rdf:type skos:Concept .
+bcoc:CompetitiveAnalysis skos:definition "A business capability, inhering in an organization, that is realized in planned acts of analysing that organization's competitors, carried out through coordinated work among its own members rather than resting on one analyst's skill alone."@en .
+bcoc:CompetitiveAnalysis skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:CompetitiveAnalysis skos:prefLabel "Competitive Analysis"@en .
+
+bcoc:CustomerExperienceManagement bco:currentRecord bcoc:record-29e5c822bf21c0cb42ab9eb7ea3a4798e017cf48f97fb8a76f678f8f12d6baf3 .
+bcoc:CustomerExperienceManagement bco:definitionGenus cco:ont00000568 .
+bcoc:CustomerExperienceManagement bco:lifecycleStatus "Draft" .
+bcoc:CustomerExperienceManagement bco:sourceReference bcoc:source-5db02ae4cf08a4f9adba9cfe1437c7d219e2550f4cc7603b5c53261c2afbe61d .
+bcoc:CustomerExperienceManagement bco:sourceReference bcoc:source-6b60380f3c911adfc13c918300eca9ef0460075474a6d4a8451bf151e804c5f3 .
+bcoc:CustomerExperienceManagement bco:sourceReference bcoc:source-e500f3cc665a33adaf855057c176f6420a7494678a34717f9e7bbb9af4721cd3 .
+bcoc:CustomerExperienceManagement dcterms:created "2026-10-24T12:14:15+00:00"^^xsd:dateTime .
+bcoc:CustomerExperienceManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:CustomerExperienceManagement rdf:type skos:Concept .
+bcoc:CustomerExperienceManagement skos:definition "A business capability, inhering in an organization, that is realized in planned acts by which that organization appraises the experience its customers have, sets its strategy for that experience, and designs customer interactions and the structures that support them."@en .
+bcoc:CustomerExperienceManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:CustomerExperienceManagement skos:prefLabel "Customer Experience Management"@en .
+
+bcoc:StrategicPlanning bco:currentRecord bcoc:record-4c2d61cc457cb92bbcb61d38ae06c2d901cf4245d0333149209c4046813e1dd2 .
+bcoc:StrategicPlanning bco:definitionGenus cco:ont00000568 .
+bcoc:StrategicPlanning bco:lifecycleStatus "Draft" .
+bcoc:StrategicPlanning bco:sourceReference bcoc:source-316d8eb7f546ceafc93c21a85abc03543327c0e48e78ca4302671a469758d46c .
+bcoc:StrategicPlanning bco:sourceReference bcoc:source-5db02ae4cf08a4f9adba9cfe1437c7d219e2550f4cc7603b5c53261c2afbe61d .
+bcoc:StrategicPlanning bco:sourceReference bcoc:source-6b60380f3c911adfc13c918300eca9ef0460075474a6d4a8451bf151e804c5f3 .
+bcoc:StrategicPlanning bco:sourceReference bcoc:source-e500f3cc665a33adaf855057c176f6420a7494678a34717f9e7bbb9af4721cd3 .
+bcoc:StrategicPlanning dcterms:created "2026-10-24T12:14:15+00:00"^^xsd:dateTime .
+bcoc:StrategicPlanning prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:StrategicPlanning rdf:type skos:Concept .
+bcoc:StrategicPlanning skos:definition "A business capability, inhering in an organization, that is realized in planned acts by which that organization states its mission, sets its long-term strategic vision, and formulates its enterprise-wide and business-unit strategies."@en .
+bcoc:StrategicPlanning skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:StrategicPlanning skos:prefLabel "Strategic Planning"@en .
+
+bcoc:TreasuryManagement bco:currentRecord bcoc:record-131ebf7f96c2ab3bebe5086b95a58284585261f845125e092bc6a8c4551cb317 .
+bcoc:TreasuryManagement bco:definitionGenus cco:ont00000568 .
+bcoc:TreasuryManagement bco:lifecycleStatus "Draft" .
+bcoc:TreasuryManagement bco:sourceReference bcoc:source-5db02ae4cf08a4f9adba9cfe1437c7d219e2550f4cc7603b5c53261c2afbe61d .
+bcoc:TreasuryManagement bco:sourceReference bcoc:source-6b60380f3c911adfc13c918300eca9ef0460075474a6d4a8451bf151e804c5f3 .
+bcoc:TreasuryManagement bco:sourceReference bcoc:source-e500f3cc665a33adaf855057c176f6420a7494678a34717f9e7bbb9af4721cd3 .
+bcoc:TreasuryManagement dcterms:created "2026-10-24T12:14:15+00:00"^^xsd:dateTime .
+bcoc:TreasuryManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:TreasuryManagement rdf:type skos:Concept .
+bcoc:TreasuryManagement skos:definition "A business capability, inhering in an organization, that is realized in planned acts by which that organization sets the scope and oversight of its treasury operations, tracks and reconciles its cash positions, fixes the policy for investing its funds, and formulates its strategy for hedging financial risk."@en .
+bcoc:TreasuryManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:TreasuryManagement skos:prefLabel "Treasury Management"@en .
+
+bcoc:record-131ebf7f96c2ab3bebe5086b95a58284585261f845125e092bc6a8c4551cb317 bco:recordSha256 "131ebf7f96c2ab3bebe5086b95a58284585261f845125e092bc6a8c4551cb317" .
+bcoc:record-131ebf7f96c2ab3bebe5086b95a58284585261f845125e092bc6a8c4551cb317 rdf:type prov:Entity .
+
+bcoc:record-29e5c822bf21c0cb42ab9eb7ea3a4798e017cf48f97fb8a76f678f8f12d6baf3 bco:recordSha256 "29e5c822bf21c0cb42ab9eb7ea3a4798e017cf48f97fb8a76f678f8f12d6baf3" .
+bcoc:record-29e5c822bf21c0cb42ab9eb7ea3a4798e017cf48f97fb8a76f678f8f12d6baf3 rdf:type prov:Entity .
+
+bcoc:record-4c2d61cc457cb92bbcb61d38ae06c2d901cf4245d0333149209c4046813e1dd2 bco:recordSha256 "4c2d61cc457cb92bbcb61d38ae06c2d901cf4245d0333149209c4046813e1dd2" .
+bcoc:record-4c2d61cc457cb92bbcb61d38ae06c2d901cf4245d0333149209c4046813e1dd2 rdf:type prov:Entity .
+
+bcoc:record-cd88f07a188f6c775301c38b837633efd009229049250ecafea1ff5b8ed6b2bb bco:recordSha256 "cd88f07a188f6c775301c38b837633efd009229049250ecafea1ff5b8ed6b2bb" .
+bcoc:record-cd88f07a188f6c775301c38b837633efd009229049250ecafea1ff5b8ed6b2bb rdf:type prov:Entity .
+
+bcoc:record-f9f7c4274d6728aeb4315418d2752b36a707df953547272bd2bd8a3bf911e9a5 bco:recordSha256 "f9f7c4274d6728aeb4315418d2752b36a707df953547272bd2bd8a3bf911e9a5" .
+bcoc:record-f9f7c4274d6728aeb4315418d2752b36a707df953547272bd2bd8a3bf911e9a5 rdf:type prov:Entity .
+
+bcoc:source-316d8eb7f546ceafc93c21a85abc03543327c0e48e78ca4302671a469758d46c bco:citesSource bcos:SRC-OMG-02 .
+bcoc:source-316d8eb7f546ceafc93c21a85abc03543327c0e48e78ca4302671a469758d46c bco:locator "BMM 1.3, section 8.3.3 (Strategies and Tactics are the categories of Course of Action, and Business Processes realize Courses of Action)" .
+bcoc:source-316d8eb7f546ceafc93c21a85abc03543327c0e48e78ca4302671a469758d46c bco:relation "consistent-with" .
+
+bcoc:source-4eae5ea2af29ee32384e20ceabdfed003c4c167f3eed22d4624f464877b13d85 bco:citesSource bcos:SRC-FO-01 .
+bcoc:source-4eae5ea2af29ee32384e20ceabdfed003c4c167f3eed22d4624f464877b13d85 bco:locator "CCO v2.0 merged file at commit 510dad7 and develop versionIRI 2026-08-13: Organization Capability (ont00000568) definition, and Skill (ont00000089) as the person-borne sibling under Agent Capability" .
+bcoc:source-4eae5ea2af29ee32384e20ceabdfed003c4c167f3eed22d4624f464877b13d85 bco:relation "consistent-with" .
+
+bcoc:source-5db02ae4cf08a4f9adba9cfe1437c7d219e2550f4cc7603b5c53261c2afbe61d bco:citesSource bcos:SRC-FO-01 .
+bcoc:source-5db02ae4cf08a4f9adba9cfe1437c7d219e2550f4cc7603b5c53261c2afbe61d bco:locator "CCO v2.0 merged file at commit 510dad7 and develop versionIRI 2026-08-13: Organization Capability (ont00000568) definition" .
+bcoc:source-5db02ae4cf08a4f9adba9cfe1437c7d219e2550f4cc7603b5c53261c2afbe61d bco:relation "consistent-with" .
+
+bcoc:source-6b60380f3c911adfc13c918300eca9ef0460075474a6d4a8451bf151e804c5f3 bco:citesSource bcos:SRC-IND-02 .
+bcoc:source-6b60380f3c911adfc13c918300eca9ef0460075474a6d4a8451bf151e804c5f3 bco:locator "APQC article summary (capabilities are what is needed to do the work, processes are the work); the full text is members-only and was not read" .
+bcoc:source-6b60380f3c911adfc13c918300eca9ef0460075474a6d4a8451bf151e804c5f3 bco:relation "consistent-with" .
+
+bcoc:source-e500f3cc665a33adaf855057c176f6420a7494678a34717f9e7bbb9af4721cd3 bco:citesSource bcos:SRC-OMG-03 .
+bcoc:source-e500f3cc665a33adaf855057c176f6420a7494678a34717f9e7bbb9af4721cd3 bco:locator "BACM 1.1, section 7.3.2.7 (Capability is identified by the Outcome a business can produce, not by how it is produced)" .
+bcoc:source-e500f3cc665a33adaf855057c176f6420a7494678a34717f9e7bbb9af4721cd3 bco:relation "consistent-with" .

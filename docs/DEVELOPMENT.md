@@ -331,8 +331,12 @@ raises on an unknown id rather than returning the empty list an unverified entry
 
 ## The controlled vocabulary (P3)
 
-ADR-003 is the specification; `tools/vocab/` implements it. P3 ships the tool and
-**no terms**: the metamodel and catalog files hold empty lists until P5.
+ADR-003 is the specification; `tools/vocab/` implements it. P3 shipped the tool with
+no terms. **P5 added the pilot vocabulary:** 9 metamodel concepts, one per concrete
+section 4 row, and 5 catalog concepts (Strategic Planning, Treasury Management,
+Competitive Analysis, Business Model Governance, Customer Experience Management), all
+Draft and none ratified. The catalog records carry no `notation`, `broader` or
+`designates_class`; the header of `vocab/catalog.yaml` says why.
 
 | File | Holds | Edited by |
 |---|---|---|
@@ -375,7 +379,8 @@ row's, verbatim, and its `bco:designatesClass` is `bco:<LocalName>`.
 
 **The staging rule.** Once `vocab/metamodel.yaml` lists one concept, every concrete row
 needs a record (`D4-row-uncovered`) and every record must name a row (`D4-no-row`).
-While the list is empty, coverage is not checked; P5 adds all nine at once.
+While the list is empty, coverage is not checked; P5 added all nine at once, so coverage
+is checked on every build now.
 
 **The concept record digest** is what a ratification act cites, so it is defined
 exactly: the authored YAML mapping minus `ratified_by`, plus -- for a metamodel concept
@@ -459,10 +464,16 @@ focus node. Note that `validate.py` runs every shape set against **all** fixture
 together, so a case in one fixture is also seen by the other shape set; the positive-control
 checks are per rung.
 
-**What the real data shows at P4:** the concept shapes conform vacuously -- there are no
-concepts until P5 -- and only the fixture shows they work. The source-record and agent shapes
-run over the 63 records and 2 agents and find nothing; `test_the_real_records_and_agents_are_selected`
+**What the real data shows at P4:** the concept shapes conformed vacuously -- there were
+no concepts until P5 -- and only the fixture showed they work. The source-record and agent
+shapes run over the 63 records and 2 agents and find nothing; `test_the_real_records_and_agents_are_selected`
 strips every citation in memory to show all 63 records really are selected.
+
+**What the real data shows at P5:** the concept shapes run over 14 real concepts and their
+source references and find nothing, in both rungs (`validation.vocabulary` and
+`validation.wellformedness`, 0 authored findings each). `test_the_real_concepts_and_departures_are_selected`
+strips every definition and every departure note in memory and requires each of the 14
+concepts and each `departs-from` reference to be reported, and nothing else.
 
 ---
 

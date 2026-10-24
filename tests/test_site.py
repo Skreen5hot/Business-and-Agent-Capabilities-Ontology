@@ -278,8 +278,10 @@ def test_the_real_vocabulary_page_matches_the_real_vocabulary(built, repo,
                                                               layout):
     """Read from the generated Turtle: both schemes and both declared
     agents appear, and the empty-state notice shows exactly while no
-    concept exists. At P4 there is none; P5 flips the second half, and
-    this test asserts the flipped state too rather than skipping."""
+    concept exists. Since P5 there are concepts, so the notice is gone,
+    and every concept's English label and every register entry a concept
+    cites is on the page."""
+    import html
     import rdflib
 
     out, _ = built
@@ -287,8 +289,10 @@ def test_the_real_vocabulary_page_matches_the_real_vocabulary(built, repo,
     graph = rdflib.Graph()
     for path in layout.vocabulary_files():
         graph.parse(path, format="turtle")
-    concepts = set(graph.subjects(rdflib.RDF.type, rdflib.URIRef(
-        "http://www.w3.org/2004/02/skos/core#Concept")))
+    skos = "http://www.w3.org/2004/02/skos/core#"
+    bco = "https://fandaws.com/ontology/bco#"
+    concepts = set(graph.subjects(rdflib.RDF.type,
+                                  rdflib.URIRef(skos + "Concept")))
     notice = json.loads((repo / "site/content/site.json").read_text(
         encoding="utf-8"))["notices"]["vocabulary_empty"]["text"]
     for needle in ("BCO metamodel scheme", "BCO capability catalog scheme",
@@ -296,6 +300,19 @@ def test_the_real_vocabulary_page_matches_the_real_vocabulary(built, repo,
                    "https://fandaws.com/ontology/bco-sources#"):
         assert needle in page, needle
     assert (notice in page) == (not concepts), (len(concepts), notice)
+
+    assert len(concepts) == 14, len(concepts)
+    for concept in concepts:
+        labels = [str(o) for o in graph.objects(
+            concept, rdflib.URIRef(skos + "prefLabel"))
+            if getattr(o, "language", None) == "en"]
+        assert len(labels) == 1, (concept, labels)
+        assert html.escape(labels[0], quote=True) in page, labels[0]
+    cited = {str(o).rsplit("#", 1)[1] for o in graph.objects(
+        None, rdflib.URIRef(bco + "citesSource"))}
+    assert cited, "no concept cites a source"
+    for src in cited:
+        assert "<code>%s</code>" % src in page, src
 
 
 def test_the_empty_state_shows_when_there_are_no_concepts(builder,
