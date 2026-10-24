@@ -62,8 +62,11 @@ STATUS (D5) -- derived, never written. In this order:
      finding rather than a fall-through.
   2. Ratified: `ratified_by` cites an act (D2) whose bco-ratification
      block lists this concept's IRI with the SHA-256 of its current
-     record. A listed digest that differs is D3: the record changed after
-     ratification.
+     record, is attributed to a declared Person, records editorial and
+     ontological approval by declared Persons, and names a validation
+     commit main reaches with a non-empty list of passed gates (R6,
+     section 6.3; the format is in citations.py). A listed digest that
+     differs is D3: the record changed after ratification.
   3. Otherwise the authored `authored_status`, Draft or Candidate.
 
 THE METAMODEL STAGING RULE (D4)
@@ -904,14 +907,32 @@ def ratification(repo: Path, citation, iri: str, digest: str, agents: dict,
         findings.append(Finding(error.code, "%s ratified_by: %s"
                                 % (where, error)))
         return False
+    def person(iri: str) -> bool:
+        local = iri[len(BCOA):] if iri.startswith(BCOA) else None
+        return local in agents and agents[local]["type"] == "Person"
+
     agent = act["agent"]
-    local = agent[len(BCOA):] if agent.startswith(BCOA) else None
-    if local not in agents or agents[local]["type"] != "Person":
+    if not person(agent):
         findings.append(Finding(
             "D8-act-agent-not-person",
             "%s: the act %s is attributed to %s, which is not a declared "
             "prov:Person; only a person sets status"
             % (where, citation["path"], agent)))
+        return False
+    # Review R6, 6.3: the approvals an act records are a person's too.
+    for kind, approver in sorted(act["approvals"].items()):
+        if not person(approver):
+            findings.append(Finding(
+                "D8-approver-not-person",
+                "%s: the act %s records the %s approval as %s, which is "
+                "not a declared prov:Person; an approval is a person's"
+                % (where, citation["path"], kind, approver)))
+            return False
+    try:
+        citations.check_validation(repo, act)
+    except citations.CitationError as error:
+        findings.append(Finding(error.code, "%s ratified_by: %s"
+                                % (where, error)))
         return False
     if iri not in act["concepts"]:
         findings.append(Finding(

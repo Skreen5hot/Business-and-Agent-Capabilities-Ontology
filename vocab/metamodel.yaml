@@ -24,6 +24,23 @@
 #     # optional: ratified_by {path, commit, sha256}, is_replaced_by,
 #     #           revises (the previous record digest), change_note [..]
 #
+# ratified_by cites a ratification act: a decision record holding one
+# bco-ratification block (format in tools/vocab/citations.py), with
+#
+#   agent: <the person's full bcoa: IRI>
+#   approvals:                          # R6 section 6.3; both required,
+#     editorial: <a declared Person>    #   each a declared prov:Person
+#     ontological: <a declared Person>
+#   validation:
+#     commit: <40 hex, reachable from main: where the gates ran>
+#     gates: [<each gate command that passed there>]   # non-empty
+#   concepts:
+#     - iri: <the concept IRI, in full>
+#       record_sha256: <build.py --digest of the record ratified>
+#
+# An act is the architect's. An agent records one verbatim; it never
+# writes one.
+#
 # Never authored: definition (it is section 4's), prefLabel and
 # designatesClass (derived from the row), lifecycle_status and
 # owl:deprecated (derived, D5).

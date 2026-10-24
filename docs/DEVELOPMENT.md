@@ -56,7 +56,7 @@ python -m pytest tests/ -q -p no:randomly     # all of the above, plus the falsi
 | `vendor_upstream.py` | an upstream term the corpus, the shapes or the specification names that no extract describes (spec terms the last build recorded as unresolvable excepted); an extract whose digest is not what the manifest records |
 | `validate.py --gate` | a rung with more findings than `config/validation-baseline.json` records, a rung with fewer that has not been re-recorded, a shape set the fixture does not exercise, a rung blocked on missing vocabulary, a violation against a vendored term, and a rung the baseline does not mention |
 | `validate.py --record` | raising any recorded count without `--accept-regression "<why>"`. Lowering is always free |
-| `vocab/build.py` | everything in ADR-003 a schema cannot say: an unreadable section 4, a metamodel definition, an authored status, a record naming no row (and, once one record exists, a row with no record), a broken decision citation or act, a record changed after ratification, an unknown source, a missing locator, a weak or missing departure claim, a definition sharing six words with a registered quote, a malformed notation, an undeclared agent, a status act not by a Person, and committed Turtle that is not a fresh build |
+| `vocab/build.py` | everything in ADR-003 a schema cannot say: an unreadable section 4, a metamodel definition, an authored status, a record naming no row (and, once one record exists, a row with no record), a broken decision citation or act (including an act without both approvals by declared persons, or without a reachable validation commit and a non-empty gate list), a record changed after ratification, an unknown source, a missing locator, a weak or missing departure claim, a consistent-with with no support or support on another relation, a definition sharing six words with a registered quote, a malformed notation, an undeclared agent, a status act not by a Person, and committed Turtle that is not a fresh build |
 | `build_register.py` | a claim status other than exactly V, P, S, K or L; a quote over 15 words, with a missing, malformed or duplicate key, placed other than once, or a second quote in one entry; a quotation mark typed into entry prose; an SRC id in any tracked file that names no entry; an entry count other than 63; a committed Markdown register that is not a fresh generation |
 
 `validate.py` writes a report with `-o config/validation-report.json`. That file is
@@ -400,14 +400,31 @@ missing, self, chained or cyclic replacement is a finding); else Ratified if
 ````text
 ```bco-ratification
 agent: https://fandaws.com/ontology/bco-agents#aaron-damiano
+approvals:
+  editorial: https://fandaws.com/ontology/bco-agents#aaron-damiano
+  ontological: https://fandaws.com/ontology/bco-agents#aaron-damiano
+validation:
+  commit: <the full 40-hex commit the gates ran at, reachable from main>
+  gates:
+    - python tools/ontology/validate.py --gate
+    - python -m pytest tests/ -q -p no:randomly
 concepts:
   - iri: https://fandaws.com/ontology/bco-catalog#TreasuryManagement
     record_sha256: <python tools/vocab/build.py --digest bcoc:TreasuryManagement>
 ```
 ````
 
-IRIs in full; a CURIE, wildcard, namespace, scheme IRI or any other key is refused. The
-agent must be a declared `prov:Person` (D8). Each concept then cites the act:
+All four keys are required. IRIs in full; a CURIE, wildcard, namespace, scheme IRI or
+any other key is refused. The agent, and both approvers, must be declared `prov:Person`s
+(D8); one person may give both approvals. `validation.commit` is a full 40-hex SHA that
+`origin/main` or `main` reaches, and `gates` is the non-empty list of gate commands that
+passed at it, each once. The build checks the commit; it does not re-run the gates -- the
+list is the act's statement. `approvals` and `validation` were added in answer to review
+R6, section 6.3 (authorship is not approval, and provenance is not validation); they
+extend the format P3 accepted and leave ADR-003 D5's content -- explicit IRIs, each with
+its record digest -- unchanged. Refusal codes: `D5-act-approval-missing`,
+`D5-act-approval-shape`, `D8-approver-not-person`, `D5-act-validation-shape`,
+`D5-act-validation-commit`, `D5-act-validation-unreachable`, `D5-act-validation-gates`. Each concept then cites the act:
 `ratified_by: {path, commit, sha256}` -- the path under `docs/decisions/` or
 `docs/adr/`, a full commit reachable from `origin/main` or `main`, and the SHA-256 of
 `git show <commit>:<path>`, all recomputed (D2). The block is read from that commit's
