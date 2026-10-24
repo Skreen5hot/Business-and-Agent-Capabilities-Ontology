@@ -181,8 +181,19 @@ build.
 - **Serialization** reuses the deterministic serializer in `tools/ontology/vendor_upstream.py`.
 - **Generated files** are declared in the layout contract with their generator, and CI
   rebuilds and compares them.
-- **LinkML** is adopted only on a "go" from P2, which builds twice, compares the output byte
-  for byte, and weighs `gen-shacl` against hand-written shapes.
+- **LinkML** was adopted only on a "go" from P2. **P2 was signed off on 2026-10-24 as
+  go-limited** (`docs/decisions/2026-10-24-p2-linkml-signoff.md`, on branch
+  `ccv/p2-linkml-trial`):
+  - one LinkML schema for the authored vocabulary YAML;
+  - `gen-json-schema` as the only generator, which was byte-identical across six runs;
+  - `linkml validate` run in CI;
+  - the full 91-package set pinned (`linkml 1.11.1`).
+
+  `gen-shacl` and `gen-owl` are **no-go**: neither was byte-stable, and `gen-shacl`'s shapes
+  were refused by pyshacl on this model and carried no `sh:message`. All SHACL stays
+  hand-written, and all RDF comes from the repository's own serializer. What LinkML cannot
+  express (D2–D8 checks, derived status, minted IRIs) stays in `tools/vocab/` and the
+  hand-written shapes.
 
 ## Out of scope, locked
 
@@ -224,7 +235,8 @@ The act pins each concept's state, and each concept's `ratified_by` pins the act
 digest, so an edit on either side breaks the lock and fails CI (D3).
 
 **Ratification timing:** this ADR is ratified and merged once the P2 LinkML trial's findings
-are signed off.
+are signed off. That condition was met on 2026-10-24 (D9), so this ADR is ready for the
+architect's ratification act.
 
 ## How this becomes ratified
 
