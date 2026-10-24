@@ -10,7 +10,9 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
   draft.** Nothing in it is normative until the architect ratifies it (RP-1 to RP-10, then
   ADR-002). Do not implement a CD or CAP item as if it were decided.
 - `ontology/apqc-cap.ttl` and `ontology/apqc-cap-desc.ttl` are empty `owl:Ontology` headers.
-  No BCO term exists.
+  No BCO ontology term exists. The only `bco:` IRIs with triples are the controlled
+  vocabulary's annotation properties and the `bco:PCFCode` datatype, declared in the generated
+  `vocab/generated/bco-vocabulary.ttl` (accepted 2026-10-24, `docs/decisions/2026-10-24-p3-accepted.md`).
 - `drafts/BusinessCapabilityOntology_draft_v0.1.0/` is preserved byte-for-byte and checked
   against its own checksums. **Never edit it**, and never load its Turtle as ontology.
 
@@ -44,6 +46,7 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
 .venv/Scripts/python tools/ontology/vendor_upstream.py
 .venv/Scripts/python tools/ontology/validate.py --gate
 .venv/Scripts/python tools/communications.py
+.venv/Scripts/python tools/vocab/build.py
 .venv/Scripts/python -m pytest tests/ -q -p no:randomly
 .venv/Scripts/python tools/site/build_site.py && .venv/Scripts/python tools/site/check_site.py
 ```
@@ -51,6 +54,11 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
 The public site is for external validators and is built from the repository at deploy
 time; never commit `_site/`, and never type a figure into `site/` that the build can
 read.
+
+If `config/vocab-schema.yaml` or `vocab/*.yaml` changed, also run
+`.venv-vocab/Scripts/python tools/vocab/schema_check.py` in a venv with
+`requirements-vocab.txt` (LinkML; never installed into `.venv`). If the vocabulary
+inputs changed, `tools/vocab/build.py --write` regenerates `vocab/generated/`.
 
 If the ontology changed: `tools/ontology/corpus_digest.py -o config/corpus-digest.json`, and
 `tools/ontology/validate.py --record` if a finding was fixed. Commit messages carry the

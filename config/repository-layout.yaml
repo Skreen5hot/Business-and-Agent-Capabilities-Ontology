@@ -361,6 +361,138 @@ components:
       standard were committed and served publicly while the README said
       they were not redistributed, and the history had to be rewritten.
 
+  # ---- Controlled vocabulary (ADR-003; P3) ---------------------------
+  #
+  # Authored YAML in vocab/, built by tools/vocab/build.py into Turtle in
+  # vocab/generated/. None of it is an ontology-module: the vocabulary is
+  # not in the validation data graph or the corpus digest until P4 widens
+  # the authored namespaces. P3 ships the tool and no terms.
+
+  - id: vocab.metamodel
+    path: vocab/metamodel.yaml
+    role: documentation
+    description: >-
+      Metamodel concept records (bcom:), one per concrete row of
+      specification section 4 (ADR-003 D4): provenance wrapper only --
+      sources, drafting agent, notes, status inputs. Never a definition.
+      An empty list in P3; P5 adds the terms, and from the first one the
+      build requires every section 4 row to have a record.
+
+  - id: vocab.catalog
+    path: vocab/catalog.yaml
+    role: documentation
+    description: >-
+      Catalog concept records (bcoc:): labels, a genus-differentia
+      definition, broader, a typed PCF 7.4 notation, sources. Empty in P3.
+
+  - id: vocab.agents
+    path: vocab/agents.yaml
+    role: documentation
+    description: >-
+      The declared agents (bcoa:, ADR-003 D8): the architect as a
+      prov:Person, and claude-opus-5-5 as a prov:SoftwareAgent that acted
+      on his behalf.
+
+  - id: config.vocab-schema
+    path: config/vocab-schema.yaml
+    role: configuration
+    description: >-
+      The LinkML schema of the three authored vocabulary files, LinkML
+      go-limited (docs/decisions/2026-10-24-p2-linkml-signoff.md):
+      gen-json-schema is the only generator, linkml validate runs in CI.
+      Derived from the P2 trial schema, corrected to ADR-003 as ratified.
+      Describes shape only; every rule a schema cannot carry is in
+      tools/vocab/build.py.
+
+  - id: generated.vocab-json-schema
+    path: config/vocab-schema.json
+    role: generated-artifact
+    generator: tool.vocab-schema-check
+    description: >-
+      gen-json-schema's output for config/vocab-schema.yaml, LF. The vocab
+      CI job regenerates it and requires the bytes to match.
+
+  - id: config.requirements-vocab
+    path: requirements-vocab.txt
+    role: configuration
+    description: >-
+      The full 91-package LinkML environment, pinned exactly, for the
+      vocab CI job only. requirements-dev.txt and the main suite do not
+      install or import LinkML.
+
+  - id: generated.vocab-terms
+    path: vocab/generated/bco-vocabulary.ttl
+    role: generated-artifact
+    generator: tool.vocab-build
+    description: >-
+      The bco: annotation properties the vocabulary graph uses and the
+      bco:PCFCode datatype (ADR-003 D1, D7). No class.
+
+  - id: generated.vocab-metamodel
+    path: vocab/generated/bco-metamodel.ttl
+    role: generated-artifact
+    generator: tool.vocab-build
+    description: >-
+      bcom:MetamodelScheme and its concepts, definitions taken from
+      specification section 4. The scheme alone in P3.
+
+  - id: generated.vocab-catalog
+    path: vocab/generated/bco-catalog.ttl
+    role: generated-artifact
+    generator: tool.vocab-build
+    description: >-
+      bcoc:CapabilityCatalogScheme and its concepts. The scheme alone in
+      P3.
+
+  - id: generated.vocab-sources
+    path: vocab/generated/bco-sources.ttl
+    role: generated-artifact
+    generator: tool.vocab-build
+    description: >-
+      One bcos: record per register entry (ADR-003 D8): id, citation and
+      claim statuses, generated from docs/sources/register.yaml.
+
+  - id: generated.vocab-agents
+    path: vocab/generated/bco-agents.ttl
+    role: generated-artifact
+    generator: tool.vocab-build
+    description: >-
+      The declared bcoa: agents, generated from vocab/agents.yaml.
+
+  - id: tool.vocab-build
+    path: tools/vocab/build.py
+    role: tool
+    description: >-
+      Builds the vocabulary Turtle from the authored YAML, deterministically,
+      with ADR-003's checks: section 4 extraction (D4), derived status
+      (D5), decision citations and ratification acts against git (D2, D3),
+      sources and the quote tripwire (D6), typed notations (D7), declared
+      agents (D8), content-minted IRIs and no blank nodes (D9).
+
+  - id: tool.vocab-spec-terms
+    path: tools/vocab/spec_terms.py
+    role: tool
+    description: >-
+      Reads specification section 4's Terms tables and classifies every
+      row as concrete, template (excluded with its reason) or a failure.
+
+  - id: tool.vocab-citations
+    path: tools/vocab/citations.py
+    role: tool
+    description: >-
+      Checks a decision citation (path, full commit reachable from main,
+      SHA-256 of the blob) and parses a ratification act's
+      bco-ratification block.
+
+  - id: tool.vocab-schema-check
+    path: tools/vocab/schema_check.py
+    role: tool
+    description: >-
+      Runs only where requirements-vocab.txt is installed: regenerates
+      config/vocab-schema.json with gen-json-schema and compares it byte
+      for byte (CRLF normalised to LF), and runs linkml validate over the
+      authored files and over cases built to break the schema.
+
   # ---- Public site -----------------------------------------------------
   #
   # Built by tools/site/build_site.py into _site/ (gitignored) and deployed

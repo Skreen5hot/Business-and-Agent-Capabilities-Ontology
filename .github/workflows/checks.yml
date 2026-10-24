@@ -86,8 +86,48 @@ jobs:
       - name: The citation register keeps its rules and is a fresh generation
         run: python tools/sources/build_register.py
 
+      # ADR-003's checks over the authored vocabulary, and the committed
+      # Turtle compared with a fresh build. Needs full history: a
+      # ratification act is cited by a commit that must be reachable from
+      # origin/main (D2), which is why fetch-depth is 0 above.
+      - name: The vocabulary builds, and the committed Turtle is fresh
+        run: python tools/vocab/build.py
+
       - name: Tests
         run: python -m pytest tests/ -q -p no:randomly
+
+  vocab-schema:
+    # LinkML, go-limited (docs/decisions/2026-10-24-p2-linkml-signoff.md):
+    # gen-json-schema regenerated and compared byte for byte with the
+    # committed config/vocab-schema.json, and linkml validate over the
+    # authored vocabulary YAML and over cases built to break the schema.
+    #
+    # A job of its own because its environment is 91 packages, against
+    # the main job's handful. requirements-dev.txt and the main suite
+    # stay free of LinkML; tests/test_vocab.py requires that. The pip
+    # cache is keyed on requirements-vocab.txt, so a cold install (over
+    # ten minutes in the P2 trial) is paid when the pin changes, not on
+    # every run.
+    name: Vocabulary schema (LinkML)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-vocab.txt
+
+      - name: Install the pinned LinkML environment
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-vocab.txt
+          python -m pip check
+          python -m pip freeze
+
+      - name: gen-json-schema is fresh; linkml validate accepts the vocabulary and refuses the broken cases
+        run: python tools/vocab/schema_check.py
 
   vendored:
     # The check the offline one cannot make: that the committed extracts

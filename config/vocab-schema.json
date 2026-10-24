@@ -1,0 +1,526 @@
+{
+    "$defs": {
+        "Agent": {
+            "additionalProperties": false,
+            "description": "A declared agent (ADR-003 D8).",
+            "if": {
+                "properties": {
+                    "type": {
+                        "const": "SoftwareAgent"
+                    }
+                },
+                "required": [
+                    "type"
+                ]
+            },
+            "properties": {
+                "acted_on_behalf_of": {
+                    "pattern": "^[a-z0-9][a-z0-9-]*$",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "pattern": "^[a-z0-9][a-z0-9-]*$",
+                    "type": "string"
+                },
+                "model": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "$ref": "#/$defs/AgentType"
+                }
+            },
+            "required": [
+                "id",
+                "type",
+                "name"
+            ],
+            "then": {
+                "properties": {
+                    "acted_on_behalf_of": {},
+                    "model": {}
+                },
+                "required": [
+                    "model",
+                    "acted_on_behalf_of"
+                ]
+            },
+            "title": "Agent",
+            "type": "object"
+        },
+        "AgentType": {
+            "description": "ADR-003 D8. prov:Person or prov:SoftwareAgent.",
+            "enum": [
+                "Person",
+                "SoftwareAgent"
+            ],
+            "title": "AgentType",
+            "type": "string"
+        },
+        "AgentsFile": {
+            "additionalProperties": false,
+            "description": "vocab/agents.yaml.",
+            "properties": {
+                "agents": {
+                    "items": {
+                        "$ref": "#/$defs/Agent"
+                    },
+                    "type": "array"
+                },
+                "version": {
+                    "maximum": 1,
+                    "minimum": 1,
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "version",
+                "agents"
+            ],
+            "title": "AgentsFile",
+            "type": "object"
+        },
+        "AuthoredStatus": {
+            "description": "ADR-003 D5. The only statuses an author may write.",
+            "enum": [
+                "Draft",
+                "Candidate"
+            ],
+            "title": "AuthoredStatus",
+            "type": "string"
+        },
+        "CatalogConcept": {
+            "additionalProperties": false,
+            "description": "A capability in the catalog (bcoc:).",
+            "properties": {
+                "authored_status": {
+                    "$ref": "#/$defs/AuthoredStatus"
+                },
+                "broader": {
+                    "items": {
+                        "pattern": "^bcoc:[A-Z][A-Za-z0-9]*$",
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "change_note": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "created": {
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+                    "type": "string"
+                },
+                "definition": {
+                    "type": "string"
+                },
+                "designates_class": {
+                    "pattern": "^bco:[A-Z][A-Za-z0-9]*$",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "drafted_by": {
+                    "description": "A declared agent (ADR-003 D8). That the agent is declared is checked by tools/vocab/build.py.",
+                    "pattern": "^bcoa:[a-z0-9][a-z0-9-]*$",
+                    "type": "string"
+                },
+                "genus": {
+                    "pattern": "^(cco|obo):[A-Za-z_][A-Za-z0-9_]*$",
+                    "type": "string"
+                },
+                "id": {
+                    "pattern": "^bcoc:[A-Z][A-Za-z0-9]*$",
+                    "type": "string"
+                },
+                "is_replaced_by": {
+                    "pattern": "^bco[mc]:[A-Z][A-Za-z0-9]*$",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "notation": {
+                    "pattern": "^[0-9]{5}$",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "pref_label": {
+                    "items": {
+                        "$ref": "#/$defs/LanguageTaggedString"
+                    },
+                    "type": "array"
+                },
+                "ratified_by": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/DecisionCitation"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "revises": {
+                    "description": "The record digest of the version this record revises (D3).",
+                    "pattern": "^(?!e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855$)[0-9a-f]{64}$",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "sources": {
+                    "items": {
+                        "$ref": "#/$defs/SourceReference"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                }
+            },
+            "required": [
+                "pref_label",
+                "definition",
+                "genus",
+                "id",
+                "sources",
+                "drafted_by",
+                "created",
+                "authored_status"
+            ],
+            "title": "CatalogConcept",
+            "type": "object"
+        },
+        "CatalogFile": {
+            "additionalProperties": false,
+            "description": "vocab/catalog.yaml.",
+            "properties": {
+                "concepts": {
+                    "items": {
+                        "$ref": "#/$defs/CatalogConcept"
+                    },
+                    "type": "array"
+                },
+                "version": {
+                    "maximum": 1,
+                    "minimum": 1,
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "version",
+                "concepts"
+            ],
+            "title": "CatalogFile",
+            "type": "object"
+        },
+        "DecisionCitation": {
+            "additionalProperties": false,
+            "description": "ADR-003 D2. A decision by path, full commit and SHA-256.",
+            "properties": {
+                "commit": {
+                    "pattern": "^[0-9a-f]{40}$",
+                    "type": "string"
+                },
+                "path": {
+                    "pattern": "^docs/(decisions|adr)/[A-Za-z0-9._-]+\\.md$",
+                    "type": "string"
+                },
+                "sha256": {
+                    "pattern": "^(?!e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855$)[0-9a-f]{64}$",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "path",
+                "commit",
+                "sha256"
+            ],
+            "title": "DecisionCitation",
+            "type": "object"
+        },
+        "LanguageTaggedString": {
+            "additionalProperties": false,
+            "description": "A label and its language tag.",
+            "properties": {
+                "language": {
+                    "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$",
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "value",
+                "language"
+            ],
+            "title": "LanguageTaggedString",
+            "type": "object"
+        },
+        "MetamodelConcept": {
+            "additionalProperties": false,
+            "description": "A provenance wrapper for one specification section 4 row (bcom:, ADR-003 D4). No definition: the row supplies it.",
+            "properties": {
+                "authored_status": {
+                    "$ref": "#/$defs/AuthoredStatus"
+                },
+                "change_note": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "created": {
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+                    "type": "string"
+                },
+                "drafted_by": {
+                    "description": "A declared agent (ADR-003 D8). That the agent is declared is checked by tools/vocab/build.py.",
+                    "pattern": "^bcoa:[a-z0-9][a-z0-9-]*$",
+                    "type": "string"
+                },
+                "id": {
+                    "pattern": "^bcom:[A-Z][A-Za-z0-9]*$",
+                    "type": "string"
+                },
+                "is_replaced_by": {
+                    "pattern": "^bco[mc]:[A-Z][A-Za-z0-9]*$",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "ratified_by": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/DecisionCitation"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "revises": {
+                    "description": "The record digest of the version this record revises (D3).",
+                    "pattern": "^(?!e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855$)[0-9a-f]{64}$",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "sources": {
+                    "items": {
+                        "$ref": "#/$defs/SourceReference"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "spec_row": {
+                    "description": "ADR-003 D4: the specification section 4 row this metamodel concept wraps, by the ex: IRI the row names.",
+                    "pattern": "^ex:[A-Z][A-Za-z0-9]*$",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "spec_row",
+                "id",
+                "sources",
+                "drafted_by",
+                "created",
+                "authored_status"
+            ],
+            "title": "MetamodelConcept",
+            "type": "object"
+        },
+        "MetamodelFile": {
+            "additionalProperties": false,
+            "description": "vocab/metamodel.yaml.",
+            "properties": {
+                "concepts": {
+                    "items": {
+                        "$ref": "#/$defs/MetamodelConcept"
+                    },
+                    "type": "array"
+                },
+                "version": {
+                    "maximum": 1,
+                    "minimum": 1,
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "version",
+                "concepts"
+            ],
+            "title": "MetamodelFile",
+            "type": "object"
+        },
+        "SourceReference": {
+            "additionalProperties": false,
+            "description": "A concept's citation of a register entry (ADR-003 D6).",
+            "if": {
+                "properties": {
+                    "relation": {
+                        "const": "departs-from"
+                    }
+                },
+                "required": [
+                    "relation"
+                ]
+            },
+            "properties": {
+                "claim": {
+                    "minimum": 1,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "departure_note": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "locator": {
+                    "type": "string"
+                },
+                "relation": {
+                    "$ref": "#/$defs/SourceRelation"
+                },
+                "source": {
+                    "pattern": "^SRC-[A-Z]+-[0-9]{2}$",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "source",
+                "locator",
+                "relation"
+            ],
+            "then": {
+                "properties": {
+                    "claim": {},
+                    "departure_note": {}
+                },
+                "required": [
+                    "departure_note",
+                    "claim"
+                ]
+            },
+            "title": "SourceReference",
+            "type": "object"
+        },
+        "SourceRelation": {
+            "description": "How a concept stands to a registered source (ADR-003 D6).",
+            "enum": [
+                "adapted-from",
+                "consistent-with",
+                "departs-from"
+            ],
+            "title": "SourceRelation",
+            "type": "string"
+        },
+        "VocabularyConcept": {
+            "additionalProperties": false,
+            "description": "The record every concept carries (ADR-003 D3, D5, D6, D8).",
+            "properties": {
+                "authored_status": {
+                    "$ref": "#/$defs/AuthoredStatus"
+                },
+                "change_note": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "created": {
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+                    "type": "string"
+                },
+                "drafted_by": {
+                    "description": "A declared agent (ADR-003 D8). That the agent is declared is checked by tools/vocab/build.py.",
+                    "pattern": "^bcoa:[a-z0-9][a-z0-9-]*$",
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "is_replaced_by": {
+                    "pattern": "^bco[mc]:[A-Z][A-Za-z0-9]*$",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "ratified_by": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/DecisionCitation"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "revises": {
+                    "description": "The record digest of the version this record revises (D3).",
+                    "pattern": "^(?!e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855$)[0-9a-f]{64}$",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "sources": {
+                    "items": {
+                        "$ref": "#/$defs/SourceReference"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                }
+            },
+            "required": [
+                "id",
+                "sources",
+                "drafted_by",
+                "created",
+                "authored_status"
+            ],
+            "title": "VocabularyConcept",
+            "type": "object"
+        }
+    },
+    "$id": "https://fandaws.com/ontology/bco/vocab-schema",
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "additionalProperties": true,
+    "metamodel_version": "1.11.0",
+    "title": "bco_vocab",
+    "type": "object",
+    "version": "1.0.0"
+}
+

@@ -44,6 +44,7 @@ python tools/ontology/validate.py --gate      # no new ontology findings
 python tools/ontology/corpus_digest.py        # measure the authored ontology
 python tools/ontology/validate.py             # the SHACL ladder
 python tools/sources/build_register.py        # the citation register's rules; Markdown is fresh
+python tools/vocab/build.py                   # ADR-003's vocabulary rules; the Turtle is fresh
 python -m pytest tests/ -q -p no:randomly     # all of the above, plus the falsifications
 ```
 
@@ -55,6 +56,7 @@ python -m pytest tests/ -q -p no:randomly     # all of the above, plus the falsi
 | `vendor_upstream.py` | an upstream term the corpus, the shapes or the specification names that no extract describes (spec terms the last build recorded as unresolvable excepted); an extract whose digest is not what the manifest records |
 | `validate.py --gate` | a rung with more findings than `config/validation-baseline.json` records, a rung with fewer that has not been re-recorded, a shape set the fixture does not exercise, a rung blocked on missing vocabulary, a violation against a vendored term, and a rung the baseline does not mention |
 | `validate.py --record` | raising any recorded count without `--accept-regression "<why>"`. Lowering is always free |
+| `vocab/build.py` | everything in ADR-003 a schema cannot say: an unreadable section 4, a metamodel definition, an authored status, a record naming no row (and, once one record exists, a row with no record), a broken decision citation or act, a record changed after ratification, an unknown source, a missing locator, a weak or missing departure claim, a definition sharing six words with a registered quote, a malformed notation, an undeclared agent, a status act not by a Person, and committed Turtle that is not a fresh build |
 | `build_register.py` | a claim status other than exactly V, P, S, K or L; a quote over 15 words, with a missing, malformed or duplicate key, placed other than once, or a second quote in one entry; a quotation mark typed into entry prose; an SRC id in any tracked file that names no entry; an entry count other than 63; a committed Markdown register that is not a fresh generation |
 
 `validate.py` writes a report with `-o config/validation-report.json`. That file is
@@ -303,6 +305,105 @@ count.
 
 For P3, `claims_at_or_above(data, src_id, "P")` returns an entry's claims at V or P, and
 raises on an unknown id rather than returning the empty list an unverified entry returns.
+
+---
+
+## The controlled vocabulary (P3)
+
+ADR-003 is the specification; `tools/vocab/` implements it. P3 ships the tool and
+**no terms**: the metamodel and catalog files hold empty lists until P5.
+
+| File | Holds | Edited by |
+|---|---|---|
+| `vocab/metamodel.yaml` | one provenance wrapper per spec section 4 row (`bcom:`): sources, drafting agent, notes, status inputs. Never a definition | hand |
+| `vocab/catalog.yaml` | catalog concepts (`bcoc:`): labels, a genus-differentia definition with its `genus`, `broader`, a PCF 7.4 `notation`, sources | hand |
+| `vocab/agents.yaml` | declared agents (`bcoa:`): the architect as a Person, `claude-opus-5-5` as a SoftwareAgent on his behalf | hand |
+| `vocab/generated/*.ttl` | `bco-vocabulary`, `bco-metamodel`, `bco-catalog`, `bco-sources`, `bco-agents` | `tools/vocab/build.py --write` |
+| `config/vocab-schema.yaml` | the LinkML schema of the three YAML files | hand |
+| `config/vocab-schema.json` | its `gen-json-schema` output, LF | `tools/vocab/schema_check.py --write` |
+
+```bash
+python tools/vocab/build.py                 # check: ADR-003's rules, then freshness
+python tools/vocab/build.py --write         # regenerate vocab/generated/
+python tools/vocab/build.py --digest bcoc:X # the record digest an act cites
+python tools/vocab/spec_terms.py            # what section 4 parses to
+python -m pytest tests/test_vocab.py -q -p no:randomly
+
+# LinkML, in its own venv -- never in .venv:
+py -3.12 -m venv .venv-vocab
+.venv-vocab/Scripts/python -m pip install -r requirements-vocab.txt
+.venv-vocab/Scripts/python tools/vocab/schema_check.py
+```
+
+The three YAML files must exist; an absent file is a finding, not an empty list. The
+vocabulary is not an `ontology-module`: it is outside the SHACL data graph, the corpus
+digest and the wellformedness population until P4 widens `AUTHORED_NAMESPACES`.
+
+**The metamodel comes from section 4 (D4).** `tools/vocab/spec_terms.py` reads every
+table in `## 4. Terms` whose header is `Term | Definition | Parent(s) | Does not imply`.
+A row is concrete when its Term cell is exactly a label followed by one `ex:` name in a
+code span (optionally followed by `*(...)*`), and the label with non-alphanumerics
+removed spells the local name. A row naming a placeholder (`ex:<Name>Realization`) or
+one example standing for a family ("`ex:StrategicPlanningCapability` and the rest") is
+a template, excluded with its reason. Any other row fails the build rather than being
+classified by a guess. Today: 9 concrete rows, 2 excluded, and the
+annotation-properties table skipped by header. A record is `bcom:<LocalName>` with
+`spec_row: ex:<LocalName>`; its definition, label, parents and "Does not imply" are the
+row's, verbatim, and its `bco:designatesClass` is `bco:<LocalName>`.
+
+**The staging rule.** Once `vocab/metamodel.yaml` lists one concept, every concrete row
+needs a record (`D4-row-uncovered`) and every record must name a row (`D4-no-row`).
+While the list is empty, coverage is not checked; P5 adds all nine at once.
+
+**The concept record digest** is what a ratification act cites, so it is defined
+exactly: the authored YAML mapping minus `ratified_by`, plus -- for a metamodel concept
+-- `spec_row_content`, the row's `{label, iri, definition, parents, does_not_imply}`;
+serialised as `json.dumps(..., sort_keys=True, ensure_ascii=False,
+separators=(",", ":"))`, UTF-8, no trailing newline; SHA-256, lowercase hex. The row is
+inside so that a spec change to a Ratified concept's definition breaks the
+ratification, as D3 and D4 require. `--digest` prints it.
+
+**Status is derived (D5).** Deprecated if `is_replaced_by` names a live concept (a
+missing, self, chained or cyclic replacement is a finding); else Ratified if
+`ratified_by` cites an act that lists this IRI with this record digest; else the authored
+`Draft` or `Candidate`. `lifecycle_status` and `owl:deprecated` in YAML are refused.
+
+**A ratification act** is a decision record holding exactly one fenced block:
+
+````text
+```bco-ratification
+agent: https://fandaws.com/ontology/bco-agents#aaron-damiano
+concepts:
+  - iri: https://fandaws.com/ontology/bco-catalog#TreasuryManagement
+    record_sha256: <python tools/vocab/build.py --digest bcoc:TreasuryManagement>
+```
+````
+
+IRIs in full; a CURIE, wildcard, namespace, scheme IRI or any other key is refused. The
+agent must be a declared `prov:Person` (D8). Each concept then cites the act:
+`ratified_by: {path, commit, sha256}` -- the path under `docs/decisions/` or
+`docs/adr/`, a full commit reachable from `origin/main` or `main`, and the SHA-256 of
+`git show <commit>:<path>`, all recomputed (D2). The block is read from that commit's
+blob, not the working tree. An act is the architect's: an agent records it verbatim,
+and never writes one on its own initiative.
+
+**Sources (D6).** Every reference names a register id, a locator and a relation;
+`departs-from` also needs a `departure_note` and `claim`, the 1-based index of an entry
+claim at V or P (`claims_at_or_above`). A catalog definition sharing a 6-word run with
+any registered quote, after lowercasing and splitting on non-letters, fails with the
+quote's key.
+
+**IRIs (D9).** Exactly ADR-003 D1's five namespaces. Provenance nodes are minted from
+content: `<ns>source-<sha256>`, `<ns>ratification-<sha256>` of the canonical JSON, and
+`<ns>record-<record digest>`, in the concept's own namespace. Written by
+`vendor_upstream.serialise` with a vocabulary prefix table, which refuses a blank node.
+
+**LinkML is go-limited.** `config/vocab-schema.yaml` describes the YAML; the build
+re-checks everything it says, so the main suite never imports LinkML.
+`tools/vocab/schema_check.py` runs in the `vocab-schema` CI job: it regenerates the JSON
+Schema three times (twice from the root, once from a copy at another path), requires the
+LF bytes to match the committed file, and runs `linkml validate` over the authored files
+and 33 cases built to break the schema. `gen-shacl` and `gen-owl` are never run.
 
 ---
 

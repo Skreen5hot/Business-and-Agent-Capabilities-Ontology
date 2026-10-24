@@ -384,8 +384,12 @@ def triples_for(upstream, full: set, stubs: list) -> list:
 # ------------------------------------------------------- serialising
 
 
-def qname(iri: str) -> str:
-    for prefix, namespace in prefixes():
+def qname(iri: str, table: tuple | None = None) -> str:
+    """`prefix:local` when a prefix in `table` covers the IRI, else the
+    IRI in angle brackets. `table` defaults to the extracts' prefixes;
+    tools/vocab/build.py passes its own, so the vocabulary is written by
+    this serialiser rather than by a copy of it (ADR-003 D9)."""
+    for prefix, namespace in (prefixes() if table is None else table):
         if iri.startswith(namespace):
             local = iri[len(namespace):]
             if _LOCAL.match(local):
@@ -407,29 +411,34 @@ def escape(text: str) -> str:
                .replace(chr(9), chr(92) + "t"))
 
 
-def term_text(term) -> str:
+def term_text(term, table: tuple | None = None) -> str:
     import rdflib
 
     if isinstance(term, rdflib.URIRef):
-        return qname(str(term))
+        return qname(str(term), table)
     if isinstance(term, rdflib.Literal):
         body = '"' + escape(str(term)) + '"'
         if term.language:
             return body + "@" + term.language
         if term.datatype:
-            return body + "^^" + qname(str(term.datatype))
+            return body + "^^" + qname(str(term.datatype), table)
         return body
     raise Refused("a blank node reached the serialiser: %r" % (term,))
 
 
-def serialise(triples: list, header: list) -> str:
+def serialise(triples: list, header: list, table: tuple | None = None) -> str:
+    """Sorted, one triple per line, no blank nodes. `table` is the prefix
+    table (default: the extracts'); the output for the default is
+    byte-identical to what it was before the parameter existed."""
+    table = prefixes() if table is None else table
     lines = ["# " + line if line else "#" for line in header]
     lines.append("")
-    for prefix, namespace in prefixes():
+    for prefix, namespace in table:
         lines.append("@prefix %-8s <%s> ." % (prefix + ":", namespace))
     lines.append("")
 
-    rows = sorted({(term_text(s), term_text(p), term_text(o))
+    rows = sorted({(term_text(s, table), term_text(p, table),
+                    term_text(o, table))
                    for s, p, o in triples})
     current = None
     for subject, predicate, obj in rows:
