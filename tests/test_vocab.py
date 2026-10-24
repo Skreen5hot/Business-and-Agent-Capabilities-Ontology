@@ -118,8 +118,12 @@ def make(tmp_path, vb, layout, spec_path, metamodel=(), catalog=(),
 
 def source(**kw):
     ref = {"source": "SRC-GOV-04", "locator": "NAF v4.1, Capability",
-           "relation": "consistent-with"}
+           "relation": "consistent-with", "support": "contextual"}
     ref.update(kw)
+    # support belongs to consistent-with alone; a case that wants it on
+    # another relation passes it explicitly.
+    if ref.get("relation") != "consistent-with" and "support" not in kw:
+        del ref["support"]
     return ref
 
 
@@ -397,10 +401,28 @@ def actrepo(tmp_path):
     return repo
 
 
-def act_text(concepts, agent=PERSON_IRI, extra=None, blocks=1):
-    body = {"agent": agent, "concepts": concepts}
+#: Stands for the throwaway repository's root commit, which main reaches;
+#: commit_act substitutes it, because act_text is written before the
+#: repository it will be committed to is known.
+ROOT_COMMIT = "@ROOT-COMMIT@"
+GATES = ["python tools/ontology/validate.py --gate",
+         "python -m pytest tests/ -q -p no:randomly"]
+
+
+def act_text(concepts, agent=PERSON_IRI, extra=None, blocks=1,
+             approvals=None, validation=None, drop=()):
+    """A bco-ratification block in the R6 format: agent, approvals,
+    validation, concepts. `drop` removes top-level keys, to break it."""
+    body = {"agent": agent,
+            "approvals": approvals if approvals is not None else {
+                "editorial": PERSON_IRI, "ontological": PERSON_IRI},
+            "validation": validation if validation is not None else {
+                "commit": ROOT_COMMIT, "gates": list(GATES)},
+            "concepts": concepts}
     if extra:
         body.update(extra)
+    for key in drop:
+        del body[key]
     block = "```bco-ratification\n%s```\n" % yaml.safe_dump(body,
                                                            sort_keys=False)
     return ("# Ratification act (fixture)\n\n" + block * blocks).encode()
@@ -408,6 +430,8 @@ def act_text(concepts, agent=PERSON_IRI, extra=None, blocks=1):
 
 def commit_act(repo: Path, data: bytes, name="2026-11-01-act.md",
                branch=None) -> dict:
+    root = git(repo, "rev-list", "--max-parents=0", "HEAD").split()[0]
+    data = data.replace(ROOT_COMMIT.encode(), root.encode())
     if branch:
         git(repo, "checkout", "-q", "-b", branch)
     path = "docs/decisions/" + name
@@ -536,6 +560,83 @@ def test_d8_a_status_act_by_a_software_agent_is_refused(
                                     agent=SOFTWARE_IRI)
     refused(vb, make(tmp_path / "b", vb, layout, spec_path, catalog=[record],
                      repo=actrepo), "D8-act-agent-not-person")
+
+
+# ---- R6 section 6.3: the act records its approvals and its validation
+
+
+def side_commit(repo: Path) -> str:
+    """A commit no main ref reaches."""
+    git(repo, "checkout", "-q", "-b", "unmerged")
+    (repo / "side").write_bytes(b"side\n")
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "side")
+    commit = git(repo, "rev-parse", "HEAD")
+    git(repo, "checkout", "-q", "main")
+    return commit
+
+
+@pytest.mark.parametrize("act_kw, code", [
+    ({"drop": ("approvals",)}, "D5-act-approval-missing"),
+    ({"approvals": {"editorial": PERSON_IRI}}, "D5-act-approval-missing"),
+    ({"approvals": {"editorial": PERSON_IRI, "ontological": PERSON_IRI,
+                    "legal": PERSON_IRI}}, "D5-act-approval-shape"),
+    ({"approvals": {"editorial": PERSON_IRI,
+                    "ontological": SOFTWARE_IRI}}, "D8-approver-not-person"),
+    ({"approvals": {"editorial": SOFTWARE_IRI,
+                    "ontological": PERSON_IRI}}, "D8-approver-not-person"),
+    ({"approvals": {"editorial": PERSON_IRI, "ontological":
+                    "https://fandaws.com/ontology/bco-agents#nobody"}},
+     "D8-approver-not-person"),
+    ({"drop": ("validation",)}, "D5-act-validation-shape"),
+    ({"validation": {"commit": "abc1234", "gates": GATES}},
+     "D5-act-validation-commit"),
+    ({"validation": {"commit": "1" * 40, "gates": GATES}},
+     "D5-act-validation-unreachable"),
+    ({"validation": {"commit": ROOT_COMMIT, "gates": []}},
+     "D5-act-validation-gates"),
+    ({"validation": {"commit": ROOT_COMMIT, "gates": [GATES[0], GATES[0]]}},
+     "D5-act-validation-gates"),
+], ids=["no-approvals", "no-ontological-approval", "extra-approval",
+        "software-ontological-approver", "software-editorial-approver",
+        "undeclared-approver", "no-validation", "short-validation-commit",
+        "unknown-validation-commit", "empty-gates", "duplicate-gate"])
+def test_an_act_without_its_approvals_or_validation_is_refused(
+        vb, layout, spec_path, tmp_path, actrepo, act_kw, code):
+    """Each refusal, by its own code, on an act that is otherwise the one
+    test_a_cited_act_naming_the_current_record_ratifies accepts."""
+    record, _, _ = ratified_fixture(vb, layout, spec_path, tmp_path,
+                                    actrepo, **act_kw)
+    refused(vb, make(tmp_path / "b", vb, layout, spec_path, catalog=[record],
+                     repo=actrepo), code)
+
+
+def test_a_validation_commit_main_does_not_reach_is_refused(
+        vb, cit, layout, spec_path, tmp_path, actrepo):
+    """A real commit, on a branch main has not merged: the gates passed
+    somewhere main does not contain. Once merged it is accepted."""
+    unmerged = side_commit(actrepo)
+    record, iri, _ = ratified_fixture(
+        vb, layout, spec_path, tmp_path, actrepo,
+        validation={"commit": unmerged, "gates": GATES})
+    refused(vb, make(tmp_path / "b", vb, layout, spec_path, catalog=[record],
+                     repo=actrepo), "D5-act-validation-unreachable")
+    git(actrepo, "merge", "-q", "--no-ff", "unmerged", "-m", "merge")
+    result = built(vb, make(tmp_path / "c", vb, layout, spec_path,
+                            catalog=[record], repo=actrepo))
+    assert result.statuses[iri] == "Ratified"
+
+
+def test_the_act_format_documented_is_the_one_parsed(cit, repo):
+    """The block in the module docstring, docs/DEVELOPMENT.md and the
+    metamodel.yaml header names every key parse_act requires, so a reader
+    following the documentation writes an act the build accepts."""
+    for text in (cit.__doc__,
+                 (repo / "docs/DEVELOPMENT.md").read_text(encoding="utf-8"),
+                 (repo / "vocab/metamodel.yaml").read_text(encoding="utf-8")):
+        for key in sorted(cit.ACT_KEYS | cit.APPROVAL_KEYS
+                          | cit.VALIDATION_KEYS | cit.ITEM_KEYS):
+            assert key + ":" in text, key
 
 
 def test_deprecated_outranks_ratified(vb, layout, spec_path, tmp_path,
@@ -668,13 +769,56 @@ def test_departs_from_a_v_claim_builds(vb, register, layout, spec_path,
     (lambda r, v: source(source="SRC-OMG-03", relation="departs-from",
                          departure_note="Why."), "D6-departure-claim"),
     (lambda r, v: source(departure_note="Why."), "D6-reference-shape"),
+    (lambda r, v: {k: x for k, x in source().items() if k != "support"},
+     "D6-support-missing"),
+    (lambda r, v: source(support="partial"), "D6-support-value"),
+    (lambda r, v: source(relation="adapted-from", support="definitional"),
+     "D6-support-misplaced"),
+    (lambda r, v: source(source="SRC-OMG-03", relation="departs-from",
+                         claim=strong_claim(r, v, "SRC-OMG-03"),
+                         departure_note="Why.", support="contextual"),
+     "D6-support-misplaced"),
 ], ids=["unknown-id", "empty-locator", "no-locator", "relation",
         "no-departure-note", "claim-below-P", "claim-out-of-range",
-        "no-claim", "note-without-departure"])
+        "no-claim", "note-without-departure", "consistent-without-support",
+        "support-value", "support-on-adapted-from",
+        "support-on-departs-from"])
 def test_a_bad_source_reference_is_refused(vb, register, layout, spec_path,
                                            tmp_path, ref, code):
     refused(vb, make(tmp_path, vb, layout, spec_path,
                      catalog=[cat(sources=[ref(register, vb)])]), code)
+
+
+@pytest.mark.parametrize("support", ["definitional", "contextual"])
+def test_consistent_with_support_is_emitted(vb, layout, spec_path, tmp_path,
+                                            support):
+    """Positive control for R6 6.1: each value builds and is published on
+    the reference node, and bco:support is declared."""
+    result = built(vb, make(tmp_path, vb, layout, spec_path,
+                            catalog=[cat(sources=[source(support=support)])]))
+    text = result.files["bco-catalog.ttl"].decode("utf-8")
+    assert 'bco:support "%s"' % support in text
+    vocab = result.files["bco-vocabulary.ttl"].decode("utf-8")
+    assert "bco:support rdf:type owl:AnnotationProperty ." in vocab
+
+
+def test_every_real_consistent_with_states_its_support(repo):
+    """R6 6.1 over the authored files: every consistent-with reference
+    says definitional or contextual, and no other relation carries
+    support. The build refuses the same; this reads the YAML directly so
+    the classification is checked even if the build's rule regressed."""
+    seen = {"definitional": 0, "contextual": 0}
+    for name in ("metamodel", "catalog"):
+        data = yaml.safe_load((repo / "vocab" / (name + ".yaml"))
+                              .read_bytes().decode("utf-8"))
+        for record in data["concepts"]:
+            for ref in record["sources"]:
+                if ref["relation"] == "consistent-with":
+                    assert ref.get("support") in seen, (record["id"], ref)
+                    seen[ref["support"]] += 1
+                else:
+                    assert "support" not in ref, (record["id"], ref)
+    assert all(seen.values()), seen
 
 
 def test_a_concept_without_sources_is_refused(vb, layout, spec_path, tmp_path):

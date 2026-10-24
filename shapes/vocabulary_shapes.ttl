@@ -293,6 +293,33 @@ vs:SourceReferenceShape
         sh:in ( "adapted-from" "consistent-with" "departs-from" ) ;
         sh:message "Source reference has a bco:relation other than adapted-from, consistent-with or departs-from." ] ;
 
+    # Review R6, section 6.1: consistent-with says what it supports --
+    # the concept's specific definition, or only the general view the
+    # definition rests on. adapted-from is definitional by nature and
+    # departs-from supports nothing, so neither carries bco:support.
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "A consistent-with source reference has no bco:support." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          $this bco:relation "consistent-with" .
+          FILTER NOT EXISTS { $this bco:support ?support } }""" ] ;
+    sh:property [
+        sh:path bco:support ;
+        sh:maxCount 1 ;
+        sh:message "Source reference has more than one bco:support." ] ;
+    sh:property [
+        sh:path bco:support ;
+        sh:in ( "definitional" "contextual" ) ;
+        sh:message "Source reference has a bco:support other than definitional or contextual." ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Source reference carries bco:support with a relation other than consistent-with." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          $this bco:support ?support ; bco:relation ?relation .
+          FILTER(?relation != "consistent-with") }""" ] ;
+
     sh:sparql [
         a sh:SPARQLConstraint ;
         sh:message "A departs-from source reference has no bco:departureNote." ;

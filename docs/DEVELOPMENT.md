@@ -56,7 +56,7 @@ python -m pytest tests/ -q -p no:randomly     # all of the above, plus the falsi
 | `vendor_upstream.py` | an upstream term the corpus, the shapes or the specification names that no extract describes (spec terms the last build recorded as unresolvable excepted); an extract whose digest is not what the manifest records |
 | `validate.py --gate` | a rung with more findings than `config/validation-baseline.json` records, a rung with fewer that has not been re-recorded, a shape set the fixture does not exercise, a rung blocked on missing vocabulary, a violation against a vendored term, and a rung the baseline does not mention |
 | `validate.py --record` | raising any recorded count without `--accept-regression "<why>"`. Lowering is always free |
-| `vocab/build.py` | everything in ADR-003 a schema cannot say: an unreadable section 4, a metamodel definition, an authored status, a record naming no row (and, once one record exists, a row with no record), a broken decision citation or act, a record changed after ratification, an unknown source, a missing locator, a weak or missing departure claim, a definition sharing six words with a registered quote, a malformed notation, an undeclared agent, a status act not by a Person, and committed Turtle that is not a fresh build |
+| `vocab/build.py` | everything in ADR-003 a schema cannot say: an unreadable section 4, a metamodel definition, an authored status, a record naming no row (and, once one record exists, a row with no record), a broken decision citation or act (including an act without both approvals by declared persons, or without a reachable validation commit and a non-empty gate list), a record changed after ratification, an unknown source, a missing locator, a weak or missing departure claim, a consistent-with with no support or support on another relation, a definition sharing six words with a registered quote, a malformed notation, an undeclared agent, a status act not by a Person, and committed Turtle that is not a fresh build |
 | `build_register.py` | a claim status other than exactly V, P, S, K or L; a quote over 15 words, with a missing, malformed or duplicate key, placed other than once, or a second quote in one entry; a quotation mark typed into entry prose; an SRC id in any tracked file that names no entry; an entry count other than 63; a committed Markdown register that is not a fresh generation |
 
 `validate.py` writes a report with `-o config/validation-report.json`. That file is
@@ -232,8 +232,8 @@ requires the committed extracts to be byte-identical.
 ## The public site
 
 Published at https://skreen5hot.github.io/Business-and-Agent-Capabilities-Ontology/ by `.github/workflows/pages.yml`, for external validators: the rendered
-specification and R5 review, a term explorer, module and status pages, and downloads with
-checksums. The method is BFO-Aligned ValueNet's; the builder is rewritten for this
+specification, every review under `reviews/` with its disposition, a term explorer, module
+and status pages, and downloads with checksums. The method is BFO-Aligned ValueNet's; the builder is rewritten for this
 repository.
 
 ```bash
@@ -277,6 +277,16 @@ there is no concept it shows the `vocabulary_empty` notice from `site.json`. A c
 no scheme or two, or with no label, definition or status, stops the build. Vocabulary
 concepts are not in the explorer's `data/terms.json`; that was optional in P4 and is not
 done.
+
+**The Reviews page** is `site/pages/review.html` (URL `review/`, kept so that links
+already sent to validators still resolve), filled by `reviews_values`. It renders every
+`reviews/*.md`: a review is named `R<n>-<words>.md`, and `R<n>-disposition.md` is the
+project's proposed disposition of review R<n>, rendered directly after it and labelled as
+a proposal. Each section has its own `<h2>`, source link and SHA-256, and every heading id
+inside it carries the section's prefix (`r5-`, `r6-`, `r6-disposition-`), so two reviews
+with a "Summary" heading cannot mint the same id. The build refuses a misnamed file, two
+reviews with one number, a disposition with no review, and any id the page would carry
+twice; `check_site.py` refuses a repeated id on any page.
 
 **Deployment** is from the artifact the checks ran against, after a second build on the
 same runner has produced an identical tree. Pull requests build, check, and upload a
@@ -400,14 +410,31 @@ missing, self, chained or cyclic replacement is a finding); else Ratified if
 ````text
 ```bco-ratification
 agent: https://fandaws.com/ontology/bco-agents#aaron-damiano
+approvals:
+  editorial: https://fandaws.com/ontology/bco-agents#aaron-damiano
+  ontological: https://fandaws.com/ontology/bco-agents#aaron-damiano
+validation:
+  commit: <the full 40-hex commit the gates ran at, reachable from main>
+  gates:
+    - python tools/ontology/validate.py --gate
+    - python -m pytest tests/ -q -p no:randomly
 concepts:
   - iri: https://fandaws.com/ontology/bco-catalog#TreasuryManagement
     record_sha256: <python tools/vocab/build.py --digest bcoc:TreasuryManagement>
 ```
 ````
 
-IRIs in full; a CURIE, wildcard, namespace, scheme IRI or any other key is refused. The
-agent must be a declared `prov:Person` (D8). Each concept then cites the act:
+All four keys are required. IRIs in full; a CURIE, wildcard, namespace, scheme IRI or
+any other key is refused. The agent, and both approvers, must be declared `prov:Person`s
+(D8); one person may give both approvals. `validation.commit` is a full 40-hex SHA that
+`origin/main` or `main` reaches, and `gates` is the non-empty list of gate commands that
+passed at it, each once. The build checks the commit; it does not re-run the gates -- the
+list is the act's statement. `approvals` and `validation` were added in answer to review
+R6, section 6.3 (authorship is not approval, and provenance is not validation); they
+extend the format P3 accepted and leave ADR-003 D5's content -- explicit IRIs, each with
+its record digest -- unchanged. Refusal codes: `D5-act-approval-missing`,
+`D5-act-approval-shape`, `D8-approver-not-person`, `D5-act-validation-shape`,
+`D5-act-validation-commit`, `D5-act-validation-unreachable`, `D5-act-validation-gates`. Each concept then cites the act:
 `ratified_by: {path, commit, sha256}` -- the path under `docs/decisions/` or
 `docs/adr/`, a full commit reachable from `origin/main` or `main`, and the SHA-256 of
 `git show <commit>:<path>`, all recomputed (D2). The block is read from that commit's
@@ -416,7 +443,14 @@ and never writes one on its own initiative.
 
 **Sources (D6).** Every reference names a register id, a locator and a relation;
 `departs-from` also needs a `departure_note` and `claim`, the 1-based index of an entry
-claim at V or P (`claims_at_or_above`). A catalog definition sharing a 6-word run with
+claim at V or P (`claims_at_or_above`). `consistent-with` also needs `support`
+(review R6, section 6.1): `definitional` when the source backs something the definition
+itself says that not every concept in the scheme shares -- its genus as placed, or a
+differentia -- and `contextual` when it backs only a view the whole scheme rests on, such
+as capability as an ability distinct from process. `adapted-from` is definitional by
+nature and `departs-from` supports nothing, so `support` on either is refused
+(`D6-support-missing`, `D6-support-value`, `D6-support-misplaced`). It is published as
+`bco:support` on the reference node and shown on the Vocabulary page. A catalog definition sharing a 6-word run with
 any registered quote, after lowercasing and splitting on non-letters, fails with the
 quote's key.
 
@@ -430,7 +464,7 @@ re-checks everything it says, so the main suite never imports LinkML.
 `tools/vocab/schema_check.py` runs in the `vocab-schema` CI job: it regenerates the JSON
 Schema three times (twice from the root, once from a copy at another path), requires the
 LF bytes to match the committed file, and runs `linkml validate` over the authored files
-and 33 cases built to break the schema. `gen-shacl` and `gen-owl` are never run.
+and 35 cases built to break the schema. `gen-shacl` and `gen-owl` are never run.
 
 ---
 
@@ -455,7 +489,7 @@ out.
 | Shapes | Population |
 |---|---|
 | `wellformedness_shapes.ttl` | `owl:Class` in `bco#`; `skos:Concept` in `bco-metamodel#` and `bco-catalog#` (D1). Not sources or agents (D8) |
-| `vocabulary_shapes.ttl` | concepts (scheme, tagged prefLabel per language, definition, no stored narrower, derived status, deprecation iff replacement, ratified only with a citation, a declared drafting agent); metamodel concepts' designated class; catalog notations typed `bco:PCFCode`; source references (resolves to a `bcos:` record, locator, relation enum, `departs-from` with a note and a claim); every subject in `bcos:` and `bcoa:`; persons named; software agents with a model identifier acting for a declared person; ratification references with an act path, a 40-hex commit and a 64-hex digest other than the empty file's |
+| `vocabulary_shapes.ttl` | concepts (scheme, tagged prefLabel per language, definition, no stored narrower, derived status, deprecation iff replacement, ratified only with a citation, a declared drafting agent); metamodel concepts' designated class; catalog notations typed `bco:PCFCode`; source references (resolves to a `bcos:` record, locator, relation enum, `departs-from` with a note and a claim, `consistent-with` with exactly one `bco:support` of definitional or contextual, and no support on any other relation); every subject in `bcos:` and `bcoa:`; persons named; software agents with a model identifier acting for a declared person; ratification references with an act path, a 40-hex commit and a 64-hex digest other than the empty file's |
 
 `vocabulary_shapes.ttl` is hand-written (P2: `gen-shacl` is no-go), every constraint has a
 fixed `sh:message` with no substitution, and `tests/test_ontology_checks.py` maps every

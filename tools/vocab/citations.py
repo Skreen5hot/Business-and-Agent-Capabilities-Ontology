@@ -19,17 +19,39 @@ holds exactly one fenced block with the info string `bco-ratification`:
 
     ```bco-ratification
     agent: https://fandaws.com/ontology/bco-agents#<person>
+    approvals:
+      editorial: https://fandaws.com/ontology/bco-agents#<person>
+      ontological: https://fandaws.com/ontology/bco-agents#<person>
+    validation:
+      commit: <40 hex: a commit reachable from origin/main or main>
+      gates:
+        - python tools/ontology/validate.py --gate
+        - python -m pytest tests/ -q -p no:randomly
     concepts:
       - iri: https://fandaws.com/ontology/bco-catalog#TreasuryManagement
         record_sha256: <64 hex: the concept record digest, see build.py>
     ```
 
-Exactly these two keys, and in each list item exactly `iri` and
-`record_sha256`. Every IRI is written out in full; a CURIE, a wildcard, a
-namespace or a scheme IRI is refused, and so is any other key (`scheme`,
-`pattern`, `all`, ...): ADR-003 D5 admits a batch only as an explicit
-list. The block is read from the cited commit's blob, not from the
-working tree, so the act that counts is the one the digest pins.
+Exactly these four keys, all required, and in each list item exactly
+`iri` and `record_sha256`. Every IRI is written out in full; a CURIE, a
+wildcard, a namespace or a scheme IRI is refused, and so is any other key
+(`scheme`, `pattern`, `all`, ...): ADR-003 D5 admits a batch only as an
+explicit list. The block is read from the cited commit's blob, not from
+the working tree, so the act that counts is the one the digest pins.
+
+`approvals` and `validation` were added on 2026-10-24 in answer to review
+R6, section 6.3: a draft's provenance does not show that its definitions
+passed review or the gates, so the act records both. `approvals` is
+exactly `editorial` and `ontological`, each a person's IRI written in
+full; the build requires each to be a declared prov:Person (ADR-003 D8),
+the same rule as `agent`, and one person may give both. `validation` is
+exactly `commit` -- the full 40-hex SHA at which the gates were run,
+which must be reachable from origin/main or main (check_validation) --
+and `gates`, the non-empty list of the gate commands that passed there,
+each written once. The list is the act's statement; this module does not
+re-run the gates. The addition is to the act's format only: what ADR-003
+D5 requires an act to carry (explicit IRIs, each with its record digest)
+is unchanged.
 """
 
 from __future__ import annotations
@@ -46,7 +68,9 @@ CITED_PATH = re.compile(r"^docs/(decisions|adr)/[A-Za-z0-9._-]+\.md$")
 MAIN_REFS = ("origin/main", "main")
 BLOCK = re.compile(r"^```bco-ratification[ \t]*\n(.*?)^```[ \t]*$",
                    re.M | re.S)
-ACT_KEYS = {"agent", "concepts"}
+ACT_KEYS = {"agent", "approvals", "validation", "concepts"}
+APPROVAL_KEYS = {"editorial", "ontological"}
+VALIDATION_KEYS = {"commit", "gates"}
 ITEM_KEYS = {"iri", "record_sha256"}
 
 
@@ -61,6 +85,36 @@ class CitationError(ValueError):
 def _git(root: Path, *args: str) -> tuple[int, bytes, bytes]:
     proc = subprocess.run(["git", *args], cwd=str(root), capture_output=True)
     return proc.returncode, proc.stdout, proc.stderr
+
+
+def _reachable(root: Path, commit: str, unknown: str, unreachable: str,
+               what: str) -> None:
+    """`commit` is a commit here and some main ref reaches it, or
+    CitationError under the code given for each failure."""
+    code, out, _ = _git(root, "cat-file", "-t", commit)
+    if code or out.strip() != b"commit":
+        raise CitationError(unknown, "%s %s is not a commit in this "
+                                     "repository" % (what, commit))
+    refs = [ref for ref in MAIN_REFS
+            if _git(root, "rev-parse", "--verify", "--quiet",
+                    ref + "^{commit}")[0] == 0]
+    if not refs:
+        raise CitationError(unreachable,
+                            "neither origin/main nor main exists, so "
+                            "reachability of %s cannot be established"
+                            % commit)
+    if not any(_git(root, "merge-base", "--is-ancestor", commit, ref)[0] == 0
+               for ref in refs):
+        raise CitationError(unreachable, "%s %s is not reachable from %s"
+                            % (what, commit, " or ".join(refs)))
+
+
+def check_validation(root: Path, act: dict) -> None:
+    """The act's validation commit exists and a main ref reaches it (R6,
+    section 6.3). Its form was checked by parse_act."""
+    _reachable(root, act["validation"]["commit"],
+               "D5-act-validation-unreachable",
+               "D5-act-validation-unreachable", "validation commit")
 
 
 def check_citation(root: Path, citation: object) -> bytes:
@@ -86,24 +140,8 @@ def check_citation(root: Path, citation: object) -> bytes:
     if not isinstance(digest, str) or not SHA256.fullmatch(digest):
         raise CitationError("D2-digest-form", "cited sha256 %r is not 64 "
                                               "lowercase hex" % (digest,))
-    code, out, _ = _git(root, "cat-file", "-t", commit)
-    if code or out.strip() != b"commit":
-        raise CitationError("D2-unknown-commit",
-                            "cited commit %s is not a commit in this "
-                            "repository" % commit)
-    refs = [ref for ref in MAIN_REFS
-            if _git(root, "rev-parse", "--verify", "--quiet",
-                    ref + "^{commit}")[0] == 0]
-    if not refs:
-        raise CitationError("D2-unreachable",
-                            "neither origin/main nor main exists, so "
-                            "reachability of %s cannot be established"
-                            % commit)
-    if not any(_git(root, "merge-base", "--is-ancestor", commit, ref)[0] == 0
-               for ref in refs):
-        raise CitationError("D2-unreachable",
-                            "cited commit %s is not reachable from %s"
-                            % (commit, " or ".join(refs)))
+    _reachable(root, commit, "D2-unknown-commit", "D2-unreachable",
+               "cited commit")
     code, blob, _ = _git(root, "show", "%s:%s" % (commit, path))
     if code:
         raise CitationError("D2-path-not-in-commit",
@@ -117,7 +155,9 @@ def check_citation(root: Path, citation: object) -> bytes:
 
 
 def parse_act(blob: bytes, where: str) -> dict:
-    """{'agent': iri, 'concepts': {iri: record_sha256}} or CitationError."""
+    """{'agent': iri, 'approvals': {'editorial': iri, 'ontological': iri},
+    'validation': {'commit': sha, 'gates': [str]},
+    'concepts': {iri: record_sha256}} or CitationError."""
     import yaml
 
     text = blob.decode("utf-8")
@@ -141,6 +181,46 @@ def parse_act(blob: bytes, where: str) -> dict:
     if not isinstance(agent, str) or not agent.startswith("https://"):
         raise CitationError("D5-act-agent", "%s names no agent IRI written "
                                             "in full" % where)
+    approvals = data.get("approvals")
+    if not isinstance(approvals, dict) or not APPROVAL_KEYS <= set(approvals):
+        raise CitationError(
+            "D5-act-approval-missing",
+            "%s does not record both approvals; an act states who gave the "
+            "editorial and who gave the ontological approval (review R6, "
+            "section 6.3): got %r" % (where, approvals))
+    if set(approvals) != APPROVAL_KEYS or not all(
+            isinstance(approvals[k], str) and approvals[k].startswith(
+                "https://") for k in APPROVAL_KEYS):
+        raise CitationError(
+            "D5-act-approval-shape",
+            "%s: approvals is exactly editorial and ontological, each a "
+            "person IRI written in full; got %r" % (where, approvals))
+    validation = data.get("validation")
+    if not isinstance(validation, dict) \
+            or set(validation) != VALIDATION_KEYS:
+        raise CitationError(
+            "D5-act-validation-shape",
+            "%s: validation is exactly commit and gates, the commit the "
+            "gates ran at and the commands that passed; got %r"
+            % (where, validation))
+    if not isinstance(validation["commit"], str) \
+            or not FULL_COMMIT.fullmatch(validation["commit"]):
+        raise CitationError(
+            "D5-act-validation-commit",
+            "%s: validation commit %r is not a full 40-character lowercase "
+            "hexadecimal SHA" % (where, validation["commit"]))
+    gates = validation["gates"]
+    if not isinstance(gates, list) or not gates:
+        raise CitationError(
+            "D5-act-validation-gates",
+            "%s lists no gate that passed; an act names the gates run at "
+            "its validation commit" % where)
+    if not all(isinstance(g, str) and g.strip() for g in gates) \
+            or len(set(gates)) != len(gates):
+        raise CitationError(
+            "D5-act-validation-gates",
+            "%s: each gate is a command, written once; got %r"
+            % (where, gates))
     items = data.get("concepts")
     if not isinstance(items, list) or not items:
         raise CitationError("D5-act-not-explicit",
@@ -169,4 +249,7 @@ def parse_act(blob: bytes, where: str) -> dict:
             raise CitationError("D5-act-not-explicit",
                                 "%s lists %s twice" % (where, iri))
         found[iri] = digest
-    return {"agent": agent, "concepts": found}
+    return {"agent": agent, "approvals": dict(approvals),
+            "validation": {"commit": validation["commit"],
+                           "gates": list(gates)},
+            "concepts": found}

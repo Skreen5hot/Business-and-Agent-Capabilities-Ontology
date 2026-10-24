@@ -232,7 +232,11 @@ bcoc:Treasury a skos:Concept ;
     bco:lifecycleStatus "Draft" ;
     bco:designatesClass bco:TreasuryCapability ;
     prov:wasAttributedTo bcoa:software ;
-    bco:sourceReference bcoc:source-1 .
+    bco:sourceReference bcoc:source-1 , bcoc:source-2 .
+bcoc:source-2 bco:citesSource bcos:SRC-OMG-03 ;
+    bco:locator "section 9" ;
+    bco:relation "consistent-with" ;
+    bco:support "<i>contextual</i>" .
 bcoc:source-1 bco:citesSource bcos:SRC-OMG-03 ;
     bco:locator "section \\"7\\" <b>2</b>" ;
     bco:relation "departs-from" ;
@@ -332,6 +336,7 @@ def test_a_constructed_concept_renders_every_field_escaped(builder,
     page = vocabulary_page(builder, validator, VOCAB_BASE + VOCAB_CONCEPT)
     assert "EMPTY-NOTICE" not in page
     for raw in ("<b>Treasury</b>", "<script>", "<i>work</i>", "<u>only</u>",
+                "<i>contextual</i>",
                 "<em>Person</em>", "<b>2</b>"):
         assert raw not in page, raw
     for escaped in ("&lt;b&gt;Treasury&lt;/b&gt; &amp; Co",
@@ -342,6 +347,8 @@ def test_a_constructed_concept_renders_every_field_escaped(builder,
                     "<code>SRC-OMG-03</code> &mdash; departs-from &mdash; "
                     "section &quot;7&quot; &lt;b&gt;2&lt;/b&gt; &mdash; "
                     "Organization &lt;u&gt;only&lt;/u&gt;.",
+                    "<code>SRC-OMG-03</code> &mdash; consistent-with "
+                    "(&lt;i&gt;contextual&lt;/i&gt;) &mdash; section 9",
                     "Cited &lt;i&gt;work&lt;/i&gt; &amp; co",
                     "Software (<code>bcoa:software</code>)",
                     "A &lt;em&gt;Person&lt;/em&gt;"):
@@ -400,6 +407,117 @@ def test_the_site_build_reads_no_vocabulary_yaml(builder, repo, tmp_path,
 
 
 # --------------------------------------------------- text is not markup
+
+
+# ------------------------------------------------------------ reviews
+
+
+def test_every_review_is_on_the_reviews_page(built, repo):
+    """Every reviews/*.md, each under its own section, in sorted order,
+    with its own source digest -- and the navigation says Reviews."""
+    import hashlib
+
+    out, _ = built
+    page = (out / "review/index.html").read_text(encoding="utf-8")
+    site = json.loads((repo / "site/content/site.json")
+                      .read_text(encoding="utf-8"))
+    assert {"key": "review", "label": "Reviews",
+            "path": "review/"} in site["navigation"]
+    assert "<h1>Reviews</h1>" in page
+    files = sorted((repo / "reviews").glob("*.md"))
+    assert len(files) >= 2, files
+    positions = []
+    for path in files:
+        number, _, rest = path.stem.partition("-")
+        tag = number.lower() + ("-disposition" if rest == "disposition"
+                                else "")
+        marker = 'id="review-%s"' % tag
+        assert page.count(marker) == 1, marker
+        positions.append(page.index(marker))
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        assert "<code>%s</code>" % digest in page, path.name
+    # Reviews in number order, each disposition right after its review.
+    order = sorted(positions)
+    assert page.index('id="review-r5"') < page.index('id="review-r6"') \
+        < page.index('id="review-r6-disposition"'), order
+
+
+def test_the_r6_disposition_is_rendered_as_a_disposition(built):
+    """Rendered, not excluded: a validator reading R6 sees the project's
+    proposed answer beside it, labelled as a proposal."""
+    out, _ = built
+    page = (out / "review/index.html").read_text(encoding="utf-8")
+    assert "Disposition of R6 (proposed)" in page
+    assert "each row is a proposal until he accepts the PR" in page
+
+
+def test_ids_on_the_reviews_page_are_unique_and_prefixed(built):
+    """Every id once, and every heading id inside a section carries that
+    section's prefix -- so "Summary" in two reviews cannot collide."""
+    out, _ = built
+    page = (out / "review/index.html").read_text(encoding="utf-8")
+    ids = re.findall(r'\sid="([^"]*)"', page)
+    assert len(ids) == len(set(ids)), sorted(
+        i for i in set(ids) if ids.count(i) > 1)
+    sections = re.findall(r'<section class="review" id="review-([^"]+)">'
+                          r"(.*?)</section>", page, flags=re.S)
+    assert len(sections) >= 3, len(sections)
+    for tag, body in sections:
+        headings = re.findall(r'<h[3-6] id="([^"]+)"', body)
+        assert headings, tag
+        for heading in headings:
+            assert heading.startswith(tag + "-"), (tag, heading)
+            # and no other section's prefix is a longer match
+            others = [t for t, _ in sections
+                      if t != tag and heading.startswith(t + "-")
+                      and len(t) > len(tag)]
+            assert not others, (tag, heading, others)
+
+
+def write_reviews(tmp_path, files):
+    paths = []
+    for name, text in files.items():
+        path = tmp_path / name
+        path.write_bytes(text.encode("utf-8"))
+        paths.append(path)
+    return paths
+
+
+@pytest.fixture
+def review_ctx(builder, monkeypatch):
+    """reviews_values on files outside the repository: source links need
+    a repository-relative path, so the name stands in for it."""
+    monkeypatch.setattr(builder, "relative", lambda path: path.name)
+    return {"repository": "https://example.invalid/repo", "commit": "0" * 40}
+
+
+def test_two_reviews_with_the_same_headings_get_distinct_ids(
+        builder, review_ctx, tmp_path):
+    same = "# A review\n\n## Summary\n\nText.\n"
+    values = builder.reviews_values(review_ctx, write_reviews(tmp_path, {
+        "R1-first.md": same, "R2-second.md": same}))
+    body = values["reviews_body"]
+    for expected in ('id="r1-summary"', 'id="r2-summary"',
+                     'id="review-r1"', 'id="review-r2"'):
+        assert body.count(expected) == 1, expected
+    # Without the prefix, both would have been "summary".
+    plain, _ = builder.render_markdown(same)
+    assert 'id="summary"' in plain
+
+
+@pytest.mark.parametrize("files, needle", [
+    ({"R1-review.md": "# A\n\n## Disposition x\n",
+      "R1-disposition.md": "# B\n\n## x\n"}, "more than once"),
+    ({"R1-review.md": "# A\n", "R2-disposition.md": "# B\n"},
+     "answers no review"),
+    ({"notes.md": "# A\n"}, "not named R<n>"),
+    ({"R1-review.md": "# A\n", "R1-other.md": "# B\n"}, "claim R1"),
+], ids=["colliding-ids", "orphan-disposition", "misnamed", "same-number"])
+def test_the_reviews_page_refuses_what_it_cannot_place(
+        builder, review_ctx, tmp_path, files, needle):
+    with pytest.raises(SystemExit) as error:
+        builder.reviews_values(review_ctx, write_reviews(tmp_path, files))
+    assert needle in str(error.value), str(error.value)
 
 
 def test_raw_html_in_a_document_is_shown_not_run(builder):
@@ -465,6 +583,8 @@ def damage(path, old, new):
     ("modules/index.html", '<main id="main"',
      '<main onclick="x()" id="main"', "event handler"),
     ("specification/index.html", 'href="#', 'href="#no-such-', "fragment"),
+    ("review/index.html", 'id="review-r5"', 'id="review-r6"',
+     "id used more than once"),
 ])
 def test_the_checker_refuses_each_kind_of_damage(checker, copy, page, old,
                                                  new, expect):
