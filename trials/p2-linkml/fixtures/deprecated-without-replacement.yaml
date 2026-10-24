@@ -1,0 +1,7 @@
+# P2 negative fixture: deprecated-without-replacement
+# rule: D5 Deprecated requires a replacement
+# expect: reject
+built_statuses:
+- deprecated: true
+  id: bcoc:CashManagement
+  lifecycle_status: Deprecated

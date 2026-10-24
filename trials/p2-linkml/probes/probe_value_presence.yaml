@@ -1,0 +1,95 @@
+# P2 probe: where is slot_usage value_presence ABSENT enforced?
+#
+# The smallest schema that asks, four ways. Each probe_value_presence_*
+# data file sets exactly one slot declared ABSENT; run_trial.py records
+# whether `linkml validate` rejects it. The trial schema's first draft
+# declared several slots ABSENT on one class, and `linkml validate`
+# accepted a document authoring one of them; this probe separates the
+# cases.
+id: https://fandaws.com/ontology/bco/trial/p2-linkml/probe-value-presence
+name: probe_value_presence
+default_prefix: probe
+default_range: string
+prefixes:
+  linkml: https://w3id.org/linkml/
+  probe: https://fandaws.com/ontology/bco/trial/p2-linkml/probe#
+imports:
+  - linkml:types
+
+slots:
+  things:
+    range: Thing
+    multivalued: true
+    inlined_as_list: true
+  multi_things:
+    range: MultiThing
+    multivalued: true
+    inlined_as_list: true
+  child_things:
+    range: ChildThing
+    multivalued: true
+    inlined_as_list: true
+  pair_things:
+    range: PairThing
+    multivalued: true
+    inlined_as_list: true
+  name:
+    required: true
+  forbidden:
+    range: string
+  forbidden_list:
+    range: string
+    multivalued: true
+  forbidden_b:
+    range: string
+
+classes:
+  Container:
+    tree_root: true
+    slots:
+      - things
+      - multi_things
+      - child_things
+      - pair_things
+
+  # (1) single-valued slot, ABSENT on the class that owns it
+  Thing:
+    slots:
+      - name
+      - forbidden
+    slot_usage:
+      forbidden:
+        value_presence: ABSENT
+
+  # (2) multivalued slot, ABSENT on the class that owns it
+  MultiThing:
+    slots:
+      - name
+      - forbidden_list
+    slot_usage:
+      forbidden_list:
+        value_presence: ABSENT
+
+  # (3) single-valued slot, ABSENT on an abstract parent only
+  AbstractParent:
+    abstract: true
+    slots:
+      - name
+      - forbidden
+    slot_usage:
+      forbidden:
+        value_presence: ABSENT
+  ChildThing:
+    is_a: AbstractParent
+
+  # (4) TWO slots ABSENT on one class, and the data sets only one
+  PairThing:
+    slots:
+      - name
+      - forbidden
+      - forbidden_b
+    slot_usage:
+      forbidden:
+        value_presence: ABSENT
+      forbidden_b:
+        value_presence: ABSENT

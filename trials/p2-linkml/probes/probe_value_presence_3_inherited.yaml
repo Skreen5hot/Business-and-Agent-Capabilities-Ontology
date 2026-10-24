@@ -1,0 +1,5 @@
+# P2 probe (3): slot declared ABSENT on an abstract parent only.
+# expect: reject, if value_presence ABSENT is inherited
+child_things:
+  - name: example
+    forbidden: this value should not be allowed

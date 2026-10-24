@@ -1,0 +1,410 @@
+# P2 LinkML trial schema -- NOT the vocabulary, NOT normative.
+#
+# An attempt to express ADR-003's (PROPOSED) concept record in LinkML, so
+# that what LinkML can and cannot carry is measured rather than assumed.
+# The findings are in docs/trials/2026-10-p2-linkml.md. Nothing here is
+# loaded by the normal suite, and no IRI below is minted by this file: the
+# namespaces are ADR-003 D1's, which are themselves proposed.
+#
+# Every rule ADR-003 states that this file does not express is listed in
+# the report, with the reason. A rule written here is only "expressed" if
+# a fixture in fixtures/ is rejected for it; see run_trial.py.
+
+id: https://fandaws.com/ontology/bco/trial/p2-linkml
+name: bco_vocab_trial
+title: BCO controlled vocabulary (P2 LinkML trial)
+description: >-
+  Trial schema for the ADR-003 concept record: a SKOS concept with
+  provenance, two concept kinds, source and ratification references.
+license: MIT
+version: 0.0.0-trial
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  bco: https://fandaws.com/ontology/bco#
+  bcom: https://fandaws.com/ontology/bco-metamodel#
+  bcoc: https://fandaws.com/ontology/bco-catalog#
+  bcos: https://fandaws.com/ontology/bco-sources#
+  bcoa: https://fandaws.com/ontology/bco-agents#
+  bcotrial: https://fandaws.com/ontology/bco/trial/p2-linkml#
+  skos: http://www.w3.org/2004/02/skos/core#
+  dcterms: http://purl.org/dc/terms/
+  prov: http://www.w3.org/ns/prov#
+  owl: http://www.w3.org/2002/07/owl#
+  xsd: http://www.w3.org/2001/XMLSchema#
+
+default_prefix: bcotrial
+default_range: string
+
+imports:
+  - linkml:types
+
+# ---------------------------------------------------------------------
+# Types
+# ---------------------------------------------------------------------
+
+types:
+  PCFCode:
+    typeof: string
+    uri: bco:PCFCode
+    description: >-
+      ADR-003 D7: an APQC PCF 7.4 Cross-Industry element ID. The lexical
+      form assumed here (five digits) is the trial's assumption, to be
+      checked against the PCF 7.4 workbook before P3 relies on it.
+    pattern: "^[0-9]{5}$"
+
+  Sha256Hex:
+    typeof: string
+    description: >-
+      A lowercase SHA-256. The empty-file digest is refused by name
+      (ADR-003 D2), here by a negative lookahead.
+    pattern: "^(?!e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855$)[0-9a-f]{64}$"
+
+  GitCommit:
+    typeof: string
+    description: A full 40-character commit SHA (ADR-003 D2).
+    pattern: "^[0-9a-f]{40}$"
+
+# ---------------------------------------------------------------------
+# Enums
+# ---------------------------------------------------------------------
+
+enums:
+  AuthoredStatus:
+    description: ADR-003 D5. The only statuses an author may write.
+    permissible_values:
+      Draft:
+      Candidate:
+
+  LifecycleStatus:
+    description: >-
+      ADR-003 D5. The published status, derived by the build. Present in
+      this schema only so that authoring it can be refused.
+    permissible_values:
+      Draft:
+      Candidate:
+      Ratified:
+      Deprecated:
+
+  SourceRelation:
+    description: How a concept stands to a registered source (ADR-003 D6).
+    permissible_values:
+      adapted-from:
+      consistent-with:
+      departs-from:
+
+# ---------------------------------------------------------------------
+# Slots
+# ---------------------------------------------------------------------
+
+slots:
+  id:
+    identifier: true
+    range: uriorcurie
+    description: The concept IRI, as a CURIE in bcom or bcoc.
+
+  pref_label:
+    slot_uri: skos:prefLabel
+    range: LanguageTaggedString
+    multivalued: true
+    inlined_as_list: true
+    required: true
+
+  definition:
+    slot_uri: skos:definition
+    range: string
+
+  in_scheme:
+    slot_uri: skos:inScheme
+    range: uriorcurie
+    required: true
+
+  sources:
+    slot_uri: dcterms:source
+    range: SourceReference
+    multivalued: true
+    inlined_as_list: true
+    required: true
+
+  drafted_by:
+    slot_uri: prov:wasAttributedTo
+    range: uriorcurie
+    required: true
+    pattern: "^bcoa:[A-Za-z][A-Za-z0-9-]*$"
+    description: >-
+      A declared agent (ADR-003 D8). That the IRI is declared in the
+      agents graph is NOT checked here; see the report.
+
+  created:
+    slot_uri: dcterms:created
+    range: datetime
+    required: true
+
+  ratified_by:
+    slot_uri: bcotrial:ratifiedBy
+    range: RatificationReference
+    inlined: true
+
+  was_revision_of:
+    slot_uri: prov:wasRevisionOf
+    range: uriorcurie
+
+  is_replaced_by:
+    slot_uri: dcterms:isReplacedBy
+    range: uriorcurie
+
+  change_note:
+    slot_uri: skos:changeNote
+    range: string
+    multivalued: true
+
+  authored_status:
+    slot_uri: bcotrial:authoredStatus
+    range: AuthoredStatus
+    required: true
+
+  lifecycle_status:
+    slot_uri: bco:lifecycleStatus
+    range: LifecycleStatus
+
+  deprecated:
+    slot_uri: owl:deprecated
+    range: boolean
+
+  designates_class:
+    slot_uri: bco:designatesClass
+    range: uriorcurie
+    pattern: "^bco:[A-Z][A-Za-z0-9]*$"
+
+  spec_row:
+    slot_uri: bcotrial:specRow
+    range: string
+    description: >-
+      ADR-003 D4: the specification section 4 Terms row this metamodel
+      concept wraps (the term name as the row writes it).
+
+  broader:
+    slot_uri: skos:broader
+    range: uriorcurie
+    multivalued: true
+
+  narrower:
+    slot_uri: skos:narrower
+    range: uriorcurie
+    multivalued: true
+
+  notation:
+    slot_uri: skos:notation
+    range: PCFCode
+
+  value:
+    range: string
+    required: true
+
+  language:
+    range: string
+    required: true
+    pattern: "^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$"
+
+  source:
+    slot_uri: bcotrial:source
+    range: string
+    required: true
+    pattern: "^SRC-[A-Z]+-[0-9]{2}$"
+
+  locator:
+    slot_uri: bcotrial:locator
+    range: string
+
+  relation:
+    slot_uri: bcotrial:relation
+    range: SourceRelation
+    required: true
+
+  departure_note:
+    slot_uri: bcotrial:departureNote
+    range: string
+
+  path:
+    slot_uri: bcotrial:path
+    range: string
+    required: true
+    pattern: "^docs/(decisions|adr)/[A-Za-z0-9._-]+\\.md$"
+
+  commit:
+    slot_uri: bcotrial:commit
+    range: GitCommit
+    required: true
+
+  sha256:
+    slot_uri: bcotrial:sha256
+    range: Sha256Hex
+    required: true
+
+  record_digest:
+    slot_uri: bcotrial:recordDigest
+    range: Sha256Hex
+    required: true
+
+  metamodel_concepts:
+    range: MetamodelConcept
+    multivalued: true
+    inlined_as_list: true
+
+  catalog_concepts:
+    range: CapabilityCatalogConcept
+    multivalued: true
+    inlined_as_list: true
+
+  built_statuses:
+    range: BuiltConceptStatus
+    multivalued: true
+    inlined_as_list: true
+
+# ---------------------------------------------------------------------
+# Classes
+# ---------------------------------------------------------------------
+
+classes:
+  ConceptCollection:
+    tree_root: true
+    description: The container a YAML file of sample terms validates as.
+    slots:
+      - metamodel_concepts
+      - catalog_concepts
+      - built_statuses
+
+  LanguageTaggedString:
+    description: >-
+      LinkML has no language-tagged literal type, so a label is an object
+      of value and language. In RDF this is NOT an rdf:langString; see
+      the report.
+    slots:
+      - value
+      - language
+
+  VocabularyConcept:
+    abstract: true
+    class_uri: skos:Concept
+    description: The record every concept carries (ADR-003 D3, D5, D6, D8).
+    slots:
+      - id
+      - pref_label
+      - in_scheme
+      - sources
+      - drafted_by
+      - created
+      - ratified_by
+      - was_revision_of
+      - is_replaced_by
+      - change_note
+      - authored_status
+    # "Never authored" (D4 definition on a metamodel concept, D5
+    # lifecycleStatus and owl:deprecated, narrower on a catalog concept)
+    # is expressed by leaving the slot OUT of the class, and relying on
+    # LinkML classes being closed: gen-json-schema writes
+    # additionalProperties false, so an authored value is an unexpected
+    # property. The obvious spelling, slot_usage value_presence: ABSENT,
+    # is enforced only while ONE slot per class is ABSENT: gen-json-schema
+    # 1.11.1 folds several into a single not {required: [a, b, c]}, which
+    # refuses only a document that authors all of them at once.
+    # probes/probe_value_presence.yaml measures that.
+
+  MetamodelConcept:
+    is_a: VocabularyConcept
+    class_uri: skos:Concept
+    description: A term of the specification (bcom:), ADR-003 D4.
+    slots:
+      - designates_class
+      - spec_row
+    slot_usage:
+      id:
+        pattern: "^bcom:[A-Z][A-Za-z0-9]*$"
+      in_scheme:
+        # equals_string is refused on a uriorcurie range by gen-shacl
+        # ("require range 'string'"), so the one value is a pattern.
+        pattern: "^bcom:MetamodelScheme$"
+      designates_class:
+        required: true
+      spec_row:
+        required: true
+
+  CapabilityCatalogConcept:
+    is_a: VocabularyConcept
+    class_uri: skos:Concept
+    description: A capability in the catalog (bcoc:).
+    slots:
+      - definition
+      - designates_class
+      - broader
+      - notation
+    slot_usage:
+      id:
+        pattern: "^bcoc:[A-Z][A-Za-z0-9]*$"
+      in_scheme:
+        # equals_string is refused on a uriorcurie range by gen-shacl
+        # ("require range 'string'"), so the one value is a pattern.
+        pattern: "^bcoc:CapabilityCatalogScheme$"
+      definition:
+        required: true
+
+  SourceReference:
+    description: >-
+      A concept's citation of a register entry. Inlined, with no
+      identifier: in RDF each becomes a blank node, which ADR-003 D9
+      forbids. Minting a content-derived IRI is not something LinkML does.
+    slots:
+      - source
+      - locator
+      - relation
+      - departure_note
+    rules:
+      - description: D6. departs-from needs a locator and a departure_note.
+        preconditions:
+          slot_conditions:
+            relation:
+              equals_string: departs-from
+        postconditions:
+          slot_conditions:
+            departure_note:
+              required: true
+            locator:
+              required: true
+
+  RatificationReference:
+    description: >-
+      ADR-003 D2 and D5: the act that ratified this concept, by path, full
+      commit and SHA-256, plus the digest of the record it ratified.
+    slots:
+      - path
+      - commit
+      - sha256
+      - record_digest
+
+  BuiltConceptStatus:
+    description: >-
+      What the build emits for one concept (D5), modelled to test the one
+      conditional rule on derived status: Deprecated requires a
+      replacement. Authors never write this class.
+    slots:
+      - id
+      - lifecycle_status
+      - deprecated
+      - is_replaced_by
+    slot_usage:
+      lifecycle_status:
+        required: true
+    rules:
+      - description: D5. Deprecated requires a replacement.
+        preconditions:
+          slot_conditions:
+            lifecycle_status:
+              equals_string: Deprecated
+        postconditions:
+          slot_conditions:
+            is_replaced_by:
+              required: true
+    # "and owl:deprecated is true" is not in the postcondition: an
+    # equals_string of "true" on a boolean slot becomes a JSON Schema
+    # const of the STRING "true", which rejects the boolean true. LinkML
+    # 1.11.1 has no boolean value condition (see the report).

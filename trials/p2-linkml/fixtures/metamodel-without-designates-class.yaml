@@ -1,0 +1,18 @@
+# P2 negative fixture: metamodel-without-designates-class
+# rule: MetamodelConcept requires designatesClass
+# expect: reject
+metamodel_concepts:
+- authored_status: Draft
+  created: '2026-10-23T00:00:00Z'
+  drafted_by: bcoa:claude-opus-5-5
+  id: bcom:BusinessCapability
+  in_scheme: bcom:MetamodelScheme
+  pref_label:
+  - language: en
+    value: Business Capability
+  sources:
+  - departure_note: Organization-only bearer.
+    locator: BACM 1.1, clause 7.2
+    relation: departs-from
+    source: SRC-OMG-03
+  spec_row: Business Capability

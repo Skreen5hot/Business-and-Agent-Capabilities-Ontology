@@ -1,0 +1,6 @@
+# P2 probe data for probe_conditions.yaml: satisfies every condition.
+# expect: accept
+items:
+  - state: Deprecated
+    flag: true
+    scheme: probe:TheScheme

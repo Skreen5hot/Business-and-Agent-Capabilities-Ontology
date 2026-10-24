@@ -6,6 +6,8 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 .venv/
+# The P2 LinkML trial's environment (trials/p2-linkml/requirements-linkml-trial.txt).
+.venv-linkml/
 venv/
 .env
 *.log
