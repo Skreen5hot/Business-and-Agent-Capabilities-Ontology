@@ -98,3 +98,7 @@ bco:sourceReference skos:definition "Relates a concept to a reference to a regis
 bco:specParent rdf:type owl:AnnotationProperty .
 bco:specParent rdfs:label "specification parent"@en .
 bco:specParent skos:definition "A parent class the specification section 4 row names for the class this concept designates."@en .
+
+bco:support rdf:type owl:AnnotationProperty .
+bco:support rdfs:label "support"@en .
+bco:support skos:definition "For a consistent-with source reference: definitional if the source supports the concept's specific definition, contextual if it supports only the general view the definition rests on. adapted-from is definitional by nature; departs-from carries none (review R6, section 6.1)."@en .

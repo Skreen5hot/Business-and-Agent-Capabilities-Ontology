@@ -118,8 +118,12 @@ def make(tmp_path, vb, layout, spec_path, metamodel=(), catalog=(),
 
 def source(**kw):
     ref = {"source": "SRC-GOV-04", "locator": "NAF v4.1, Capability",
-           "relation": "consistent-with"}
+           "relation": "consistent-with", "support": "contextual"}
     ref.update(kw)
+    # support belongs to consistent-with alone; a case that wants it on
+    # another relation passes it explicitly.
+    if ref.get("relation") != "consistent-with" and "support" not in kw:
+        del ref["support"]
     return ref
 
 
@@ -668,13 +672,56 @@ def test_departs_from_a_v_claim_builds(vb, register, layout, spec_path,
     (lambda r, v: source(source="SRC-OMG-03", relation="departs-from",
                          departure_note="Why."), "D6-departure-claim"),
     (lambda r, v: source(departure_note="Why."), "D6-reference-shape"),
+    (lambda r, v: {k: x for k, x in source().items() if k != "support"},
+     "D6-support-missing"),
+    (lambda r, v: source(support="partial"), "D6-support-value"),
+    (lambda r, v: source(relation="adapted-from", support="definitional"),
+     "D6-support-misplaced"),
+    (lambda r, v: source(source="SRC-OMG-03", relation="departs-from",
+                         claim=strong_claim(r, v, "SRC-OMG-03"),
+                         departure_note="Why.", support="contextual"),
+     "D6-support-misplaced"),
 ], ids=["unknown-id", "empty-locator", "no-locator", "relation",
         "no-departure-note", "claim-below-P", "claim-out-of-range",
-        "no-claim", "note-without-departure"])
+        "no-claim", "note-without-departure", "consistent-without-support",
+        "support-value", "support-on-adapted-from",
+        "support-on-departs-from"])
 def test_a_bad_source_reference_is_refused(vb, register, layout, spec_path,
                                            tmp_path, ref, code):
     refused(vb, make(tmp_path, vb, layout, spec_path,
                      catalog=[cat(sources=[ref(register, vb)])]), code)
+
+
+@pytest.mark.parametrize("support", ["definitional", "contextual"])
+def test_consistent_with_support_is_emitted(vb, layout, spec_path, tmp_path,
+                                            support):
+    """Positive control for R6 6.1: each value builds and is published on
+    the reference node, and bco:support is declared."""
+    result = built(vb, make(tmp_path, vb, layout, spec_path,
+                            catalog=[cat(sources=[source(support=support)])]))
+    text = result.files["bco-catalog.ttl"].decode("utf-8")
+    assert 'bco:support "%s"' % support in text
+    vocab = result.files["bco-vocabulary.ttl"].decode("utf-8")
+    assert "bco:support rdf:type owl:AnnotationProperty ." in vocab
+
+
+def test_every_real_consistent_with_states_its_support(repo):
+    """R6 6.1 over the authored files: every consistent-with reference
+    says definitional or contextual, and no other relation carries
+    support. The build refuses the same; this reads the YAML directly so
+    the classification is checked even if the build's rule regressed."""
+    seen = {"definitional": 0, "contextual": 0}
+    for name in ("metamodel", "catalog"):
+        data = yaml.safe_load((repo / "vocab" / (name + ".yaml"))
+                              .read_bytes().decode("utf-8"))
+        for record in data["concepts"]:
+            for ref in record["sources"]:
+                if ref["relation"] == "consistent-with":
+                    assert ref.get("support") in seen, (record["id"], ref)
+                    seen[ref["support"]] += 1
+                else:
+                    assert "support" not in ref, (record["id"], ref)
+    assert all(seen.values()), seen
 
 
 def test_a_concept_without_sources_is_refused(vb, layout, spec_path, tmp_path):

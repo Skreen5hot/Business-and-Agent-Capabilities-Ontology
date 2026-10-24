@@ -416,7 +416,14 @@ and never writes one on its own initiative.
 
 **Sources (D6).** Every reference names a register id, a locator and a relation;
 `departs-from` also needs a `departure_note` and `claim`, the 1-based index of an entry
-claim at V or P (`claims_at_or_above`). A catalog definition sharing a 6-word run with
+claim at V or P (`claims_at_or_above`). `consistent-with` also needs `support`
+(review R6, section 6.1): `definitional` when the source backs something the definition
+itself says that not every concept in the scheme shares -- its genus as placed, or a
+differentia -- and `contextual` when it backs only a view the whole scheme rests on, such
+as capability as an ability distinct from process. `adapted-from` is definitional by
+nature and `departs-from` supports nothing, so `support` on either is refused
+(`D6-support-missing`, `D6-support-value`, `D6-support-misplaced`). It is published as
+`bco:support` on the reference node and shown on the Vocabulary page. A catalog definition sharing a 6-word run with
 any registered quote, after lowercasing and splitting on non-letters, fails with the
 quote's key.
 
@@ -430,7 +437,7 @@ re-checks everything it says, so the main suite never imports LinkML.
 `tools/vocab/schema_check.py` runs in the `vocab-schema` CI job: it regenerates the JSON
 Schema three times (twice from the root, once from a copy at another path), requires the
 LF bytes to match the committed file, and runs `linkml validate` over the authored files
-and 33 cases built to break the schema. `gen-shacl` and `gen-owl` are never run.
+and 35 cases built to break the schema. `gen-shacl` and `gen-owl` are never run.
 
 ---
 
@@ -455,7 +462,7 @@ out.
 | Shapes | Population |
 |---|---|
 | `wellformedness_shapes.ttl` | `owl:Class` in `bco#`; `skos:Concept` in `bco-metamodel#` and `bco-catalog#` (D1). Not sources or agents (D8) |
-| `vocabulary_shapes.ttl` | concepts (scheme, tagged prefLabel per language, definition, no stored narrower, derived status, deprecation iff replacement, ratified only with a citation, a declared drafting agent); metamodel concepts' designated class; catalog notations typed `bco:PCFCode`; source references (resolves to a `bcos:` record, locator, relation enum, `departs-from` with a note and a claim); every subject in `bcos:` and `bcoa:`; persons named; software agents with a model identifier acting for a declared person; ratification references with an act path, a 40-hex commit and a 64-hex digest other than the empty file's |
+| `vocabulary_shapes.ttl` | concepts (scheme, tagged prefLabel per language, definition, no stored narrower, derived status, deprecation iff replacement, ratified only with a citation, a declared drafting agent); metamodel concepts' designated class; catalog notations typed `bco:PCFCode`; source references (resolves to a `bcos:` record, locator, relation enum, `departs-from` with a note and a claim, `consistent-with` with exactly one `bco:support` of definitional or contextual, and no support on any other relation); every subject in `bcos:` and `bcoa:`; persons named; software agents with a model identifier acting for a declared person; ratification references with an act path, a 40-hex commit and a 64-hex digest other than the empty file's |
 
 `vocabulary_shapes.ttl` is hand-written (P2: `gen-shacl` is no-go), every constraint has a
 fixed `sh:message` with no substitution, and `tests/test_ontology_checks.py` maps every

@@ -136,6 +136,13 @@ OUTPUT_IDS = {
 
 AUTHORED_STATUSES = ("Draft", "Candidate")
 RELATIONS = ("adapted-from", "consistent-with", "departs-from")
+#: R6 section 6.1: what a consistent-with source supports. `definitional`:
+#: the source supports this concept's specific definition. `contextual`:
+#: it supports only the general view the definition rests on (capability
+#: as an ability distinct from process, say), not the definition itself.
+#: Required on consistent-with. adapted-from is definitional by nature
+#: and departs-from supports nothing, so neither carries it.
+SUPPORTS = ("definitional", "contextual")
 #: ADR-003 D7. The lexical form of a PCF 7.4 Cross-Industry element ID is
 #: assumed to be five digits (as in the P2 trial). It has not been checked
 #: against the PCF 7.4 workbook, which is licensed and not in this
@@ -158,7 +165,8 @@ CATALOG_REQUIRED = ("pref_label", "definition", "genus")
 CATALOG_FIELDS = (set(COMMON_REQUIRED) | set(COMMON_OPTIONAL)
                   | set(CATALOG_REQUIRED)
                   | {"broader", "notation", "designates_class"})
-SOURCE_FIELDS = {"source", "locator", "relation", "departure_note", "claim"}
+SOURCE_FIELDS = {"source", "locator", "relation", "support",
+                 "departure_note", "claim"}
 AGENT_FIELDS = {"id", "type", "name", "model", "acted_on_behalf_of"}
 #: Fields that are never authored, each refused with its own code so the
 #: message says which decision forbids it rather than "unknown field".
@@ -194,6 +202,13 @@ PROPERTIES = {
     "relation": ("relation",
                  "How the concept stands to the source: adapted-from, "
                  "consistent-with or departs-from."),
+    "support": ("support",
+                "For a consistent-with source reference: definitional if "
+                "the source supports the concept's specific definition, "
+                "contextual if it supports only the general view the "
+                "definition rests on. adapted-from is definitional by "
+                "nature; departs-from carries none (review R6, section "
+                "6.1)."),
     "departureNote": ("departure note",
                       "Why a concept departs from the source it cites."),
     "citesClaim": ("cites claim",
@@ -435,6 +450,28 @@ def check_sources(refs, where: str, register: dict, findings: list) -> list:
             findings.append(Finding("D6-relation",
                                     "%s relation %r is not one of %s"
                                     % (at, relation, ", ".join(RELATIONS))))
+            bad = True
+        support = ref.get("support")
+        if relation == "consistent-with" and "support" not in ref:
+            findings.append(Finding(
+                "D6-support-missing",
+                "%s is consistent-with with no support; say whether the "
+                "source supports the definition itself (definitional) or "
+                "only the view it rests on (contextual)" % at))
+            bad = True
+        elif ("support" in ref and relation in RELATIONS
+              and relation != "consistent-with"):
+            findings.append(Finding(
+                "D6-support-misplaced",
+                "%s carries support with relation %s; only consistent-with "
+                "states it (adapted-from is definitional by nature, "
+                "departs-from supports nothing)" % (at, relation)))
+            bad = True
+        elif "support" in ref and support not in SUPPORTS:
+            findings.append(Finding(
+                "D6-support-value",
+                "%s support %r is not one of %s"
+                % (at, support, ", ".join(SUPPORTS))))
             bad = True
         if relation == "departs-from":
             note = ref.get("departure_note")
@@ -993,6 +1030,8 @@ def concept_triples(kind, namespace, iri, record, row, status, digest, refs,
               (node, U(BCO + "citesSource"), U(BCOS + ref["source"])),
               (node, U(BCO + "locator"), L(ref["locator"])),
               (node, U(BCO + "relation"), L(ref["relation"]))]
+        if "support" in ref:
+            t.append((node, U(BCO + "support"), L(ref["support"])))
         if "departure_note" in ref:
             t.append((node, U(BCO + "departureNote"),
                       L(ref["departure_note"], "en")))

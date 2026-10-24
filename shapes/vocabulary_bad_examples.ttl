@@ -243,7 +243,9 @@ bcoc:VocabSourceHost a skos:Concept ;
     bco:sourceReference bcoc:source-no-source , bcoc:source-not-a-record ,
         bcoc:source-no-locator , bcoc:source-no-relation ,
         bcoc:source-bad-relation , bcoc:source-departs-no-note ,
-        bcoc:source-departs-no-claim .
+        bcoc:source-departs-no-claim , bcoc:source-consistent-no-support ,
+        bcoc:source-two-supports , bcoc:source-bad-support ,
+        bcoc:source-support-not-consistent .
 
 # Source reference cites no source.
 bcoc:source-no-source
@@ -259,7 +261,8 @@ bcoc:source-not-a-record
 # Source reference has no bco:locator.
 bcoc:source-no-locator
     bco:citesSource bcos:SRC-OMG-01 ;
-    bco:relation "consistent-with" .
+    bco:relation "consistent-with" ;
+    bco:support "contextual" .
 
 # Source reference has no bco:relation.
 bcoc:source-no-relation
@@ -285,6 +288,34 @@ bcoc:source-departs-no-claim
     bco:locator "section 7.2" ;
     bco:relation "departs-from" ;
     bco:departureNote "The BCO bearer is an organization only."@en .
+
+# A consistent-with source reference has no bco:support (review R6, 6.1).
+bcoc:source-consistent-no-support
+    bco:citesSource bcos:SRC-OMG-01 ;
+    bco:locator "section 2" ;
+    bco:relation "consistent-with" .
+
+# Source reference has more than one bco:support.
+bcoc:source-two-supports
+    bco:citesSource bcos:SRC-OMG-01 ;
+    bco:locator "section 2" ;
+    bco:relation "consistent-with" ;
+    bco:support "definitional" , "contextual" .
+
+# Source reference has a bco:support outside the enum.
+bcoc:source-bad-support
+    bco:citesSource bcos:SRC-OMG-01 ;
+    bco:locator "section 2" ;
+    bco:relation "consistent-with" ;
+    bco:support "partial" .
+
+# Source reference carries bco:support with a relation other than
+# consistent-with: adapted-from is definitional by nature.
+bcoc:source-support-not-consistent
+    bco:citesSource bcos:SRC-OMG-01 ;
+    bco:locator "section 2" ;
+    bco:relation "adapted-from" ;
+    bco:support "definitional" .
 
 # =====================================================================
 # Source records: negative cases
@@ -431,7 +462,8 @@ bcom:GoodMetamodelConcept a skos:Concept ;
 
 # A catalog concept: a typed notation, a label in two languages (one per
 # language is the rule, not one in all), a broader, and an adapted-from
-# source reference.
+# source reference, and two consistent-with references, one definitional
+# and one contextual.
 bcoc:GoodCatalogConcept a skos:Concept ;
     skos:inScheme bcoc:CapabilityCatalogScheme ;
     skos:prefLabel "Treasury Management"@en , "Gestion de tresorerie"@fr ;
@@ -440,12 +472,26 @@ bcoc:GoodCatalogConcept a skos:Concept ;
     skos:notation "10002"^^bco:PCFCode ;
     bco:lifecycleStatus "Candidate" ;
     prov:wasAttributedTo bcoa:fixture-software ;
-    bco:sourceReference bcoc:source-good-adapted .
+    bco:sourceReference bcoc:source-good-adapted ,
+        bcoc:source-good-definitional , bcoc:source-good-contextual .
 
 bcoc:source-good-adapted
     bco:citesSource bcos:SRC-OMG-01 ;
     bco:locator "section 8.1" ;
     bco:relation "adapted-from" .
+
+# consistent-with, once with each support value (review R6, 6.1).
+bcoc:source-good-definitional
+    bco:citesSource bcos:SRC-OMG-01 ;
+    bco:locator "section 8.2" ;
+    bco:relation "consistent-with" ;
+    bco:support "definitional" .
+
+bcoc:source-good-contextual
+    bco:citesSource bcos:SRC-OMG-03 ;
+    bco:locator "section 7.3" ;
+    bco:relation "consistent-with" ;
+    bco:support "contextual" .
 
 # Ratified, citing an act in the form D2 requires. The shapes check the
 # form; the build checks the act against git.

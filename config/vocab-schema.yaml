@@ -27,7 +27,9 @@
 #     in the act, per concept (the batch-digest confirmation of
 #     2026-10-23), not in the concept's citation of it;
 #   - locator is required of every source reference; departs-from also
-#     requires a departure_note and the claim it rests on;
+#     requires a departure_note and the claim it rests on, and
+#     consistent-with its support, definitional or contextual (review R6,
+#     section 6.1);
 #   - catalog definitions name their genus; revises and change_note
 #     carry D3's record history; agents are a document of their own.
 
@@ -97,6 +99,15 @@ enums:
       adapted-from:
       consistent-with:
       departs-from:
+
+  SourceSupport:
+    description: >-
+      Review R6, section 6.1. What a consistent-with source supports:
+      the concept's specific definition (definitional), or only the
+      general view the definition rests on (contextual).
+    permissible_values:
+      definitional:
+      contextual:
 
   AgentType:
     description: ADR-003 D8. prov:Person or prov:SoftwareAgent.
@@ -226,6 +237,10 @@ slots:
     range: SourceRelation
     required: true
 
+  support:
+    slot_uri: bco:support
+    range: SourceSupport
+
   departure_note:
     slot_uri: bco:departureNote
     range: string
@@ -352,9 +367,23 @@ classes:
       - source
       - locator
       - relation
+      - support
       - departure_note
       - claim
     rules:
+      - description: >-
+          R6 section 6.1. consistent-with states its support. The build
+          also refuses support on adapted-from and departs-from, which
+          this schema does not say (value_presence ABSENT was measured
+          unreliable in P2).
+        preconditions:
+          slot_conditions:
+            relation:
+              equals_string: consistent-with
+        postconditions:
+          slot_conditions:
+            support:
+              required: true
       - description: D6. departs-from needs a departure_note and a claim.
         preconditions:
           slot_conditions:

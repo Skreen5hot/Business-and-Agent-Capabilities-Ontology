@@ -575,8 +575,9 @@ def vocabulary_values(graph, namespaces, known: list[tuple[str, str]],
     vocabulary's annotation properties live.
 
     Shown: the authored namespaces, each scheme with its concepts (label,
-    definition, derived status, designated class, notation, sources,
-    drafting agent), the citations of the register entries concepts
+    definition, derived status, designated class, notation, sources with
+    their relation and, for consistent-with, their support, drafting
+    agent), the citations of the register entries concepts
     actually cite -- not the register, whose publication the architect
     has not decided -- and the declared agents. The same refusals as
     the term index: a concept with no label, definition or status, or
@@ -668,11 +669,17 @@ def vocabulary_values(graph, namespaces, known: list[tuple[str, str]],
                     cited[src_id] = source
                 note = one(node, bco + "departureNote", "bco:departureNote",
                            required=False)
+                # Review R6, 6.1: a consistent-with reference says whether
+                # the source supports the definition or only its context.
+                support = one(node, bco + "support", "bco:support",
+                              required=False)
+                relation = one(node, bco + "relation", "bco:relation",
+                               required=False) or "no relation"
                 references.append((src_id, "<li>%s &mdash; %s &mdash; %s%s"
                                    "</li>" % (
                     code(src_id),
-                    esc(one(node, bco + "relation", "bco:relation",
-                            required=False) or "no relation"),
+                    esc("%s (%s)" % (relation, support) if support
+                        else relation),
                     esc(one(node, bco + "locator", "bco:locator",
                             required=False) or "no locator"),
                     " &mdash; %s" % esc(note) if note else "")))

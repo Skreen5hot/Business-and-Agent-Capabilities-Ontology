@@ -14,6 +14,8 @@
 #       - source: SRC-OMG-03            # an id in docs/sources/register.yaml
 #         locator: BACM 1.1, clause 7.2 # required
 #         relation: departs-from        # adapted-from | consistent-with | departs-from
+#         support: contextual           # consistent-with only, required there:
+#                                       #   definitional | contextual (R6, 6.1)
 #         departure_note: ...           # departs-from only, required there
 #         claim: 1                      # departs-from only: the entry's claim, at V or P
 #     drafted_by: bcoa:claude-opus-5-5  # a declared agent (vocab/agents.yaml)
@@ -29,6 +31,15 @@
 # Locators name only what the source notes in docs/sources/notes/ record
 # for each source. Where a note records no clause or page for the point
 # cited, the locator says so. Every departs-from cites a claim at V or P.
+#
+# support (review R6, section 6.1) says what a consistent-with source
+# backs. definitional: it states something this definition says that is
+# not shared by every concept in the scheme -- its genus as placed, or a
+# differentia -- for a corresponding notion. contextual: it backs only a
+# view the whole scheme rests on (capability as an ability distinct from
+# process, a description distinct from what it describes, authority
+# distinct from ability). The classification of 2026-10-24 found 5 of
+# this file's 25 consistent-with references definitional.
 
 version: 1
 concepts:
@@ -47,28 +58,33 @@ concepts:
           IOF Core release 202603, Core.rdf: Capability rdfs:subClassOf
           obo:BFO_0000016 (disposition)
         relation: consistent-with
+        support: definitional
       - source: SRC-FO-03
         locator: >-
           arXiv:2405.00183v2, sections 4-5 (capability is a disposition,
           placed between disposition and function); sections 1 and 3
           (organizations and configured collectives as bearers)
         relation: consistent-with
+        support: definitional
       - source: SRC-ISO-01
         locator: >-
           bfo-core.ttl at commit 044490fc: the elucidation of disposition
           (BFO_0000016) and the definition of has material basis
           (BFO_0000218)
         relation: consistent-with
+        support: definitional
       - source: SRC-OMG-03
         locator: >-
           BACM 1.1, section 7.3.2.7 (Capability is identified by the Outcome a
           business can produce, not by how it is produced)
         relation: consistent-with
+        support: contextual
       - source: SRC-FO-09
         locator: >-
           The Enterprise Ontology, AIAI author PDF, section 4.1 (AUTHORITY is
           held independently of CAPABILITY)
         relation: consistent-with
+        support: contextual
       - source: SRC-OMG-04
         locator: >-
           UAF 1.3 DMM, Traceability package: CapableElement and the Exhibits
@@ -151,6 +167,14 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-10-24T12:12:31Z"
     authored_status: Draft
+    revises: 8dd8ce8adf61b6dc4ee2490b21f78ce57cb1a82b650a548cb64adde8a3e5e3a6
+    change_note:
+      - >-
+        2026-10-24, review R6 section 6.1: each consistent-with source now
+        states its support, definitional (it backs something this
+        definition says) or contextual (it backs only the general view the
+        scheme rests on). No definition, locator or relation changed; the
+        definition is still specification section 4's.
 
   - id: bcom:CapabilityMap
     spec_row: ex:CapabilityMap
@@ -160,16 +184,19 @@ concepts:
           Gartner IT Glossary, entry for business capability modeling (the
           model is a representation)
         relation: consistent-with
+        support: contextual
       - source: SRC-BA-04
         locator: >-
           Cutter executive summary of the report (the map as a model and
           shared vocabulary; the full report was not read)
         relation: consistent-with
+        support: contextual
       - source: SRC-OMG-01
         locator: >-
           VDML 1.1, section 7.2.5.3.1 (CapabilityLibrary) and section
           7.2.5.3.2 (CapabilityDefinition as a standardized definition)
         relation: consistent-with
+        support: contextual
       - source: SRC-GOV-04
         locator: >-
           NAF v4.1 ArchiMate Implementation Guide, section 5, C1 Capability
@@ -188,6 +215,14 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-10-24T12:12:31Z"
     authored_status: Draft
+    revises: eb7553a803fed6f271a4c94739421b82dca1426df9bfc476737cc55db9faa8b4
+    change_note:
+      - >-
+        2026-10-24, review R6 section 6.1: each consistent-with source now
+        states its support, definitional (it backs something this
+        definition says) or contextual (it backs only the general view the
+        scheme rests on). No definition, locator or relation changed; the
+        definition is still specification section 4's.
 
   - id: bcom:CapabilityAssessment
     spec_row: ex:CapabilityAssessment
@@ -198,25 +233,37 @@ concepts:
           the note names per-capability assessment use cases only from
           secondary slides, so only the abstract-level claim is cited
         relation: consistent-with
+        support: contextual
       - source: SRC-ISO-02
         locator: >-
           ISO 19440:2020, entry 3.6 (the Capability construct is a collection
           of capability attributes, a description kept apart from the ability
           described), read in the free preview of clause 3
         relation: consistent-with
+        support: contextual
       - source: SRC-OG-02
         locator: >-
           TOGAF Series Guide G211, section 13.1 Heat Mapping, as listed in
           the compilation's table of contents (the section text was not read)
         relation: consistent-with
+        support: contextual
       - source: SRC-BA-08
         locator: >-
           Offerman et al. 2017, p. 384 (the senses of capability split into
           its level and its availability)
         relation: consistent-with
+        support: contextual
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-10-24T12:12:31Z"
     authored_status: Draft
+    revises: 139d2fb5029f9114d178ca12e9dd505b10194ade38b8bd598b7e571730580aaa
+    change_note:
+      - >-
+        2026-10-24, review R6 section 6.1: each consistent-with source now
+        states its support, definitional (it backs something this
+        definition says) or contextual (it backs only the general view the
+        scheme rests on). No definition, locator or relation changed; the
+        definition is still specification section 4's.
 
   - id: bcom:CapabilityMaturityRating
     spec_row: ex:CapabilityMaturityRating
@@ -226,11 +273,13 @@ concepts:
           VDML 1.1, section 7.2.2.3.3 (heatIndex, a MeasuredCharacteristic of
           a CapabilityOffer)
         relation: consistent-with
+        support: contextual
       - source: SRC-BA-08
         locator: >-
           Offerman et al. 2017, p. 384 (the level sense of capability, kept
           apart from its availability)
         relation: consistent-with
+        support: contextual
       - source: SRC-ISO-06
         locator: ISO catalogue page 78526, abstract of ISO/IEC 33020:2019
         relation: departs-from
@@ -267,6 +316,14 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-10-24T12:12:31Z"
     authored_status: Draft
+    revises: 910faf3ec4efe42f78820f9deff6874e05c784fbb5273c5482182eb8f0883693
+    change_note:
+      - >-
+        2026-10-24, review R6 section 6.1: each consistent-with source now
+        states its support, definitional (it backs something this
+        definition says) or contextual (it backs only the general view the
+        scheme rests on). No definition, locator or relation changed; the
+        definition is still specification section 4's.
 
   - id: bcom:CapabilitySourcingStatement
     spec_row: ex:CapabilitySourcingStatement
@@ -277,20 +334,31 @@ concepts:
           OrgUnit capabilityProvider) and section 7.1.8 (provider OrgUnits
           kept apart from the methodOwner)
         relation: consistent-with
+        support: definitional
       - source: SRC-OG-02
         locator: >-
           TOGAF Business Architecture compilation, front matter, section
           This Document (the organization map identifies business units or
           third parties that possess or use capabilities)
         relation: consistent-with
+        support: contextual
       - source: SRC-BA-08
         locator: >-
           Offerman et al. 2017, p. 387 (synthesized definition, in which a
           business may hold a capability or exchange it)
         relation: consistent-with
+        support: contextual
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-10-24T12:12:31Z"
     authored_status: Draft
+    revises: 4b5cc2fa04dd95b38e945ade5b93697638e62013b5bc37ffe9851f48353aa072
+    change_note:
+      - >-
+        2026-10-24, review R6 section 6.1: each consistent-with source now
+        states its support, definitional (it backs something this
+        definition says) or contextual (it backs only the general view the
+        scheme rests on). No definition, locator or relation changed; the
+        definition is still specification section 4's.
 
   - id: bcom:CapabilitySourcingAssessment
     spec_row: ex:CapabilitySourcingAssessment
@@ -301,14 +369,24 @@ concepts:
           the note names sourcing decisions as a use case only from secondary
           slides, so only the abstract-level claim is cited
         relation: consistent-with
+        support: contextual
       - source: SRC-OMG-01
         locator: >-
           VDML 1.1, section 7.1.8 and Fig. 7-2 (provider OrgUnits operate a
           method that another OrgUnit owns)
         relation: consistent-with
+        support: contextual
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-10-24T12:12:31Z"
     authored_status: Draft
+    revises: 1a9a1e024bcc0d7e8bf9f3319664c3cb3c5f1b6d3de900fb5e08f65c0a19530d
+    change_note:
+      - >-
+        2026-10-24, review R6 section 6.1: each consistent-with source now
+        states its support, definitional (it backs something this
+        definition says) or contextual (it backs only the general view the
+        scheme rests on). No definition, locator or relation changed; the
+        definition is still specification section 4's.
 
   - id: bcom:CapabilityTarget
     spec_row: ex:CapabilityTarget
@@ -319,6 +397,7 @@ concepts:
           Vision, p.20 (the phases capabilities aim at) and section 11, C8
           Planning Constraints, p.32 (Capability Milestones)
         relation: consistent-with
+        support: contextual
       - source: SRC-FO-12
         locator: >-
           CaaS project, Definitions of concepts web page (Capability is
@@ -335,6 +414,14 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-10-24T12:12:31Z"
     authored_status: Draft
+    revises: fdf4c859d656eed9f5dfc9e3b130b7570fcdc33b40c1c62be66a94b3c90eb558
+    change_note:
+      - >-
+        2026-10-24, review R6 section 6.1: each consistent-with source now
+        states its support, definitional (it backs something this
+        definition says) or contextual (it backs only the general view the
+        scheme rests on). No definition, locator or relation changed; the
+        definition is still specification section 4's.
 
   - id: bcom:CapabilityTargetStateSpecification
     spec_row: ex:CapabilityTargetStateSpecification
@@ -345,15 +432,25 @@ concepts:
           configuring the enterprise to achieve Desired Results, and is not a
           Business Process)
         relation: consistent-with
+        support: definitional
       - source: SRC-GOV-04
         locator: >-
           NAF v4.1 ArchiMate Implementation Guide, section 11, C8 Planning
           Constraints, p.32 (Capability Increments), and glossary, PDF p.154
           (Work Package)
         relation: consistent-with
+        support: contextual
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-10-24T12:12:31Z"
     authored_status: Draft
+    revises: dbfa1cbfe514cf21ac606073669221eab0ffe4f0b6ef6fe610a6f4d96c314cb3
+    change_note:
+      - >-
+        2026-10-24, review R6 section 6.1: each consistent-with source now
+        states its support, definitional (it backs something this
+        definition says) or contextual (it backs only the general view the
+        scheme rests on). No definition, locator or relation changed; the
+        definition is still specification section 4's.
 
   - id: bcom:AuthorizationRecord
     spec_row: ex:AuthorizationRecord
@@ -364,16 +461,27 @@ concepts:
           the right to execute an activity specification, and its holder need
           not have the CAPABILITY)
         relation: consistent-with
+        support: contextual
       - source: SRC-FO-03
         locator: >-
           arXiv:2405.00183v2, section 3 (the authority sense of capability is
           a role, orthogonal to ability)
         relation: consistent-with
+        support: contextual
       - source: SRC-OMG-03
         locator: >-
           BACM 1.1, section 7.3.2.16 (assigning a PerformerRole confers
           authority and responsibility)
         relation: consistent-with
+        support: contextual
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-10-24T12:12:31Z"
     authored_status: Draft
+    revises: 6dab2b7ae1d2d79bf9fc73165ce1bd8877b5903bf8043b7a36ef440538ef6c24
+    change_note:
+      - >-
+        2026-10-24, review R6 section 6.1: each consistent-with source now
+        states its support, definitional (it backs something this
+        definition says) or contextual (it backs only the general view the
+        scheme rests on). No definition, locator or relation changed; the
+        definition is still specification section 4's.

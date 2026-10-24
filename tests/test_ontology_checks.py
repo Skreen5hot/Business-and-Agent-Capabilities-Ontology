@@ -405,7 +405,7 @@ BCOA = "https://fandaws.com/ontology/bco-agents#"
 
 #: Every constraint in shapes/vocabulary_shapes.ttl, by its message, with
 #: the case in shapes/vocabulary_bad_examples.ttl named for it. Named, not
-#: counted: any 47 violations would satisfy a count.
+#: counted: any 51 violations would satisfy a count.
 VOCABULARY_CONSTRAINTS = {
     # concepts
     "Concept is in no skos:inScheme.": BCOC + "VocabNoScheme",
@@ -458,6 +458,14 @@ VOCABULARY_CONSTRAINTS = {
         BCOC + "source-departs-no-note",
     "A departs-from source reference cites no claim.":
         BCOC + "source-departs-no-claim",
+    "A consistent-with source reference has no bco:support.":
+        BCOC + "source-consistent-no-support",
+    "Source reference has more than one bco:support.":
+        BCOC + "source-two-supports",
+    "Source reference has a bco:support other than definitional or "
+    "contextual.": BCOC + "source-bad-support",
+    "Source reference carries bco:support with a relation other than "
+    "consistent-with.": BCOC + "source-support-not-consistent",
     # source records
     "Source record is not a dcterms:BibliographicResource.":
         BCOS + "SRC-BA-01",
@@ -502,7 +510,8 @@ VOCABULARY_POSITIVE_CONTROLS = [
     BCOA + "fixture-person", BCOA + "fixture-software",
     BCOS + "SRC-OMG-01", BCOS + "SRC-OMG-03",
     BCOM + "GoodMetamodelConcept", BCOC + "GoodCatalogConcept",
-    BCOC + "source-good-adapted", BCOC + "GoodRatifiedConcept",
+    BCOC + "source-good-adapted", BCOC + "source-good-definitional",
+    BCOC + "source-good-contextual", BCOC + "GoodRatifiedConcept",
     BCOC + "ratification-good", BCOC + "GoodDeprecatedConcept",
     BCOC + "GoodDepartingConcept", BCOC + "source-good-departs",
     # Hosts: valid concepts that carry the broken references.

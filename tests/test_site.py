@@ -232,7 +232,11 @@ bcoc:Treasury a skos:Concept ;
     bco:lifecycleStatus "Draft" ;
     bco:designatesClass bco:TreasuryCapability ;
     prov:wasAttributedTo bcoa:software ;
-    bco:sourceReference bcoc:source-1 .
+    bco:sourceReference bcoc:source-1 , bcoc:source-2 .
+bcoc:source-2 bco:citesSource bcos:SRC-OMG-03 ;
+    bco:locator "section 9" ;
+    bco:relation "consistent-with" ;
+    bco:support "<i>contextual</i>" .
 bcoc:source-1 bco:citesSource bcos:SRC-OMG-03 ;
     bco:locator "section \\"7\\" <b>2</b>" ;
     bco:relation "departs-from" ;
@@ -332,6 +336,7 @@ def test_a_constructed_concept_renders_every_field_escaped(builder,
     page = vocabulary_page(builder, validator, VOCAB_BASE + VOCAB_CONCEPT)
     assert "EMPTY-NOTICE" not in page
     for raw in ("<b>Treasury</b>", "<script>", "<i>work</i>", "<u>only</u>",
+                "<i>contextual</i>",
                 "<em>Person</em>", "<b>2</b>"):
         assert raw not in page, raw
     for escaped in ("&lt;b&gt;Treasury&lt;/b&gt; &amp; Co",
@@ -342,6 +347,8 @@ def test_a_constructed_concept_renders_every_field_escaped(builder,
                     "<code>SRC-OMG-03</code> &mdash; departs-from &mdash; "
                     "section &quot;7&quot; &lt;b&gt;2&lt;/b&gt; &mdash; "
                     "Organization &lt;u&gt;only&lt;/u&gt;.",
+                    "<code>SRC-OMG-03</code> &mdash; consistent-with "
+                    "(&lt;i&gt;contextual&lt;/i&gt;) &mdash; section 9",
                     "Cited &lt;i&gt;work&lt;/i&gt; &amp; co",
                     "Software (<code>bcoa:software</code>)",
                     "A &lt;em&gt;Person&lt;/em&gt;"):

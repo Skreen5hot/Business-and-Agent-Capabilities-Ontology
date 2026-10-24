@@ -19,85 +19,89 @@
 @prefix bcos:    <https://fandaws.com/ontology/bco-sources#> .
 @prefix bcoa:    <https://fandaws.com/ontology/bco-agents#> .
 
-bcom:AuthorizationRecord bco:currentRecord bcom:record-6dab2b7ae1d2d79bf9fc73165ce1bd8877b5903bf8043b7a36ef440538ef6c24 .
+bcom:AuthorizationRecord bco:currentRecord bcom:record-0c69107b029613aa512db30ceab5ed15acd20b3d96b7ccc50b3c168ac15c6e64 .
 bcom:AuthorizationRecord bco:designatesClass bco:AuthorizationRecord .
 bcom:AuthorizationRecord bco:doesNotImply "That any permitted act occurred. That the authorization is valid in fact. That it is a `cco:ont00000751` Action Permission."@en .
 bcom:AuthorizationRecord bco:lifecycleStatus "Draft" .
-bcom:AuthorizationRecord bco:sourceReference bcom:source-3e6358c960032360bfc4545cd94ace01ca3c2f5ef3f6e602482242b5a84ca15b .
-bcom:AuthorizationRecord bco:sourceReference bcom:source-77494c2b5f678bd054d96265bb2d0abbe03ed6ed7071cfbee61187ff29b25d04 .
-bcom:AuthorizationRecord bco:sourceReference bcom:source-8d7a1f222b00970dcd1e365ae2a02cdaee42bfe376a9f823f939f2c4488a596c .
+bcom:AuthorizationRecord bco:sourceReference bcom:source-4fe948ca2939cbd7fcb8aa48c9a5e146c768ac3a97fee80a5cfd73fdff7d720d .
+bcom:AuthorizationRecord bco:sourceReference bcom:source-5f2d010fd25f0edc054bdec4107082371bb8b0394d8d79e970c2a50726240159 .
+bcom:AuthorizationRecord bco:sourceReference bcom:source-f9073f762d440ad63413fcd4640b731920707fdb263b6f0f96dce3c5025d51e2 .
 bcom:AuthorizationRecord bco:specParent cco:ont00000853 .
 bcom:AuthorizationRecord dcterms:created "2026-10-24T12:12:31+00:00"^^xsd:dateTime .
 bcom:AuthorizationRecord prov:wasAttributedTo bcoa:claude-opus-5-5 .
 bcom:AuthorizationRecord rdf:type skos:Concept .
+bcom:AuthorizationRecord skos:changeNote "2026-10-24, review R6 section 6.1: each consistent-with source now states its support, definitional (it backs something this definition says) or contextual (it backs only the general view the scheme rests on). No definition, locator or relation changed; the definition is still specification section 4's."@en .
 bcom:AuthorizationRecord skos:definition "A Descriptive ICE that is about an agent and records an authorization for that agent to perform acts of one act class during a stated period, citing the authority that issued it."@en .
 bcom:AuthorizationRecord skos:inScheme bcom:MetamodelScheme .
 bcom:AuthorizationRecord skos:prefLabel "Authorization Record"@en .
 
-bcom:BusinessCapability bco:currentRecord bcom:record-8dd8ce8adf61b6dc4ee2490b21f78ce57cb1a82b650a548cb64adde8a3e5e3a6 .
+bcom:BusinessCapability bco:currentRecord bcom:record-0f59bddbceeb7e37f301cdc810dc30b213cd8d11a95673fa456fcd9371e51058 .
 bcom:BusinessCapability bco:designatesClass bco:BusinessCapability .
 bcom:BusinessCapability bco:doesNotImply "That it has ever been realized. That it is available now (enabling artifacts may be missing). That the organization is authorized. That any one member bears it. That artifacts it owns are its basis. That it was designed (Function)."@en .
 bcom:BusinessCapability bco:lifecycleStatus "Draft" .
 bcom:BusinessCapability bco:sourceReference bcom:source-1377ef9b1255a2087416aa311826974f630af64b9b914f3782346eefe66ce5d0 .
 bcom:BusinessCapability bco:sourceReference bcom:source-1b83e95baaf4fcf3c5bb03bbe0f037e11f654a82f6a0dbb8dc0ec32989f37fbd .
-bcom:BusinessCapability bco:sourceReference bcom:source-41488ae180ab9ffc5458b8f3e0cc4ef73a29776284026cf0ea745a853818ff98 .
+bcom:BusinessCapability bco:sourceReference bcom:source-429228517452214ce69aa68482d60ea1de764ad25f8ee90e35c9a026d54dba54 .
+bcom:BusinessCapability bco:sourceReference bcom:source-503feec54d464fb88fff03fc4b36d808ea0d9ab12a5a75b8614dbff00542064a .
 bcom:BusinessCapability bco:sourceReference bcom:source-595623379389a4997c357feabba3d792d8cfc4366e35546f14aed3ce71847012 .
-bcom:BusinessCapability bco:sourceReference bcom:source-7030ece1848b068cf9ee1f3b8ca2ab9f42909f3a44c368939f2e54763688ac90 .
 bcom:BusinessCapability bco:sourceReference bcom:source-78bd85c7357b52df42a90588ba3c9c1045de53fa349fa1c2208a298049c6870d .
+bcom:BusinessCapability bco:sourceReference bcom:source-7fbc3e395fbf7b5de65a40d2ae8efb38bd86a1bbd43695fb0d7bf146cb9ae03a .
 bcom:BusinessCapability bco:sourceReference bcom:source-86ebec3b3a2fd6ef8f8882da534522db5a85e3ae1bcdffad76e3e6a5aa1a254c .
 bcom:BusinessCapability bco:sourceReference bcom:source-9019f46e59d576e4f705ea1fa96b722f01f5b871137033fa57cfa273fc1d8d2c .
 bcom:BusinessCapability bco:sourceReference bcom:source-97e23ec03caae84d0e2db9e06c148b5089b25a70bc274c4547be16bdbd40bbdf .
-bcom:BusinessCapability bco:sourceReference bcom:source-a052635419e92574fbed60ec0845ad6ec48322648c42151d2f2909b476c9ac20 .
-bcom:BusinessCapability bco:sourceReference bcom:source-e500f3cc665a33adaf855057c176f6420a7494678a34717f9e7bbb9af4721cd3 .
+bcom:BusinessCapability bco:sourceReference bcom:source-ade295a145ac8a4ed6be32c3dd6c34b624e4a6b10138e20e1b44b6dd1447374a .
 bcom:BusinessCapability bco:sourceReference bcom:source-f2d6bd28e9a2bfdefa6d93c160beb4c73355133214f30f008c5572a16465e319 .
-bcom:BusinessCapability bco:sourceReference bcom:source-f46fd90914f28869203fdb48fc968686814ce8c3e5201bcd4034a4d439351565 .
+bcom:BusinessCapability bco:sourceReference bcom:source-f956e02ea8e41217afc8cb6b8c8282927d78b5e26288974735637ffcab7bc3f3 .
 bcom:BusinessCapability bco:specParent cco:ont00000568 .
 bcom:BusinessCapability bco:specParent obo:BFO_0000016 .
 bcom:BusinessCapability dcterms:created "2026-10-24T12:12:31+00:00"^^xsd:dateTime .
 bcom:BusinessCapability prov:wasAttributedTo bcoa:claude-opus-5-5 .
 bcom:BusinessCapability rdf:type skos:Concept .
+bcom:BusinessCapability skos:changeNote "2026-10-24, review R6 section 6.1: each consistent-with source now states its support, definitional (it backs something this definition says) or contextual (it backs only the general view the scheme rests on). No definition, locator or relation changed; the definition is still specification section 4's."@en .
 bcom:BusinessCapability skos:definition "An Organization Capability that is a Disposition inhering in an Organization, whose material basis is constituent member agents of that organization in their organizational arrangement, and that, when realized, is realized in Planned Acts of the types in its realization index."@en .
 bcom:BusinessCapability skos:inScheme bcom:MetamodelScheme .
 bcom:BusinessCapability skos:prefLabel "Business Capability"@en .
 
-bcom:CapabilityAssessment bco:currentRecord bcom:record-139d2fb5029f9114d178ca12e9dd505b10194ade38b8bd598b7e571730580aaa .
+bcom:CapabilityAssessment bco:currentRecord bcom:record-2b60a140d1cc6b63ff60e35989730dcc30a258f35700ac958db8f3dc80271166 .
 bcom:CapabilityAssessment bco:designatesClass bco:CapabilityAssessment .
 bcom:CapabilityAssessment bco:doesNotImply "That the finding is true. That an instance exists. That `partial` is a fraction of a disposition."@en .
 bcom:CapabilityAssessment bco:lifecycleStatus "Draft" .
-bcom:CapabilityAssessment bco:sourceReference bcom:source-13c0b1b843118673ccf595b1b4a1d1216fc6513725e44b47dcfe5c1a634dcc6d .
-bcom:CapabilityAssessment bco:sourceReference bcom:source-2b8b41a79f5be72706874c48fbbe291bdfd0156e111347932e1c62f20d38d269 .
-bcom:CapabilityAssessment bco:sourceReference bcom:source-b8bab97c9064211943910529f4c99bdfa8bd54af8149313a8566d145593e4563 .
-bcom:CapabilityAssessment bco:sourceReference bcom:source-c1ec218eac68aa4034ffe6153bdda3ce63981655d66a382a80af113dd8dc19ed .
+bcom:CapabilityAssessment bco:sourceReference bcom:source-1ebc13a709cc99562f32528097987ec8770cf29a21d01c97be86d8443153b1d8 .
+bcom:CapabilityAssessment bco:sourceReference bcom:source-9696a1e1c45bfa5af948ea71d53d815a3b20d13c4aca063cd4b0516dff8b3159 .
+bcom:CapabilityAssessment bco:sourceReference bcom:source-9e84e2744be3d2b101c467f3441eed7e2f9cfb674490cd480a08877dc6fcb457 .
+bcom:CapabilityAssessment bco:sourceReference bcom:source-f6368e7ac07142d36f4556d687272550e3fcc4a8188ee9f879185393733afdcf .
 bcom:CapabilityAssessment bco:specParent cco:ont00000853 .
 bcom:CapabilityAssessment dcterms:created "2026-10-24T12:12:31+00:00"^^xsd:dateTime .
 bcom:CapabilityAssessment prov:wasAttributedTo bcoa:claude-opus-5-5 .
 bcom:CapabilityAssessment rdf:type skos:Concept .
+bcom:CapabilityAssessment skos:changeNote "2026-10-24, review R6 section 6.1: each consistent-with source now states its support, definitional (it backs something this definition says) or contextual (it backs only the general view the scheme rests on). No definition, locator or relation changed; the definition is still specification section 4's."@en .
 bcom:CapabilityAssessment skos:definition "A Descriptive ICE that describes an organization with respect to the presence, absence or partial presence of a capability of one given type, states that finding, and cites its evidence and criteria."@en .
 bcom:CapabilityAssessment skos:inScheme bcom:MetamodelScheme .
 bcom:CapabilityAssessment skos:prefLabel "Capability Assessment"@en .
 
-bcom:CapabilityMap bco:currentRecord bcom:record-eb7553a803fed6f271a4c94739421b82dca1426df9bfc476737cc55db9faa8b4 .
+bcom:CapabilityMap bco:currentRecord bcom:record-8990750ede14ef874db394050f675de1424c5c61c7898b9f2cbb775b01b31d4a .
 bcom:CapabilityMap bco:designatesClass bco:CapabilityMap .
 bcom:CapabilityMap bco:doesNotImply "That any listed capability exists. That the arrangement of entries is parthood among capabilities."@en .
 bcom:CapabilityMap bco:lifecycleStatus "Draft" .
-bcom:CapabilityMap bco:sourceReference bcom:source-202dc6673932af74de83febf416af3311a22714221e314e0e547ee149f5df0cb .
-bcom:CapabilityMap bco:sourceReference bcom:source-2ac774957523fba0f204790289d5d30c1735d55deee43c440d2961304a44b1a3 .
+bcom:CapabilityMap bco:sourceReference bcom:source-541652fb6d8c52d3913be5b6d88cb5db0c00bda92306b6444bb5e82a23078a3e .
 bcom:CapabilityMap bco:sourceReference bcom:source-76700ab8654d62de4e09069bcabfec7c86303a8d78ddd1fd55fdb3bed0bc415d .
-bcom:CapabilityMap bco:sourceReference bcom:source-8857076520655ccb431e882ee97dee7fd23ec4cc5c7357015dd72ae8f6879526 .
+bcom:CapabilityMap bco:sourceReference bcom:source-78e002b642a4dce6b7c109179c8af8439d907e49151887cac7c19cf23a7c0fc7 .
+bcom:CapabilityMap bco:sourceReference bcom:source-a1821562f39ccfc843bf2ca58f17ea8a84305aa8f5606443e000d53a10ba9917 .
 bcom:CapabilityMap bco:specParent cco:ont00000853 .
 bcom:CapabilityMap dcterms:created "2026-10-24T12:12:31+00:00"^^xsd:dateTime .
 bcom:CapabilityMap prov:wasAttributedTo bcoa:claude-opus-5-5 .
 bcom:CapabilityMap rdf:type skos:Concept .
+bcom:CapabilityMap skos:changeNote "2026-10-24, review R6 section 6.1: each consistent-with source now states its support, definitional (it backs something this definition says) or contextual (it backs only the general view the scheme rests on). No definition, locator or relation changed; the definition is still specification section 4's."@en .
 bcom:CapabilityMap skos:definition "A Descriptive ICE that describes an organization and has, as continuant parts, the Capability Assessments and Capability Targets that are its entries."@en .
 bcom:CapabilityMap skos:inScheme bcom:MetamodelScheme .
 bcom:CapabilityMap skos:prefLabel "Capability Map"@en .
 
-bcom:CapabilityMaturityRating bco:currentRecord bcom:record-910faf3ec4efe42f78820f9deff6874e05c784fbb5273c5482182eb8f0883693 .
+bcom:CapabilityMaturityRating bco:currentRecord bcom:record-14ce501c1cb9c3bbd54e88d3065910ad1dc1fc9f8b3f9fd6df64c52b5623ed30 .
 bcom:CapabilityMaturityRating bco:designatesClass bco:CapabilityMaturityRating .
 bcom:CapabilityMaturityRating bco:doesNotImply "Graded capability subclasses. Any particular scale or scoring method. Use for an absent capability."@en .
 bcom:CapabilityMaturityRating bco:lifecycleStatus "Draft" .
-bcom:CapabilityMaturityRating bco:sourceReference bcom:source-4aca252cdadb8359475ebeaa938d2dc81e7b0e9c858e8e4db0b437663b195bfa .
-bcom:CapabilityMaturityRating bco:sourceReference bcom:source-605fad3f56b78957c0dc1ac133294cc10872b993e9675e6b6c3449b6be4e27b5 .
+bcom:CapabilityMaturityRating bco:sourceReference bcom:source-036b6e4e404d9ea84c8a90bc5fbcfd77acbb137f53f2fee4af4f3bcec9089022 .
+bcom:CapabilityMaturityRating bco:sourceReference bcom:source-897542f462f9b69159da97b0bcd489ad4d9052dfdcb4ccd829c7802e71470932 .
 bcom:CapabilityMaturityRating bco:sourceReference bcom:source-8ffd8e3467f36e58e1545a9560b3bcc718cedceab0f8acebfaf87e4394dbe9b6 .
 bcom:CapabilityMaturityRating bco:sourceReference bcom:source-b4310d58f06cffb00b852d22036d6e6d0caa8869b96d96d4c9e97689f9a25cb1 .
 bcom:CapabilityMaturityRating bco:sourceReference bcom:source-ecd0737bc7b05197415a7f6723d550064d40833d26a7fd961514f6949afd1561 .
@@ -105,63 +109,68 @@ bcom:CapabilityMaturityRating bco:specParent cco:ont00001010 .
 bcom:CapabilityMaturityRating dcterms:created "2026-10-24T12:12:31+00:00"^^xsd:dateTime .
 bcom:CapabilityMaturityRating prov:wasAttributedTo bcoa:claude-opus-5-5 .
 bcom:CapabilityMaturityRating rdf:type skos:Concept .
+bcom:CapabilityMaturityRating skos:changeNote "2026-10-24, review R6 section 6.1: each consistent-with source now states its support, definitional (it backs something this definition says) or contextual (it backs only the general view the scheme rests on). No definition, locator or relation changed; the definition is still specification section 4's."@en .
 bcom:CapabilityMaturityRating skos:definition "An Ordinal Measurement ICE that ranks an existing Organization Capability instance on a specified ordinal scale, carrying its ordinal value as a data value and citing the assessment that produced it."@en .
 bcom:CapabilityMaturityRating skos:inScheme bcom:MetamodelScheme .
 bcom:CapabilityMaturityRating skos:prefLabel "Capability Maturity Rating"@en .
 
-bcom:CapabilitySourcingAssessment bco:currentRecord bcom:record-1a9a1e024bcc0d7e8bf9f3319664c3cb3c5f1b6d3de900fb5e08f65c0a19530d .
+bcom:CapabilitySourcingAssessment bco:currentRecord bcom:record-dff945888bb53b831eeeeb866689fecb4a420ab26612a06662e2fd9904a5b4ff .
 bcom:CapabilitySourcingAssessment bco:designatesClass bco:CapabilitySourcingAssessment .
 bcom:CapabilitySourcingAssessment bco:doesNotImply "That the dependence is a defect. That the consumer lacks an internal capability."@en .
 bcom:CapabilitySourcingAssessment bco:lifecycleStatus "Draft" .
-bcom:CapabilitySourcingAssessment bco:sourceReference bcom:source-2afc7f658d07ab9e77e9178842de894af66bede3e8d793ec78e08ef4d1975100 .
-bcom:CapabilitySourcingAssessment bco:sourceReference bcom:source-5393a92821e13c96b120b2c8285cf6ec47db528f9aadf47387595c603ae61654 .
+bcom:CapabilitySourcingAssessment bco:sourceReference bcom:source-0ef30dd8dd79c964141b04b21681790edd5677dd2d2fe32056ba81bdc9f249f7 .
+bcom:CapabilitySourcingAssessment bco:sourceReference bcom:source-23d8fadbdc6eed1dddc184881f3542e384aaddb3183f5fd06cefb831864137fc .
 bcom:CapabilitySourcingAssessment bco:specParent cco:ont00000853 .
 bcom:CapabilitySourcingAssessment dcterms:created "2026-10-24T12:12:31+00:00"^^xsd:dateTime .
 bcom:CapabilitySourcingAssessment prov:wasAttributedTo bcoa:claude-opus-5-5 .
 bcom:CapabilitySourcingAssessment rdf:type skos:Concept .
+bcom:CapabilitySourcingAssessment skos:changeNote "2026-10-24, review R6 section 6.1: each consistent-with source now states its support, definitional (it backs something this definition says) or contextual (it backs only the general view the scheme rests on). No definition, locator or relation changed; the definition is still specification section 4's."@en .
 bcom:CapabilitySourcingAssessment skos:definition "A Descriptive ICE that is about a Capability Sourcing Statement and describes the consumer's dependence on that arrangement (operational risk, possibility of substitution, and whether the consumer bears an internal capability for the sourced acts) on stated criteria and evidence."@en .
 bcom:CapabilitySourcingAssessment skos:inScheme bcom:MetamodelScheme .
 bcom:CapabilitySourcingAssessment skos:prefLabel "Capability Sourcing Assessment"@en .
 
-bcom:CapabilitySourcingStatement bco:currentRecord bcom:record-4b5cc2fa04dd95b38e945ade5b93697638e62013b5bc37ffe9851f48353aa072 .
+bcom:CapabilitySourcingStatement bco:currentRecord bcom:record-cd99f6d4c0bbac12acb25a477886152f40df2e55a9eeb8ed88af0d792ce8c1fd .
 bcom:CapabilitySourcingStatement bco:designatesClass bco:CapabilitySourcingStatement .
 bcom:CapabilitySourcingStatement bco:doesNotImply "That the consumer lacks an internal capability for the same acts. That the consumer bears the provider's capability. A multi-party arrangement."@en .
 bcom:CapabilitySourcingStatement bco:lifecycleStatus "Draft" .
-bcom:CapabilitySourcingStatement bco:sourceReference bcom:source-aef19c495a610f70d3ba911b6fe73fff20655cdcbb06032484c4ef1e4f7ab24f .
-bcom:CapabilitySourcingStatement bco:sourceReference bcom:source-d692623360409ee4fe096535d373e350dead3667949fd32459e3296c217a8426 .
-bcom:CapabilitySourcingStatement bco:sourceReference bcom:source-e07596ff629a80d9121a7d198f6dd86fca6b415d3538b7aa9bc1bb555b46f357 .
+bcom:CapabilitySourcingStatement bco:sourceReference bcom:source-a39473050040ceb23d943539c35a5c28c5c3841905a45687741f8ece2d4a885b .
+bcom:CapabilitySourcingStatement bco:sourceReference bcom:source-b8c4b70265b1d46f1948ba4610a1649b76bc45f148bc60ba97f2c067999ac259 .
+bcom:CapabilitySourcingStatement bco:sourceReference bcom:source-fb5d0fa500797c2e05518a4e145a2196067c5a06c8960c9c9f70104c3a0d9068 .
 bcom:CapabilitySourcingStatement bco:specParent cco:ont00000853 .
 bcom:CapabilitySourcingStatement dcterms:created "2026-10-24T12:12:31+00:00"^^xsd:dateTime .
 bcom:CapabilitySourcingStatement prov:wasAttributedTo bcoa:claude-opus-5-5 .
 bcom:CapabilitySourcingStatement rdf:type skos:Concept .
+bcom:CapabilitySourcingStatement skos:changeNote "2026-10-24, review R6 section 6.1: each consistent-with source now states its support, definitional (it backs something this definition says) or contextual (it backs only the general view the scheme rests on). No definition, locator or relation changed; the definition is still specification section 4's."@en .
 bcom:CapabilitySourcingStatement skos:definition "A Descriptive ICE that describes an Organization's arrangement for obtaining performances of one specified Planned Act class from one other Organization."@en .
 bcom:CapabilitySourcingStatement skos:inScheme bcom:MetamodelScheme .
 bcom:CapabilitySourcingStatement skos:prefLabel "Capability Sourcing Statement"@en .
 
-bcom:CapabilityTarget bco:currentRecord bcom:record-fdf4c859d656eed9f5dfc9e3b130b7570fcdc33b40c1c62be66a94b3c90eb558 .
+bcom:CapabilityTarget bco:currentRecord bcom:record-7dac0900ecaff8ceb0ebf2a57a931d95eba3442fdc00b02e7c3ddba4af885576 .
 bcom:CapabilityTarget bco:designatesClass bco:CapabilityTarget .
 bcom:CapabilityTarget bco:doesNotImply "That the capability is absent now. How it is to be reached."@en .
 bcom:CapabilityTarget bco:lifecycleStatus "Draft" .
-bcom:CapabilityTarget bco:sourceReference bcom:source-6eaa756d82954461defb4af92e426ac8c725459835cbb768c5ce0d55ff6cbd2c .
+bcom:CapabilityTarget bco:sourceReference bcom:source-59148c40849d8e533a80a6c5f86157fb6745a5071758571f7181306f4998b98e .
 bcom:CapabilityTarget bco:sourceReference bcom:source-9e0ae7b454e724daac1ace5bb02dd6384fb5f28e00f986bd1102b13207d5cd9e .
 bcom:CapabilityTarget bco:specParent cco:ont00000476 .
 bcom:CapabilityTarget dcterms:created "2026-10-24T12:12:31+00:00"^^xsd:dateTime .
 bcom:CapabilityTarget prov:wasAttributedTo bcoa:claude-opus-5-5 .
 bcom:CapabilityTarget rdf:type skos:Concept .
+bcom:CapabilityTarget skos:changeNote "2026-10-24, review R6 section 6.1: each consistent-with source now states its support, definitional (it backs something this definition says) or contextual (it backs only the general view the scheme rests on). No definition, locator or relation changed; the definition is still specification section 4's."@en .
 bcom:CapabilityTarget skos:definition "An Objective that prescribes that an organization come to bear a capability of one given type."@en .
 bcom:CapabilityTarget skos:inScheme bcom:MetamodelScheme .
 bcom:CapabilityTarget skos:prefLabel "Capability Target"@en .
 
-bcom:CapabilityTargetStateSpecification bco:currentRecord bcom:record-dbfa1cbfe514cf21ac606073669221eab0ffe4f0b6ef6fe610a6f4d96c314cb3 .
+bcom:CapabilityTargetStateSpecification bco:currentRecord bcom:record-52118424cb435fabc28a985e066b4fc5f2a3b07c80c9934cc4eb632f1debf280 .
 bcom:CapabilityTargetStateSpecification bco:designatesClass bco:CapabilityTargetStateSpecification .
 bcom:CapabilityTargetStateSpecification bco:doesNotImply "That the plan has been adopted or carried out. That the targets will be met."@en .
 bcom:CapabilityTargetStateSpecification bco:lifecycleStatus "Draft" .
-bcom:CapabilityTargetStateSpecification bco:sourceReference bcom:source-1897fea7444c5221c7f17a3ac7c9c64eeb2f56c6471e3e559bb501fd1ba08677 .
-bcom:CapabilityTargetStateSpecification bco:sourceReference bcom:source-243e5f2c9a6ef0fd5f95517839dad6b77e7ad171691b7ab1059524f93cce04da .
+bcom:CapabilityTargetStateSpecification bco:sourceReference bcom:source-d9475a590b0ce05b996f1dc7efe0ad92fa580e004464fd1f59747a4bc85e8fe2 .
+bcom:CapabilityTargetStateSpecification bco:sourceReference bcom:source-f41b01dbbbd7e1a1339237df206e932860cce40772908ab44baa3f698f76c0bf .
 bcom:CapabilityTargetStateSpecification bco:specParent cco:ont00000974 .
 bcom:CapabilityTargetStateSpecification dcterms:created "2026-10-24T12:12:31+00:00"^^xsd:dateTime .
 bcom:CapabilityTargetStateSpecification prov:wasAttributedTo bcoa:claude-opus-5-5 .
 bcom:CapabilityTargetStateSpecification rdf:type skos:Concept .
+bcom:CapabilityTargetStateSpecification skos:changeNote "2026-10-24, review R6 section 6.1: each consistent-with source now states its support, definitional (it backs something this definition says) or contextual (it backs only the general view the scheme rests on). No definition, locator or relation changed; the definition is still specification section 4's."@en .
 bcom:CapabilityTargetStateSpecification skos:definition "A Plan that prescribes the acts through which an organization is to reach one or more Capability Targets, such as recruitment, training, technology deployment or a sourcing arrangement, and has those targets as continuant parts."@en .
 bcom:CapabilityTargetStateSpecification skos:inScheme bcom:MetamodelScheme .
 bcom:CapabilityTargetStateSpecification skos:prefLabel "Capability Target-State Specification"@en .
@@ -170,32 +179,51 @@ bcom:MetamodelScheme rdf:type skos:ConceptScheme .
 bcom:MetamodelScheme skos:definition "The terms specification section 4 defines."@en .
 bcom:MetamodelScheme skos:prefLabel "BCO metamodel scheme"@en .
 
-bcom:record-139d2fb5029f9114d178ca12e9dd505b10194ade38b8bd598b7e571730580aaa bco:recordSha256 "139d2fb5029f9114d178ca12e9dd505b10194ade38b8bd598b7e571730580aaa" .
-bcom:record-139d2fb5029f9114d178ca12e9dd505b10194ade38b8bd598b7e571730580aaa rdf:type prov:Entity .
+bcom:record-0c69107b029613aa512db30ceab5ed15acd20b3d96b7ccc50b3c168ac15c6e64 bco:recordSha256 "0c69107b029613aa512db30ceab5ed15acd20b3d96b7ccc50b3c168ac15c6e64" .
+bcom:record-0c69107b029613aa512db30ceab5ed15acd20b3d96b7ccc50b3c168ac15c6e64 prov:wasRevisionOf bcom:record-6dab2b7ae1d2d79bf9fc73165ce1bd8877b5903bf8043b7a36ef440538ef6c24 .
+bcom:record-0c69107b029613aa512db30ceab5ed15acd20b3d96b7ccc50b3c168ac15c6e64 rdf:type prov:Entity .
 
-bcom:record-1a9a1e024bcc0d7e8bf9f3319664c3cb3c5f1b6d3de900fb5e08f65c0a19530d bco:recordSha256 "1a9a1e024bcc0d7e8bf9f3319664c3cb3c5f1b6d3de900fb5e08f65c0a19530d" .
-bcom:record-1a9a1e024bcc0d7e8bf9f3319664c3cb3c5f1b6d3de900fb5e08f65c0a19530d rdf:type prov:Entity .
+bcom:record-0f59bddbceeb7e37f301cdc810dc30b213cd8d11a95673fa456fcd9371e51058 bco:recordSha256 "0f59bddbceeb7e37f301cdc810dc30b213cd8d11a95673fa456fcd9371e51058" .
+bcom:record-0f59bddbceeb7e37f301cdc810dc30b213cd8d11a95673fa456fcd9371e51058 prov:wasRevisionOf bcom:record-8dd8ce8adf61b6dc4ee2490b21f78ce57cb1a82b650a548cb64adde8a3e5e3a6 .
+bcom:record-0f59bddbceeb7e37f301cdc810dc30b213cd8d11a95673fa456fcd9371e51058 rdf:type prov:Entity .
 
-bcom:record-4b5cc2fa04dd95b38e945ade5b93697638e62013b5bc37ffe9851f48353aa072 bco:recordSha256 "4b5cc2fa04dd95b38e945ade5b93697638e62013b5bc37ffe9851f48353aa072" .
-bcom:record-4b5cc2fa04dd95b38e945ade5b93697638e62013b5bc37ffe9851f48353aa072 rdf:type prov:Entity .
+bcom:record-14ce501c1cb9c3bbd54e88d3065910ad1dc1fc9f8b3f9fd6df64c52b5623ed30 bco:recordSha256 "14ce501c1cb9c3bbd54e88d3065910ad1dc1fc9f8b3f9fd6df64c52b5623ed30" .
+bcom:record-14ce501c1cb9c3bbd54e88d3065910ad1dc1fc9f8b3f9fd6df64c52b5623ed30 prov:wasRevisionOf bcom:record-910faf3ec4efe42f78820f9deff6874e05c784fbb5273c5482182eb8f0883693 .
+bcom:record-14ce501c1cb9c3bbd54e88d3065910ad1dc1fc9f8b3f9fd6df64c52b5623ed30 rdf:type prov:Entity .
 
-bcom:record-6dab2b7ae1d2d79bf9fc73165ce1bd8877b5903bf8043b7a36ef440538ef6c24 bco:recordSha256 "6dab2b7ae1d2d79bf9fc73165ce1bd8877b5903bf8043b7a36ef440538ef6c24" .
-bcom:record-6dab2b7ae1d2d79bf9fc73165ce1bd8877b5903bf8043b7a36ef440538ef6c24 rdf:type prov:Entity .
+bcom:record-2b60a140d1cc6b63ff60e35989730dcc30a258f35700ac958db8f3dc80271166 bco:recordSha256 "2b60a140d1cc6b63ff60e35989730dcc30a258f35700ac958db8f3dc80271166" .
+bcom:record-2b60a140d1cc6b63ff60e35989730dcc30a258f35700ac958db8f3dc80271166 prov:wasRevisionOf bcom:record-139d2fb5029f9114d178ca12e9dd505b10194ade38b8bd598b7e571730580aaa .
+bcom:record-2b60a140d1cc6b63ff60e35989730dcc30a258f35700ac958db8f3dc80271166 rdf:type prov:Entity .
 
-bcom:record-8dd8ce8adf61b6dc4ee2490b21f78ce57cb1a82b650a548cb64adde8a3e5e3a6 bco:recordSha256 "8dd8ce8adf61b6dc4ee2490b21f78ce57cb1a82b650a548cb64adde8a3e5e3a6" .
-bcom:record-8dd8ce8adf61b6dc4ee2490b21f78ce57cb1a82b650a548cb64adde8a3e5e3a6 rdf:type prov:Entity .
+bcom:record-52118424cb435fabc28a985e066b4fc5f2a3b07c80c9934cc4eb632f1debf280 bco:recordSha256 "52118424cb435fabc28a985e066b4fc5f2a3b07c80c9934cc4eb632f1debf280" .
+bcom:record-52118424cb435fabc28a985e066b4fc5f2a3b07c80c9934cc4eb632f1debf280 prov:wasRevisionOf bcom:record-dbfa1cbfe514cf21ac606073669221eab0ffe4f0b6ef6fe610a6f4d96c314cb3 .
+bcom:record-52118424cb435fabc28a985e066b4fc5f2a3b07c80c9934cc4eb632f1debf280 rdf:type prov:Entity .
 
-bcom:record-910faf3ec4efe42f78820f9deff6874e05c784fbb5273c5482182eb8f0883693 bco:recordSha256 "910faf3ec4efe42f78820f9deff6874e05c784fbb5273c5482182eb8f0883693" .
-bcom:record-910faf3ec4efe42f78820f9deff6874e05c784fbb5273c5482182eb8f0883693 rdf:type prov:Entity .
+bcom:record-7dac0900ecaff8ceb0ebf2a57a931d95eba3442fdc00b02e7c3ddba4af885576 bco:recordSha256 "7dac0900ecaff8ceb0ebf2a57a931d95eba3442fdc00b02e7c3ddba4af885576" .
+bcom:record-7dac0900ecaff8ceb0ebf2a57a931d95eba3442fdc00b02e7c3ddba4af885576 prov:wasRevisionOf bcom:record-fdf4c859d656eed9f5dfc9e3b130b7570fcdc33b40c1c62be66a94b3c90eb558 .
+bcom:record-7dac0900ecaff8ceb0ebf2a57a931d95eba3442fdc00b02e7c3ddba4af885576 rdf:type prov:Entity .
 
-bcom:record-dbfa1cbfe514cf21ac606073669221eab0ffe4f0b6ef6fe610a6f4d96c314cb3 bco:recordSha256 "dbfa1cbfe514cf21ac606073669221eab0ffe4f0b6ef6fe610a6f4d96c314cb3" .
-bcom:record-dbfa1cbfe514cf21ac606073669221eab0ffe4f0b6ef6fe610a6f4d96c314cb3 rdf:type prov:Entity .
+bcom:record-8990750ede14ef874db394050f675de1424c5c61c7898b9f2cbb775b01b31d4a bco:recordSha256 "8990750ede14ef874db394050f675de1424c5c61c7898b9f2cbb775b01b31d4a" .
+bcom:record-8990750ede14ef874db394050f675de1424c5c61c7898b9f2cbb775b01b31d4a prov:wasRevisionOf bcom:record-eb7553a803fed6f271a4c94739421b82dca1426df9bfc476737cc55db9faa8b4 .
+bcom:record-8990750ede14ef874db394050f675de1424c5c61c7898b9f2cbb775b01b31d4a rdf:type prov:Entity .
 
-bcom:record-eb7553a803fed6f271a4c94739421b82dca1426df9bfc476737cc55db9faa8b4 bco:recordSha256 "eb7553a803fed6f271a4c94739421b82dca1426df9bfc476737cc55db9faa8b4" .
-bcom:record-eb7553a803fed6f271a4c94739421b82dca1426df9bfc476737cc55db9faa8b4 rdf:type prov:Entity .
+bcom:record-cd99f6d4c0bbac12acb25a477886152f40df2e55a9eeb8ed88af0d792ce8c1fd bco:recordSha256 "cd99f6d4c0bbac12acb25a477886152f40df2e55a9eeb8ed88af0d792ce8c1fd" .
+bcom:record-cd99f6d4c0bbac12acb25a477886152f40df2e55a9eeb8ed88af0d792ce8c1fd prov:wasRevisionOf bcom:record-4b5cc2fa04dd95b38e945ade5b93697638e62013b5bc37ffe9851f48353aa072 .
+bcom:record-cd99f6d4c0bbac12acb25a477886152f40df2e55a9eeb8ed88af0d792ce8c1fd rdf:type prov:Entity .
 
-bcom:record-fdf4c859d656eed9f5dfc9e3b130b7570fcdc33b40c1c62be66a94b3c90eb558 bco:recordSha256 "fdf4c859d656eed9f5dfc9e3b130b7570fcdc33b40c1c62be66a94b3c90eb558" .
-bcom:record-fdf4c859d656eed9f5dfc9e3b130b7570fcdc33b40c1c62be66a94b3c90eb558 rdf:type prov:Entity .
+bcom:record-dff945888bb53b831eeeeb866689fecb4a420ab26612a06662e2fd9904a5b4ff bco:recordSha256 "dff945888bb53b831eeeeb866689fecb4a420ab26612a06662e2fd9904a5b4ff" .
+bcom:record-dff945888bb53b831eeeeb866689fecb4a420ab26612a06662e2fd9904a5b4ff prov:wasRevisionOf bcom:record-1a9a1e024bcc0d7e8bf9f3319664c3cb3c5f1b6d3de900fb5e08f65c0a19530d .
+bcom:record-dff945888bb53b831eeeeb866689fecb4a420ab26612a06662e2fd9904a5b4ff rdf:type prov:Entity .
+
+bcom:source-036b6e4e404d9ea84c8a90bc5fbcfd77acbb137f53f2fee4af4f3bcec9089022 bco:citesSource bcos:SRC-OMG-01 .
+bcom:source-036b6e4e404d9ea84c8a90bc5fbcfd77acbb137f53f2fee4af4f3bcec9089022 bco:locator "VDML 1.1, section 7.2.2.3.3 (heatIndex, a MeasuredCharacteristic of a CapabilityOffer)" .
+bcom:source-036b6e4e404d9ea84c8a90bc5fbcfd77acbb137f53f2fee4af4f3bcec9089022 bco:relation "consistent-with" .
+bcom:source-036b6e4e404d9ea84c8a90bc5fbcfd77acbb137f53f2fee4af4f3bcec9089022 bco:support "contextual" .
+
+bcom:source-0ef30dd8dd79c964141b04b21681790edd5677dd2d2fe32056ba81bdc9f249f7 bco:citesSource bcos:SRC-BA-07 .
+bcom:source-0ef30dd8dd79c964141b04b21681790edd5677dd2d2fe32056ba81bdc9f249f7 bco:locator "HICSS-51 abstract (capability-map use cases assessed for value); the note names sourcing decisions as a use case only from secondary slides, so only the abstract-level claim is cited" .
+bcom:source-0ef30dd8dd79c964141b04b21681790edd5677dd2d2fe32056ba81bdc9f249f7 bco:relation "consistent-with" .
+bcom:source-0ef30dd8dd79c964141b04b21681790edd5677dd2d2fe32056ba81bdc9f249f7 bco:support "contextual" .
 
 bcom:source-1377ef9b1255a2087416aa311826974f630af64b9b914f3782346eefe66ce5d0 bco:citesClaim "1"^^xsd:integer .
 bcom:source-1377ef9b1255a2087416aa311826974f630af64b9b914f3782346eefe66ce5d0 bco:citesSource bcos:SRC-FO-02 .
@@ -203,55 +231,46 @@ bcom:source-1377ef9b1255a2087416aa311826974f630af64b9b914f3782346eefe66ce5d0 bco
 bcom:source-1377ef9b1255a2087416aa311826974f630af64b9b914f3782346eefe66ce5d0 bco:locator "IOF Core release 202603, Core.rdf: capability of / has capability, whose bearer is any independent continuant (BFO_0000004)" .
 bcom:source-1377ef9b1255a2087416aa311826974f630af64b9b914f3782346eefe66ce5d0 bco:relation "departs-from" .
 
-bcom:source-13c0b1b843118673ccf595b1b4a1d1216fc6513725e44b47dcfe5c1a634dcc6d bco:citesSource bcos:SRC-OG-02 .
-bcom:source-13c0b1b843118673ccf595b1b4a1d1216fc6513725e44b47dcfe5c1a634dcc6d bco:locator "TOGAF Series Guide G211, section 13.1 Heat Mapping, as listed in the compilation's table of contents (the section text was not read)" .
-bcom:source-13c0b1b843118673ccf595b1b4a1d1216fc6513725e44b47dcfe5c1a634dcc6d bco:relation "consistent-with" .
-
-bcom:source-1897fea7444c5221c7f17a3ac7c9c64eeb2f56c6471e3e559bb501fd1ba08677 bco:citesSource bcos:SRC-GOV-04 .
-bcom:source-1897fea7444c5221c7f17a3ac7c9c64eeb2f56c6471e3e559bb501fd1ba08677 bco:locator "NAF v4.1 ArchiMate Implementation Guide, section 11, C8 Planning Constraints, p.32 (Capability Increments), and glossary, PDF p.154 (Work Package)" .
-bcom:source-1897fea7444c5221c7f17a3ac7c9c64eeb2f56c6471e3e559bb501fd1ba08677 bco:relation "consistent-with" .
-
 bcom:source-1b83e95baaf4fcf3c5bb03bbe0f037e11f654a82f6a0dbb8dc0ec32989f37fbd bco:citesClaim "1"^^xsd:integer .
 bcom:source-1b83e95baaf4fcf3c5bb03bbe0f037e11f654a82f6a0dbb8dc0ec32989f37fbd bco:citesSource bcos:SRC-OMG-01 .
 bcom:source-1b83e95baaf4fcf3c5bb03bbe0f037e11f654a82f6a0dbb8dc0ec32989f37fbd bco:departureNote "VDML lets individual Actors, human or machine, provide capabilities alongside OrgUnits. The BCO restricts the bearer to an Organization (CD1); an Actor's ability is classified as something else (a person's skill, or an artifact's function), not as a Business Capability."@en .
 bcom:source-1b83e95baaf4fcf3c5bb03bbe0f037e11f654a82f6a0dbb8dc0ec32989f37fbd bco:locator "VDML 1.1, section 7.1.7 (Actors in OrgUnit Positions provide Capabilities) and section 7.1.9 (an Actor may fill the Role that provides a required Capability)" .
 bcom:source-1b83e95baaf4fcf3c5bb03bbe0f037e11f654a82f6a0dbb8dc0ec32989f37fbd bco:relation "departs-from" .
 
-bcom:source-202dc6673932af74de83febf416af3311a22714221e314e0e547ee149f5df0cb bco:citesSource bcos:SRC-OMG-01 .
-bcom:source-202dc6673932af74de83febf416af3311a22714221e314e0e547ee149f5df0cb bco:locator "VDML 1.1, section 7.2.5.3.1 (CapabilityLibrary) and section 7.2.5.3.2 (CapabilityDefinition as a standardized definition)" .
-bcom:source-202dc6673932af74de83febf416af3311a22714221e314e0e547ee149f5df0cb bco:relation "consistent-with" .
+bcom:source-1ebc13a709cc99562f32528097987ec8770cf29a21d01c97be86d8443153b1d8 bco:citesSource bcos:SRC-BA-07 .
+bcom:source-1ebc13a709cc99562f32528097987ec8770cf29a21d01c97be86d8443153b1d8 bco:locator "HICSS-51 abstract (capability-map use cases at 25 organizations); the note names per-capability assessment use cases only from secondary slides, so only the abstract-level claim is cited" .
+bcom:source-1ebc13a709cc99562f32528097987ec8770cf29a21d01c97be86d8443153b1d8 bco:relation "consistent-with" .
+bcom:source-1ebc13a709cc99562f32528097987ec8770cf29a21d01c97be86d8443153b1d8 bco:support "contextual" .
 
-bcom:source-243e5f2c9a6ef0fd5f95517839dad6b77e7ad171691b7ab1059524f93cce04da bco:citesSource bcos:SRC-OMG-02 .
-bcom:source-243e5f2c9a6ef0fd5f95517839dad6b77e7ad171691b7ab1059524f93cce04da bco:locator "BMM 1.3, section 8.3.3 (a Course of Action is a plan for configuring the enterprise to achieve Desired Results, and is not a Business Process)" .
-bcom:source-243e5f2c9a6ef0fd5f95517839dad6b77e7ad171691b7ab1059524f93cce04da bco:relation "consistent-with" .
+bcom:source-23d8fadbdc6eed1dddc184881f3542e384aaddb3183f5fd06cefb831864137fc bco:citesSource bcos:SRC-OMG-01 .
+bcom:source-23d8fadbdc6eed1dddc184881f3542e384aaddb3183f5fd06cefb831864137fc bco:locator "VDML 1.1, section 7.1.8 and Fig. 7-2 (provider OrgUnits operate a method that another OrgUnit owns)" .
+bcom:source-23d8fadbdc6eed1dddc184881f3542e384aaddb3183f5fd06cefb831864137fc bco:relation "consistent-with" .
+bcom:source-23d8fadbdc6eed1dddc184881f3542e384aaddb3183f5fd06cefb831864137fc bco:support "contextual" .
 
-bcom:source-2ac774957523fba0f204790289d5d30c1735d55deee43c440d2961304a44b1a3 bco:citesSource bcos:SRC-IND-08 .
-bcom:source-2ac774957523fba0f204790289d5d30c1735d55deee43c440d2961304a44b1a3 bco:locator "Gartner IT Glossary, entry for business capability modeling (the model is a representation)" .
-bcom:source-2ac774957523fba0f204790289d5d30c1735d55deee43c440d2961304a44b1a3 bco:relation "consistent-with" .
+bcom:source-429228517452214ce69aa68482d60ea1de764ad25f8ee90e35c9a026d54dba54 bco:citesSource bcos:SRC-ISO-01 .
+bcom:source-429228517452214ce69aa68482d60ea1de764ad25f8ee90e35c9a026d54dba54 bco:locator "bfo-core.ttl at commit 044490fc: the elucidation of disposition (BFO_0000016) and the definition of has material basis (BFO_0000218)" .
+bcom:source-429228517452214ce69aa68482d60ea1de764ad25f8ee90e35c9a026d54dba54 bco:relation "consistent-with" .
+bcom:source-429228517452214ce69aa68482d60ea1de764ad25f8ee90e35c9a026d54dba54 bco:support "definitional" .
 
-bcom:source-2afc7f658d07ab9e77e9178842de894af66bede3e8d793ec78e08ef4d1975100 bco:citesSource bcos:SRC-OMG-01 .
-bcom:source-2afc7f658d07ab9e77e9178842de894af66bede3e8d793ec78e08ef4d1975100 bco:locator "VDML 1.1, section 7.1.8 and Fig. 7-2 (provider OrgUnits operate a method that another OrgUnit owns)" .
-bcom:source-2afc7f658d07ab9e77e9178842de894af66bede3e8d793ec78e08ef4d1975100 bco:relation "consistent-with" .
+bcom:source-4fe948ca2939cbd7fcb8aa48c9a5e146c768ac3a97fee80a5cfd73fdff7d720d bco:citesSource bcos:SRC-OMG-03 .
+bcom:source-4fe948ca2939cbd7fcb8aa48c9a5e146c768ac3a97fee80a5cfd73fdff7d720d bco:locator "BACM 1.1, section 7.3.2.16 (assigning a PerformerRole confers authority and responsibility)" .
+bcom:source-4fe948ca2939cbd7fcb8aa48c9a5e146c768ac3a97fee80a5cfd73fdff7d720d bco:relation "consistent-with" .
+bcom:source-4fe948ca2939cbd7fcb8aa48c9a5e146c768ac3a97fee80a5cfd73fdff7d720d bco:support "contextual" .
 
-bcom:source-2b8b41a79f5be72706874c48fbbe291bdfd0156e111347932e1c62f20d38d269 bco:citesSource bcos:SRC-ISO-02 .
-bcom:source-2b8b41a79f5be72706874c48fbbe291bdfd0156e111347932e1c62f20d38d269 bco:locator "ISO 19440:2020, entry 3.6 (the Capability construct is a collection of capability attributes, a description kept apart from the ability described), read in the free preview of clause 3" .
-bcom:source-2b8b41a79f5be72706874c48fbbe291bdfd0156e111347932e1c62f20d38d269 bco:relation "consistent-with" .
+bcom:source-503feec54d464fb88fff03fc4b36d808ea0d9ab12a5a75b8614dbff00542064a bco:citesSource bcos:SRC-FO-09 .
+bcom:source-503feec54d464fb88fff03fc4b36d808ea0d9ab12a5a75b8614dbff00542064a bco:locator "The Enterprise Ontology, AIAI author PDF, section 4.1 (AUTHORITY is held independently of CAPABILITY)" .
+bcom:source-503feec54d464fb88fff03fc4b36d808ea0d9ab12a5a75b8614dbff00542064a bco:relation "consistent-with" .
+bcom:source-503feec54d464fb88fff03fc4b36d808ea0d9ab12a5a75b8614dbff00542064a bco:support "contextual" .
 
-bcom:source-3e6358c960032360bfc4545cd94ace01ca3c2f5ef3f6e602482242b5a84ca15b bco:citesSource bcos:SRC-OMG-03 .
-bcom:source-3e6358c960032360bfc4545cd94ace01ca3c2f5ef3f6e602482242b5a84ca15b bco:locator "BACM 1.1, section 7.3.2.16 (assigning a PerformerRole confers authority and responsibility)" .
-bcom:source-3e6358c960032360bfc4545cd94ace01ca3c2f5ef3f6e602482242b5a84ca15b bco:relation "consistent-with" .
+bcom:source-541652fb6d8c52d3913be5b6d88cb5db0c00bda92306b6444bb5e82a23078a3e bco:citesSource bcos:SRC-IND-08 .
+bcom:source-541652fb6d8c52d3913be5b6d88cb5db0c00bda92306b6444bb5e82a23078a3e bco:locator "Gartner IT Glossary, entry for business capability modeling (the model is a representation)" .
+bcom:source-541652fb6d8c52d3913be5b6d88cb5db0c00bda92306b6444bb5e82a23078a3e bco:relation "consistent-with" .
+bcom:source-541652fb6d8c52d3913be5b6d88cb5db0c00bda92306b6444bb5e82a23078a3e bco:support "contextual" .
 
-bcom:source-41488ae180ab9ffc5458b8f3e0cc4ef73a29776284026cf0ea745a853818ff98 bco:citesSource bcos:SRC-ISO-01 .
-bcom:source-41488ae180ab9ffc5458b8f3e0cc4ef73a29776284026cf0ea745a853818ff98 bco:locator "bfo-core.ttl at commit 044490fc: the elucidation of disposition (BFO_0000016) and the definition of has material basis (BFO_0000218)" .
-bcom:source-41488ae180ab9ffc5458b8f3e0cc4ef73a29776284026cf0ea745a853818ff98 bco:relation "consistent-with" .
-
-bcom:source-4aca252cdadb8359475ebeaa938d2dc81e7b0e9c858e8e4db0b437663b195bfa bco:citesSource bcos:SRC-BA-08 .
-bcom:source-4aca252cdadb8359475ebeaa938d2dc81e7b0e9c858e8e4db0b437663b195bfa bco:locator "Offerman et al. 2017, p. 384 (the level sense of capability, kept apart from its availability)" .
-bcom:source-4aca252cdadb8359475ebeaa938d2dc81e7b0e9c858e8e4db0b437663b195bfa bco:relation "consistent-with" .
-
-bcom:source-5393a92821e13c96b120b2c8285cf6ec47db528f9aadf47387595c603ae61654 bco:citesSource bcos:SRC-BA-07 .
-bcom:source-5393a92821e13c96b120b2c8285cf6ec47db528f9aadf47387595c603ae61654 bco:locator "HICSS-51 abstract (capability-map use cases assessed for value); the note names sourcing decisions as a use case only from secondary slides, so only the abstract-level claim is cited" .
-bcom:source-5393a92821e13c96b120b2c8285cf6ec47db528f9aadf47387595c603ae61654 bco:relation "consistent-with" .
+bcom:source-59148c40849d8e533a80a6c5f86157fb6745a5071758571f7181306f4998b98e bco:citesSource bcos:SRC-GOV-04 .
+bcom:source-59148c40849d8e533a80a6c5f86157fb6745a5071758571f7181306f4998b98e bco:locator "NAF v4.1 ArchiMate Implementation Guide, section 6, C2 Enterprise Vision, p.20 (the phases capabilities aim at) and section 11, C8 Planning Constraints, p.32 (Capability Milestones)" .
+bcom:source-59148c40849d8e533a80a6c5f86157fb6745a5071758571f7181306f4998b98e bco:relation "consistent-with" .
+bcom:source-59148c40849d8e533a80a6c5f86157fb6745a5071758571f7181306f4998b98e bco:support "contextual" .
 
 bcom:source-595623379389a4997c357feabba3d792d8cfc4366e35546f14aed3ce71847012 bco:citesClaim "1"^^xsd:integer .
 bcom:source-595623379389a4997c357feabba3d792d8cfc4366e35546f14aed3ce71847012 bco:citesSource bcos:SRC-OMG-03 .
@@ -259,17 +278,10 @@ bcom:source-595623379389a4997c357feabba3d792d8cfc4366e35546f14aed3ce71847012 bco
 bcom:source-595623379389a4997c357feabba3d792d8cfc4366e35546f14aed3ce71847012 bco:locator "BACM 1.1, section 7.3.4.5 (OrgUnit)" .
 bcom:source-595623379389a4997c357feabba3d792d8cfc4366e35546f14aed3ce71847012 bco:relation "departs-from" .
 
-bcom:source-605fad3f56b78957c0dc1ac133294cc10872b993e9675e6b6c3449b6be4e27b5 bco:citesSource bcos:SRC-OMG-01 .
-bcom:source-605fad3f56b78957c0dc1ac133294cc10872b993e9675e6b6c3449b6be4e27b5 bco:locator "VDML 1.1, section 7.2.2.3.3 (heatIndex, a MeasuredCharacteristic of a CapabilityOffer)" .
-bcom:source-605fad3f56b78957c0dc1ac133294cc10872b993e9675e6b6c3449b6be4e27b5 bco:relation "consistent-with" .
-
-bcom:source-6eaa756d82954461defb4af92e426ac8c725459835cbb768c5ce0d55ff6cbd2c bco:citesSource bcos:SRC-GOV-04 .
-bcom:source-6eaa756d82954461defb4af92e426ac8c725459835cbb768c5ce0d55ff6cbd2c bco:locator "NAF v4.1 ArchiMate Implementation Guide, section 6, C2 Enterprise Vision, p.20 (the phases capabilities aim at) and section 11, C8 Planning Constraints, p.32 (Capability Milestones)" .
-bcom:source-6eaa756d82954461defb4af92e426ac8c725459835cbb768c5ce0d55ff6cbd2c bco:relation "consistent-with" .
-
-bcom:source-7030ece1848b068cf9ee1f3b8ca2ab9f42909f3a44c368939f2e54763688ac90 bco:citesSource bcos:SRC-FO-09 .
-bcom:source-7030ece1848b068cf9ee1f3b8ca2ab9f42909f3a44c368939f2e54763688ac90 bco:locator "The Enterprise Ontology, AIAI author PDF, section 4.1 (AUTHORITY is held independently of CAPABILITY)" .
-bcom:source-7030ece1848b068cf9ee1f3b8ca2ab9f42909f3a44c368939f2e54763688ac90 bco:relation "consistent-with" .
+bcom:source-5f2d010fd25f0edc054bdec4107082371bb8b0394d8d79e970c2a50726240159 bco:citesSource bcos:SRC-FO-09 .
+bcom:source-5f2d010fd25f0edc054bdec4107082371bb8b0394d8d79e970c2a50726240159 bco:locator "The Enterprise Ontology, AIAI author PDF, section 4.1 (AUTHORITY is the right to execute an activity specification, and its holder need not have the CAPABILITY)" .
+bcom:source-5f2d010fd25f0edc054bdec4107082371bb8b0394d8d79e970c2a50726240159 bco:relation "consistent-with" .
+bcom:source-5f2d010fd25f0edc054bdec4107082371bb8b0394d8d79e970c2a50726240159 bco:support "contextual" .
 
 bcom:source-76700ab8654d62de4e09069bcabfec7c86303a8d78ddd1fd55fdb3bed0bc415d bco:citesClaim "1"^^xsd:integer .
 bcom:source-76700ab8654d62de4e09069bcabfec7c86303a8d78ddd1fd55fdb3bed0bc415d bco:citesSource bcos:SRC-GOV-04 .
@@ -277,13 +289,19 @@ bcom:source-76700ab8654d62de4e09069bcabfec7c86303a8d78ddd1fd55fdb3bed0bc415d bco
 bcom:source-76700ab8654d62de4e09069bcabfec7c86303a8d78ddd1fd55fdb3bed0bc415d bco:locator "NAF v4.1 ArchiMate Implementation Guide, section 5, C1 Capability Taxonomy, p.17" .
 bcom:source-76700ab8654d62de4e09069bcabfec7c86303a8d78ddd1fd55fdb3bed0bc415d bco:relation "departs-from" .
 
-bcom:source-77494c2b5f678bd054d96265bb2d0abbe03ed6ed7071cfbee61187ff29b25d04 bco:citesSource bcos:SRC-FO-09 .
-bcom:source-77494c2b5f678bd054d96265bb2d0abbe03ed6ed7071cfbee61187ff29b25d04 bco:locator "The Enterprise Ontology, AIAI author PDF, section 4.1 (AUTHORITY is the right to execute an activity specification, and its holder need not have the CAPABILITY)" .
-bcom:source-77494c2b5f678bd054d96265bb2d0abbe03ed6ed7071cfbee61187ff29b25d04 bco:relation "consistent-with" .
-
 bcom:source-78bd85c7357b52df42a90588ba3c9c1045de53fa349fa1c2208a298049c6870d bco:citesSource bcos:SRC-FO-01 .
 bcom:source-78bd85c7357b52df42a90588ba3c9c1045de53fa349fa1c2208a298049c6870d bco:locator "CCO v2.0 merged file at commit 510dad7 and develop versionIRI 2026-08-13: Organization Capability (ont00000568), its definition, and its parent Agent Capability (ont00001379), which is placed under realizable entity (BFO_0000017)" .
 bcom:source-78bd85c7357b52df42a90588ba3c9c1045de53fa349fa1c2208a298049c6870d bco:relation "adapted-from" .
+
+bcom:source-78e002b642a4dce6b7c109179c8af8439d907e49151887cac7c19cf23a7c0fc7 bco:citesSource bcos:SRC-BA-04 .
+bcom:source-78e002b642a4dce6b7c109179c8af8439d907e49151887cac7c19cf23a7c0fc7 bco:locator "Cutter executive summary of the report (the map as a model and shared vocabulary; the full report was not read)" .
+bcom:source-78e002b642a4dce6b7c109179c8af8439d907e49151887cac7c19cf23a7c0fc7 bco:relation "consistent-with" .
+bcom:source-78e002b642a4dce6b7c109179c8af8439d907e49151887cac7c19cf23a7c0fc7 bco:support "contextual" .
+
+bcom:source-7fbc3e395fbf7b5de65a40d2ae8efb38bd86a1bbd43695fb0d7bf146cb9ae03a bco:citesSource bcos:SRC-OMG-03 .
+bcom:source-7fbc3e395fbf7b5de65a40d2ae8efb38bd86a1bbd43695fb0d7bf146cb9ae03a bco:locator "BACM 1.1, section 7.3.2.7 (Capability is identified by the Outcome a business can produce, not by how it is produced)" .
+bcom:source-7fbc3e395fbf7b5de65a40d2ae8efb38bd86a1bbd43695fb0d7bf146cb9ae03a bco:relation "consistent-with" .
+bcom:source-7fbc3e395fbf7b5de65a40d2ae8efb38bd86a1bbd43695fb0d7bf146cb9ae03a bco:support "contextual" .
 
 bcom:source-86ebec3b3a2fd6ef8f8882da534522db5a85e3ae1bcdffad76e3e6a5aa1a254c bco:citesClaim "1"^^xsd:integer .
 bcom:source-86ebec3b3a2fd6ef8f8882da534522db5a85e3ae1bcdffad76e3e6a5aa1a254c bco:citesSource bcos:SRC-GOV-04 .
@@ -291,13 +309,10 @@ bcom:source-86ebec3b3a2fd6ef8f8882da534522db5a85e3ae1bcdffad76e3e6a5aa1a254c bco
 bcom:source-86ebec3b3a2fd6ef8f8882da534522db5a85e3ae1bcdffad76e3e6a5aa1a254c bco:locator "NAF v4.1 ArchiMate Implementation Guide, glossary, PDF p.154 (Capability)" .
 bcom:source-86ebec3b3a2fd6ef8f8882da534522db5a85e3ae1bcdffad76e3e6a5aa1a254c bco:relation "departs-from" .
 
-bcom:source-8857076520655ccb431e882ee97dee7fd23ec4cc5c7357015dd72ae8f6879526 bco:citesSource bcos:SRC-BA-04 .
-bcom:source-8857076520655ccb431e882ee97dee7fd23ec4cc5c7357015dd72ae8f6879526 bco:locator "Cutter executive summary of the report (the map as a model and shared vocabulary; the full report was not read)" .
-bcom:source-8857076520655ccb431e882ee97dee7fd23ec4cc5c7357015dd72ae8f6879526 bco:relation "consistent-with" .
-
-bcom:source-8d7a1f222b00970dcd1e365ae2a02cdaee42bfe376a9f823f939f2c4488a596c bco:citesSource bcos:SRC-FO-03 .
-bcom:source-8d7a1f222b00970dcd1e365ae2a02cdaee42bfe376a9f823f939f2c4488a596c bco:locator "arXiv:2405.00183v2, section 3 (the authority sense of capability is a role, orthogonal to ability)" .
-bcom:source-8d7a1f222b00970dcd1e365ae2a02cdaee42bfe376a9f823f939f2c4488a596c bco:relation "consistent-with" .
+bcom:source-897542f462f9b69159da97b0bcd489ad4d9052dfdcb4ccd829c7802e71470932 bco:citesSource bcos:SRC-BA-08 .
+bcom:source-897542f462f9b69159da97b0bcd489ad4d9052dfdcb4ccd829c7802e71470932 bco:locator "Offerman et al. 2017, p. 384 (the level sense of capability, kept apart from its availability)" .
+bcom:source-897542f462f9b69159da97b0bcd489ad4d9052dfdcb4ccd829c7802e71470932 bco:relation "consistent-with" .
+bcom:source-897542f462f9b69159da97b0bcd489ad4d9052dfdcb4ccd829c7802e71470932 bco:support "contextual" .
 
 bcom:source-8ffd8e3467f36e58e1545a9560b3bcc718cedceab0f8acebfaf87e4394dbe9b6 bco:citesClaim "1"^^xsd:integer .
 bcom:source-8ffd8e3467f36e58e1545a9560b3bcc718cedceab0f8acebfaf87e4394dbe9b6 bco:citesSource bcos:SRC-ISO-06 .
@@ -311,6 +326,11 @@ bcom:source-9019f46e59d576e4f705ea1fa96b722f01f5b871137033fa57cfa273fc1d8d2c bco
 bcom:source-9019f46e59d576e4f705ea1fa96b722f01f5b871137033fa57cfa273fc1d8d2c bco:locator "NAF v4.1 ArchiMate Implementation Guide, glossary, PDF p.154 (Capability Configuration)" .
 bcom:source-9019f46e59d576e4f705ea1fa96b722f01f5b871137033fa57cfa273fc1d8d2c bco:relation "departs-from" .
 
+bcom:source-9696a1e1c45bfa5af948ea71d53d815a3b20d13c4aca063cd4b0516dff8b3159 bco:citesSource bcos:SRC-BA-08 .
+bcom:source-9696a1e1c45bfa5af948ea71d53d815a3b20d13c4aca063cd4b0516dff8b3159 bco:locator "Offerman et al. 2017, p. 384 (the senses of capability split into its level and its availability)" .
+bcom:source-9696a1e1c45bfa5af948ea71d53d815a3b20d13c4aca063cd4b0516dff8b3159 bco:relation "consistent-with" .
+bcom:source-9696a1e1c45bfa5af948ea71d53d815a3b20d13c4aca063cd4b0516dff8b3159 bco:support "contextual" .
+
 bcom:source-97e23ec03caae84d0e2db9e06c148b5089b25a70bc274c4547be16bdbd40bbdf bco:citesClaim "1"^^xsd:integer .
 bcom:source-97e23ec03caae84d0e2db9e06c148b5089b25a70bc274c4547be16bdbd40bbdf bco:citesSource bcos:SRC-OMG-04 .
 bcom:source-97e23ec03caae84d0e2db9e06c148b5089b25a70bc274c4547be16bdbd40bbdf bco:departureNote "UAF lets any CapableElement (operational agent, service, actual resource or actual organization) exhibit a capability. A Business Capability inheres in an Organization and in nothing else (CD1); abilities of persons, systems and other resources are not Business Capabilities."@en .
@@ -323,13 +343,25 @@ bcom:source-9e0ae7b454e724daac1ace5bb02dd6384fb5f28e00f986bd1102b13207d5cd9e bco
 bcom:source-9e0ae7b454e724daac1ace5bb02dd6384fb5f28e00f986bd1102b13207d5cd9e bco:locator "CaaS project, Definitions of concepts web page (Capability is required by a Goal and serves to formulate requirements)" .
 bcom:source-9e0ae7b454e724daac1ace5bb02dd6384fb5f28e00f986bd1102b13207d5cd9e bco:relation "departs-from" .
 
-bcom:source-a052635419e92574fbed60ec0845ad6ec48322648c42151d2f2909b476c9ac20 bco:citesSource bcos:SRC-FO-03 .
-bcom:source-a052635419e92574fbed60ec0845ad6ec48322648c42151d2f2909b476c9ac20 bco:locator "arXiv:2405.00183v2, sections 4-5 (capability is a disposition, placed between disposition and function); sections 1 and 3 (organizations and configured collectives as bearers)" .
-bcom:source-a052635419e92574fbed60ec0845ad6ec48322648c42151d2f2909b476c9ac20 bco:relation "consistent-with" .
+bcom:source-9e84e2744be3d2b101c467f3441eed7e2f9cfb674490cd480a08877dc6fcb457 bco:citesSource bcos:SRC-OG-02 .
+bcom:source-9e84e2744be3d2b101c467f3441eed7e2f9cfb674490cd480a08877dc6fcb457 bco:locator "TOGAF Series Guide G211, section 13.1 Heat Mapping, as listed in the compilation's table of contents (the section text was not read)" .
+bcom:source-9e84e2744be3d2b101c467f3441eed7e2f9cfb674490cd480a08877dc6fcb457 bco:relation "consistent-with" .
+bcom:source-9e84e2744be3d2b101c467f3441eed7e2f9cfb674490cd480a08877dc6fcb457 bco:support "contextual" .
 
-bcom:source-aef19c495a610f70d3ba911b6fe73fff20655cdcbb06032484c4ef1e4f7ab24f bco:citesSource bcos:SRC-OG-02 .
-bcom:source-aef19c495a610f70d3ba911b6fe73fff20655cdcbb06032484c4ef1e4f7ab24f bco:locator "TOGAF Business Architecture compilation, front matter, section This Document (the organization map identifies business units or third parties that possess or use capabilities)" .
-bcom:source-aef19c495a610f70d3ba911b6fe73fff20655cdcbb06032484c4ef1e4f7ab24f bco:relation "consistent-with" .
+bcom:source-a1821562f39ccfc843bf2ca58f17ea8a84305aa8f5606443e000d53a10ba9917 bco:citesSource bcos:SRC-OMG-01 .
+bcom:source-a1821562f39ccfc843bf2ca58f17ea8a84305aa8f5606443e000d53a10ba9917 bco:locator "VDML 1.1, section 7.2.5.3.1 (CapabilityLibrary) and section 7.2.5.3.2 (CapabilityDefinition as a standardized definition)" .
+bcom:source-a1821562f39ccfc843bf2ca58f17ea8a84305aa8f5606443e000d53a10ba9917 bco:relation "consistent-with" .
+bcom:source-a1821562f39ccfc843bf2ca58f17ea8a84305aa8f5606443e000d53a10ba9917 bco:support "contextual" .
+
+bcom:source-a39473050040ceb23d943539c35a5c28c5c3841905a45687741f8ece2d4a885b bco:citesSource bcos:SRC-OG-02 .
+bcom:source-a39473050040ceb23d943539c35a5c28c5c3841905a45687741f8ece2d4a885b bco:locator "TOGAF Business Architecture compilation, front matter, section This Document (the organization map identifies business units or third parties that possess or use capabilities)" .
+bcom:source-a39473050040ceb23d943539c35a5c28c5c3841905a45687741f8ece2d4a885b bco:relation "consistent-with" .
+bcom:source-a39473050040ceb23d943539c35a5c28c5c3841905a45687741f8ece2d4a885b bco:support "contextual" .
+
+bcom:source-ade295a145ac8a4ed6be32c3dd6c34b624e4a6b10138e20e1b44b6dd1447374a bco:citesSource bcos:SRC-FO-02 .
+bcom:source-ade295a145ac8a4ed6be32c3dd6c34b624e4a6b10138e20e1b44b6dd1447374a bco:locator "IOF Core release 202603, Core.rdf: Capability rdfs:subClassOf obo:BFO_0000016 (disposition)" .
+bcom:source-ade295a145ac8a4ed6be32c3dd6c34b624e4a6b10138e20e1b44b6dd1447374a bco:relation "consistent-with" .
+bcom:source-ade295a145ac8a4ed6be32c3dd6c34b624e4a6b10138e20e1b44b6dd1447374a bco:support "definitional" .
 
 bcom:source-b4310d58f06cffb00b852d22036d6e6d0caa8869b96d96d4c9e97689f9a25cb1 bco:citesClaim "1"^^xsd:integer .
 bcom:source-b4310d58f06cffb00b852d22036d6e6d0caa8869b96d96d4c9e97689f9a25cb1 bco:citesSource bcos:SRC-IND-07 .
@@ -337,25 +369,15 @@ bcom:source-b4310d58f06cffb00b852d22036d6e6d0caa8869b96d96d4c9e97689f9a25cb1 bco
 bcom:source-b4310d58f06cffb00b852d22036d6e6d0caa8869b96d96d4c9e97689f9a25cb1 bco:locator "CMMI Institute web page on capability and maturity levels" .
 bcom:source-b4310d58f06cffb00b852d22036d6e6d0caa8869b96d96d4c9e97689f9a25cb1 bco:relation "departs-from" .
 
-bcom:source-b8bab97c9064211943910529f4c99bdfa8bd54af8149313a8566d145593e4563 bco:citesSource bcos:SRC-BA-07 .
-bcom:source-b8bab97c9064211943910529f4c99bdfa8bd54af8149313a8566d145593e4563 bco:locator "HICSS-51 abstract (capability-map use cases at 25 organizations); the note names per-capability assessment use cases only from secondary slides, so only the abstract-level claim is cited" .
-bcom:source-b8bab97c9064211943910529f4c99bdfa8bd54af8149313a8566d145593e4563 bco:relation "consistent-with" .
+bcom:source-b8c4b70265b1d46f1948ba4610a1649b76bc45f148bc60ba97f2c067999ac259 bco:citesSource bcos:SRC-OMG-01 .
+bcom:source-b8c4b70265b1d46f1948ba4610a1649b76bc45f148bc60ba97f2c067999ac259 bco:locator "VDML 1.1, section 7.2.2.3.3 (a CapabilityOffer has exactly one OrgUnit capabilityProvider) and section 7.1.8 (provider OrgUnits kept apart from the methodOwner)" .
+bcom:source-b8c4b70265b1d46f1948ba4610a1649b76bc45f148bc60ba97f2c067999ac259 bco:relation "consistent-with" .
+bcom:source-b8c4b70265b1d46f1948ba4610a1649b76bc45f148bc60ba97f2c067999ac259 bco:support "definitional" .
 
-bcom:source-c1ec218eac68aa4034ffe6153bdda3ce63981655d66a382a80af113dd8dc19ed bco:citesSource bcos:SRC-BA-08 .
-bcom:source-c1ec218eac68aa4034ffe6153bdda3ce63981655d66a382a80af113dd8dc19ed bco:locator "Offerman et al. 2017, p. 384 (the senses of capability split into its level and its availability)" .
-bcom:source-c1ec218eac68aa4034ffe6153bdda3ce63981655d66a382a80af113dd8dc19ed bco:relation "consistent-with" .
-
-bcom:source-d692623360409ee4fe096535d373e350dead3667949fd32459e3296c217a8426 bco:citesSource bcos:SRC-OMG-01 .
-bcom:source-d692623360409ee4fe096535d373e350dead3667949fd32459e3296c217a8426 bco:locator "VDML 1.1, section 7.2.2.3.3 (a CapabilityOffer has exactly one OrgUnit capabilityProvider) and section 7.1.8 (provider OrgUnits kept apart from the methodOwner)" .
-bcom:source-d692623360409ee4fe096535d373e350dead3667949fd32459e3296c217a8426 bco:relation "consistent-with" .
-
-bcom:source-e07596ff629a80d9121a7d198f6dd86fca6b415d3538b7aa9bc1bb555b46f357 bco:citesSource bcos:SRC-BA-08 .
-bcom:source-e07596ff629a80d9121a7d198f6dd86fca6b415d3538b7aa9bc1bb555b46f357 bco:locator "Offerman et al. 2017, p. 387 (synthesized definition, in which a business may hold a capability or exchange it)" .
-bcom:source-e07596ff629a80d9121a7d198f6dd86fca6b415d3538b7aa9bc1bb555b46f357 bco:relation "consistent-with" .
-
-bcom:source-e500f3cc665a33adaf855057c176f6420a7494678a34717f9e7bbb9af4721cd3 bco:citesSource bcos:SRC-OMG-03 .
-bcom:source-e500f3cc665a33adaf855057c176f6420a7494678a34717f9e7bbb9af4721cd3 bco:locator "BACM 1.1, section 7.3.2.7 (Capability is identified by the Outcome a business can produce, not by how it is produced)" .
-bcom:source-e500f3cc665a33adaf855057c176f6420a7494678a34717f9e7bbb9af4721cd3 bco:relation "consistent-with" .
+bcom:source-d9475a590b0ce05b996f1dc7efe0ad92fa580e004464fd1f59747a4bc85e8fe2 bco:citesSource bcos:SRC-GOV-04 .
+bcom:source-d9475a590b0ce05b996f1dc7efe0ad92fa580e004464fd1f59747a4bc85e8fe2 bco:locator "NAF v4.1 ArchiMate Implementation Guide, section 11, C8 Planning Constraints, p.32 (Capability Increments), and glossary, PDF p.154 (Work Package)" .
+bcom:source-d9475a590b0ce05b996f1dc7efe0ad92fa580e004464fd1f59747a4bc85e8fe2 bco:relation "consistent-with" .
+bcom:source-d9475a590b0ce05b996f1dc7efe0ad92fa580e004464fd1f59747a4bc85e8fe2 bco:support "contextual" .
 
 bcom:source-ecd0737bc7b05197415a7f6723d550064d40833d26a7fd961514f6949afd1561 bco:citesClaim "1"^^xsd:integer .
 bcom:source-ecd0737bc7b05197415a7f6723d550064d40833d26a7fd961514f6949afd1561 bco:citesSource bcos:SRC-FO-08 .
@@ -369,6 +391,27 @@ bcom:source-f2d6bd28e9a2bfdefa6d93c160beb4c73355133214f30f008c5572a16465e319 bco
 bcom:source-f2d6bd28e9a2bfdefa6d93c160beb4c73355133214f30f008c5572a16465e319 bco:locator "ISO 19440:2020, entry 3.6 (Capability construct), read in the free preview of clause 3" .
 bcom:source-f2d6bd28e9a2bfdefa6d93c160beb4c73355133214f30f008c5572a16465e319 bco:relation "departs-from" .
 
-bcom:source-f46fd90914f28869203fdb48fc968686814ce8c3e5201bcd4034a4d439351565 bco:citesSource bcos:SRC-FO-02 .
-bcom:source-f46fd90914f28869203fdb48fc968686814ce8c3e5201bcd4034a4d439351565 bco:locator "IOF Core release 202603, Core.rdf: Capability rdfs:subClassOf obo:BFO_0000016 (disposition)" .
-bcom:source-f46fd90914f28869203fdb48fc968686814ce8c3e5201bcd4034a4d439351565 bco:relation "consistent-with" .
+bcom:source-f41b01dbbbd7e1a1339237df206e932860cce40772908ab44baa3f698f76c0bf bco:citesSource bcos:SRC-OMG-02 .
+bcom:source-f41b01dbbbd7e1a1339237df206e932860cce40772908ab44baa3f698f76c0bf bco:locator "BMM 1.3, section 8.3.3 (a Course of Action is a plan for configuring the enterprise to achieve Desired Results, and is not a Business Process)" .
+bcom:source-f41b01dbbbd7e1a1339237df206e932860cce40772908ab44baa3f698f76c0bf bco:relation "consistent-with" .
+bcom:source-f41b01dbbbd7e1a1339237df206e932860cce40772908ab44baa3f698f76c0bf bco:support "definitional" .
+
+bcom:source-f6368e7ac07142d36f4556d687272550e3fcc4a8188ee9f879185393733afdcf bco:citesSource bcos:SRC-ISO-02 .
+bcom:source-f6368e7ac07142d36f4556d687272550e3fcc4a8188ee9f879185393733afdcf bco:locator "ISO 19440:2020, entry 3.6 (the Capability construct is a collection of capability attributes, a description kept apart from the ability described), read in the free preview of clause 3" .
+bcom:source-f6368e7ac07142d36f4556d687272550e3fcc4a8188ee9f879185393733afdcf bco:relation "consistent-with" .
+bcom:source-f6368e7ac07142d36f4556d687272550e3fcc4a8188ee9f879185393733afdcf bco:support "contextual" .
+
+bcom:source-f9073f762d440ad63413fcd4640b731920707fdb263b6f0f96dce3c5025d51e2 bco:citesSource bcos:SRC-FO-03 .
+bcom:source-f9073f762d440ad63413fcd4640b731920707fdb263b6f0f96dce3c5025d51e2 bco:locator "arXiv:2405.00183v2, section 3 (the authority sense of capability is a role, orthogonal to ability)" .
+bcom:source-f9073f762d440ad63413fcd4640b731920707fdb263b6f0f96dce3c5025d51e2 bco:relation "consistent-with" .
+bcom:source-f9073f762d440ad63413fcd4640b731920707fdb263b6f0f96dce3c5025d51e2 bco:support "contextual" .
+
+bcom:source-f956e02ea8e41217afc8cb6b8c8282927d78b5e26288974735637ffcab7bc3f3 bco:citesSource bcos:SRC-FO-03 .
+bcom:source-f956e02ea8e41217afc8cb6b8c8282927d78b5e26288974735637ffcab7bc3f3 bco:locator "arXiv:2405.00183v2, sections 4-5 (capability is a disposition, placed between disposition and function); sections 1 and 3 (organizations and configured collectives as bearers)" .
+bcom:source-f956e02ea8e41217afc8cb6b8c8282927d78b5e26288974735637ffcab7bc3f3 bco:relation "consistent-with" .
+bcom:source-f956e02ea8e41217afc8cb6b8c8282927d78b5e26288974735637ffcab7bc3f3 bco:support "definitional" .
+
+bcom:source-fb5d0fa500797c2e05518a4e145a2196067c5a06c8960c9c9f70104c3a0d9068 bco:citesSource bcos:SRC-BA-08 .
+bcom:source-fb5d0fa500797c2e05518a4e145a2196067c5a06c8960c9c9f70104c3a0d9068 bco:locator "Offerman et al. 2017, p. 387 (synthesized definition, in which a business may hold a capability or exchange it)" .
+bcom:source-fb5d0fa500797c2e05518a4e145a2196067c5a06c8960c9c9f70104c3a0d9068 bco:relation "consistent-with" .
+bcom:source-fb5d0fa500797c2e05518a4e145a2196067c5a06c8960c9c9f70104c3a0d9068 bco:support "contextual" .
