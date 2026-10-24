@@ -140,9 +140,19 @@ ADJUDICATIONS = "config/licensing-adjudications.yaml"
 
 #: Roles whose files this repository authored and may publish as content.
 #:
-#: ARO's `spike-artifact` and `registered-source` are not carried over:
-#: nothing here plays either part, and a role with no file is a rule
-#: for nothing.
+#: ARO's `registered-source` is not carried over: nothing here plays
+#: that part, and a role with no file is a rule for nothing.
+#:
+#: `spike-artifact`: a time-boxed trial's inputs -- its schema, sample
+#: data, fixtures, pinned requirements and the script that measures it
+#: (trials/). Adopted from ARO on 2026-10-23 for the P2 LinkML trial,
+#: the first thing here to play that part. Content under the project
+#: licence, Python included, because what a trial publishes is evidence
+#: for a decision rather than tooling anything runs: nothing in the
+#: suite imports it. A role of its own rather than `documentation` or
+#: `test-fixture` because it carries a consequence: validate.py loads
+#: every `test-fixture` as Turtle, and a trial's fixtures are YAML for a
+#: different validator.
 #:
 #: `specification`: the specification in force, v0.4.0-draft.1 today,
 #: written by the architect. A role of its own rather than
@@ -175,7 +185,7 @@ ADJUDICATIONS = "config/licensing-adjudications.yaml"
 CONTENT_ROLES = {"ontology-module", "ontology-module-set",
                  "ontology-validation", "test-fixture", "documentation",
                  "generated-artifact", "specification", "historical-draft",
-                 "site-source", "communication"}
+                 "site-source", "communication", "spike-artifact"}
 
 #: Roles that are software rather than published content.
 SOFTWARE_ROLES = {"tool", "configuration"}

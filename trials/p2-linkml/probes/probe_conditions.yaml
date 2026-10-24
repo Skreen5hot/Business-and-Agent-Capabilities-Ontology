@@ -1,0 +1,51 @@
+# P2 probe: two value conditions the trial schema's first draft used.
+#
+# (a) A rule whose postcondition is equals_string "true" on a BOOLEAN
+#     slot. probe_conditions_data.yaml satisfies it with the boolean true;
+#     run_trial.py records whether `linkml validate` accepts that.
+# (b) equals_string on a uriorcurie slot. run_trial.py records whether
+#     gen-shacl accepts the schema at all.
+id: https://fandaws.com/ontology/bco/trial/p2-linkml/probe-conditions
+name: probe_conditions
+default_prefix: probe
+default_range: string
+prefixes:
+  linkml: https://w3id.org/linkml/
+  probe: https://fandaws.com/ontology/bco/trial/p2-linkml/probe#
+imports:
+  - linkml:types
+
+slots:
+  items:
+    range: Item
+    multivalued: true
+    inlined_as_list: true
+  state:
+    range: string
+  flag:
+    range: boolean
+  scheme:
+    range: uriorcurie
+
+classes:
+  Container:
+    tree_root: true
+    slots:
+      - items
+  Item:
+    slots:
+      - state
+      - flag
+      - scheme
+    slot_usage:
+      scheme:
+        equals_string: "probe:TheScheme"
+    rules:
+      - preconditions:
+          slot_conditions:
+            state:
+              equals_string: Deprecated
+        postconditions:
+          slot_conditions:
+            flag:
+              equals_string: "true"

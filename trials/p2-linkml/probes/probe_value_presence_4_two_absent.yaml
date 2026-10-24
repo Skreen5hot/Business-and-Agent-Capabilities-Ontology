@@ -1,0 +1,5 @@
+# P2 probe (4): two slots declared ABSENT on one class; only one is set.
+# expect: reject, if each ABSENT slot is enforced on its own
+pair_things:
+  - name: example
+    forbidden: this value should not be allowed

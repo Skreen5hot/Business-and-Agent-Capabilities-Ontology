@@ -1,0 +1,61 @@
+# P2 trial: sample terms that must be ACCEPTED. Illustrative only -- these
+# are not BCO terms, and the agents, acts and digests are placeholders
+# shaped like the real thing so that the patterns are exercised.
+metamodel_concepts:
+  - id: bcom:BusinessCapability
+    pref_label:
+      - value: Business Capability
+        language: en
+    in_scheme: bcom:MetamodelScheme
+    designates_class: bco:BusinessCapability
+    spec_row: Business Capability
+    sources:
+      - source: SRC-OMG-03
+        locator: "BACM 1.1, clause 7.2"
+        relation: departs-from
+        departure_note: >-
+          BACM admits individuals as capability bearers; the BCO bearer is
+          an organization only.
+      - source: SRC-GOV-04
+        relation: consistent-with
+    drafted_by: bcoa:claude-opus-5-5
+    created: "2026-10-23T00:00:00Z"
+    authored_status: Draft
+
+catalog_concepts:
+  - id: bcoc:TreasuryManagement
+    pref_label:
+      - value: Treasury Management
+        language: en
+      - value: Gestion de tresorerie
+        language: fr
+    definition: >-
+      A business capability whose realization manages an organization's
+      cash, liquidity and financial risk.
+    in_scheme: bcoc:CapabilityCatalogScheme
+    broader:
+      - bcoc:FinancialManagement
+    notation: "10759"
+    sources:
+      - source: SRC-OMG-01
+        locator: "VDML 1.1, 8.3"
+        relation: adapted-from
+    drafted_by: bcoa:claude-opus-5-5
+    created: "2026-10-23T00:00:00Z"
+    authored_status: Candidate
+    ratified_by:
+      path: docs/decisions/2026-11-01-catalog-batch-1.md
+      commit: 8f5c4a1b04e0d5249d0f5b4225998bbef5ec9a76
+      sha256: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+      record_digest: fedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210
+    was_revision_of: bcotrial:record-0000000000000000
+    change_note:
+      - Wording of the definition tightened.
+
+built_statuses:
+  - id: bcoc:CashManagement
+    lifecycle_status: Deprecated
+    deprecated: true
+    is_replaced_by: bcoc:TreasuryManagement
+  - id: bcoc:StrategicPlanning
+    lifecycle_status: Draft

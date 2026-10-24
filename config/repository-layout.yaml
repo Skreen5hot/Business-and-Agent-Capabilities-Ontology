@@ -185,6 +185,29 @@ components:
       belongs in docs/Reference/ and is never tracked. Compiled
       2026-10-23 by AI research agents at the architect's direction.
 
+  - id: docs.trials
+    path: docs/trials
+    role: documentation
+    description: >-
+      Trial reports: what was measured, with which exact versions and
+      commands, and the recommendation it supports. A report informs a
+      decision; it is not one. 2026-10-p2-linkml.md is the P2 LinkML
+      trial that ADR-003 D9 makes LinkML's adoption conditional on.
+
+  - id: trial.p2-linkml
+    path: trials/p2-linkml
+    role: spike-artifact
+    description: >-
+      The P2 LinkML trial's inputs: a trial schema for ADR-003's concept
+      record (not the vocabulary, and not normative), sample terms that
+      must be accepted, one negative fixture per rule, value_presence
+      probes, the fully pinned trial environment
+      (requirements-linkml-trial.txt, never requirements-dev.txt), and
+      run_trial.py, which measures determinism, blank nodes and
+      validation. Nothing in the normal suite imports or loads any of it,
+      and its YAML is not Turtle. The generated outputs are written
+      outside the repository and recorded by digest in the report.
+
   - id: docs.import-inventory
     path: docs/ARTIFACT-INVENTORY.md
     role: documentation

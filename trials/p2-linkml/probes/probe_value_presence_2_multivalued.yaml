@@ -1,0 +1,6 @@
+# P2 probe (2): multivalued slot declared ABSENT on its own class.
+# expect: reject, if value_presence ABSENT is enforced here
+multi_things:
+  - name: example
+    forbidden_list:
+      - this value should not be allowed

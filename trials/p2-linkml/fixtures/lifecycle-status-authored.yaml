@@ -1,0 +1,25 @@
+# P2 negative fixture: lifecycle-status-authored
+# rule: D5 lifecycleStatus is never authored
+# expect: reject
+catalog_concepts:
+- authored_status: Candidate
+  broader:
+  - bcoc:FinancialManagement
+  created: '2026-10-23T00:00:00Z'
+  definition: A business capability that manages cash and liquidity.
+  drafted_by: bcoa:claude-opus-5-5
+  id: bcoc:TreasuryManagement
+  in_scheme: bcoc:CapabilityCatalogScheme
+  lifecycle_status: Ratified
+  notation: '10759'
+  pref_label:
+  - language: en
+    value: Treasury Management
+  ratified_by:
+    commit: 8f5c4a1b04e0d5249d0f5b4225998bbef5ec9a76
+    path: docs/decisions/2026-11-01-catalog-batch-1.md
+    record_digest: fedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210
+    sha256: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+  sources:
+  - relation: adapted-from
+    source: SRC-OMG-01
