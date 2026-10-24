@@ -34,7 +34,7 @@ evidence the checks work.
 | `tools/`, `tests/` | ARO's generic tooling, adapted | the suite and CI |
 | `docs/decisions/` | the architect's acts and choices, verbatim | one entry: setup choices |
 | `docs/sources/` | citation register of 63 sources on business capability, with the research notes behind it. The entries are data (`register.yaml`), the analysis prose is `register-companion.md`, and the Markdown register is generated from both by `tools/sources/build_register.py` | research input, not evidence; entries marked S, K or L are unverified against their primary text. The register's rules (claim status, quote length and keys, SRC ids, entry count, freshness) are hard failures (`tests/test_sources_register.py`) |
-| `vocab/`, `tools/vocab/`, `config/vocab-schema.*`, `requirements-vocab.txt` | the controlled-vocabulary build (ADR-003, P3): authored YAML, generated Turtle in `vocab/generated/`, the LinkML schema and its JSON Schema | the tool and its checks; **no terms yet** (P5). See section 5.10 |
+| `vocab/`, `tools/vocab/`, `config/vocab-schema.*`, `requirements-vocab.txt` | the controlled-vocabulary build (ADR-003, P3): authored YAML, generated Turtle in `vocab/generated/`, the LinkML schema and its JSON Schema | the tool and its checks; since P5, 9 metamodel and 5 catalog concepts, all **Draft**. See sections 5.10 to 5.12 |
 | `communications/` | messages to and from BPO and ARO, under `communications/README.md` | checked by `tools/communications.py`; the vendoring-pin request to BPO was acknowledged (BPO `8f6622c`), and BPO announced a namespace move to `https://fandaws.com/ontology/bpo#` |
 | `docs/ARTIFACT-INVENTORY.md`, `docs/artifact-manifest.json` | the 2026-10-22 import record | held to its digests by a test |
 
@@ -56,6 +56,9 @@ evidence the checks work.
   namespace each shape set filters on (`tests/test_namespace.py`).
 - **The vocabulary shapes fire** (P4): each of 47 constraint messages on the fixture case
   named for it, and none on the positive controls (`tests/test_ontology_checks.py`).
+- **The concept shapes select the real concepts** (P5): with every definition and
+  departure note stripped in memory, each of the 14 concepts and each `departs-from`
+  reference is reported (`test_the_real_concepts_and_departures_are_selected`).
 
 ## 4. Where the specification stands
 
@@ -176,7 +179,7 @@ files in `vocab/generated/`, committed and compared with a fresh build in CI and
 `tests/test_vocab.py`. ADR-003 D1-D9 are enforced there; `docs/DEVELOPMENT.md` "The
 controlled vocabulary (P3)" says how. State at P3:
 
-- **No terms.** `vocab/metamodel.yaml` and `vocab/catalog.yaml` hold empty lists. The
+- **No terms (at P3; P5 added them, section 5.12).** `vocab/metamodel.yaml` and `vocab/catalog.yaml` held empty lists. The
   generated metamodel and catalog files carry their scheme and nothing else. Every check
   is exercised by fixtures built in the tests, not by real records.
 - **Section 4 has 9 concrete rows**, not the 8 the approved plan's P5 row names:
@@ -220,8 +223,48 @@ State at P4:
   `dcterms:created`; `skos:broader` pointing at a catalog concept; a `skos:Concept` minted
   in `bco#`, which is outside both populations and is reported by neither shape set.
 - **The site page** reads the generated Turtle, never the YAML; it shows citations only
-  for register entries a concept cites, so today it shows none. Vocabulary concepts are not
+  for register entries a concept cites, so at P4 it showed none. Vocabulary concepts are not
   in the explorer's term index.
+
+### 5.12 The pilot vocabulary is written, and none of it is ratified (P5)
+
+P5 filled `vocab/metamodel.yaml` and `vocab/catalog.yaml` for the architect to review on
+the site. State at P5:
+
+- **14 concepts, all Draft.** 9 metamodel concepts, one per concrete section 4 row, so
+  `D4-row-uncovered` now runs on every build; 5 catalog concepts: Strategic Planning,
+  Treasury Management, Competitive Analysis, Business Model Governance and Customer
+  Experience Management. No ratification act exists. Ratifying them is the architect's act
+  (ADR-003 D5: an explicit list of IRIs, each with its `record_sha256` from
+  `tools/vocab/build.py --digest`); the P5 pull request lists all 14.
+- **Metamodel definitions are section 4's.** The records carry only provenance. The spec is
+  still a draft, so these concepts wrap draft text.
+- **Every record cites the register.** Claims cited are at V or P; no S or K claim is
+  cited. The organization-only bearer is recorded as `departs-from` UAF 1.3, BACM 1.1
+  (OrgUnit), VDML 1.1, NAF v4.1, IOF Core and ISO 19440 3.6; the member-agent basis departs
+  from NAF's Capability Configuration; the Capability Map departs from NAF's C1 taxonomy
+  view; the Maturity Rating departs from ISO/IEC 33020, CMMI (homonyms) and the UFO
+  capability level; the Capability Target departs from CDD/CaaS. CCO is `adapted-from` for
+  Business Capability's genus; IOF Core, Beverley et al. and BFO are `consistent-with`.
+  ArchiMate (S) is not cited. Where a note records no page or clause, the locator says so.
+- **Catalog definitions are original** and pass the quote tripwire. Each takes Business
+  Capability as its genus in prose; the `genus` field names `cco:ont00000568`, because
+  `bco:BusinessCapability` is not minted and the field must be a vendored BFO/CCO class.
+- **No PCF notation.** At BPO `6613194` no PCF 7.4 catalog node designates any of the five
+  capability classes; every candidate node (for example `ex:PCF_10734`, `ex:PCF_19945`,
+  `ex:PCF_20950`, `ex:PCF_19959`) designates a process class. So the five-digit
+  `bco:PCFCode` form is still unconfirmed by a real notation.
+- **No `broader`, no `designates_class`:** CD9 needs a review for any link between
+  capability classes, and no capability class has passed G1-T (CD3).
+- **Competitive Analysis** is the organizational reading. BPO's
+  `ex:CompetitiveAnalysisCapability` is an Agent Capability borne by an analyst, which
+  section 9 sends to Skill and out of BCO scope; the catalog concept does not designate it.
+- **Validation on real data:** `validation.vocabulary` 0 and `validation.wellformedness`
+  0 authored findings, over 14 concepts. The baseline did not change.
+- **Not changed, and now stale:** the site's status page still says "Authored terms
+  checked: 0" and that, with no BCO term written, every shape set conforms vacuously
+  (`tools/site/build_site.py`, which counts ontology terms only). The vocabulary rung now
+  runs on real concepts. Fixing that sentence is a tool change and was left out of P5.
 
 ## 6. Outside the repository
 

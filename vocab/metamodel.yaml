@@ -1,10 +1,10 @@
 # Metamodel concept records (bcom:), ADR-003 D4. Edited by hand; built by
 # tools/vocab/build.py into vocab/generated/bco-metamodel.ttl.
 #
-# Empty in P3: the tool ships before the terms, which arrive in P5. While
-# this list is empty the build does not require a record per section 4
-# row; once it holds one concept, every concrete row of specification
-# section 4 needs a record and every record must name a row.
+# P5 holds one record for each of the 9 concrete rows of specification
+# section 4, all Draft. Because the list is non-empty, every concrete row
+# needs a record and every record must name a row (D4-row-uncovered,
+# D4-no-row).
 #
 # One record per row:
 #
@@ -25,6 +25,355 @@
 # Never authored: definition (it is section 4's), prefLabel and
 # designatesClass (derived from the row), lifecycle_status and
 # owl:deprecated (derived, D5).
+#
+# Locators name only what the source notes in docs/sources/notes/ record
+# for each source. Where a note records no clause or page for the point
+# cited, the locator says so. Every departs-from cites a claim at V or P.
 
 version: 1
-concepts: []
+concepts:
+  - id: bcom:BusinessCapability
+    spec_row: ex:BusinessCapability
+    sources:
+      - source: SRC-FO-01
+        locator: >-
+          CCO v2.0 merged file at commit 510dad7 and develop versionIRI
+          2026-08-13: Organization Capability (ont00000568), its definition,
+          and its parent Agent Capability (ont00001379), which is placed under
+          realizable entity (BFO_0000017)
+        relation: adapted-from
+      - source: SRC-FO-02
+        locator: >-
+          IOF Core release 202603, Core.rdf: Capability rdfs:subClassOf
+          obo:BFO_0000016 (disposition)
+        relation: consistent-with
+      - source: SRC-FO-03
+        locator: >-
+          arXiv:2405.00183v2, sections 4-5 (capability is a disposition,
+          placed between disposition and function); sections 1 and 3
+          (organizations and configured collectives as bearers)
+        relation: consistent-with
+      - source: SRC-ISO-01
+        locator: >-
+          bfo-core.ttl at commit 044490fc: the elucidation of disposition
+          (BFO_0000016) and the definition of has material basis
+          (BFO_0000218)
+        relation: consistent-with
+      - source: SRC-OMG-03
+        locator: >-
+          BACM 1.1, section 7.3.2.7 (Capability is identified by the Outcome a
+          business can produce, not by how it is produced)
+        relation: consistent-with
+      - source: SRC-FO-09
+        locator: >-
+          The Enterprise Ontology, AIAI author PDF, section 4.1 (AUTHORITY is
+          held independently of CAPABILITY)
+        relation: consistent-with
+      - source: SRC-OMG-04
+        locator: >-
+          UAF 1.3 DMM, Traceability package: CapableElement and the Exhibits
+          relation (the omg-and-iso note records no page for these)
+        relation: departs-from
+        claim: 1
+        departure_note: >-
+          UAF lets any CapableElement (operational agent, service, actual
+          resource or actual organization) exhibit a capability. A Business
+          Capability inheres in an Organization and in nothing else (CD1);
+          abilities of persons, systems and other resources are not Business
+          Capabilities.
+      - source: SRC-OMG-03
+        locator: BACM 1.1, section 7.3.4.5 (OrgUnit)
+        relation: departs-from
+        claim: 1
+        departure_note: >-
+          BACM's OrgUnit, the performer through which capabilities are
+          implemented, includes individuals. The BCO admits only an
+          Organization as the bearer of a Business Capability (CD1); an
+          individual's ability is CCO Skill or Agent Capability and is out of
+          scope.
+      - source: SRC-OMG-01
+        locator: >-
+          VDML 1.1, section 7.1.7 (Actors in OrgUnit Positions provide
+          Capabilities) and section 7.1.9 (an Actor may fill the Role that
+          provides a required Capability)
+        relation: departs-from
+        claim: 1
+        departure_note: >-
+          VDML lets individual Actors, human or machine, provide capabilities
+          alongside OrgUnits. The BCO restricts the bearer to an Organization
+          (CD1); an Actor's ability is classified as something else (a
+          person's skill, or an artifact's function), not as a Business
+          Capability.
+      - source: SRC-GOV-04
+        locator: NAF v4.1 ArchiMate Implementation Guide, glossary, PDF p.154 (Capability)
+        relation: departs-from
+        claim: 1
+        departure_note: >-
+          NAF defines a capability by what one or more resources can be
+          expected to deliver, and its resources cover systems and equipment
+          as well as organizations. The BCO narrows the bearer to an Organization (CD1);
+          an organization-borne capability is a special case NAF permits, so
+          the BCO narrows NAF rather than contradicting it.
+      - source: SRC-GOV-04
+        locator: >-
+          NAF v4.1 ArchiMate Implementation Guide, glossary, PDF p.154
+          (Capability Configuration)
+        relation: departs-from
+        claim: 1
+        departure_note: >-
+          NAF's Capability Configuration, the nearest analogue of a material
+          basis, combines people and technology. The BCO's material basis is
+          the organization's member agents only (CD2); systems, equipment and
+          facilities are enabling conditions that take part in realizations,
+          and losing one makes the capability unavailable, not absent.
+      - source: SRC-FO-02
+        locator: >-
+          IOF Core release 202603, Core.rdf: capability of / has capability,
+          whose bearer is any independent continuant (BFO_0000004)
+        relation: departs-from
+        claim: 1
+        departure_note: >-
+          IOF lets any independent continuant bear a capability, with
+          artifacts (a lathe, a sensor) as its examples. The BCO adopts IOF's
+          disposition placement but restricts the bearer of a Business
+          Capability to an Organization (CD1); the register lists IOF among
+          the bearer departures (SF-05).
+      - source: SRC-ISO-02
+        locator: >-
+          ISO 19440:2020, entry 3.6 (Capability construct), read in the free
+          preview of clause 3
+        relation: departs-from
+        claim: 1
+        departure_note: >-
+          ISO 19440 assigns a provided Capability to a Resource, which since
+          the 2020 edition includes active Resources such as people, machines
+          and IT. The BCO admits only an Organization as bearer (CD1).
+    drafted_by: bcoa:claude-opus-5-5
+    created: "2026-10-24T12:12:31Z"
+    authored_status: Draft
+
+  - id: bcom:CapabilityMap
+    spec_row: ex:CapabilityMap
+    sources:
+      - source: SRC-IND-08
+        locator: >-
+          Gartner IT Glossary, entry for business capability modeling (the
+          model is a representation)
+        relation: consistent-with
+      - source: SRC-BA-04
+        locator: >-
+          Cutter executive summary of the report (the map as a model and
+          shared vocabulary; the full report was not read)
+        relation: consistent-with
+      - source: SRC-OMG-01
+        locator: >-
+          VDML 1.1, section 7.2.5.3.1 (CapabilityLibrary) and section
+          7.2.5.3.2 (CapabilityDefinition as a standardized definition)
+        relation: consistent-with
+      - source: SRC-GOV-04
+        locator: >-
+          NAF v4.1 ArchiMate Implementation Guide, section 5, C1 Capability
+          Taxonomy, p.17
+        relation: departs-from
+        claim: 1
+        departure_note: >-
+          NAF's C1 view organizes capabilities into specialization and
+          aggregation taxonomies, independent of implementation. A BCO
+          Capability Map is not a taxonomy of capability types: it describes
+          one organization, its entries are Capability Assessments and
+          Capability Targets, and the arrangement of entries asserts no
+          parthood or specialization among capabilities (CD14, CD17). What a
+          capability type means is stated once, in its class definition and
+          catalog concept.
+    drafted_by: bcoa:claude-opus-5-5
+    created: "2026-10-24T12:12:31Z"
+    authored_status: Draft
+
+  - id: bcom:CapabilityAssessment
+    spec_row: ex:CapabilityAssessment
+    sources:
+      - source: SRC-BA-07
+        locator: >-
+          HICSS-51 abstract (capability-map use cases at 25 organizations);
+          the note names per-capability assessment use cases only from
+          secondary slides, so only the abstract-level claim is cited
+        relation: consistent-with
+      - source: SRC-ISO-02
+        locator: >-
+          ISO 19440:2020, entry 3.6 (the Capability construct is a collection
+          of capability attributes, a description kept apart from the ability
+          described), read in the free preview of clause 3
+        relation: consistent-with
+      - source: SRC-OG-02
+        locator: >-
+          TOGAF Series Guide G211, section 13.1 Heat Mapping, as listed in
+          the compilation's table of contents (the section text was not read)
+        relation: consistent-with
+      - source: SRC-BA-08
+        locator: >-
+          Offerman et al. 2017, p. 384 (the senses of capability split into
+          its level and its availability)
+        relation: consistent-with
+    drafted_by: bcoa:claude-opus-5-5
+    created: "2026-10-24T12:12:31Z"
+    authored_status: Draft
+
+  - id: bcom:CapabilityMaturityRating
+    spec_row: ex:CapabilityMaturityRating
+    sources:
+      - source: SRC-OMG-01
+        locator: >-
+          VDML 1.1, section 7.2.2.3.3 (heatIndex, a MeasuredCharacteristic of
+          a CapabilityOffer)
+        relation: consistent-with
+      - source: SRC-BA-08
+        locator: >-
+          Offerman et al. 2017, p. 384 (the level sense of capability, kept
+          apart from its availability)
+        relation: consistent-with
+      - source: SRC-ISO-06
+        locator: ISO catalogue page 78526, abstract of ISO/IEC 33020:2019
+        relation: departs-from
+        claim: 1
+        departure_note: >-
+          Homonym. ISO/IEC 33020 process capability is a quality
+          characteristic of a process, and its capability level is derived
+          from process attribute ratings. A Capability Maturity Rating ranks
+          an existing Organization Capability instance, never a process, and
+          is not a process capability level (register SF-10).
+      - source: SRC-IND-07
+        locator: CMMI Institute web page on capability and maturity levels
+        relation: departs-from
+        claim: 1
+        departure_note: >-
+          Homonym. CMMI capability levels rate performance in one practice
+          area, and maturity levels describe the organization across a set
+          of practice areas; both rate how work is performed. A Capability
+          Maturity Rating ranks an Organization Capability instance on a
+          stated scale and prescribes no scale or scoring method.
+      - source: SRC-FO-08
+        locator: >-
+          Calhau et al. 2024, description of the UFO capability ontology
+          (capability level as a quality of the capability); the
+          formal-ontology note records no section number
+        relation: departs-from
+        claim: 1
+        departure_note: >-
+          The UFO line puts maturity inside the capability, as a quality (the
+          capability level) inhering in it. In BFO a specifically dependent
+          continuant inheres only in an independent continuant, so the BCO
+          makes the rating an Ordinal Measurement ICE about the capability
+          instance instead (register SF-12).
+    drafted_by: bcoa:claude-opus-5-5
+    created: "2026-10-24T12:12:31Z"
+    authored_status: Draft
+
+  - id: bcom:CapabilitySourcingStatement
+    spec_row: ex:CapabilitySourcingStatement
+    sources:
+      - source: SRC-OMG-01
+        locator: >-
+          VDML 1.1, section 7.2.2.3.3 (a CapabilityOffer has exactly one
+          OrgUnit capabilityProvider) and section 7.1.8 (provider OrgUnits
+          kept apart from the methodOwner)
+        relation: consistent-with
+      - source: SRC-OG-02
+        locator: >-
+          TOGAF Business Architecture compilation, front matter, section
+          This Document (the organization map identifies business units or
+          third parties that possess or use capabilities)
+        relation: consistent-with
+      - source: SRC-BA-08
+        locator: >-
+          Offerman et al. 2017, p. 387 (synthesized definition, in which a
+          business may hold a capability or exchange it)
+        relation: consistent-with
+    drafted_by: bcoa:claude-opus-5-5
+    created: "2026-10-24T12:12:31Z"
+    authored_status: Draft
+
+  - id: bcom:CapabilitySourcingAssessment
+    spec_row: ex:CapabilitySourcingAssessment
+    sources:
+      - source: SRC-BA-07
+        locator: >-
+          HICSS-51 abstract (capability-map use cases assessed for value);
+          the note names sourcing decisions as a use case only from secondary
+          slides, so only the abstract-level claim is cited
+        relation: consistent-with
+      - source: SRC-OMG-01
+        locator: >-
+          VDML 1.1, section 7.1.8 and Fig. 7-2 (provider OrgUnits operate a
+          method that another OrgUnit owns)
+        relation: consistent-with
+    drafted_by: bcoa:claude-opus-5-5
+    created: "2026-10-24T12:12:31Z"
+    authored_status: Draft
+
+  - id: bcom:CapabilityTarget
+    spec_row: ex:CapabilityTarget
+    sources:
+      - source: SRC-GOV-04
+        locator: >-
+          NAF v4.1 ArchiMate Implementation Guide, section 6, C2 Enterprise
+          Vision, p.20 (the phases capabilities aim at) and section 11, C8
+          Planning Constraints, p.32 (Capability Milestones)
+        relation: consistent-with
+      - source: SRC-FO-12
+        locator: >-
+          CaaS project, Definitions of concepts web page (Capability is
+          required by a Goal and serves to formulate requirements)
+        relation: departs-from
+        claim: 1
+        departure_note: >-
+          In CDD the Capability doubles as the requirement for an ability to
+          meet a goal. The BCO keeps the two apart: the requirement is a
+          Capability Target, an Objective that prescribes that an
+          organization come to bear a capability of a given type, and the
+          capability itself is a disposition the target does not imply
+          exists.
+    drafted_by: bcoa:claude-opus-5-5
+    created: "2026-10-24T12:12:31Z"
+    authored_status: Draft
+
+  - id: bcom:CapabilityTargetStateSpecification
+    spec_row: ex:CapabilityTargetStateSpecification
+    sources:
+      - source: SRC-OMG-02
+        locator: >-
+          BMM 1.3, section 8.3.3 (a Course of Action is a plan for
+          configuring the enterprise to achieve Desired Results, and is not a
+          Business Process)
+        relation: consistent-with
+      - source: SRC-GOV-04
+        locator: >-
+          NAF v4.1 ArchiMate Implementation Guide, section 11, C8 Planning
+          Constraints, p.32 (Capability Increments), and glossary, PDF p.154
+          (Work Package)
+        relation: consistent-with
+    drafted_by: bcoa:claude-opus-5-5
+    created: "2026-10-24T12:12:31Z"
+    authored_status: Draft
+
+  - id: bcom:AuthorizationRecord
+    spec_row: ex:AuthorizationRecord
+    sources:
+      - source: SRC-FO-09
+        locator: >-
+          The Enterprise Ontology, AIAI author PDF, section 4.1 (AUTHORITY is
+          the right to execute an activity specification, and its holder need
+          not have the CAPABILITY)
+        relation: consistent-with
+      - source: SRC-FO-03
+        locator: >-
+          arXiv:2405.00183v2, section 3 (the authority sense of capability is
+          a role, orthogonal to ability)
+        relation: consistent-with
+      - source: SRC-OMG-03
+        locator: >-
+          BACM 1.1, section 7.3.2.16 (assigning a PerformerRole confers
+          authority and responsibility)
+        relation: consistent-with
+    drafted_by: bcoa:claude-opus-5-5
+    created: "2026-10-24T12:12:31Z"
+    authored_status: Draft

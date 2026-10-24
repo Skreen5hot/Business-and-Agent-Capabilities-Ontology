@@ -647,9 +647,8 @@ def test_the_real_records_and_agents_are_selected(layout):
     """The zero the source-record and agent shapes report against the
     real vocabulary is not a constraint selecting nothing: strip every
     record's citation and the architect's name, in memory, and every one
-    of the 63 records and the one person is reported. (The concept shapes
-    have no such guard on real data: there is no real concept until P5,
-    so they conform vacuously and only the fixture shows they work.)"""
+    of the 63 records and the one person is reported. The concept shapes
+    have their own guard on real data since P5, in the next test."""
     import rdflib
 
     graph = real_vocabulary(layout)
@@ -670,6 +669,43 @@ def test_the_real_records_and_agents_are_selected(layout):
     assert uncited == {str(r) for r in records}, len(uncited)
     assert (str(person), "Person has no name (rdfs:label).") in found
     assert len(found) == 64, found[:5]
+
+
+def test_the_real_concepts_and_departures_are_selected(layout):
+    """Since P5 the concept shapes run on real concepts: 9 metamodel and 5
+    catalog, all Draft. Their zero is not a target selecting nothing:
+    strip every concept's definition and every departs-from reference's
+    departure note, in memory, and each of the 14 concepts and each
+    departs-from reference is reported -- and nothing else."""
+    import rdflib
+
+    graph = real_vocabulary(layout)
+    assert vocabulary_violations(layout, graph) == []
+
+    bco = "https://fandaws.com/ontology/bco#"
+    skos = "http://www.w3.org/2004/02/skos/core#"
+    concepts = set(graph.subjects(rdflib.RDF.type,
+                                  rdflib.URIRef(skos + "Concept")))
+    metamodel = {c for c in concepts if str(c).startswith(BCOM)}
+    catalog = {c for c in concepts if str(c).startswith(BCOC)}
+    assert (len(metamodel), len(catalog)) == (9, 5), (metamodel, catalog)
+    assert metamodel | catalog == concepts
+    status = rdflib.URIRef(bco + "lifecycleStatus")
+    assert {str(graph.value(c, status)) for c in concepts} == {"Draft"}
+
+    relation = rdflib.URIRef(bco + "relation")
+    departures = set(graph.subjects(relation, rdflib.Literal("departs-from")))
+    assert departures, "the real vocabulary records no departs-from"
+    graph.remove((None, rdflib.URIRef(skos + "definition"), None))
+    graph.remove((None, rdflib.URIRef(bco + "departureNote"), None))
+
+    found = vocabulary_violations(layout, graph)
+    undefined = {f for f, m in found if m == "Concept has no skos:definition."}
+    unnoted = {f for f, m in found if m == ("A departs-from source reference "
+                                            "has no bco:departureNote.")}
+    assert undefined == {str(c) for c in concepts}, len(undefined)
+    assert unnoted == {str(d) for d in departures}, len(unnoted)
+    assert len(found) == len(concepts) + len(departures), found[:5]
 
 
 # ------------------------------------------- the committed measurement

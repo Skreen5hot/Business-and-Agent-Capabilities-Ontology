@@ -1,7 +1,8 @@
 # Catalog concept records (bcoc:). Edited by hand; built by
 # tools/vocab/build.py into vocab/generated/bco-catalog.ttl.
 #
-# Empty in P3; the pilot terms arrive in P5.
+# P5 holds the 5 pilot capabilities the specification's worked examples
+# and migration table name, all Draft.
 #
 #   - id: bcoc:TreasuryManagement
 #     pref_label:                       # one per language; English required
@@ -20,6 +21,184 @@
 # The definition must share no 6-word run with any quote in the register
 # (D6's tripwire). Never authored: lifecycle_status, owl:deprecated,
 # narrower.
+#
+# How the P5 records are written:
+#   - Each definition takes Business Capability, as specification section 4
+#     defines it, as its genus in prose. The `genus` field must be a BFO or
+#     CCO class a vendored extract describes, and bco:BusinessCapability is
+#     not minted, so it names cco:ont00000568 (Organization Capability):
+#     section 4's CCO parent of Business Capability, and the parent a class
+#     keeps until it passes G1-T (CD3).
+#   - The acts named in each definition follow the specification's
+#     description of the example and, where the specification gives no
+#     index, the realization index in BPO's capabilities/capability_scope.json
+#     at 66131945b525c54f44e4962f32bb1f52dfa0cd12. They are described in
+#     original wording, not in APQC's.
+#   - No notation: no PCF 7.4 catalog node at that BPO commit designates
+#     any of these capability classes (ADR-001 R4). Every candidate node
+#     designates a process class instead.
+#   - No broader: CD9 admits a link between capability classes only after
+#     review, and neither the specification nor BPO establishes one here.
+#   - No designates_class: no capability class has passed G1-T (CD3).
 
 version: 1
-concepts: []
+concepts:
+  - id: bcoc:StrategicPlanning
+    pref_label:
+      - {value: Strategic Planning, language: en}
+    definition: >-
+      A business capability, inhering in an organization, that is realized in
+      planned acts by which that organization states its mission, sets its
+      long-term strategic vision, and formulates its enterprise-wide and
+      business-unit strategies.
+    genus: cco:ont00000568
+    sources:
+      - source: SRC-OMG-03
+        locator: >-
+          BACM 1.1, section 7.3.2.7 (Capability is identified by the Outcome a
+          business can produce, not by how it is produced)
+        relation: consistent-with
+      - source: SRC-FO-01
+        locator: >-
+          CCO v2.0 merged file at commit 510dad7 and develop versionIRI
+          2026-08-13: Organization Capability (ont00000568) definition
+        relation: consistent-with
+      - source: SRC-OMG-02
+        locator: >-
+          BMM 1.3, section 8.3.3 (Strategies and Tactics are the categories of
+          Course of Action, and Business Processes realize Courses of Action)
+        relation: consistent-with
+      - source: SRC-IND-02
+        locator: >-
+          APQC article summary (capabilities are what is needed to do the
+          work, processes are the work); the full text is members-only and
+          was not read
+        relation: consistent-with
+    drafted_by: bcoa:claude-opus-5-5
+    created: "2026-10-24T12:14:15Z"
+    authored_status: Draft
+
+  - id: bcoc:TreasuryManagement
+    pref_label:
+      - {value: Treasury Management, language: en}
+    definition: >-
+      A business capability, inhering in an organization, that is realized in
+      planned acts by which that organization sets the scope and oversight of
+      its treasury operations, tracks and reconciles its cash positions, fixes
+      the policy for investing its funds, and formulates its strategy for
+      hedging financial risk.
+    genus: cco:ont00000568
+    sources:
+      - source: SRC-OMG-03
+        locator: >-
+          BACM 1.1, section 7.3.2.7 (Capability is identified by the Outcome a
+          business can produce, not by how it is produced)
+        relation: consistent-with
+      - source: SRC-FO-01
+        locator: >-
+          CCO v2.0 merged file at commit 510dad7 and develop versionIRI
+          2026-08-13: Organization Capability (ont00000568) definition
+        relation: consistent-with
+      - source: SRC-IND-02
+        locator: >-
+          APQC article summary (capabilities are what is needed to do the
+          work, processes are the work); the full text is members-only and
+          was not read
+        relation: consistent-with
+    drafted_by: bcoa:claude-opus-5-5
+    created: "2026-10-24T12:14:15Z"
+    authored_status: Draft
+
+  - id: bcoc:CompetitiveAnalysis
+    pref_label:
+      - {value: Competitive Analysis, language: en}
+    definition: >-
+      A business capability, inhering in an organization, that is realized in
+      planned acts of analysing that organization's competitors, carried out
+      through coordinated work among its own members rather than resting on
+      one analyst's skill alone.
+    genus: cco:ont00000568
+    sources:
+      - source: SRC-OMG-03
+        locator: >-
+          BACM 1.1, section 7.3.2.7 (Capability is identified by the Outcome a
+          business can produce, not by how it is produced)
+        relation: consistent-with
+      - source: SRC-FO-01
+        locator: >-
+          CCO v2.0 merged file at commit 510dad7 and develop versionIRI
+          2026-08-13: Organization Capability (ont00000568) definition, and
+          Skill (ont00000089) as the person-borne sibling under Agent
+          Capability
+        relation: consistent-with
+      - source: SRC-IND-02
+        locator: >-
+          APQC article summary (capabilities are what is needed to do the
+          work, processes are the work); the full text is members-only and
+          was not read
+        relation: consistent-with
+    drafted_by: bcoa:claude-opus-5-5
+    created: "2026-10-24T12:14:15Z"
+    authored_status: Draft
+
+  - id: bcoc:BusinessModelGovernance
+    pref_label:
+      - {value: Business Model Governance, language: en}
+    definition: >-
+      A business capability, inhering in an organization, that is realized in
+      planned acts by which that organization keeps its business models
+      current, reviewing them against feedback and changing conditions and
+      revising the models in use; acts that first establish this oversight
+      develop the capability and are not, on that ground alone, realizations
+      of it.
+    genus: cco:ont00000568
+    sources:
+      - source: SRC-OMG-03
+        locator: >-
+          BACM 1.1, section 7.3.2.7 (Capability is identified by the Outcome a
+          business can produce, not by how it is produced)
+        relation: consistent-with
+      - source: SRC-FO-01
+        locator: >-
+          CCO v2.0 merged file at commit 510dad7 and develop versionIRI
+          2026-08-13: Organization Capability (ont00000568) definition
+        relation: consistent-with
+      - source: SRC-IND-02
+        locator: >-
+          APQC article summary (capabilities are what is needed to do the
+          work, processes are the work); the full text is members-only and
+          was not read
+        relation: consistent-with
+    drafted_by: bcoa:claude-opus-5-5
+    created: "2026-10-24T12:14:15Z"
+    authored_status: Draft
+
+  - id: bcoc:CustomerExperienceManagement
+    pref_label:
+      - {value: Customer Experience Management, language: en}
+    definition: >-
+      A business capability, inhering in an organization, that is realized in
+      planned acts by which that organization appraises the experience its
+      customers have, sets its strategy for that experience, and designs
+      customer interactions and the structures that support them.
+    genus: cco:ont00000568
+    sources:
+      - source: SRC-OMG-03
+        locator: >-
+          BACM 1.1, section 7.3.2.7 (Capability is identified by the Outcome a
+          business can produce, not by how it is produced)
+        relation: consistent-with
+      - source: SRC-FO-01
+        locator: >-
+          CCO v2.0 merged file at commit 510dad7 and develop versionIRI
+          2026-08-13: Organization Capability (ont00000568) definition
+        relation: consistent-with
+      - source: SRC-IND-02
+        locator: >-
+          APQC article summary (capabilities are what is needed to do the
+          work, processes are the work); the full text is members-only and
+          was not read
+        relation: consistent-with
+    drafted_by: bcoa:claude-opus-5-5
+    created: "2026-10-24T12:14:15Z"
+    authored_status: Draft
