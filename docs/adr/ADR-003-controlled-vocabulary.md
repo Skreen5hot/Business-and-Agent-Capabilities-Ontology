@@ -2,7 +2,7 @@
 
 | Field | Value |
 | --- | --- |
-| Status | **PROPOSED** — awaiting the architect's ratification. Nothing below is in force until a ratification act is recorded in `docs/decisions/` citing this file's path, full commit and SHA-256. |
+| Status | **RATIFIED** 2026-10-24 by the architect, Aaron Damiano — act: `docs/decisions/2026-10-24-adr-003-ratified.md`, citing this file at commit `838573f1a22a12ebbc7e5933eecd6cdd1a6c52de`, SHA-256 `899ddc9c96fee90f2088f42693a37e8d8335e4ec9a2140a437f51e024cd02421`. This Status line is the only change made after that commit. |
 | Date | 2026-10-23 |
 | Drafted by | Claude Code (`claude-opus-5-5`), a software agent, at the direction of Aaron Damiano |
 | Ratifies | The architect, Aaron Damiano |
