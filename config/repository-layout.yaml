@@ -129,9 +129,12 @@ components:
     path: reviews
     role: documentation
     description: >-
-      Review findings against the specification and the artifacts. R5
-      (v0.4 against the v0.1 package) is the first. Recommendations, not
-      ratified changes.
+      Review findings against the specification and the artifacts, each
+      filed verbatim as received: R5 (v0.4 against the v0.1 package) and R6
+      (the P5 vocabulary as published). R<n>-disposition.md is the
+      project's proposed disposition of review R<n>. Recommendations and
+      proposals, not ratified changes. All are rendered on the site's
+      Reviews page.
 
   # ---- Historical draft ------------------------------------------------
 

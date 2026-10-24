@@ -26,6 +26,7 @@ evidence the checks work.
 | `specifications/…v0.4.0-draft.1.md` | the spec in force: CD1–CD17, CAP-01–CAP-29, RP-1–RP-10 | DRAFT; nothing normative until ratified |
 | `specifications/…v0.3.0-draft.1.md` | superseded predecessor | provenance only |
 | `reviews/R5-v0.4-artifact-review.md` | review of v0.4 against the v0.1 package | recommendations, not ratified |
+| `reviews/R6-vocabulary-review.md`, `reviews/R6-disposition.md` | external review of the 14 Draft vocabulary terms, filed verbatim; the proposed disposition of it | the review is the reviewer's; the disposition is a proposal until the architect accepts it (section 5.13) |
 | `drafts/BusinessCapabilityOntology_draft_v0.1.0/` | the earlier `bc:` Turtle package | preserved byte-for-byte; **never loaded** |
 | `ontology/apqc-cap.ttl`, `ontology/apqc-cap-desc.ttl` | the two modules spec §2 names | `owl:Ontology` headers only |
 | `shapes/` | wellformedness shapes (from ARO) and the vocabulary shapes (P4), each with its fixture | exercised by the fixtures, constraint by constraint |
@@ -54,8 +55,8 @@ evidence the checks work.
   fire on the positive controls (`tests/test_ontology_checks.py`). With a namespace filter
   pointed elsewhere they select nothing, which is shown rather than assumed, once per
   namespace each shape set filters on (`tests/test_namespace.py`).
-- **The vocabulary shapes fire** (P4): each of 47 constraint messages on the fixture case
-  named for it, and none on the positive controls (`tests/test_ontology_checks.py`).
+- **The vocabulary shapes fire** (P4; 51 since R6): each constraint message on the fixture
+  case named for it, and none on the positive controls (`tests/test_ontology_checks.py`).
 - **The concept shapes select the real concepts** (P5): with every definition and
   departure note stripped in memory, each of the 14 concepts and each `departs-from`
   reference is reported (`test_the_real_concepts_and_departures_are_selected`).
@@ -67,7 +68,9 @@ first, because it decides what every G1-T record argues; then RP-2 and RP-3; the
 then ADR-002. CP-0 is "RP-1 to RP-10 ratified; ADR-002 accepted". Nothing has been ratified.
 
 R5 records further blockers: material basis policy, maturity-value encoding, instance
-evidence, and migration of BPO existential restrictions.
+evidence, and migration of BPO existential restrictions. R6 (section 5.13) adds wording
+points for spec v0.5 and sends its material-basis finding to RP-1 and its admissibility
+finding to RP-10.
 
 ## 5. What not to trust, and what is not done
 
@@ -265,6 +268,66 @@ the site. State at P5:
   checked: 0" and that, with no BCO term written, every shape set conforms vacuously
   (`tools/site/build_site.py`, which counts ontology terms only). The vocabulary rung now
   runs on real concepts. Fixing that sentence is a tool change and was left out of P5.
+
+### 5.13 Review R6 received and answered by a proposed disposition
+
+R6, an external ontological review of the vocabulary page after P5, was received on
+2026-10-24 and is filed verbatim as `reviews/R6-vocabulary-review.md`. The reviewer saw the
+page, not the specification or the repository. `reviews/R6-disposition.md` answers it in
+39 rows: 20 answered by spec v0.4, 8 accepted and done on the R6 branch, 6 accepted for
+spec v0.5, 3 deferred to ratification points, 2 to acceptance checkpoints. Every row is a
+proposal until the architect accepts the pull request. Both files are on the site's
+Reviews page, which now renders every `reviews/*.md`.
+
+**Done on the R6 branch:**
+- **The five catalog definitions are general** (R6 section 3): each now says what the
+  capability is for, in the form "A business capability, inhering in an organization, that
+  is realizable in planned acts by which that organization …", with no enumerated list of
+  practices. Competitive Analysis drops "rather than resting on one analyst's skill alone",
+  which contradicted CD2's fragility bullet. Business Model Governance drops the CD5
+  development clause. Each record has a `change_note` and a `revises` pointing at its P5
+  record.
+- **consistent-with states its support** (section 6.1): `support: definitional |
+  contextual`, required on consistent-with and refused elsewhere, through the schema, the
+  build (`bco:support`, the 20th `bco:` annotation property), the shapes (4 new
+  constraints), the site and the tests. Of the 41 consistent-with references, 5 are
+  definitional, all in the metamodel: IOF Core, Beverley et al. and BFO for Business
+  Capability, VDML for the Sourcing Statement, BMM for the Target-State Specification. The
+  other 36, including all 16 in the catalog, are contextual: no source in the register
+  backs any of the five catalog definitions specifically.
+- **A ratification act records its basis** (section 6.3): the `bco-ratification` block
+  now requires `approvals` (editorial and ontological, each a declared `prov:Person`) and
+  `validation` (a full commit main reaches, and the gate commands that passed there).
+  This adds to the format P3 accepted. ADR-003 D5's content, explicit IRIs each with its
+  record digest, is unchanged.
+
+**Deferred:**
+- **RP-1:** F2, the material basis. The register's SF-03 already flagged the formal half:
+  the basis must be an aggregate of member agents, not an "arrangement" or a "set".
+- **RP-10:** F1, the criteria for admitting a capability type as an organization-borne
+  disposition (G1-T).
+- **Spec v0.5 (section 4 text, ADR-003 D4):** the section 4 rule that each capability class
+  states its realization index in its definition; the Capability Map's descriptive versus
+  directive entries; what a maturity rating measures; whether the Sourcing Assessment's
+  three criteria are required; the Sourcing Statement as a description, not the
+  arrangement; how a Target-State Specification incorporates its targets. Also for v0.5 and
+  RP-10: G1-T question 3 uses the wording that was removed from Competitive Analysis.
+- **CP-1 to CP-3:** the reasoner (test 10, Gate D2 at CP-2), and running R6's tests as a
+  gate.
+- **Accepted as an offer:** a review of `vocab/generated/` Turtle. Sending it is the
+  architect's call.
+
+**Still Draft, all 14, with new record digests.** No digest from the P5 pull request is
+valid any more, because every record changed: the catalog definitions, and `support` on
+every consistent-with reference. Nothing was ratified, so no act is broken. The digests
+are listed in the R6 pull request; `tools/vocab/build.py --digest <curie>` prints any of
+them.
+
+**Not done:** the review's temporal-context point on assessments (§4.2) has no row of its
+own; the spec's Known limits (0.4) already list "no temporal qualification of has
+capability". Whether the catalog revisions are editorial (same IRI) or a change of meaning
+(new IRI, ADR-003 D3) is the architect's call; they are treated as editorial here. The
+SRC-FO-01 locators still mention the 2026 `develop` file.
 
 ## 6. Outside the repository
 

@@ -25,6 +25,8 @@ needed.
   — requirements and target design. Not an implementation, and not normative until ratified.
 - **[R5 review of v0.4 against artifacts](reviews/R5-v0.4-artifact-review.md)** — unresolved
   issues and validation gaps; recommendations, not ratified changes.
+- **[R6 review of the vocabulary](reviews/R6-vocabulary-review.md)** — an external ontological
+  review of the 14 Draft terms, with its **[proposed disposition](reviews/R6-disposition.md)**.
 - **[Ontology draft v0.1.0](drafts/BusinessCapabilityOntology_draft_v0.1.0/README.md)** — an
   earlier Turtle ontology, SHACL sketches, fixtures, tests, audit and proposed ADR. Preserved
   byte-for-byte; does not implement v0.4 and is never loaded as ontology.
