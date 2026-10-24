@@ -10,7 +10,9 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
   draft.** Nothing in it is normative until the architect ratifies it (RP-1 to RP-10, then
   ADR-002). Do not implement a CD or CAP item as if it were decided.
 - `ontology/apqc-cap.ttl` and `ontology/apqc-cap-desc.ttl` are empty `owl:Ontology` headers.
-  No BCO term exists.
+  No BCO ontology term exists. The only `bco:` IRIs with triples are the controlled
+  vocabulary's annotation properties and the `bco:PCFCode` datatype, declared in the generated
+  `vocab/generated/bco-vocabulary.ttl` (accepted 2026-10-24, `docs/decisions/2026-10-24-p3-accepted.md`).
 - `drafts/BusinessCapabilityOntology_draft_v0.1.0/` is preserved byte-for-byte and checked
   against its own checksums. **Never edit it**, and never load its Turtle as ontology.
 
