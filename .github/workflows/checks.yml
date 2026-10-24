@@ -83,6 +83,9 @@ jobs:
       - name: The communications record follows its protocol
         run: python tools/communications.py
 
+      - name: The citation register keeps its rules and is a fresh generation
+        run: python tools/sources/build_register.py
+
       - name: Tests
         run: python -m pytest tests/ -q -p no:randomly
 
