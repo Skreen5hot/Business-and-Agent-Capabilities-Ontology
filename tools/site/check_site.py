@@ -18,6 +18,9 @@ What it refuses, and why each one:
   * any inline script or on* event attribute -- ontology text reaches the
     page as text, and the one way that rule could be broken quietly is a
     script nobody meant to ship;
+  * an id used twice on one page -- a #fragment to it would land on
+    whichever the browser finds first, and the Reviews page renders
+    several documents whose headings could mint the same id;
   * an internal link or resource that does not resolve to a file in the
     artifact, or a #fragment with no matching id on its target page --
     the site is served from a subpath, and a root-absolute URL that works
@@ -60,6 +63,7 @@ class Page(HTMLParser):
         self.h1 = 0
         self.main = False
         self.ids = set()
+        self.repeated_ids = []
         self.links = []        # (tag, attr, value)
         self.inline_scripts = 0
         self.handlers = []
@@ -78,6 +82,8 @@ class Page(HTMLParser):
         if tag == "main" and attrs.get("id") == "main":
             self.main = True
         if "id" in attrs:
+            if attrs["id"] in self.ids:
+                self.repeated_ids.append(attrs["id"])
             self.ids.add(attrs["id"])
         for name in attrs:
             if name.lower().startswith("on"):
@@ -134,6 +140,9 @@ def check(site: Path) -> list[str]:
                             % (name, page.h1))
         if not page.main:
             problems.append("%s: no <main id=\"main\">" % name)
+        if page.repeated_ids:
+            problems.append("%s: id used more than once: %s"
+                            % (name, sorted(set(page.repeated_ids))[:5]))
         if page.inline_scripts:
             problems.append("%s: %d inline script(s)"
                             % (name, page.inline_scripts))

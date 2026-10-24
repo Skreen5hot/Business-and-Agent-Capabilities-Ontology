@@ -232,8 +232,8 @@ requires the committed extracts to be byte-identical.
 ## The public site
 
 Published at https://skreen5hot.github.io/Business-and-Agent-Capabilities-Ontology/ by `.github/workflows/pages.yml`, for external validators: the rendered
-specification and R5 review, a term explorer, module and status pages, and downloads with
-checksums. The method is BFO-Aligned ValueNet's; the builder is rewritten for this
+specification, every review under `reviews/` with its disposition, a term explorer, module
+and status pages, and downloads with checksums. The method is BFO-Aligned ValueNet's; the builder is rewritten for this
 repository.
 
 ```bash
@@ -277,6 +277,16 @@ there is no concept it shows the `vocabulary_empty` notice from `site.json`. A c
 no scheme or two, or with no label, definition or status, stops the build. Vocabulary
 concepts are not in the explorer's `data/terms.json`; that was optional in P4 and is not
 done.
+
+**The Reviews page** is `site/pages/review.html` (URL `review/`, kept so that links
+already sent to validators still resolve), filled by `reviews_values`. It renders every
+`reviews/*.md`: a review is named `R<n>-<words>.md`, and `R<n>-disposition.md` is the
+project's proposed disposition of review R<n>, rendered directly after it and labelled as
+a proposal. Each section has its own `<h2>`, source link and SHA-256, and every heading id
+inside it carries the section's prefix (`r5-`, `r6-`, `r6-disposition-`), so two reviews
+with a "Summary" heading cannot mint the same id. The build refuses a misnamed file, two
+reviews with one number, a disposition with no review, and any id the page would carry
+twice; `check_site.py` refuses a repeated id on any page.
 
 **Deployment** is from the artifact the checks ran against, after a second build on the
 same runner has produced an identical tree. Pull requests build, check, and upload a

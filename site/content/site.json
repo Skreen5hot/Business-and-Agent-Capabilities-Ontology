@@ -17,7 +17,7 @@
     {"key": "vocabulary", "label": "Vocabulary", "path": "vocabulary/"},
     {"key": "modules", "label": "Modules", "path": "modules/"},
     {"key": "status", "label": "Status", "path": "status/"},
-    {"key": "review", "label": "Review R5", "path": "review/"},
+    {"key": "review", "label": "Reviews", "path": "review/"},
     {"key": "downloads", "label": "Downloads", "path": "downloads/"}
   ],
   "notices": {

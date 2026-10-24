@@ -39,9 +39,10 @@ against the built tree.
 ONTOLOGY TEXT IS NEVER MARKUP
 
 Every value read from a Turtle file or a pin reaches a page through
-html.escape here, or through textContent in the explorer. The two
-Markdown documents are rendered with raw-HTML passthrough removed, so a
-`<script>` in a specification is shown as text, not run.
+html.escape here, or through textContent in the explorer. The Markdown
+documents -- the specification and every file under reviews/ -- are
+rendered with raw-HTML passthrough removed, so a `<script>` in a
+specification is shown as text, not run.
 
 REFUSALS
 
@@ -392,21 +393,29 @@ def ontology_header(graph, source: str) -> dict:
 # ----------------------------------------------------------- markdown
 
 
-def render_markdown(text: str) -> tuple[str, str]:
+def render_markdown(text: str, id_prefix: str = "",
+                    baselevel: int = 2) -> tuple[str, str]:
     """(body, table of contents), with raw HTML shown rather than run.
 
     Python-Markdown passes raw HTML through by default. Deregistering the
     block and inline HTML handlers makes a tag in the source come out as
     escaped text -- which is what a specification quoting `<Filler>` in
     prose needs anyway.
+
+    `id_prefix` goes in front of every heading id, so that several
+    documents on one page -- the Reviews page -- cannot mint the same id
+    from the same heading text ("Summary" in two reviews).
     """
     import markdown
+    from markdown.extensions.toc import slugify
 
     # baselevel 2: the page already has its one <h1>, so the document's
     # own `#` title becomes an <h2> and everything below shifts with it.
     md = markdown.Markdown(
         extensions=["tables", "toc", "fenced_code", "sane_lists"],
-        extension_configs={"toc": {"permalink": False, "baselevel": 2}})
+        extension_configs={"toc": {
+            "permalink": False, "baselevel": baselevel,
+            "slugify": lambda value, sep: id_prefix + slugify(value, sep)}})
     md.preprocessors.deregister("html_block")
     md.inlinePatterns.deregister("html")
     body = md.convert(text)
@@ -414,6 +423,91 @@ def render_markdown(text: str) -> tuple[str, str]:
     body = body.replace("<table>", '<div class="scroll-x"><table>')
     body = body.replace("</table>", "</table></div>")
     return body, md.toc
+
+
+REVIEW_NAME = re.compile(r"^(R[0-9]+)-[A-Za-z0-9.-]+$")
+
+
+def page_ids(body: str) -> list[str]:
+    return re.findall(r'\sid="([^"]*)"', body)
+
+
+def reviews_values(ctx: dict, paths: list) -> dict:
+    """The Reviews page: every file under reviews/, in sorted order, each
+    under its own heading and with its own id prefix.
+
+    A review is named R<n>-<words>.md. A file named R<n>-disposition.md is
+    the project's proposed disposition of review R<n>: it is rendered too,
+    directly after the review it answers and labelled as a disposition,
+    so a validator reading a review sees the response beside it rather
+    than the reviewer's word alone. Refused: a name of neither form, two
+    reviews with one number, a disposition with no review, and any id the
+    page would carry twice.
+    """
+    reviews, dispositions = {}, {}
+    for path in sorted(paths, key=lambda p: p.name):
+        match = REVIEW_NAME.match(path.stem)
+        if not match:
+            raise Refused("%s is not named R<n>-<words>.md, so the Reviews "
+                          "page cannot say which review it is"
+                          % relative(path))
+        number = match.group(1)
+        target = (dispositions if path.stem == number + "-disposition"
+                  else reviews)
+        if number in target:
+            raise Refused("two files under reviews/ claim %s: %s and %s"
+                          % (number, relative(target[number]),
+                             relative(path)))
+        target[number] = path
+    orphans = sorted(set(dispositions) - set(reviews))
+    if orphans:
+        raise Refused("a disposition answers no review under reviews/: %s"
+                      % orphans)
+    if not reviews:
+        raise Refused("reviews/ holds no review, so the Reviews page would "
+                      "describe nothing")
+
+    def order(number: str) -> int:
+        return int(number[1:])
+
+    sections, contents = [], []
+    for number in sorted(reviews, key=order):
+        for path, kind in ((reviews[number], "review"),
+                           (dispositions.get(number), "disposition")):
+            if path is None:
+                continue
+            raw = source_bytes(path)
+            text = raw.decode("utf-8")
+            first = next((line.lstrip("# ").strip()
+                          for line in text.splitlines()
+                          if line.startswith("# ")), path.stem)
+            tag = number.lower() + ("" if kind == "review"
+                                    else "-disposition")
+            # Document headings sit under the section's own <h2>.
+            body, _toc = render_markdown(text, id_prefix=tag + "-",
+                                         baselevel=3)
+            heading = ("Review %s" % number if kind == "review"
+                       else "Disposition of %s (proposed)" % number)
+            contents.append('<li><a href="#review-%s">%s</a> &mdash; %s</li>'
+                            % (tag, esc(heading), esc(first)))
+            sections.append(
+                '<section class="review" id="review-%s">\n<h2>%s</h2>\n%s\n'
+                '<article class="doc">\n%s\n</article>\n</section>' % (
+                    tag, esc(heading), definition_list([
+                        ("Source", source_link(ctx, relative(path))),
+                        ("SHA-256", code(sha256(raw))),
+                    ]), body))
+    html_sections = "\n".join(sections)
+    ids = page_ids(html_sections)
+    repeated = sorted({i for i in ids if ids.count(i) > 1})
+    if repeated:
+        raise Refused("the Reviews page would carry these ids more than "
+                      "once: %s" % repeated)
+    return {
+        "reviews_contents": '<ul class="term-list">\n%s\n</ul>'
+                            % "\n".join(contents),
+        "reviews_body": html_sections,
+    }
 
 
 def render_inline(text: str) -> str:
@@ -972,16 +1066,6 @@ def build(out: Path) -> list[tuple[str, str]]:
             "{:,}".format(len(spec_bytes)))),
     ])
 
-    if len(data["reviews"]) != 1:
-        raise Refused("expected one review, found %d" % len(data["reviews"]))
-    review_path = data["reviews"][0]
-    review_bytes = source_bytes(review_path)
-    review_body, _ = render_markdown(review_bytes.decode("utf-8"))
-    review_facts = definition_list([
-        ("Source", source_link(ctx, relative(review_path))),
-        ("SHA-256", code(sha256(review_bytes))),
-    ])
-
     authored_modules = []
     for source in data["authored"]:
         header = ontology_header(source["graph"], source["path"])
@@ -1130,8 +1214,6 @@ def build(out: Path) -> list[tuple[str, str]]:
         "spec_facts": spec_facts,
         "spec_toc": spec_toc,
         "spec_body": spec_body,
-        "review_facts": review_facts,
-        "review_body": review_body,
         "authored_modules": "\n".join(authored_modules),
         "shape_sets": shape_sets,
         "upstream_sources": "\n".join(upstream_sources),
@@ -1146,6 +1228,7 @@ def build(out: Path) -> list[tuple[str, str]]:
           "NOTICE.md</a>.</p>",
         "explore_notice": explore_notice,
     }
+    values.update(reviews_values(ctx, data["reviews"]))
     values.update(vocabulary_values(
         data["vocabulary"], data["authored_namespaces"], data["known"],
         ctx_site["notices"]["vocabulary_empty"]["text"]))
