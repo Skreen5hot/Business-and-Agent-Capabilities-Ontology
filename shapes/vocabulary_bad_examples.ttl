@@ -1,0 +1,490 @@
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix prov:    <http://www.w3.org/ns/prov#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix bco:     <https://fandaws.com/ontology/bco#> .
+@prefix bcom:    <https://fandaws.com/ontology/bco-metamodel#> .
+@prefix bcoc:    <https://fandaws.com/ontology/bco-catalog#> .
+@prefix bcos:    <https://fandaws.com/ontology/bco-sources#> .
+@prefix bcoa:    <https://fandaws.com/ontology/bco-agents#> .
+
+# Graphs built to break vocabulary_shapes.ttl.
+#
+# Loaded ALONE -- never with the real vocabulary -- so it declares its own
+# agents and source records, and every case states everything it needs.
+# Each negative case is otherwise a well-formed record with ONE defect,
+# named for the constraint it breaks; tests/test_ontology_checks.py maps
+# every constraint message to its case here and requires the message to
+# fire on that focus node. The positive controls at the end must not be
+# the focus of any violation: a fixture where everything fails cannot show
+# that a constraint discriminates.
+#
+# The source records reuse real register ids, because the register's own
+# check refuses an SRC id in any tracked file that names no entry. Their
+# citations here are placeholders, not the works'. Provenance nodes are
+# named the way tools/vocab/build.py mints them -- <ns>source-..., and
+# <ns>ratification-... in the citing concept's namespace -- so that the
+# stale-namespace demonstration in tests/test_namespace.py can tell a
+# concept from a reference by its name.
+
+# =====================================================================
+# Declared agents and source records the cases below rely on
+# (positive controls themselves)
+# =====================================================================
+
+bcoa:fixture-person a prov:Agent , prov:Person ;
+    rdfs:label "Fixture Person"@en .
+
+bcoa:fixture-software a prov:Agent , prov:SoftwareAgent ;
+    rdfs:label "Fixture Software Agent"@en ;
+    bco:modelIdentifier "fixture-model-1" ;
+    prov:actedOnBehalfOf bcoa:fixture-person .
+
+bcos:SRC-OMG-01 a dcterms:BibliographicResource ;
+    dcterms:identifier "SRC-OMG-01" ;
+    dcterms:bibliographicCitation "Placeholder citation for a fixture." ;
+    bco:claimStatus "V" .
+
+bcos:SRC-OMG-03 a dcterms:BibliographicResource ;
+    dcterms:identifier "SRC-OMG-03" ;
+    dcterms:bibliographicCitation "Placeholder citation for a fixture." ;
+    bco:claimStatus "V" , "S" .
+
+# =====================================================================
+# Concepts: negative cases (catalog unless the case is about the
+# metamodel). Each is a valid catalog concept with one thing wrong.
+# =====================================================================
+
+# Concept is in no skos:inScheme.
+bcoc:VocabNoScheme a skos:Concept ;
+    skos:prefLabel "No scheme"@en ;
+    skos:definition "A capability with no scheme."@en ;
+    bco:lifecycleStatus "Draft" ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# Concept is in more than one skos:inScheme.
+bcoc:VocabTwoSchemes a skos:Concept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme , bcom:MetamodelScheme ;
+    skos:prefLabel "Two schemes"@en ;
+    skos:definition "A capability in both schemes."@en ;
+    bco:lifecycleStatus "Draft" ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# Concept has a skos:prefLabel with no language tag.
+bcoc:VocabUntaggedLabel a skos:Concept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "Untagged label" ;
+    skos:definition "A capability whose label has no language."@en ;
+    bco:lifecycleStatus "Draft" ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# Concept has two skos:prefLabel values in one language.
+bcoc:VocabTwoEnglishLabels a skos:Concept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "Treasury Management"@en , "Treasury Administration"@en ;
+    skos:definition "A capability with two English names."@en ;
+    bco:lifecycleStatus "Draft" ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# Concept has no skos:definition.
+bcoc:VocabNoDefinition a skos:Concept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "No definition"@en ;
+    bco:lifecycleStatus "Draft" ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# Concept stores skos:narrower.
+bcoc:VocabStoresNarrower a skos:Concept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "Stores narrower"@en ;
+    skos:definition "A capability that states its children."@en ;
+    skos:narrower bcoc:GoodCatalogConcept ;
+    bco:lifecycleStatus "Draft" ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# Concept has no bco:lifecycleStatus.
+bcoc:VocabNoStatus a skos:Concept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "No status"@en ;
+    skos:definition "A capability with no status."@en ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# Concept has more than one bco:lifecycleStatus.
+bcoc:VocabTwoStatuses a skos:Concept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "Two statuses"@en ;
+    skos:definition "A capability that is Draft and Candidate at once."@en ;
+    bco:lifecycleStatus "Draft" , "Candidate" ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# Concept has a bco:lifecycleStatus outside the closed set.
+bcoc:VocabUnknownStatus a skos:Concept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "Unknown status"@en ;
+    skos:definition "A capability with a status nobody derives."@en ;
+    bco:lifecycleStatus "Approved" ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# Concept is owl:deprecated true with no dcterms:isReplacedBy.
+bcoc:VocabDeprecatedUnreplaced a skos:Concept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "Deprecated, unreplaced"@en ;
+    skos:definition "A capability deprecated in favour of nothing."@en ;
+    bco:lifecycleStatus "Deprecated" ;
+    owl:deprecated true ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# Concept has dcterms:isReplacedBy and is not owl:deprecated true.
+bcoc:VocabReplacedNotDeprecated a skos:Concept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "Replaced, not deprecated"@en ;
+    skos:definition "A capability replaced and still current."@en ;
+    dcterms:isReplacedBy bcoc:GoodCatalogConcept ;
+    bco:lifecycleStatus "Draft" ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# Concept is replaced by something that is not a skos:Concept in scope.
+bcoc:VocabReplacedByNothing a skos:Concept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "Replaced by nothing"@en ;
+    skos:definition "A capability replaced by an IRI nothing declares."@en ;
+    dcterms:isReplacedBy bcoc:NoSuchConcept ;
+    owl:deprecated true ;
+    bco:lifecycleStatus "Deprecated" ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# Concept's bco:lifecycleStatus and owl:deprecated disagree.
+bcoc:VocabStatusDisagrees a skos:Concept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "Status disagrees"@en ;
+    skos:definition "A capability whose status says Deprecated and whose flag does not."@en ;
+    bco:lifecycleStatus "Deprecated" ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# Concept is Ratified with no bco:ratifiedBy.
+bcoc:VocabRatifiedUncited a skos:Concept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "Ratified, uncited"@en ;
+    skos:definition "A capability that claims a ratification it does not cite."@en ;
+    bco:lifecycleStatus "Ratified" ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# Concept has no prov:wasAttributedTo.
+bcoc:VocabUnattributed a skos:Concept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "Unattributed"@en ;
+    skos:definition "A capability nobody drafted."@en ;
+    bco:lifecycleStatus "Draft" .
+
+# Concept is attributed to an agent not declared in bco-agents.
+bcoc:VocabUndeclaredAgent a skos:Concept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "Undeclared agent"@en ;
+    skos:definition "A capability drafted by an agent nobody declared."@en ;
+    bco:lifecycleStatus "Draft" ;
+    prov:wasAttributedTo bcoa:nobody-declared-this .
+
+# Metamodel concept is not in bcom:MetamodelScheme.
+bcom:VocabWrongScheme a skos:Concept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "Wrong scheme"@en ;
+    skos:definition "A metamodel term filed in the catalog."@en ;
+    bco:lifecycleStatus "Draft" ;
+    bco:designatesClass bco:WrongScheme ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# Metamodel concept has no bco:designatesClass.
+bcom:VocabNoDesignatedClass a skos:Concept ;
+    skos:inScheme bcom:MetamodelScheme ;
+    skos:prefLabel "No designated class"@en ;
+    skos:definition "A metamodel term that names no class."@en ;
+    bco:lifecycleStatus "Draft" ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# Metamodel concept designates a class outside the bco: namespace.
+bcom:VocabDesignatesElsewhere a skos:Concept ;
+    skos:inScheme bcom:MetamodelScheme ;
+    skos:prefLabel "Designates elsewhere"@en ;
+    skos:definition "A metamodel term naming a class somebody else mints."@en ;
+    bco:lifecycleStatus "Draft" ;
+    bco:designatesClass <https://fixture.invalid/ontology#Elsewhere> ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# Catalog concept is not in bcoc:CapabilityCatalogScheme.
+bcoc:VocabCatalogWrongScheme a skos:Concept ;
+    skos:inScheme bcom:MetamodelScheme ;
+    skos:prefLabel "Catalog in the metamodel"@en ;
+    skos:definition "A capability filed in the metamodel scheme."@en ;
+    bco:lifecycleStatus "Draft" ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# Catalog skos:notation is not typed bco:PCFCode.
+bcoc:VocabUntypedNotation a skos:Concept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "Untyped notation"@en ;
+    skos:definition "A capability whose PCF code is a bare string."@en ;
+    skos:notation "10002" ;
+    bco:lifecycleStatus "Draft" ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# =====================================================================
+# Source references: negative cases, all hung on one valid host concept
+# =====================================================================
+
+bcoc:VocabSourceHost a skos:Concept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "Source host"@en ;
+    skos:definition "A valid capability carrying the broken source references."@en ;
+    bco:lifecycleStatus "Draft" ;
+    prov:wasAttributedTo bcoa:fixture-software ;
+    bco:sourceReference bcoc:source-no-source , bcoc:source-not-a-record ,
+        bcoc:source-no-locator , bcoc:source-no-relation ,
+        bcoc:source-bad-relation , bcoc:source-departs-no-note ,
+        bcoc:source-departs-no-claim .
+
+# Source reference cites no source.
+bcoc:source-no-source
+    bco:locator "section 2" ;
+    bco:relation "adapted-from" .
+
+# Source reference cites something that is not a bco-sources record.
+bcoc:source-not-a-record
+    bco:citesSource bcoa:fixture-person ;
+    bco:locator "section 2" ;
+    bco:relation "adapted-from" .
+
+# Source reference has no bco:locator.
+bcoc:source-no-locator
+    bco:citesSource bcos:SRC-OMG-01 ;
+    bco:relation "consistent-with" .
+
+# Source reference has no bco:relation.
+bcoc:source-no-relation
+    bco:citesSource bcos:SRC-OMG-01 ;
+    bco:locator "section 2" .
+
+# Source reference has a bco:relation outside the enum.
+bcoc:source-bad-relation
+    bco:citesSource bcos:SRC-OMG-01 ;
+    bco:locator "section 2" ;
+    bco:relation "inspired-by" .
+
+# A departs-from source reference has no bco:departureNote.
+bcoc:source-departs-no-note
+    bco:citesSource bcos:SRC-OMG-03 ;
+    bco:locator "section 7.2" ;
+    bco:relation "departs-from" ;
+    bco:citesClaim "1"^^xsd:integer .
+
+# A departs-from source reference cites no claim.
+bcoc:source-departs-no-claim
+    bco:citesSource bcos:SRC-OMG-03 ;
+    bco:locator "section 7.2" ;
+    bco:relation "departs-from" ;
+    bco:departureNote "The BCO bearer is an organization only."@en .
+
+# =====================================================================
+# Source records: negative cases
+# =====================================================================
+
+# Source record is not a dcterms:BibliographicResource.
+bcos:SRC-BA-01
+    dcterms:identifier "SRC-BA-01" ;
+    dcterms:bibliographicCitation "Placeholder citation for a fixture." ;
+    bco:claimStatus "S" .
+
+# Source record has no dcterms:identifier.
+bcos:SRC-BA-02 a dcterms:BibliographicResource ;
+    dcterms:bibliographicCitation "Placeholder citation for a fixture." ;
+    bco:claimStatus "V" .
+
+# Source record's dcterms:identifier is not its IRI's local name.
+bcos:SRC-BA-03 a dcterms:BibliographicResource ;
+    dcterms:identifier "SRC-BA-04" ;
+    dcterms:bibliographicCitation "Placeholder citation for a fixture." ;
+    bco:claimStatus "S" .
+
+# Source record has no dcterms:bibliographicCitation.
+bcos:SRC-BA-04 a dcterms:BibliographicResource ;
+    dcterms:identifier "SRC-BA-04" ;
+    bco:claimStatus "P" .
+
+# Source record has no bco:claimStatus.
+bcos:SRC-BA-05 a dcterms:BibliographicResource ;
+    dcterms:identifier "SRC-BA-05" ;
+    dcterms:bibliographicCitation "Placeholder citation for a fixture." .
+
+# Source record has a bco:claimStatus other than V, P, S, K or L.
+bcos:SRC-BA-06 a dcterms:BibliographicResource ;
+    dcterms:identifier "SRC-BA-06" ;
+    dcterms:bibliographicCitation "Placeholder citation for a fixture." ;
+    bco:claimStatus "verified" .
+
+# =====================================================================
+# Declared agents: negative cases
+# =====================================================================
+
+# Declared agent is not a prov:Agent.
+bcoa:fixture-untyped-agent a prov:Person ;
+    rdfs:label "Person without the Agent type"@en .
+
+# Declared agent is not exactly one of prov:Person and prov:SoftwareAgent:
+# neither ...
+bcoa:fixture-no-kind a prov:Agent ;
+    rdfs:label "Agent of no kind"@en .
+
+# ... and both.
+bcoa:fixture-both-kinds a prov:Agent , prov:Person , prov:SoftwareAgent ;
+    rdfs:label "Agent of both kinds"@en ;
+    bco:modelIdentifier "fixture-model-2" ;
+    prov:actedOnBehalfOf bcoa:fixture-person .
+
+# Person has no name (rdfs:label).
+bcoa:fixture-nameless-person a prov:Agent , prov:Person .
+
+# Software agent has no bco:modelIdentifier.
+bcoa:fixture-software-no-model a prov:Agent , prov:SoftwareAgent ;
+    rdfs:label "Software agent with no model"@en ;
+    prov:actedOnBehalfOf bcoa:fixture-person .
+
+# Software agent has no prov:actedOnBehalfOf.
+bcoa:fixture-software-unaccountable a prov:Agent , prov:SoftwareAgent ;
+    rdfs:label "Software agent acting for nobody"@en ;
+    bco:modelIdentifier "fixture-model-3" .
+
+# Software agent acted on behalf of something that is not a declared
+# prov:Person -- here another software agent.
+bcoa:fixture-software-for-software a prov:Agent , prov:SoftwareAgent ;
+    rdfs:label "Software agent acting for software"@en ;
+    bco:modelIdentifier "fixture-model-4" ;
+    prov:actedOnBehalfOf bcoa:fixture-software .
+
+# =====================================================================
+# Ratification references: negative cases, hung on one host concept
+# =====================================================================
+
+bcoc:VocabRatificationHost a skos:Concept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "Ratification host"@en ;
+    skos:definition "A capability carrying the broken ratification references."@en ;
+    bco:lifecycleStatus "Ratified" ;
+    prov:wasAttributedTo bcoa:fixture-software ;
+    bco:ratifiedBy bcoc:ratification-no-path , bcoc:ratification-path-elsewhere ,
+        bcoc:ratification-no-commit , bcoc:ratification-short-commit ,
+        bcoc:ratification-no-sha , bcoc:ratification-bad-sha ,
+        bcoc:ratification-empty-file .
+
+# Ratification reference has no bco:actPath.
+bcoc:ratification-no-path
+    bco:actCommit "1111111111111111111111111111111111111111" ;
+    bco:actSha256 "2222222222222222222222222222222222222222222222222222222222222222" .
+
+# Ratification reference's bco:actPath is not under docs/decisions/ or docs/adr/.
+bcoc:ratification-path-elsewhere
+    bco:actPath "tools/vocab/build.py" ;
+    bco:actCommit "1111111111111111111111111111111111111111" ;
+    bco:actSha256 "2222222222222222222222222222222222222222222222222222222222222222" .
+
+# Ratification reference has no bco:actCommit.
+bcoc:ratification-no-commit
+    bco:actPath "docs/decisions/fixture-act.md" ;
+    bco:actSha256 "2222222222222222222222222222222222222222222222222222222222222222" .
+
+# Ratification reference's bco:actCommit is not a full 40-hex commit.
+bcoc:ratification-short-commit
+    bco:actPath "docs/decisions/fixture-act.md" ;
+    bco:actCommit "1111111" ;
+    bco:actSha256 "2222222222222222222222222222222222222222222222222222222222222222" .
+
+# Ratification reference has no bco:actSha256.
+bcoc:ratification-no-sha
+    bco:actPath "docs/decisions/fixture-act.md" ;
+    bco:actCommit "1111111111111111111111111111111111111111" .
+
+# Ratification reference's bco:actSha256 is not a 64-hex SHA-256.
+bcoc:ratification-bad-sha
+    bco:actPath "docs/decisions/fixture-act.md" ;
+    bco:actCommit "1111111111111111111111111111111111111111" ;
+    bco:actSha256 "not-a-digest" .
+
+# Ratification reference cites the SHA-256 of the empty file.
+bcoc:ratification-empty-file
+    bco:actPath "docs/decisions/fixture-act.md" ;
+    bco:actCommit "1111111111111111111111111111111111111111" ;
+    bco:actSha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" .
+
+# =====================================================================
+# Positive controls: none of these may be the focus of a violation
+# =====================================================================
+
+# A metamodel concept as tools/vocab/build.py writes one.
+bcom:GoodMetamodelConcept a skos:Concept ;
+    skos:inScheme bcom:MetamodelScheme ;
+    skos:prefLabel "Good metamodel concept"@en ;
+    skos:definition "A metamodel term with everything it owes."@en ;
+    bco:lifecycleStatus "Draft" ;
+    bco:designatesClass bco:GoodMetamodelConcept ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# A catalog concept: a typed notation, a label in two languages (one per
+# language is the rule, not one in all), a broader, and an adapted-from
+# source reference.
+bcoc:GoodCatalogConcept a skos:Concept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "Treasury Management"@en , "Gestion de tresorerie"@fr ;
+    skos:definition "A capability with everything it owes."@en ;
+    skos:broader bcoc:GoodRatifiedConcept ;
+    skos:notation "10002"^^bco:PCFCode ;
+    bco:lifecycleStatus "Candidate" ;
+    prov:wasAttributedTo bcoa:fixture-software ;
+    bco:sourceReference bcoc:source-good-adapted .
+
+bcoc:source-good-adapted
+    bco:citesSource bcos:SRC-OMG-01 ;
+    bco:locator "section 8.1" ;
+    bco:relation "adapted-from" .
+
+# Ratified, citing an act in the form D2 requires. The shapes check the
+# form; the build checks the act against git.
+bcoc:GoodRatifiedConcept a skos:Concept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "Good ratified concept"@en ;
+    skos:definition "A ratified capability citing its act."@en ;
+    bco:lifecycleStatus "Ratified" ;
+    prov:wasAttributedTo bcoa:fixture-person ;
+    bco:ratifiedBy bcoc:ratification-good .
+
+bcoc:ratification-good
+    bco:actPath "docs/decisions/fixture-act.md" ;
+    bco:actCommit "0123456789abcdef0123456789abcdef01234567" ;
+    bco:actSha256 "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef" .
+
+# Deprecated the one way D5 allows: flagged, replaced by a live concept,
+# and saying so in its status.
+bcoc:GoodDeprecatedConcept a skos:Concept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "Good deprecated concept"@en ;
+    skos:definition "A capability replaced by another."@en ;
+    owl:deprecated true ;
+    dcterms:isReplacedBy bcoc:GoodCatalogConcept ;
+    bco:lifecycleStatus "Deprecated" ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# Departing from a source the way D6 requires: a note and a claim.
+bcoc:GoodDepartingConcept a skos:Concept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "Good departing concept"@en ;
+    skos:definition "A capability that departs from its source and says why."@en ;
+    bco:lifecycleStatus "Draft" ;
+    prov:wasAttributedTo bcoa:fixture-software ;
+    bco:sourceReference bcoc:source-good-departs .
+
+bcoc:source-good-departs
+    bco:citesSource bcos:SRC-OMG-03 ;
+    bco:locator "section 7.2" ;
+    bco:relation "departs-from" ;
+    bco:departureNote "The BCO bearer is an organization only."@en ;
+    bco:citesClaim "1"^^xsd:integer .

@@ -63,11 +63,27 @@ components:
       Well-formedness of an authored term, whatever module it lives in:
       a label and a definition on every class, a prefLabel on every
       concept, and no two values of either in the same language. Carried
-      from ARO. Targets the authored namespace only, so the vendored
-      extracts in the same data graph are never asked the question. The
+      from ARO. Targets authored namespaces only -- classes in bco#,
+      concepts in bco-metamodel# and bco-catalog# (ADR-003 D1) -- so the
+      vendored extracts in the same data graph are never asked the
+      question, and source records and agents are left to the vocabulary
+      shapes. The
       spec's CAP shapes (section 2: "CAP shapes beside the existing ones")
       arrive as their own component, each with a negative fixture in the
       same commit.
+
+  - id: validation.vocabulary
+    path: shapes/vocabulary_shapes.ttl
+    role: ontology-validation
+    description: >-
+      The controlled vocabulary's SHACL (ADR-003; P4), hand-written because
+      LinkML's gen-shacl was no-go in P2: concepts in bco-metamodel# and
+      bco-catalog# (one scheme, the right one; tagged prefLabels, one per
+      language; a definition; a designated class; a typed notation; no
+      stored narrower; a derived status; deprecation iff replacement),
+      source references, source records, declared agents and ratification
+      references. Every constraint has an sh:message, and every message is
+      listed by name in tests/test_ontology_checks.py.
 
   # ---- Deliberately invalid ------------------------------------------
 
@@ -79,6 +95,16 @@ components:
       controls beside them -- including the multilingual label pair that
       sh:maxCount 1 would have rejected, so the false positive is a test
       rather than something somebody remembers.
+
+  - id: fixture.vocabulary-bad-examples
+    path: shapes/vocabulary_bad_examples.ttl
+    role: test-fixture
+    description: >-
+      Cases built to break vocabulary_shapes.ttl, one named for each
+      constraint, with positive controls -- a metamodel concept, catalog
+      concepts that are ratified, deprecated and departing from a source,
+      source records and agents -- that must survive. Loaded alone, so it
+      declares its own agents and source records; never ontology.
 
   # ---- Specification and review --------------------------------------
 
@@ -364,9 +390,11 @@ components:
   # ---- Controlled vocabulary (ADR-003; P3) ---------------------------
   #
   # Authored YAML in vocab/, built by tools/vocab/build.py into Turtle in
-  # vocab/generated/. None of it is an ontology-module: the vocabulary is
-  # not in the validation data graph or the corpus digest until P4 widens
-  # the authored namespaces. P3 ships the tool and no terms.
+  # vocab/generated/. None of it is an ontology-module, so none of it is
+  # in the corpus digest. Since P4 the generated Turtle is marked
+  # `vocabulary: true`, which puts it in the validation ladder's data graph
+  # (layout.vocabulary_files) under the wellformedness and vocabulary
+  # shapes. P3 shipped the tool and no terms; P5 adds them.
 
   - id: vocab.metamodel
     path: vocab/metamodel.yaml
@@ -424,6 +452,7 @@ components:
     path: vocab/generated/bco-vocabulary.ttl
     role: generated-artifact
     generator: tool.vocab-build
+    vocabulary: true
     description: >-
       The bco: annotation properties the vocabulary graph uses and the
       bco:PCFCode datatype (ADR-003 D1, D7). No class.
@@ -432,6 +461,7 @@ components:
     path: vocab/generated/bco-metamodel.ttl
     role: generated-artifact
     generator: tool.vocab-build
+    vocabulary: true
     description: >-
       bcom:MetamodelScheme and its concepts, definitions taken from
       specification section 4. The scheme alone in P3.
@@ -440,6 +470,7 @@ components:
     path: vocab/generated/bco-catalog.ttl
     role: generated-artifact
     generator: tool.vocab-build
+    vocabulary: true
     description: >-
       bcoc:CapabilityCatalogScheme and its concepts. The scheme alone in
       P3.
@@ -448,6 +479,7 @@ components:
     path: vocab/generated/bco-sources.ttl
     role: generated-artifact
     generator: tool.vocab-build
+    vocabulary: true
     description: >-
       One bcos: record per register entry (ADR-003 D8): id, citation and
       claim statuses, generated from docs/sources/register.yaml.
@@ -456,6 +488,7 @@ components:
     path: vocab/generated/bco-agents.ttl
     role: generated-artifact
     generator: tool.vocab-build
+    vocabulary: true
     description: >-
       The declared bcoa: agents, generated from vocab/agents.yaml.
 

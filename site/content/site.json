@@ -14,6 +14,7 @@
     {"key": "home", "label": "Home", "path": ""},
     {"key": "specification", "label": "Specification", "path": "specification/"},
     {"key": "explore", "label": "Explore terms", "path": "explore/"},
+    {"key": "vocabulary", "label": "Vocabulary", "path": "vocabulary/"},
     {"key": "modules", "label": "Modules", "path": "modules/"},
     {"key": "status", "label": "Status", "path": "status/"},
     {"key": "review", "label": "Review R5", "path": "review/"},
@@ -35,6 +36,10 @@
     "acknowledgment": {
       "text": "Developed by Aaron Damiano with substantial assistance from Anthropic Claude and OpenAI ChatGPT agents.",
       "why": "Carried from ValueNet's practice: the assistance was substantive, so it is credited on every page rather than in a footnote most readers never reach. The human author is the one answerable for the content."
+    },
+    "vocabulary_empty": {
+      "text": "No vocabulary concept has been written yet. The metamodel and catalog concepts arrive in P5, all as Draft; until then both schemes are declared and empty.",
+      "why": "An empty scheme with no explanation reads as a broken build. The plan stage that fills it is the architect's (P5 of the approved plan), so it is words a person chose rather than a figure the build can read."
     },
     "build_label": {
       "text": "latest from main",

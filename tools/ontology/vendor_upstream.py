@@ -231,7 +231,8 @@ def fetch(source: dict, cache: Path) -> bytes:
 
 
 def seed_terms(namespaces: tuple) -> set:
-    """Upstream IRIs the corpus and the shapes name.
+    """Upstream IRIs the corpus, the generated vocabulary and the shapes
+    name.
 
     The shapes are read twice, as a graph and as text. A SPARQL
     constraint that filters on cco:ont00001921 mentions that term inside
@@ -249,8 +250,12 @@ def seed_terms(namespaces: tuple) -> set:
                         and str(term).startswith(namespaces)):
                     found.add(str(term))
 
+    # The generated vocabulary too (ADR-003; P4): it is in the validation
+    # data graph, so an upstream term it names -- a section 4 parent, a
+    # catalog genus -- must be described there, or the ladder reports
+    # that vocabulary as unresolved.
     data = rdflib.Graph()
-    for path in layout.ontology_files():
+    for path in layout.ontology_files() + layout.vocabulary_files():
         data.parse(path, format="turtle")
     harvest(data)
 

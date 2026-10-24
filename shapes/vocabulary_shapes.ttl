@@ -1,0 +1,474 @@
+@prefix sh:      <http://www.w3.org/ns/shacl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix prov:    <http://www.w3.org/ns/prov#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix bco:     <https://fandaws.com/ontology/bco#> .
+@prefix bcom:    <https://fandaws.com/ontology/bco-metamodel#> .
+@prefix bcoc:    <https://fandaws.com/ontology/bco-catalog#> .
+@prefix vs:      <https://fandaws.com/ontology/bco/shapes/vocabulary#> .
+
+# The controlled vocabulary's shapes (ADR-003; P4).
+#
+# HAND-WRITTEN. LinkML's gen-shacl was no-go in P2: its output was not
+# byte-stable, pyshacl refused it on this model, and it carried no
+# sh:message. So every constraint here is written out, and every one has
+# an sh:message that names what is wrong. tests/test_ontology_checks.py
+# lists every message by name and requires each to fire on its own named
+# case in vocabulary_bad_examples.ttl, and no positive control there to be
+# reported.
+#
+# WHAT IT CHECKS, AND WHAT IT DOES NOT
+#
+# The generated Turtle in vocab/generated/, as tools/vocab/build.py writes
+# it. Most of these rules are also enforced by that build, against the
+# YAML, before any Turtle exists; these shapes check the published graph,
+# which is what a reader downloads and what the ladder measures. Where
+# the build checks something the graph cannot express -- a decision's
+# digest recomputed against git, the quote tripwire, section 4 coverage --
+# it is not repeated here. Messages carry no {$this} or {?var}
+# substitution, so each is one fixed string a test can name.
+#
+# POPULATIONS AND NAMESPACES
+#
+# Concepts are selected by SPARQL on the two SKOS namespaces, source
+# records on bco-sources#, agents on bco-agents#, each namespace written
+# out whole. tools/ontology/validate.py lists the same namespaces as
+# AUTHORED_NAMESPACES and tests/test_namespace.py requires the strings
+# here to be in that list: a filter on a stale string selects nothing and
+# reports success. Source and ratification references are selected
+# structurally instead (objects of bco:sourceReference / bco:ratifiedBy,
+# and subjects of what only they carry), because the build mints them in
+# the citing concept's own namespace, and a reference left dangling by
+# its concept must still be checked.
+#
+# Over the real vocabulary at P4, the concept shapes conform vacuously:
+# vocab/metamodel.yaml and vocab/catalog.yaml are empty until P5. The
+# source-record and agent shapes run over real data (63 records, 2
+# agents).
+
+vs:prefixes
+    a owl:Ontology ;
+    sh:declare
+        [ sh:prefix "rdf"     ; sh:namespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#"^^xsd:anyURI ] ,
+        [ sh:prefix "rdfs"    ; sh:namespace "http://www.w3.org/2000/01/rdf-schema#"^^xsd:anyURI ] ,
+        [ sh:prefix "owl"     ; sh:namespace "http://www.w3.org/2002/07/owl#"^^xsd:anyURI ] ,
+        [ sh:prefix "skos"    ; sh:namespace "http://www.w3.org/2004/02/skos/core#"^^xsd:anyURI ] ,
+        [ sh:prefix "dcterms" ; sh:namespace "http://purl.org/dc/terms/"^^xsd:anyURI ] ,
+        [ sh:prefix "prov"    ; sh:namespace "http://www.w3.org/ns/prov#"^^xsd:anyURI ] ,
+        [ sh:prefix "xsd"     ; sh:namespace "http://www.w3.org/2001/XMLSchema#"^^xsd:anyURI ] ,
+        [ sh:prefix "bco"     ; sh:namespace "https://fandaws.com/ontology/bco#"^^xsd:anyURI ] .
+
+
+# ---------------------------------------------------------------------
+# Concepts, metamodel and catalog alike
+# ---------------------------------------------------------------------
+
+vs:ConceptShape
+    a sh:NodeShape ;
+    sh:target [
+        a sh:SPARQLTarget ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT ?this WHERE {
+          ?this a skos:Concept .
+          FILTER(STRSTARTS(STR(?this), "https://fandaws.com/ontology/bco-metamodel#")
+              || STRSTARTS(STR(?this), "https://fandaws.com/ontology/bco-catalog#"))
+        }""" ] ;
+
+    # Exactly one scheme. Two constraints, not one with minCount and
+    # maxCount together, so that each direction has its own message and
+    # its own fixture case.
+    sh:property [
+        sh:path skos:inScheme ;
+        sh:minCount 1 ;
+        sh:message "Concept is in no skos:inScheme." ] ;
+    sh:property [
+        sh:path skos:inScheme ;
+        sh:maxCount 1 ;
+        sh:message "Concept is in more than one skos:inScheme." ] ;
+
+    # Labels. Presence is wellformedness_shapes.ttl's; the vocabulary adds
+    # the tag, and states one-per-language again in its own terms.
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Concept has a skos:prefLabel with no language tag." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          $this skos:prefLabel ?label .
+          FILTER(isLiteral(?label) && LANG(?label) = "") }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Concept has two skos:prefLabel values in one language." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          $this skos:prefLabel ?a, ?b .
+          FILTER(STR(?a) < STR(?b))
+          FILTER(LANG(?a) = LANG(?b)) }""" ] ;
+
+    sh:property [
+        sh:path skos:definition ;
+        sh:minCount 1 ;
+        sh:message "Concept has no skos:definition." ] ;
+
+    # The hierarchy is stated one way. A stored narrower is a second
+    # statement of a broader that can disagree with it.
+    sh:property [
+        sh:path skos:narrower ;
+        sh:maxCount 0 ;
+        sh:message "Concept stores skos:narrower; the hierarchy is stated with skos:broader only." ] ;
+
+    # Status (D5): derived by the build, one value, from the closed set.
+    sh:property [
+        sh:path bco:lifecycleStatus ;
+        sh:minCount 1 ;
+        sh:message "Concept has no bco:lifecycleStatus." ] ;
+    sh:property [
+        sh:path bco:lifecycleStatus ;
+        sh:maxCount 1 ;
+        sh:message "Concept has more than one bco:lifecycleStatus." ] ;
+    sh:property [
+        sh:path bco:lifecycleStatus ;
+        sh:in ( "Draft" "Candidate" "Ratified" "Deprecated" ) ;
+        sh:message "Concept has a bco:lifecycleStatus outside Draft, Candidate, Ratified and Deprecated." ] ;
+
+    # Deprecation (D3, D5): owl:deprecated true if and only if
+    # dcterms:isReplacedBy, the replacement a concept in scope, and the
+    # status saying the same thing as the flag.
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Concept is owl:deprecated true with no dcterms:isReplacedBy." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          $this owl:deprecated true .
+          FILTER NOT EXISTS { $this dcterms:isReplacedBy ?r } }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Concept has dcterms:isReplacedBy and is not owl:deprecated true." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          $this dcterms:isReplacedBy ?r .
+          FILTER NOT EXISTS { $this owl:deprecated true } }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Concept is replaced by something that is not a skos:Concept in scope." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          $this dcterms:isReplacedBy ?r .
+          FILTER NOT EXISTS { ?r a skos:Concept } }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Concept's bco:lifecycleStatus and owl:deprecated disagree." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          { $this bco:lifecycleStatus "Deprecated" .
+            FILTER NOT EXISTS { $this owl:deprecated true } }
+          UNION
+          { $this owl:deprecated true .
+            FILTER NOT EXISTS { $this bco:lifecycleStatus "Deprecated" } } }""" ] ;
+
+    # Ratified only by a cited act (D2, D5). That the act exists and lists
+    # this record is the build's to check, against git.
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Concept is Ratified with no bco:ratifiedBy." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          $this bco:lifecycleStatus "Ratified" .
+          FILTER NOT EXISTS { $this bco:ratifiedBy ?act } }""" ] ;
+
+    # Drafted by a declared agent (D8).
+    sh:property [
+        sh:path prov:wasAttributedTo ;
+        sh:minCount 1 ;
+        sh:message "Concept has no prov:wasAttributedTo." ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Concept is attributed to an agent not declared in bco-agents." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          $this prov:wasAttributedTo ?agent .
+          FILTER NOT EXISTS {
+            ?agent a prov:Agent .
+            FILTER(STRSTARTS(STR(?agent), "https://fandaws.com/ontology/bco-agents#")) } }""" ] .
+
+
+# ---------------------------------------------------------------------
+# Metamodel concepts
+# ---------------------------------------------------------------------
+
+vs:MetamodelConceptShape
+    a sh:NodeShape ;
+    sh:target [
+        a sh:SPARQLTarget ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT ?this WHERE {
+          ?this a skos:Concept .
+          FILTER(STRSTARTS(STR(?this), "https://fandaws.com/ontology/bco-metamodel#"))
+        }""" ] ;
+
+    sh:property [
+        sh:path skos:inScheme ;
+        sh:hasValue bcom:MetamodelScheme ;
+        sh:message "Metamodel concept is not in bcom:MetamodelScheme." ] ;
+
+    # D4: the concept names the class its section 4 row specifies, in the
+    # ontology's own namespace.
+    sh:property [
+        sh:path bco:designatesClass ;
+        sh:minCount 1 ;
+        sh:message "Metamodel concept has no bco:designatesClass." ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Metamodel concept designates a class outside the bco: namespace." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          $this bco:designatesClass ?class .
+          FILTER(!STRSTARTS(STR(?class), "https://fandaws.com/ontology/bco#")) }""" ] .
+
+
+# ---------------------------------------------------------------------
+# Catalog concepts
+# ---------------------------------------------------------------------
+
+vs:CatalogConceptShape
+    a sh:NodeShape ;
+    sh:target [
+        a sh:SPARQLTarget ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT ?this WHERE {
+          ?this a skos:Concept .
+          FILTER(STRSTARTS(STR(?this), "https://fandaws.com/ontology/bco-catalog#"))
+        }""" ] ;
+
+    sh:property [
+        sh:path skos:inScheme ;
+        sh:hasValue bcoc:CapabilityCatalogScheme ;
+        sh:message "Catalog concept is not in bcoc:CapabilityCatalogScheme." ] ;
+
+    # D7: typed, so the edition travels with the datatype. The lexical form
+    # (five digits) is the build's assumption, not repeated here.
+    sh:property [
+        sh:path skos:notation ;
+        sh:datatype bco:PCFCode ;
+        sh:message "Catalog skos:notation is not typed bco:PCFCode." ] .
+
+
+# ---------------------------------------------------------------------
+# Source references (D6)
+# ---------------------------------------------------------------------
+
+vs:SourceReferenceShape
+    a sh:NodeShape ;
+    sh:targetObjectsOf bco:sourceReference ;
+    sh:targetSubjectsOf bco:citesSource ;
+
+    sh:property [
+        sh:path bco:citesSource ;
+        sh:minCount 1 ;
+        sh:message "Source reference cites no source." ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Source reference cites something that is not a bco-sources record." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          $this bco:citesSource ?source .
+          FILTER NOT EXISTS {
+            ?source a dcterms:BibliographicResource .
+            FILTER(STRSTARTS(STR(?source), "https://fandaws.com/ontology/bco-sources#")) } }""" ] ;
+
+    sh:property [
+        sh:path bco:locator ;
+        sh:minCount 1 ;
+        sh:message "Source reference has no bco:locator." ] ;
+
+    sh:property [
+        sh:path bco:relation ;
+        sh:minCount 1 ;
+        sh:message "Source reference has no bco:relation." ] ;
+    sh:property [
+        sh:path bco:relation ;
+        sh:in ( "adapted-from" "consistent-with" "departs-from" ) ;
+        sh:message "Source reference has a bco:relation other than adapted-from, consistent-with or departs-from." ] ;
+
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "A departs-from source reference has no bco:departureNote." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          $this bco:relation "departs-from" .
+          FILTER NOT EXISTS { $this bco:departureNote ?note } }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "A departs-from source reference cites no claim." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          $this bco:relation "departs-from" .
+          FILTER NOT EXISTS { $this bco:citesClaim ?claim } }""" ] .
+
+
+# ---------------------------------------------------------------------
+# Source records (D8): every subject in bco-sources#
+# ---------------------------------------------------------------------
+
+vs:SourceRecordShape
+    a sh:NodeShape ;
+    # Every subject in the namespace, not every typed one: a record that
+    # lost its type must still be caught, not skipped.
+    sh:target [
+        a sh:SPARQLTarget ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT DISTINCT ?this WHERE {
+          ?this ?p ?o .
+          FILTER(STRSTARTS(STR(?this), "https://fandaws.com/ontology/bco-sources#"))
+        }""" ] ;
+
+    sh:property [
+        sh:path rdf:type ;
+        sh:hasValue dcterms:BibliographicResource ;
+        sh:message "Source record is not a dcterms:BibliographicResource." ] ;
+    sh:property [
+        sh:path dcterms:identifier ;
+        sh:minCount 1 ;
+        sh:message "Source record has no dcterms:identifier." ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Source record's dcterms:identifier is not its IRI's local name." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          $this dcterms:identifier ?id .
+          FILTER(STR(?id) != STRAFTER(STR($this), "#")) }""" ] ;
+    sh:property [
+        sh:path dcterms:bibliographicCitation ;
+        sh:minCount 1 ;
+        sh:message "Source record has no dcterms:bibliographicCitation." ] ;
+    sh:property [
+        sh:path bco:claimStatus ;
+        sh:minCount 1 ;
+        sh:message "Source record has no bco:claimStatus." ] ;
+    sh:property [
+        sh:path bco:claimStatus ;
+        sh:in ( "V" "P" "S" "K" "L" ) ;
+        sh:message "Source record has a bco:claimStatus other than V, P, S, K or L." ] .
+
+
+# ---------------------------------------------------------------------
+# Declared agents (D8): every subject in bco-agents#
+# ---------------------------------------------------------------------
+
+vs:AgentShape
+    a sh:NodeShape ;
+    sh:target [
+        a sh:SPARQLTarget ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT DISTINCT ?this WHERE {
+          ?this ?p ?o .
+          FILTER(STRSTARTS(STR(?this), "https://fandaws.com/ontology/bco-agents#"))
+        }""" ] ;
+
+    sh:property [
+        sh:path rdf:type ;
+        sh:hasValue prov:Agent ;
+        sh:message "Declared agent is not a prov:Agent." ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Declared agent is not exactly one of prov:Person and prov:SoftwareAgent." ;
+        sh:prefixes vs:prefixes ;
+        # Neither, or both. Not written as a COUNT in a sub-select: $this
+        # is pre-bound in the outer query and not inside a sub-select, so
+        # that spelling counted over every agent and reported all of them,
+        # the two real ones included. The positive controls caught it.
+        sh:select """SELECT $this WHERE {
+          { FILTER NOT EXISTS { $this a prov:Person }
+            FILTER NOT EXISTS { $this a prov:SoftwareAgent } }
+          UNION
+          { $this a prov:Person , prov:SoftwareAgent . } }""" ] .
+
+vs:PersonShape
+    a sh:NodeShape ;
+    sh:target [
+        a sh:SPARQLTarget ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT ?this WHERE {
+          ?this a prov:Person .
+          FILTER(STRSTARTS(STR(?this), "https://fandaws.com/ontology/bco-agents#"))
+        }""" ] ;
+
+    sh:property [
+        sh:path rdfs:label ;
+        sh:minCount 1 ;
+        sh:message "Person has no name (rdfs:label)." ] .
+
+vs:SoftwareAgentShape
+    a sh:NodeShape ;
+    sh:target [
+        a sh:SPARQLTarget ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT ?this WHERE {
+          ?this a prov:SoftwareAgent .
+          FILTER(STRSTARTS(STR(?this), "https://fandaws.com/ontology/bco-agents#"))
+        }""" ] ;
+
+    sh:property [
+        sh:path bco:modelIdentifier ;
+        sh:minCount 1 ;
+        sh:message "Software agent has no bco:modelIdentifier." ] ;
+    sh:property [
+        sh:path prov:actedOnBehalfOf ;
+        sh:minCount 1 ;
+        sh:message "Software agent has no prov:actedOnBehalfOf." ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Software agent acted on behalf of something that is not a declared prov:Person." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          $this prov:actedOnBehalfOf ?person .
+          FILTER NOT EXISTS {
+            ?person a prov:Person .
+            FILTER(STRSTARTS(STR(?person), "https://fandaws.com/ontology/bco-agents#")) } }""" ] .
+
+
+# ---------------------------------------------------------------------
+# Ratification references (D2)
+# ---------------------------------------------------------------------
+
+vs:RatificationReferenceShape
+    a sh:NodeShape ;
+    sh:targetObjectsOf bco:ratifiedBy ;
+    sh:targetSubjectsOf bco:actCommit ;
+
+    sh:property [
+        sh:path bco:actPath ;
+        sh:minCount 1 ;
+        sh:message "Ratification reference has no bco:actPath." ] ;
+    sh:property [
+        sh:path bco:actPath ;
+        sh:pattern "^docs/(decisions|adr)/[^/]+$" ;
+        sh:message "Ratification reference's bco:actPath is not a file under docs/decisions/ or docs/adr/." ] ;
+    sh:property [
+        sh:path bco:actCommit ;
+        sh:minCount 1 ;
+        sh:message "Ratification reference has no bco:actCommit." ] ;
+    sh:property [
+        sh:path bco:actCommit ;
+        sh:pattern "^[0-9a-f]{40}$" ;
+        sh:message "Ratification reference's bco:actCommit is not a full 40-hex commit." ] ;
+    sh:property [
+        sh:path bco:actSha256 ;
+        sh:minCount 1 ;
+        sh:message "Ratification reference has no bco:actSha256." ] ;
+    sh:property [
+        sh:path bco:actSha256 ;
+        sh:pattern "^[0-9a-f]{64}$" ;
+        sh:message "Ratification reference's bco:actSha256 is not a 64-hex SHA-256." ] ;
+    # D2 refuses the empty file's digest by name: it is well-formed, and
+    # it certifies nothing.
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Ratification reference cites the SHA-256 of the empty file." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          $this bco:actSha256 ?digest .
+          FILTER(STR(?digest) = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855") }""" ] .

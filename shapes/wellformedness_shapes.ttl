@@ -15,25 +15,38 @@
 #
 # SCOPE: AUTHORED TERMS ONLY
 #
-# The targets filter on this repository's namespace,
-# https://fandaws.com/ontology/bco# -- provisional until RP-5 mints a
-# permanent one. The vendored BPO, CCO and BFO extracts are in the same
-# data graph, and a violation against one of their terms would be a
-# finding about somebody else's vocabulary. tools/ontology/validate.py
-# defines the same string as AUTHORED_NAMESPACE, and
-# tests/test_namespace.py requires the two to agree: a SPARQL filter on a
-# stale namespace string still runs, selects nothing, and reports
-# success.
+# The targets filter on this repository's namespaces, each named in full
+# (ADR-003 D1, whose table says which are in this population):
+#
+#   owl:Class      https://fandaws.com/ontology/bco#            the ontology
+#   skos:Concept   https://fandaws.com/ontology/bco-metamodel#  metamodel
+#   skos:Concept   https://fandaws.com/ontology/bco-catalog#    catalog
+#
+# All provisional until RP-5 mints permanent ones. The source records
+# (bco-sources#) and declared agents (bco-agents#) are deliberately NOT
+# here: they are not SKOS concepts (D8) and vocabulary_shapes.ttl checks
+# them. The vendored BPO, CCO and BFO extracts are in the same data
+# graph, and a violation against one of their terms would be a finding
+# about somebody else's vocabulary. tools/ontology/validate.py lists the
+# namespaces as AUTHORED_NAMESPACES, and tests/test_namespace.py requires
+# the list and these filters to agree: a SPARQL filter on a stale
+# namespace string still runs, selects nothing, and reports success.
+#
+# Each namespace is written out whole, terminator included. They are
+# siblings, so no one of them is a prefix of another, and a filter on one
+# cannot select another's terms; a shared stem such as
+# "https://fandaws.com/ontology/bco" would select all five.
 #
 # TWO POPULATIONS, NOT ONE
 #
 # An owl:Class is labelled with rdfs:label and defined with
 # skos:definition. A skos:Concept is labelled with skos:prefLabel and
-# carries neither of the other two. In ARO the first draft of this file
-# asked one question of both and reported 3,842 findings that were a
-# concept scheme being told it should look like a class. The spec's
-# capability catalog schemes (section 2) will be concepts, so the
-# distinction is kept.
+# carries no rdfs:label. In ARO the first draft of this file asked one
+# question of both and reported 3,842 findings that were a concept scheme
+# being told it should look like a class. The BCO's metamodel and catalog
+# concepts (ADR-003) do carry a skos:definition; that requirement belongs
+# to the vocabulary, and vocabulary_shapes.ttl states it. Here a concept
+# is asked only what any SKOS concept owes.
 #
 # WHY THE DRIFT RULES ARE SPARQL
 #
@@ -130,7 +143,8 @@ wf:AuthoredConceptShape
         sh:prefixes wf:prefixes ;
         sh:select """SELECT ?this WHERE {
           ?this a skos:Concept .
-          FILTER(STRSTARTS(STR(?this), "https://fandaws.com/ontology/bco#"))
+          FILTER(STRSTARTS(STR(?this), "https://fandaws.com/ontology/bco-metamodel#")
+              || STRSTARTS(STR(?this), "https://fandaws.com/ontology/bco-catalog#"))
         }""" ] ;
 
     sh:property [
