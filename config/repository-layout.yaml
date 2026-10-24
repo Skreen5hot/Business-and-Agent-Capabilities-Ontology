@@ -171,6 +171,16 @@ components:
       decided about. ADR-002, once ratified, is a separate document under
       docs/adr/ (spec section 2); its ratification act is recorded here.
 
+  - id: docs.adr
+    path: docs/adr
+    role: documentation
+    description: >-
+      Architecture decision records: the BCO's design decisions, each
+      PROPOSED until a ratification act in docs/decisions/ cites it by
+      path, full commit and SHA-256. ADR-001 is BPO's; ADR-002 is reserved
+      for specification v0.4; ADR-003 (controlled vocabulary) is the first
+      written here.
+
   - id: docs.sources
     path: docs/sources
     role: documentation
