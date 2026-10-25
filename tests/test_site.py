@@ -215,10 +215,14 @@ bcoa:software a prov:Agent , prov:SoftwareAgent ;
 bcos:SRC-OMG-03 a dcterms:BibliographicResource ;
     dcterms:identifier "SRC-OMG-03" ;
     dcterms:bibliographicCitation "Cited <i>work</i> & co" ;
-    bco:claimStatus "V" .
+    bco:hasClaim bcos:SRC-OMG-03-claim-1 .
+bcos:SRC-OMG-03-claim-1 bco:claimIndex "1"^^xsd:integer ;
+    bco:claimStatus "<b>V</b>" .
 bcos:SRC-OMG-04 a dcterms:BibliographicResource ;
     dcterms:identifier "SRC-OMG-04" ;
     dcterms:bibliographicCitation "UNCITED-REGISTER-ENTRY" ;
+    bco:hasClaim bcos:SRC-OMG-04-claim-1 .
+bcos:SRC-OMG-04-claim-1 bco:claimIndex "1"^^xsd:integer ;
     bco:claimStatus "V" .
 """
 
@@ -231,6 +235,8 @@ bcoc:Treasury a skos:Concept ;
     skos:notation "10002"^^bco:PCFCode ;
     bco:lifecycleStatus "Draft" ;
     bco:designatesClass bco:TreasuryCapability ;
+    bco:definitionGenus bco:BusinessCapability ;
+    bco:foundationalAncestor bco:SomeAncestor ;
     prov:wasAttributedTo bcoa:software ;
     bco:sourceReference bcoc:source-1 , bcoc:source-2 .
 bcoc:source-2 bco:citesSource bcos:SRC-OMG-03 ;
@@ -241,7 +247,7 @@ bcoc:source-1 bco:citesSource bcos:SRC-OMG-03 ;
     bco:locator "section \\"7\\" <b>2</b>" ;
     bco:relation "departs-from" ;
     bco:departureNote "Organization <u>only</u>."@en ;
-    bco:citesClaim "1"^^xsd:integer .
+    bco:citesClaim bcos:SRC-OMG-03-claim-1 .
 """
 
 
@@ -317,6 +323,16 @@ def test_the_real_vocabulary_page_matches_the_real_vocabulary(built, repo,
     assert cited, "no concept cites a source"
     for src in cited:
         assert "<code>%s</code>" % src in page, src
+    # Review R7, A: every cited claim appears with its index and status.
+    claims = set(graph.objects(None, rdflib.URIRef(bco + "citesClaim")))
+    assert claims, "no departs-from cites a claim"
+    for claim in claims:
+        index = graph.value(claim, rdflib.URIRef(bco + "claimIndex"))
+        status = graph.value(claim, rdflib.URIRef(bco + "claimStatus"))
+        assert "claim %s, status %s" % (index, status) in page, claim
+    # Review R7, E: the genus and the ancestor of each catalog concept.
+    assert page.count("<dt>Genus</dt>") == 5, page.count("<dt>Genus</dt>")
+    assert page.count("<dt>Foundational ancestor</dt>") == 5
 
 
 def test_the_empty_state_shows_when_there_are_no_concepts(builder,
@@ -336,6 +352,7 @@ def test_a_constructed_concept_renders_every_field_escaped(builder,
     page = vocabulary_page(builder, validator, VOCAB_BASE + VOCAB_CONCEPT)
     assert "EMPTY-NOTICE" not in page
     for raw in ("<b>Treasury</b>", "<script>", "<i>work</i>", "<u>only</u>",
+                "<b>V</b>",
                 "<i>contextual</i>",
                 "<em>Person</em>", "<b>2</b>"):
         assert raw not in page, raw
@@ -346,7 +363,12 @@ def test_a_constructed_concept_renders_every_field_escaped(builder,
                     "<code>bco:TreasuryCapability</code>",
                     "<code>SRC-OMG-03</code> &mdash; departs-from &mdash; "
                     "section &quot;7&quot; &lt;b&gt;2&lt;/b&gt; &mdash; "
+                    "claim 1, status &lt;b&gt;V&lt;/b&gt; &mdash; "
                     "Organization &lt;u&gt;only&lt;/u&gt;.",
+                    "<dt>Genus</dt>",
+                    "<code>bco:BusinessCapability</code>",
+                    "<dt>Foundational ancestor</dt>",
+                    "<code>bco:SomeAncestor</code>",
                     "<code>SRC-OMG-03</code> &mdash; consistent-with "
                     "(&lt;i&gt;contextual&lt;/i&gt;) &mdash; section 9",
                     "Cited &lt;i&gt;work&lt;/i&gt; &amp; co",

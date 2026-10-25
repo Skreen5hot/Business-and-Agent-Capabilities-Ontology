@@ -415,7 +415,9 @@ components:
     role: documentation
     description: >-
       Catalog concept records (bcoc:): labels, a genus-differentia
-      definition, broader, a typed PCF 7.4 notation, sources. Empty in P3.
+      definition with its immediate genus and, apart, its foundational
+      BFO/CCO ancestor (review R7, Finding E), broader, a typed PCF 7.4
+      notation, sources. Empty in P3; 5 Draft concepts since P5.
 
   - id: vocab.agents
     path: vocab/agents.yaml
@@ -468,7 +470,9 @@ components:
     vocabulary: true
     description: >-
       bcom:MetamodelScheme and its concepts, definitions taken from
-      specification section 4. The scheme alone in P3.
+      specification section 4, with their current records and every prior
+      record those revise (review R7, Finding B; commits read from git
+      history). The scheme alone in P3.
 
   - id: generated.vocab-catalog
     path: vocab/generated/bco-catalog.ttl
@@ -476,8 +480,9 @@ components:
     generator: tool.vocab-build
     vocabulary: true
     description: >-
-      bcoc:CapabilityCatalogScheme and its concepts. The scheme alone in
-      P3.
+      bcoc:CapabilityCatalogScheme and its concepts, with their current
+      records and every prior record those revise (review R7, Finding B;
+      commits read from git history). The scheme alone in P3.
 
   - id: generated.vocab-sources
     path: vocab/generated/bco-sources.ttl
@@ -485,8 +490,10 @@ components:
     generator: tool.vocab-build
     vocabulary: true
     description: >-
-      One bcos: record per register entry (ADR-003 D8): id, citation and
-      claim statuses, generated from docs/sources/register.yaml.
+      One bcos: record per register entry (ADR-003 D8): id and citation,
+      and one bcos:<id>-claim-<n> resource per register claim with its
+      index, status, scope and note (review R7, Finding A), generated from
+      docs/sources/register.yaml.
 
   - id: generated.vocab-agents
     path: vocab/generated/bco-agents.ttl

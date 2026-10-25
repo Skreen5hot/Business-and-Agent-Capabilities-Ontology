@@ -405,7 +405,7 @@ BCOA = "https://fandaws.com/ontology/bco-agents#"
 
 #: Every constraint in shapes/vocabulary_shapes.ttl, by its message, with
 #: the case in shapes/vocabulary_bad_examples.ttl named for it. Named, not
-#: counted: any 51 violations would satisfy a count.
+#: counted: any 75 violations would satisfy a count.
 VOCABULARY_CONSTRAINTS = {
     # concepts
     "Concept is in no skos:inScheme.": BCOC + "VocabNoScheme",
@@ -446,6 +446,19 @@ VOCABULARY_CONSTRAINTS = {
         BCOC + "VocabCatalogWrongScheme",
     "Catalog skos:notation is not typed bco:PCFCode.":
         BCOC + "VocabUntypedNotation",
+    # catalog genus and foundational ancestor (review R7, Finding E)
+    "Catalog concept has no bco:definitionGenus.": BCOC + "VocabNoGenus",
+    "Catalog concept has more than one bco:definitionGenus.":
+        BCOC + "VocabTwoGenera",
+    "Catalog concept's bco:definitionGenus is neither a BFO or CCO class "
+    "nor the class a metamodel concept designates.":
+        BCOC + "VocabGenusUndesignated",
+    "Catalog concept has no bco:foundationalAncestor.":
+        BCOC + "VocabNoAncestor",
+    "Catalog concept has more than one bco:foundationalAncestor.":
+        BCOC + "VocabTwoAncestors",
+    "Catalog concept's bco:foundationalAncestor is not a BFO or CCO class.":
+        BCOC + "VocabAncestorNotUpstream",
     # source references
     "Source reference cites no source.": BCOC + "source-no-source",
     "Source reference cites something that is not a bco-sources record.":
@@ -458,6 +471,10 @@ VOCABULARY_CONSTRAINTS = {
         BCOC + "source-departs-no-note",
     "A departs-from source reference cites no claim.":
         BCOC + "source-departs-no-claim",
+    "A departs-from source reference cites a claim that is not a claim of "
+    "the source it cites.": BCOC + "source-departs-foreign-claim",
+    "A departs-from source reference cites a claim whose status is not V "
+    "or P.": BCOC + "source-departs-weak-claim",
     "A consistent-with source reference has no bco:support.":
         BCOC + "source-consistent-no-support",
     "Source reference has more than one bco:support.":
@@ -474,9 +491,35 @@ VOCABULARY_CONSTRAINTS = {
         BCOS + "SRC-BA-03",
     "Source record has no dcterms:bibliographicCitation.":
         BCOS + "SRC-BA-04",
-    "Source record has no bco:claimStatus.": BCOS + "SRC-BA-05",
-    "Source record has a bco:claimStatus other than V, P, S, K or L.":
-        BCOS + "SRC-BA-06",
+    # claims (review R7, Finding A)
+    "Source record has no bco:hasClaim.": BCOS + "SRC-BA-05",
+    "Source record carries a bco:claimStatus of its own; a status belongs "
+    "on the claim it qualifies.": BCOS + "SRC-BA-06",
+    "Source record has two claims with the same bco:claimIndex.":
+        BCOS + "SRC-BA-07",
+    "Source record links a claim that is not one of its own.":
+        BCOS + "SRC-BA-08",
+    "Claim has no bco:claimIndex.": BCOS + "SRC-MS-01-claim-1",
+    "Claim has more than one bco:claimIndex.": BCOS + "SRC-MS-01-claim-2",
+    "Claim's bco:claimIndex is not a positive xsd:integer.":
+        BCOS + "SRC-MS-01-claim-3",
+    "Claim's bco:claimIndex is not the number its IRI ends with.":
+        BCOS + "SRC-MS-01-claim-4",
+    "Claim has no bco:claimStatus.": BCOS + "SRC-MS-01-claim-5",
+    "Claim has more than one bco:claimStatus.": BCOS + "SRC-MS-01-claim-6",
+    "Claim has a bco:claimStatus other than V, P, S, K or L.":
+        BCOS + "SRC-MS-01-claim-7",
+    "Claim belongs to no source record.": BCOS + "SRC-MS-02-claim-1",
+    # concept records, current and prior (review R7, Finding B)
+    "Record is not a prov:Entity.": BCOC + "record-" + "a" * 64,
+    "Record has no bco:recordSha256.": BCOC + "record-" + "b" * 64,
+    "Record has more than one bco:recordSha256.": BCOC + "record-" + "c" * 64,
+    "Record's bco:recordSha256 is not the digest its IRI names.":
+        BCOC + "record-" + "d" * 64,
+    "Record is a revision of a record the vocabulary graph does not "
+    "describe.": BCOC + "record-" + "1" * 64,
+    "Record's bco:recordCommit is not a full 40-hex commit.":
+        BCOC + "record-" + "3" * 64,
     # agents
     "Declared agent is not a prov:Agent.": BCOA + "fixture-untyped-agent",
     "Declared agent is not exactly one of prov:Person and "
@@ -514,8 +557,14 @@ VOCABULARY_POSITIVE_CONTROLS = [
     BCOC + "source-good-contextual", BCOC + "GoodRatifiedConcept",
     BCOC + "ratification-good", BCOC + "GoodDeprecatedConcept",
     BCOC + "GoodDepartingConcept", BCOC + "source-good-departs",
+    # Claims, one with a scope and a note; a current record revising a
+    # described prior one (review R7, A and B).
+    BCOS + "SRC-OMG-01-claim-1", BCOS + "SRC-OMG-03-claim-1",
+    BCOS + "SRC-OMG-03-claim-2", BCOS + "SRC-MS-01",
+    BCOC + "record-" + "4" * 64, BCOC + "record-" + "5" * 64,
     # Hosts: valid concepts that carry the broken references.
     BCOC + "VocabSourceHost", BCOC + "VocabRatificationHost",
+    BCOC + "VocabRecordHost",
 ]
 
 
@@ -715,6 +764,59 @@ def test_the_real_concepts_and_departures_are_selected(layout):
     assert undefined == {str(c) for c in concepts}, len(undefined)
     assert unnoted == {str(d) for d in departures}, len(unnoted)
     assert len(found) == len(concepts) + len(departures), found[:5]
+
+
+def test_the_real_claims_and_records_are_selected(layout):
+    """Review R7, Findings A and B, on real data: the claim shape runs over
+    every register claim and the record shape over every current and
+    prior record. Their zero is not a target selecting nothing: strip the
+    claims' statuses, in memory, and every claim is reported, and so is
+    every departs-from reference, whose cited claim no longer has a status
+    at V or P; strip the records' digests, and every record is reported,
+    and so is every record that revises one."""
+    import rdflib
+
+    bco = "https://fandaws.com/ontology/bco#"
+    prov = "http://www.w3.org/ns/prov#"
+    graph = real_vocabulary(layout)
+    assert vocabulary_violations(layout, graph) == []
+
+    claims = set(graph.objects(None, rdflib.URIRef(bco + "hasClaim")))
+    assert len(claims) == 83, len(claims)
+    departures = set(graph.subjects(rdflib.URIRef(bco + "relation"),
+                                    rdflib.Literal("departs-from")))
+    assert departures
+    stripped = real_vocabulary(layout)
+    stripped.remove((None, rdflib.URIRef(bco + "claimStatus"), None))
+    found = vocabulary_violations(layout, stripped)
+    assert {f for f, m in found if m == "Claim has no bco:claimStatus."} \
+        == {str(c) for c in claims}
+    assert {f for f, m in found if m == (
+        "A departs-from source reference cites a claim whose status is not "
+        "V or P.")} == {str(d) for d in departures}
+    assert len(found) == len(claims) + len(departures), found[:5]
+
+    digest = rdflib.URIRef(bco + "recordSha256")
+    current = set(graph.objects(None, rdflib.URIRef(bco + "currentRecord")))
+    records = current | set(graph.subjects(digest, None))
+    revising = set(graph.subjects(rdflib.URIRef(prov + "wasRevisionOf"),
+                                  None))
+    # 14 current records; 19 prior: 9 + 5 of the P5 pilot, 5 of R6. 19
+    # records revise another: the 14 current and the 5 R6 catalog records.
+    assert (len(current), len(records), len(revising)) == (14, 33, 19), (
+        len(current), len(records), len(revising))
+    stripped = real_vocabulary(layout)
+    stripped.remove((None, digest, None))
+    found = vocabulary_violations(layout, stripped)
+    # With its digest gone, a prior record that revises nothing is selected
+    # by nothing; every record that is current or revises is reported.
+    selected = current | revising
+    assert {f for f, m in found if m == "Record has no bco:recordSha256."} \
+        == {str(r) for r in selected}
+    assert {f for f, m in found if m == (
+        "Record is a revision of a record the vocabulary graph does not "
+        "describe.")} == {str(r) for r in revising}
+    assert len(found) == len(selected) + len(revising), found[:5]
 
 
 # ------------------------------------------- the committed measurement

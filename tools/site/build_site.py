@@ -704,9 +704,11 @@ def vocabulary_values(graph, namespaces, known: list[tuple[str, str]],
     vocabulary's annotation properties live.
 
     Shown: the authored namespaces, each scheme with its concepts (label,
-    definition, derived status, designated class, notation, sources with
-    their relation and, for consistent-with, their support, drafting
-    agent), the citations of the register entries concepts
+    definition, derived status, designated class, genus and foundational
+    ancestor (review R7, E), notation, sources with their relation and,
+    for consistent-with, their support, and for departs-from the cited
+    claim's index and status (R7, A), drafting agent), the citations of
+    the register entries concepts
     actually cite -- not the register, whose publication the architect
     has not decided -- and the declared agents. The same refusals as
     the term index: a concept with no label, definition or status, or
@@ -776,8 +778,13 @@ def vocabulary_values(graph, namespaces, known: list[tuple[str, str]],
                            required=False)
             if notation:
                 rows.append(("Notation", code(notation)))
+            # Review R7, Finding E: the immediate genus, and apart from it
+            # the foundational BFO/CCO ancestor (annotations, not axioms).
             for predicate, name in ((bco + "designatesClass",
                                      "Designated class"),
+                                    (bco + "definitionGenus", "Genus"),
+                                    (bco + "foundationalAncestor",
+                                     "Foundational ancestor"),
                                     (SKOS + "broader", "Broader"),
                                     (DCTERMS + "isReplacedBy",
                                      "Replaced by")):
@@ -804,13 +811,24 @@ def vocabulary_values(graph, namespaces, known: list[tuple[str, str]],
                               required=False)
                 relation = one(node, bco + "relation", "bco:relation",
                                required=False) or "no relation"
-                references.append((src_id, "<li>%s &mdash; %s &mdash; %s%s"
+                # Review R7, Finding A: a cited claim is a resource with
+                # its own index and status, shown with the reference.
+                claims = []
+                for claim in objects(node, bco + "citesClaim"):
+                    index = one(claim, bco + "claimIndex", "bco:claimIndex",
+                                required=False)
+                    status = one(claim, bco + "claimStatus",
+                                 "bco:claimStatus", required=False)
+                    claims.append("claim %s, status %s" % (
+                        index or short(claim), status or "not stated"))
+                references.append((src_id, "<li>%s &mdash; %s &mdash; %s%s%s"
                                    "</li>" % (
                     code(src_id),
                     esc("%s (%s)" % (relation, support) if support
                         else relation),
                     esc(one(node, bco + "locator", "bco:locator",
                             required=False) or "no locator"),
+                    "".join(" &mdash; %s" % esc(c) for c in claims),
                     " &mdash; %s" % esc(note) if note else "")))
             rows.append(("Sources", '<ul class="term-list">%s</ul>'
                          % "".join(item for _key, item in sorted(references))

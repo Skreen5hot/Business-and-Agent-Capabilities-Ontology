@@ -28,7 +28,8 @@ OUTPUTS (generated artifacts; never edit them)
     vocab/generated/bco-metamodel.ttl   bcom:MetamodelScheme and its concepts
     vocab/generated/bco-catalog.ttl     bcoc:CapabilityCatalogScheme and its
                                         concepts
-    vocab/generated/bco-sources.ttl     one bcos: record per register entry
+    vocab/generated/bco-sources.ttl     one bcos: record per register entry,
+                                        and one resource per claim
     vocab/generated/bco-agents.ttl      the declared bcoa: agents
 
 Written by the serialiser in tools/ontology/vendor_upstream.py (D9): sorted
@@ -68,6 +69,50 @@ STATUS (D5) -- derived, never written. In this order:
      section 6.3; the format is in citations.py). A listed digest that
      differs is D3: the record changed after ratification.
   3. Otherwise the authored `authored_status`, Draft or Candidate.
+
+REGISTER CLAIMS (review R7, Finding A)
+
+Each claim of each register entry is a resource of its own, minted from
+the entry id and the claim's 1-based position in register.yaml:
+`bcos:<SRC id>-claim-<n>`. The record links it with bco:hasClaim; the
+claim carries bco:claimIndex (n, xsd:integer), bco:claimStatus (one of
+V, P, S, K, L) and, where the register has them, bco:claimScope and
+bco:claimNote. A departs-from reference's bco:citesClaim is that claim's
+IRI, not a bare integer, so the status a departure rests on can be read
+from the graph. The source record carries no bco:claimStatus of its own:
+an unordered bag of statuses cannot say which claim each qualifies.
+
+PRIOR RECORDS (review R7, Finding B)
+
+A record's `revises` names an earlier record digest; the graph links
+`<ns>record-<digest>` to it with prov:wasRevisionOf. Every revised
+record is described too: a prov:Entity with its bco:recordSha256, and,
+where git history settles it, bco:recordCommit, the commit that
+introduced it, and its own prov:wasRevisionOf from the `revises` it
+carried at that commit, recursively. The introducing commit is found by
+recomputing record digests over the non-merge commits HEAD reaches that
+touched the vocab YAML or specifications/ (with each commit's own
+specification section 4 rows, read through that commit's layout
+contract): a commit introduces a digest when its tree yields it and its
+parent's does not; the earliest by commit time (then hash) wins. A digest
+no commit yields gets the node without bco:recordCommit. A shallow clone
+is a finding, because it would silently drop commits. The commit is the
+introducing one rather than the last one at which the record was current,
+because that commit already exists when the record is revised, so the
+answer never changes afterwards -- provided branches are merged with a
+merge commit, which keeps the introducing commit reachable.
+
+THE CATALOG GENUS (review R7, Finding E; docs/decisions/
+2026-10-25-r7-genus-decision.md)
+
+`genus` is the definition's immediate genus: a vendored BFO or CCO class,
+or the class a metamodel concept designates (bco:BusinessCapability, which
+bcom:BusinessCapability designates and nothing mints). `foundational_
+ancestor` is a vendored BFO or CCO class above it: a section 4 parent of
+the designated class or an upstream superclass of one, or, for an
+upstream genus, an upstream superclass of the genus. Both are emitted as
+annotations (bco:definitionGenus, bco:foundationalAncestor); no class and
+no subclass axiom is asserted.
 
 THE METAMODEL STAGING RULE (D4)
 
@@ -164,7 +209,8 @@ COMMON_REQUIRED = ("id", "sources", "drafted_by", "created",
                    "authored_status")
 COMMON_OPTIONAL = ("ratified_by", "is_replaced_by", "revises", "change_note")
 METAMODEL_FIELDS = set(COMMON_REQUIRED) | set(COMMON_OPTIONAL) | {"spec_row"}
-CATALOG_REQUIRED = ("pref_label", "definition", "genus")
+CATALOG_REQUIRED = ("pref_label", "definition", "genus",
+                    "foundational_ancestor")
 CATALOG_FIELDS = (set(COMMON_REQUIRED) | set(COMMON_OPTIONAL)
                   | set(CATALOG_REQUIRED)
                   | {"broader", "notation", "designates_class"})
@@ -178,14 +224,26 @@ STATUS_FIELDS = ("lifecycle_status", "lifecycleStatus", "deprecated",
 
 #: The bco: terms the vocabulary graph uses, declared in bco-vocabulary.ttl.
 #: Annotation properties and one datatype, which is what ADR-003 D1 puts in
-#: bco: for the vocabulary. No class is minted here.
+#: bco: for the vocabulary. No class is minted here. Each entry is
+#: (label, definition) or (label, definition, comment); the comment, an
+#: rdfs:comment, says what the RDF alone cannot (review R7, F and G).
 PROPERTIES = {
     "designatesClass": ("designates class",
                         "Relates a concept to the OWL class it names."),
     "lifecycleStatus": ("lifecycle status",
                         "The concept's status, derived by tools/vocab/build.py "
                         "(ADR-003 D5): Draft, Candidate, Ratified or "
-                        "Deprecated. Never authored."),
+                        "Deprecated. Never authored.",
+                        "The value is derived and enforced by "
+                        "tools/vocab/build.py (ADR-003 D5), not by these "
+                        "triples alone: the build refuses an authored status, "
+                        "sets Ratified only for a concept whose current record "
+                        "digest a cited ratification act lists, recomputed "
+                        "against git, and Deprecated only for a concept "
+                        "replaced by a live one. The vocabulary shapes check "
+                        "one value from the closed set and its agreement with "
+                        "owl:deprecated; no transition between values is "
+                        "expressed or checked in RDF."),
     "doesNotImply": ("does not imply",
                      "What the specification section 4 row says the term "
                      "does not imply, verbatim."),
@@ -193,8 +251,25 @@ PROPERTIES = {
                    "A parent class the specification section 4 row names "
                    "for the class this concept designates."),
     "definitionGenus": ("definition genus",
-                        "The BFO or CCO class a catalog definition takes as "
-                        "its genus (ADR-003 D4)."),
+                        "The immediate genus a catalog definition takes: the "
+                        "class its text names as genus. Either a vendored BFO "
+                        "or CCO class, or the class a metamodel concept "
+                        "designates with bco:designatesClass (ADR-003 D4; "
+                        "review R7, Finding E).",
+                        "An annotation recording the definition's genus. It "
+                        "asserts no subclass axiom, and the class it names need "
+                        "not yet be minted: bco:BusinessCapability is "
+                        "designated by bcom:BusinessCapability and declared "
+                        "nowhere (docs/decisions/"
+                        "2026-10-25-r7-genus-decision.md)."),
+    "foundationalAncestor": ("foundational ancestor",
+                             "A more general BFO or CCO class above a catalog "
+                             "concept's immediate genus, recorded apart from "
+                             "bco:definitionGenus (review R7, Finding E).",
+                             "An annotation. It records where the intended "
+                             "hierarchy meets BFO/CCO and asserts no subclass "
+                             "axiom, for the concept's class or for its "
+                             "genus."),
     "sourceReference": ("source reference",
                         "Relates a concept to a reference to a register "
                         "entry (ADR-003 D6)."),
@@ -215,17 +290,55 @@ PROPERTIES = {
     "departureNote": ("departure note",
                       "Why a concept departs from the source it cites."),
     "citesClaim": ("cites claim",
-                   "The 1-based index of the register entry claim a "
-                   "departure rests on."),
+                   "Relates a departs-from source reference to the register "
+                   "claim the departure rests on: a claim of the cited "
+                   "source, at V or P (ADR-003 D6; review R7, Finding A)."),
+    "hasClaim": ("has claim",
+                 "Relates a register record to one of its claims, each a "
+                 "resource of its own (review R7, Finding A)."),
+    "claimIndex": ("claim index",
+                   "A claim's 1-based position among its register entry's "
+                   "claims, in the order docs/sources/register.yaml lists "
+                   "them."),
     "claimStatus": ("claim status",
-                    "A verification status of a register entry's claim: "
-                    "V, P, S, K or L."),
+                    "The verification status of one register claim: V, P, S, "
+                    "K or L, as the register companion defines them. Stated "
+                    "on the claim, so each status stays with the claim it "
+                    "qualifies."),
+    "claimScope": ("claim scope",
+                   "The part of the source a claim's status covers, as the "
+                   "register states it."),
+    "claimNote": ("claim note",
+                  "Any other qualifier the register records on a claim."),
     "currentRecord": ("current record",
                       "Relates a concept to the version of its record this "
                       "build was made from."),
     "recordSha256": ("record SHA-256",
                      "The concept record digest defined in "
-                     "tools/vocab/build.py."),
+                     "tools/vocab/build.py.",
+                     "To verify a digest against the authored YAML: take the "
+                     "concept's mapping from vocab/metamodel.yaml or "
+                     "vocab/catalog.yaml at the commit in question, drop "
+                     "ratified_by, and for a metamodel concept add "
+                     "spec_row_content, the section 4 row's {label, iri, "
+                     "definition, parents, does_not_imply}; serialise with "
+                     "json.dumps(sort_keys=True, ensure_ascii=False, "
+                     "separators=(',', ':')) as UTF-8 with no trailing "
+                     "newline; the SHA-256 of those bytes, lowercase hex, is "
+                     "the digest. python tools/vocab/build.py --digest "
+                     "<curie> prints the current one."),
+    "recordCommit": ("record commit",
+                     "The full commit that introduced a prior record version: "
+                     "the earliest non-merge commit whose authored YAML, and "
+                     "for a metamodel concept whose specification section 4 "
+                     "row, yields that record digest.",
+                     "A record's full history is in git, not in this graph. "
+                     "git log --full-history -- vocab/catalog.yaml "
+                     "vocab/metamodel.yaml lists the commits that changed "
+                     "the records, and git show <commit>:vocab/catalog.yaml "
+                     "gives the record as it stood; recompute its digest as "
+                     "bco:recordSha256 describes to match it. Emitted only "
+                     "where that search finds the digest."),
     "ratifiedBy": ("ratified by",
                    "Relates a concept to the citation of the act that "
                    "ratified it (ADR-003 D2, D5)."),
@@ -241,7 +354,14 @@ PCF_DATATYPE = ("PCF code",
                 "An APQC Process Classification Framework 7.4 "
                 "Cross-Industry element ID (ADR-003 D7). The edition is part "
                 "of this datatype's definition; adopting another edition "
-                "is a new datatype.")
+                "is a new datatype.",
+                "The lexical form, a five-digit PCF 7.4 element ID, is "
+                "assumed by tools/vocab/build.py and has not been checked "
+                "against a real code: the PCF 7.4 workbook is licensed and "
+                "not in this repository. No concept carries a notation until "
+                "a code is verified in BPO's catalog. The datatype declares "
+                "no lexical restriction; validating a literal against the "
+                "edition is the build's job, not the RDF's.")
 
 
 @dataclass(frozen=True)
@@ -371,6 +491,132 @@ def _described(vendor: tuple) -> frozenset:
         graph.parse(path, format="turtle")
     return frozenset(str(s) for s in graph.subjects()
                      if isinstance(s, rdflib.URIRef))
+
+
+def upstream_classes(vendor: list) -> tuple:
+    """(classes, parents): every IRI a vendored extract types owl:Class,
+    and each one's named rdfs:subClassOf parents."""
+    return _classes(tuple(str(p) for p in vendor))
+
+
+@functools.lru_cache(maxsize=4)
+def _classes(vendor: tuple) -> tuple:
+    import rdflib
+
+    graph = rdflib.Graph()
+    for path in vendor:
+        graph.parse(path, format="turtle")
+    classes = frozenset(str(s) for s in graph.subjects(
+        rdflib.RDF.type, rdflib.OWL.Class) if isinstance(s, rdflib.URIRef))
+    parents: dict = {}
+    for s, o in graph.subject_objects(rdflib.RDFS.subClassOf):
+        if isinstance(s, rdflib.URIRef) and isinstance(o, rdflib.URIRef):
+            parents.setdefault(str(s), set()).add(str(o))
+    return classes, {k: frozenset(v) for k, v in parents.items()}
+
+
+def ancestors(start, parents: dict) -> set:
+    """Every class reachable from `start` (IRIs) by named subClassOf
+    edges in the vendored extracts, `start` included."""
+    seen, todo = set(), list(start)
+    while todo:
+        iri = todo.pop()
+        if iri in seen:
+            continue
+        seen.add(iri)
+        todo.extend(parents.get(iri, ()))
+    return seen
+
+
+# ------------------------------------------------------------- history
+
+
+def _git(repo: Path, *args: str) -> tuple:
+    import subprocess
+
+    proc = subprocess.run(["git", *args], cwd=str(repo), capture_output=True)
+    return proc.returncode, proc.stdout
+
+
+def record_history(repo: Path) -> tuple:
+    """(shallow, {record digest: (commit, record)}) for every record the
+    vocab YAML has held at a non-merge commit HEAD reaches, each with the
+    commit that introduced it (see PRIOR RECORDS in the module docstring).
+    Not a git repository, or no HEAD: (False, {})."""
+    code, head = _git(repo, "rev-parse", "--verify", "--quiet", "HEAD")
+    if code:
+        return False, {}
+    return _history(str(repo), head.decode("ascii").strip())
+
+
+@functools.lru_cache(maxsize=8)
+def _history(repo_text: str, head: str) -> tuple:
+    import yaml
+
+    repo = Path(repo_text)
+    code, out = _git(repo, "rev-parse", "--is-shallow-repository")
+    if code == 0 and out.strip() == b"true":
+        return True, {}
+    names = {key: layout.component(cid).path
+             for key, cid in INPUT_IDS.items() if key != "agents"}
+    code, out = _git(repo, "log", "--full-history", "--no-merges",
+                     "--format=%H %ct %P", head, "--",
+                     names["metamodel"], names["catalog"], "specifications")
+    if code:
+        return False, {}
+
+    def show(commit: str, path: str):
+        code, data = _git(repo, "show", "%s:%s" % (commit, path))
+        return data.decode("utf-8") if code == 0 else None
+
+    @functools.lru_cache(maxsize=None)
+    def held(commit: str) -> dict:
+        """{digest: record} for the records `commit`'s tree holds."""
+        out: dict = {}
+        rows: dict = {}
+        contract = show(commit, "config/repository-layout.yaml")
+        try:
+            specs = [c.get("path") for c in (yaml.safe_load(contract or "")
+                                             or {}).get("components") or []
+                     if isinstance(c, dict)
+                     and c.get("role") == "specification"]
+        except yaml.YAMLError:
+            specs = []
+        text = show(commit, specs[0]) if len(specs) == 1 else None
+        if text is not None:
+            rows = {r.spec_iri: r for r in spec_terms.parse_text(text).rows}
+        for kind in ("metamodel", "catalog"):
+            text = show(commit, names[kind])
+            try:
+                data = yaml.safe_load(text) if text is not None else None
+            except yaml.YAMLError:
+                data = None
+            if not isinstance(data, dict):
+                continue
+            for record in data.get("concepts") or []:
+                if not isinstance(record, dict):
+                    continue
+                row = (rows.get(record.get("spec_row"))
+                       if kind == "metamodel" else None)
+                try:
+                    out[record_digest(record, row)] = record
+                except (TypeError, ValueError):
+                    continue
+        return out
+
+    introduced: dict = {}
+    for line in out.decode("ascii").splitlines():
+        fields = line.split()
+        commit, when, parents = fields[0], int(fields[1]), fields[2:]
+        before = held(parents[0]) if parents else {}
+        for digest, record in held(commit).items():
+            if digest in before:
+                continue
+            key = (when, commit)
+            if digest not in introduced or key < introduced[digest][0]:
+                introduced[digest] = (key, record)
+    return False, {digest: (key[1], record)
+                   for digest, (key, record) in introduced.items()}
 
 
 def tokens(text: str) -> list:
@@ -782,6 +1028,10 @@ def build(inputs: Inputs) -> Result:
                         "quote %s" % (where, TRIPWIRE_WORDS, key)))
 
     # -- catalog-only checks ----------------------------------------------
+    classes, parents = upstream_classes(inputs.vendor)
+    #: The classes the metamodel concepts designate (D4), each with its row.
+    designated = {BCO + row.local: row for kind, _, _, row, _ in concepts
+                  if kind == "metamodel" and row is not None}
     for kind, namespace, record, row, where in concepts:
         if kind != "catalog":
             continue
@@ -793,13 +1043,37 @@ def build(inputs: Inputs) -> Result:
                 "catalog-definition-form",
                 "%s definition does not open genus-differentia style "
                 "('A <genus> that ...')" % where))
+        # R7 Finding E: the immediate genus, and a foundational ancestor.
         genus = record.get("genus")
-        if not isinstance(genus, str) or not genus.startswith(
-                ("cco:", "obo:")) or expand(genus) not in upstream:
+        allowed = None  # the ancestors this genus admits
+        if isinstance(genus, str) and genus.startswith(("cco:", "obo:")) \
+                and expand(genus) in classes:
+            allowed = ancestors([expand(genus)], parents) - {expand(genus)}
+        elif isinstance(genus, str) and genus.startswith("bco:") \
+                and expand(genus) in designated:
+            allowed = ancestors([iri for iri in (
+                expand("%s:%s" % p) for p in designated[expand(genus)].parents)
+                if iri], parents)
+        else:
             findings.append(Finding(
                 "catalog-genus",
-                "%s genus %r is not a BFO or CCO class a vendored extract "
-                "describes" % (where, genus)))
+                "%s genus %r is neither a BFO or CCO class a vendored "
+                "extract declares nor the class a metamodel concept "
+                "designates" % (where, genus)))
+        ancestor = record.get("foundational_ancestor")
+        if not isinstance(ancestor, str) or not ancestor.startswith(
+                ("cco:", "obo:")) or expand(ancestor) not in classes:
+            findings.append(Finding(
+                "catalog-ancestor",
+                "%s foundational_ancestor %r is not a BFO or CCO class a "
+                "vendored extract declares" % (where, ancestor)))
+        elif allowed is not None and expand(ancestor) not in allowed:
+            findings.append(Finding(
+                "catalog-ancestor-unrelated",
+                "%s foundational_ancestor %s is not above genus %s: not a "
+                "section 4 parent of the designated class, nor a vendored "
+                "superclass of one or of the genus" % (where, ancestor,
+                                                      genus)))
         broader = record.get("broader", [])
         if not isinstance(broader, list) or any(
                 not isinstance(b, str) or not b.startswith("bcoc:")
@@ -824,6 +1098,15 @@ def build(inputs: Inputs) -> Result:
                 "%s designates_class %r is not bco:<UpperCamelName>"
                 % (where, record["designates_class"])))
 
+    # -- prior records (R7 Finding B) ---------------------------------------
+    shallow, history = record_history(inputs.repo)
+    if shallow and any("revises" in record for _, _, record, _, _ in concepts):
+        findings.append(Finding(
+            "D3-history-shallow",
+            "the repository is a shallow clone, so the commits that "
+            "introduced revised records cannot all be found; fetch the full "
+            "history (fetch-depth: 0)"))
+
     if findings:
         return result
 
@@ -846,15 +1129,18 @@ def build(inputs: Inputs) -> Result:
         out = graphs["bco-%s.ttl" % kind]
         out.extend(concept_triples(kind, namespace, iri, record, row,
                                    result.statuses[iri], result.digests[iri],
-                                   checked_refs[record["id"]], full))
+                                   checked_refs[record["id"]], full,
+                                   history))
 
     table = prefix_table()
     inputs_named = {
         "bco-vocabulary.ttl": [GENERATOR],
         "bco-metamodel.ttl": ["vocab/metamodel.yaml",
                               "specification section 4 (%s)"
-                              % inputs.spec.name],
-        "bco-catalog.ttl": ["vocab/catalog.yaml"],
+                              % inputs.spec.name,
+                              "git history, for prior records"],
+        "bco-catalog.ttl": ["vocab/catalog.yaml",
+                            "git history, for prior records"],
         "bco-sources.ttl": ["docs/sources/register.yaml"],
         "bco-agents.ttl": ["vocab/agents.yaml"],
     }
@@ -952,16 +1238,22 @@ def ratification(repo: Path, citation, iri: str, digest: str, agents: dict,
 
 def vocabulary_triples() -> list:
     t = []
-    for local, (label, definition) in sorted(PROPERTIES.items()):
+    terms = [(local, OWL + "AnnotationProperty", entry)
+             for local, entry in sorted(PROPERTIES.items())]
+    terms.append(("PCFCode", RDFS + "Datatype", PCF_DATATYPE))
+    for local, kind, entry in terms:
         s = U(BCO + local)
-        t += [(s, U(RDF + "type"), U(OWL + "AnnotationProperty")),
-              (s, U(RDFS + "label"), L(label, "en")),
-              (s, U(SKOS + "definition"), L(definition, "en"))]
-    s = U(BCO + "PCFCode")
-    t += [(s, U(RDF + "type"), U(RDFS + "Datatype")),
-          (s, U(RDFS + "label"), L(PCF_DATATYPE[0], "en")),
-          (s, U(SKOS + "definition"), L(PCF_DATATYPE[1], "en"))]
+        t += [(s, U(RDF + "type"), U(kind)),
+              (s, U(RDFS + "label"), L(entry[0], "en")),
+              (s, U(SKOS + "definition"), L(entry[1], "en"))]
+        if len(entry) > 2:
+            t.append((s, U(RDFS + "comment"), L(entry[2], "en")))
     return t
+
+
+def claim_iri(src_id: str, index: int) -> str:
+    """A register claim's IRI: its entry id and 1-based position (R7 A)."""
+    return "%s%s-claim-%d" % (BCOS, src_id, index)
 
 
 def scheme_triples(scheme: str, label: str, definition: str) -> list:
@@ -979,8 +1271,38 @@ def source_triples(register: dict) -> list:
               (s, U(DCTERMS + "identifier"), L(entry["id"])),
               (s, U(DCTERMS + "bibliographicCitation"),
                L(build_register.expand(entry["citation"], entry)))]
-        for claim in entry.get("claims") or []:
-            t.append((s, U(BCO + "claimStatus"), L(claim["status"])))
+        for n, claim in enumerate(entry.get("claims") or [], 1):
+            c = U(claim_iri(entry["id"], n))
+            t += [(s, U(BCO + "hasClaim"), c),
+                  (c, U(BCO + "claimIndex"), L(str(n),
+                                               datatype=XSD + "integer")),
+                  (c, U(BCO + "claimStatus"), L(claim["status"]))]
+            for key, local in (("scope", "claimScope"), ("note", "claimNote")):
+                if claim.get(key):
+                    t.append((c, U(BCO + local),
+                              L(build_register.expand(claim[key], entry))))
+    return t
+
+
+def prior_triples(namespace: str, digest: str, history: dict) -> list:
+    """The record `digest` names, described (R7 Finding B), and the
+    records it revises in turn, as far as git history settles them."""
+    t, seen = [], set()
+    while digest not in seen:
+        seen.add(digest)
+        rec = U("%srecord-%s" % (namespace, digest))
+        t += [(rec, U(RDF + "type"), U(PROV + "Entity")),
+              (rec, U(BCO + "recordSha256"), L(digest))]
+        if digest not in history:
+            break
+        commit, record = history[digest]
+        t.append((rec, U(BCO + "recordCommit"), L(commit)))
+        earlier = record.get("revises")
+        if not isinstance(earlier, str) or not SHA256.fullmatch(earlier):
+            break
+        t.append((rec, U(PROV + "wasRevisionOf"),
+                  U("%srecord-%s" % (namespace, earlier))))
+        digest = earlier
     return t
 
 
@@ -999,7 +1321,7 @@ def agent_triples(agents: dict) -> list:
 
 
 def concept_triples(kind, namespace, iri, record, row, status, digest, refs,
-                    full) -> list:
+                    full, history=None) -> list:
     s = U(iri)
     t = [(s, U(RDF + "type"), U(SKOS + "Concept")),
          (s, U(BCO + "lifecycleStatus"), L(status)),
@@ -1018,7 +1340,9 @@ def concept_triples(kind, namespace, iri, record, row, status, digest, refs,
     else:
         t += [(s, U(SKOS + "inScheme"), U(CATALOG_SCHEME)),
               (s, U(SKOS + "definition"), L(record["definition"], "en")),
-              (s, U(BCO + "definitionGenus"), U(expand(record["genus"])))]
+              (s, U(BCO + "definitionGenus"), U(expand(record["genus"]))),
+              (s, U(BCO + "foundationalAncestor"),
+               U(expand(record["foundational_ancestor"])))]
         for label in record["pref_label"]:
             t.append((s, U(SKOS + "prefLabel"),
                       L(label["value"], label["language"])))
@@ -1044,6 +1368,7 @@ def concept_triples(kind, namespace, iri, record, row, status, digest, refs,
     if "revises" in record:
         t.append((rec, U(PROV + "wasRevisionOf"),
                   U("%srecord-%s" % (namespace, record["revises"]))))
+        t += prior_triples(namespace, record["revises"], history or {})
 
     for ref in refs:
         node = U(minted(namespace, "source", ref))
@@ -1058,7 +1383,7 @@ def concept_triples(kind, namespace, iri, record, row, status, digest, refs,
                       L(ref["departure_note"], "en")))
         if "claim" in ref:
             t.append((node, U(BCO + "citesClaim"),
-                      L(str(ref["claim"]), datatype=XSD + "integer")))
+                      U(claim_iri(ref["source"], ref["claim"]))))
 
     if status == "Ratified" or ("ratified_by" in record
                                 and status == "Deprecated"):

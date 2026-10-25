@@ -45,10 +45,16 @@
 # the citing concept's own namespace, and a reference left dangling by
 # its concept must still be checked.
 #
-# Over the real vocabulary at P4, the concept shapes conform vacuously:
-# vocab/metamodel.yaml and vocab/catalog.yaml are empty until P5. The
-# source-record and agent shapes run over real data (63 records, 2
-# agents).
+# Register claims (review R7, Finding A) share bco-sources# with the
+# records and are told apart by the name the build mints for them,
+# <record>-claim-<n>. Concept records, current and prior (R7, Finding B),
+# are selected structurally, like the references.
+#
+# Over the real vocabulary at P4, the concept shapes conformed vacuously:
+# vocab/metamodel.yaml and vocab/catalog.yaml were empty until P5. Since P5
+# they run over 14 concepts. The source-record and agent shapes run over
+# real data (63 records, 2 agents), and since R7 the claim shape over the
+# register's 83 claims.
 
 vs:prefixes
     a owl:Ontology ;
@@ -253,7 +259,52 @@ vs:CatalogConceptShape
     sh:property [
         sh:path skos:notation ;
         sh:datatype bco:PCFCode ;
-        sh:message "Catalog skos:notation is not typed bco:PCFCode." ] .
+        sh:message "Catalog skos:notation is not typed bco:PCFCode." ] ;
+
+    # Review R7, Finding E (docs/decisions/2026-10-25-r7-genus-decision.md):
+    # the immediate genus, and apart from it a foundational ancestor. The
+    # genus is a BFO or CCO class, or the class a metamodel concept
+    # designates (bco:BusinessCapability, which nothing mints); the
+    # ancestor is a BFO or CCO class. The upstream namespaces are matched
+    # by REGEX, not STRSTARTS: they are not authored, and
+    # tests/test_namespace.py reserves STRSTARTS filters for the authored
+    # ones. Stale, either pattern fires on the positive controls. That the
+    # class is one a vendored extract declares, and that the ancestor is
+    # above the genus, is the build's to check: the tests validate this
+    # graph without the extracts.
+    sh:property [
+        sh:path bco:definitionGenus ;
+        sh:minCount 1 ;
+        sh:message "Catalog concept has no bco:definitionGenus." ] ;
+    sh:property [
+        sh:path bco:definitionGenus ;
+        sh:maxCount 1 ;
+        sh:message "Catalog concept has more than one bco:definitionGenus." ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Catalog concept's bco:definitionGenus is neither a BFO or CCO class nor the class a metamodel concept designates." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          $this bco:definitionGenus ?genus .
+          FILTER(!REGEX(STR(?genus), "^(http://purl[.]obolibrary[.]org/obo/BFO_|https://www[.]commoncoreontologies[.]org/ont)"))
+          FILTER NOT EXISTS {
+            ?concept bco:designatesClass ?genus ; a skos:Concept .
+            FILTER(STRSTARTS(STR(?concept), "https://fandaws.com/ontology/bco-metamodel#")) } }""" ] ;
+    sh:property [
+        sh:path bco:foundationalAncestor ;
+        sh:minCount 1 ;
+        sh:message "Catalog concept has no bco:foundationalAncestor." ] ;
+    sh:property [
+        sh:path bco:foundationalAncestor ;
+        sh:maxCount 1 ;
+        sh:message "Catalog concept has more than one bco:foundationalAncestor." ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Catalog concept's bco:foundationalAncestor is not a BFO or CCO class." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          $this bco:foundationalAncestor ?ancestor .
+          FILTER(!REGEX(STR(?ancestor), "^(http://purl[.]obolibrary[.]org/obo/BFO_|https://www[.]commoncoreontologies[.]org/ont)")) }""" ] .
 
 
 # ---------------------------------------------------------------------
@@ -333,7 +384,25 @@ vs:SourceReferenceShape
         sh:prefixes vs:prefixes ;
         sh:select """SELECT $this WHERE {
           $this bco:relation "departs-from" .
-          FILTER NOT EXISTS { $this bco:citesClaim ?claim } }""" ] .
+          FILTER NOT EXISTS { $this bco:citesClaim ?claim } }""" ] ;
+
+    # Review R7, Finding A: the cited claim is a resource, so what the build
+    # checks against the register (D6) is checked here on the graph too --
+    # a claim of the source the reference cites, at V or P.
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "A departs-from source reference cites a claim that is not a claim of the source it cites." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          $this bco:relation "departs-from" ; bco:citesClaim ?claim .
+          FILTER NOT EXISTS { $this bco:citesSource ?source . ?source bco:hasClaim ?claim } }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "A departs-from source reference cites a claim whose status is not V or P." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          $this bco:relation "departs-from" ; bco:citesClaim ?claim .
+          FILTER NOT EXISTS { ?claim bco:claimStatus ?status . FILTER(STR(?status) IN ("V", "P")) } }""" ] .
 
 
 # ---------------------------------------------------------------------
@@ -343,13 +412,16 @@ vs:SourceReferenceShape
 vs:SourceRecordShape
     a sh:NodeShape ;
     # Every subject in the namespace, not every typed one: a record that
-    # lost its type must still be caught, not skipped.
+    # lost its type must still be caught, not skipped. Claims share the
+    # namespace and are told apart by the name the build mints for them,
+    # <record>-claim-<n> (review R7, Finding A); they have their own shape.
     sh:target [
         a sh:SPARQLTarget ;
         sh:prefixes vs:prefixes ;
         sh:select """SELECT DISTINCT ?this WHERE {
           ?this ?p ?o .
           FILTER(STRSTARTS(STR(?this), "https://fandaws.com/ontology/bco-sources#"))
+          FILTER(!REGEX(STR(?this), "-claim-[0-9]+$"))
         }""" ] ;
 
     sh:property [
@@ -371,14 +443,135 @@ vs:SourceRecordShape
         sh:path dcterms:bibliographicCitation ;
         sh:minCount 1 ;
         sh:message "Source record has no dcterms:bibliographicCitation." ] ;
+    # Review R7, Finding A: statuses live on the claims. The record links
+    # its own claims, each index once; a status on the record itself is
+    # the unordered bag R7 found, and is refused.
+    sh:property [
+        sh:path bco:hasClaim ;
+        sh:minCount 1 ;
+        sh:message "Source record has no bco:hasClaim." ] ;
+    sh:property [
+        sh:path bco:claimStatus ;
+        sh:maxCount 0 ;
+        sh:message "Source record carries a bco:claimStatus of its own; a status belongs on the claim it qualifies." ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Source record links a claim that is not one of its own." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          $this bco:hasClaim ?claim .
+          FILTER(!STRSTARTS(STR(?claim), CONCAT(STR($this), "-claim-"))) }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Source record has two claims with the same bco:claimIndex." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          $this bco:hasClaim ?a , ?b .
+          ?a bco:claimIndex ?index .
+          ?b bco:claimIndex ?other .
+          FILTER(?a != ?b && sameTerm(?index, ?other)) }""" ] .
+
+
+# ---------------------------------------------------------------------
+# Register claims (review R7, Finding A): every <record>-claim-<n> subject
+# in bco-sources#
+# ---------------------------------------------------------------------
+
+vs:ClaimShape
+    a sh:NodeShape ;
+    sh:target [
+        a sh:SPARQLTarget ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT DISTINCT ?this WHERE {
+          ?this ?p ?o .
+          FILTER(STRSTARTS(STR(?this), "https://fandaws.com/ontology/bco-sources#"))
+          FILTER(REGEX(STR(?this), "-claim-[0-9]+$"))
+        }""" ] ;
+
+    sh:property [
+        sh:path bco:claimIndex ;
+        sh:minCount 1 ;
+        sh:message "Claim has no bco:claimIndex." ] ;
+    sh:property [
+        sh:path bco:claimIndex ;
+        sh:maxCount 1 ;
+        sh:message "Claim has more than one bco:claimIndex." ] ;
+    sh:property [
+        sh:path bco:claimIndex ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 1 ;
+        sh:message "Claim's bco:claimIndex is not a positive xsd:integer." ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Claim's bco:claimIndex is not the number its IRI ends with." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          $this bco:claimIndex ?index .
+          FILTER(!STRENDS(STR($this), CONCAT("-claim-", STR(?index)))) }""" ] ;
     sh:property [
         sh:path bco:claimStatus ;
         sh:minCount 1 ;
-        sh:message "Source record has no bco:claimStatus." ] ;
+        sh:message "Claim has no bco:claimStatus." ] ;
+    sh:property [
+        sh:path bco:claimStatus ;
+        sh:maxCount 1 ;
+        sh:message "Claim has more than one bco:claimStatus." ] ;
     sh:property [
         sh:path bco:claimStatus ;
         sh:in ( "V" "P" "S" "K" "L" ) ;
-        sh:message "Source record has a bco:claimStatus other than V, P, S, K or L." ] .
+        sh:message "Claim has a bco:claimStatus other than V, P, S, K or L." ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Claim belongs to no source record." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          FILTER NOT EXISTS { ?record bco:hasClaim $this } }""" ] .
+
+
+# ---------------------------------------------------------------------
+# Concept records (D3; review R7, Finding B)
+# ---------------------------------------------------------------------
+
+vs:RecordShape
+    a sh:NodeShape ;
+    # Structural, like the references: the build mints records in the
+    # concept's own namespace as <ns>record-<digest>. A revised record is
+    # a subject of bco:recordSha256 once described; one that is not is
+    # reported on the record that revises it.
+    sh:targetObjectsOf bco:currentRecord ;
+    sh:targetSubjectsOf bco:recordSha256 ;
+    sh:targetSubjectsOf prov:wasRevisionOf ;
+
+    sh:property [
+        sh:path rdf:type ;
+        sh:hasValue prov:Entity ;
+        sh:message "Record is not a prov:Entity." ] ;
+    sh:property [
+        sh:path bco:recordSha256 ;
+        sh:minCount 1 ;
+        sh:message "Record has no bco:recordSha256." ] ;
+    sh:property [
+        sh:path bco:recordSha256 ;
+        sh:maxCount 1 ;
+        sh:message "Record has more than one bco:recordSha256." ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Record's bco:recordSha256 is not the digest its IRI names." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          $this bco:recordSha256 ?digest .
+          FILTER(!STRENDS(STR($this), CONCAT("record-", STR(?digest)))) }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Record is a revision of a record the vocabulary graph does not describe." ;
+        sh:prefixes vs:prefixes ;
+        sh:select """SELECT $this WHERE {
+          $this prov:wasRevisionOf ?prior .
+          FILTER NOT EXISTS { ?prior a prov:Entity ; bco:recordSha256 ?digest } }""" ] ;
+    sh:property [
+        sh:path bco:recordCommit ;
+        sh:pattern "^[0-9a-f]{40}$" ;
+        sh:message "Record's bco:recordCommit is not a full 40-hex commit." ] .
 
 
 # ---------------------------------------------------------------------

@@ -19,337 +19,632 @@
 @prefix bcos:    <https://fandaws.com/ontology/bco-sources#> .
 @prefix bcoa:    <https://fandaws.com/ontology/bco-agents#> .
 
-bcos:SRC-BA-01 bco:claimStatus "L" .
-bcos:SRC-BA-01 bco:claimStatus "S" .
+bcos:SRC-BA-01 bco:hasClaim bcos:SRC-BA-01-claim-1 .
+bcos:SRC-BA-01 bco:hasClaim bcos:SRC-BA-01-claim-2 .
 bcos:SRC-BA-01 dcterms:bibliographicCitation "Business Architecture Guild, *A Guide to the Business Architecture Body of Knowledge (BIZBOK Guide)* v15, announced 8 Apr 2026; v14, 26 Mar 2025" .
 bcos:SRC-BA-01 dcterms:identifier "SRC-BA-01" .
 bcos:SRC-BA-01 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-BA-02 bco:claimStatus "V" .
+bcos:SRC-BA-01-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-BA-01-claim-1 bco:claimScope "via SRC-BA-02" .
+bcos:SRC-BA-01-claim-1 bco:claimStatus "S" .
+
+bcos:SRC-BA-01-claim-2 bco:claimIndex "2"^^xsd:integer .
+bcos:SRC-BA-01-claim-2 bco:claimStatus "L" .
+
+bcos:SRC-BA-02 bco:hasClaim bcos:SRC-BA-02-claim-1 .
 bcos:SRC-BA-02 dcterms:bibliographicCitation "Burlton R. Article in *Business Rules Journal* 18(10), Oct 2017" .
 bcos:SRC-BA-02 dcterms:identifier "SRC-BA-02" .
 bcos:SRC-BA-02 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-BA-03 bco:claimStatus "S" .
+bcos:SRC-BA-02-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-BA-02-claim-1 bco:claimStatus "V" .
+
+bcos:SRC-BA-03 bco:hasClaim bcos:SRC-BA-03-claim-1 .
 bcos:SRC-BA-03 dcterms:bibliographicCitation "Homann U. \"A Business-Oriented Foundation for Service Orientation.\" Microsoft MSDN, Feb 2006 (URL retired)" .
 bcos:SRC-BA-03 dcterms:identifier "SRC-BA-03" .
 bcos:SRC-BA-03 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-BA-04 bco:claimStatus "P" .
+bcos:SRC-BA-03-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-BA-03-claim-1 bco:claimStatus "S" .
+
+bcos:SRC-BA-04 bco:hasClaim bcos:SRC-BA-04-claim-1 .
 bcos:SRC-BA-04 dcterms:bibliographicCitation "Ulrich W, Rosen M. \"The Business Capability Map: The 'Rosetta Stone' of Business/IT Alignment.\" Cutter *Enterprise Architecture Executive Report* 14(2), Mar 2011" .
 bcos:SRC-BA-04 dcterms:identifier "SRC-BA-04" .
 bcos:SRC-BA-04 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-BA-05 bco:claimStatus "K" .
-bcos:SRC-BA-05 bco:claimStatus "P" .
+bcos:SRC-BA-04-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-BA-04-claim-1 bco:claimScope "summary" .
+bcos:SRC-BA-04-claim-1 bco:claimStatus "P" .
+
+bcos:SRC-BA-05 bco:hasClaim bcos:SRC-BA-05-claim-1 .
+bcos:SRC-BA-05 bco:hasClaim bcos:SRC-BA-05-claim-2 .
 bcos:SRC-BA-05 dcterms:bibliographicCitation "Ulrich W, McWhorter N. *Business Architecture: The Art and Practice of Business Transformation*. Meghan-Kiffer, 2010" .
 bcos:SRC-BA-05 dcterms:identifier "SRC-BA-05" .
 bcos:SRC-BA-05 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-BA-06 bco:claimStatus "S" .
+bcos:SRC-BA-05-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-BA-05-claim-1 bco:claimScope "edition only" .
+bcos:SRC-BA-05-claim-1 bco:claimStatus "P" .
+
+bcos:SRC-BA-05-claim-2 bco:claimIndex "2"^^xsd:integer .
+bcos:SRC-BA-05-claim-2 bco:claimScope "co-author" .
+bcos:SRC-BA-05-claim-2 bco:claimStatus "K" .
+
+bcos:SRC-BA-06 bco:hasClaim bcos:SRC-BA-06-claim-1 .
 bcos:SRC-BA-06 dcterms:bibliographicCitation "Wißotzki M. \"An exploration of capability research.\" IEEE EDOCW 2015, pp. 179–184" .
 bcos:SRC-BA-06 dcterms:identifier "SRC-BA-06" .
 bcos:SRC-BA-06 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-BA-07 bco:claimStatus "P" .
+bcos:SRC-BA-06-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-BA-06-claim-1 bco:claimStatus "S" .
+
+bcos:SRC-BA-07 bco:hasClaim bcos:SRC-BA-07-claim-1 .
 bcos:SRC-BA-07 dcterms:bibliographicCitation "Khosroshahi PA, Hauder M, Volkert S, Matthes F, Gernegroß M. \"Business Capability Maps: Current Practices and Use Cases.\" HICSS-51, 2018" .
 bcos:SRC-BA-07 dcterms:identifier "SRC-BA-07" .
 bcos:SRC-BA-07 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-BA-08 bco:claimStatus "V" .
+bcos:SRC-BA-07-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-BA-07-claim-1 bco:claimScope "abstract" .
+bcos:SRC-BA-07-claim-1 bco:claimStatus "P" .
+
+bcos:SRC-BA-08 bco:hasClaim bcos:SRC-BA-08-claim-1 .
 bcos:SRC-BA-08 dcterms:bibliographicCitation "Offerman T, Stettina CJ, Plaat A. \"Business Capabilities: A Systematic Literature Review and a Research Agenda.\" IEEE ICE/ITMC 2017, pp. 383–393, DOI 10.1109/ICE.2017.8279911" .
 bcos:SRC-BA-08 dcterms:identifier "SRC-BA-08" .
 bcos:SRC-BA-08 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-BA-09 bco:claimStatus "V" .
+bcos:SRC-BA-08-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-BA-08-claim-1 bco:claimStatus "V" .
+
+bcos:SRC-BA-09 bco:hasClaim bcos:SRC-BA-09-claim-1 .
 bcos:SRC-BA-09 dcterms:bibliographicCitation "Berrisford G. \"Functions and capabilities in business architecture and TOGAF\" (commentary on TOGAF 9.2)" .
 bcos:SRC-BA-09 dcterms:identifier "SRC-BA-09" .
 bcos:SRC-BA-09 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-FO-01 bco:claimStatus "V" .
+bcos:SRC-BA-09-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-BA-09-claim-1 bco:claimScope "as commentary" .
+bcos:SRC-BA-09-claim-1 bco:claimStatus "V" .
+
+bcos:SRC-FO-01 bco:hasClaim bcos:SRC-FO-01-claim-1 .
 bcos:SRC-FO-01 dcterms:bibliographicCitation "CUBRC / CCO community, *Common Core Ontologies*. v2.0-2024-11-06 (repo extract, commit 510dad7); v2.1, 2026-04-04; v2.2, 2026-08-14; `develop` merged file versionIRI 2026-08-13" .
 bcos:SRC-FO-01 dcterms:identifier "SRC-FO-01" .
 bcos:SRC-FO-01 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-FO-02 bco:claimStatus "V" .
+bcos:SRC-FO-01-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-FO-01-claim-1 bco:claimNote "v2.1 and the v2.2 tag not byte-checked" .
+bcos:SRC-FO-01-claim-1 bco:claimScope "v2.0 and develop" .
+bcos:SRC-FO-01-claim-1 bco:claimStatus "V" .
+
+bcos:SRC-FO-02 bco:hasClaim bcos:SRC-FO-02-claim-1 .
 bcos:SRC-FO-02 dcterms:bibliographicCitation "Industrial Ontologies Foundry, *IOF Core* release 202603; Production Planning module 202601" .
 bcos:SRC-FO-02 dcterms:identifier "SRC-FO-02" .
 bcos:SRC-FO-02 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-FO-03 bco:claimStatus "V" .
+bcos:SRC-FO-02-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-FO-02-claim-1 bco:claimScope "master Core.rdf, versionIRI 202603" .
+bcos:SRC-FO-02-claim-1 bco:claimStatus "V" .
+
+bcos:SRC-FO-03 bco:hasClaim bcos:SRC-FO-03-claim-1 .
 bcos:SRC-FO-03 dcterms:bibliographicCitation "Beverley J, Limbaugh D, Merrell E, Koch PM, Smith B. \"Capabilities: An Ontology.\" arXiv:2405.00183, v2 16 Aug 2024" .
 bcos:SRC-FO-03 dcterms:identifier "SRC-FO-03" .
 bcos:SRC-FO-03 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-FO-04 bco:claimStatus "S" .
+bcos:SRC-FO-03-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-FO-03-claim-1 bco:claimStatus "V" .
+
+bcos:SRC-FO-04 bco:hasClaim bcos:SRC-FO-04-claim-1 .
 bcos:SRC-FO-04 dcterms:bibliographicCitation "Arp R, Smith B, Spear AD. *Building Ontologies with Basic Formal Ontology*. MIT Press, 2015" .
 bcos:SRC-FO-04 dcterms:identifier "SRC-FO-04" .
 bcos:SRC-FO-04 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-FO-05 bco:claimStatus "S" .
+bcos:SRC-FO-04-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-FO-04-claim-1 bco:claimStatus "S" .
+
+bcos:SRC-FO-05 bco:hasClaim bcos:SRC-FO-05-claim-1 .
 bcos:SRC-FO-05 dcterms:bibliographicCitation "Merrell E, Limbaugh D, Anderson, Smith B. \"Mental Capabilities.\" ICBO 2019" .
 bcos:SRC-FO-05 dcterms:identifier "SRC-FO-05" .
 bcos:SRC-FO-05 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-FO-06 bco:claimStatus "V" .
+bcos:SRC-FO-05-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-FO-05-claim-1 bco:claimNote "record not opened" .
+bcos:SRC-FO-05-claim-1 bco:claimStatus "S" .
+
+bcos:SRC-FO-06 bco:hasClaim bcos:SRC-FO-06-claim-1 .
 bcos:SRC-FO-06 dcterms:bibliographicCitation "Jensen M, De Colle G, Kindya S, More C, Cox AP, Beverley J. \"The Common Core Ontologies.\" arXiv:2404.17758 v2; FOIS 2024" .
 bcos:SRC-FO-06 dcterms:identifier "SRC-FO-06" .
 bcos:SRC-FO-06 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-FO-07 bco:claimStatus "P" .
-bcos:SRC-FO-07 bco:claimStatus "S" .
+bcos:SRC-FO-06-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-FO-06-claim-1 bco:claimScope "text search" .
+bcos:SRC-FO-06-claim-1 bco:claimStatus "V" .
+
+bcos:SRC-FO-07 bco:hasClaim bcos:SRC-FO-07-claim-1 .
+bcos:SRC-FO-07 bco:hasClaim bcos:SRC-FO-07-claim-2 .
 bcos:SRC-FO-07 dcterms:bibliographicCitation "Azevedo CLB, Iacob M-E, Almeida JPA, van Sinderen M, Ferreira Pires L, Guizzardi G. \"Modeling resources and capabilities in enterprise architecture.\" *Information Systems* 54 (2015) 235–262, DOI 10.1016/j.is.2015.04.008. Predecessor: IEEE EDOC 2013" .
 bcos:SRC-FO-07 dcterms:identifier "SRC-FO-07" .
 bcos:SRC-FO-07 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-FO-08 bco:claimStatus "V" .
+bcos:SRC-FO-07-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-FO-07-claim-1 bco:claimScope "abstract" .
+bcos:SRC-FO-07-claim-1 bco:claimStatus "P" .
+
+bcos:SRC-FO-07-claim-2 bco:claimIndex "2"^^xsd:integer .
+bcos:SRC-FO-07-claim-2 bco:claimStatus "S" .
+
+bcos:SRC-FO-08 bco:hasClaim bcos:SRC-FO-08-claim-1 .
 bcos:SRC-FO-08 dcterms:bibliographicCitation "Calhau RF, Almeida JPA, Guizzardi G. \"Ontological Analysis of Advanced Capability Modeling in ArchiMate.\" BIWEEK 2024, TU Wien (series unconfirmed)" .
 bcos:SRC-FO-08 dcterms:identifier "SRC-FO-08" .
 bcos:SRC-FO-08 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-FO-09 bco:claimStatus "V" .
+bcos:SRC-FO-08-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-FO-08-claim-1 bco:claimStatus "V" .
+
+bcos:SRC-FO-09 bco:hasClaim bcos:SRC-FO-09-claim-1 .
 bcos:SRC-FO-09 dcterms:bibliographicCitation "Uschold M, King M, Moralee S, Zorgios Y. \"The Enterprise Ontology.\" *Knowledge Engineering Review* 13(1) 31–89, 1998, DOI 10.1017/S0269888998001088" .
 bcos:SRC-FO-09 dcterms:identifier "SRC-FO-09" .
 bcos:SRC-FO-09 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-FO-10 bco:claimStatus "S" .
+bcos:SRC-FO-09-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-FO-09-claim-1 bco:claimStatus "V" .
+
+bcos:SRC-FO-10 bco:hasClaim bcos:SRC-FO-10-claim-1 .
 bcos:SRC-FO-10 dcterms:bibliographicCitation "Fox MS, Barbuceanu M, Gruninger M, Lin J. \"An Organisation Ontology for Enterprise Modelling\" (TOVE), reported as *Computers in Industry* 1996" .
 bcos:SRC-FO-10 dcterms:identifier "SRC-FO-10" .
 bcos:SRC-FO-10 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-FO-11 bco:claimStatus "P" .
+bcos:SRC-FO-10-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-FO-10-claim-1 bco:claimStatus "S" .
+
+bcos:SRC-FO-11 bco:hasClaim bcos:SRC-FO-11-claim-1 .
 bcos:SRC-FO-11 dcterms:bibliographicCitation "Bērziša S et al. (20 authors). \"Capability Driven Development.\" *Business & Information Systems Engineering* 57(1) 15–25, 2015, DOI 10.1007/s12599-014-0362-0" .
 bcos:SRC-FO-11 dcterms:identifier "SRC-FO-11" .
 bcos:SRC-FO-11 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-FO-12 bco:claimStatus "V" .
+bcos:SRC-FO-11-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-FO-11-claim-1 bco:claimScope "record" .
+bcos:SRC-FO-11-claim-1 bco:claimStatus "P" .
+
+bcos:SRC-FO-12 bco:hasClaim bcos:SRC-FO-12-claim-1 .
 bcos:SRC-FO-12 dcterms:bibliographicCitation "CaaS FP7 project, \"Definitions of concepts — the full meta-model of CDD\"" .
 bcos:SRC-FO-12 dcterms:identifier "SRC-FO-12" .
 bcos:SRC-FO-12 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-FO-13 bco:claimStatus "S" .
+bcos:SRC-FO-12-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-FO-12-claim-1 bco:claimStatus "V" .
+
+bcos:SRC-FO-13 bco:hasClaim bcos:SRC-FO-13-claim-1 .
 bcos:SRC-FO-13 dcterms:bibliographicCitation "Loucopoulos P, Kavakli E. \"Capability Oriented Enterprise Knowledge Modeling: The CODEK Approach.\" In *Domain-Specific Conceptual Modeling*, Springer 2016, pp. 197–215" .
 bcos:SRC-FO-13 dcterms:identifier "SRC-FO-13" .
 bcos:SRC-FO-13 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-GOV-01 bco:claimStatus "S" .
+bcos:SRC-FO-13-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-FO-13-claim-1 bco:claimStatus "S" .
+
+bcos:SRC-GOV-01 bco:hasClaim bcos:SRC-GOV-01-claim-1 .
 bcos:SRC-GOV-01 dcterms:bibliographicCitation "US DoD CIO, *DoD Architecture Framework* 2.02 and DM2 Capability data group, Aug 2010. Change 1 draft 2015-01-19. Still presented by the DoD CIO as current and official" .
 bcos:SRC-GOV-01 dcterms:identifier "SRC-GOV-01" .
 bcos:SRC-GOV-01 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-GOV-02 bco:claimStatus "P" .
+bcos:SRC-GOV-01-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-GOV-01-claim-1 bco:claimNote "site returned 403" .
+bcos:SRC-GOV-01-claim-1 bco:claimScope "search extracts" .
+bcos:SRC-GOV-01-claim-1 bco:claimStatus "S" .
+
+bcos:SRC-GOV-02 bco:hasClaim bcos:SRC-GOV-02-claim-1 .
 bcos:SRC-GOV-02 dcterms:bibliographicCitation "CJCSI 5123.01 and the JCIDS Manual (last public update 2021); SecDef memo directing JCIDS disestablishment (official PDF dated 7 Nov 2025; press reports Aug 2025)" .
 bcos:SRC-GOV-02 dcterms:identifier "SRC-GOV-02" .
 bcos:SRC-GOV-02 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-GOV-03 bco:claimStatus "S" .
+bcos:SRC-GOV-02-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-GOV-02-claim-1 bco:claimNote "CJCSI text not read" .
+bcos:SRC-GOV-02-claim-1 bco:claimScope "memo" .
+bcos:SRC-GOV-02-claim-1 bco:claimStatus "P" .
+
+bcos:SRC-GOV-03 bco:hasClaim bcos:SRC-GOV-03-claim-1 .
 bcos:SRC-GOV-03 dcterms:bibliographicCitation "DoD Dictionary of Military and Associated Terms (formerly JP 1-02), 2010 ed. amended to Feb 2016" .
 bcos:SRC-GOV-03 dcterms:identifier "SRC-GOV-03" .
 bcos:SRC-GOV-03 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-GOV-04 bco:claimStatus "V" .
+bcos:SRC-GOV-03-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-GOV-03-claim-1 bco:claimStatus "S" .
+
+bcos:SRC-GOV-04 bco:hasClaim bcos:SRC-GOV-04-claim-1 .
 bcos:SRC-GOV-04 dcterms:bibliographicCitation "NATO, *NATO Architecture Framework v4.1, ArchiMate Implementation Guide*, Architecture Capability Team, Digital Policy Committee, 2026.06. Based on UAF 1.2 and ArchiMate 3.2" .
 bcos:SRC-GOV-04 dcterms:identifier "SRC-GOV-04" .
 bcos:SRC-GOV-04 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-GOV-05 bco:claimStatus "V" .
+bcos:SRC-GOV-04-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-GOV-04-claim-1 bco:claimStatus "V" .
+
+bcos:SRC-GOV-05 bco:hasClaim bcos:SRC-GOV-05-claim-1 .
 bcos:SRC-GOV-05 dcterms:bibliographicCitation "US GSA Office of Shared Solutions and Performance Improvement, *Federal Integrated Business Framework (FIBF)*; FFM business capabilities published as FFMSRs (FMCF-3, FY 2024)" .
 bcos:SRC-GOV-05 dcterms:identifier "SRC-GOV-05" .
 bcos:SRC-GOV-05 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-GOV-06 bco:claimStatus "S" .
+bcos:SRC-GOV-05-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-GOV-05-claim-1 bco:claimNote "FFMSR front matter not read" .
+bcos:SRC-GOV-05-claim-1 bco:claimScope "page" .
+bcos:SRC-GOV-05-claim-1 bco:claimStatus "V" .
+
+bcos:SRC-GOV-06 bco:hasClaim bcos:SRC-GOV-06-claim-1 .
 bcos:SRC-GOV-06 dcterms:bibliographicCitation "US OMB, FEAF-II Consolidated Reference Model / Business Reference Model (BRM 3.1, 2013)" .
 bcos:SRC-GOV-06 dcterms:identifier "SRC-GOV-06" .
 bcos:SRC-GOV-06 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-IND-01 bco:claimStatus "P" .
+bcos:SRC-GOV-06-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-GOV-06-claim-1 bco:claimStatus "S" .
+
+bcos:SRC-IND-01 bco:hasClaim bcos:SRC-IND-01-claim-1 .
 bcos:SRC-IND-01 dcterms:bibliographicCitation "APQC, *Process Classification Framework* (cross-industry). PCF 8.0, 24 Mar 2026; 7.4, Aug 2024. Category 13.0 \"Develop and Manage Business Capabilities\" (12.0 in v6.1.1)" .
 bcos:SRC-IND-01 dcterms:identifier "SRC-IND-01" .
 bcos:SRC-IND-01 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-IND-02 bco:claimStatus "L" .
-bcos:SRC-IND-02 bco:claimStatus "P" .
+bcos:SRC-IND-01-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-IND-01-claim-1 bco:claimStatus "P" .
+
+bcos:SRC-IND-02 bco:hasClaim bcos:SRC-IND-02-claim-1 .
+bcos:SRC-IND-02 bco:hasClaim bcos:SRC-IND-02-claim-2 .
 bcos:SRC-IND-02 dcterms:bibliographicCitation "APQC, \"Business Capabilities and How They Relate to Processes\", Jun 2024" .
 bcos:SRC-IND-02 dcterms:identifier "SRC-IND-02" .
 bcos:SRC-IND-02 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-IND-03 bco:claimStatus "P" .
+bcos:SRC-IND-02-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-IND-02-claim-1 bco:claimScope "summary" .
+bcos:SRC-IND-02-claim-1 bco:claimStatus "P" .
+
+bcos:SRC-IND-02-claim-2 bco:claimIndex "2"^^xsd:integer .
+bcos:SRC-IND-02-claim-2 bco:claimStatus "L" .
+
+bcos:SRC-IND-03 bco:hasClaim bcos:SRC-IND-03-claim-1 .
 bcos:SRC-IND-03 dcterms:bibliographicCitation "BIAN, *Service Landscape* 14.0 (Feb 2026) and Business Capability Model; alignment paper 2023" .
 bcos:SRC-IND-03 dcterms:identifier "SRC-IND-03" .
 bcos:SRC-IND-03 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-IND-04 bco:claimStatus "L" .
-bcos:SRC-IND-04 bco:claimStatus "S" .
+bcos:SRC-IND-03-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-IND-03-claim-1 bco:claimStatus "P" .
+
+bcos:SRC-IND-04 bco:hasClaim bcos:SRC-IND-04-claim-1 .
+bcos:SRC-IND-04 bco:hasClaim bcos:SRC-IND-04-claim-2 .
 bcos:SRC-IND-04 dcterms:bibliographicCitation "TM Forum, GB1029C *Business Capability Map* v2.0.0; GB1007A *Capability Reference Map* v4.0.0; GB1007 v3.0" .
 bcos:SRC-IND-04 dcterms:identifier "SRC-IND-04" .
 bcos:SRC-IND-04 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-IND-05 bco:claimStatus "S" .
+bcos:SRC-IND-04-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-IND-04-claim-1 bco:claimStatus "S" .
+
+bcos:SRC-IND-04-claim-2 bco:claimIndex "2"^^xsd:integer .
+bcos:SRC-IND-04-claim-2 bco:claimStatus "L" .
+
+bcos:SRC-IND-05 bco:hasClaim bcos:SRC-IND-05-claim-1 .
 bcos:SRC-IND-05 dcterms:bibliographicCitation "ISACA, *COBIT 2019 Framework: Introduction and Methodology*, Fig. 6.2" .
 bcos:SRC-IND-05 dcterms:identifier "SRC-IND-05" .
 bcos:SRC-IND-05 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-IND-06 bco:claimStatus "S" .
+bcos:SRC-IND-05-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-IND-05-claim-1 bco:claimStatus "S" .
+
+bcos:SRC-IND-06 bco:hasClaim bcos:SRC-IND-06-claim-1 .
 bcos:SRC-IND-06 dcterms:bibliographicCitation "Axelos/PeopleCert, ITIL (v3 glossary lineage; ITIL 4 not retrieved)" .
 bcos:SRC-IND-06 dcterms:identifier "SRC-IND-06" .
 bcos:SRC-IND-06 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-IND-07 bco:claimStatus "L" .
-bcos:SRC-IND-07 bco:claimStatus "P" .
+bcos:SRC-IND-06-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-IND-06-claim-1 bco:claimStatus "S" .
+
+bcos:SRC-IND-07 bco:hasClaim bcos:SRC-IND-07-claim-1 .
+bcos:SRC-IND-07 bco:hasClaim bcos:SRC-IND-07-claim-2 .
 bcos:SRC-IND-07 dcterms:bibliographicCitation "ISACA/CMMI Institute, CMMI (v3.0 current)" .
 bcos:SRC-IND-07 dcterms:identifier "SRC-IND-07" .
 bcos:SRC-IND-07 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-IND-08 bco:claimStatus "V" .
+bcos:SRC-IND-07-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-IND-07-claim-1 bco:claimScope "web page" .
+bcos:SRC-IND-07-claim-1 bco:claimStatus "P" .
+
+bcos:SRC-IND-07-claim-2 bco:claimIndex "2"^^xsd:integer .
+bcos:SRC-IND-07-claim-2 bco:claimScope "model text" .
+bcos:SRC-IND-07-claim-2 bco:claimStatus "L" .
+
+bcos:SRC-IND-08 bco:hasClaim bcos:SRC-IND-08-claim-1 .
 bcos:SRC-IND-08 dcterms:bibliographicCitation "Gartner IT Glossary, \"business capability modeling\"" .
 bcos:SRC-IND-08 dcterms:identifier "SRC-IND-08" .
 bcos:SRC-IND-08 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-ISO-01 bco:claimStatus "V" .
+bcos:SRC-IND-08-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-IND-08-claim-1 bco:claimScope "entry" .
+bcos:SRC-IND-08-claim-1 bco:claimStatus "V" .
+
+bcos:SRC-ISO-01 bco:hasClaim bcos:SRC-ISO-01-claim-1 .
 bcos:SRC-ISO-01 dcterms:bibliographicCitation "ISO/IEC 21838-2:2021, *Top-level ontologies — Part 2: Basic Formal Ontology*. ISO/IEC JTC 1. OWL artefact: BFO-2020 `bfo-core.ttl` at commit 044490fc" .
 bcos:SRC-ISO-01 dcterms:identifier "SRC-ISO-01" .
 bcos:SRC-ISO-01 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-ISO-02 bco:claimStatus "L" .
-bcos:SRC-ISO-02 bco:claimStatus "P" .
+bcos:SRC-ISO-01-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-ISO-01-claim-1 bco:claimNote "ISO text not compared word for word; ISO catalogue returned 403" .
+bcos:SRC-ISO-01-claim-1 bco:claimScope "OWL" .
+bcos:SRC-ISO-01-claim-1 bco:claimStatus "V" .
+
+bcos:SRC-ISO-02 bco:hasClaim bcos:SRC-ISO-02-claim-1 .
+bcos:SRC-ISO-02 bco:hasClaim bcos:SRC-ISO-02-claim-2 .
 bcos:SRC-ISO-02 dcterms:bibliographicCitation "ISO 19440:2020, *Enterprise modelling and architecture — Constructs for enterprise modelling*, ed. 2, 2020-05. ISO/TC 184/SC 5. Replaces ISO 19440:2007" .
 bcos:SRC-ISO-02 dcterms:identifier "SRC-ISO-02" .
 bcos:SRC-ISO-02 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-ISO-03 bco:claimStatus "P" .
+bcos:SRC-ISO-02-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-ISO-02-claim-1 bco:claimScope "clause 3 to 3.51 only" .
+bcos:SRC-ISO-02-claim-1 bco:claimStatus "P" .
+
+bcos:SRC-ISO-02-claim-2 bco:claimIndex "2"^^xsd:integer .
+bcos:SRC-ISO-02-claim-2 bco:claimScope "clause 7.14" .
+bcos:SRC-ISO-02-claim-2 bco:claimStatus "L" .
+
+bcos:SRC-ISO-03 bco:hasClaim bcos:SRC-ISO-03-claim-1 .
 bcos:SRC-ISO-03 dcterms:bibliographicCitation "ISO 19439:2006, *Enterprise integration — Framework for enterprise modelling*, ed. 1; confirmed 2015" .
 bcos:SRC-ISO-03 dcterms:identifier "SRC-ISO-03" .
 bcos:SRC-ISO-03 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-ISO-04 bco:claimStatus "L" .
-bcos:SRC-ISO-04 bco:claimStatus "P" .
+bcos:SRC-ISO-03-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-ISO-03-claim-1 bco:claimNote "status after 2015 unverified" .
+bcos:SRC-ISO-03-claim-1 bco:claimScope "via the 19440 source note" .
+bcos:SRC-ISO-03-claim-1 bco:claimStatus "P" .
+
+bcos:SRC-ISO-04 bco:hasClaim bcos:SRC-ISO-04-claim-1 .
+bcos:SRC-ISO-04 bco:hasClaim bcos:SRC-ISO-04-claim-2 .
 bcos:SRC-ISO-04 dcterms:bibliographicCitation "ISO 15704:2019, *Requirements for enterprise-referencing architectures and methodologies*, ed. 2, 2019-12" .
 bcos:SRC-ISO-04 dcterms:identifier "SRC-ISO-04" .
 bcos:SRC-ISO-04 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-ISO-05 bco:claimStatus "S" .
+bcos:SRC-ISO-04-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-ISO-04-claim-1 bco:claimScope "catalogue only" .
+bcos:SRC-ISO-04-claim-1 bco:claimStatus "P" .
+
+bcos:SRC-ISO-04-claim-2 bco:claimIndex "2"^^xsd:integer .
+bcos:SRC-ISO-04-claim-2 bco:claimStatus "L" .
+
+bcos:SRC-ISO-05 bco:hasClaim bcos:SRC-ISO-05-claim-1 .
 bcos:SRC-ISO-05 dcterms:bibliographicCitation "ISO 9000:2015, *Quality management systems — Fundamentals and vocabulary*, 3.6.12" .
 bcos:SRC-ISO-05 dcterms:identifier "SRC-ISO-05" .
 bcos:SRC-ISO-05 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-ISO-06 bco:claimStatus "P" .
+bcos:SRC-ISO-05-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-ISO-05-claim-1 bco:claimScope "via the ERA collection" .
+bcos:SRC-ISO-05-claim-1 bco:claimStatus "S" .
+
+bcos:SRC-ISO-06 bco:hasClaim bcos:SRC-ISO-06-claim-1 .
 bcos:SRC-ISO-06 dcterms:bibliographicCitation "ISO/IEC 33020:2019, *Process measurement framework for assessment of process capability*, ed. 2; confirmed 2026" .
 bcos:SRC-ISO-06 dcterms:identifier "SRC-ISO-06" .
 bcos:SRC-ISO-06 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-ISO-07 bco:claimStatus "K" .
-bcos:SRC-ISO-07 bco:claimStatus "L" .
+bcos:SRC-ISO-06-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-ISO-06-claim-1 bco:claimScope "catalogue abstract" .
+bcos:SRC-ISO-06-claim-1 bco:claimStatus "P" .
+
+bcos:SRC-ISO-07 bco:hasClaim bcos:SRC-ISO-07-claim-1 .
+bcos:SRC-ISO-07 bco:hasClaim bcos:SRC-ISO-07-claim-2 .
 bcos:SRC-ISO-07 dcterms:bibliographicCitation "ISO/IEC 33001:2015, *Process assessment — Concepts and terminology*" .
 bcos:SRC-ISO-07 dcterms:identifier "SRC-ISO-07" .
 bcos:SRC-ISO-07 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-ISO-08 bco:claimStatus "S" .
+bcos:SRC-ISO-07-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-ISO-07-claim-1 bco:claimStatus "K" .
+
+bcos:SRC-ISO-07-claim-2 bco:claimIndex "2"^^xsd:integer .
+bcos:SRC-ISO-07-claim-2 bco:claimStatus "L" .
+
+bcos:SRC-ISO-08 bco:hasClaim bcos:SRC-ISO-08-claim-1 .
 bcos:SRC-ISO-08 dcterms:bibliographicCitation "ISO/IEC/IEEE 42010:2022, *Architecture description*, ed. 2, Nov 2022" .
 bcos:SRC-ISO-08 dcterms:identifier "SRC-ISO-08" .
 bcos:SRC-ISO-08 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-MS-01 bco:claimStatus "K" .
+bcos:SRC-ISO-08-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-ISO-08-claim-1 bco:claimNote "absence unverified" .
+bcos:SRC-ISO-08-claim-1 bco:claimStatus "S" .
+
+bcos:SRC-MS-01 bco:hasClaim bcos:SRC-MS-01-claim-1 .
 bcos:SRC-MS-01 dcterms:bibliographicCitation "Wernerfelt B. \"A resource-based view of the firm.\" *Strategic Management Journal* 5(2) 171–180, 1984" .
 bcos:SRC-MS-01 dcterms:identifier "SRC-MS-01" .
 bcos:SRC-MS-01 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-MS-02 bco:claimStatus "K" .
+bcos:SRC-MS-01-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-MS-01-claim-1 bco:claimScope "bibliography" .
+bcos:SRC-MS-01-claim-1 bco:claimStatus "K" .
+
+bcos:SRC-MS-02 bco:hasClaim bcos:SRC-MS-02-claim-1 .
 bcos:SRC-MS-02 dcterms:bibliographicCitation "Barney J. \"Firm resources and sustained competitive advantage.\" *Journal of Management* 17(1) 99–120, 1991" .
 bcos:SRC-MS-02 dcterms:identifier "SRC-MS-02" .
 bcos:SRC-MS-02 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-MS-03 bco:claimStatus "K" .
+bcos:SRC-MS-02-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-MS-02-claim-1 bco:claimStatus "K" .
+
+bcos:SRC-MS-03 bco:hasClaim bcos:SRC-MS-03-claim-1 .
 bcos:SRC-MS-03 dcterms:bibliographicCitation "Grant RM. \"The resource-based theory of competitive advantage.\" *California Management Review* 33(3) 114–135, 1991" .
 bcos:SRC-MS-03 dcterms:identifier "SRC-MS-03" .
 bcos:SRC-MS-03 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-MS-04 bco:claimStatus "K" .
-bcos:SRC-MS-04 bco:claimStatus "V" .
+bcos:SRC-MS-03-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-MS-03-claim-1 bco:claimStatus "K" .
+
+bcos:SRC-MS-04 bco:hasClaim bcos:SRC-MS-04-claim-1 .
+bcos:SRC-MS-04 bco:hasClaim bcos:SRC-MS-04-claim-2 .
 bcos:SRC-MS-04 dcterms:bibliographicCitation "Amit R, Schoemaker PJH. \"Strategic assets and organizational rent.\" *Strategic Management Journal* 14(1) 33–46, 1993" .
 bcos:SRC-MS-04 dcterms:identifier "SRC-MS-04" .
 bcos:SRC-MS-04 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-MS-05 bco:claimStatus "K" .
-bcos:SRC-MS-05 bco:claimStatus "V" .
+bcos:SRC-MS-04-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-MS-04-claim-1 bco:claimScope "citation" .
+bcos:SRC-MS-04-claim-1 bco:claimStatus "V" .
+
+bcos:SRC-MS-04-claim-2 bco:claimIndex "2"^^xsd:integer .
+bcos:SRC-MS-04-claim-2 bco:claimScope "definition" .
+bcos:SRC-MS-04-claim-2 bco:claimStatus "K" .
+
+bcos:SRC-MS-05 bco:hasClaim bcos:SRC-MS-05-claim-1 .
+bcos:SRC-MS-05 bco:hasClaim bcos:SRC-MS-05-claim-2 .
 bcos:SRC-MS-05 dcterms:bibliographicCitation "Helfat CE, Peteraf MA. \"The dynamic resource-based view: capability lifecycles.\" *Strategic Management Journal* 24(10) 997–1010, 2003, DOI 10.1002/smj.332" .
 bcos:SRC-MS-05 dcterms:identifier "SRC-MS-05" .
 bcos:SRC-MS-05 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-MS-06 bco:claimStatus "K" .
-bcos:SRC-MS-06 bco:claimStatus "V" .
+bcos:SRC-MS-05-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-MS-05-claim-1 bco:claimScope "abstract" .
+bcos:SRC-MS-05-claim-1 bco:claimStatus "V" .
+
+bcos:SRC-MS-05-claim-2 bco:claimIndex "2"^^xsd:integer .
+bcos:SRC-MS-05-claim-2 bco:claimScope "definition" .
+bcos:SRC-MS-05-claim-2 bco:claimStatus "K" .
+
+bcos:SRC-MS-06 bco:hasClaim bcos:SRC-MS-06-claim-1 .
+bcos:SRC-MS-06 bco:hasClaim bcos:SRC-MS-06-claim-2 .
 bcos:SRC-MS-06 dcterms:bibliographicCitation "Winter SG. \"Understanding dynamic capabilities.\" *Strategic Management Journal* 24(10) 991–995, 2003, DOI 10.1002/smj.318" .
 bcos:SRC-MS-06 dcterms:identifier "SRC-MS-06" .
 bcos:SRC-MS-06 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-MS-07 bco:claimStatus "K" .
+bcos:SRC-MS-06-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-MS-06-claim-1 bco:claimScope "abstract" .
+bcos:SRC-MS-06-claim-1 bco:claimStatus "V" .
+
+bcos:SRC-MS-06-claim-2 bco:claimIndex "2"^^xsd:integer .
+bcos:SRC-MS-06-claim-2 bco:claimScope "definition" .
+bcos:SRC-MS-06-claim-2 bco:claimStatus "K" .
+
+bcos:SRC-MS-07 bco:hasClaim bcos:SRC-MS-07-claim-1 .
 bcos:SRC-MS-07 dcterms:bibliographicCitation "Dosi G, Nelson RR, Winter SG (eds.). *The Nature and Dynamics of Organizational Capabilities*. Oxford University Press, 2000" .
 bcos:SRC-MS-07 dcterms:identifier "SRC-MS-07" .
 bcos:SRC-MS-07 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-MS-08 bco:claimStatus "K" .
-bcos:SRC-MS-08 bco:claimStatus "S" .
+bcos:SRC-MS-07-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-MS-07-claim-1 bco:claimStatus "K" .
+
+bcos:SRC-MS-08 bco:hasClaim bcos:SRC-MS-08-claim-1 .
+bcos:SRC-MS-08 bco:hasClaim bcos:SRC-MS-08-claim-2 .
 bcos:SRC-MS-08 dcterms:bibliographicCitation "Teece DJ, Pisano G, Shuen A. \"Dynamic capabilities and strategic management.\" *Strategic Management Journal* 18(7) 509–533, 1997" .
 bcos:SRC-MS-08 dcterms:identifier "SRC-MS-08" .
 bcos:SRC-MS-08 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-MS-09 bco:claimStatus "K" .
-bcos:SRC-MS-09 bco:claimStatus "S" .
+bcos:SRC-MS-08-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-MS-08-claim-1 bco:claimStatus "S" .
+
+bcos:SRC-MS-08-claim-2 bco:claimIndex "2"^^xsd:integer .
+bcos:SRC-MS-08-claim-2 bco:claimScope "bibliography" .
+bcos:SRC-MS-08-claim-2 bco:claimStatus "K" .
+
+bcos:SRC-MS-09 bco:hasClaim bcos:SRC-MS-09-claim-1 .
+bcos:SRC-MS-09 bco:hasClaim bcos:SRC-MS-09-claim-2 .
 bcos:SRC-MS-09 dcterms:bibliographicCitation "Teece DJ. \"Explicating dynamic capabilities.\" *Strategic Management Journal* 28(13) 1319–1350, 2007" .
 bcos:SRC-MS-09 dcterms:identifier "SRC-MS-09" .
 bcos:SRC-MS-09 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-MS-10 bco:claimStatus "S" .
+bcos:SRC-MS-09-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-MS-09-claim-1 bco:claimStatus "S" .
+
+bcos:SRC-MS-09-claim-2 bco:claimIndex "2"^^xsd:integer .
+bcos:SRC-MS-09-claim-2 bco:claimStatus "K" .
+
+bcos:SRC-MS-10 bco:hasClaim bcos:SRC-MS-10-claim-1 .
 bcos:SRC-MS-10 dcterms:bibliographicCitation "Eisenhardt KM, Martin JA. \"Dynamic capabilities: what are they?\" *Strategic Management Journal* 21(10–11) 1105–1121, 2000" .
 bcos:SRC-MS-10 dcterms:identifier "SRC-MS-10" .
 bcos:SRC-MS-10 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-MS-11 bco:claimStatus "K" .
-bcos:SRC-MS-11 bco:claimStatus "S" .
+bcos:SRC-MS-10-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-MS-10-claim-1 bco:claimStatus "S" .
+
+bcos:SRC-MS-11 bco:hasClaim bcos:SRC-MS-11-claim-1 .
+bcos:SRC-MS-11 bco:hasClaim bcos:SRC-MS-11-claim-2 .
 bcos:SRC-MS-11 dcterms:bibliographicCitation "Helfat CE, Finkelstein S, Mitchell W, Peteraf MA, Singh H, Teece DJ, Winter SG. *Dynamic Capabilities*. Blackwell, 2007" .
 bcos:SRC-MS-11 dcterms:identifier "SRC-MS-11" .
 bcos:SRC-MS-11 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-OG-01 bco:claimStatus "K" .
-bcos:SRC-OG-01 bco:claimStatus "L" .
-bcos:SRC-OG-01 bco:claimStatus "S" .
+bcos:SRC-MS-11-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-MS-11-claim-1 bco:claimStatus "S" .
+
+bcos:SRC-MS-11-claim-2 bco:claimIndex "2"^^xsd:integer .
+bcos:SRC-MS-11-claim-2 bco:claimScope "origin" .
+bcos:SRC-MS-11-claim-2 bco:claimStatus "K" .
+
+bcos:SRC-OG-01 bco:hasClaim bcos:SRC-OG-01-claim-1 .
+bcos:SRC-OG-01 bco:hasClaim bcos:SRC-OG-01-claim-2 .
+bcos:SRC-OG-01 bco:hasClaim bcos:SRC-OG-01-claim-3 .
 bcos:SRC-OG-01 dcterms:bibliographicCitation "The Open Group, *TOGAF Standard, 10th Edition*, C220, Apr 2022; definitions in \"Introduction and Core Concepts\"" .
 bcos:SRC-OG-01 dcterms:identifier "SRC-OG-01" .
 bcos:SRC-OG-01 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-OG-02 bco:claimStatus "L" .
-bcos:SRC-OG-02 bco:claimStatus "P" .
+bcos:SRC-OG-01-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-OG-01-claim-1 bco:claimStatus "S" .
+
+bcos:SRC-OG-01-claim-2 bco:claimIndex "2"^^xsd:integer .
+bcos:SRC-OG-01-claim-2 bco:claimStatus "K" .
+
+bcos:SRC-OG-01-claim-3 bco:claimIndex "3"^^xsd:integer .
+bcos:SRC-OG-01-claim-3 bco:claimStatus "L" .
+
+bcos:SRC-OG-02 bco:hasClaim bcos:SRC-OG-02-claim-1 .
+bcos:SRC-OG-02 bco:hasClaim bcos:SRC-OG-02-claim-2 .
 bcos:SRC-OG-02 dcterms:bibliographicCitation "The Open Group, *TOGAF Series Guide: Business Capabilities, Version 2*, G211, 25 Apr 2022; supersedes G189 (Jun 2018). Companions: Value Streams G178, Business Models G18A, Organization Mapping; Capability-Based Planning G193 (Jul 2019)" .
 bcos:SRC-OG-02 dcterms:identifier "SRC-OG-02" .
 bcos:SRC-OG-02 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-OG-03 bco:claimStatus "L" .
-bcos:SRC-OG-03 bco:claimStatus "S" .
+bcos:SRC-OG-02-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-OG-02-claim-1 bco:claimScope "ToC, front matter" .
+bcos:SRC-OG-02-claim-1 bco:claimStatus "P" .
+
+bcos:SRC-OG-02-claim-2 bco:claimIndex "2"^^xsd:integer .
+bcos:SRC-OG-02-claim-2 bco:claimStatus "L" .
+
+bcos:SRC-OG-03 bco:hasClaim bcos:SRC-OG-03-claim-1 .
+bcos:SRC-OG-03 bco:hasClaim bcos:SRC-OG-03-claim-2 .
 bcos:SRC-OG-03 dcterms:bibliographicCitation "The Open Group, *ArchiMate 3.2 Specification*. Date conflict: 2022 in one note, 2023 in another (see the discrepancy table). Document number believed to be C226, unverified. 3.1 is C197, Nov 2019" .
 bcos:SRC-OG-03 dcterms:identifier "SRC-OG-03" .
 bcos:SRC-OG-03 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-OG-04 bco:claimStatus "L" .
-bcos:SRC-OG-04 bco:claimStatus "S" .
+bcos:SRC-OG-03-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-OG-03-claim-1 bco:claimStatus "S" .
+
+bcos:SRC-OG-03-claim-2 bco:claimIndex "2"^^xsd:integer .
+bcos:SRC-OG-03-claim-2 bco:claimStatus "L" .
+
+bcos:SRC-OG-04 bco:hasClaim bcos:SRC-OG-04-claim-1 .
+bcos:SRC-OG-04 bco:hasClaim bcos:SRC-OG-04-claim-2 .
 bcos:SRC-OG-04 dcterms:bibliographicCitation "The Open Group, *ArchiMate 4 Specification*, released Apr 2026 (listings: 24 Apr 2026); document number not found. Snapshot 1: S250, mid-2025" .
 bcos:SRC-OG-04 dcterms:identifier "SRC-OG-04" .
 bcos:SRC-OG-04 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-OMG-01 bco:claimStatus "V" .
+bcos:SRC-OG-04-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-OG-04-claim-1 bco:claimStatus "S" .
+
+bcos:SRC-OG-04-claim-2 bco:claimIndex "2"^^xsd:integer .
+bcos:SRC-OG-04-claim-2 bco:claimStatus "L" .
+
+bcos:SRC-OMG-01 bco:hasClaim bcos:SRC-OMG-01-claim-1 .
 bcos:SRC-OMG-01 dcterms:bibliographicCitation "OMG, *Value Delivery Modeling Language (VDML)* 1.1, formal/18-09-03. PDF says Oct 2018; spec page says Mar 2018. IPR: Non-Assert" .
 bcos:SRC-OMG-01 dcterms:identifier "SRC-OMG-01" .
 bcos:SRC-OMG-01 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-OMG-02 bco:claimStatus "V" .
+bcos:SRC-OMG-01-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-OMG-01-claim-1 bco:claimStatus "V" .
+
+bcos:SRC-OMG-02 bco:hasClaim bcos:SRC-OMG-02-claim-1 .
 bcos:SRC-OMG-02 dcterms:bibliographicCitation "OMG, *Business Motivation Model (BMM)* 1.3, formal/15-05-19, May 2015" .
 bcos:SRC-OMG-02 dcterms:identifier "SRC-OMG-02" .
 bcos:SRC-OMG-02 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-OMG-03 bco:claimStatus "V" .
+bcos:SRC-OMG-02-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-OMG-02-claim-1 bco:claimStatus "V" .
+
+bcos:SRC-OMG-03 bco:hasClaim bcos:SRC-OMG-03-claim-1 .
 bcos:SRC-OMG-03 dcterms:bibliographicCitation "OMG, *Business Architecture Core Metamodel (BACM)* 1.1, formal/26-09-01, Sep 2026. 1.0 formal Aug 2024; 1.2 Beta 1 Sep 2026 (dtc/26-03-26). Developed with the Business Architecture Guild" .
 bcos:SRC-OMG-03 dcterms:identifier "SRC-OMG-03" .
 bcos:SRC-OMG-03 rdf:type dcterms:BibliographicResource .
 
-bcos:SRC-OMG-04 bco:claimStatus "V" .
+bcos:SRC-OMG-03-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-OMG-03-claim-1 bco:claimNote "1.2 changes and Annex A not read" .
+bcos:SRC-OMG-03-claim-1 bco:claimScope "1.1" .
+bcos:SRC-OMG-03-claim-1 bco:claimStatus "V" .
+
+bcos:SRC-OMG-04 bco:hasClaim bcos:SRC-OMG-04-claim-1 .
 bcos:SRC-OMG-04 dcterms:bibliographicCitation "OMG, *Unified Architecture Framework (UAF) Domain Metamodel* 1.3, formal/25-10-01. PDF dated Sep 2025; spec page gives Apr 2026" .
 bcos:SRC-OMG-04 dcterms:identifier "SRC-OMG-04" .
 bcos:SRC-OMG-04 rdf:type dcterms:BibliographicResource .
+
+bcos:SRC-OMG-04-claim-1 bco:claimIndex "1"^^xsd:integer .
+bcos:SRC-OMG-04-claim-1 bco:claimNote "generalization chain partly traced" .
+bcos:SRC-OMG-04-claim-1 bco:claimStatus "V" .

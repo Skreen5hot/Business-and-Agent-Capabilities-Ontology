@@ -10,7 +10,10 @@
 #       - {value: Treasury Management, language: en}
 #     definition: >-                    # English, genus-differentia:
 #       A ... that ...                  #   "A <genus> that <differentia>"
-#     genus: cco:ont00000568            # a BFO/CCO class a vendored extract describes
+#     genus: bco:BusinessCapability     # the immediate genus: a vendored BFO/CCO
+#                                       #   class, or a metamodel concept's
+#                                       #   designated class
+#     foundational_ancestor: cco:ont00000568   # a vendored BFO/CCO class above it
 #     broader: [bcoc:FinancialManagement]   # broader only; narrower is refused
 #     notation: "10759"                 # PCF 7.4 element ID, quoted (bco:PCFCode)
 #     designates_class: bco:TreasuryManagementCapability   # optional
@@ -26,11 +29,14 @@
 #
 # How the records are written:
 #   - Each definition takes Business Capability, as specification section 4
-#     defines it, as its genus in prose. The `genus` field must be a BFO or
-#     CCO class a vendored extract describes, and bco:BusinessCapability is
-#     not minted, so it names cco:ont00000568 (Organization Capability):
-#     section 4's CCO parent of Business Capability, and the parent a class
-#     keeps until it passes G1-T (CD3).
+#     defines it, as its genus in prose, and `genus` records that immediate
+#     genus: bco:BusinessCapability, the class bcom:BusinessCapability
+#     designates. `foundational_ancestor` records cco:ont00000568
+#     (Organization Capability), section 4's CCO parent of Business
+#     Capability. Both are annotations; bco:BusinessCapability stays
+#     unminted, and no subclass axiom is asserted (review R7 Finding E,
+#     docs/decisions/2026-10-25-r7-genus-decision.md). Until R7 the field
+#     named cco:ont00000568 itself, because it had to be a vendored class.
 #   - Since R6, the differentia says what the capability is for, not a list
 #     of the practices through which an organization typically exercises
 #     it. An enumerated list reads as a set of necessary conditions, and
@@ -61,9 +67,9 @@ concepts:
     definition: >-
       A business capability, inhering in an organization, that is
       realizable in planned acts by which that organization sets or revises
-      its long-range aims and the courses of action it means to take toward
-      them.
-    genus: cco:ont00000568
+      its aims and the courses of action it means to take toward them.
+    genus: bco:BusinessCapability
+    foundational_ancestor: cco:ont00000568
     sources:
       - source: SRC-OMG-03
         locator: >-
@@ -93,7 +99,7 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-10-24T12:14:15Z"
     authored_status: Draft
-    revises: 4c2d61cc457cb92bbcb61d38ae06c2d901cf4245d0333149209c4046813e1dd2
+    revises: 9c3c13a1645216148bb897e961e8cf19779331e8f7bcfa55b10c26967668e45d
     change_note:
       - >-
         2026-10-24, review R6 section 3.4: generalized. The definition named
@@ -104,16 +110,26 @@ concepts:
         conditions. It now says what the capability is for. "Realized in"
         became "realizable in" (CD8). Every source is now marked contextual
         (R6 section 6.1).
+      - >-
+        2026-10-25, review R7 section 4: "long-range" dropped. Planning over a
+        short horizon, or revising aims in response to an event, can be
+        strategic, and the qualifier excluded it. The genus field now names
+        the immediate genus, bco:BusinessCapability: the class the
+        definition's text names and bcom:BusinessCapability designates.
+        cco:ont00000568 (Organization Capability) moved to
+        foundational_ancestor (review R7 Finding E;
+        docs/decisions/2026-10-25-r7-genus-decision.md). Nothing is minted.
 
   - id: bcoc:TreasuryManagement
     pref_label:
       - {value: Treasury Management, language: en}
     definition: >-
       A business capability, inhering in an organization, that is
-      realizable in planned acts by which that organization ensures it has
-      the cash and funding to meet its payments when they fall due, and
-      manages the financial resources and risks that bear on doing so.
-    genus: cco:ont00000568
+      realizable in planned acts by which that organization manages its
+      cash positions, liquidity, funding and financial exposures toward
+      meeting its financial obligations.
+    genus: bco:BusinessCapability
+    foundational_ancestor: cco:ont00000568
     sources:
       - source: SRC-OMG-03
         locator: >-
@@ -137,7 +153,7 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-10-24T12:14:15Z"
     authored_status: Draft
-    revises: 131ebf7f96c2ab3bebe5086b95a58284585261f845125e092bc6a8c4551cb317
+    revises: 4032a5e7c5ec955323f98b47908641331e3fa6db6ad7bc3776248cf56db47927
     change_note:
       - >-
         2026-10-24, review R6 section 3.5: generalized. The definition
@@ -147,6 +163,19 @@ concepts:
         It now says what the capability is for: having the means to pay when
         payment falls due. "Realized in" became "realizable in" (CD8). Every
         source is now marked contextual (R6 section 6.1).
+      - >-
+        2026-10-25, review R7 section 4: "ensures" removed. It made a
+        successful outcome, always having the cash to pay, a condition of
+        having the capability, so an organization that manages its liquidity
+        and still meets a funding shortfall would not have it. The capability
+        is an ability to undertake the management; the definition now says
+        what that management is directed toward. The wording follows the
+        reviewer's suggested refinement in substance. The genus field now
+        names the immediate genus, bco:BusinessCapability: the class the
+        definition's text names and bcom:BusinessCapability designates.
+        cco:ont00000568 (Organization Capability) moved to
+        foundational_ancestor (review R7 Finding E;
+        docs/decisions/2026-10-25-r7-genus-decision.md). Nothing is minted.
 
   - id: bcoc:CompetitiveAnalysis
     pref_label:
@@ -154,9 +183,10 @@ concepts:
     definition: >-
       A business capability, inhering in an organization, that is
       realizable in planned acts by which that organization gathers and
-      interprets information about the organizations it competes with, or
-      may come to compete with, to inform its own decisions.
-    genus: cco:ont00000568
+      interprets information about the agents it competes with, or may come
+      to compete with, to inform its own decisions.
+    genus: bco:BusinessCapability
+    foundational_ancestor: cco:ont00000568
     sources:
       - source: SRC-OMG-03
         locator: >-
@@ -182,7 +212,7 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-10-24T12:14:15Z"
     authored_status: Draft
-    revises: cd88f07a188f6c775301c38b837633efd009229049250ecafea1ff5b8ed6b2bb
+    revises: 4f9e151dad91e19385f2bcbe430606e63e576f0464e598107905ad369fc6e020
     change_note:
       - >-
         2026-10-24, review R6 section 3.2: generalized, and a clause dropped.
@@ -197,6 +227,15 @@ concepts:
         not stated as a condition on every instance. "Realized in" became
         "realizable in" (CD8). Every source is now marked contextual (R6
         section 6.1).
+      - >-
+        2026-10-25, review R7 section 4: "organizations" became "agents". A
+        competitor need not be an organization: a sole trader is a person. The
+        bearer of the capability is still an organization; only what it
+        analyses is widened. The genus field now names the immediate genus,
+        bco:BusinessCapability: the class the definition's text names and
+        bcom:BusinessCapability designates. cco:ont00000568 (Organization
+        Capability) moved to foundational_ancestor (review R7 Finding E;
+        docs/decisions/2026-10-25-r7-genus-decision.md). Nothing is minted.
 
   - id: bcoc:BusinessModelGovernance
     pref_label:
@@ -204,9 +243,10 @@ concepts:
     definition: >-
       A business capability, inhering in an organization, that is
       realizable in planned acts by which that organization judges whether
-      the business models it operates by still serve it, and decides how
-      they should change.
-    genus: cco:ont00000568
+      the business models it operates by still serve it, and decides
+      whether and how they should change.
+    genus: bco:BusinessCapability
+    foundational_ancestor: cco:ont00000568
     sources:
       - source: SRC-OMG-03
         locator: >-
@@ -230,7 +270,7 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-10-24T12:14:15Z"
     authored_status: Draft
-    revises: f9f7c4274d6728aeb4315418d2752b36a707df953547272bd2bd8a3bf911e9a5
+    revises: f32f3c25461cb2b3adf8eb70dcc8bd02a746e2eed40c9d53a14866e9bab9897d
     change_note:
       - >-
         2026-10-24, review R6 section 3.1: generalized, and the development
@@ -242,16 +282,25 @@ concepts:
         read as a condition peculiar to this one. The definition now says
         what the capability is for. "Realized in" became "realizable in"
         (CD8). Every source is now marked contextual (R6 section 6.1).
+      - >-
+        2026-10-25, review R7 section 4: "decides how they should change"
+        became "decides whether and how they should change", so that deciding
+        to change nothing is a realization of the capability too. The genus
+        field now names the immediate genus, bco:BusinessCapability: the class
+        the definition's text names and bcom:BusinessCapability designates.
+        cco:ont00000568 (Organization Capability) moved to
+        foundational_ancestor (review R7 Finding E;
+        docs/decisions/2026-10-25-r7-genus-decision.md). Nothing is minted.
 
   - id: bcoc:CustomerExperienceManagement
     pref_label:
       - {value: Customer Experience Management, language: en}
     definition: >-
       A business capability, inhering in an organization, that is
-      realizable in planned acts by which that organization comes to
-      understand, and acts to shape, the experience its customers have in
-      their dealings with it.
-    genus: cco:ont00000568
+      realizable in planned acts by which that organization understands or
+      shapes the experience its customers have in their dealings with it.
+    genus: bco:BusinessCapability
+    foundational_ancestor: cco:ont00000568
     sources:
       - source: SRC-OMG-03
         locator: >-
@@ -275,7 +324,7 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-10-24T12:14:15Z"
     authored_status: Draft
-    revises: 29e5c822bf21c0cb42ab9eb7ea3a4798e017cf48f97fb8a76f678f8f12d6baf3
+    revises: 22e11eb83461eb43ba3573ab14c1528dbfb0cd0f74f6cbd441ca275c4e310072
     change_note:
       - >-
         2026-10-24, review R6 section 3.3: generalized. The definition
@@ -286,3 +335,18 @@ concepts:
         would have been excluded. It now says what the capability is for.
         "Realized in" became "realizable in" (CD8). Every source is now
         marked contextual (R6 section 6.1).
+      - >-
+        2026-10-25, review R7 section 4: "comes to understand, and acts to
+        shape" became "understands or shapes". The definition names the kinds
+        of planned act the capability is realizable in, and an act of either
+        kind realizes it. Reading the conjunction as requiring both repeated
+        the problem R6 section 3 removed: listed practices read as conditions
+        that must all hold, which would deny the capability to an organization
+        able to do only one of the two. The cost, stated: an organization that
+        only studies its customers' experience now has the capability. That is
+        the reading chosen; the architect may reverse it. The genus field now
+        names the immediate genus, bco:BusinessCapability: the class the
+        definition's text names and bcom:BusinessCapability designates.
+        cco:ont00000568 (Organization Capability) moved to
+        foundational_ancestor (review R7 Finding E;
+        docs/decisions/2026-10-25-r7-genus-decision.md). Nothing is minted.

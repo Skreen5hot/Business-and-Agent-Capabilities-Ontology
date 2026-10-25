@@ -142,8 +142,14 @@
                     "pattern": "^bcoa:[a-z0-9][a-z0-9-]*$",
                     "type": "string"
                 },
-                "genus": {
+                "foundational_ancestor": {
+                    "description": "A BFO or CCO class above the immediate genus (review R7, Finding E; docs/decisions/2026-10-25-r7-genus-decision.md). An annotation; no subclass axiom is asserted. That a vendored extract declares it, and that it is above the genus, is checked by tools/vocab/build.py.",
                     "pattern": "^(cco|obo):[A-Za-z_][A-Za-z0-9_]*$",
+                    "type": "string"
+                },
+                "genus": {
+                    "description": "The definition's immediate genus (review R7, Finding E): a BFO or CCO class, or the bco: class a metamodel concept designates. That it is one of these is checked by tools/vocab/build.py.",
+                    "pattern": "^(cco|obo|bco):[A-Za-z_][A-Za-z0-9_]*$",
                     "type": "string"
                 },
                 "id": {
@@ -200,6 +206,7 @@
                 "pref_label",
                 "definition",
                 "genus",
+                "foundational_ancestor",
                 "id",
                 "sources",
                 "drafted_by",
