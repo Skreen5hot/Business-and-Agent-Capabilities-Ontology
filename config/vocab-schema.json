@@ -67,7 +67,7 @@
         },
         "AgentsFile": {
             "additionalProperties": false,
-            "description": "vocab/agents.yaml.",
+            "description": "src/01_controlled_vocabulary/agents.yaml.",
             "properties": {
                 "agents": {
                     "items": {
@@ -218,7 +218,7 @@
         },
         "CatalogFile": {
             "additionalProperties": false,
-            "description": "vocab/catalog.yaml.",
+            "description": "src/01_controlled_vocabulary/catalog.yaml.",
             "properties": {
                 "concepts": {
                     "items": {
@@ -363,7 +363,7 @@
         },
         "MetamodelFile": {
             "additionalProperties": false,
-            "description": "vocab/metamodel.yaml.",
+            "description": "src/01_controlled_vocabulary/metamodel.yaml.",
             "properties": {
                 "concepts": {
                     "items": {

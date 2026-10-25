@@ -108,12 +108,12 @@ bco:ratifiedBy rdfs:label "ratified by"@en .
 bco:ratifiedBy skos:definition "Relates a concept to the citation of the act that ratified it (ADR-003 D2, D5)."@en .
 
 bco:recordCommit rdf:type owl:AnnotationProperty .
-bco:recordCommit rdfs:comment "A record's full history is in git, not in this graph. git log --full-history -- vocab/catalog.yaml vocab/metamodel.yaml lists the commits that changed the records, and git show <commit>:vocab/catalog.yaml gives the record as it stood; recompute its digest as bco:recordSha256 describes to match it. Emitted only where that search finds the digest."@en .
+bco:recordCommit rdfs:comment "A record's full history is in git, not in this graph. git log --full-history -- src/01_controlled_vocabulary/catalog.yaml src/01_controlled_vocabulary/metamodel.yaml vocab/catalog.yaml vocab/metamodel.yaml lists the commits that changed the records (vocab/ before 2026-10-25), and git show <commit>:<path>, at the path that commit holds it, gives the record as it stood; recompute its digest as bco:recordSha256 describes to match it. Emitted only where that search finds the digest."@en .
 bco:recordCommit rdfs:label "record commit"@en .
 bco:recordCommit skos:definition "The full commit that introduced a prior record version: the earliest non-merge commit whose authored YAML, and for a metamodel concept whose specification section 4 row, yields that record digest."@en .
 
 bco:recordSha256 rdf:type owl:AnnotationProperty .
-bco:recordSha256 rdfs:comment "To verify a digest against the authored YAML: take the concept's mapping from vocab/metamodel.yaml or vocab/catalog.yaml at the commit in question, drop ratified_by, and for a metamodel concept add spec_row_content, the section 4 row's {label, iri, definition, parents, does_not_imply}; serialise with json.dumps(sort_keys=True, ensure_ascii=False, separators=(',', ':')) as UTF-8 with no trailing newline; the SHA-256 of those bytes, lowercase hex, is the digest. python tools/vocab/build.py --digest <curie> prints the current one."@en .
+bco:recordSha256 rdfs:comment "To verify a digest against the authored YAML: take the concept's mapping from metamodel.yaml or catalog.yaml in src/01_controlled_vocabulary/ (vocab/ before 2026-10-25) at the commit in question, drop ratified_by, and for a metamodel concept add spec_row_content, the section 4 row's {label, iri, definition, parents, does_not_imply}; serialise with json.dumps(sort_keys=True, ensure_ascii=False, separators=(',', ':')) as UTF-8 with no trailing newline; the SHA-256 of those bytes, lowercase hex, is the digest. python tools/vocab/build.py --digest <curie> prints the current one."@en .
 bco:recordSha256 rdfs:label "record SHA-256"@en .
 bco:recordSha256 skos:definition "The concept record digest defined in tools/vocab/build.py."@en .
 

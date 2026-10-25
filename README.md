@@ -38,7 +38,11 @@ needed.
 ```text
 specifications/   the specification in force, and its predecessors
 reviews/          review findings and recommendations
-ontology/         the BCO modules spec §2 names (headers only until ADR-002)
+src/              the six development stages, each with a README stating its status:
+  01_controlled_vocabulary/   the vocabulary YAML and its generated Turtle (ADR-003)
+  02_conceptual_models/       Stage 02, in progress; its standard is in docs/standards/
+  03_taxonomy/, 04_thesaurus/, 06_knowledge_graph/   not started
+  05_ontology/                the BCO modules spec §2 names (headers only until ADR-002)
 shapes/           SHACL shapes, and the fixtures built to break them
 vendor/           pinned partial extracts of BFO, CCO and BPO, with attribution
 drafts/           the v0.1 package, preserved
@@ -46,7 +50,7 @@ config/           layout contract, upstream pins, manifests, baseline, digest
 tools/            layout, licensing, vendoring, validation and digest tools
 site/             the public site's pages, copy and assets (built by tools/site/)
 tests/            the suite, including the falsifications
-docs/             handoff, development, process, decisions, import record
+docs/             handoff, development, process, decisions, standards, import record
 ```
 
 ## Foundations

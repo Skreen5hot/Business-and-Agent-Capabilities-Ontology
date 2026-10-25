@@ -31,7 +31,47 @@ version: 1
 
 components:
 
+  # ---- Development stages (src/) -----------------------------------
+  #
+  # The six stages the architect adopted on 2026-10-25
+  # (docs/decisions/2026-10-25-stage-02-choices.md). Each stage directory
+  # holds a README stating its status; the stages with content declare
+  # their files in the sections below by id, so moving a stage is a change
+  # of path here and nowhere else.
+
+  - id: stage.01-controlled-vocabulary.readme
+    path: src/01_controlled_vocabulary/README.md
+    role: documentation
+    description: Stage 01 (Controlled Vocabulary) -- its status and contents.
+
+  - id: stage.02-conceptual-models.readme
+    path: src/02_conceptual_models/README.md
+    role: documentation
+    description: Stage 02 (Conceptual Modeling) -- its status and contents.
+
+  - id: stage.03-taxonomy.readme
+    path: src/03_taxonomy/README.md
+    role: documentation
+    description: Stage 03 (Taxonomy) -- its status; nothing here yet.
+
+  - id: stage.04-thesaurus.readme
+    path: src/04_thesaurus/README.md
+    role: documentation
+    description: Stage 04 (Thesaurus) -- its status; nothing here yet.
+
+  - id: stage.05-ontology.readme
+    path: src/05_ontology/README.md
+    role: documentation
+    description: Stage 05 (Ontology) -- its status and contents.
+
+  - id: stage.06-knowledge-graph.readme
+    path: src/06_knowledge_graph/README.md
+    role: documentation
+    description: Stage 06 (Knowledge Graph) -- its status; nothing here yet.
+
   # ---- Authored ontology -------------------------------------------
+  #
+  # Stage 05, in src/05_ontology/ (ontology/ until 2026-10-25).
   #
   # The two modules specification v0.4 section 2 names. Both are an
   # owl:Ontology header and nothing else until ADR-002 is ratified. They
@@ -40,7 +80,7 @@ components:
   # that adds it.
 
   - id: ontology.cap
-    path: ontology/apqc-cap.ttl
+    path: src/05_ontology/apqc-cap.ttl
     role: ontology-module
     description: >-
       The capability module: Business Capability, the capability classes
@@ -48,7 +88,7 @@ components:
       written.
 
   - id: ontology.cap-desc
-    path: ontology/apqc-cap-desc.ttl
+    path: src/05_ontology/apqc-cap-desc.ttl
     role: ontology-module
     description: >-
       The description module: the seven description-layer classes and the
@@ -402,15 +442,16 @@ components:
 
   # ---- Controlled vocabulary (ADR-003; P3) ---------------------------
   #
-  # Authored YAML in vocab/, built by tools/vocab/build.py into Turtle in
-  # vocab/generated/. None of it is an ontology-module, so none of it is
-  # in the corpus digest. Since P4 the generated Turtle is marked
+  # Authored YAML in src/01_controlled_vocabulary/ (Stage 01; vocab/ until
+  # 2026-10-25), built by tools/vocab/build.py into Turtle in
+  # src/01_controlled_vocabulary/generated/. None of it is an
+  # ontology-module, so none of it is in the corpus digest. Since P4 the generated Turtle is marked
   # `vocabulary: true`, which puts it in the validation ladder's data graph
   # (layout.vocabulary_files) under the wellformedness and vocabulary
   # shapes. P3 shipped the tool and no terms; P5 adds them.
 
   - id: vocab.metamodel
-    path: vocab/metamodel.yaml
+    path: src/01_controlled_vocabulary/metamodel.yaml
     role: documentation
     description: >-
       Metamodel concept records (bcom:), one per concrete row of
@@ -420,7 +461,7 @@ components:
       build requires every section 4 row to have a record.
 
   - id: vocab.catalog
-    path: vocab/catalog.yaml
+    path: src/01_controlled_vocabulary/catalog.yaml
     role: documentation
     description: >-
       Catalog concept records (bcoc:): labels, a genus-differentia
@@ -429,7 +470,7 @@ components:
       notation, sources. Empty in P3; 5 Draft concepts since P5.
 
   - id: vocab.agents
-    path: vocab/agents.yaml
+    path: src/01_controlled_vocabulary/agents.yaml
     role: documentation
     description: >-
       The declared agents (bcoa:, ADR-003 D8): the architect as a
@@ -464,7 +505,7 @@ components:
       install or import LinkML.
 
   - id: generated.vocab-terms
-    path: vocab/generated/bco-vocabulary.ttl
+    path: src/01_controlled_vocabulary/generated/bco-vocabulary.ttl
     role: generated-artifact
     generator: tool.vocab-build
     vocabulary: true
@@ -473,7 +514,7 @@ components:
       bco:PCFCode datatype (ADR-003 D1, D7). No class.
 
   - id: generated.vocab-metamodel
-    path: vocab/generated/bco-metamodel.ttl
+    path: src/01_controlled_vocabulary/generated/bco-metamodel.ttl
     role: generated-artifact
     generator: tool.vocab-build
     vocabulary: true
@@ -484,7 +525,7 @@ components:
       history). The scheme alone in P3.
 
   - id: generated.vocab-catalog
-    path: vocab/generated/bco-catalog.ttl
+    path: src/01_controlled_vocabulary/generated/bco-catalog.ttl
     role: generated-artifact
     generator: tool.vocab-build
     vocabulary: true
@@ -494,7 +535,7 @@ components:
       commits read from git history). The scheme alone in P3.
 
   - id: generated.vocab-sources
-    path: vocab/generated/bco-sources.ttl
+    path: src/01_controlled_vocabulary/generated/bco-sources.ttl
     role: generated-artifact
     generator: tool.vocab-build
     vocabulary: true
@@ -505,12 +546,12 @@ components:
       docs/sources/register.yaml.
 
   - id: generated.vocab-agents
-    path: vocab/generated/bco-agents.ttl
+    path: src/01_controlled_vocabulary/generated/bco-agents.ttl
     role: generated-artifact
     generator: tool.vocab-build
     vocabulary: true
     description: >-
-      The declared bcoa: agents, generated from vocab/agents.yaml.
+      The declared bcoa: agents, generated from src/01_controlled_vocabulary/agents.yaml.
 
   - id: tool.vocab-build
     path: tools/vocab/build.py

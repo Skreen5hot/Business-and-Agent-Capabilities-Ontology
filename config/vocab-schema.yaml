@@ -1,8 +1,8 @@
 # The authored vocabulary YAML, described in LinkML (ADR-003 D9, as
 # ratified; LinkML go-limited by docs/decisions/2026-10-24-p2-linkml-signoff.md).
 #
-# What this file is for: the shape of vocab/metamodel.yaml,
-# vocab/catalog.yaml and vocab/agents.yaml, as readable documentation and
+# What this file is for: the shape of metamodel.yaml, catalog.yaml and
+# agents.yaml in src/01_controlled_vocabulary/, as readable documentation and
 # as the input to the one generator adopted, gen-json-schema, whose output
 # is committed as config/vocab-schema.json. `linkml validate` runs it over
 # the authored files in the vocab CI job (tools/vocab/schema_check.py).
@@ -298,7 +298,7 @@ slots:
 
 classes:
   MetamodelFile:
-    description: vocab/metamodel.yaml.
+    description: src/01_controlled_vocabulary/metamodel.yaml.
     slots:
       - version
     attributes:
@@ -309,7 +309,7 @@ classes:
         required: true
 
   CatalogFile:
-    description: vocab/catalog.yaml.
+    description: src/01_controlled_vocabulary/catalog.yaml.
     slots:
       - version
     attributes:
@@ -320,7 +320,7 @@ classes:
         required: true
 
   AgentsFile:
-    description: vocab/agents.yaml.
+    description: src/01_controlled_vocabulary/agents.yaml.
     slots:
       - version
       - agents

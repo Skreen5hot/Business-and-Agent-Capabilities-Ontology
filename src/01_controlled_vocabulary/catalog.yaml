@@ -1,5 +1,5 @@
 # Catalog concept records (bcoc:). Edited by hand; built by
-# tools/vocab/build.py into vocab/generated/bco-catalog.ttl.
+# tools/vocab/build.py into src/01_controlled_vocabulary/generated/bco-catalog.ttl.
 #
 # P5 holds the 5 pilot capabilities the specification's worked examples
 # and migration table name, all Draft. Their definitions were revised on

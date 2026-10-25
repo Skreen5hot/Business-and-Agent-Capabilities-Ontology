@@ -395,7 +395,7 @@ def test_the_site_build_reads_no_vocabulary_yaml(builder, repo, tmp_path,
 
     Every file the build opens is recorded. The generated Turtle must be
     among them -- otherwise this would pass for a build that read nothing
-    -- and no YAML under vocab/, nor the register YAML the source records
+    -- and no YAML under src/01_controlled_vocabulary/, nor the register YAML the source records
     are generated from, may be.
     """
     import builtins
@@ -419,11 +419,11 @@ def test_the_site_build_reads_no_vocabulary_yaml(builder, repo, tmp_path,
     root = repo.resolve()
     relative = {p.relative_to(root).as_posix() for p in opened
                 if p.is_relative_to(root)}
-    generated = {r for r in relative if r.startswith("vocab/generated/")
+    generated = {r for r in relative if r.startswith("src/01_controlled_vocabulary/generated/")
                  and r.endswith(".ttl")}
     assert len(generated) == 5, sorted(relative)[:40]
     yaml_read = sorted(r for r in relative
-                       if (r.startswith("vocab/") and r.endswith(".yaml"))
+                       if (r.startswith("src/01_controlled_vocabulary/") and r.endswith(".yaml"))
                        or r == "docs/sources/register.yaml")
     assert yaml_read == [], yaml_read
 
@@ -521,7 +521,7 @@ def test_the_status_page_counts_the_vocabulary_it_validates(built, repo):
     import rdflib
 
     graph = rdflib.Graph()
-    for path in sorted((repo / "vocab/generated").glob("*.ttl")):
+    for path in sorted((repo / "src/01_controlled_vocabulary/generated").glob("*.ttl")):
         graph.parse(path, format="turtle")
     concept = rdflib.URIRef("http://www.w3.org/2004/02/skos/core#Concept")
     expected = len(set(graph.subjects(rdflib.RDF.type, concept)))
