@@ -1,10 +1,10 @@
 # R7 Disposition — Formal Review of the Five BCO Turtle Artifacts
 
-Disposition drafted by Claude Code (claude-opus-5-5) at the architect's direction, 2026-10-25. Finding E is answered by the architect's decision (`docs/decisions/2026-10-25-r7-genus-decision.md`), whose "Proceed" also cleared the rest of the response proposed to him; this file is the proposal that response was summarised from, and it stays a proposal until he accepts it. Rows deferred to the OWL layer, RP-1, RP-10 or specification v0.5 are inputs to those decisions, not decisions.
+Disposition drafted by Claude Code (claude-opus-5-5) at the architect's direction, 2026-10-25. Finding E is answered by the architect's decision (`docs/decisions/2026-10-25-r7-genus-decision.md`), whose "Proceed" also cleared the rest of the response proposed to him; the architect accepted this disposition on 2026-10-25 (`docs/decisions/2026-10-25-r7-response-accepted.md`). Rows deferred to the OWL layer, RP-1, RP-10 or specification v0.5 are inputs to those decisions, not decisions.
 
 | Field | Value |
 | --- | --- |
-| Status | Proposed by Claude Code (claude-opus-5-5), 2026-10-25, for the architect's acceptance. Finding E is decided: `docs/decisions/2026-10-25-r7-genus-decision.md` |
+| Status | Accepted 2026-10-25 by the architect, Aaron Damiano — `docs/decisions/2026-10-25-r7-response-accepted.md`. Finding E was decided separately: `docs/decisions/2026-10-25-r7-genus-decision.md` |
 | Review | `reviews/R7-turtle-artifact-review.md`, filed verbatim as received |
 | Reviewed artifact | The five generated files in `vocab/generated/` after the R6 response (merged as PR #7): 14 Draft concepts, 63 source records, 2 agents |
 | Specification in force | `specifications/Business-Capability-Ontology-v0.4.0-draft.1.md` (draft; nothing in it is normative until ratified) |
