@@ -211,6 +211,15 @@ components:
       for specification v0.4; ADR-003 (controlled vocabulary) is the first
       written here.
 
+  - id: docs.standards
+    path: docs/standards
+    role: documentation
+    description: >-
+      The ontology development standards the architect supplies, one per
+      stage of the src/ layout, filed verbatim and never edited here.
+      Stage 02 (Conceptual Modeling) is the first, supplied 2026-10-25
+      (docs/decisions/2026-10-25-stage-02-choices.md).
+
   - id: docs.sources
     path: docs/sources
     role: documentation
