@@ -442,13 +442,77 @@ def test_every_review_is_on_the_reviews_page(built, repo):
         < page.index('id="review-r6-disposition"'), order
 
 
-def test_the_r6_disposition_is_rendered_as_a_disposition(built):
-    """Rendered, not excluded: a validator reading R6 sees the project's
-    proposed answer beside it, labelled as a proposal."""
+def test_the_r6_disposition_is_rendered_as_accepted(built):
+    """Rendered, not excluded, and labelled with the status its own Status
+    row states. The label was a hard-coded "(proposed)" and went on saying
+    so after the architect accepted R6's disposition on 2026-10-24."""
     out, _ = built
     page = (out / "review/index.html").read_text(encoding="utf-8")
-    assert "Disposition of R6 (proposed)" in page
-    assert "each row is a proposal until he accepts the PR" in page
+    assert "Disposition of R6 (accepted)" in page
+    assert "Disposition of R6 (proposed)" not in page
+    assert "2026-10-24-r6-response-accepted.md" in page
+
+
+def _review_pair(tmp_path, status_row):
+    review = tmp_path / "R9-some-review.md"
+    review.write_bytes(b"# A review\n\nText.\n")
+    disposition = tmp_path / "R9-disposition.md"
+    rows = "| Field | Value |\n| --- | --- |\n" + status_row
+    disposition.write_bytes(("# Disposition\n\n" + rows).encode("utf-8"))
+    return [review, disposition]
+
+
+@pytest.mark.parametrize("row, label", [
+    ("| Status | Proposed by the agent, 2026-11-01 |\n", "(proposed)"),
+    ("| Status | Accepted 2026-11-02 by the architect |\n", "(accepted)"),
+])
+def test_the_disposition_label_is_read_from_its_status_row(builder, tmp_path,
+                                                            monkeypatch, row,
+                                                            label):
+    monkeypatch.setattr(builder, "relative", lambda path: path.name)
+    ctx = {"repository": "https://example.invalid/repo", "commit": "0" * 40}
+    values = builder.reviews_values(ctx, _review_pair(tmp_path, row))
+    page = "".join(values.values())
+    assert "Disposition of R9 %s" % label in page
+
+
+@pytest.mark.parametrize("row", [
+    "",                                        # no Status row
+    "| Status | Pending review |\n",           # neither word
+    "| Status | Proposedly |\n",               # not the word itself
+    "| Status | Proposed |\n| Status | Accepted |\n",   # says both
+])
+def test_a_disposition_without_one_clear_status_is_refused(builder, tmp_path,
+                                                            monkeypatch, row):
+    monkeypatch.setattr(builder, "relative", lambda path: path.name)
+    ctx = {"repository": "https://example.invalid/repo", "commit": "0" * 40}
+    with pytest.raises(SystemExit) as error:
+        builder.reviews_values(ctx, _review_pair(tmp_path, row))
+    assert "Status rows" in str(error.value)
+
+
+def test_the_status_page_counts_the_vocabulary_it_validates(built, repo):
+    """The count is the SKOS concepts in the generated vocabulary, read from
+    the Turtle -- the population the vocabulary and wellformedness rungs
+    check. It said "Authored terms checked: 0" for a day after 14 concepts
+    entered the validation scope, because it counted ontology terms only."""
+    import rdflib
+
+    graph = rdflib.Graph()
+    for path in sorted((repo / "vocab/generated").glob("*.ttl")):
+        graph.parse(path, format="turtle")
+    concept = rdflib.URIRef("http://www.w3.org/2004/02/skos/core#Concept")
+    expected = len(set(graph.subjects(rdflib.RDF.type, concept)))
+    assert expected >= 14, expected
+
+    out, _ = built
+    page = (out / "status/index.html").read_text(encoding="utf-8")
+    assert ("<dt>Vocabulary concepts checked</dt><dd>%d</dd>" % expected
+            in page), "the Status page does not show the vocabulary count"
+    assert "<dt>Ontology terms checked</dt>" in page
+    assert "Authored terms checked" not in page
+    assert "every shape set conforms vacuously" not in page
+    assert "check the %d vocabulary concept(s)" % expected in page
 
 
 def test_ids_on_the_reviews_page_are_unique_and_prefixed(built):
@@ -506,8 +570,12 @@ def test_two_reviews_with_the_same_headings_get_distinct_ids(
 
 
 @pytest.mark.parametrize("files, needle", [
+    # The disposition states its status, so the collision is what is
+    # refused -- without the row it would be refused for that instead and
+    # this case would stop testing ids.
     ({"R1-review.md": "# A\n\n## Disposition x\n",
-      "R1-disposition.md": "# B\n\n## x\n"}, "more than once"),
+      "R1-disposition.md": "# B\n\n| Status | Proposed |\n\n## x\n"},
+     "more than once"),
     ({"R1-review.md": "# A\n", "R2-disposition.md": "# B\n"},
      "answers no review"),
     ({"notes.md": "# A\n"}, "not named R<n>"),

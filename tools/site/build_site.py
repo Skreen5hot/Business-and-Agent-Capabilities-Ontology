@@ -432,17 +432,39 @@ def page_ids(body: str) -> list[str]:
     return re.findall(r'\sid="([^"]*)"', body)
 
 
+DISPOSITION_STATUS = re.compile(
+    r"^\| Status \| (Proposed|Accepted)\b[^|]*\|\s*$", re.M)
+
+
+def disposition_status(text: str, path) -> str:
+    """Return "proposed" or "accepted", read from the disposition's own
+    Status row."""
+    found = DISPOSITION_STATUS.findall(text)
+    if len(found) != 1:
+        raise Refused(
+            "%s has %d Status rows reading Proposed or Accepted; a "
+            "disposition says exactly once which it is, and the Reviews "
+            "page reads it from there" % (relative(path), len(found)))
+    return found[0].lower()
+
+
 def reviews_values(ctx: dict, paths: list) -> dict:
     """The Reviews page: every file under reviews/, in sorted order, each
     under its own heading and with its own id prefix.
 
     A review is named R<n>-<words>.md. A file named R<n>-disposition.md is
-    the project's proposed disposition of review R<n>: it is rendered too,
+    the project's disposition of review R<n>: it is rendered too,
     directly after the review it answers and labelled as a disposition,
     so a validator reading a review sees the response beside it rather
     than the reviewer's word alone. Refused: a name of neither form, two
     reviews with one number, a disposition with no review, and any id the
     page would carry twice.
+
+    Whether a disposition is proposed or accepted is read from its own
+    `| Status | Proposed ... |` or `| Status | Accepted ... |` table row,
+    never typed here: the label said "(proposed)" for every disposition,
+    and went on saying it after R6's was accepted. A disposition with no
+    such row, or another word in it, is refused.
     """
     reviews, dispositions = {}, {}
     for path in sorted(paths, key=lambda p: p.name):
@@ -487,7 +509,8 @@ def reviews_values(ctx: dict, paths: list) -> dict:
             body, _toc = render_markdown(text, id_prefix=tag + "-",
                                          baselevel=3)
             heading = ("Review %s" % number if kind == "review"
-                       else "Disposition of %s (proposed)" % number)
+                       else "Disposition of %s (%s)"
+                       % (number, disposition_status(text, path)))
             contents.append('<li><a href="#review-%s">%s</a> &mdash; %s</li>'
                             % (tag, esc(heading), esc(first)))
             sections.append(
@@ -656,6 +679,18 @@ def notice_block(text: str) -> str:
 
 
 PROV = "http://www.w3.org/ns/prov#"
+
+
+def vocabulary_concept_count(graph, namespaces) -> int:
+    """SKOS concepts the vocabulary graph declares in an authored
+    namespace: the population the vocabulary and wellformedness rungs
+    validate."""
+    import rdflib
+
+    return sum(1 for s in set(graph.subjects(
+        rdflib.URIRef(RDF_TYPE), rdflib.URIRef(SKOS + "Concept")))
+        if isinstance(s, rdflib.URIRef) and str(s).startswith(
+            tuple(namespaces)))
 
 
 def vocabulary_values(graph, namespaces, known: list[tuple[str, str]],
@@ -1149,13 +1184,32 @@ def build(out: Path) -> list[tuple[str, str]]:
     decisions = ("<ul>\n%s\n</ul>" % "\n".join(decision_rows)
                  if decision_rows else "<p>None recorded.</p>")
 
+    # Counted from the generated vocabulary the ladder validates, not
+    # typed: this line said "Authored terms checked: 0" for a day after
+    # 14 vocabulary concepts entered the validation scope, because it
+    # counted ontology terms only.
+    concepts_checked = vocabulary_concept_count(data["vocabulary"],
+                                                data["authored_namespaces"])
+    if not authored_terms and not concepts_checked:
+        vacuity = ("<p>With no BCO term or vocabulary concept written, "
+                   "every shape set conforms vacuously. What shows the "
+                   "shapes work today is the fixture built to break them, "
+                   "which they reject.</p>")
+    elif not authored_terms:
+        vacuity = ("<p>No BCO ontology term is written yet, so the shapes "
+                   "over ontology classes conform vacuously; the "
+                   "vocabulary and wellformedness rungs check the %d "
+                   "vocabulary concept(s) counted above. Each shape set is "
+                   "also run against a fixture built to break it, which it "
+                   "rejects.</p>" % concepts_checked)
+    else:
+        vacuity = ""
     validation = definition_list(
-        [("Authored terms checked", "%d" % len(authored_terms))]
+        [("Ontology terms checked", "%d" % len(authored_terms)),
+         ("Vocabulary concepts checked", "%d" % concepts_checked)]
         + [("%s" % name, "%d recorded finding(s)" % entry["authored_findings"])
-           for name, entry in sorted(data["baseline"]["rungs"].items())]) + (
-        "<p>With no BCO term written, every shape set conforms vacuously. "
-        "What shows the shapes work today is the fixture built to break "
-        "them, which they reject.</p>" if not authored_terms else "")
+           for name, entry in sorted(data["baseline"]["rungs"].items())]) \
+        + vacuity
 
     unresolved_parts = []
     for key, record in sorted(data["extracts"]["extracts"].items()):
