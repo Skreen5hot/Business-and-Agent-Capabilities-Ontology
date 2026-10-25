@@ -76,8 +76,8 @@ The two modules spec v0.4 §2 names exist as `owl:Ontology` headers only:
 
 | File | Will hold |
 |---|---|
-| `ontology/apqc-cap.ttl` | Business Capability, the capability classes with their `enablesProcess` index, reviewed unions |
-| `ontology/apqc-cap-desc.ttl` | the seven description-layer classes and the Authorization Record |
+| `src/05_ontology/apqc-cap.ttl` | Business Capability, the capability classes with their `enablesProcess` index, reviewed unions |
+| `src/05_ontology/apqc-cap-desc.ttl` | the seven description-layer classes and the Authorization Record |
 
 Before the first term is minted:
 
@@ -118,7 +118,7 @@ path is missing is a contract describing something that is not there.
 
 ```yaml
   - id: ontology.cap                  # stable; queries and tests reference the id, not the path
-    path: ontology/apqc-cap.ttl
+    path: src/05_ontology/apqc-cap.ttl
     role: ontology-module
     description: >-
       What it is, and anything a reader would otherwise have to reconstruct.
@@ -267,7 +267,7 @@ decided by traversal order. This will matter the day the first BCO term lands.
 
 **The Vocabulary page (P4)** is `site/pages/vocabulary.html`, filled by
 `vocabulary_values` in `tools/site/build_site.py` from the generated Turtle
-(`layout.vocabulary_files()`), never from `vocab/*.yaml` -- a test records every file the
+(`layout.vocabulary_files()`), never from `src/01_controlled_vocabulary/*.yaml` -- a test records every file the
 build opens and refuses one. It shows the authored namespaces (prefixes read from the
 Turtle's own bindings), both schemes, each concept's labels, definition, derived status,
 notation, designated class, genus and foundational ancestor (catalog, since R7),
@@ -348,22 +348,22 @@ no terms. **P5 added the pilot vocabulary:** 9 metamodel concepts, one per concr
 section 4 row, and 5 catalog concepts (Strategic Planning, Treasury Management,
 Competitive Analysis, Business Model Governance, Customer Experience Management), all
 Draft and none ratified. The catalog records carry no `notation`, `broader` or
-`designates_class`; the header of `vocab/catalog.yaml` says why. Review R7 (2026-10-25)
+`designates_class`; the header of `src/01_controlled_vocabulary/catalog.yaml` says why. Review R7 (2026-10-25)
 changed the export: claims are resources, prior records are described, and the catalog
 genus is recorded as an immediate genus plus a foundational ancestor -- sections below.
 
 | File | Holds | Edited by |
 |---|---|---|
-| `vocab/metamodel.yaml` | one provenance wrapper per spec section 4 row (`bcom:`): sources, drafting agent, notes, status inputs. Never a definition | hand |
-| `vocab/catalog.yaml` | catalog concepts (`bcoc:`): labels, a genus-differentia definition with its immediate `genus` and its `foundational_ancestor`, `broader`, a PCF 7.4 `notation`, sources | hand |
-| `vocab/agents.yaml` | declared agents (`bcoa:`): the architect as a Person, `claude-opus-5-5` as a SoftwareAgent on his behalf | hand |
-| `vocab/generated/*.ttl` | `bco-vocabulary`, `bco-metamodel`, `bco-catalog`, `bco-sources`, `bco-agents` | `tools/vocab/build.py --write` |
+| `src/01_controlled_vocabulary/metamodel.yaml` | one provenance wrapper per spec section 4 row (`bcom:`): sources, drafting agent, notes, status inputs. Never a definition | hand |
+| `src/01_controlled_vocabulary/catalog.yaml` | catalog concepts (`bcoc:`): labels, a genus-differentia definition with its immediate `genus` and its `foundational_ancestor`, `broader`, a PCF 7.4 `notation`, sources | hand |
+| `src/01_controlled_vocabulary/agents.yaml` | declared agents (`bcoa:`): the architect as a Person, `claude-opus-5-5` as a SoftwareAgent on his behalf | hand |
+| `src/01_controlled_vocabulary/generated/*.ttl` | `bco-vocabulary`, `bco-metamodel`, `bco-catalog`, `bco-sources`, `bco-agents` | `tools/vocab/build.py --write` |
 | `config/vocab-schema.yaml` | the LinkML schema of the three YAML files | hand |
 | `config/vocab-schema.json` | its `gen-json-schema` output, LF | `tools/vocab/schema_check.py --write` |
 
 ```bash
 python tools/vocab/build.py                 # check: ADR-003's rules, then freshness
-python tools/vocab/build.py --write         # regenerate vocab/generated/
+python tools/vocab/build.py --write         # regenerate src/01_controlled_vocabulary/generated/
 python tools/vocab/build.py --digest bcoc:X # the record digest an act cites
 python tools/vocab/spec_terms.py            # what section 4 parses to
 python -m pytest tests/test_vocab.py -q -p no:randomly
@@ -391,7 +391,7 @@ annotation-properties table skipped by header. A record is `bcom:<LocalName>` wi
 `spec_row: ex:<LocalName>`; its definition, label, parents and "Does not imply" are the
 row's, verbatim, and its `bco:designatesClass` is `bco:<LocalName>`.
 
-**The staging rule.** Once `vocab/metamodel.yaml` lists one concept, every concrete row
+**The staging rule.** Once `src/01_controlled_vocabulary/metamodel.yaml` lists one concept, every concrete row
 needs a record (`D4-row-uncovered`) and every record must name a row (`D4-no-row`).
 While the list is empty, coverage is not checked; P5 added all nine at once, so coverage
 is checked on every build now.
@@ -409,8 +409,12 @@ Turtle (`bco:recordSha256`, and the suffix of `<ns>record-<digest>`) can be chec
 without the build, at any commit:
 
 ```bash
-git show <commit>:vocab/catalog.yaml       # or vocab/metamodel.yaml
+git show <commit>:src/01_controlled_vocabulary/catalog.yaml   # or metamodel.yaml
+git show <commit>:vocab/catalog.yaml                           # a commit before 2026-10-25
 ```
+
+The YAML was under `vocab/` until the stage layout moved it on 2026-10-25; every prior
+record recorded so far was written there.
 
 ```python
 import hashlib, json, yaml
@@ -485,11 +489,17 @@ record it replaces, and the graph says `<current record> prov:wasRevisionOf
 with its `bco:recordSha256`, and, where git settles it, `bco:recordCommit` (the commit
 that introduced it) and its own `prov:wasRevisionOf`, from the `revises` it carried at
 that commit, recursively. The build finds the commit by recomputing record digests over
-the non-merge commits HEAD reaches that touched `vocab/metamodel.yaml`,
-`vocab/catalog.yaml` or `specifications/`, each with that commit's own section 4 rows
-(read through that commit's layout contract): a commit introduces a digest when its tree
-yields it and its parent's does not, and the earliest by commit time, then hash, wins. A
-digest no commit yields still gets its node, without a commit. Three consequences:
+the non-merge commits HEAD reaches that touched `metamodel.yaml`, `catalog.yaml` or
+`specifications/`, each with that commit's own section 4 rows (read through that commit's
+layout contract): a commit introduces a digest when its tree yields it and its parent's
+does not, and the earliest by commit time, then hash, wins. A digest no commit yields
+still gets its node, without a commit. The YAML moved from `vocab/` to
+`src/01_controlled_vocabulary/` on 2026-10-25, so the search follows the move: it covers
+every path any layout contract HEAD reaches has declared for `vocab.metamodel` or
+`vocab.catalog`, and reads each commit's YAML at the path that commit's own contract
+declares.
+`test_a_prior_record_is_found_across_a_move_of_the_yaml` holds it to that. Four
+consequences:
 
 - **It needs the full history.** CI checks out with `fetch-depth: 0`; a shallow clone is
   the finding `D3-history-shallow` (only when some record revises another), because it
@@ -498,11 +508,15 @@ digest no commit yields still gets its node, without a commit. Three consequence
   record written on a branch is a branch commit; a squash merge would leave `main`
   without it, the build on `main` would find a different commit, and the committed
   Turtle would be stale.
+- **A move of the YAML changes its path in the layout contract, in the same commit.** The
+  search reads a commit's YAML where that commit's contract says it is; a move that left
+  the contract behind would hide the records before it.
 - **The full history of a record is in git, not in the graph.** `git log --full-history
-  -- vocab/catalog.yaml vocab/metamodel.yaml` lists the commits that changed records;
-  `git show <commit>:vocab/catalog.yaml` gives a record as it stood; the digest check
-  above matches it to a node. The `rdfs:comment` on `bco:recordCommit` and
-  `bco:recordSha256` says the same.
+  -- src/01_controlled_vocabulary/catalog.yaml src/01_controlled_vocabulary/metamodel.yaml
+  vocab/catalog.yaml vocab/metamodel.yaml` lists the commits that changed records;
+  `git show <commit>:<path>`, at the path that commit holds it, gives a record as it
+  stood; the digest check above matches it to a node. The `rdfs:comment` on
+  `bco:recordCommit` and `bco:recordSha256` says the same.
 
 **The catalog genus (review R7, Finding E;
 `docs/decisions/2026-10-25-r7-genus-decision.md`).** `genus` is the definition's
@@ -554,7 +568,7 @@ and 38 cases built to break the schema. `gen-shacl` and `gen-owl` are never run.
 
 ## The vocabulary in the validation ladder (P4)
 
-**How it gets in.** The five generated files in `vocab/generated/` carry `vocabulary: true`
+**How it gets in.** The five generated files in `src/01_controlled_vocabulary/generated/` carry `vocabulary: true`
 in `config/repository-layout.yaml`; `layout.vocabulary_files()` returns them, and
 `tools/ontology/validate.py` loads them into the data graph beside the ontology modules and
 the vendored extracts. Only a `generated-artifact` may carry the attribute. A violation

@@ -639,7 +639,7 @@ def test_the_vocabulary_is_in_the_data_graph_and_not_the_digest(
     vocabulary = sorted(p.relative_to(repo).as_posix()
                         for p in layout.vocabulary_files())
     assert vocabulary == sorted(
-        "vocab/generated/%s.ttl" % name for name in (
+        "src/01_controlled_vocabulary/generated/%s.ttl" % name for name in (
             "bco-vocabulary", "bco-metamodel", "bco-catalog", "bco-sources",
             "bco-agents")), vocabulary
     assert sorted(validation["scope"]["vocabulary_files"]) == vocabulary

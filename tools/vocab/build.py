@@ -2,17 +2,18 @@
 """Build the controlled vocabulary: authored YAML to Turtle (ADR-003).
 
     python tools/vocab/build.py                 # check: findings, then freshness
-    python tools/vocab/build.py --write         # regenerate vocab/generated/
+    python tools/vocab/build.py --write         # regenerate the generated/ Turtle
     python tools/vocab/build.py --out DIR       # write the build into DIR
     python tools/vocab/build.py --digest bcoc:X # print a concept record digest
 
-INPUTS (paths from config/repository-layout.yaml)
+INPUTS (paths from config/repository-layout.yaml; the vocabulary files are
+in src/01_controlled_vocabulary/, which was vocab/ until 2026-10-25)
 
-    vocab/metamodel.yaml   metamodel concept records (bcom:), one per spec
+    metamodel.yaml         metamodel concept records (bcom:), one per spec
                            section 4 row. P3 ships the file with an empty
                            `concepts` list; P5 fills it.
-    vocab/catalog.yaml     catalog concept records (bcoc:). Empty in P3.
-    vocab/agents.yaml      declared agents (bcoa:), D8.
+    catalog.yaml           catalog concept records (bcoc:). Empty in P3.
+    agents.yaml            declared agents (bcoa:), D8.
     the specification in force (layout role `specification`), section 4
     docs/sources/register.yaml, the source register (D6, D8)
     vendor/**              the vendored extracts, to resolve upstream IRIs
@@ -21,16 +22,16 @@ The three vocab files must exist. An absent file is a finding, not an
 empty list: the layout contract declares them, and "absent means empty"
 would let a deleted file pass as a vocabulary with no terms.
 
-OUTPUTS (generated artifacts; never edit them)
+OUTPUTS (generated artifacts, in src/01_controlled_vocabulary/generated/;
+never edit them)
 
-    vocab/generated/bco-vocabulary.ttl  the bco: annotation properties and
-                                        the bco:PCFCode datatype (D1, D7)
-    vocab/generated/bco-metamodel.ttl   bcom:MetamodelScheme and its concepts
-    vocab/generated/bco-catalog.ttl     bcoc:CapabilityCatalogScheme and its
-                                        concepts
-    vocab/generated/bco-sources.ttl     one bcos: record per register entry,
-                                        and one resource per claim
-    vocab/generated/bco-agents.ttl      the declared bcoa: agents
+    bco-vocabulary.ttl     the bco: annotation properties and the
+                           bco:PCFCode datatype (D1, D7)
+    bco-metamodel.ttl      bcom:MetamodelScheme and its concepts
+    bco-catalog.ttl        bcoc:CapabilityCatalogScheme and its concepts
+    bco-sources.ttl        one bcos: record per register entry, and one
+                           resource per claim
+    bco-agents.ttl         the declared bcoa: agents
 
 Written by the serialiser in tools/ontology/vendor_upstream.py (D9): sorted
 triples, one per line, no blank nodes, its own escaping, reparsed and
@@ -93,7 +94,11 @@ carried at that commit, recursively. The introducing commit is found by
 recomputing record digests over the non-merge commits HEAD reaches that
 touched the vocab YAML or specifications/ (with each commit's own
 specification section 4 rows, read through that commit's layout
-contract): a commit introduces a digest when its tree yields it and its
+contract). The YAML has moved (vocab/ to src/01_controlled_vocabulary/,
+2026-10-25), so the search follows the move: it covers every path a
+layout contract HEAD reaches has declared for the YAML, and reads each
+commit's YAML at the path that commit's own contract declares. A commit
+introduces a digest when its tree yields it and its
 parent's does not; the earliest by commit time (then hash) wins. A digest
 no commit yields gets the node without bco:recordCommit. A shallow clone
 is a finding, because it would silently drop commits. The commit is the
@@ -117,7 +122,7 @@ no subclass axiom is asserted.
 THE METAMODEL STAGING RULE (D4)
 
 Every section 4 row must have a metamodel record, and every record must
-name a row -- once `vocab/metamodel.yaml` lists at least one concept. With
+name a row -- once `metamodel.yaml` lists at least one concept. With
 an empty list the coverage half is not applied, because P3 ships no terms
 and P5 adds them. The section 4 parse runs regardless: a spec whose Terms
 tables cannot be read is a finding on every build.
@@ -317,8 +322,9 @@ PROPERTIES = {
                      "The concept record digest defined in "
                      "tools/vocab/build.py.",
                      "To verify a digest against the authored YAML: take the "
-                     "concept's mapping from vocab/metamodel.yaml or "
-                     "vocab/catalog.yaml at the commit in question, drop "
+                     "concept's mapping from metamodel.yaml or catalog.yaml "
+                     "in src/01_controlled_vocabulary/ (vocab/ before "
+                     "2026-10-25) at the commit in question, drop "
                      "ratified_by, and for a metamodel concept add "
                      "spec_row_content, the section 4 row's {label, iri, "
                      "definition, parents, does_not_imply}; serialise with "
@@ -333,10 +339,14 @@ PROPERTIES = {
                      "for a metamodel concept whose specification section 4 "
                      "row, yields that record digest.",
                      "A record's full history is in git, not in this graph. "
-                     "git log --full-history -- vocab/catalog.yaml "
-                     "vocab/metamodel.yaml lists the commits that changed "
-                     "the records, and git show <commit>:vocab/catalog.yaml "
-                     "gives the record as it stood; recompute its digest as "
+                     "git log --full-history -- "
+                     "src/01_controlled_vocabulary/catalog.yaml "
+                     "src/01_controlled_vocabulary/metamodel.yaml "
+                     "vocab/catalog.yaml vocab/metamodel.yaml lists the "
+                     "commits that changed the records (vocab/ before "
+                     "2026-10-25), and git show <commit>:<path>, at the path "
+                     "that commit holds it, gives the record as it stood; "
+                     "recompute its digest as "
                      "bco:recordSha256 describes to match it. Emitted only "
                      "where that search finds the digest."),
     "ratifiedBy": ("ratified by",
@@ -559,34 +569,64 @@ def _history(repo_text: str, head: str) -> tuple:
         return True, {}
     names = {key: layout.component(cid).path
              for key, cid in INPUT_IDS.items() if key != "agents"}
-    code, out = _git(repo, "log", "--full-history", "--no-merges",
-                     "--format=%H %ct %P", head, "--",
-                     names["metamodel"], names["catalog"], "specifications")
-    if code:
-        return False, {}
 
     def show(commit: str, path: str):
         code, data = _git(repo, "show", "%s:%s" % (commit, path))
         return data.decode("utf-8") if code == 0 else None
 
     @functools.lru_cache(maxsize=None)
+    def components(commit: str) -> tuple:
+        """The component mappings of `commit`'s own layout contract."""
+        contract = show(commit, "config/repository-layout.yaml")
+        try:
+            return tuple(c for c in (yaml.safe_load(contract or "")
+                                     or {}).get("components") or []
+                         if isinstance(c, dict))
+        except yaml.YAMLError:
+            return ()
+
+    def located(commit: str) -> dict:
+        """{kind: path} for the YAML in `commit`'s tree: where that
+        commit's own contract declares it, the current path where the
+        commit declares no such id."""
+        declared = {c.get("id"): c.get("path") for c in components(commit)}
+        return {kind: (declared.get(INPUT_IDS[kind])
+                       if isinstance(declared.get(INPUT_IDS[kind]), str)
+                       else None) or path
+                for kind, path in names.items()}
+
+    # The YAML has moved (vocab/ -> src/01_controlled_vocabulary/,
+    # 2026-10-25), and history before a move is under the old path. Every
+    # path any contract HEAD reaches has declared for these ids joins the
+    # search, so the log reaches the commits that wrote records before a
+    # move. A move changes the contract in the same commit, or the layout
+    # test fails, so every path the YAML has had is declared somewhere.
+    code, out = _git(repo, "log", "--format=%H", head, "--",
+                     "config/repository-layout.yaml")
+    if code:
+        return False, {}
+    paths = set(names.values())
+    for commit in out.decode("ascii").split():
+        paths.update(located(commit).values())
+    code, out = _git(repo, "log", "--full-history", "--no-merges",
+                     "--format=%H %ct %P", head, "--", *sorted(paths),
+                     "specifications")
+    if code:
+        return False, {}
+
+    @functools.lru_cache(maxsize=None)
     def held(commit: str) -> dict:
         """{digest: record} for the records `commit`'s tree holds."""
         out: dict = {}
         rows: dict = {}
-        contract = show(commit, "config/repository-layout.yaml")
-        try:
-            specs = [c.get("path") for c in (yaml.safe_load(contract or "")
-                                             or {}).get("components") or []
-                     if isinstance(c, dict)
-                     and c.get("role") == "specification"]
-        except yaml.YAMLError:
-            specs = []
+        specs = [c.get("path") for c in components(commit)
+                 if c.get("role") == "specification"]
         text = show(commit, specs[0]) if len(specs) == 1 else None
         if text is not None:
             rows = {r.spec_iri: r for r in spec_terms.parse_text(text).rows}
+        where = located(commit)
         for kind in ("metamodel", "catalog"):
-            text = show(commit, names[kind])
+            text = show(commit, where[kind])
             try:
                 data = yaml.safe_load(text) if text is not None else None
             except yaml.YAMLError:
@@ -1133,16 +1173,18 @@ def build(inputs: Inputs) -> Result:
                                    history))
 
     table = prefix_table()
+    declared = {key: layout.component(cid).path
+                for key, cid in INPUT_IDS.items()}
     inputs_named = {
         "bco-vocabulary.ttl": [GENERATOR],
-        "bco-metamodel.ttl": ["vocab/metamodel.yaml",
+        "bco-metamodel.ttl": [declared["metamodel"],
                               "specification section 4 (%s)"
                               % inputs.spec.name,
                               "git history, for prior records"],
-        "bco-catalog.ttl": ["vocab/catalog.yaml",
+        "bco-catalog.ttl": [declared["catalog"],
                             "git history, for prior records"],
         "bco-sources.ttl": ["docs/sources/register.yaml"],
-        "bco-agents.ttl": ["vocab/agents.yaml"],
+        "bco-agents.ttl": [declared["agents"]],
     }
     for name, triples in graphs.items():
         header = [

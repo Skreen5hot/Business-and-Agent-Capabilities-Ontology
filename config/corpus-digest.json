@@ -14,7 +14,7 @@
   },
   "note": "Ground triples and blank-node shape together cover every triple. Blank nodes are renamed by every parse, so their identities are erased and only their structure is digested.",
   "per_file": {
-    "ontology/apqc-cap-desc.ttl": {
+    "src/05_ontology/apqc-cap-desc.ttl": {
       "blank_nodes": {
         "blank_nodes": 0,
         "distinct_shapes": 0,
@@ -25,7 +25,7 @@
       "ground_triples": 4,
       "triples": 4
     },
-    "ontology/apqc-cap.ttl": {
+    "src/05_ontology/apqc-cap.ttl": {
       "blank_nodes": {
         "blank_nodes": 0,
         "distinct_shapes": 0,
@@ -41,8 +41,8 @@
     "files": 2,
     "from": "config/repository-layout.yaml, roles ontology-module and ontology-module-set",
     "paths": [
-      "ontology/apqc-cap-desc.ttl",
-      "ontology/apqc-cap.ttl"
+      "src/05_ontology/apqc-cap-desc.ttl",
+      "src/05_ontology/apqc-cap.ttl"
     ]
   }
 }

@@ -1,5 +1,5 @@
 # Metamodel concept records (bcom:), ADR-003 D4. Edited by hand; built by
-# tools/vocab/build.py into vocab/generated/bco-metamodel.ttl.
+# tools/vocab/build.py into src/01_controlled_vocabulary/generated/bco-metamodel.ttl.
 #
 # P5 holds one record for each of the 9 concrete rows of specification
 # section 4, all Draft. Because the list is non-empty, every concrete row
@@ -18,7 +18,7 @@
 #                                       #   definitional | contextual (R6, 6.1)
 #         departure_note: ...           # departs-from only, required there
 #         claim: 1                      # departs-from only: the entry's claim, at V or P
-#     drafted_by: bcoa:claude-opus-5-5  # a declared agent (vocab/agents.yaml)
+#     drafted_by: bcoa:claude-opus-5-5  # a declared agent (src/01_controlled_vocabulary/agents.yaml)
 #     created: "2026-11-01T00:00:00Z"   # quoted, UTC
 #     authored_status: Draft            # Draft or Candidate, nothing else
 #     # optional: ratified_by {path, commit, sha256}, is_replaced_by,

@@ -697,7 +697,7 @@ def vocabulary_values(graph, namespaces, known: list[tuple[str, str]],
                       empty_notice: str) -> dict:
     """The Vocabulary page's placeholders, from the generated Turtle.
 
-    `graph` is vocab/generated/*.ttl merged -- never the YAML: what the
+    `graph` is src/01_controlled_vocabulary/generated/*.ttl merged -- never the YAML: what the
     site publishes is what tools/vocab/build.py published, after its
     checks, not a second reading of its inputs. `namespaces` is
     validate.AUTHORED_NAMESPACES, whose first entry is bco:, where the
@@ -913,9 +913,9 @@ def gather() -> dict:
     authored_namespaces = validate.AUTHORED_NAMESPACES
 
     # The generated vocabulary Turtle, from the layout contract
-    # (`vocabulary: true`). Never vocab/*.yaml: the page publishes what
+    # (`vocabulary: true`). Never src/01_controlled_vocabulary/*.yaml: the page publishes what
     # tools/vocab/build.py built, and tests/test_site.py checks that no
-    # YAML under vocab/ is opened by this build.
+    # YAML under src/01_controlled_vocabulary/ is opened by this build.
     vocabulary_graphs = [parse(path) for path in layout.vocabulary_files()]
     if not vocabulary_graphs:
         raise Refused("the layout contract marks no file vocabulary: true, "

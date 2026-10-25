@@ -634,7 +634,8 @@ def test_the_act_format_documented_is_the_one_parsed(cit, repo):
     following the documentation writes an act the build accepts."""
     for text in (cit.__doc__,
                  (repo / "docs/DEVELOPMENT.md").read_text(encoding="utf-8"),
-                 (repo / "vocab/metamodel.yaml").read_text(encoding="utf-8")):
+                 (repo / "src/01_controlled_vocabulary/metamodel.yaml")
+                 .read_text(encoding="utf-8")):
         for key in sorted(cit.ACT_KEYS | cit.APPROVAL_KEYS
                           | cit.VALIDATION_KEYS | cit.ITEM_KEYS):
             assert key + ":" in text, key
@@ -818,7 +819,8 @@ def test_every_real_consistent_with_states_its_support(repo):
     the classification is checked even if the build's rule regressed."""
     seen = {"definitional": 0, "contextual": 0}
     for name in ("metamodel", "catalog"):
-        data = yaml.safe_load((repo / "vocab" / (name + ".yaml"))
+        data = yaml.safe_load((repo / "src/01_controlled_vocabulary"
+                               / (name + ".yaml"))
                               .read_bytes().decode("utf-8"))
         for record in data["concepts"]:
             for ref in record["sources"]:
@@ -1034,17 +1036,20 @@ def test_revises_links_record_versions(vb, layout, spec_path, tmp_path):
     assert "%s bco:recordCommit" % prior not in text
 
 
+#: Where the catalog YAML is now (the layout contract's vocab.catalog).
+CATALOG_PATH = "src/01_controlled_vocabulary/catalog.yaml"
+
+
 def history_repo(tmp_path, records_by_commit):
-    """A throwaway repository whose vocab/catalog.yaml holds each list of
-    records in turn, one commit each. Returns the commits, oldest first."""
+    """A throwaway repository whose catalog YAML, at CATALOG_PATH, holds
+    each list of records in turn, one commit each. Returns the repo."""
     repo = tmp_path / "historyrepo"
-    (repo / "vocab").mkdir(parents=True)
+    (repo / CATALOG_PATH).parent.mkdir(parents=True)
     git(repo, "init", "-q")
     git(repo, "symbolic-ref", "HEAD", "refs/heads/main")
     commits = []
     for n, records in enumerate(records_by_commit):
-        dump(repo / "vocab" / "catalog.yaml", {"version": 1,
-                                                "concepts": records})
+        dump(repo / CATALOG_PATH, {"version": 1, "concepts": records})
         git(repo, "add", "-A")
         git(repo, "commit", "-q", "-m", "c%d" % n,
             "--date", "2026-10-%02dT00:00:00Z" % (n + 1))
@@ -1084,6 +1089,50 @@ def test_a_prior_record_names_the_commit_that_introduced_it(
         "utf-8")
 
 
+def test_a_prior_record_is_found_across_a_move_of_the_yaml(
+        vb, layout, spec_path, tmp_path):
+    """The YAML moved from vocab/ to src/01_controlled_vocabulary/ on
+    2026-10-25. A record written before a move is found at the commit that
+    wrote it: the search covers every path a contract has declared for the
+    YAML, and reads each commit's YAML at the path that commit's own layout
+    contract declares."""
+    assert layout.component("vocab.catalog").path == CATALOG_PATH
+    first = cat(definition="A business capability that is the first.")
+    repo = tmp_path / "moverepo"
+    (repo / "vocab").mkdir(parents=True)
+    (repo / "config").mkdir()
+    git(repo, "init", "-q")
+    git(repo, "symbolic-ref", "HEAD", "refs/heads/main")
+
+    def contract(path):
+        dump(repo / "config" / "repository-layout.yaml", {
+            "version": 1, "components": [
+                {"id": "vocab.catalog", "path": path,
+                 "role": "documentation"}]})
+
+    dump(repo / "vocab" / "catalog.yaml", {"version": 1,
+                                            "concepts": [first]})
+    contract("vocab/catalog.yaml")
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "before", "--date",
+        "2026-10-01T00:00:00Z")
+    before = git(repo, "rev-parse", "HEAD")
+    (repo / CATALOG_PATH).parent.mkdir(parents=True)
+    git(repo, "mv", "vocab/catalog.yaml", CATALOG_PATH)
+    contract(CATALOG_PATH)
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "move", "--date",
+        "2026-10-02T00:00:00Z")
+    current = cat(definition="A business capability that is the second.",
+                  revises=vb.record_digest(first), change_note=["one"])
+    vb._history.cache_clear()
+    result = built(vb, make(tmp_path / "in", vb, layout, spec_path,
+                            catalog=[current], repo=repo))
+    text = result.files["bco-catalog.ttl"].decode("utf-8")
+    assert 'bcoc:record-%s bco:recordCommit "%s" .' % (
+        vb.record_digest(first), before) in text
+
+
 def test_a_shallow_clone_is_a_finding(vb, layout, spec_path, tmp_path):
     """Without the full history the introducing commit could silently be
     missing, so a shallow clone refuses to build a record that revises."""
@@ -1101,6 +1150,16 @@ def test_a_shallow_clone_is_a_finding(vb, layout, spec_path, tmp_path):
     # Positive control: the full repository builds the same record.
     built(vb, make(tmp_path / "in2", vb, layout, spec_path,
                    catalog=[current], repo=repo))
+
+
+def declared_path(repo, commit, cid):
+    """The path `commit`'s own layout contract declares for `cid`, or None:
+    the vocabulary YAML moved (vocab/ to src/01_controlled_vocabulary/,
+    2026-10-25), so a record is read where its commit held it."""
+    contract = yaml.safe_load(git(repo, "show", "%s:config/"
+                                  "repository-layout.yaml" % commit))
+    return next((c.get("path") for c in contract.get("components") or []
+                 if isinstance(c, dict) and c.get("id") == cid), None)
 
 
 def test_the_real_prior_records_resolve_and_verify(vb, repo):
@@ -1126,7 +1185,9 @@ def test_the_real_prior_records_resolve_and_verify(vb, repo):
         commit = graph.value(target, commit_p)
         assert commit is not None, target
         kind = "metamodel" if str(target).startswith(vb.BCOM) else "catalog"
-        text = git(repo, "show", "%s:vocab/%s.yaml" % (commit, kind))
+        cid = "vocab.%s" % kind
+        text = git(repo, "show", "%s:%s" % (commit,
+                                            declared_path(repo, commit, cid)))
         spec = git(repo, "show", "%s:specifications/"
                    "Business-Capability-Ontology-v0.4.0-draft.1.md" % commit)
         rows = {r.spec_iri: r for r in vb.spec_terms.parse_text(spec).rows}
@@ -1141,10 +1202,11 @@ def test_the_real_prior_records_resolve_and_verify(vb, repo):
         assert digest in found, (target, commit)
         # ... and the parent commit does not: it is the introducing one.
         parent = git(repo, "rev-parse", "%s^" % commit)
-        before = subprocess.run(["git", "show", "%s:vocab/%s.yaml"
-                                 % (parent, kind)], cwd=str(repo),
+        at_parent = declared_path(repo, parent, cid)
+        before = subprocess.run(["git", "show", "%s:%s"
+                                 % (parent, at_parent)], cwd=str(repo),
                                 capture_output=True)
-        if before.returncode == 0:
+        if at_parent and before.returncode == 0:
             assert digest[:16] not in before.stdout.decode("utf-8")
         verified += 1
     assert verified == 19

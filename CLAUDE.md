@@ -9,10 +9,16 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
 - The design is `specifications/Business-Capability-Ontology-v0.4.0-draft.1.md`. **It is a
   draft.** Nothing in it is normative until the architect ratifies it (RP-1 to RP-10, then
   ADR-002). Do not implement a CD or CAP item as if it were decided.
-- `ontology/apqc-cap.ttl` and `ontology/apqc-cap-desc.ttl` are empty `owl:Ontology` headers.
+- The repository follows six stages, `src/01_controlled_vocabulary/` to
+  `src/06_knowledge_graph/` (`docs/decisions/2026-10-25-stage-02-choices.md`); each stage
+  directory's README states its status. Stage 02 (Conceptual Modeling) is in progress under
+  `docs/standards/stage-02-conceptual-modeling.md`; no conceptual model is approved. The
+  vocabulary was under `vocab/` and the modules under `ontology/` until 2026-10-25;
+  records, ADRs and reviews written before then use the old paths, and stay as written.
+- `src/05_ontology/apqc-cap.ttl` and `src/05_ontology/apqc-cap-desc.ttl` are empty `owl:Ontology` headers.
   No BCO ontology term exists. The only `bco:` IRIs with triples are the controlled
   vocabulary's annotation properties and the `bco:PCFCode` datatype, declared in the generated
-  `vocab/generated/bco-vocabulary.ttl` (accepted 2026-10-24, `docs/decisions/2026-10-24-p3-accepted.md`).
+  `src/01_controlled_vocabulary/generated/bco-vocabulary.ttl` (accepted 2026-10-24, `docs/decisions/2026-10-24-p3-accepted.md`).
   Since P5 the vocabulary holds 14 concepts (9 metamodel, 5 catalog), all Draft and none
   ratified; its generated Turtle is in the validation data graph
   (layout `vocabulary: true`) under `shapes/vocabulary_shapes.ttl`, and not in the corpus digest.
@@ -63,10 +69,10 @@ The public site is for external validators and is built from the repository at d
 time; never commit `_site/`, and never type a figure into `site/` that the build can
 read.
 
-If `config/vocab-schema.yaml` or `vocab/*.yaml` changed, also run
+If `config/vocab-schema.yaml` or `src/01_controlled_vocabulary/*.yaml` changed, also run
 `.venv-vocab/Scripts/python tools/vocab/schema_check.py` in a venv with
 `requirements-vocab.txt` (LinkML; never installed into `.venv`). If the vocabulary
-inputs changed, `tools/vocab/build.py --write` regenerates `vocab/generated/`.
+inputs changed, `tools/vocab/build.py --write` regenerates `src/01_controlled_vocabulary/generated/`.
 
 If the ontology changed: `tools/ontology/corpus_digest.py -o config/corpus-digest.json`, and
 `tools/ontology/validate.py --record` if a finding was fixed. Commit messages carry the

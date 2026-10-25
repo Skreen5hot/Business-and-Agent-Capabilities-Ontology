@@ -29,14 +29,16 @@ evidence the checks work.
 | `reviews/R6-vocabulary-review.md`, `reviews/R6-disposition.md` | external review of the 14 Draft vocabulary terms, filed verbatim; the disposition of it, accepted 2026-10-24 | the review is the reviewer's; the disposition was accepted (section 5.13) |
 | `reviews/R7-turtle-artifact-review.md`, `reviews/R7-disposition.md` | external review of the five generated vocabulary Turtle files, filed verbatim; the proposed disposition of it | the review is the reviewer's; Finding E is decided (`docs/decisions/2026-10-25-r7-genus-decision.md`), the rest is a proposal until the architect accepts it (section 5.14) |
 | `drafts/BusinessCapabilityOntology_draft_v0.1.0/` | the earlier `bc:` Turtle package | preserved byte-for-byte; **never loaded** |
-| `ontology/apqc-cap.ttl`, `ontology/apqc-cap-desc.ttl` | the two modules spec §2 names | `owl:Ontology` headers only |
+| `src/` | the six development stages, each directory with a README stating its status (section 5.15) | 01 and 05 hold the files below; 02 is in progress; 03, 04, 06 are empty |
+| `src/05_ontology/apqc-cap.ttl`, `src/05_ontology/apqc-cap-desc.ttl` | the two modules spec §2 names | `owl:Ontology` headers only |
 | `shapes/` | wellformedness shapes (from ARO) and the vocabulary shapes (P4), each with its fixture | exercised by the fixtures, constraint by constraint |
 | `vendor/` | BFO, CCO, BPO partial extracts + NOTICE | generated from pins; digest-checked |
 | `config/` | layout contract, pins, manifests, baseline, digest | see `docs/DEVELOPMENT.md` |
 | `tools/`, `tests/` | ARO's generic tooling, adapted | the suite and CI |
 | `docs/decisions/` | the architect's acts and choices, verbatim | one entry: setup choices |
+| `docs/standards/` | the ontology development standards the architect supplies, verbatim | one: Stage 02, Conceptual Modeling (2026-10-25) |
 | `docs/sources/` | citation register of 63 sources on business capability, with the research notes behind it. The entries are data (`register.yaml`), the analysis prose is `register-companion.md`, and the Markdown register is generated from both by `tools/sources/build_register.py` | research input, not evidence; entries marked S, K or L are unverified against their primary text. The register's rules (claim status, quote length and keys, SRC ids, entry count, freshness) are hard failures (`tests/test_sources_register.py`) |
-| `vocab/`, `tools/vocab/`, `config/vocab-schema.*`, `requirements-vocab.txt` | the controlled-vocabulary build (ADR-003, P3): authored YAML, generated Turtle in `vocab/generated/`, the LinkML schema and its JSON Schema | the tool and its checks; since P5, 9 metamodel and 5 catalog concepts, all **Draft**. See sections 5.10 to 5.12 |
+| `src/01_controlled_vocabulary/`, `tools/vocab/`, `config/vocab-schema.*`, `requirements-vocab.txt` | the controlled-vocabulary build (ADR-003, P3): authored YAML, generated Turtle in `src/01_controlled_vocabulary/generated/`, the LinkML schema and its JSON Schema | the tool and its checks; since P5, 9 metamodel and 5 catalog concepts, all **Draft**. See sections 5.10 to 5.12 |
 | `communications/` | messages to and from BPO and ARO, under `communications/README.md` | checked by `tools/communications.py`; the vendoring-pin request to BPO was acknowledged (BPO `8f6622c`), and BPO announced a namespace move to `https://fandaws.com/ontology/bpo#` |
 | `docs/ARTIFACT-INVENTORY.md`, `docs/artifact-manifest.json` | the 2026-10-22 import record | held to its digests by a test |
 
@@ -167,7 +169,7 @@ truth for the 63 entries, with the Markdown generated from it (ADR-003 D6, which
 still PROPOSED). What it does not do yet:
 
 - **RDF since P3, no shape yet.** `tools/vocab/build.py` generates the `bcos:` records
-  ADR-003 D8 describes into `vocab/generated/bco-sources.ttl` (id, citation, claim
+  ADR-003 D8 describes into `src/01_controlled_vocabulary/generated/bco-sources.ttl` (id, citation, claim
   statuses); the shape that checks them is P4.
 - **Claims are one per verified part, not per assertion.** Each claim carries the
   verification status the Markdown gave the entry (83 claims across 63 entries), with a
@@ -183,12 +185,12 @@ still PROPOSED). What it does not do yet:
 
 ### 5.10 The vocabulary tool exists; the vocabulary does not (P3)
 
-`tools/vocab/build.py` turns `vocab/{metamodel,catalog,agents}.yaml` into five Turtle
-files in `vocab/generated/`, committed and compared with a fresh build in CI and in
+`tools/vocab/build.py` turns `src/01_controlled_vocabulary/{metamodel,catalog,agents}.yaml` into five Turtle
+files in `src/01_controlled_vocabulary/generated/`, committed and compared with a fresh build in CI and in
 `tests/test_vocab.py`. ADR-003 D1-D9 are enforced there; `docs/DEVELOPMENT.md` "The
 controlled vocabulary (P3)" says how. State at P3:
 
-- **No terms (at P3; P5 added them, section 5.12).** `vocab/metamodel.yaml` and `vocab/catalog.yaml` held empty lists. The
+- **No terms (at P3; P5 added them, section 5.12).** `src/01_controlled_vocabulary/metamodel.yaml` and `src/01_controlled_vocabulary/catalog.yaml` held empty lists. The
   generated metamodel and catalog files carry their scheme and nothing else. Every check
   is exercised by fixtures built in the tests, not by real records.
 - **Section 4 has 9 concrete rows**, not the 8 the approved plan's P5 row names:
@@ -199,7 +201,7 @@ controlled vocabulary (P3)" says how. State at P3:
   not in the corpus digest; since P4 it is in the SHACL data graph and on the site. See
   section 5.11.
 - **`bco:` holds 19 annotation properties and `bco:PCFCode`,** declared in the generated
-  `vocab/generated/bco-vocabulary.ttl`, as ADR-003 D1 places them. They are not in
+  `src/01_controlled_vocabulary/generated/bco-vocabulary.ttl`, as ADR-003 D1 places them. They are not in
   `ontology/`, and no class is minted.
 - **The PCF lexical form is assumed** (five digits), not checked against the PCF 7.4
   workbook, which is licensed and not here.
@@ -239,7 +241,7 @@ State at P4:
 
 ### 5.12 The pilot vocabulary is written, and none of it is ratified (P5)
 
-P5 filled `vocab/metamodel.yaml` and `vocab/catalog.yaml` for the architect to review on
+P5 filled `src/01_controlled_vocabulary/metamodel.yaml` and `src/01_controlled_vocabulary/catalog.yaml` for the architect to review on
 the site. State at P5:
 
 - **14 concepts, all Draft.** 9 metamodel concepts, one per concrete section 4 row, so
@@ -322,7 +324,7 @@ Reviews page, which now renders every `reviews/*.md`.
   RP-10: G1-T question 3 uses the wording that was removed from Competitive Analysis.
 - **CP-1 to CP-3:** the reasoner (test 10, Gate D2 at CP-2), and running R6's tests as a
   gate.
-- **Accepted as an offer:** a review of `vocab/generated/` Turtle. Sending it is the
+- **Accepted as an offer:** a review of `src/01_controlled_vocabulary/generated/` Turtle. Sending it is the
   architect's call.
 
 **Still Draft, all 14, with new record digests.** No digest from the P5 pull request is
@@ -388,6 +390,28 @@ branch, 4 answered by spec or ADR-003, 5 for spec v0.5, 2 deferred to the OWL la
 still says a catalog definition has "a BFO/CCO genus", which since R7 is the foundational
 ancestor (a ratified ADR changes only through a new one); the register has no claim text,
 so a claim resource carries none.
+
+### 5.15 The stage layout (2026-10-25)
+
+The architect adopted six development stages
+(`docs/decisions/2026-10-25-stage-02-choices.md`). A mechanical move put `vocab/` at
+`src/01_controlled_vocabulary/` and `ontology/` at `src/05_ontology/`, and gave each
+stage directory a README stating its status. No content changed: the generated Turtle
+differs only in the paths it names (its three `From:` headers, and the `rdfs:comment`s on
+`bco:recordCommit` and `bco:recordSha256`, which now name the old path beside the new one,
+because every prior record so far was written at the old one), the corpus digest's ground and shape digests are
+unchanged, and every prior record still resolves to the commit it did before. The
+prior-record search in `tools/vocab/build.py` now follows the move, reading each commit's
+YAML where that commit's own layout contract puts it
+(`test_a_prior_record_is_found_across_a_move_of_the_yaml`).
+
+**Not moved:** `shapes/`, `config/`, `docs/`, `tools/`, `vendor/`, `specifications/`,
+`reviews/`, `communications/`, `drafts/`, `site/`, `trials/`. Records, ADRs, reviews and
+communications written before the move keep the old paths, as written.
+
+**Next:** Stage 02 delivers CM-01, the Business Capability Conceptual Domain Model, under
+`docs/standards/stage-02-conceptual-modeling.md`. Approving it requires the architect's
+decision on RP-1 and RP-10.
 
 ## 6. Outside the repository
 
