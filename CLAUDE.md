@@ -61,6 +61,8 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
 .venv/Scripts/python tools/ontology/validate.py --gate
 .venv/Scripts/python tools/communications.py
 .venv/Scripts/python tools/vocab/build.py
+.venv/Scripts/python tools/conceptual/check_models.py
+.venv/Scripts/python tools/site/vendor_assets.py
 .venv/Scripts/python -m pytest tests/ -q -p no:randomly
 .venv/Scripts/python tools/site/build_site.py && .venv/Scripts/python tools/site/check_site.py
 ```

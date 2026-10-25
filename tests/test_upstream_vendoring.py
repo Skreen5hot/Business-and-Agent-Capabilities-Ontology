@@ -362,9 +362,18 @@ def test_the_extracts_say_what_cd1_and_cd3_assume(extracts):
 
 
 def test_the_extracts_are_third_party_and_redistributable(disposition):
+    """The three extracts, among the vendored rows. The site's vendored
+    assets (config/site-vendor.yaml) are third-party-redistributed too,
+    and are held to their own pins in tests/test_site.py; here every
+    vendored row is only required to be accounted for by one pin file or
+    the other."""
     rows = {row.path: row for row in disposition.classify()}
-    vendored = [row for row in rows.values()
-                if row.disposition == disposition.VENDORED]
+    extracts = disposition.vendored_sources()
+    site_assets = disposition.site_vendored_assets()
+    every = [row for row in rows.values()
+             if row.disposition == disposition.VENDORED]
+    assert {row.path for row in every} == set(extracts) | set(site_assets)
+    vendored = [row for row in every if row.path in extracts]
     assert len(vendored) == 3, [row.path for row in vendored]
     assert {row.licence for row in vendored} == {
         "CC-BY-4.0", "BSD-3-Clause", "MIT"}
@@ -384,8 +393,8 @@ def test_the_licence_comes_from_the_pins_not_from_this_repository(
     """
     monkeypatch.setattr(disposition, "project_licence",
                         lambda: "SENTINEL-PROJECT-LICENCE")
-    pinned = {path: entry["licence"]["spdx"]
-              for path, entry in disposition.vendored_sources().items()}
+    pinned = {path: entry["licence"]["spdx"] for path, (entry, _notice)
+              in disposition.redistributed_sources().items()}
     rows = [row for row in disposition.classify()
             if row.disposition == disposition.VENDORED]
     assert rows

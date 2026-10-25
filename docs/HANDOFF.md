@@ -153,8 +153,12 @@ carried over, and so has not been done for this site:
   one engine (the Claude desktop app's browser) at desktop and phone width, by eye.
 - Running `ranking.js` under Node in the tests, as ValueNet does. The ranking code is
   ValueNet's, unchanged apart from its global name, and is untested here.
-- A models page. ValueNet's diagrams are drawn from its ontology; the BCO has no
-  authored term to draw yet.
+- A models page drawn from the ontology, as ValueNet's is. The BCO has no authored term
+  to draw yet. The Models page that exists (`models/`, since Stage 02) renders the
+  conceptual models instead: their Mermaid source, drawn in the browser by a pinned,
+  vendored Mermaid 11.4.1 (`config/site-vendor.yaml`, `vendor/site/`), loaded on that
+  page only. It was checked in one engine (the desktop app's browser), dark scheme, by
+  eye.
 
 The stylesheet and the two scripts keep ValueNet's `SPDX-License-Identifier: Apache-2.0`
 headers, and the tools carried from ARO keep theirs, while this repository's `LICENSE` is
@@ -409,9 +413,25 @@ YAML where that commit's own layout contract puts it
 `reviews/`, `communications/`, `drafts/`, `site/`, `trials/`. Records, ADRs, reviews and
 communications written before the move keep the old paths, as written.
 
-**Next:** Stage 02 delivers CM-01, the Business Capability Conceptual Domain Model, under
-`docs/standards/stage-02-conceptual-modeling.md`. Approving it requires the architect's
-decision on RP-1 and RP-10.
+**CM-01 (drafted, not approved).** `src/02_conceptual_models/CM-01-business-capability.md`,
+0.1.0-draft.1: five patterns (capability and bearer; realization by BPO acts; description
+layer; sourcing and authorization; catalog, specialization and coverage), 6 Mermaid
+diagrams, 32 concepts, 38 relationships, CQ-1 to CQ-14 traced. RP-1 and RP-10 are its
+decision points DP-1 and DP-2, each with options, the R6 and R7 critiques, register
+evidence (SF-01 to SF-06) and a drafter's recommendation that is not a decision.
+**Next:** the architect decides DP-1, then DP-2; each is recorded verbatim in
+`docs/decisions/` with the model's digest, the model is revised to match, and
+specification v0.5 follows.
+
+**Stage 02 tooling.** `tools/conceptual/check_models.py` holds every
+`src/02_conceptual_models/CM-*.md` to a format contract: the standard's ten sections in
+order, a Mermaid diagram per pattern with a reading after each, every diagram node a
+described concept and every edge a described relationship (and none left undrawn), CQ
+traceability equal to the specification's section 7, decision points, open questions
+marked carried-forward or blocking, and no approval while anything blocks it. It checks
+completeness and internal references only; conceptual adequacy is the architect's review
+(standard section 7). The site's Models page renders each model, with its approval state
+read from its own Review status table.
 
 ## 6. Outside the repository
 

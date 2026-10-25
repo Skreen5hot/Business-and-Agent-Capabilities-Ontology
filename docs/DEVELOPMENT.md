@@ -45,6 +45,8 @@ python tools/ontology/corpus_digest.py        # measure the authored ontology
 python tools/ontology/validate.py             # the SHACL ladder
 python tools/sources/build_register.py        # the citation register's rules; Markdown is fresh
 python tools/vocab/build.py                   # ADR-003's vocabulary rules; the Turtle is fresh
+python tools/conceptual/check_models.py       # every conceptual model meets its format contract
+python tools/site/vendor_assets.py            # the vendored site assets match their pins (offline)
 python -m pytest tests/ -q -p no:randomly     # all of the above, plus the falsifications
 ```
 
@@ -52,11 +54,13 @@ python -m pytest tests/ -q -p no:randomly     # all of the above, plus the falsi
 |---|---|
 | `layout.py` | a declared component whose path does not exist; two components sharing an id; a generated artifact that names no generator and does not admit it has none |
 | `disposition.py` | a file matching two rules, or none; an adjudication naming no file; a `LICENSE` naming zero or two recognised licences |
-| `disposition.py --check` | a tracked file that may not be redistributed; a vendored extract whose required attribution is missing from `vendor/NOTICE.md` |
+| `disposition.py --check` | a tracked file that may not be redistributed; a vendored extract whose required attribution is missing from `vendor/NOTICE.md`, or a vendored site asset whose attribution is missing from `vendor/site/NOTICE.md` |
 | `vendor_upstream.py` | an upstream term the corpus, the shapes or the specification names that no extract describes (spec terms the last build recorded as unresolvable excepted); an extract whose digest is not what the manifest records |
 | `validate.py --gate` | a rung with more findings than `config/validation-baseline.json` records, a rung with fewer that has not been re-recorded, a shape set the fixture does not exercise, a rung blocked on missing vocabulary, a violation against a vendored term, and a rung the baseline does not mention |
 | `validate.py --record` | raising any recorded count without `--accept-regression "<why>"`. Lowering is always free |
 | `vocab/build.py` | everything in ADR-003 a schema cannot say: an unreadable section 4, a metamodel definition, an authored status, a record naming no row (and, once one record exists, a row with no record), a broken decision citation or act (including an act without both approvals by declared persons, or without a reachable validation commit and a non-empty gate list), a record changed after ratification, an unknown source, a missing locator, a weak or missing departure claim, a consistent-with with no support or support on another relation, a definition sharing six words with a registered quote, a malformed notation, a catalog genus that is neither a vendored BFO/CCO class nor a metamodel concept's designated class, a foundational ancestor that is not a vendored BFO/CCO class above that genus, a record that revises another in a shallow clone, an undeclared agent, a status act not by a Person, and committed Turtle that is not a fresh build |
+| `check_models.py` | a conceptual model (`src/02_conceptual_models/CM-*.md`) missing a title line, a Field/Value row, any of the ten section headings or their order; a pattern without a Mermaid diagram; a diagram without a `**Reading the diagram.**` paragraph after it, outside the flowchart subset, with a node label that is not a section 4 concept heading or an edge label that is not a section 5 Relationship, and a concept or relationship no diagram shows; a concept missing a section 4.2 bullet; a malformed relationship table; a decision point without exactly one `**Decision:**` (pending, or an existing `docs/decisions/` record) or two options; a traceability table whose CQ set is not the specification's section 7 set, or that names an undefined pattern, concept or RL id; an unnumbered assumption or open question, or an open question without exactly one of `*Carried forward.*` / `*Blocks approval.*`; approval while a decision is pending or a question blocks it; a `cco:`/`obo:`/`ex:` token not in the vendored extracts or a `bcom:`/`bcoc:` token not in the generated vocabulary (diagrams exempt); any other file in the models directory. Conceptual adequacy is not its question (standard section 7) |
+| `vendor_assets.py` | a vendored site asset (`vendor/site/`) whose sha256 is not its pin in `config/site-vendor.yaml`, a LICENSE that does not support the pinned SPDX id, and a `vendor/site/NOTICE.md` that is not a fresh generation. `--fetch` additionally refuses a tarball whose npm integrity or shasum is not pinned, a host other than registry.npmjs.org, and any member the pin does not list |
 | `build_register.py` | a claim status other than exactly V, P, S, K or L; a quote over 15 words, with a missing, malformed or duplicate key, placed other than once, or a second quote in one entry; a quotation mark typed into entry prose; an SRC id in any tracked file that names no entry; an entry count other than 63; a committed Markdown register that is not a fresh generation |
 
 `validate.py` writes a report with `-o config/validation-report.json`. That file is
@@ -232,8 +236,8 @@ requires the committed extracts to be byte-identical.
 ## The public site
 
 Published at https://skreen5hot.github.io/Business-and-Agent-Capabilities-Ontology/ by `.github/workflows/pages.yml`, for external validators: the rendered
-specification, every review under `reviews/` with its disposition, a term explorer, module
-and status pages, and downloads with checksums. The method is BFO-Aligned ValueNet's; the builder is rewritten for this
+specification, every review under `reviews/` with its disposition, a term explorer, the
+vocabulary, the conceptual models, module and status pages, and downloads with checksums. The method is BFO-Aligned ValueNet's; the builder is rewritten for this
 repository.
 
 ```bash
@@ -253,7 +257,8 @@ python -m http.server 8765 --directory _site
 |---|---|
 | `site/pages/<key>.html` | one body fragment per page, with `{{placeholders}}` |
 | `site/content/site.json` | navigation, notices, and words a person chose — never a figure |
-| `site/src/assets/` | the stylesheet and the explorer's scripts, copied verbatim |
+| `site/src/assets/` | the stylesheet, the explorer's scripts and the Models page's `models.js`, copied verbatim |
+| `vendor/site/` | third-party files the site serves (Mermaid), pinned in `config/site-vendor.yaml`; written only by `tools/site/vendor_assets.py --fetch` |
 | `tools/site/build_site.py` | fills the placeholders from the repository; one function per value |
 
 **Nothing on the site is typed if it can be read.** Versions, counts, digests, licences
@@ -289,6 +294,20 @@ inside it carries the section's prefix (`r5-`, `r6-`, `r6-disposition-`), so two
 with a "Summary" heading cannot mint the same id. The build refuses a misnamed file, two
 reviews with one number, a disposition with no review, and any id the page would carry
 twice; `check_site.py` refuses a repeated id on any page.
+
+**The Models page** is `site/pages/models.html` (URL `models/`), filled by
+`models_values`. It renders every conceptual model whole through `render_markdown`, each
+under its own `<h2>` and id prefix (`cm-01-`), with identifier, version, status and
+approval state read from the model (its Field/Value table and its section 10 Review
+status table, through `check_models.read_model`), a source link and SHA-256. The build
+runs `tools/conceptual/check_models.py` first and refuses on any finding. Mermaid blocks
+become `<pre class="mermaid">` holding the escaped source, so with JavaScript off the
+source is what a reader sees. The page alone loads two scripts: Mermaid, copied from
+`vendor/site/mermaid/` to `assets/vendor/mermaid/` and held to its pinned sha256 by the
+build, and `site/src/assets/js/models.js`, which runs it with `securityLevel: "strict"`.
+The pins are `config/site-vendor.yaml`; `python tools/site/vendor_assets.py --fetch`
+re-vendors from them (the registry tarball only), and the default run verifies offline.
+With no model, the page shows the `models_empty` notice.
 
 **Deployment** is from the artifact the checks ran against, after a second build on the
 same runner has produced an identical tree. Pull requests build, check, and upload a

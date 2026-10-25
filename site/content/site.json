@@ -15,6 +15,7 @@
     {"key": "specification", "label": "Specification", "path": "specification/"},
     {"key": "explore", "label": "Explore terms", "path": "explore/"},
     {"key": "vocabulary", "label": "Vocabulary", "path": "vocabulary/"},
+    {"key": "models", "label": "Models", "path": "models/"},
     {"key": "modules", "label": "Modules", "path": "modules/"},
     {"key": "status", "label": "Status", "path": "status/"},
     {"key": "review", "label": "Reviews", "path": "review/"},
@@ -30,8 +31,8 @@
       "why": "An IRI rendered as a link would send a reader to a 404 and imply the ontology is broken. IRIs are copyable text, never anchors."
     },
     "license": {
-      "text": "Project-authored ontology, documentation and site content are offered under the MIT License. The vendored BFO, CCO and BPO extracts carry their own licences (CC BY 4.0, BSD-3-Clause, MIT) and attribution, listed on the Modules and Downloads pages.",
-      "why": "A licence printed without the upstream exception reads as covering everything on the page, including terms this project did not write."
+      "text": "Project-authored ontology, documentation and site content are offered under the MIT License. The vendored BFO, CCO and BPO extracts carry their own licences (CC BY 4.0, BSD-3-Clause, MIT) and attribution, listed on the Modules and Downloads pages. The Models page renders its diagrams with a vendored copy of Mermaid (MIT), credited on the Downloads page.",
+      "why": "A licence printed without the upstream exception reads as covering everything on the page, including terms this project did not write -- and, since the Models page, a script this project did not write."
     },
     "acknowledgment": {
       "text": "Developed by Aaron Damiano with substantial assistance from Anthropic Claude and OpenAI ChatGPT agents.",
@@ -40,6 +41,14 @@
     "vocabulary_empty": {
       "text": "No vocabulary concept has been written yet. The metamodel and catalog concepts arrive in P5, all as Draft; until then both schemes are declared and empty.",
       "why": "An empty scheme with no explanation reads as a broken build. The plan stage that fills it is the architect's (P5 of the approved plan), so it is words a person chose rather than a figure the build can read."
+    },
+    "models": {
+      "text": "Diagrams are rendered in your browser from the Mermaid source shown with each one; with JavaScript off, the source is what you see, and it is the diagram. No model is approved until its own Review status says so.",
+      "why": "The Mermaid source in the model file is the truth (docs/decisions/2026-10-25-stage-02-choices.md), so a reader should know the picture is drawn from it rather than drawn separately. And a model on a public site reads as settled; whether it is approved is stated in the model, and the page says where to look."
+    },
+    "models_empty": {
+      "text": "No conceptual model has been written yet. CM-01, the Business Capability Conceptual Domain Model, is the first planned; it appears here when it is committed.",
+      "why": "An empty page with no explanation reads as a broken build. That CM-01 comes first is the architect's choice (docs/decisions/2026-10-25-stage-02-choices.md), so it is words a person chose rather than a figure the build can read."
     },
     "build_label": {
       "text": "latest from main",

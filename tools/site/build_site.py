@@ -44,6 +44,15 @@ documents -- the specification and every file under reviews/ -- are
 rendered with raw-HTML passthrough removed, so a `<script>` in a
 specification is shown as text, not run.
 
+ONE THIRD-PARTY SCRIPT, PINNED, ON ONE PAGE
+
+The Models page draws the conceptual models' Mermaid diagrams in the
+browser. Mermaid is vendored (config/site-vendor.yaml, vendor/site/), so
+the site still makes no request to another origin; this build copies it
+from vendor/site/ and refuses bytes that are not the pinned sha256. It is
+loaded on the Models page alone, and each diagram's source stays in the
+page as escaped text, readable with JavaScript off.
+
 REFUSALS
 
 An authored term with no label or no definition, or with two in one
@@ -90,6 +99,10 @@ BUNDLE_NAME = "bco-ontology.zip"
 #: than shipped or skipped: an artifact that deploys whatever it finds
 #: cannot say what it deployed.
 ALLOWED_ASSET_SUFFIXES = {".css", ".js"}
+
+#: The Models page's own script, from site/src/; it initialises the
+#: vendored Mermaid, which config/site-vendor.yaml places in the artifact.
+MODELS_SCRIPT = "assets/js/models.js"
 
 RDFS = "http://www.w3.org/2000/01/rdf-schema#"
 OWL = "http://www.w3.org/2002/07/owl#"
@@ -393,8 +406,13 @@ def ontology_header(graph, source: str) -> dict:
 # ----------------------------------------------------------- markdown
 
 
+MERMAID_BLOCK = re.compile(
+    r'<pre><code class="language-mermaid">(.*?)</code></pre>', re.S)
+
+
 def render_markdown(text: str, id_prefix: str = "",
-                    baselevel: int = 2) -> tuple[str, str]:
+                    baselevel: int = 2,
+                    mermaid: bool = False) -> tuple[str, str]:
     """(body, table of contents), with raw HTML shown rather than run.
 
     Python-Markdown passes raw HTML through by default. Deregistering the
@@ -405,6 +423,15 @@ def render_markdown(text: str, id_prefix: str = "",
     `id_prefix` goes in front of every heading id, so that several
     documents on one page -- the Reviews page -- cannot mint the same id
     from the same heading text ("Summary" in two reviews).
+
+    `mermaid` turns each ```mermaid fenced block into
+    `<pre class="mermaid">` holding the same escaped source, which is
+    what the vendored Mermaid looks for on the Models page. The source
+    stays text inside the element: with JavaScript off, or before the
+    script runs, the reader sees the diagram's Mermaid source, which is
+    the diagram's truth (docs/decisions/2026-10-25-stage-02-choices.md).
+    Off by default, so no other page carries an element the page has no
+    script for.
     """
     import markdown
     from markdown.extensions.toc import slugify
@@ -419,6 +446,8 @@ def render_markdown(text: str, id_prefix: str = "",
     md.preprocessors.deregister("html_block")
     md.inlinePatterns.deregister("html")
     body = md.convert(text)
+    if mermaid:
+        body = MERMAID_BLOCK.sub(r'<pre class="mermaid">\1</pre>', body)
     # Wide tables scroll inside their own box rather than the page.
     body = body.replace("<table>", '<div class="scroll-x"><table>')
     body = body.replace("</table>", "</table></div>")
@@ -533,6 +562,127 @@ def reviews_values(ctx: dict, paths: list) -> dict:
     }
 
 
+def approval_html(ctx: dict, approved: str) -> str:
+    """The approval state as the model's own Review status states it."""
+    if approved == "no":
+        return ("Not approved &mdash; the model&#8217;s Review status "
+                "reads <code>Approved: no</code>")
+    return "Approved &mdash; record %s" % source_link(ctx, approved)
+
+
+def models_values(ctx: dict, paths: list, checker, notice: str,
+                  empty: str) -> dict:
+    """The Models page: every conceptual model, in identifier order, each
+    under its own heading and id prefix.
+
+    Identifier, title, version and status are read from the model's
+    Field/Value table, and the approval state from its section 10 Review
+    status table, through tools/conceptual/check_models.py's own reader --
+    never typed into site/. Whether the model passes that checker is
+    gather()'s question; this renders what it is given.
+
+    Mermaid blocks become <pre class="mermaid"> (see render_markdown); the
+    page loads the vendored Mermaid and site/src/assets/js/models.js,
+    which render them in the browser. With no model, the page says so.
+    """
+    if not paths:
+        return {"models_notice": notice_block(empty),
+                "models_contents": "", "models_body": ""}
+    sections, contents = [], []
+    for path in sorted(paths, key=lambda p: p.name):
+        raw = source_bytes(path)
+        record = checker.read_model(path)
+        tag = record["identifier"].lower()
+        body, _toc = render_markdown(raw.decode("utf-8"),
+                                     id_prefix=tag + "-", baselevel=3,
+                                     mermaid=True)
+        # Braces as character references: Mermaid's hexagon `Id{{"..."}}`
+        # would otherwise read as a page placeholder to fill(). The
+        # browser, and Mermaid's own entity decoding, give back the brace.
+        body = body.replace("{", "&#123;").replace("}", "&#125;")
+        heading = "%s &mdash; %s" % (esc(record["identifier"]),
+                                     esc(record["title"]))
+        contents.append('<li><a href="#model-%s">%s</a> &mdash; %s</li>'
+                        % (tag, heading, approval_html(ctx,
+                                                       record["approved"])))
+        sections.append(
+            '<section class="model" id="model-%s">\n<h2>%s</h2>\n%s\n'
+            '<article class="doc">\n%s\n</article>\n</section>' % (
+                tag, heading, definition_list([
+                    ("Identifier", code(record["identifier"])),
+                    ("Version", esc(record["version"] or "none stated")),
+                    ("Status", esc(record["status"] or "none stated")),
+                    ("Approval", approval_html(ctx, record["approved"])),
+                    ("Source", source_link(ctx, relative(path))),
+                    ("SHA-256", code(sha256(raw))),
+                ]), body))
+    html_sections = "\n".join(sections)
+    ids = page_ids(html_sections)
+    repeated = sorted({i for i in ids if ids.count(i) > 1})
+    if repeated:
+        raise Refused("the Models page would carry these ids more than "
+                      "once: %s" % repeated)
+    return {
+        "models_notice": notice_block(notice),
+        "models_contents": '<ul class="term-list">\n%s\n</ul>'
+                           % "\n".join(contents),
+        "models_body": html_sections,
+    }
+
+
+def vendored_site_files(base: Path) -> dict[str, bytes]:
+    """{site path: bytes} for every pinned site asset, verified.
+
+    Copied from vendor/site/ as tools/site/vendor_assets.py wrote it, never
+    through site/src/, and each file is held to its pinned sha256 here as
+    well as by that tool: the site serves these bytes, so a build that
+    served others would publish an unpinned script. A missing file stops
+    the build rather than shipping a Models page whose diagrams cannot
+    render.
+    """
+    vendor = load_tool("bco_site_vendor_assets", "tools/site/vendor_assets.py")
+    out = {}
+    for entry in vendor.assets(base):
+        for member in entry["members"]:
+            path = base / member["path"]
+            if not path.is_file():
+                raise Refused(
+                    "%s is missing, so the Models page could not render its "
+                    "diagrams. Run `python tools/site/vendor_assets.py "
+                    "--fetch` to restore it from the pin." % member["path"])
+            data = path.read_bytes()
+            if sha256(data) != member["sha256"]:
+                raise Refused(
+                    "%s does not match its pinned sha256 in %s; was it "
+                    "edited? The site serves only pinned bytes."
+                    % (member["path"], vendor.PINS))
+            out[member["site_path"]] = data
+    return out
+
+
+def site_software(base: Path) -> str:
+    """The Downloads page's attribution for the vendored site assets,
+    from config/site-vendor.yaml."""
+    vendor = load_tool("bco_site_vendor_assets", "tools/site/vendor_assets.py")
+    parts = []
+    for entry in vendor.assets(base):
+        licence_member = next(m for m in entry["members"]
+                              if m["path"] == entry["licence"]["file"])
+        parts.append("<h3>%s %s</h3>\n%s" % (
+            esc(entry["project"]), esc(str(entry["version"])),
+            definition_list([
+                ("Licence", '%s &mdash; <a href="../%s">licence text</a>' % (
+                    esc(entry["licence"]["spdx"]),
+                    esc(licence_member["site_path"], quote=True))),
+                ("Attribution", esc(" ".join(
+                    entry["licence"]["attribution"].split()))),
+                ("Integrity", code(entry["integrity"])),
+                ("Files served", ", ".join(
+                    code(m["site_path"]) for m in entry["members"])),
+            ])))
+    return "\n".join(parts)
+
+
 def render_inline(text: str) -> str:
     body, _toc = render_markdown(text)
     body = body.strip()
@@ -616,6 +766,13 @@ def shell(ctx: dict, key: str, title: str, body: str, depth: int) -> str:
         scripts = ('\n  <script src="%sassets/js/ranking.js"></script>'
                    '\n  <script src="%sassets/js/explorer.js"></script>'
                    % (prefix, prefix))
+    if key == "models":
+        # The vendored bundle first, then the script that runs it. On this
+        # page only: no other page has a diagram, and a 2.5 MB script on
+        # every page would be cost for nothing.
+        scripts = "".join('\n  <script src="%s%s"></script>'
+                          % (prefix, esc(src, quote=True))
+                          for src in ctx["models_scripts"])
     page_title = (esc(site["site"]["name"]) if key == "home"
                   else "%s &middot; %s" % (esc(title),
                                            esc(site["site"]["name"])))
@@ -959,6 +1116,19 @@ def gather() -> dict:
     spec_path = specs[0].resolve()
     reviews = layout.component("reviews").members("*.md")
 
+    # The conceptual models, held to their checker before anything about
+    # them is published: a model that fails it is a model whose diagrams,
+    # traceability or approval state the page could misreport.
+    models_checker = load_tool("bco_site_check_models",
+                               "tools/conceptual/check_models.py")
+    model_paths, stray = models_checker.model_paths()
+    problems, _records = models_checker.check(model_paths)
+    if stray or problems:
+        raise Refused("the conceptual models do not pass "
+                      "tools/conceptual/check_models.py, so the Models page "
+                      "would publish them unchecked:\n  "
+                      + "\n  ".join(stray + problems))
+
     return {
         "authored_namespaces": authored_namespaces,
         "known": known,
@@ -968,6 +1138,8 @@ def gather() -> dict:
         "records": records,
         "spec_path": spec_path,
         "reviews": reviews,
+        "models": model_paths,
+        "models_checker": models_checker,
         "shapes": [e.resolve() for e in layout.components(
             "ontology-validation")],
         "extracts": read_json(EXTRACTS),
@@ -1001,8 +1173,13 @@ def build(out: Path) -> list[tuple[str, str]]:
     ctx_site = read_json(CONTENT)
     commit, epoch = stamp()
     data = gather()
+    vendored_assets = vendored_site_files(_root)
     ctx = {"site": ctx_site, "commit": commit,
-           "repository": ctx_site["site"]["repository"].rstrip("/")}
+           "repository": ctx_site["site"]["repository"].rstrip("/"),
+           # The Models page's scripts: every pinned site script, in pin
+           # order (the Mermaid bundle), then the one that runs it.
+           "models_scripts": [p for p in vendored_assets if p.endswith(".js")]
+           + [MODELS_SCRIPT]}
     files: dict[str, bytes] = {}
 
     authored_terms = [r for r in data["records"] if r["origin"] == "authored"]
@@ -1301,6 +1478,11 @@ def build(out: Path) -> list[tuple[str, str]]:
         "explore_notice": explore_notice,
     }
     values.update(reviews_values(ctx, data["reviews"]))
+    values.update(models_values(
+        ctx, data["models"], data["models_checker"],
+        ctx_site["notices"]["models"]["text"],
+        ctx_site["notices"]["models_empty"]["text"]))
+    values["site_software"] = site_software(_root)
     values.update(vocabulary_values(
         data["vocabulary"], data["authored_namespaces"], data["known"],
         ctx_site["notices"]["vocabulary_empty"]["text"]))
@@ -1338,6 +1520,16 @@ def build(out: Path) -> list[tuple[str, str]]:
     if refused:
         raise Refused("%s holds files this build has no rule for: %s"
                       % (ASSETS, refused))
+    if MODELS_SCRIPT not in files:
+        raise Refused("%s/%s is missing, so the Models page would load "
+                      "Mermaid and never run it" % (ASSETS, MODELS_SCRIPT))
+    # The vendored site assets, from vendor/site/ as pinned (verified in
+    # vendored_site_files), never from site/src/.
+    clash = sorted(set(vendored_assets) & set(files))
+    if clash:
+        raise Refused("%s and config/site-vendor.yaml both place %s; which "
+                      "file is the site meant to serve?" % (ASSETS, clash))
+    files.update(vendored_assets)
 
     # ---- write
     clear_output(out)

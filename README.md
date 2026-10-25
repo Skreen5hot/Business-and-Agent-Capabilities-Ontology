@@ -16,8 +16,8 @@ It is developed in alignment with BFO 2020, CCO 2.0, and the companion
 **Status: draft.** No ADR-002 ratification and no v0.4 ontology implementation is implied.
 
 **Reviewing it?** The site at https://skreen5hot.github.io/Business-and-Agent-Capabilities-Ontology/ renders the specification and the
-review, lets you search the terms, and shows what is ratified and what is not — no clone
-needed.
+review, lets you search the terms, shows the conceptual models with their diagrams, and
+shows what is ratified and what is not — no clone needed.
 
 ## Current sources
 
