@@ -26,7 +26,8 @@ evidence the checks work.
 | `specifications/…v0.4.0-draft.1.md` | the spec in force: CD1–CD17, CAP-01–CAP-29, RP-1–RP-10 | DRAFT; nothing normative until ratified |
 | `specifications/…v0.3.0-draft.1.md` | superseded predecessor | provenance only |
 | `reviews/R5-v0.4-artifact-review.md` | review of v0.4 against the v0.1 package | recommendations, not ratified |
-| `reviews/R6-vocabulary-review.md`, `reviews/R6-disposition.md` | external review of the 14 Draft vocabulary terms, filed verbatim; the proposed disposition of it | the review is the reviewer's; the disposition is a proposal until the architect accepts it (section 5.13) |
+| `reviews/R6-vocabulary-review.md`, `reviews/R6-disposition.md` | external review of the 14 Draft vocabulary terms, filed verbatim; the disposition of it, accepted 2026-10-24 | the review is the reviewer's; the disposition was accepted (section 5.13) |
+| `reviews/R7-turtle-artifact-review.md`, `reviews/R7-disposition.md` | external review of the five generated vocabulary Turtle files, filed verbatim; the proposed disposition of it | the review is the reviewer's; Finding E is decided (`docs/decisions/2026-10-25-r7-genus-decision.md`), the rest is a proposal until the architect accepts it (section 5.14) |
 | `drafts/BusinessCapabilityOntology_draft_v0.1.0/` | the earlier `bc:` Turtle package | preserved byte-for-byte; **never loaded** |
 | `ontology/apqc-cap.ttl`, `ontology/apqc-cap-desc.ttl` | the two modules spec §2 names | `owl:Ontology` headers only |
 | `shapes/` | wellformedness shapes (from ARO) and the vocabulary shapes (P4), each with its fixture | exercised by the fixtures, constraint by constraint |
@@ -55,11 +56,16 @@ evidence the checks work.
   fire on the positive controls (`tests/test_ontology_checks.py`). With a namespace filter
   pointed elsewhere they select nothing, which is shown rather than assumed, once per
   namespace each shape set filters on (`tests/test_namespace.py`).
-- **The vocabulary shapes fire** (P4; 51 since R6): each constraint message on the fixture
-  case named for it, and none on the positive controls (`tests/test_ontology_checks.py`).
+- **The vocabulary shapes fire** (P4; 51 since R6, 75 since R7): each constraint message on
+  the fixture case named for it, and none on the positive controls
+  (`tests/test_ontology_checks.py`).
 - **The concept shapes select the real concepts** (P5): with every definition and
   departure note stripped in memory, each of the 14 concepts and each `departs-from`
   reference is reported (`test_the_real_concepts_and_departures_are_selected`).
+- **The claim and record shapes select the real claims and records** (R7): with every
+  claim status, then every record digest, stripped in memory, each of the 83 claims, each
+  `departs-from` reference, and each current or revising record is reported
+  (`test_the_real_claims_and_records_are_selected`).
 
 ## 4. Where the specification stands
 
@@ -197,9 +203,10 @@ controlled vocabulary (P3)" says how. State at P3:
   `ontology/`, and no class is minted.
 - **The PCF lexical form is assumed** (five digits), not checked against the PCF 7.4
   workbook, which is licensed and not here.
-- **D3 history is declared, not verified.** A record's `revises` names the previous
-  record's digest and the graph links the two; nothing yet checks that digest against
-  the file's git history.
+- **D3 history is declared, not verified** (at P3; since R7 the build finds each revised
+  record in git history and publishes the commit that introduced it, section 5.14). A
+  record's `revises` names the previous record's digest and the graph links the two; at
+  P3 nothing checked that digest against the file's git history.
 - **LinkML runs in its own CI job** (`vocab-schema`, `requirements-vocab.txt`, 91
   packages). How the pin enters the repository is proposed on the P3 pull request, and
   the architect's acceptance decides it.
@@ -222,7 +229,8 @@ State at P4:
   measurement, and the sources graph would tie the ontology's digest to the register.
 - **What the shapes do not check:** the PCF lexical form (assumed by the build); that a
   ratification act exists and lists the record (the build checks that against the
-  repository's history); `prov:wasRevisionOf` chains and record digests;
+  repository's history); `prov:wasRevisionOf` chains and record digests (checked since
+  R7: every revision target described, every digest the one its IRI names);
   `dcterms:created`; `skos:broader` pointing at a catalog concept; a `skos:Concept` minted
   in `bco#`, which is outside both populations and is reported by neither shape set.
 - **The site page** reads the generated Turtle, never the YAML; it shows citations only
@@ -328,6 +336,58 @@ own; the spec's Known limits (0.4) already list "no temporal qualification of ha
 capability". Whether the catalog revisions are editorial (same IRI) or a change of meaning
 (new IRI, ADR-003 D3) is the architect's call; they are treated as editorial here. The
 SRC-FO-01 locators still mention the 2026 `develop` file.
+
+### 5.14 Review R7 received and answered by a proposed disposition
+
+R7, an external formal review of the five generated Turtle files after the R6 response, was
+received on 2026-10-25 and is filed verbatim as `reviews/R7-turtle-artifact-review.md`. It
+finds them an acceptable SKOS vocabulary and provenance export, and not yet a formal
+BFO/CCO OWL ontology. The reviewer had the Turtle and the BFO/CCO references only: no
+generator, YAML, specification or git history. The architect decided Finding E
+(`docs/decisions/2026-10-25-r7-genus-decision.md`) and said "Proceed" on the rest.
+`reviews/R7-disposition.md` answers the review in 26 rows: 11 accepted and done on the R7
+branch, 4 answered by spec or ADR-003, 5 for spec v0.5, 2 deferred to the OWL layer
+(C, formal axioms; D, type versus instance reference, already designed in CD14 with
+`ex:concernsType`), 2 to RP-1 and RP-10, 2 noted.
+
+**Done on the R7 branch:**
+- **Claims are resources** (Finding A). `bco-sources.ttl` publishes `bcos:<SRC id>-claim-<n>`
+  for each of the register's 83 claims, linked by `bco:hasClaim`, with `bco:claimIndex`,
+  `bco:claimStatus` and, where the register has them, `bco:claimScope` and `bco:claimNote`.
+  `bco:citesClaim` points at the claim, not an integer. The record's unordered
+  `bco:claimStatus` bag is gone.
+- **Revision chains resolve** (Finding B). Every record a current record revises is
+  described: a `prov:Entity` with `bco:recordSha256`, `bco:recordCommit` (the commit that
+  introduced it, found in git history) and its own `prov:wasRevisionOf`. 19 prior records:
+  14 of P5 at `76b47fc`, 5 of R6 at `137ce61`. The build needs the full history; a shallow
+  clone is `D3-history-shallow`. Branches must keep being merged with a merge commit, or
+  a branch's introducing commit leaves `main` and the committed Turtle goes stale. How to
+  verify a digest against the YAML is in `docs/DEVELOPMENT.md` and in the vocabulary's
+  comments.
+- **Genus and ancestor** (Finding E). Each catalog concept's `bco:definitionGenus` is the
+  immediate genus `bco:BusinessCapability`; the new `bco:foundationalAncestor` records
+  `cco:ont00000568`. Nothing is minted: `bco:BusinessCapability` is still declared nowhere,
+  and the build emits no `owl:Class` or `rdfs:subClassOf`.
+- **The catalog wording** (section 4), as editorial revisions under D3: Treasury Management
+  loses "ensures"; Business Model Governance "decides whether and how"; Strategic Planning
+  loses "long-range"; Competitive Analysis's competitors are agents; Customer Experience
+  Management "understands or shapes" (the disjunction is a choice the change note states
+  and the architect may reverse).
+- **What the RDF cannot enforce is said** (Findings F and G), as `rdfs:comment`s on
+  `bco:PCFCode` and `bco:lifecycleStatus`.
+- **`bco:` holds 26 annotation properties and `bco:PCFCode`.** Six were added:
+  `hasClaim`, `claimIndex`, `claimScope`, `claimNote`, `recordCommit`,
+  `foundationalAncestor`. No object property, no class.
+- **26 new shape constraints, 2 retired** (75 in all), each new one with its fixture case
+  and positive control; the retired two were the source record's `bco:claimStatus` rules.
+
+**Still Draft, all 14.** The 5 catalog records have new digests (listed in
+`reviews/R7-disposition.md`); the 9 metamodel records are unchanged.
+
+**Not done:** the OWL layer (C, D, section 6) and the spec v0.5 wording rows; ADR-003 D4
+still says a catalog definition has "a BFO/CCO genus", which since R7 is the foundational
+ancestor (a ratified ADR changes only through a new one); the register has no claim text,
+so a claim resource carries none.
 
 ## 6. Outside the repository
 
