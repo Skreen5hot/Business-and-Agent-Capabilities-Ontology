@@ -1,9 +1,10 @@
 # R6 Disposition — Ontological Review of the BCO Vocabulary
 
-Proposed disposition, drafted by Claude Code (claude-opus-5-5) at the architect's direction, 2026-10-24. The architect accepted the approach (file R6, revise the catalog, tighten consistent-with, add approval and validation to ratification acts, take F1/F2 to RP-10/RP-1); each row is a proposal until he accepts the PR.
+Disposition drafted by Claude Code (claude-opus-5-5) at the architect's direction, 2026-10-24, and accepted by the architect the same day (`docs/decisions/2026-10-24-r6-response-accepted.md`). Rows deferred to RP-1, RP-10 or specification v0.5 are inputs to those decisions, not decisions.
 
 | Field | Value |
 | --- | --- |
+| Status | Accepted 2026-10-24 by the architect, Aaron Damiano — `docs/decisions/2026-10-24-r6-response-accepted.md` |
 | Review | `reviews/R6-vocabulary-review.md`, filed verbatim as received |
 | Reviewed artifact | The site's Vocabulary page after P5: 14 Draft concepts (9 metamodel, 5 catalog) |
 | Specification in force | `specifications/Business-Capability-Ontology-v0.4.0-draft.1.md` (draft; nothing in it is normative until ratified) |
