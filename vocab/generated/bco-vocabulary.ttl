@@ -20,6 +20,7 @@
 @prefix bcoa:    <https://fandaws.com/ontology/bco-agents#> .
 
 bco:PCFCode rdf:type rdfs:Datatype .
+bco:PCFCode rdfs:comment "The lexical form, a five-digit PCF 7.4 element ID, is assumed by tools/vocab/build.py and has not been checked against a real code: the PCF 7.4 workbook is licensed and not in this repository. No concept carries a notation until a code is verified in BPO's catalog. The datatype declares no lexical restriction; validating a literal against the edition is the build's job, not the RDF's."@en .
 bco:PCFCode rdfs:label "PCF code"@en .
 bco:PCFCode skos:definition "An APQC Process Classification Framework 7.4 Cross-Industry element ID (ADR-003 D7). The edition is part of this datatype's definition; adopting another edition is a new datatype."@en .
 
@@ -37,23 +38,36 @@ bco:actSha256 skos:definition "The SHA-256 of the decision record at that commit
 
 bco:citesClaim rdf:type owl:AnnotationProperty .
 bco:citesClaim rdfs:label "cites claim"@en .
-bco:citesClaim skos:definition "The 1-based index of the register entry claim a departure rests on."@en .
+bco:citesClaim skos:definition "Relates a departs-from source reference to the register claim the departure rests on: a claim of the cited source, at V or P (ADR-003 D6; review R7, Finding A)."@en .
 
 bco:citesSource rdf:type owl:AnnotationProperty .
 bco:citesSource rdfs:label "cites source"@en .
 bco:citesSource skos:definition "Relates a source reference to the register record it cites."@en .
 
+bco:claimIndex rdf:type owl:AnnotationProperty .
+bco:claimIndex rdfs:label "claim index"@en .
+bco:claimIndex skos:definition "A claim's 1-based position among its register entry's claims, in the order docs/sources/register.yaml lists them."@en .
+
+bco:claimNote rdf:type owl:AnnotationProperty .
+bco:claimNote rdfs:label "claim note"@en .
+bco:claimNote skos:definition "Any other qualifier the register records on a claim."@en .
+
+bco:claimScope rdf:type owl:AnnotationProperty .
+bco:claimScope rdfs:label "claim scope"@en .
+bco:claimScope skos:definition "The part of the source a claim's status covers, as the register states it."@en .
+
 bco:claimStatus rdf:type owl:AnnotationProperty .
 bco:claimStatus rdfs:label "claim status"@en .
-bco:claimStatus skos:definition "A verification status of a register entry's claim: V, P, S, K or L."@en .
+bco:claimStatus skos:definition "The verification status of one register claim: V, P, S, K or L, as the register companion defines them. Stated on the claim, so each status stays with the claim it qualifies."@en .
 
 bco:currentRecord rdf:type owl:AnnotationProperty .
 bco:currentRecord rdfs:label "current record"@en .
 bco:currentRecord skos:definition "Relates a concept to the version of its record this build was made from."@en .
 
 bco:definitionGenus rdf:type owl:AnnotationProperty .
+bco:definitionGenus rdfs:comment "An annotation recording the definition's genus. It asserts no subclass axiom, and the class it names need not yet be minted: bco:BusinessCapability is designated by bcom:BusinessCapability and declared nowhere (docs/decisions/2026-10-25-r7-genus-decision.md)."@en .
 bco:definitionGenus rdfs:label "definition genus"@en .
-bco:definitionGenus skos:definition "The BFO or CCO class a catalog definition takes as its genus (ADR-003 D4)."@en .
+bco:definitionGenus skos:definition "The immediate genus a catalog definition takes: the class its text names as genus. Either a vendored BFO or CCO class, or the class a metamodel concept designates with bco:designatesClass (ADR-003 D4; review R7, Finding E)."@en .
 
 bco:departureNote rdf:type owl:AnnotationProperty .
 bco:departureNote rdfs:label "departure note"@en .
@@ -67,7 +81,17 @@ bco:doesNotImply rdf:type owl:AnnotationProperty .
 bco:doesNotImply rdfs:label "does not imply"@en .
 bco:doesNotImply skos:definition "What the specification section 4 row says the term does not imply, verbatim."@en .
 
+bco:foundationalAncestor rdf:type owl:AnnotationProperty .
+bco:foundationalAncestor rdfs:comment "An annotation. It records where the intended hierarchy meets BFO/CCO and asserts no subclass axiom, for the concept's class or for its genus."@en .
+bco:foundationalAncestor rdfs:label "foundational ancestor"@en .
+bco:foundationalAncestor skos:definition "A more general BFO or CCO class above a catalog concept's immediate genus, recorded apart from bco:definitionGenus (review R7, Finding E)."@en .
+
+bco:hasClaim rdf:type owl:AnnotationProperty .
+bco:hasClaim rdfs:label "has claim"@en .
+bco:hasClaim skos:definition "Relates a register record to one of its claims, each a resource of its own (review R7, Finding A)."@en .
+
 bco:lifecycleStatus rdf:type owl:AnnotationProperty .
+bco:lifecycleStatus rdfs:comment "The value is derived and enforced by tools/vocab/build.py (ADR-003 D5), not by these triples alone: the build refuses an authored status, sets Ratified only for a concept whose current record digest a cited ratification act lists, recomputed against git, and Deprecated only for a concept replaced by a live one. The vocabulary shapes check one value from the closed set and its agreement with owl:deprecated; no transition between values is expressed or checked in RDF."@en .
 bco:lifecycleStatus rdfs:label "lifecycle status"@en .
 bco:lifecycleStatus skos:definition "The concept's status, derived by tools/vocab/build.py (ADR-003 D5): Draft, Candidate, Ratified or Deprecated. Never authored."@en .
 
@@ -83,7 +107,13 @@ bco:ratifiedBy rdf:type owl:AnnotationProperty .
 bco:ratifiedBy rdfs:label "ratified by"@en .
 bco:ratifiedBy skos:definition "Relates a concept to the citation of the act that ratified it (ADR-003 D2, D5)."@en .
 
+bco:recordCommit rdf:type owl:AnnotationProperty .
+bco:recordCommit rdfs:comment "A record's full history is in git, not in this graph. git log --full-history -- vocab/catalog.yaml vocab/metamodel.yaml lists the commits that changed the records, and git show <commit>:vocab/catalog.yaml gives the record as it stood; recompute its digest as bco:recordSha256 describes to match it. Emitted only where that search finds the digest."@en .
+bco:recordCommit rdfs:label "record commit"@en .
+bco:recordCommit skos:definition "The full commit that introduced a prior record version: the earliest non-merge commit whose authored YAML, and for a metamodel concept whose specification section 4 row, yields that record digest."@en .
+
 bco:recordSha256 rdf:type owl:AnnotationProperty .
+bco:recordSha256 rdfs:comment "To verify a digest against the authored YAML: take the concept's mapping from vocab/metamodel.yaml or vocab/catalog.yaml at the commit in question, drop ratified_by, and for a metamodel concept add spec_row_content, the section 4 row's {label, iri, definition, parents, does_not_imply}; serialise with json.dumps(sort_keys=True, ensure_ascii=False, separators=(',', ':')) as UTF-8 with no trailing newline; the SHA-256 of those bytes, lowercase hex, is the digest. python tools/vocab/build.py --digest <curie> prints the current one."@en .
 bco:recordSha256 rdfs:label "record SHA-256"@en .
 bco:recordSha256 skos:definition "The concept record digest defined in tools/vocab/build.py."@en .
 

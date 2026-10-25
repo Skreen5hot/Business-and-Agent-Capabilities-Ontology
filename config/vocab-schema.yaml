@@ -30,7 +30,8 @@
 #     requires a departure_note and the claim it rests on, and
 #     consistent-with its support, definitional or contextual (review R6,
 #     section 6.1);
-#   - catalog definitions name their genus; revises and change_note
+#   - catalog definitions name their immediate genus and, apart, a
+#     foundational BFO/CCO ancestor (review R7, Finding E); revises and change_note
 #     carry D3's record history; agents are a document of their own.
 
 id: https://fandaws.com/ontology/bco/vocab-schema
@@ -140,7 +141,21 @@ slots:
   genus:
     slot_uri: bco:definitionGenus
     range: string
+    pattern: "^(cco|obo|bco):[A-Za-z_][A-Za-z0-9_]*$"
+    description: >-
+      The definition's immediate genus (review R7, Finding E): a BFO or CCO
+      class, or the bco: class a metamodel concept designates. That it is
+      one of these is checked by tools/vocab/build.py.
+
+  foundational_ancestor:
+    slot_uri: bco:foundationalAncestor
+    range: string
     pattern: "^(cco|obo):[A-Za-z_][A-Za-z0-9_]*$"
+    description: >-
+      A BFO or CCO class above the immediate genus (review R7, Finding E;
+      docs/decisions/2026-10-25-r7-genus-decision.md). An annotation; no
+      subclass axiom is asserted. That a vendored extract declares it, and
+      that it is above the genus, is checked by tools/vocab/build.py.
 
   sources:
     slot_uri: dcterms:source
@@ -350,6 +365,7 @@ classes:
       - pref_label
       - definition
       - genus
+      - foundational_ancestor
       - broader
       - notation
       - designates_class
@@ -359,6 +375,8 @@ classes:
       definition:
         required: true
       genus:
+        required: true
+      foundational_ancestor:
         required: true
 
   SourceReference:

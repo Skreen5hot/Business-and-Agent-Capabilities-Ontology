@@ -56,7 +56,7 @@ python -m pytest tests/ -q -p no:randomly     # all of the above, plus the falsi
 | `vendor_upstream.py` | an upstream term the corpus, the shapes or the specification names that no extract describes (spec terms the last build recorded as unresolvable excepted); an extract whose digest is not what the manifest records |
 | `validate.py --gate` | a rung with more findings than `config/validation-baseline.json` records, a rung with fewer that has not been re-recorded, a shape set the fixture does not exercise, a rung blocked on missing vocabulary, a violation against a vendored term, and a rung the baseline does not mention |
 | `validate.py --record` | raising any recorded count without `--accept-regression "<why>"`. Lowering is always free |
-| `vocab/build.py` | everything in ADR-003 a schema cannot say: an unreadable section 4, a metamodel definition, an authored status, a record naming no row (and, once one record exists, a row with no record), a broken decision citation or act (including an act without both approvals by declared persons, or without a reachable validation commit and a non-empty gate list), a record changed after ratification, an unknown source, a missing locator, a weak or missing departure claim, a consistent-with with no support or support on another relation, a definition sharing six words with a registered quote, a malformed notation, an undeclared agent, a status act not by a Person, and committed Turtle that is not a fresh build |
+| `vocab/build.py` | everything in ADR-003 a schema cannot say: an unreadable section 4, a metamodel definition, an authored status, a record naming no row (and, once one record exists, a row with no record), a broken decision citation or act (including an act without both approvals by declared persons, or without a reachable validation commit and a non-empty gate list), a record changed after ratification, an unknown source, a missing locator, a weak or missing departure claim, a consistent-with with no support or support on another relation, a definition sharing six words with a registered quote, a malformed notation, a catalog genus that is neither a vendored BFO/CCO class nor a metamodel concept's designated class, a foundational ancestor that is not a vendored BFO/CCO class above that genus, a record that revises another in a shallow clone, an undeclared agent, a status act not by a Person, and committed Turtle that is not a fresh build |
 | `build_register.py` | a claim status other than exactly V, P, S, K or L; a quote over 15 words, with a missing, malformed or duplicate key, placed other than once, or a second quote in one entry; a quotation mark typed into entry prose; an SRC id in any tracked file that names no entry; an entry count other than 63; a committed Markdown register that is not a fresh generation |
 
 `validate.py` writes a report with `-o config/validation-report.json`. That file is
@@ -270,9 +270,11 @@ decided by traversal order. This will matter the day the first BCO term lands.
 (`layout.vocabulary_files()`), never from `vocab/*.yaml` -- a test records every file the
 build opens and refuses one. It shows the authored namespaces (prefixes read from the
 Turtle's own bindings), both schemes, each concept's labels, definition, derived status,
-notation, designated class, drafting agent and sources (SRC id, relation, locator,
-departure note), the citations of only those register entries a concept cites -- the full
-register is not published; that is the architect's call -- and the declared agents. While
+notation, designated class, genus and foundational ancestor (catalog, since R7),
+drafting agent and sources (SRC id, relation, locator, departure note, and since R7 the
+cited claim's index and status), the citations of only those register entries a concept
+cites -- the full register is not published; that is the architect's call -- and the
+declared agents. While
 there is no concept it shows the `vocabulary_empty` notice from `site.json`. A concept in
 no scheme or two, or with no label, definition or status, stops the build. Vocabulary
 concepts are not in the explorer's `data/terms.json`; that was optional in P4 and is not
@@ -346,12 +348,14 @@ no terms. **P5 added the pilot vocabulary:** 9 metamodel concepts, one per concr
 section 4 row, and 5 catalog concepts (Strategic Planning, Treasury Management,
 Competitive Analysis, Business Model Governance, Customer Experience Management), all
 Draft and none ratified. The catalog records carry no `notation`, `broader` or
-`designates_class`; the header of `vocab/catalog.yaml` says why.
+`designates_class`; the header of `vocab/catalog.yaml` says why. Review R7 (2026-10-25)
+changed the export: claims are resources, prior records are described, and the catalog
+genus is recorded as an immediate genus plus a foundational ancestor -- sections below.
 
 | File | Holds | Edited by |
 |---|---|---|
 | `vocab/metamodel.yaml` | one provenance wrapper per spec section 4 row (`bcom:`): sources, drafting agent, notes, status inputs. Never a definition | hand |
-| `vocab/catalog.yaml` | catalog concepts (`bcoc:`): labels, a genus-differentia definition with its `genus`, `broader`, a PCF 7.4 `notation`, sources | hand |
+| `vocab/catalog.yaml` | catalog concepts (`bcoc:`): labels, a genus-differentia definition with its immediate `genus` and its `foundational_ancestor`, `broader`, a PCF 7.4 `notation`, sources | hand |
 | `vocab/agents.yaml` | declared agents (`bcoa:`): the architect as a Person, `claude-opus-5-5` as a SoftwareAgent on his behalf | hand |
 | `vocab/generated/*.ttl` | `bco-vocabulary`, `bco-metamodel`, `bco-catalog`, `bco-sources`, `bco-agents` | `tools/vocab/build.py --write` |
 | `config/vocab-schema.yaml` | the LinkML schema of the three YAML files | hand |
@@ -400,6 +404,29 @@ separators=(",", ":"))`, UTF-8, no trailing newline; SHA-256, lowercase hex. The
 inside so that a spec change to a Ratified concept's definition breaks the
 ratification, as D3 and D4 require. `--digest` prints it.
 
+**Verifying a record digest against the YAML** (review R7, Finding B). A digest in the
+Turtle (`bco:recordSha256`, and the suffix of `<ns>record-<digest>`) can be checked
+without the build, at any commit:
+
+```bash
+git show <commit>:vocab/catalog.yaml       # or vocab/metamodel.yaml
+```
+
+```python
+import hashlib, json, yaml
+record = next(r for r in yaml.safe_load(text)["concepts"] if r["id"] == "bcoc:TreasuryManagement")
+body = {k: v for k, v in record.items() if k != "ratified_by"}
+# a metamodel concept also needs body["spec_row_content"]: the section 4 row's
+# {label, iri, definition, parents, does_not_imply}, as tools/vocab/spec_terms.py
+# reads them from that commit's specification
+raw = json.dumps(body, sort_keys=True, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+print(hashlib.sha256(raw).hexdigest())
+```
+
+`created` must stay a quoted string, or YAML reads it as a timestamp and the JSON is
+not the same. `test_the_real_prior_records_resolve_and_verify` does exactly this for
+every prior record the vocabulary publishes.
+
 **Status is derived (D5).** Deprecated if `is_replaced_by` names a live concept (a
 missing, self, chained or cyclic replacement is a finding); else Ratified if
 `ratified_by` cites an act that lists this IRI with this record digest; else the authored
@@ -441,6 +468,63 @@ its record digest -- unchanged. Refusal codes: `D5-act-approval-missing`,
 blob, not the working tree. An act is the architect's: an agent records it verbatim,
 and never writes one on its own initiative.
 
+**Register claims (review R7, Finding A).** `bco-sources.ttl` publishes each claim of
+each register entry as a resource of its own: `bcos:<SRC id>-claim-<n>`, where n is the
+claim's 1-based position in `register.yaml`. The record links it with `bco:hasClaim`; the
+claim carries `bco:claimIndex` (n, `xsd:integer`), `bco:claimStatus` (exactly one of V,
+P, S, K, L) and, where the register has them, `bco:claimScope` and `bco:claimNote`. A
+`departs-from` reference's `bco:citesClaim` is that claim's IRI. The record itself no
+longer carries `bco:claimStatus`: its statuses were an unordered bag, and nothing said
+which claim each one qualified. The register has no claim text -- a claim is its status,
+scope and note -- so none is published. Reordering an entry's claims renames them; the
+IRI is the register's order, not a content digest.
+
+**Prior records (review R7, Finding B).** A record's `revises` names the digest of the
+record it replaces, and the graph says `<current record> prov:wasRevisionOf
+<ns>record-<digest>`. That prior record is described in the same file: a `prov:Entity`
+with its `bco:recordSha256`, and, where git settles it, `bco:recordCommit` (the commit
+that introduced it) and its own `prov:wasRevisionOf`, from the `revises` it carried at
+that commit, recursively. The build finds the commit by recomputing record digests over
+the non-merge commits HEAD reaches that touched `vocab/metamodel.yaml`,
+`vocab/catalog.yaml` or `specifications/`, each with that commit's own section 4 rows
+(read through that commit's layout contract): a commit introduces a digest when its tree
+yields it and its parent's does not, and the earliest by commit time, then hash, wins. A
+digest no commit yields still gets its node, without a commit. Three consequences:
+
+- **It needs the full history.** CI checks out with `fetch-depth: 0`; a shallow clone is
+  the finding `D3-history-shallow` (only when some record revises another), because it
+  would silently drop commits and the Turtle would differ.
+- **Merge with a merge commit**, as this repository does. The introducing commit of a
+  record written on a branch is a branch commit; a squash merge would leave `main`
+  without it, the build on `main` would find a different commit, and the committed
+  Turtle would be stale.
+- **The full history of a record is in git, not in the graph.** `git log --full-history
+  -- vocab/catalog.yaml vocab/metamodel.yaml` lists the commits that changed records;
+  `git show <commit>:vocab/catalog.yaml` gives a record as it stood; the digest check
+  above matches it to a node. The `rdfs:comment` on `bco:recordCommit` and
+  `bco:recordSha256` says the same.
+
+**The catalog genus (review R7, Finding E;
+`docs/decisions/2026-10-25-r7-genus-decision.md`).** `genus` is the definition's
+**immediate** genus: a vendored BFO or CCO class, or the class a metamodel concept
+designates. All five catalog concepts name `bco:BusinessCapability`, which
+`bcom:BusinessCapability` designates. `foundational_ancestor` is a vendored BFO or CCO
+class above it -- a section 4 parent of the designated class, or a vendored superclass of
+one; for an upstream genus, a vendored superclass of the genus -- and all five name
+`cco:ont00000568`. They are published as `bco:definitionGenus` and
+`bco:foundationalAncestor`, annotations both. Nothing is minted: `bco:BusinessCapability`
+is declared nowhere, and no `owl:Class` or `rdfs:subClassOf` is emitted. Refusal codes:
+`catalog-genus`, `catalog-ancestor`, `catalog-ancestor-unrelated`. ADR-003 D4 says a
+catalog definition has "a BFO/CCO genus"; since R7 that is the foundational ancestor, and
+the immediate genus may be a designated `bco:` class, by the architect's decision.
+
+**What the RDF cannot enforce (review R7, Findings F and G)** is said in the generated
+vocabulary: `bco:PCFCode`'s `rdfs:comment` says its five-digit lexical form is assumed
+and unchecked against a real code, that no concept carries a notation until one is
+verified in BPO's catalog, and that edition-specific validation is the build's;
+`bco:lifecycleStatus`'s says the value is derived and enforced by `tools/vocab/build.py`
+(D5), not by the triples alone.
+
 **Sources (D6).** Every reference names a register id, a locator and a relation;
 `departs-from` also needs a `departure_note` and `claim`, the 1-based index of an entry
 claim at V or P (`claims_at_or_above`). `consistent-with` also needs `support`
@@ -464,7 +548,7 @@ re-checks everything it says, so the main suite never imports LinkML.
 `tools/vocab/schema_check.py` runs in the `vocab-schema` CI job: it regenerates the JSON
 Schema three times (twice from the root, once from a copy at another path), requires the
 LF bytes to match the committed file, and runs `linkml validate` over the authored files
-and 35 cases built to break the schema. `gen-shacl` and `gen-owl` are never run.
+and 38 cases built to break the schema. `gen-shacl` and `gen-owl` are never run.
 
 ---
 
@@ -489,7 +573,7 @@ out.
 | Shapes | Population |
 |---|---|
 | `wellformedness_shapes.ttl` | `owl:Class` in `bco#`; `skos:Concept` in `bco-metamodel#` and `bco-catalog#` (D1). Not sources or agents (D8) |
-| `vocabulary_shapes.ttl` | concepts (scheme, tagged prefLabel per language, definition, no stored narrower, derived status, deprecation iff replacement, ratified only with a citation, a declared drafting agent); metamodel concepts' designated class; catalog notations typed `bco:PCFCode`; source references (resolves to a `bcos:` record, locator, relation enum, `departs-from` with a note and a claim, `consistent-with` with exactly one `bco:support` of definitional or contextual, and no support on any other relation); every subject in `bcos:` and `bcoa:`; persons named; software agents with a model identifier acting for a declared person; ratification references with an act path, a 40-hex commit and a 64-hex digest other than the empty file's |
+| `vocabulary_shapes.ttl` | concepts (scheme, tagged prefLabel per language, definition, no stored narrower, derived status, deprecation iff replacement, ratified only with a citation, a declared drafting agent); metamodel concepts' designated class; catalog concepts' notation typed `bco:PCFCode`, exactly one genus (a BFO/CCO IRI or a metamodel concept's designated class) and exactly one foundational ancestor (a BFO/CCO IRI); source references (resolves to a `bcos:` record, locator, relation enum, `departs-from` with a note and a claim that is a claim of the cited source at V or P, `consistent-with` with exactly one `bco:support` of definitional or contextual, and no support on any other relation); every source record in `bcos:` (type, identifier, citation, at least one claim of its own, no status of its own, no index twice); every claim (`<record>-claim-<n>`: one positive integer index matching its name, one status from V/P/S/K/L, belongs to a record); records, current and prior (a `prov:Entity` with one digest that its IRI names, every `prov:wasRevisionOf` target described, a 40-hex commit if any); every subject in `bcoa:`; persons named; software agents with a model identifier acting for a declared person; ratification references with an act path, a 40-hex commit and a 64-hex digest other than the empty file's |
 
 `vocabulary_shapes.ttl` is hand-written (P2: `gen-shacl` is no-go), every constraint has a
 fixed `sh:message` with no substitution, and `tests/test_ontology_checks.py` maps every
@@ -502,6 +586,12 @@ checks are per rung.
 no concepts until P5 -- and only the fixture showed they work. The source-record and agent
 shapes run over the 63 records and 2 agents and find nothing; `test_the_real_records_and_agents_are_selected`
 strips every citation in memory to show all 63 records really are selected.
+
+**What the real data shows since R7:** the claim shape runs over the register's 83
+claims and the record shape over 14 current and 19 prior records, and both find nothing.
+`test_the_real_claims_and_records_are_selected` strips every claim status, and then every
+record digest, in memory, and requires each claim, each departs-from reference, and each
+current or revising record to be reported, and nothing else.
 
 **What the real data shows at P5:** the concept shapes run over 14 real concepts and their
 source references and find nothing, in both rungs (`validation.vocabulary` and

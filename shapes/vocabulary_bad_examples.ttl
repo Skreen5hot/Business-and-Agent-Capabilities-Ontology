@@ -10,6 +10,8 @@
 @prefix bcoc:    <https://fandaws.com/ontology/bco-catalog#> .
 @prefix bcos:    <https://fandaws.com/ontology/bco-sources#> .
 @prefix bcoa:    <https://fandaws.com/ontology/bco-agents#> .
+@prefix cco:     <https://www.commoncoreontologies.org/> .
+@prefix obo:     <http://purl.obolibrary.org/obo/> .
 
 # Graphs built to break vocabulary_shapes.ttl.
 #
@@ -28,7 +30,14 @@
 # named the way tools/vocab/build.py mints them -- <ns>source-..., and
 # <ns>ratification-... in the citing concept's namespace -- so that the
 # stale-namespace demonstration in tests/test_namespace.py can tell a
-# concept from a reference by its name.
+# concept from a reference by its name. Claims are named as the build
+# mints them too, <record>-claim-<n> in bco-sources#, and records
+# <ns>record-<digest> (review R7, Findings A and B).
+#
+# Every catalog concept carries a genus and a foundational ancestor (R7,
+# Finding E) unless its case is about them: the genus is the class
+# bcom:GoodMetamodelConcept designates, as bco:BusinessCapability is the
+# class bcom:BusinessCapability designates in the real vocabulary.
 
 # =====================================================================
 # Declared agents and source records the cases below rely on
@@ -46,12 +55,28 @@ bcoa:fixture-software a prov:Agent , prov:SoftwareAgent ;
 bcos:SRC-OMG-01 a dcterms:BibliographicResource ;
     dcterms:identifier "SRC-OMG-01" ;
     dcterms:bibliographicCitation "Placeholder citation for a fixture." ;
+    bco:hasClaim bcos:SRC-OMG-01-claim-1 .
+
+bcos:SRC-OMG-01-claim-1
+    bco:claimIndex "1"^^xsd:integer ;
     bco:claimStatus "V" .
 
+# Two claims, one V and one S, the first with a scope and a note: the
+# statuses are told apart by the claim they belong to (review R7, A).
 bcos:SRC-OMG-03 a dcterms:BibliographicResource ;
     dcterms:identifier "SRC-OMG-03" ;
     dcterms:bibliographicCitation "Placeholder citation for a fixture." ;
-    bco:claimStatus "V" , "S" .
+    bco:hasClaim bcos:SRC-OMG-03-claim-1 , bcos:SRC-OMG-03-claim-2 .
+
+bcos:SRC-OMG-03-claim-1
+    bco:claimIndex "1"^^xsd:integer ;
+    bco:claimStatus "V" ;
+    bco:claimScope "clause 7" ;
+    bco:claimNote "placeholder note" .
+
+bcos:SRC-OMG-03-claim-2
+    bco:claimIndex "2"^^xsd:integer ;
+    bco:claimStatus "S" .
 
 # =====================================================================
 # Concepts: negative cases (catalog unless the case is about the
@@ -60,6 +85,8 @@ bcos:SRC-OMG-03 a dcterms:BibliographicResource ;
 
 # Concept is in no skos:inScheme.
 bcoc:VocabNoScheme a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor cco:ont00000568 ;
     skos:prefLabel "No scheme"@en ;
     skos:definition "A capability with no scheme."@en ;
     bco:lifecycleStatus "Draft" ;
@@ -67,6 +94,8 @@ bcoc:VocabNoScheme a skos:Concept ;
 
 # Concept is in more than one skos:inScheme.
 bcoc:VocabTwoSchemes a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor cco:ont00000568 ;
     skos:inScheme bcoc:CapabilityCatalogScheme , bcom:MetamodelScheme ;
     skos:prefLabel "Two schemes"@en ;
     skos:definition "A capability in both schemes."@en ;
@@ -75,6 +104,8 @@ bcoc:VocabTwoSchemes a skos:Concept ;
 
 # Concept has a skos:prefLabel with no language tag.
 bcoc:VocabUntaggedLabel a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor cco:ont00000568 ;
     skos:inScheme bcoc:CapabilityCatalogScheme ;
     skos:prefLabel "Untagged label" ;
     skos:definition "A capability whose label has no language."@en ;
@@ -83,6 +114,8 @@ bcoc:VocabUntaggedLabel a skos:Concept ;
 
 # Concept has two skos:prefLabel values in one language.
 bcoc:VocabTwoEnglishLabels a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor cco:ont00000568 ;
     skos:inScheme bcoc:CapabilityCatalogScheme ;
     skos:prefLabel "Treasury Management"@en , "Treasury Administration"@en ;
     skos:definition "A capability with two English names."@en ;
@@ -91,6 +124,8 @@ bcoc:VocabTwoEnglishLabels a skos:Concept ;
 
 # Concept has no skos:definition.
 bcoc:VocabNoDefinition a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor cco:ont00000568 ;
     skos:inScheme bcoc:CapabilityCatalogScheme ;
     skos:prefLabel "No definition"@en ;
     bco:lifecycleStatus "Draft" ;
@@ -98,6 +133,8 @@ bcoc:VocabNoDefinition a skos:Concept ;
 
 # Concept stores skos:narrower.
 bcoc:VocabStoresNarrower a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor cco:ont00000568 ;
     skos:inScheme bcoc:CapabilityCatalogScheme ;
     skos:prefLabel "Stores narrower"@en ;
     skos:definition "A capability that states its children."@en ;
@@ -107,6 +144,8 @@ bcoc:VocabStoresNarrower a skos:Concept ;
 
 # Concept has no bco:lifecycleStatus.
 bcoc:VocabNoStatus a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor cco:ont00000568 ;
     skos:inScheme bcoc:CapabilityCatalogScheme ;
     skos:prefLabel "No status"@en ;
     skos:definition "A capability with no status."@en ;
@@ -114,6 +153,8 @@ bcoc:VocabNoStatus a skos:Concept ;
 
 # Concept has more than one bco:lifecycleStatus.
 bcoc:VocabTwoStatuses a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor cco:ont00000568 ;
     skos:inScheme bcoc:CapabilityCatalogScheme ;
     skos:prefLabel "Two statuses"@en ;
     skos:definition "A capability that is Draft and Candidate at once."@en ;
@@ -122,6 +163,8 @@ bcoc:VocabTwoStatuses a skos:Concept ;
 
 # Concept has a bco:lifecycleStatus outside the closed set.
 bcoc:VocabUnknownStatus a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor cco:ont00000568 ;
     skos:inScheme bcoc:CapabilityCatalogScheme ;
     skos:prefLabel "Unknown status"@en ;
     skos:definition "A capability with a status nobody derives."@en ;
@@ -130,6 +173,8 @@ bcoc:VocabUnknownStatus a skos:Concept ;
 
 # Concept is owl:deprecated true with no dcterms:isReplacedBy.
 bcoc:VocabDeprecatedUnreplaced a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor cco:ont00000568 ;
     skos:inScheme bcoc:CapabilityCatalogScheme ;
     skos:prefLabel "Deprecated, unreplaced"@en ;
     skos:definition "A capability deprecated in favour of nothing."@en ;
@@ -139,6 +184,8 @@ bcoc:VocabDeprecatedUnreplaced a skos:Concept ;
 
 # Concept has dcterms:isReplacedBy and is not owl:deprecated true.
 bcoc:VocabReplacedNotDeprecated a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor cco:ont00000568 ;
     skos:inScheme bcoc:CapabilityCatalogScheme ;
     skos:prefLabel "Replaced, not deprecated"@en ;
     skos:definition "A capability replaced and still current."@en ;
@@ -148,6 +195,8 @@ bcoc:VocabReplacedNotDeprecated a skos:Concept ;
 
 # Concept is replaced by something that is not a skos:Concept in scope.
 bcoc:VocabReplacedByNothing a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor cco:ont00000568 ;
     skos:inScheme bcoc:CapabilityCatalogScheme ;
     skos:prefLabel "Replaced by nothing"@en ;
     skos:definition "A capability replaced by an IRI nothing declares."@en ;
@@ -158,6 +207,8 @@ bcoc:VocabReplacedByNothing a skos:Concept ;
 
 # Concept's bco:lifecycleStatus and owl:deprecated disagree.
 bcoc:VocabStatusDisagrees a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor cco:ont00000568 ;
     skos:inScheme bcoc:CapabilityCatalogScheme ;
     skos:prefLabel "Status disagrees"@en ;
     skos:definition "A capability whose status says Deprecated and whose flag does not."@en ;
@@ -166,6 +217,8 @@ bcoc:VocabStatusDisagrees a skos:Concept ;
 
 # Concept is Ratified with no bco:ratifiedBy.
 bcoc:VocabRatifiedUncited a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor cco:ont00000568 ;
     skos:inScheme bcoc:CapabilityCatalogScheme ;
     skos:prefLabel "Ratified, uncited"@en ;
     skos:definition "A capability that claims a ratification it does not cite."@en ;
@@ -174,6 +227,8 @@ bcoc:VocabRatifiedUncited a skos:Concept ;
 
 # Concept has no prov:wasAttributedTo.
 bcoc:VocabUnattributed a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor cco:ont00000568 ;
     skos:inScheme bcoc:CapabilityCatalogScheme ;
     skos:prefLabel "Unattributed"@en ;
     skos:definition "A capability nobody drafted."@en ;
@@ -181,6 +236,8 @@ bcoc:VocabUnattributed a skos:Concept ;
 
 # Concept is attributed to an agent not declared in bco-agents.
 bcoc:VocabUndeclaredAgent a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor cco:ont00000568 ;
     skos:inScheme bcoc:CapabilityCatalogScheme ;
     skos:prefLabel "Undeclared agent"@en ;
     skos:definition "A capability drafted by an agent nobody declared."@en ;
@@ -215,6 +272,8 @@ bcom:VocabDesignatesElsewhere a skos:Concept ;
 
 # Catalog concept is not in bcoc:CapabilityCatalogScheme.
 bcoc:VocabCatalogWrongScheme a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor cco:ont00000568 ;
     skos:inScheme bcom:MetamodelScheme ;
     skos:prefLabel "Catalog in the metamodel"@en ;
     skos:definition "A capability filed in the metamodel scheme."@en ;
@@ -223,6 +282,8 @@ bcoc:VocabCatalogWrongScheme a skos:Concept ;
 
 # Catalog skos:notation is not typed bco:PCFCode.
 bcoc:VocabUntypedNotation a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor cco:ont00000568 ;
     skos:inScheme bcoc:CapabilityCatalogScheme ;
     skos:prefLabel "Untyped notation"@en ;
     skos:definition "A capability whose PCF code is a bare string."@en ;
@@ -230,11 +291,120 @@ bcoc:VocabUntypedNotation a skos:Concept ;
     bco:lifecycleStatus "Draft" ;
     prov:wasAttributedTo bcoa:fixture-software .
 
+# Catalog concept has no bco:definitionGenus.
+bcoc:VocabNoGenus a skos:Concept ;
+    bco:foundationalAncestor cco:ont00000568 ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "No genus"@en ;
+    skos:definition "A capability whose genus is not recorded."@en ;
+    bco:lifecycleStatus "Draft" ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# Catalog concept has more than one bco:definitionGenus.
+bcoc:VocabTwoGenera a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept , cco:ont00000568 ;
+    bco:foundationalAncestor cco:ont00000568 ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "Two genera"@en ;
+    skos:definition "A capability with two immediate genera."@en ;
+    bco:lifecycleStatus "Draft" ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# Catalog concept's bco:definitionGenus is neither a BFO or CCO class nor
+# the class a metamodel concept designates.
+bcoc:VocabGenusUndesignated a skos:Concept ;
+    bco:definitionGenus bco:NothingDesignatesThis ;
+    bco:foundationalAncestor cco:ont00000568 ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "Undesignated genus"@en ;
+    skos:definition "A capability whose genus no metamodel concept names."@en ;
+    bco:lifecycleStatus "Draft" ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# Catalog concept has no bco:foundationalAncestor.
+bcoc:VocabNoAncestor a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "No ancestor"@en ;
+    skos:definition "A capability whose foundational ancestor is not recorded."@en ;
+    bco:lifecycleStatus "Draft" ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# Catalog concept has more than one bco:foundationalAncestor.
+bcoc:VocabTwoAncestors a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor cco:ont00000568 , obo:BFO_0000016 ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "Two ancestors"@en ;
+    skos:definition "A capability with two foundational ancestors."@en ;
+    bco:lifecycleStatus "Draft" ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# Catalog concept's bco:foundationalAncestor is not a BFO or CCO class.
+bcoc:VocabAncestorNotUpstream a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor bco:GoodMetamodelConcept ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "Ancestor not upstream"@en ;
+    skos:definition "A capability whose ancestor is its own genus."@en ;
+    bco:lifecycleStatus "Draft" ;
+    prov:wasAttributedTo bcoa:fixture-software .
+
+# =====================================================================
+# Concept records: negative cases, hung on one valid host concept
+# (review R7, Finding B). Named <ns>record-<digest>, as the build mints
+# them; each digest is a placeholder of one repeated hex digit.
+# =====================================================================
+
+bcoc:VocabRecordHost a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor cco:ont00000568 ;
+    skos:inScheme bcoc:CapabilityCatalogScheme ;
+    skos:prefLabel "Record host"@en ;
+    skos:definition "A valid capability carrying the broken records."@en ;
+    bco:lifecycleStatus "Draft" ;
+    prov:wasAttributedTo bcoa:fixture-software ;
+    bco:currentRecord
+        bcoc:record-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ,
+        bcoc:record-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb ,
+        bcoc:record-cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc ,
+        bcoc:record-dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd ,
+        bcoc:record-1111111111111111111111111111111111111111111111111111111111111111 ,
+        bcoc:record-3333333333333333333333333333333333333333333333333333333333333333 .
+
+# Record is not a prov:Entity.
+bcoc:record-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    bco:recordSha256 "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" .
+
+# Record has no bco:recordSha256.
+bcoc:record-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb a prov:Entity .
+
+# Record has more than one bco:recordSha256.
+bcoc:record-cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc a prov:Entity ;
+    bco:recordSha256 "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc" ,
+        "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" .
+
+# Record's bco:recordSha256 is not the digest its IRI names.
+bcoc:record-dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd a prov:Entity ;
+    bco:recordSha256 "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" .
+
+# Record is a revision of a record the vocabulary graph does not describe.
+bcoc:record-1111111111111111111111111111111111111111111111111111111111111111 a prov:Entity ;
+    bco:recordSha256 "1111111111111111111111111111111111111111111111111111111111111111" ;
+    prov:wasRevisionOf bcoc:record-2222222222222222222222222222222222222222222222222222222222222222 .
+
+# Record's bco:recordCommit is not a full 40-hex commit.
+bcoc:record-3333333333333333333333333333333333333333333333333333333333333333 a prov:Entity ;
+    bco:recordSha256 "3333333333333333333333333333333333333333333333333333333333333333" ;
+    bco:recordCommit "abc1234" .
+
 # =====================================================================
 # Source references: negative cases, all hung on one valid host concept
 # =====================================================================
 
 bcoc:VocabSourceHost a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor cco:ont00000568 ;
     skos:inScheme bcoc:CapabilityCatalogScheme ;
     skos:prefLabel "Source host"@en ;
     skos:definition "A valid capability carrying the broken source references."@en ;
@@ -245,7 +415,8 @@ bcoc:VocabSourceHost a skos:Concept ;
         bcoc:source-bad-relation , bcoc:source-departs-no-note ,
         bcoc:source-departs-no-claim , bcoc:source-consistent-no-support ,
         bcoc:source-two-supports , bcoc:source-bad-support ,
-        bcoc:source-support-not-consistent .
+        bcoc:source-support-not-consistent ,
+        bcoc:source-departs-foreign-claim , bcoc:source-departs-weak-claim .
 
 # Source reference cites no source.
 bcoc:source-no-source
@@ -280,7 +451,7 @@ bcoc:source-departs-no-note
     bco:citesSource bcos:SRC-OMG-03 ;
     bco:locator "section 7.2" ;
     bco:relation "departs-from" ;
-    bco:citesClaim "1"^^xsd:integer .
+    bco:citesClaim bcos:SRC-OMG-03-claim-1 .
 
 # A departs-from source reference cites no claim.
 bcoc:source-departs-no-claim
@@ -317,6 +488,22 @@ bcoc:source-support-not-consistent
     bco:relation "adapted-from" ;
     bco:support "definitional" .
 
+# A departs-from source reference cites a claim of another source.
+bcoc:source-departs-foreign-claim
+    bco:citesSource bcos:SRC-OMG-03 ;
+    bco:locator "section 7.2" ;
+    bco:relation "departs-from" ;
+    bco:departureNote "The BCO bearer is an organization only."@en ;
+    bco:citesClaim bcos:SRC-OMG-01-claim-1 .
+
+# A departs-from source reference cites a claim at S.
+bcoc:source-departs-weak-claim
+    bco:citesSource bcos:SRC-OMG-03 ;
+    bco:locator "section 7.2" ;
+    bco:relation "departs-from" ;
+    bco:departureNote "The BCO bearer is an organization only."@en ;
+    bco:citesClaim bcos:SRC-OMG-03-claim-2 .
+
 # =====================================================================
 # Source records: negative cases
 # =====================================================================
@@ -325,34 +512,130 @@ bcoc:source-support-not-consistent
 bcos:SRC-BA-01
     dcterms:identifier "SRC-BA-01" ;
     dcterms:bibliographicCitation "Placeholder citation for a fixture." ;
+    bco:hasClaim bcos:SRC-BA-01-claim-1 .
+
+bcos:SRC-BA-01-claim-1
+    bco:claimIndex "1"^^xsd:integer ;
     bco:claimStatus "S" .
 
 # Source record has no dcterms:identifier.
 bcos:SRC-BA-02 a dcterms:BibliographicResource ;
     dcterms:bibliographicCitation "Placeholder citation for a fixture." ;
+    bco:hasClaim bcos:SRC-BA-02-claim-1 .
+
+bcos:SRC-BA-02-claim-1
+    bco:claimIndex "1"^^xsd:integer ;
     bco:claimStatus "V" .
 
 # Source record's dcterms:identifier is not its IRI's local name.
 bcos:SRC-BA-03 a dcterms:BibliographicResource ;
     dcterms:identifier "SRC-BA-04" ;
     dcterms:bibliographicCitation "Placeholder citation for a fixture." ;
+    bco:hasClaim bcos:SRC-BA-03-claim-1 .
+
+bcos:SRC-BA-03-claim-1
+    bco:claimIndex "1"^^xsd:integer ;
     bco:claimStatus "S" .
 
 # Source record has no dcterms:bibliographicCitation.
 bcos:SRC-BA-04 a dcterms:BibliographicResource ;
     dcterms:identifier "SRC-BA-04" ;
+    bco:hasClaim bcos:SRC-BA-04-claim-1 .
+
+bcos:SRC-BA-04-claim-1
+    bco:claimIndex "1"^^xsd:integer ;
     bco:claimStatus "P" .
 
-# Source record has no bco:claimStatus.
+# Source record has no bco:hasClaim.
 bcos:SRC-BA-05 a dcterms:BibliographicResource ;
     dcterms:identifier "SRC-BA-05" ;
     dcterms:bibliographicCitation "Placeholder citation for a fixture." .
 
-# Source record has a bco:claimStatus other than V, P, S, K or L.
+# Source record carries a bco:claimStatus of its own (the unordered bag
+# review R7 found), beside a valid claim.
 bcos:SRC-BA-06 a dcterms:BibliographicResource ;
     dcterms:identifier "SRC-BA-06" ;
     dcterms:bibliographicCitation "Placeholder citation for a fixture." ;
+    bco:claimStatus "V" ;
+    bco:hasClaim bcos:SRC-BA-06-claim-1 .
+
+bcos:SRC-BA-06-claim-1
+    bco:claimIndex "1"^^xsd:integer ;
+    bco:claimStatus "V" .
+
+# Source record has two claims with the same bco:claimIndex.
+bcos:SRC-BA-07 a dcterms:BibliographicResource ;
+    dcterms:identifier "SRC-BA-07" ;
+    dcterms:bibliographicCitation "Placeholder citation for a fixture." ;
+    bco:hasClaim bcos:SRC-BA-07-claim-1 , bcos:SRC-BA-07-claim-2 .
+
+bcos:SRC-BA-07-claim-1
+    bco:claimIndex "1"^^xsd:integer ;
+    bco:claimStatus "V" .
+
+bcos:SRC-BA-07-claim-2
+    bco:claimIndex "1"^^xsd:integer ;
+    bco:claimStatus "S" .
+
+# Source record links a claim that is not one of its own.
+bcos:SRC-BA-08 a dcterms:BibliographicResource ;
+    dcterms:identifier "SRC-BA-08" ;
+    dcterms:bibliographicCitation "Placeholder citation for a fixture." ;
+    bco:hasClaim bcos:SRC-BA-09-claim-1 .
+
+bcos:SRC-BA-09-claim-1
+    bco:claimIndex "1"^^xsd:integer ;
+    bco:claimStatus "V" .
+
+# =====================================================================
+# Register claims: negative cases, hung on one valid record
+# =====================================================================
+
+bcos:SRC-MS-01 a dcterms:BibliographicResource ;
+    dcterms:identifier "SRC-MS-01" ;
+    dcterms:bibliographicCitation "Placeholder citation for a fixture." ;
+    bco:hasClaim bcos:SRC-MS-01-claim-1 , bcos:SRC-MS-01-claim-2 ,
+        bcos:SRC-MS-01-claim-3 , bcos:SRC-MS-01-claim-4 ,
+        bcos:SRC-MS-01-claim-5 , bcos:SRC-MS-01-claim-6 ,
+        bcos:SRC-MS-01-claim-7 .
+
+# Claim has no bco:claimIndex.
+bcos:SRC-MS-01-claim-1
+    bco:claimStatus "V" .
+
+# Claim has more than one bco:claimIndex.
+bcos:SRC-MS-01-claim-2
+    bco:claimIndex "2"^^xsd:integer , "8"^^xsd:integer ;
+    bco:claimStatus "V" .
+
+# Claim's bco:claimIndex is not a positive xsd:integer: a plain string.
+bcos:SRC-MS-01-claim-3
+    bco:claimIndex "3" ;
+    bco:claimStatus "V" .
+
+# Claim's bco:claimIndex is not the number its IRI ends with.
+bcos:SRC-MS-01-claim-4
+    bco:claimIndex "9"^^xsd:integer ;
+    bco:claimStatus "V" .
+
+# Claim has no bco:claimStatus.
+bcos:SRC-MS-01-claim-5
+    bco:claimIndex "5"^^xsd:integer .
+
+# Claim has more than one bco:claimStatus.
+bcos:SRC-MS-01-claim-6
+    bco:claimIndex "6"^^xsd:integer ;
+    bco:claimStatus "V" , "P" .
+
+# Claim has a bco:claimStatus other than V, P, S, K or L.
+bcos:SRC-MS-01-claim-7
+    bco:claimIndex "7"^^xsd:integer ;
     bco:claimStatus "verified" .
+
+# Claim belongs to no source record.
+bcos:SRC-MS-02-claim-1
+    bco:claimIndex "1"^^xsd:integer ;
+    bco:claimStatus "V" .
 
 # =====================================================================
 # Declared agents: negative cases
@@ -398,6 +681,8 @@ bcoa:fixture-software-for-software a prov:Agent , prov:SoftwareAgent ;
 # =====================================================================
 
 bcoc:VocabRatificationHost a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor cco:ont00000568 ;
     skos:inScheme bcoc:CapabilityCatalogScheme ;
     skos:prefLabel "Ratification host"@en ;
     skos:definition "A capability carrying the broken ratification references."@en ;
@@ -465,6 +750,8 @@ bcom:GoodMetamodelConcept a skos:Concept ;
 # source reference, and two consistent-with references, one definitional
 # and one contextual.
 bcoc:GoodCatalogConcept a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor cco:ont00000568 ;
     skos:inScheme bcoc:CapabilityCatalogScheme ;
     skos:prefLabel "Treasury Management"@en , "Gestion de tresorerie"@fr ;
     skos:definition "A capability with everything it owes."@en ;
@@ -472,8 +759,19 @@ bcoc:GoodCatalogConcept a skos:Concept ;
     skos:notation "10002"^^bco:PCFCode ;
     bco:lifecycleStatus "Candidate" ;
     prov:wasAttributedTo bcoa:fixture-software ;
+    bco:currentRecord bcoc:record-4444444444444444444444444444444444444444444444444444444444444444 ;
     bco:sourceReference bcoc:source-good-adapted ,
         bcoc:source-good-definitional , bcoc:source-good-contextual .
+
+# Its current record revises a prior record the graph describes, with the
+# commit that introduced it (review R7, Finding B).
+bcoc:record-4444444444444444444444444444444444444444444444444444444444444444 a prov:Entity ;
+    bco:recordSha256 "4444444444444444444444444444444444444444444444444444444444444444" ;
+    prov:wasRevisionOf bcoc:record-5555555555555555555555555555555555555555555555555555555555555555 .
+
+bcoc:record-5555555555555555555555555555555555555555555555555555555555555555 a prov:Entity ;
+    bco:recordSha256 "5555555555555555555555555555555555555555555555555555555555555555" ;
+    bco:recordCommit "0123456789abcdef0123456789abcdef01234567" .
 
 bcoc:source-good-adapted
     bco:citesSource bcos:SRC-OMG-01 ;
@@ -496,6 +794,8 @@ bcoc:source-good-contextual
 # Ratified, citing an act in the form D2 requires. The shapes check the
 # form; the build checks the act against git.
 bcoc:GoodRatifiedConcept a skos:Concept ;
+    bco:definitionGenus cco:ont00000568 ;
+    bco:foundationalAncestor obo:BFO_0000017 ;
     skos:inScheme bcoc:CapabilityCatalogScheme ;
     skos:prefLabel "Good ratified concept"@en ;
     skos:definition "A ratified capability citing its act."@en ;
@@ -511,6 +811,8 @@ bcoc:ratification-good
 # Deprecated the one way D5 allows: flagged, replaced by a live concept,
 # and saying so in its status.
 bcoc:GoodDeprecatedConcept a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor cco:ont00000568 ;
     skos:inScheme bcoc:CapabilityCatalogScheme ;
     skos:prefLabel "Good deprecated concept"@en ;
     skos:definition "A capability replaced by another."@en ;
@@ -521,6 +823,8 @@ bcoc:GoodDeprecatedConcept a skos:Concept ;
 
 # Departing from a source the way D6 requires: a note and a claim.
 bcoc:GoodDepartingConcept a skos:Concept ;
+    bco:definitionGenus bco:GoodMetamodelConcept ;
+    bco:foundationalAncestor cco:ont00000568 ;
     skos:inScheme bcoc:CapabilityCatalogScheme ;
     skos:prefLabel "Good departing concept"@en ;
     skos:definition "A capability that departs from its source and says why."@en ;
@@ -533,4 +837,4 @@ bcoc:source-good-departs
     bco:locator "section 7.2" ;
     bco:relation "departs-from" ;
     bco:departureNote "The BCO bearer is an organization only."@en ;
-    bco:citesClaim "1"^^xsd:integer .
+    bco:citesClaim bcos:SRC-OMG-03-claim-1 .

@@ -143,6 +143,7 @@ def cat(local="TreasuryManagement", **kw):
                              "manages the cash and liquidity of an "
                              "organization."),
               "genus": "cco:ont00000568",
+              "foundational_ancestor": "cco:ont00001379",
               "sources": [source()], "drafted_by": AGENT,
               "created": "2026-10-24T00:00:00Z", "authored_status": "Draft"}
     record.update(kw)
@@ -749,6 +750,14 @@ def test_departs_from_a_v_claim_builds(vb, register, layout, spec_path,
     text = result.files["bco-catalog.ttl"].decode("utf-8")
     assert "bco:citesSource bcos:SRC-OMG-03 ." in text
     assert '"departs-from"' in text
+    # R7 Finding A: the cited claim is the claim's IRI, not an integer, and
+    # that claim is in the sources graph with its status.
+    assert "bco:citesClaim bcos:SRC-OMG-03-claim-%d ." % n in text
+    assert "citesClaim \"" not in text
+    sources = result.files["bco-sources.ttl"].decode("utf-8")
+    assert "bcos:SRC-OMG-03 bco:hasClaim bcos:SRC-OMG-03-claim-%d ." % n \
+        in sources
+    assert 'bcos:SRC-OMG-03-claim-%d bco:claimStatus "V" .' % n in sources
 
 
 @pytest.mark.parametrize("ref, code", [
@@ -872,6 +881,15 @@ def test_a_typed_notation_is_emitted(vb, layout, spec_path, tmp_path):
     (cat(broader=["bcoc:Nowhere"]), "catalog-broader"),
     (cat(genus="cco:ont99999999"), "catalog-genus"),
     (cat(genus="bco:BusinessCapability"), "catalog-genus"),
+    (cat(genus="ex:BusinessCapability"), "catalog-genus"),
+    ({k: v for k, v in cat().items() if k != "foundational_ancestor"},
+     "record-missing-field"),
+    (cat(foundational_ancestor="cco:ont99999999"), "catalog-ancestor"),
+    (cat(foundational_ancestor="bco:BusinessCapability"), "catalog-ancestor"),
+    (cat(foundational_ancestor="cco:ont00000568"),
+     "catalog-ancestor-unrelated"),
+    (cat(foundational_ancestor="obo:BFO_0000023"),
+     "catalog-ancestor-unrelated"),
     (cat(definition="Manages cash."), "catalog-definition-form"),
     (cat(pref_label=[{"value": "Tresorerie", "language": "fr"}]),
      "catalog-label"),
@@ -882,11 +900,72 @@ def test_a_typed_notation_is_emitted(vb, layout, spec_path, tmp_path):
     (cat(colour="blue"), "record-unknown-field"),
     ({k: v for k, v in cat().items() if k != "genus"}, "record-missing-field"),
 ], ids=["notation-form", "notation-untyped-int", "narrower", "broader",
-        "genus-unknown", "genus-not-upstream", "definition-form", "no-english",
+        "genus-unknown", "genus-designated-by-no-concept", "genus-not-bfo-cco",
+        "no-ancestor", "ancestor-unknown", "ancestor-not-upstream",
+        "ancestor-is-the-genus", "ancestor-not-above-genus",
+        "definition-form", "no-english",
         "two-english", "designates-class", "unknown-field", "missing-field"])
 def test_a_bad_catalog_record_is_refused(vb, layout, spec_path, tmp_path,
                                          record, code):
     refused(vb, make(tmp_path, vb, layout, spec_path, catalog=[record]), code)
+
+
+def test_a_designated_genus_and_its_ancestor_build(vb, layout, spec_path,
+                                                  tmp_path):
+    """R7 Finding E, as the architect decided it: the immediate genus is
+    the class a metamodel concept designates, the CCO class is recorded
+    apart as the foundational ancestor, and nothing is minted -- no
+    owl:Class, no rdfs:subClassOf anywhere in the build."""
+    record = cat(genus="bco:BusinessCapability",
+                 foundational_ancestor="cco:ont00000568")
+    result = built(vb, make(tmp_path, vb, layout, spec_path,
+                            metamodel=[meta(r) for r in SPEC_ROWS],
+                            catalog=[record]))
+    text = result.files["bco-catalog.ttl"].decode("utf-8")
+    assert ("bcoc:TreasuryManagement bco:definitionGenus "
+            "bco:BusinessCapability ." in text)
+    assert ("bcoc:TreasuryManagement bco:foundationalAncestor "
+            "cco:ont00000568 ." in text)
+    for name, data in result.files.items():
+        body = data.decode("utf-8")
+        assert "owl:Class" not in body, name
+        assert "rdfs:subClassOf" not in body, name
+        assert "bco:BusinessCapability rdf:type" not in body, name
+    vocab = result.files["bco-vocabulary.ttl"].decode("utf-8")
+    assert ("bco:foundationalAncestor rdf:type owl:AnnotationProperty ."
+            in vocab)
+    # A section 4 parent's own vendored superclass is above the genus too.
+    built(vb, make(tmp_path / "b", vb, layout, spec_path,
+                   metamodel=[meta(r) for r in SPEC_ROWS],
+                   catalog=[dict(record,
+                                 foundational_ancestor="obo:BFO_0000017")]))
+    # Designated by a metamodel concept that is not there: refused.
+    refused(vb, make(tmp_path / "c", vb, layout, spec_path,
+                     metamodel=[meta(r) for r in SPEC_ROWS
+                                if r != "BusinessCapability"]
+                     + [meta("BusinessCapability", spec_row="ex:Nothing")],
+                     catalog=[record]), "catalog-genus")
+
+
+def test_the_real_catalog_records_the_genus_and_the_ancestor(vb):
+    """The five real catalog concepts, as the decision record has it."""
+    result = built(vb, vb.default_inputs())
+    graph = graph_of(result, "bco-catalog.ttl")
+    import rdflib
+
+    genus = rdflib.URIRef(vb.BCO + "definitionGenus")
+    ancestor = rdflib.URIRef(vb.BCO + "foundationalAncestor")
+    concepts = set(graph.subjects(genus, None))
+    assert len(concepts) == 5
+    for concept in concepts:
+        assert list(graph.objects(concept, genus)) == [
+            rdflib.URIRef(vb.BCO + "BusinessCapability")]
+        assert list(graph.objects(concept, ancestor)) == [
+            rdflib.URIRef("https://www.commoncoreontologies.org/ont00000568")]
+    metamodel = graph_of(result, "bco-metamodel.ttl")
+    assert (rdflib.URIRef(vb.BCOM + "BusinessCapability"),
+            rdflib.URIRef(vb.BCO + "designatesClass"),
+            rdflib.URIRef(vb.BCO + "BusinessCapability")) in metamodel
 
 
 def test_broader_between_catalog_concepts_builds(vb, layout, spec_path,
@@ -947,6 +1026,128 @@ def test_revises_links_record_versions(vb, layout, spec_path, tmp_path):
     text = result.files["bco-catalog.ttl"].decode("utf-8")
     assert "prov:wasRevisionOf bcoc:record-%s ." % ("a" * 64) in text
     assert 'skos:changeNote "Wording tightened."@en' in text
+    # R7 Finding B: the revised record is described, even when no commit
+    # holds it -- then without bco:recordCommit.
+    prior = "bcoc:record-%s" % ("a" * 64)
+    assert "%s rdf:type prov:Entity ." % prior in text
+    assert '%s bco:recordSha256 "%s" .' % (prior, "a" * 64) in text
+    assert "%s bco:recordCommit" % prior not in text
+
+
+def history_repo(tmp_path, records_by_commit):
+    """A throwaway repository whose vocab/catalog.yaml holds each list of
+    records in turn, one commit each. Returns the commits, oldest first."""
+    repo = tmp_path / "historyrepo"
+    (repo / "vocab").mkdir(parents=True)
+    git(repo, "init", "-q")
+    git(repo, "symbolic-ref", "HEAD", "refs/heads/main")
+    commits = []
+    for n, records in enumerate(records_by_commit):
+        dump(repo / "vocab" / "catalog.yaml", {"version": 1,
+                                                "concepts": records})
+        git(repo, "add", "-A")
+        git(repo, "commit", "-q", "-m", "c%d" % n,
+            "--date", "2026-10-%02dT00:00:00Z" % (n + 1))
+        commits.append(git(repo, "rev-parse", "HEAD"))
+    return repo
+
+
+def test_a_prior_record_names_the_commit_that_introduced_it(
+        vb, layout, spec_path, tmp_path):
+    """R7 Finding B: the commit is found from git, deterministically: the
+    first commit whose YAML yields the digest. A later commit that leaves
+    the record alone does not move it, and the chain continues through the
+    record's own `revises` at that commit."""
+    first = cat(definition="A business capability that is the first.")
+    second = cat(definition="A business capability that is the second.",
+                 revises=vb.record_digest(first), change_note=["one"])
+    other = cat("CashManagement")
+    repo = history_repo(tmp_path, [[first], [second], [second, other]])
+    log = git(repo, "log", "--format=%H", "--reverse").split()
+    current = cat(definition="A business capability that is the third.",
+                  revises=vb.record_digest(second), change_note=["two"])
+    result = built(vb, make(tmp_path / "in", vb, layout, spec_path,
+                            catalog=[current], repo=repo))
+    text = result.files["bco-catalog.ttl"].decode("utf-8")
+    d1, d2 = vb.record_digest(first), vb.record_digest(second)
+    assert 'bcoc:record-%s bco:recordCommit "%s" .' % (d2, log[1]) in text
+    assert "bcoc:record-%s prov:wasRevisionOf bcoc:record-%s ." % (d2, d1) \
+        in text
+    assert 'bcoc:record-%s bco:recordCommit "%s" .' % (d1, log[0]) in text
+    assert "bcoc:record-%s prov:wasRevisionOf" % d1 not in text
+    # Falsified: the same record never committed gets no commit.
+    vb._history.cache_clear()
+    bare = history_repo(tmp_path / "bare", [[other]])
+    result = built(vb, make(tmp_path / "in2", vb, layout, spec_path,
+                            catalog=[current], repo=bare))
+    assert "bco:recordCommit" not in result.files["bco-catalog.ttl"].decode(
+        "utf-8")
+
+
+def test_a_shallow_clone_is_a_finding(vb, layout, spec_path, tmp_path):
+    """Without the full history the introducing commit could silently be
+    missing, so a shallow clone refuses to build a record that revises."""
+    first = cat(definition="A business capability that is the first.")
+    second = cat(definition="A business capability that is the second.")
+    repo = history_repo(tmp_path, [[first], [second]])
+    clone = tmp_path / "shallow"
+    subprocess.run(["git", "clone", "-q", "--depth", "1",
+                    repo.resolve().as_uri(), str(clone)], check=True,
+                   capture_output=True)
+    assert git(clone, "rev-parse", "--is-shallow-repository") == "true"
+    current = cat(revises=vb.record_digest(first), change_note=["x"])
+    refused(vb, make(tmp_path / "in", vb, layout, spec_path,
+                     catalog=[current], repo=clone), "D3-history-shallow")
+    # Positive control: the full repository builds the same record.
+    built(vb, make(tmp_path / "in2", vb, layout, spec_path,
+                   catalog=[current], repo=repo))
+
+
+def test_the_real_prior_records_resolve_and_verify(vb, repo):
+    """Every record a current record revises is described, and where it
+    carries a commit, the YAML at that commit -- with that commit's
+    section 4 row for a metamodel concept -- yields exactly its digest,
+    recomputed here the way DEVELOPMENT.md tells a reader to."""
+    import rdflib
+
+    result = built(vb, vb.default_inputs())
+    graph = rdflib.Graph()
+    for name in ("bco-metamodel.ttl", "bco-catalog.ttl"):
+        graph += graph_of(result, name)
+    sha = rdflib.URIRef(vb.BCO + "recordSha256")
+    commit_p = rdflib.URIRef(vb.BCO + "recordCommit")
+    revision = rdflib.URIRef(vb.PROV + "wasRevisionOf")
+    targets = set(graph.objects(None, revision))
+    assert len(targets) == 19, len(targets)
+    verified = 0
+    for target in targets:
+        digest = str(graph.value(target, sha))
+        assert str(target).endswith("record-" + digest)
+        commit = graph.value(target, commit_p)
+        assert commit is not None, target
+        kind = "metamodel" if str(target).startswith(vb.BCOM) else "catalog"
+        text = git(repo, "show", "%s:vocab/%s.yaml" % (commit, kind))
+        spec = git(repo, "show", "%s:specifications/"
+                   "Business-Capability-Ontology-v0.4.0-draft.1.md" % commit)
+        rows = {r.spec_iri: r for r in vb.spec_terms.parse_text(spec).rows}
+        found = []
+        for record in yaml.safe_load(text)["concepts"]:
+            body = {k: v for k, v in record.items() if k != "ratified_by"}
+            if kind == "metamodel":
+                body["spec_row_content"] = rows[record["spec_row"]].content()
+            raw = json.dumps(body, sort_keys=True, ensure_ascii=False,
+                             separators=(",", ":")).encode("utf-8")
+            found.append(hashlib.sha256(raw).hexdigest())
+        assert digest in found, (target, commit)
+        # ... and the parent commit does not: it is the introducing one.
+        parent = git(repo, "rev-parse", "%s^" % commit)
+        before = subprocess.run(["git", "show", "%s:vocab/%s.yaml"
+                                 % (parent, kind)], cwd=str(repo),
+                                capture_output=True)
+        if before.returncode == 0:
+            assert digest[:16] not in before.stdout.decode("utf-8")
+        verified += 1
+    assert verified == 19
 
 
 # ================================================================ record digest
@@ -1029,10 +1230,47 @@ def test_sources_graph_has_one_record_per_register_entry(vb, register):
         vb.DCTERMS + "identifier"))}
     assert ids == vb.build_register.known_ids(register)
     assert len(ids) == vb.build_register.EXPECTED_ENTRY_COUNT
+    entries = {e["id"]: e for e in vb.build_register.entries(register)}
+    claims = 0
     for src in ids:
         s = rdflib.URIRef(vb.BCOS + src)
         assert g.value(s, rdflib.URIRef(vb.DCTERMS + "bibliographicCitation"))
-        assert g.value(s, rdflib.URIRef(vb.BCO + "claimStatus"))
+        # R7 Finding A: no status bag on the record; one resource per
+        # claim, in register order, each with its index and status.
+        assert g.value(s, rdflib.URIRef(vb.BCO + "claimStatus")) is None
+        linked = set(g.objects(s, rdflib.URIRef(vb.BCO + "hasClaim")))
+        expected = entries[src]["claims"]
+        assert len(linked) == len(expected), src
+        for n, claim in enumerate(expected, 1):
+            c = rdflib.URIRef(vb.claim_iri(src, n))
+            assert c in linked
+            assert g.value(c, rdflib.URIRef(vb.BCO + "claimIndex")).toPython() \
+                == n
+            assert str(g.value(c, rdflib.URIRef(vb.BCO + "claimStatus"))) \
+                == claim["status"]
+            scope = g.value(c, rdflib.URIRef(vb.BCO + "claimScope"))
+            assert (scope is not None) == bool(claim.get("scope")), (src, n)
+            claims += 1
+    assert claims == 83, claims
+
+
+def test_what_the_rdf_cannot_enforce_is_said(vb):
+    """R7 Findings F and G: bco:PCFCode and bco:lifecycleStatus each carry
+    an rdfs:comment saying where the rule is enforced."""
+    import rdflib
+
+    result = built(vb, vb.default_inputs())
+    g = graph_of(result, "bco-vocabulary.ttl")
+    comment = rdflib.URIRef("http://www.w3.org/2000/01/rdf-schema#comment")
+    pcf = str(g.value(rdflib.URIRef(vb.BCO + "PCFCode"), comment))
+    assert "five-digit" in pcf and "has not been checked" in pcf
+    assert "BPO's catalog" in pcf and "build's job" in pcf
+    status = str(g.value(rdflib.URIRef(vb.BCO + "lifecycleStatus"), comment))
+    assert "tools/vocab/build.py" in status and "ADR-003 D5" in status
+    digest = str(g.value(rdflib.URIRef(vb.BCO + "recordSha256"), comment))
+    assert "json.dumps(sort_keys=True" in digest and "SHA-256" in digest
+    history = str(g.value(rdflib.URIRef(vb.BCO + "recordCommit"), comment))
+    assert "git log" in history and "git show" in history
 
 
 # ================================================================ inputs
