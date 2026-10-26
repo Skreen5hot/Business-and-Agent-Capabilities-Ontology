@@ -4,8 +4,8 @@
 | --- | --- |
 | Model identifier | CM-01 |
 | Title | Business Capability Conceptual Domain Model |
-| Version | 0.1.0-draft.3 |
-| Status | Draft. Not approved. DP-1 decided (Option A, 2026-10-25); DP-2 awaits the architect |
+| Version | 0.1.0-draft.4 |
+| Status | Draft. Not approved. DP-1 and DP-2 decided (both Option A); awaiting the architect's review and approval |
 | Stage | 02 — Conceptual Modeling |
 | Standard | `docs/standards/stage-02-conceptual-modeling.md` |
 | Stage choices | `docs/decisions/2026-10-25-stage-02-choices.md` |
@@ -34,7 +34,8 @@ model cannot be approved until the architect has decided both and the decisions 
 recorded as acts in `docs/decisions/`. Specification v0.5 follows from those decisions.
 This model records decisions; it does not make them. DP-1 was decided by the architect on
 2026-10-25 (`docs/decisions/2026-10-25-dp1-rp1-grounding-boundary.md`): Option A with amendments
-a1–a4. DP-2 remains open, and the drafter's recommendation for it in §7 is an input.
+a1–a4. DP-2 was decided on 2026-10-26 (`docs/decisions/2026-10-26-dp2-rp10-admission-attribution.md`):
+Option A with amendments b1, b3, b4 and b5; b2 rejected. No decision point remains open.
 
 **Revision history.** 0.1.0-draft.1 (2026-10-25): first draft. 0.1.0-draft.2 (2026-10-25):
 answers review R8 (`reviews/R8-cm01-review.md`; proposed disposition
@@ -51,6 +52,10 @@ platform does not by itself end a capability. The grounding relationships in P1 
 overview are now solid; the "as the specification proposes it" hedges are gone; a1–a4
 are written into §4, §5 and §6; Q-01 is closed and Q-15 records the socio-technical
 question a4 keeps open. P2–P5 are unchanged. DP-2 is not presumed decided.
+0.1.0-draft.4 (2026-10-26): applies the architect's DP-2 decision
+(`docs/decisions/2026-10-26-dp2-rp10-admission-attribution.md`), made on draft.3: Option A, amendments b1, b3,
+b4 and b5 accepted, b2 rejected. Records admission of and supports bearing of are now
+solid; §6 states the two tests as decided; Q-02 is closed. Nothing else changes.
 
 **Inputs.**
 
@@ -175,7 +180,7 @@ flowchart LR
   MAP -->|has entry| TGT
   CA -->|concerns type| CT
   TGT -->|concerns type| CT
-  CA -.->|supports bearing of| BC
+  CA -->|supports bearing of| BC
   CSS -->|concerns type| BAT
   AR -->|concerns type| BAT
   CRE -->|is keyed by| SF
@@ -190,9 +195,9 @@ what grounds the capability, an act); a hexagon is a type (a kind of capability,
 act); a rounded box is information — a record, an index, a catalog entry, a description.
 A solid arrow is a relationship the model commits to. A dashed arrow is conditional: it
 holds only after a recorded review or decision, or its formal treatment is pending. Here
-the dashed arrow from Capability Assessment depends on DP-2 (what supports a claim that an
-organization bears a capability). The two grounding arrows out of Business Capability are
-solid: DP-1 decided what grounds a capability and what it merely depends on. Read left to right,
+no arrow is dashed: DP-1 decided what grounds a capability and what it merely depends on,
+and DP-2 decided that an assessment with a present finding is what supports a claim that
+an organization bears a capability. Read left to right,
 the centre of the model is: an Organization bears a Business Capability, which is an
 instance of a Capability Type; Acts, each an instance of a BPO Act Type, realize it; and
 the Capability Type's Realization Index lists which BPO Act Types are admissible
@@ -206,8 +211,9 @@ and lists, per standing function, the capability types it requires.
 
 **What the pattern settles.** Who has a business capability, what grounds it, what it
 merely depends on, and how a capability type comes to count as a kind of disposition.
-Specification CD1, CD2, CD3, CD7, CD10. DP-1 is decided (Option A, `docs/decisions/2026-10-25-dp1-rp1-grounding-boundary.md`);
-the one relationship still dashed, records admission of, depends on DP-2.
+Specification CD1, CD2, CD3, CD7, CD10. DP-1 (Option A, `docs/decisions/2026-10-25-dp1-rp1-grounding-boundary.md`) and DP-2
+(Option A, `docs/decisions/2026-10-26-dp2-rp10-admission-attribution.md`) are decided; no relationship in
+this pattern is conditional.
 
 ```mermaid
 flowchart LR
@@ -228,7 +234,7 @@ flowchart LR
   BAS -->|is arranged by| ARR
   BC -->|depends for realization on| EC
   MA -->|has skill| SK
-  TAR -.->|records admission of| CT
+  TAR -->|records admission of| CT
 ```
 
 **Reading the diagram.** An Organization bears a Business Capability, and each Business
@@ -247,7 +253,7 @@ realization, and losing one — even permanently — makes it unavailable rather
 it cease. A Type
 Admission Record, written once per Capability Type with no particular organization in
 view, records whether capabilities of that type can be genuine dispositions of an
-organization (DP-2). Notice what the pattern leaves out: no assignment, responsibility,
+organization; a pass admits the type, and only the type (DP-2, Option A). Notice what the pattern leaves out: no assignment, responsibility,
 charter or authorization appears, because those show that an organization is responsible
 or permitted, not that it is able (CD7, G1-I question 2).
 
@@ -322,7 +328,7 @@ flowchart LR
   CA -->|conforms to| CRIT
   CA -->|cites as evidence| EV
   CA -->|is about| BC
-  CA -.->|supports bearing of| BC
+  CA -->|supports bearing of| BC
   CMR -->|rates| BC
   CMR -->|conforms to| MS
   CMR -->|is produced by| CA
@@ -342,7 +348,7 @@ Evidence and conforming to stated Assessment Criteria (a partial finding is part
 relative to those criteria, never a fraction of a capability). When the finding is present
 and a particular capability is identified, the assessment is about that Business
 Capability, and an assessment of that kind is what supports the claim that the
-organization bears it (dashed: DP-2). A Capability Maturity Rating rates an existing
+organization bears it (DP-2, Option A). A Capability Maturity Rating rates an existing
 Business Capability on a Maturity Scale and is produced by an assessment; there is no
 rating of an absent capability. A Capability Target is set for an organization and
 concerns a Capability Type the organization is to come to bear, which may have no instance
@@ -489,7 +495,7 @@ vendored extracts.
   Capability Types (multiple classification is allowed; a single primary type may be
   recorded by convention); grounded in the organization's own members as organized
   (DP-1, Option A); realized only by acts that are exercises of it. It may never have been
-  realized, and can still be attributed on evidence of capacity (§6, DP-2 b5).
+  realized, and can still be attributed on evidence of capacity (§6; DP-2 b5, accepted).
 - **Examples.** Acme's strategic planning capability; Acme's payroll processing capability,
   if Acme's own staff can run payroll.
 - **Boundaries.** Not the act (a process), not a role or permission (standing), not a
@@ -501,7 +507,8 @@ vendored extracts.
   Act, Capability Assessment, Capability Maturity Rating.
 - **Vocabulary.** `bcom:BusinessCapability`.
 - **Preliminary alignment.** Under `cco:ont00000568` Organization Capability; whether also
-  under `obo:BFO_0000016` disposition is what DP-2 governs.
+  under `obo:BFO_0000016` disposition follows only for a type that has passed type
+  admission (DP-2, Option A); the assertion itself is a Stage 05 matter.
 
 ### Capability Type
 
@@ -614,7 +621,10 @@ vendored extracts.
   an organization (the specification's G1-T test).
 - **Distinguishing characteristics.** About a type, not an instance. A pass licenses
   treating the type as a kind of disposition; it licenses no organization's claim to bear
-  one (CD3). Its questions depend on DP-1 (question 2) and its role on DP-2.
+  one (CD3; DP-2, Option A). Its five questions are the specification's G1-T, with
+  question 2 as DP-1 settled it and question 3 as b1 rewords it; the constant-membership
+  cases are worked in every review (b3); a type that fails is reclassified or removed,
+  never left staged (b4). No interest-condition question is asked (b2 rejected).
 - **Examples.** A record that strategic planning capability passes the five questions,
   with reviewer and date.
 - **Boundaries.** Not an assessment of any organization, not evidence of possession, not a
@@ -687,7 +697,8 @@ vendored extracts.
   citing its evidence and criteria.
 - **Distinguishing characteristics.** Concerns exactly one Capability Type; always states a
   Presence Finding; is about a particular Business Capability only when one is identified.
-  A present finding citing evidence of capacity is what supports a bearing claim (DP-2);
+  A present finding citing evidence of capacity is what supports a bearing claim (DP-2,
+  Option A and b5);
   evidence that the capability has been exercised supports it too, but is never required,
   so a capability that has never been exercised can be attributed. Availability,
   sourcing and integration are assessed here, never derived. A functional adequacy
@@ -941,7 +952,7 @@ specification proposes one; formal selection belongs to Stage 05.
 | RL-06 | is arranged by | Capability Basis | Organizational Arrangement | Directed | The arrangement is why these members ground the capability | Decided (DP-1, a1 and a3). The arrangement is not the basis (SF-03) |
 | RL-07 | depends for realization on | Business Capability | Enabling Condition | Directed | Realizations of the capability need this resource; its loss makes the capability unavailable | Decided (DP-1, Option A): every artifact is enabling; its loss, even permanent, makes the capability unavailable, not ended. Recorded in assessments, not as parthood. A type with a constitutive artifact goes to Q-15 (a4) |
 | RL-08 | has skill | Member Agent | Skill | Directed | The person bears the ability | Candidate CCO bearer relation; evidence for, never identical to, a business capability |
-| RL-09 | records admission of | Type Admission Record | Capability Type | Directed | The record states whether capabilities of the type can be dispositions of an organization | DP-2. About a type, never an organization |
+| RL-09 | records admission of | Type Admission Record | Capability Type | Directed | The record states whether capabilities of the type can be dispositions of an organization | Decided (DP-2, Option A; b1, b3, b4). About a type, never an organization |
 | RL-10 | has realization index | Capability Type | Realization Index | Directed | The type's admissible realization types are these | Mandatory for every specific type (CD4) |
 | RL-11 | lists as admissible | Realization Index | BPO Act Type | Directed | Acts of this type may realize capabilities of the indexing type | Not exhaustive, not modal; exhaustiveness needs review (CAP-30); development acts need a recorded reason (CAP-06) |
 | RL-12 | realizes | Act | Business Capability | Directed | The act is an exercise of the capability | Candidate `obo:BFO_0000055` realizes. The act's asserted type falls under an index member (CAP-21) |
@@ -952,10 +963,10 @@ specification proposes one; formal selection belongs to Stage 05.
 | RL-17 | has entry | Capability Map | Capability Assessment or Capability Target | Directed | The assessment or target is a part of the map | Candidate `obo:BFO_0000178` has continuant part. A map has at least one entry |
 | RL-18 | concerns type | Capability Assessment or Capability Target or Agent Manifest or Capability Sourcing Statement or Authorization Record | Capability Type or BPO Act Type | Directed | The information refers to a kind, with no claim that an instance exists | Exactly one per record; capability types for assessments, targets and manifests, act types for sourcing and authorization records (CAP-17). A functional adequacy assessment has none and uses RL-39 instead. Formal treatment is a Stage 05 matter (the specification proposes an annotation) |
 | RL-19 | states | Capability Assessment | Presence Finding | Directed | The assessment's finding | Exactly one; partial requires criteria (RL-21) |
-| RL-20 | cites as evidence | Capability Assessment | Evidence | Directed | The assessment rests on this record | For a bearing claim, at least one cited record bears on ability (CAP-26). Evidence of capacity can suffice; evidence of exercise is never required (DP-2 b5) |
+| RL-20 | cites as evidence | Capability Assessment | Evidence | Directed | The assessment rests on this record | For a bearing claim, at least one cited record bears on ability (CAP-26). Evidence of capacity can suffice; evidence of exercise is never required (DP-2 b5, accepted) |
 | RL-21 | conforms to | Capability Assessment or Capability Sourcing Assessment or Capability Maturity Rating | Assessment Criteria or Maturity Scale | Directed | The statement is made relative to these criteria, or on this scale | A rating names exactly one scale |
 | RL-22 | is about | Capability Assessment | Business Capability | Directed | The assessment concerns this particular capability | Candidate `cco:ont00001808` is about. Only when a particular capability is identified; an absent finding has none |
-| RL-23 | supports bearing of | Capability Assessment | Business Capability | Directed | The assessment is the evidence for the claim that the organization bears this capability | DP-2. A present finding, matching type, citing ability evidence (CAP-26) |
+| RL-23 | supports bearing of | Capability Assessment | Business Capability | Directed | The assessment is the evidence for the claim that the organization bears this capability | Decided (DP-2, Option A; b5). A present finding, matching type, citing evidence of capacity, with exercise supporting but never required (CAP-26) |
 | RL-24 | rates | Capability Maturity Rating | Business Capability | Directed | The rating ranks this existing capability | Candidate `cco:ont00001811` is a ordinal measurement of. The capability must exist |
 | RL-25 | is produced by | Capability Maturity Rating | Capability Assessment | Directed | The rating results from this assessment | Every rating cites one |
 | RL-26 | is set for | Capability Target | Organization | Directed | The organization is the one that is to come to bear the capability | Candidate `cco:ont00001808` is about |
@@ -984,7 +995,7 @@ specification proposes one; formal selection belongs to Stage 05.
 | Organizational / individual | Business Capability against Skill | A person's ability is not a business capability; several members each able is member-wise | CD1, CD10, SF-05 |
 | Organizational / one member | Fragility recorded, not reclassified; the basis may be that one member | A capability resting on one indispensable member is still organizational if realized through organizational arrangements (R6-08's one-analyst firm). Plurality of members is not what makes a capability organizational | CD2; R8 finding 2; DP-1 a1; DP-2 b1 |
 | One type / several types | is an instance of, one or more | A capability may fall under several applicable types; a single primary classification is an application convention at most | R8 finding 3 |
-| Capacity / exercise | Evidence of capacity against evidence of exercise | A capability never yet exercised is still a capability (CD8) and must be attributable; past exercise alone does not show present capacity | CD8; R8 finding 4; DP-2 b5 |
+| Capacity / exercise | Evidence of capacity against evidence of exercise | A capability never yet exercised is still a capability (CD8) and must be attributable; past exercise alone does not show present capacity | CD8; R8 finding 4; DP-2 b5 (accepted) |
 | Basis / arrangement / enabling condition / realization constraint | Capability Basis; Organizational Arrangement; Enabling Condition; findings in assessments | R6 Finding 2 asks for these four to be distinguished | CD2, SF-03; DP-1 amendment a3 (decided) |
 | Type / instance / prospective reference | Capability Type; Business Capability; concerns type | R7 Finding D asks for three explicit patterns | CD14; P3 |
 | Realization / development | realizes against develops | Building or improving a capability is not exercising it | CD5 |
@@ -1012,6 +1023,20 @@ or its arrangement goes. Defence and enterprise-architecture frameworks that cou
 technology inside the capability depart from this (SF-06). A capability type whose
 review shows an artifact is constitutive is not forced into this pattern: it is sent to
 the socio-technical question a4 keeps open (Q-15, specification OI-14).
+
+**Admission and attribution (DP-2, decided).** The architect chose Option A on
+2026-10-26 (`docs/decisions/2026-10-26-dp2-rp10-admission-attribution.md`). Two tests, kept apart.
+*Type admission* (G1-T) is asked once per capability type with no organization in view;
+a pass admits the type as a kind of disposition and licenses no organization's claim to
+bear one. Its question 3 asks whether realizations run through the organization's
+arrangements, which may involve a single member (b1); every review works R6's
+constant-membership cases (b3); a type that fails is reclassified or removed, never left
+staged (b4). *Instance attribution* (G1-I) is asked for each bearing claim and recorded
+as the supporting assessment: evidence of capacity can suffice, a recorded realization
+supports but is never required, the question is who would perform realizing acts, and
+a finding resting on past exercise must show the basis and arrangement are still in
+place (b5). The interest condition of IOF and Beverley et al. is not asked (b2
+rejected); that is a recorded departure from both (SF-04).
 
 **Functional coverage and adequacy (R8 finding 5).** Whether an organization can perform a
 standing function is four questions, not one. Each is answered by a different thing in
@@ -1049,8 +1074,10 @@ exception open.
 ## 7. Decision points
 
 Two questions materially affect the meaning, scope and principal relationships of this
-model (standard §4.6). Each is presented with its options, the review critiques and the
-register evidence. Decide DP-1 first: DP-2's type test asks a question (G1-T question 2)
+model (standard §4.6). Both are now decided: DP-1 on 2026-10-25 and DP-2 on 2026-10-26,
+each with its record cited on its decision line. Each is presented with its options, the
+review critiques and the register evidence, kept as the record of what was decided
+between. DP-1 was decided first: DP-2's type test asks a question (G1-T question 2)
 whose wording depends on it.
 
 Each decision is the architect's, recorded verbatim in `docs/decisions/` with the digest of
@@ -1065,8 +1092,9 @@ as such; it is not a decision.
 | DP-1 (RP-1): option A, B, C or D | **Decided 2026-10-25: Option A** (`docs/decisions/2026-10-25-dp1-rp1-grounding-boundary.md`) | Done | §7 DP-1 |
 | DP-1 amendments a1–a4 | **Decided: all four accepted** (same record) | Done | §7 DP-1 |
 | Draft.3's application of the DP-1 decision | Architect's review, as part of approving CM-01 | Before approval | P1, overview, §4, §5, §6, §9 |
-| DP-2 (RP-10): option A, B or C | Architect's decision act | Before approval; after DP-1 | §7 DP-2 |
-| DP-2 amendments b1–b5, each accepted or rejected (b2 needs a yes or no) | Architect's decision act, with DP-2 | Before approval | §7 DP-2 |
+| DP-2 (RP-10): option A, B or C | **Decided 2026-10-26: Option A** (`docs/decisions/2026-10-26-dp2-rp10-admission-attribution.md`) | Done | §7 DP-2 |
+| DP-2 amendments b1–b5 | **Decided: b1, b3, b4, b5 accepted; b2 rejected** (same record) | Done | §7 DP-2 |
+| Draft.4's application of the DP-2 decision | Architect's review, as part of approving CM-01 | Before approval | P1, P3, overview, §4, §5, §6, §8, §9 |
 | The draft.2 corrections for R8 findings 2–5 (single-member basis, several types, capacity against exercise, functional adequacy) | Architect's review, as part of approving CM-01; the R8 disposition's acceptance | Before approval | §4, §5 (RL-02, RL-05, RL-18, RL-20, RL-39), §6 |
 | CM-01 approval | Architect's approval act, cited in §10 | After all rows above | §10 |
 | Specification v0.5 (CD1–CD3, §8 G1-T and G1-I, OI-15) | Drafted from the decisions; ratified separately | After approval | — |
@@ -1249,7 +1277,14 @@ about a fixed text.
 
 ### DP-2 — RP-10: admission and attribution
 
-**Decision:** pending
+**Decision:** docs/decisions/2026-10-26-dp2-rp10-admission-attribution.md
+
+**Outcome.** Decided by the architect on 2026-10-26, on 0.1.0-draft.3 (SHA-256
+`837440ecf65f0ae34b9c2eb1fc47f6f9faf9b5dcae0e8420dbe0d7c95d57a80f`): **Option A**, with
+amendments **b1, b3, b4 and b5 accepted** and **b2 rejected** (no interest-condition
+question). Draft.4 applies it (P1, P3, the overview, §4, §5, §6, §8, §9). The question,
+options and analysis below are kept unchanged as the record of what was decided
+between.
 
 **The question.** How does BCO decide that capabilities of a type can be genuine
 dispositions of an organization (admission), and separately that a particular organization
@@ -1370,10 +1405,10 @@ within an Evidence Scope.
 | CQ-7 | For which act types does O have a sourcing arrangement, with which provider, and for which does O also bear a capability indexing that act type? | P4, P1, P2 | Capability Sourcing Statement, Organization, BPO Act Type, Business Capability, Capability Type, Realization Index | RL-16, RL-29, RL-18, RL-01, RL-02, RL-10, RL-11 | Two-party arrangements only (Q-04) |
 | CQ-8 | Which capability targets does O have, and which already match a capability O bears? | P3, P1 | Capability Target, Capability Type, Organization, Business Capability | RL-26, RL-18, RL-01, RL-02 | A target does not imply absence |
 | CQ-9 | Which APQC catalog nodes are standing functions with a capability class? | P5 | APQC Catalog Node, Standing Function, Capability Type | RL-36, RL-35 | — |
-| CQ-10 | Which capability classes have not passed G1-T? | P1 | Capability Type, Type Admission Record | RL-09 | Depends on DP-2; vacuous under its option B |
+| CQ-10 | Which capability classes have not passed G1-T? | P1 | Capability Type, Type Admission Record | RL-09 | Types with no PASS record; under DP-2 (Option A, b4) a type is staged only transitionally |
 | CQ-11 | Which acts develop capability C, as distinct from realizing it? | P2 | Act, Business Capability | RL-13, RL-12 | No formal relation yet (Q-03) |
 | CQ-12 | Does O bear an instance of every capability class listed as a required component of standing function F? | P5, P1 | Coverage Register Entry, Standing Function, Capability Type, Organization, Business Capability | RL-38, RL-37, RL-01, RL-02 | Component possession only. Integration, availability and adequacy are findings of an assessment directed at F (RL-39, §6), never derived from this answer |
-| CQ-13 | Which of O's capability-bearing claims lack a supporting present-finding assessment? | P1, P3 | Organization, Business Capability, Capability Assessment, Presence Finding, Evidence | RL-01, RL-23, RL-19, RL-20 | Depends on DP-2. Under b5 a supporting assessment may cite evidence of capacity alone, so a never-exercised capability is not reported for lacking a realization |
+| CQ-13 | Which of O's capability-bearing claims lack a supporting present-finding assessment? | P1, P3 | Organization, Business Capability, Capability Assessment, Presence Finding, Evidence | RL-01, RL-23, RL-19, RL-20 | DP-2 decided (Option A). Under b5 a supporting assessment may cite evidence of capacity alone, so a never-exercised capability is not reported for lacking a realization |
 | CQ-14 | Which of O's sourcing arrangements have no sourcing assessment of the dependence? | P4 | Capability Sourcing Statement, Capability Sourcing Assessment, Organization | RL-16, RL-30 | — |
 
 **Use cases served.** Capability-based planning (CQ-6, CQ-8, CQ-12); evidence and audit of
@@ -1400,10 +1435,10 @@ CQ-11); sourcing and compliance (CQ-5, CQ-7, CQ-14); catalog alignment (CQ-9).
 
 ### Open questions
 
-Q-01, DP-1, was decided on 2026-10-25 (`docs/decisions/2026-10-25-dp1-rp1-grounding-boundary.md`)
-and is closed; its number is not reused.
+Q-01, DP-1, was decided on 2026-10-25 (`docs/decisions/2026-10-25-dp1-rp1-grounding-boundary.md`),
+and Q-02, DP-2, on 2026-10-26 (`docs/decisions/2026-10-26-dp2-rp10-admission-attribution.md`). Both are
+closed; their numbers are not reused. No open question blocks approval.
 
-- **Q-02.** DP-2 (RP-10): how types are admitted and claims attributed. *Blocks approval.*
 - **Q-03.** Which relationship links a development act to the capability it develops
   (specification OI-4)? CQ-11 is answered by review records until one is chosen.
   *Carried forward.*
@@ -1464,7 +1499,7 @@ and is closed; its number is not reused.
 | --- | --- |
 | Approved | no |
 | DP-1 (RP-1) | decided: Option A with a1–a4 (`docs/decisions/2026-10-25-dp1-rp1-grounding-boundary.md`) |
-| DP-2 (RP-10) | pending |
+| DP-2 (RP-10) | decided: Option A with b1, b3, b4, b5; b2 rejected (`docs/decisions/2026-10-26-dp2-rp10-admission-attribution.md`) |
 | Stakeholder review | R8 reviewed draft.1; draft.2 answers it (disposition proposed) |
 | Automated completeness check | `tools/conceptual/check_models.py` |
 
@@ -1478,17 +1513,18 @@ and is closed; its number is not reused.
 - [x] Diagrams and textual descriptions are consistent (checked by the completeness checker
   for names; by review for meaning).
 - [x] Significant ambiguities and assumptions have been documented (§7, §9).
-- [ ] No unresolved conceptual question materially prevents agreement — DP-2 is open (DP-1
-  decided 2026-10-25).
+- [x] No unresolved conceptual question materially prevents agreement — DP-1 and DP-2 are
+  decided; every remaining open question is carried forward.
 - [ ] Domain stakeholders have reviewed the model — R8 reviewed draft.1; review of draft.2
   and acceptance of the R8 disposition are pending.
-- [ ] The model provides sufficient conceptual clarity to guide ontology formalization —
-  only after DP-2.
+- [x] The model provides sufficient conceptual clarity to guide ontology formalization —
+  the drafter's assessment, for the architect to confirm in approving.
 
-**To approve.** The architect decides DP-2 (DP-1 is decided), recorded verbatim in
-`docs/decisions/` with this file's digest; the model is revised to the decisions (the
-dashed relationships become solid, or change, as decided); stakeholder review is recorded;
-and the Approved row cites the approval act. Specification v0.5 then carries the decisions
+**To approve.** Both decision points are decided and applied (draft.3, draft.4). What
+remains is the architect's: review of this draft (the application of DP-1 and DP-2 and
+the R8 corrections), acceptance or revision of the R8 disposition, and an approval act
+recorded verbatim in `docs/decisions/` with this file's digest, which the Approved row
+then cites. Specification v0.5 then carries the decisions
 into CD1–CD3 and §8.
 
 ## Sources
