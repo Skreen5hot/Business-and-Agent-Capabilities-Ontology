@@ -539,7 +539,13 @@ def test_the_status_page_counts_the_vocabulary_it_validates(built, repo):
 
 def test_ids_on_the_reviews_page_are_unique_and_prefixed(built):
     """Every id once, and every heading id inside a section carries that
-    section's prefix -- so "Summary" in two reviews cannot collide."""
+    section's prefix -- so "Summary" in two reviews cannot collide.
+
+    A review is filed verbatim, and one that arrives as plain text (R9,
+    an email) has no headings and so mints no heading ids; there is
+    nothing in it to collide. The check is on the ids that exist, and it
+    still refuses a page where no section has any, which would make it
+    vacuous."""
     out, _ = built
     page = (out / "review/index.html").read_text(encoding="utf-8")
     ids = re.findall(r'\sid="([^"]*)"', page)
@@ -548,9 +554,10 @@ def test_ids_on_the_reviews_page_are_unique_and_prefixed(built):
     sections = re.findall(r'<section class="review" id="review-([^"]+)">'
                           r"(.*?)</section>", page, flags=re.S)
     assert len(sections) >= 3, len(sections)
+    with_headings = 0
     for tag, body in sections:
         headings = re.findall(r'<h[3-6] id="([^"]+)"', body)
-        assert headings, tag
+        with_headings += bool(headings)
         for heading in headings:
             assert heading.startswith(tag + "-"), (tag, heading)
             # and no other section's prefix is a longer match
@@ -558,6 +565,7 @@ def test_ids_on_the_reviews_page_are_unique_and_prefixed(built):
                       if t != tag and heading.startswith(t + "-")
                       and len(t) > len(tag)]
             assert not others, (tag, heading, others)
+    assert with_headings >= 3, with_headings
 
 
 def write_reviews(tmp_path, files):
