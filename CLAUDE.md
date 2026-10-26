@@ -11,8 +11,11 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
   ADR-002). Do not implement a CD or CAP item as if it were decided.
 - The repository follows six stages, `src/01_controlled_vocabulary/` to
   `src/06_knowledge_graph/` (`docs/decisions/2026-10-25-stage-02-choices.md`); each stage
-  directory's README states its status. Stage 02 (Conceptual Modeling) is in progress under
-  `docs/standards/stage-02-conceptual-modeling.md`; no conceptual model is approved. The
+  directory's README states its status. Stage 02 (Conceptual Modeling) runs under
+  `docs/standards/stage-02-conceptual-modeling.md`. CM-01 (Business Capability) was approved
+  on 2026-10-26 as the Stage 02 baseline (`docs/decisions/2026-10-26-cm01-approved-r8-r9-accepted.md`);
+  never change an approved model silently — a substantive change is a new, reviewed
+  version. CM-02 (Agent Capability) is planned, not started. The
   vocabulary was under `vocab/` and the modules under `ontology/` until 2026-10-25;
   records, ADRs and reviews written before then use the old paths, and stay as written.
 - `src/05_ontology/apqc-cap.ttl` and `src/05_ontology/apqc-cap-desc.ttl` are empty `owl:Ontology` headers.
@@ -61,6 +64,8 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
 .venv/Scripts/python tools/ontology/validate.py --gate
 .venv/Scripts/python tools/communications.py
 .venv/Scripts/python tools/vocab/build.py
+.venv/Scripts/python tools/conceptual/check_models.py
+.venv/Scripts/python tools/site/vendor_assets.py
 .venv/Scripts/python -m pytest tests/ -q -p no:randomly
 .venv/Scripts/python tools/site/build_site.py && .venv/Scripts/python tools/site/check_site.py
 ```

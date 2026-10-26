@@ -1,0 +1,81 @@
+# Pinned third-party files the public site serves, and what may be done
+# with them.
+#
+# One today: Mermaid, which renders the conceptual models' diagrams in the
+# browser. The architect chose Mermaid source in the model files as the
+# truth, rendered on the site "with a pinned, vendored mermaid.js served
+# from the site itself (no CDN, so check_site stays clean)"
+# (docs/decisions/2026-10-25-stage-02-choices.md, question 2).
+#
+# WHY VENDORED RATHER THAN LOADED FROM A CDN
+#
+# tools/site/check_site.py refuses any script, stylesheet or image loaded
+# from another origin, and the reason it gives is the reason here: the site
+# makes no external request, so it renders the same offline, behind a
+# proxy, and in ten years. A CDN URL is a dependency on a host staying up
+# and serving the same bytes; a file in the repository is neither.
+#
+# WHY PINNED BY INTEGRITY RATHER THAN BY VERSION
+#
+# A version number is a name, and a registry, a mirror or a proxy can
+# serve different bytes under it. `integrity` is the registry's own
+# dist.integrity for the tarball (sha512, Subresource Integrity form) and
+# `shasum` its dist.shasum (sha1), both read from
+# https://registry.npmjs.org/mermaid/11.4.1 rather than computed here, so
+# a tarball that is not the one the registry published is a refusal. Each
+# extracted member then has its own sha256, which is what the offline
+# check holds the committed files to: verifying them needs no network and
+# no tarball.
+#
+# WHAT IS TAKEN
+#
+# Exactly the members listed, and nothing else from a 704-file package:
+# the single-file browser bundle, and the licence that has to travel with
+# it. tools/site/vendor_assets.py refuses to extract any other member.
+#
+# LICENSING
+#
+# Mermaid is MIT, which permits redistribution provided the copyright and
+# permission notice travel with the work. The LICENSE member is that
+# notice, served beside the bundle on the site; vendor/site/NOTICE.md is
+# the attribution, generated from this file, and
+# tools/licensing/disposition.py reads the licence and attribution below
+# rather than restating them. `licence_statement_contains` is checked
+# against the extracted LICENSE, so the SPDX identifier is verified
+# against the artifact at the pin rather than asserted here. The bundle
+# also carries, in comments at its end, the legal notices of the
+# libraries esbuild bundled into it; the SPDX recorded here is Mermaid's
+# own.
+#
+# Regenerate with `python tools/site/vendor_assets.py --fetch` after
+# changing a pin; the default run only verifies the files on disk.
+
+version: 1
+
+assets:
+
+  - id: mermaid
+    project: Mermaid
+    version: 11.4.1
+    homepage: https://github.com/mermaid-js/mermaid
+    tarball: https://registry.npmjs.org/mermaid/-/mermaid-11.4.1.tgz
+    metadata: https://registry.npmjs.org/mermaid/11.4.1
+    integrity: sha512-Mb01JT/x6CKDWaxigwfZYuYmDZ6xtrNwNlidKZwkSrDaY9n90tdrJTV5Umk+wP1fZscGptmKFXHsXMDEVZ+Q6A==
+    shasum: 577fad5c31a01a06d9f793e298d411f1379eecc8
+    members:
+      - member: package/dist/mermaid.min.js
+        path: vendor/site/mermaid/mermaid.min.js
+        site_path: assets/vendor/mermaid/mermaid.min.js
+        sha256: a43bc1afd446f9c4cc66ac5dd45d02e8d65e26fc5344ec0ef787f88d6ddb6f9e
+      - member: package/LICENSE
+        path: vendor/site/mermaid/LICENSE
+        site_path: assets/vendor/mermaid/LICENSE
+        sha256: ec9fb67dcb25eccc416ed56e1aab819222c805a2a4bfe4cb19e7556bf2ffde80
+    licence:
+      spdx: MIT
+      file: vendor/site/mermaid/LICENSE
+      licence_statement_contains: MIT License
+      attribution: >-
+        Mermaid 11.4.1. Copyright (c) 2014 - 2022 Knut Sveidqvist,
+        licensed under the MIT License; the full licence text is
+        vendor/site/mermaid/LICENSE, served on the site beside the bundle.

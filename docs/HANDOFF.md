@@ -153,8 +153,12 @@ carried over, and so has not been done for this site:
   one engine (the Claude desktop app's browser) at desktop and phone width, by eye.
 - Running `ranking.js` under Node in the tests, as ValueNet does. The ranking code is
   ValueNet's, unchanged apart from its global name, and is untested here.
-- A models page. ValueNet's diagrams are drawn from its ontology; the BCO has no
-  authored term to draw yet.
+- A models page drawn from the ontology, as ValueNet's is. The BCO has no authored term
+  to draw yet. The Models page that exists (`models/`, since Stage 02) renders the
+  conceptual models instead: their Mermaid source, drawn in the browser by a pinned,
+  vendored Mermaid 11.4.1 (`config/site-vendor.yaml`, `vendor/site/`), loaded on that
+  page only. It was checked in one engine (the desktop app's browser), dark scheme, by
+  eye.
 
 The stylesheet and the two scripts keep ValueNet's `SPDX-License-Identifier: Apache-2.0`
 headers, and the tools carried from ARO keep theirs, while this repository's `LICENSE` is
@@ -409,9 +413,56 @@ YAML where that commit's own layout contract puts it
 `reviews/`, `communications/`, `drafts/`, `site/`, `trials/`. Records, ADRs, reviews and
 communications written before the move keep the old paths, as written.
 
-**Next:** Stage 02 delivers CM-01, the Business Capability Conceptual Domain Model, under
-`docs/standards/stage-02-conceptual-modeling.md`. Approving it requires the architect's
-decision on RP-1 and RP-10.
+**CM-01 (approved 2026-10-26).** `src/02_conceptual_models/CM-01-business-capability.md`,
+0.1.0-draft.5 (draft.2 answered review R8; draft.3 and draft.4 apply DP-1 and DP-2; draft.5 answers review R9): five patterns (capability and bearer; realization by BPO acts; description
+layer; sourcing and authorization; catalog, specialization and coverage), 6 Mermaid
+diagrams, 33 concepts, 39 relationships, CQ-1 to CQ-14 traced. RP-1 and RP-10 are its
+decision points DP-1 and DP-2, each with options, the R6 and R7 critiques, register
+evidence (SF-01 to SF-06) and a drafter's recommendation that is not a decision.
+**DP-1 (RP-1) is decided:** Option A with amendments a1–a4, 2026-10-25
+(`docs/decisions/2026-10-25-dp1-rp1-grounding-boundary.md`): the Organization alone
+bears; the basis is its constituent member agent or agents; every artifact is an
+enabling condition, and permanently losing one does not by itself end a capability.
+Draft.3 applies it. This decides RP-1 for CM-01; carrying it into the specification
+is v0.5's work. The R8 disposition is still proposed.
+**DP-2 (RP-10) is decided:** Option A with amendments b1, b3, b4 and b5, b2 rejected,
+2026-10-26 (`docs/decisions/2026-10-26-dp2-rp10-admission-attribution.md`): G1-T admits
+types, G1-I attributes each claim on evidence of capacity, with exercise supporting but
+never required; no interest-condition question. Draft.4 applies it. No open question
+in CM-01 blocks approval.
+**R9** reviewed draft.4: DP-1 and DP-2 implementation accepted; approval deferred for
+three corrections, made in draft.5 (a separate Functional Adequacy Assessment;
+conditional standing-function designation; artifacts "relevant to the capability's
+realization"). R8 and R9 dispositions are proposed.
+**Approved.** On 2026-10-26 the architect approved draft.5 (SHA-256
+`a59e3cd4149693ce388deaa7c8953242a8c3355e4c7eef96d094c8e90a75b5a0`) as the Stage 02
+conceptual baseline and accepted the R8 disposition (R8-07 qualified by R9) and the R9
+disposition in full (`docs/decisions/2026-10-26-cm01-approved-r8-r9-accepted.md`). The file is
+0.1.0: draft.5 plus approval-status lines only. This is a conceptual baseline, not OWL
+and not specification ratification.
+**Next:** specification v0.5, carrying RP-1 and RP-10 into CD1–CD3 and §8, and the
+Functional Adequacy Assessment and conditional designation into CD16 and CD17, under
+the approval's implementation guidance: reuse BFO/CCO classes and relations; never
+infer functional adequacy from component possession; distinguish inadequate evidence
+from a "not met" finding; losing an enabling artifact may affect availability without
+ending the capability, and availability also depends on whether adequate alternatives
+exist; evaluate how to represent the Functional Adequacy Assessment before deciding on
+an OWL class; resolve the BPO act-index dependencies (CM-01 Q-12 to Q-14) before formal
+implementation. Two of these points (inadequate evidence against "not met"; adequate
+alternatives) refine CM-01 itself and are inputs to its next reviewed version, not
+edits to the approved text.
+**Roadmap:** a complementary Agent Capability conceptual model (CM-02, working title)
+is planned and not started; see `src/02_conceptual_models/README.md`.
+
+**Stage 02 tooling.** `tools/conceptual/check_models.py` holds every
+`src/02_conceptual_models/CM-*.md` to a format contract: the standard's ten sections in
+order, a Mermaid diagram per pattern with a reading after each, every diagram node a
+described concept and every edge a described relationship (and none left undrawn), CQ
+traceability equal to the specification's section 7, decision points, open questions
+marked carried-forward or blocking, and no approval while anything blocks it. It checks
+completeness and internal references only; conceptual adequacy is the architect's review
+(standard section 7). The site's Models page renders each model, with its approval state
+read from its own Review status table.
 
 ## 6. Outside the repository
 

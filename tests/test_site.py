@@ -539,7 +539,13 @@ def test_the_status_page_counts_the_vocabulary_it_validates(built, repo):
 
 def test_ids_on_the_reviews_page_are_unique_and_prefixed(built):
     """Every id once, and every heading id inside a section carries that
-    section's prefix -- so "Summary" in two reviews cannot collide."""
+    section's prefix -- so "Summary" in two reviews cannot collide.
+
+    A review is filed verbatim, and one that arrives as plain text (R9,
+    an email) has no headings and so mints no heading ids; there is
+    nothing in it to collide. The check is on the ids that exist, and it
+    still refuses a page where no section has any, which would make it
+    vacuous."""
     out, _ = built
     page = (out / "review/index.html").read_text(encoding="utf-8")
     ids = re.findall(r'\sid="([^"]*)"', page)
@@ -548,9 +554,10 @@ def test_ids_on_the_reviews_page_are_unique_and_prefixed(built):
     sections = re.findall(r'<section class="review" id="review-([^"]+)">'
                           r"(.*?)</section>", page, flags=re.S)
     assert len(sections) >= 3, len(sections)
+    with_headings = 0
     for tag, body in sections:
         headings = re.findall(r'<h[3-6] id="([^"]+)"', body)
-        assert headings, tag
+        with_headings += bool(headings)
         for heading in headings:
             assert heading.startswith(tag + "-"), (tag, heading)
             # and no other section's prefix is a longer match
@@ -558,6 +565,7 @@ def test_ids_on_the_reviews_page_are_unique_and_prefixed(built):
                       if t != tag and heading.startswith(t + "-")
                       and len(t) > len(tag)]
             assert not others, (tag, heading, others)
+    assert with_headings >= 3, with_headings
 
 
 def write_reviews(tmp_path, files):
@@ -692,3 +700,275 @@ def test_the_checker_notices_a_tampered_download(checker, copy):
     assert target.read_bytes() != original
     problems = checker.check(copy)
     assert any("apqc-cap.ttl does not match" in p for p in problems), problems
+
+
+# ------------------------------------------------------- conceptual models
+
+
+@pytest.fixture(scope="module")
+def models_checker():
+    return load_tool("bco_site_test_check_models",
+                     "tools/conceptual/check_models.py")
+
+
+@pytest.fixture(scope="module")
+def vendor_tool():
+    return load_tool("bco_site_test_vendor_assets",
+                     "tools/site/vendor_assets.py")
+
+
+MERMAID_SOURCE = ('flowchart LR\n  A["Maker <b>&</b>"] -->|makes| B(["Widget"])'
+                  '\n  C{{"Know-how"}}\n  A -.->|holds| C')
+
+
+def test_the_models_page_is_built_after_vocabulary(built, repo):
+    out, _ = built
+    site = json.loads((repo / "site/content/site.json")
+                      .read_text(encoding="utf-8"))
+    keys = [i["key"] for i in site["navigation"]]
+    assert {"key": "models", "label": "Models",
+            "path": "models/"} in site["navigation"]
+    assert keys.index("models") == keys.index("vocabulary") + 1, keys
+    page = (out / "models/index.html").read_text(encoding="utf-8")
+    assert "<h1>Conceptual models</h1>" in page
+    assert 'href="../models/" aria-current="page"' in page
+    # The curated note: words in site.json, not counts.
+    assert esc_in(site["notices"]["models"]["text"], page)
+
+
+def esc_in(text, page):
+    import html
+    return html.escape(text) in page
+
+
+def test_a_mermaid_block_renders_as_escaped_pre(builder):
+    """The diagram's source stays text: escaped inside pre.mermaid, so with
+    JavaScript off the reader sees the Mermaid source, and markup in a
+    label is never markup."""
+    import html
+
+    text = "Before.\n\n```mermaid\n%s\n```\n\nAfter.\n" % MERMAID_SOURCE
+    body, _ = builder.render_markdown(text, mermaid=True)
+    blocks = re.findall(r'<pre class="mermaid">(.*?)</pre>', body, re.S)
+    assert len(blocks) == 1, body
+    assert "<b>" not in blocks[0] and "&lt;b&gt;" in blocks[0]
+    assert "language-mermaid" not in body
+    assert html.unescape(blocks[0]).strip() == MERMAID_SOURCE
+    # Off by default: no other page gets an element it has no script for.
+    plain, _ = builder.render_markdown(text)
+    assert 'class="mermaid"' not in plain
+    assert 'class="language-mermaid"' in plain
+
+
+def write_model(tmp_path, approved: str, name="CM-77-test-model.md"):
+    text = ("# CM-77 — A Test Model\n\n| Field | Value |\n| --- | --- |\n"
+            "| Model identifier | CM-77 |\n| Title | A Test Model |\n"
+            "| Version | 9.9.9 |\n| Status | Draft |\n\n"
+            "## 1. Scope and purpose\n\nText.\n\n## 3. Patterns\n\n"
+            "### P1 — One\n\n```mermaid\n%s\n```\n\n"
+            "**Reading the diagram.** Text.\n\n## 10. Review status\n\n"
+            "| Item | State |\n| --- | --- |\n| Approved | %s |\n"
+            % (MERMAID_SOURCE, approved))
+    path = tmp_path / name
+    path.write_bytes(text.encode("utf-8"))
+    return path
+
+
+@pytest.mark.parametrize("approved, shown, absent", [
+    ("no", "Not approved", "Approved &mdash; record"),
+    ("`docs/decisions/2026-10-25-stage-02-choices.md`",
+     "Approved &mdash; record", "Not approved"),
+], ids=["not-approved", "approved"])
+def test_the_approval_state_is_read_from_the_model(builder, models_checker,
+                                                   review_ctx, tmp_path,
+                                                   approved, shown, absent):
+    """Read from the model's own section 10 Review status table, through
+    the checker's reader -- never typed into site/."""
+    values = builder.models_values(
+        review_ctx, [write_model(tmp_path, approved)], models_checker,
+        "a notice", "no models")
+    page = "".join(values.values())
+    assert shown in page and absent not in page
+    assert "CM-77 &mdash; A Test Model" in page
+    assert "<dd>9.9.9</dd>" in page
+    if approved != "no":
+        assert "2026-10-25-stage-02-choices.md" in page
+    # The hexagon's braces survive as character references, so fill()
+    # cannot mistake them for a placeholder.
+    assert "{{" not in page and "&#123;&#123;" in page
+    assert 'id="model-cm-77"' in page and 'id="cm-77-' in page
+
+
+def test_no_model_says_so(builder, models_checker, review_ctx):
+    values = builder.models_values(review_ctx, [], models_checker,
+                                   "a notice", "No model yet, on purpose.")
+    page = "".join(values.values())
+    assert "No model yet, on purpose." in page
+    assert "a notice" not in page
+
+
+def test_the_real_models_page_reads_each_model(built, repo, models_checker):
+    out, _ = built
+    page = (out / "models/index.html").read_text(encoding="utf-8")
+    models = sorted((repo / "src/02_conceptual_models").glob("CM-*.md"))
+    if not models:
+        site = json.loads((repo / "site/content/site.json")
+                          .read_text(encoding="utf-8"))
+        assert esc_in(site["notices"]["models_empty"]["text"], page)
+        return
+    for path in models:
+        record = models_checker.read_model(path)
+        tag = record["identifier"].lower()
+        assert page.count('id="model-%s"' % tag) == 1
+        assert ("<dd>%s</dd>" % builder_esc(record["version"])) in page
+        expected = ("Not approved" if record["approved"] == "no"
+                    else "Approved &mdash; record")
+        section = page[page.index('id="model-%s"' % tag):]
+        assert expected in section[:4000], record
+    assert page.count('<pre class="mermaid">') >= len(models)
+
+
+def builder_esc(text):
+    import html
+    return html.escape(text)
+
+
+def test_mermaid_loads_on_the_models_page_and_no_other(built):
+    """2.5 MB of script on the one page with diagrams, and nowhere else;
+    the bundle before the script that runs it."""
+    out, _ = built
+    for path in sorted(out.rglob("*.html")):
+        page = path.read_text(encoding="utf-8")
+        scripts = re.findall(r'<script src="([^"]+)"', page)
+        rel = path.relative_to(out).as_posix()
+        if rel == "models/index.html":
+            assert scripts == ["../assets/vendor/mermaid/mermaid.min.js",
+                               "../assets/js/models.js"], scripts
+        else:
+            assert not [s for s in scripts if "mermaid" in s
+                        or "models.js" in s], (rel, scripts)
+
+
+def test_the_served_bundle_is_the_pinned_bytes(built, repo, vendor_tool):
+    """Copied from vendor/site/, not site/src/, and byte-identical to the
+    pin -- with the licence beside it."""
+    import hashlib
+
+    out, _ = built
+    for path, entry in vendor_tool.by_path(repo).items():
+        served = out / entry["member"]["site_path"]
+        assert served.read_bytes() == (repo / path).read_bytes(), path
+        assert hashlib.sha256(served.read_bytes()).hexdigest() == \
+            entry["member"]["sha256"]
+    assert (out / "assets/vendor/mermaid/LICENSE").is_file()
+    assert not (repo / "site/src/assets/vendor").exists()
+
+
+def test_the_build_refuses_a_missing_or_altered_bundle(builder, repo,
+                                                       tmp_path):
+    """No Models page whose diagrams cannot render, and no unpinned bytes
+    served under a pinned name."""
+    (tmp_path / "config").mkdir()
+    (tmp_path / "config/site-vendor.yaml").write_bytes(
+        (repo / "config/site-vendor.yaml").read_bytes())
+    with pytest.raises(SystemExit) as error:
+        builder.vendored_site_files(tmp_path)
+    assert "mermaid.min.js is missing" in str(error.value)
+    assert "--fetch" in str(error.value)
+
+    for name in ("mermaid.min.js", "LICENSE"):
+        target = tmp_path / "vendor/site/mermaid" / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes((repo / "vendor/site/mermaid" / name).read_bytes())
+    assert len(builder.vendored_site_files(tmp_path)) == 2
+    bundle = tmp_path / "vendor/site/mermaid/mermaid.min.js"
+    bundle.write_bytes(bundle.read_bytes() + b"\n// altered\n")
+    with pytest.raises(SystemExit) as error:
+        builder.vendored_site_files(tmp_path)
+    assert "pinned sha256" in str(error.value)
+
+
+def test_the_site_licence_notice_names_mermaid(built, repo):
+    out, _ = built
+    site = json.loads((repo / "site/content/site.json")
+                      .read_text(encoding="utf-8"))
+    assert "Mermaid (MIT)" in site["notices"]["license"]["text"]
+    downloads = (out / "downloads/index.html").read_text(encoding="utf-8")
+    assert "<h3>Mermaid 11.4.1</h3>" in downloads
+    assert 'href="../assets/vendor/mermaid/LICENSE"' in downloads
+
+
+# ---------------------------------------------------- vendored site assets
+
+
+def test_the_vendored_assets_match_their_pins(vendor_tool, repo):
+    problems, checked = vendor_tool.verify(repo)
+    assert problems == [] and checked == 2, problems
+
+
+def test_an_edited_vendored_asset_is_a_finding(vendor_tool, repo, tmp_path):
+    for relative in ("config/site-vendor.yaml", "vendor/site/NOTICE.md",
+                     "vendor/site/mermaid/LICENSE",
+                     "vendor/site/mermaid/mermaid.min.js"):
+        target = tmp_path / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes((repo / relative).read_bytes())
+    assert vendor_tool.verify(tmp_path)[0] == []
+    licence = tmp_path / "vendor/site/mermaid/LICENSE"
+    licence.write_bytes(licence.read_bytes().replace(b"\n", b"\r\n"))
+    notice = tmp_path / "vendor/site/NOTICE.md"
+    notice.write_bytes(notice.read_bytes() + b"edited\n")
+    problems, _ = vendor_tool.verify(tmp_path)
+    assert any("LICENSE has sha256" in p for p in problems), problems
+    assert any("NOTICE.md is not what" in p for p in problems), problems
+
+
+def fake_tarball(members: dict) -> bytes:
+    import io
+    import tarfile
+
+    buffer = io.BytesIO()
+    with tarfile.open(fileobj=buffer, mode="w:gz") as archive:
+        for name, data in members.items():
+            info = tarfile.TarInfo(name)
+            info.size = len(data)
+            archive.addfile(info, io.BytesIO(data))
+    return buffer.getvalue()
+
+
+def test_extract_takes_only_pinned_members_and_checks_every_digest(
+        vendor_tool):
+    """Offline: a tarball built here, a pin computed for it. The pinned
+    member is extracted; an unlisted member, even one aimed outside the
+    vendor directory, is never written; and a wrong integrity or member
+    digest is refused."""
+    import hashlib
+
+    tarball = fake_tarball({"package/dist/x.js": b"x();\n",
+                            "../../escape.js": b"bad\n",
+                            "package/other.js": b"other\n"})
+    entry = {
+        "id": "x", "integrity": vendor_tool.integrity_of(tarball),
+        "shasum": hashlib.sha1(tarball).hexdigest(),
+        "members": [{"member": "package/dist/x.js",
+                     "path": "vendor/site/x/x.js",
+                     "site_path": "assets/vendor/x/x.js",
+                     "sha256": hashlib.sha256(b"x();\n").hexdigest()}]}
+    assert vendor_tool.extract(entry, tarball) == {
+        "vendor/site/x/x.js": b"x();\n"}
+
+    wrong = dict(entry, integrity="sha512-AAAA")
+    with pytest.raises(SystemExit) as error:
+        vendor_tool.extract(wrong, tarball)
+    assert "integrity" in str(error.value)
+
+    member = dict(entry["members"][0], sha256="0" * 64)
+    with pytest.raises(SystemExit) as error:
+        vendor_tool.extract(dict(entry, members=[member]), tarball)
+    assert "sha256" in str(error.value)
+
+
+def test_fetch_refuses_any_host_but_the_registry(vendor_tool):
+    with pytest.raises(SystemExit) as error:
+        vendor_tool.download("https://cdn.invalid/mermaid.tgz")
+    assert "refusing to fetch" in str(error.value)

@@ -93,6 +93,17 @@ jobs:
       - name: The vocabulary builds, and the committed Turtle is fresh
         run: python tools/vocab/build.py
 
+      # The Stage 02 standard, section 7: automated checks may verify
+      # documentation completeness, internal references and consistency.
+      # Conceptual adequacy is a human review, and not this step's question.
+      - name: Every conceptual model meets its format contract
+        run: python tools/conceptual/check_models.py
+
+      # Offline: the committed Mermaid bundle and licence against their
+      # pinned sha256, and the notice against a fresh generation.
+      - name: The vendored site assets match their pins
+        run: python tools/site/vendor_assets.py
+
       - name: Tests
         run: python -m pytest tests/ -q -p no:randomly
 

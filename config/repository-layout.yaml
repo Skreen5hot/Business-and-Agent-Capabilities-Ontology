@@ -49,6 +49,31 @@ components:
     role: documentation
     description: Stage 02 (Conceptual Modeling) -- its status and contents.
 
+  - id: conceptual-models
+    path: src/02_conceptual_models
+    role: conceptual-model
+    description: >-
+      The Stage 02 conceptual models, one file each, named
+      CM-<nn>-<words>.md (CM-01, the Business Capability Conceptual Domain
+      Model, is the first). A directory component, so a model is declared
+      the day it is written; the README above is declared on its own and
+      keeps its role. tools/conceptual/check_models.py holds every model
+      to the documentation-completeness and internal-reference contract
+      (standard section 7) and refuses any other file here. Rendered on the
+      site's Models page. Content under the project licence.
+
+  - id: tool.check-models
+    path: tools/conceptual/check_models.py
+    role: tool
+    description: >-
+      Checks every conceptual model for the standard's required sections,
+      diagram-to-text consistency (every node a described concept, every
+      edge a described relationship, no orphans), traceability to the
+      specification's competency questions, decision points and approval
+      state, and upstream and vocabulary tokens against what is vendored
+      and generated. Conceptual adequacy is human; this is the part a tool
+      can hold.
+
   - id: stage.03-taxonomy.readme
     path: src/03_taxonomy/README.md
     role: documentation
@@ -171,8 +196,9 @@ components:
     description: >-
       Review findings against the specification and the artifacts, each
       filed verbatim as received: R5 (v0.4 against the v0.1 package), R6
-      (the P5 vocabulary as published) and R7 (the five generated
-      vocabulary Turtle files after R6). R<n>-disposition.md is the
+      (the P5 vocabulary as published), R7 (the five generated
+      vocabulary Turtle files after R6), R8 (conceptual model CM-01,
+      draft.1) and R9 (CM-01 draft.4). R<n>-disposition.md is the
       project's proposed disposition of review R<n>. Recommendations and
       proposals, not ratified changes. All are rendered on the site's
       Reviews page.
@@ -418,6 +444,65 @@ components:
       What was taken from each upstream and what was left behind:
       dropped-axiom counts, and the terms the specification names that no
       pinned file describes.
+
+  # ---- Vendored site assets ------------------------------------------
+  #
+  # Software the public site serves, not ontology: Mermaid, which renders
+  # the conceptual models' diagrams in the reader's browser
+  # (docs/decisions/2026-10-25-stage-02-choices.md, question 2). Vendored
+  # because check_site refuses other-origin resources; pinned by the npm
+  # integrity and each file's sha256 in config/site-vendor.yaml.
+  #
+  # `vendored-asset`, not `vendored-ontology`: these must never reach the
+  # validation data graph, the term index or the vendoring tool's
+  # extracts, and a shared role would put them one glob away from all
+  # three. Redistributed under MIT, with vendor/site/NOTICE.md as the
+  # attribution the licensing tool checks.
+
+  - id: vendor.site-mermaid
+    path: vendor/site/mermaid/mermaid.min.js
+    role: vendored-asset
+    generator: tool.site-vendor-assets
+    redistributable: true
+    description: >-
+      Mermaid's single-file browser bundle, byte for byte as the pinned npm
+      tarball holds it (package/dist/mermaid.min.js). Copied into the built
+      site at assets/vendor/mermaid/ and loaded on the Models page only.
+
+  - id: vendor.site-mermaid-licence
+    path: vendor/site/mermaid/LICENSE
+    role: vendored-asset
+    generator: tool.site-vendor-assets
+    redistributable: true
+    description: >-
+      Mermaid's MIT licence, from the same tarball (package/LICENSE),
+      served on the site beside the bundle.
+
+  - id: docs.site-vendor-notice
+    path: vendor/site/NOTICE.md
+    role: documentation
+    generator: tool.site-vendor-assets
+    description: >-
+      Attribution for the vendored site assets, generated from
+      config/site-vendor.yaml; tools/licensing/disposition.py fails if an
+      attribution declared there is missing here.
+
+  - id: config.site-vendor
+    path: config/site-vendor.yaml
+    role: configuration
+    description: >-
+      The site asset pins: version, tarball URL, npm integrity and shasum,
+      the members taken with each one's sha256 and destination, and the
+      licence.
+
+  - id: tool.site-vendor-assets
+    path: tools/site/vendor_assets.py
+    role: tool
+    description: >-
+      Verifies the vendored site assets against their pins, offline, by
+      default; with --fetch, downloads the pinned tarball, checks its
+      integrity, extracts only the pinned members and writes them and the
+      notice.
 
   # ---- Third-party reference material --------------------------------
   #

@@ -33,3 +33,10 @@
 *.png -text
 *.xlsx -text
 .DS_Store -text
+
+# The vendored site assets (config/site-vendor.yaml) are pinned by sha256,
+# and the site serves them as committed. They are LF-only today, so the
+# rule above would store them unchanged; -text says so rather than leaving
+# it to content detection, and -diff keeps a 2.5 MB single-line bundle out
+# of every diff. tools/site/vendor_assets.py checks the bytes either way.
+vendor/site/mermaid/** -text -diff
