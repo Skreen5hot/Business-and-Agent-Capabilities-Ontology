@@ -4,8 +4,8 @@
 | --- | --- |
 | Model identifier | CM-01 |
 | Title | Business Capability Conceptual Domain Model |
-| Version | 0.1.0-draft.4 |
-| Status | Draft. Not approved. DP-1 and DP-2 decided (both Option A); awaiting the architect's review and approval |
+| Version | 0.1.0-draft.5 |
+| Status | Draft. Not approved. DP-1 and DP-2 decided (both Option A); R9's three corrections applied; awaiting the architect's review and approval |
 | Stage | 02 — Conceptual Modeling |
 | Standard | `docs/standards/stage-02-conceptual-modeling.md` |
 | Stage choices | `docs/decisions/2026-10-25-stage-02-choices.md` |
@@ -56,6 +56,16 @@ question a4 keeps open. P2–P5 are unchanged. DP-2 is not presumed decided.
 (`docs/decisions/2026-10-26-dp2-rp10-admission-attribution.md`), made on draft.3: Option A, amendments b1, b3,
 b4 and b5 accepted, b2 rejected. Records admission of and supports bearing of are now
 solid; §6 states the two tests as decided; Q-02 is closed. Nothing else changes.
+0.1.0-draft.5 (2026-10-26): answers review R9 (`reviews/R9-cm01-draft4-review.md`;
+proposed disposition `reviews/R9-disposition.md`) with three targeted corrections and
+no redesign. (1) A functional adequacy assessment is no longer a Capability Assessment:
+it is a sibling statement, Functional Adequacy Assessment, with its own finding
+requirements, so every Capability Assessment again concerns exactly one Capability Type
+and states exactly one Presence Finding. (2) A Standing Function designates a
+whole-function Capability Type only where one is defined, and that type is distinct from
+the component types its coverage register entry requires. (3) "Every artifact is
+enabling" is qualified to artifacts relevant to the capability's realization; the
+platform-loss commitment is unchanged. The five patterns, DP-1 and DP-2 are unchanged.
 
 **Inputs.**
 
@@ -67,6 +77,7 @@ solid; §6 states the two tests as decided; Q-02 is closed. Nothing else changes
 | Review R6 and its accepted disposition | `reviews/R6-vocabulary-review.md`, `reviews/R6-disposition.md` | Findings 1 and 2 (rows R6-02, R6-03, R6-32), deferred to RP-10 and RP-1 |
 | Review R7 and its accepted disposition | `reviews/R7-turtle-artifact-review.md`, `reviews/R7-disposition.md` | Findings C and D (rows R7-04, R7-05, R7-17) |
 | Review R8 of CM-01 draft.1 and its proposed disposition | `reviews/R8-cm01-review.md`, `reviews/R8-disposition.md` | Findings 1–6, answered in draft.2 |
+| Review R9 of CM-01 draft.4 and its proposed disposition | `reviews/R9-cm01-draft4-review.md`, `reviews/R9-disposition.md` | Three corrections, answered in draft.5 |
 | BPO at the pinned commit `66131945` | The BPO repository's `ontology/` (slices, wiring, `apqc-ext.ttl`) with the pinned CCO | R8 finding 6: what BPO's capability index entries and shared classes actually are (§9, Q-12 to Q-14) |
 | Vendored upstream extracts | `vendor/` | Every BFO, CCO and BPO identifier this model cites is checked against them |
 
@@ -186,7 +197,7 @@ flowchart LR
   CRE -->|is keyed by| SF
   CRE -->|requires component| CT
   CCC -->|designates| CT
-  SF -->|designates| CT
+  SF -.->|designates| CT
 ```
 
 **Reading the diagram.** Shapes say what kind of thing a concept is: a rectangle is
@@ -195,9 +206,10 @@ what grounds the capability, an act); a hexagon is a type (a kind of capability,
 act); a rounded box is information — a record, an index, a catalog entry, a description.
 A solid arrow is a relationship the model commits to. A dashed arrow is conditional: it
 holds only after a recorded review or decision, or its formal treatment is pending. Here
-no arrow is dashed: DP-1 decided what grounds a capability and what it merely depends on,
-and DP-2 decided that an assessment with a present finding is what supports a claim that
-an organization bears a capability. Read left to right,
+only one arrow is dashed: a Standing Function designates a Capability Type only where a
+whole-function type has been defined (P5). DP-1 decided what grounds a capability and
+what it merely depends on, and DP-2 decided that an assessment with a present finding is
+what supports a claim that an organization bears a capability, so those arrows are solid. Read left to right,
 the centre of the model is: an Organization bears a Business Capability, which is an
 instance of a Capability Type; Acts, each an instance of a BPO Act Type, realize it; and
 the Capability Type's Realization Index lists which BPO Act Types are admissible
@@ -426,43 +438,54 @@ flowchart LR
   SF(["Standing Function"])
   CCC(["Capability Catalog Concept"])
   CRE(["Coverage Register Entry"])
+  CTW{{"Capability Type"}}
   CT{{"Capability Type"}}
   CTB{{"Capability Type"}}
   BAT{{"BPO Act Type"}}
   ORG["Organization"]
   BC["Business Capability"]
-  CA(["Capability Assessment"])
+  FAA(["Functional Adequacy Assessment"])
+  CRIT(["Assessment Criteria"])
   SF -->|is a kind of| ACN
   ACN -->|designates| BAT
-  SF -->|designates| CT
+  SF -.->|designates| CTW
   CCC -->|designates| CT
   CRE -->|is keyed by| SF
   CRE -->|requires component| CT
   CT -.->|specializes| CTB
   ORG -->|bears| BC
   BC -->|is an instance of| CT
-  CA -->|describes| ORG
-  CA -.->|assesses adequacy for| SF
+  FAA -->|describes| ORG
+  FAA -->|assesses adequacy for| SF
+  FAA -->|conforms to| CRIT
 ```
 
 **Reading the diagram.** An APQC Catalog Node designates a BPO Act Type when it names a
 process; a Standing Function is the kind of catalog node that names an ongoing function
-("Manage X") and designates a Capability Type instead (ADR-001 R5 and R6). A Capability
-Catalog Concept, an entry in BCO's controlled vocabulary such as `bcoc:StrategicPlanning`,
-also designates a Capability Type; the vocabulary concept is a word with a definition, not
-the type itself. The two Capability Type boxes are two types: one specializes the other
-only when a review has established that every capability of the narrower type is a
-capability of the broader type in bearer, grounding and realization (dashed: reviewed,
-CD9); a broader type means some ability within its function, not complete ability. A
-Coverage Register Entry is keyed by a Standing Function and lists the Capability Types it
-requires as components. Whether an organization bears an instance of every component is a
-question of component possession; whether those components work together as a whole is a
-separate matter for an assessment, never derived from the register. That assessment is a
-Capability Assessment that describes the organization and assesses its adequacy for one
-Standing Function (dashed: the conceptual target is proposed here, its formal treatment
-is open, Q-05). It states separate findings for integration, availability and adequacy
-against its own criteria, as §6 sets out, and never takes them from the possession
-answer. The register never generates specialization, and neither does APQC's numbering.
+("Manage X"). Where a capability type for the function as a whole has been defined, the
+Standing Function designates it (ADR-001 R5 and R6); where none has, it designates
+nothing and the function is represented only by its Coverage Register Entry — hence the
+dashed arrow. The three Capability Type boxes are three types in different positions.
+The first, top right, is a *whole-function type*: the ability to perform the function as
+a whole. The second is a *component type*, one of those the Coverage Register Entry
+lists as required; a function's whole-function type is never among its own components,
+though the same type can be the whole-function type of one function and a component of
+another. Bearing every component does not entail bearing the whole-function type. A
+Capability Catalog Concept, an entry in BCO's controlled vocabulary such as
+`bcoc:StrategicPlanning`, designates a Capability Type in either position; the
+vocabulary concept is a word with a definition, not the type itself. The third box is a
+broader type the component specializes, only when a review has established that every
+capability of the narrower type is a capability of the broader type in bearer,
+grounding and realization (dashed: reviewed, CD9); a broader type means some ability
+within its function, not complete ability. Whether an organization bears an instance
+of every component is a question of component possession. Whether those components
+work together, are available and are adequate to the function is a different kind of
+statement: a Functional Adequacy Assessment, which describes the organization, assesses
+its adequacy for one Standing Function, and conforms to stated Assessment Criteria. It is
+not a Capability Assessment: it concerns no Capability Type and states no Presence
+Finding, but one finding for each of integration, availability and adequacy (§6). None
+of them is taken from the possession answer. The register never generates
+specialization, and neither does APQC's numbering.
 
 ## 4. Concept descriptions
 
@@ -526,7 +549,10 @@ vendored extracts.
   Types are not mutually exclusive: one capability may fall under several. BPO already
   declares 145 classes under Organization Capability in its slices (at its pinned commit);
   they are candidates for capability types, not admitted ones, and some were drawn from
-  standing-function catalog nodes (Q-12).
+  standing-function catalog nodes (Q-12). Relative to a Standing Function a type is either
+  its whole-function type (designated by the function, where one is defined) or one of
+  its required component types (listed by its Coverage Register Entry); the same type can
+  play different parts for different functions.
 - **Related concepts.** Business Capability, Realization Index, Type Admission Record,
   Capability Catalog Concept, Standing Function, Coverage Register Entry.
 
@@ -594,7 +620,9 @@ vendored extracts.
   even when the loss is permanent (CD2; the commitment accepted with DP-1). Internal or external depending on ownership or
   control, which sorts dependencies only.
 - **Examples.** Acme's core banking platform; a leased warehouse; a market-data feed.
-- **Boundaries.** Under DP-1 (Option A) every artifact is enabling, never constitutive. A
+- **Boundaries.** Under DP-1 (Option A) every artifact relevant to a capability's
+  realization is an enabling condition of it, never constitutive; an artifact that plays
+  no part in its realizations is neither its basis nor one of its enabling conditions. A
   capability type whose review shows an artifact is constitutive is sent to the
   socio-technical question a4 keeps open (Q-15). Not a member agent, and not to be asserted as part of the organization
   (R6 Finding 2's own qualification).
@@ -695,15 +723,16 @@ vendored extracts.
 - **Description.** A statement describing an organization with respect to the presence,
   absence or partial presence of a capability of one given type, stating that finding and
   citing its evidence and criteria.
-- **Distinguishing characteristics.** Concerns exactly one Capability Type; always states a
-  Presence Finding; is about a particular Business Capability only when one is identified.
+- **Distinguishing characteristics.** Concerns exactly one Capability Type; states exactly
+  one Presence Finding; is about a particular Business Capability only when one is
+  identified. These hold of every Capability Assessment without exception.
   A present finding citing evidence of capacity is what supports a bearing claim (DP-2,
   Option A and b5);
   evidence that the capability has been exercised supports it too, but is never required,
-  so a capability that has never been exercised can be attributed. Availability,
-  sourcing and integration are assessed here, never derived. A functional adequacy
-  assessment is the same kind of statement directed at a Standing Function rather than a
-  Capability Type (§6, RL-39).
+  so a capability that has never been exercised can be attributed. The availability
+  and sourcing of this capability are assessed here, never derived. It is never directed
+  at a Standing Function: integration and adequacy across a function's components are a
+  Functional Adequacy Assessment, a separate kind of statement (R9).
 - **Examples.** "Acme: strategic planning capability present", citing the planning office
   staffing record and the 2027 mission-setting session; "Acme: treasury management
   capability absent".
@@ -904,13 +933,17 @@ vendored extracts.
 ### Standing Function
 
 - **Description.** A catalog node naming an ongoing business function ("Manage X") rather
-  than a process, which designates a capability type (ADR-001 R5, R6).
-- **Distinguishing characteristics.** Keys the coverage register; need not have a capability
-  type of its own. It is what a functional adequacy assessment is directed at (RL-39).
+  than a process. Where a capability type for the function as a whole has been defined,
+  the node designates it (ADR-001 R5, R6); designation is conditional.
+- **Distinguishing characteristics.** Designates at most one whole-function Capability
+  Type, and none where no such type is defined. Keys the coverage register, whose entry
+  lists the component types it requires; its whole-function type is never one of those
+  components, and bearing all the components does not entail bearing it. It is what a
+  Functional Adequacy Assessment is directed at (RL-39).
 - **Examples.** A "Manage treasury operations" node.
 - **Boundaries.** Its coverage is component possession, not integrated ability (CD16).
 - **Related concepts.** APQC Catalog Node, Capability Type, Coverage Register Entry,
-  Capability Assessment.
+  Functional Adequacy Assessment.
 
 ### Capability Catalog Concept
 
@@ -936,6 +969,31 @@ vendored extracts.
   functions is open (Q-07).
 - **Related concepts.** Standing Function, Capability Type.
 
+### Functional Adequacy Assessment
+
+- **Description.** A statement describing an organization with respect to one standing
+  function: whether the organization's capabilities for it work together, are available,
+  and are adequate to perform the function to stated criteria.
+- **Distinguishing characteristics.** Describes exactly one Organization and assesses
+  adequacy for exactly one Standing Function. Concerns no Capability Type and states no
+  Presence Finding; it states exactly three findings, one each for integration and
+  coordination, operational availability, and adequacy for the function. Each finding is
+  met, partly met or not met, relative to the Assessment Criteria it conforms to, which
+  are therefore required. It may cite the component-possession answer (CQ-12) and
+  Capability Assessments as evidence, but none of its findings is derived from them
+  (CAP-29).
+- **Examples.** "Acme, Manage treasury operations: integration partly met (cash and risk
+  teams hand off by spreadsheet), availability met, adequacy not met against the
+  2026 liquidity criteria."
+- **Boundaries.** Not a Capability Assessment, and not a map entry. Not a claim that the
+  organization bears a whole-function capability: where the function designates a
+  whole-function type, whether O bears it is a Capability Assessment concerning that type.
+  Introduced at the conceptual level only; how it is represented (a further description
+  class beside the specification's seven, or otherwise) is for Stage 05 and specification
+  v0.5 (RP-9).
+- **Related concepts.** Standing Function, Organization, Assessment Criteria, Capability
+  Assessment, Coverage Register Entry.
+
 ## 5. Relationship descriptions
 
 Relationships are conceptual (standard §2.4). "Direction" reads From → To. Qualifications
@@ -950,7 +1008,7 @@ specification proposes one; formal selection belongs to Stage 05.
 | RL-04 | has as basis | Business Capability | Capability Basis | Directed | The capability exists in virtue of these members, so organized | Decided (DP-1, Option A). Candidate `obo:BFO_0000218` has material basis, whose use classifies the capability as a disposition (SF-02): asserted only for admitted types (a2) |
 | RL-05 | consists of | Capability Basis | Member Agent | Directed | The basis is this one member, or these members taken together | Decided (DP-1, Option A, a1). One member can suffice; never an abstract set, the arrangement, or an artifact |
 | RL-06 | is arranged by | Capability Basis | Organizational Arrangement | Directed | The arrangement is why these members ground the capability | Decided (DP-1, a1 and a3). The arrangement is not the basis (SF-03) |
-| RL-07 | depends for realization on | Business Capability | Enabling Condition | Directed | Realizations of the capability need this resource; its loss makes the capability unavailable | Decided (DP-1, Option A): every artifact is enabling; its loss, even permanent, makes the capability unavailable, not ended. Recorded in assessments, not as parthood. A type with a constitutive artifact goes to Q-15 (a4) |
+| RL-07 | depends for realization on | Business Capability | Enabling Condition | Directed | Realizations of the capability need this resource; its loss makes the capability unavailable | Decided (DP-1, Option A): every artifact relevant to the capability's realization is enabling; its loss, even permanent, makes the capability unavailable, not ended. Recorded in assessments, not as parthood. A type with a constitutive artifact goes to Q-15 (a4) |
 | RL-08 | has skill | Member Agent | Skill | Directed | The person bears the ability | Candidate CCO bearer relation; evidence for, never identical to, a business capability |
 | RL-09 | records admission of | Type Admission Record | Capability Type | Directed | The record states whether capabilities of the type can be dispositions of an organization | Decided (DP-2, Option A; b1, b3, b4). About a type, never an organization |
 | RL-10 | has realization index | Capability Type | Realization Index | Directed | The type's admissible realization types are these | Mandatory for every specific type (CD4) |
@@ -959,12 +1017,12 @@ specification proposes one; formal selection belongs to Stage 05.
 | RL-13 | develops | Act | Business Capability | Directed | The act brings the capability about or improves it | No formal relation chosen (Q-03, OI-4); distinct from RL-12; one act may do both |
 | RL-14 | is performed by | Act | Member Agent or Organization | Directed | These agents carry out the act | A provider's staff performing acts for a consumer leaves the consumer with a sourcing arrangement, not a capability |
 | RL-15 | specializes | Capability Type | Capability Type | Directed | Every capability of the narrower type is one of the broader type | Reviewed only (CD9, CAP-10); never induced from coverage or APQC numbering. BACM forbids specialization; recorded as a departure (SF-07) |
-| RL-16 | describes | Capability Map or Capability Assessment or Capability Sourcing Statement | Organization | Directed | The information is about this organization | Candidate `cco:ont00001982` describes. For a sourcing statement, the organization described is the consumer |
+| RL-16 | describes | Capability Map or Capability Assessment or Capability Sourcing Statement or Functional Adequacy Assessment | Organization | Directed | The information is about this organization | Candidate `cco:ont00001982` describes. For a sourcing statement, the organization described is the consumer |
 | RL-17 | has entry | Capability Map | Capability Assessment or Capability Target | Directed | The assessment or target is a part of the map | Candidate `obo:BFO_0000178` has continuant part. A map has at least one entry |
-| RL-18 | concerns type | Capability Assessment or Capability Target or Agent Manifest or Capability Sourcing Statement or Authorization Record | Capability Type or BPO Act Type | Directed | The information refers to a kind, with no claim that an instance exists | Exactly one per record; capability types for assessments, targets and manifests, act types for sourcing and authorization records (CAP-17). A functional adequacy assessment has none and uses RL-39 instead. Formal treatment is a Stage 05 matter (the specification proposes an annotation) |
+| RL-18 | concerns type | Capability Assessment or Capability Target or Agent Manifest or Capability Sourcing Statement or Authorization Record | Capability Type or BPO Act Type | Directed | The information refers to a kind, with no claim that an instance exists | Exactly one per record; capability types for assessments, targets and manifests, act types for sourcing and authorization records (CAP-17). A Functional Adequacy Assessment is not a Capability Assessment and concerns no type; it uses RL-39. Formal treatment is a Stage 05 matter (the specification proposes an annotation) |
 | RL-19 | states | Capability Assessment | Presence Finding | Directed | The assessment's finding | Exactly one; partial requires criteria (RL-21) |
 | RL-20 | cites as evidence | Capability Assessment | Evidence | Directed | The assessment rests on this record | For a bearing claim, at least one cited record bears on ability (CAP-26). Evidence of capacity can suffice; evidence of exercise is never required (DP-2 b5, accepted) |
-| RL-21 | conforms to | Capability Assessment or Capability Sourcing Assessment or Capability Maturity Rating | Assessment Criteria or Maturity Scale | Directed | The statement is made relative to these criteria, or on this scale | A rating names exactly one scale |
+| RL-21 | conforms to | Capability Assessment or Capability Sourcing Assessment or Capability Maturity Rating or Functional Adequacy Assessment | Assessment Criteria or Maturity Scale | Directed | The statement is made relative to these criteria, or on this scale | A rating names exactly one scale |
 | RL-22 | is about | Capability Assessment | Business Capability | Directed | The assessment concerns this particular capability | Candidate `cco:ont00001808` is about. Only when a particular capability is identified; an absent finding has none |
 | RL-23 | supports bearing of | Capability Assessment | Business Capability | Directed | The assessment is the evidence for the claim that the organization bears this capability | Decided (DP-2, Option A; b5). A present finding, matching type, citing evidence of capacity, with exercise supporting but never required (CAP-26) |
 | RL-24 | rates | Capability Maturity Rating | Business Capability | Directed | The rating ranks this existing capability | Candidate `cco:ont00001811` is a ordinal measurement of. The capability must exist |
@@ -978,11 +1036,11 @@ specification proposes one; formal selection belongs to Stage 05.
 | RL-32 | is issued by | Authorization Record | Authority | Directed | The authority that issued the authorization | At least one authority source |
 | RL-33 | permits | Action Permission | Act | Directed | The permission under which this act occurred | `cco:ont00001910` permits. Only for acts that occurred (CAP-28) |
 | RL-34 | bounds | Evidence Scope | Authorization Record or Act | Directed | The record falls within a scope declared complete | Absence answers only within a scope; otherwise unknown (CAP-18) |
-| RL-35 | designates | APQC Catalog Node or Standing Function or Capability Catalog Concept | BPO Act Type or Capability Type | Directed | The catalog entry or vocabulary concept names this type | A process node designates an act type; a standing function and a catalog concept designate a capability type |
+| RL-35 | designates | APQC Catalog Node or Standing Function or Capability Catalog Concept | BPO Act Type or Capability Type | Directed | The catalog entry or vocabulary concept names this type | A process node designates an act type. A standing function designates at most one whole-function capability type, and only where one is defined: designation is conditional (R9). A catalog concept designates a capability type |
 | RL-36 | is a kind of | Standing Function | APQC Catalog Node | Directed | Standing functions are catalog nodes of a particular kind | ADR-001 R5 decides which nodes |
 | RL-37 | requires component | Coverage Register Entry | Capability Type | Directed | The standing function requires a capability of this type | Component possession only; no specialization, assessment or bearing generated (CAP-22, CAP-29) |
 | RL-38 | is keyed by | Coverage Register Entry | Standing Function | Directed | The entry is for this function | Keyed by catalog node, not by a capability type |
-| RL-39 | assesses adequacy for | Capability Assessment | Standing Function | Directed | The assessment evaluates whether the organization it describes can perform this function adequately as an integrated whole | Proposed in draft.2 (R8 finding 5). Such an assessment concerns no Capability Type; it states findings for integration, availability and adequacy against stated criteria, and none is derived from component possession (CQ-12) or the coverage register (CAP-29). Formal treatment open (Q-05, specification OI-15) |
+| RL-39 | assesses adequacy for | Functional Adequacy Assessment | Standing Function | Directed | The assessment evaluates whether the organization it describes can perform this function adequately as an integrated whole | Proposed in draft.2 (R8 finding 5); its source made a Functional Adequacy Assessment in draft.5 (R9), so no Capability Assessment is directed at a function. Exactly one function per assessment; three findings (integration, availability, adequacy) against stated criteria, none derived from component possession (CQ-12) or the coverage register (CAP-29). Formal treatment open (Q-05, specification OI-15) |
 
 ## 6. Conceptual boundaries
 
@@ -1001,6 +1059,7 @@ specification proposes one; formal selection belongs to Stage 05.
 | Realization / development | realizes against develops | Building or improving a capability is not exercising it | CD5 |
 | Admissible / exhaustive / required | Realization Index; reviewed exhaustiveness; no "requires capability" | An index lists what may realize; it does not claim every act needs a capability | CD4, CD12 |
 | Specialization / coverage / decomposition | specializes; requires component; map layout | A broader type is some ability within its function, not the sum of components; maps are not parthood | CD9, CD16, SF-07, fault line 5 |
+| Whole-function type / component types | A Standing Function's designated type against the types its Coverage Register Entry requires | Designation is conditional; bearing every component does not entail bearing the whole-function type, nor does either settle adequacy | ADR-001 R4–R6; CD16; R9 |
 | Description / described | Description layer against reality | Listing, assessing or targeting a capability asserts nothing about its existence | CD11 |
 | Arrangement / dependence | Capability Sourcing Statement against Capability Sourcing Assessment | The contract is not the risk | CD17 |
 | End state / route | Capability Target against Capability Target-State Specification | Objectives and plans differ | CD17 |
@@ -1013,8 +1072,8 @@ specification proposes one; formal selection belongs to Stage 05.
 apart (a3): *material constitution* — the basis, one or more constituent member agents
 (a1), asserted only for a capability whose type has been admitted (a2); *organizational
 configuration* — the arrangement, the reason the basis grounds the capability, not
-itself material; *enabling conditions* — every artifact, owned or not, internal or
-sourced; and *temporary realization constraints* — outages, missing authorization,
+itself material; *enabling conditions* — every artifact relevant to the capability's
+realization, owned or not, internal or sourced; and *temporary realization constraints* — outages, missing authorization,
 circumstances — recorded as findings in assessments. The commitment that follows is
 accepted as this ontology's, not claimed to be universal: permanently removing an
 essential platform does not by itself end a capability; it persists, latent, and is
@@ -1022,7 +1081,9 @@ assessed as unavailable until the platform is replaced, and it ends only when it
 or its arrangement goes. Defence and enterprise-architecture frameworks that count
 technology inside the capability depart from this (SF-06). A capability type whose
 review shows an artifact is constitutive is not forced into this pattern: it is sent to
-the socio-technical question a4 keeps open (Q-15, specification OI-14).
+the socio-technical question a4 keeps open (Q-15, specification OI-14). "Relevant to
+the capability's realization" states the decision's scope (R9); it changes neither
+the decision nor the commitment.
 
 **Admission and attribution (DP-2, decided).** The architect chose Option A on
 2026-10-26 (`docs/decisions/2026-10-26-dp2-rp10-admission-attribution.md`). Two tests, kept apart.
@@ -1045,17 +1106,21 @@ the model, and none is inferred from another:
 | Aspect | Question | Answered by | Never derived from |
 | --- | --- | --- | --- |
 | Possession of components | Does O bear a capability of every type the function requires? | bears (RL-01) joined to the Coverage Register Entry (RL-37, RL-38); CQ-12 | — |
-| Integration and coordination | Do those capabilities work together through O's arrangements, with hand-offs and shared decisions in place? | A finding of a functional adequacy assessment (RL-39), citing the Organizational Arrangement across the components | Possession of components |
-| Operational availability | Are the enabling conditions the function needs in place now, internal or sourced? | A finding of the same assessment, citing Enabling Conditions and Capability Sourcing Statements | Possession; integration |
-| Adequacy for the function | Is O, so equipped, able to perform the function to the stated criteria (volume, quality, timeliness, risk)? | A finding of the same assessment, against its Assessment Criteria | Any of the three above |
+| Integration and coordination | Do those capabilities work together through O's arrangements, with hand-offs and shared decisions in place? | The integration finding of a Functional Adequacy Assessment (RL-39), citing the Organizational Arrangement across the components | Possession of components |
+| Operational availability | Are the enabling conditions the function needs in place now, internal or sourced? | Its availability finding, citing Enabling Conditions and Capability Sourcing Statements | Possession; integration |
+| Adequacy for the function | Is O, so equipped, able to perform the function to the stated criteria (volume, quality, timeliness, risk)? | Its adequacy finding, against its Assessment Criteria | Any of the three above |
 
 Possession is a conjunction of bearing facts. The other three are judgments an assessor
 makes and records, with evidence and criteria; a pipeline that writes them from CQ-12 is
-exactly what CAP-29 forbids. No new concept is introduced for this: the assessment is a
-Capability Assessment directed at a Standing Function (RL-39) instead of at a Capability
-Type, which also gives specification OI-15 a conceptual answer. How its findings are
-recorded (one assessment with several findings, or several assessments) and their
-value sets are Stage 05 questions.
+exactly what CAP-29 forbids. The three judgments belong to one statement, a Functional
+Adequacy Assessment directed at the Standing Function (RL-39). It is deliberately not a
+Capability Assessment, whose rules — exactly one Capability Type, exactly one Presence
+Finding — it could not meet without bending them (R9). Its finding requirements are
+settled conceptually: three findings, each met, partly met or not met against stated
+criteria. Their encoding is a Stage 05 question. This also gives specification OI-15 a
+conceptual answer. Where the function designates a whole-function type, whether O bears
+it is a further question, answered by a Capability Assessment concerning that type; it
+is neither possession of components nor adequacy.
 
 **Exclusions.** The model represents none of the following as business capabilities:
 process capability ratings (ISO/IEC 33020, CMMI, COBIT) and statistical capability
@@ -1068,7 +1133,8 @@ parthood among capabilities (Q-10).
 **Homonym note.** "Capability" in the business-architecture literature usually means what
 an organization can do, often bundled with the people, process, information and technology
 that deliver it (register fault line 2). This model keeps the ability separate from what it
-depends on. Under DP-1 (Option A) every such resource is outside the ability; Q-15 keeps the
+depends on. Under DP-1 (Option A) every such resource relevant to its realization is
+outside the ability; Q-15 keeps the
 exception open.
 
 ## 7. Decision points
@@ -1096,8 +1162,9 @@ as such; it is not a decision.
 | DP-2 amendments b1–b5 | **Decided: b1, b3, b4, b5 accepted; b2 rejected** (same record) | Done | §7 DP-2 |
 | Draft.4's application of the DP-2 decision | Architect's review, as part of approving CM-01 | Before approval | P1, P3, overview, §4, §5, §6, §8, §9 |
 | The draft.2 corrections for R8 findings 2–5 (single-member basis, several types, capacity against exercise, functional adequacy) | Architect's review, as part of approving CM-01; the R8 disposition's acceptance | Before approval | §4, §5 (RL-02, RL-05, RL-18, RL-20, RL-39), §6 |
+| The draft.5 corrections for R9 (Functional Adequacy Assessment as a separate statement; conditional designation and whole-function against component types; "relevant to its realization") | Architect's review, as part of approving CM-01; the R9 disposition's acceptance | Before approval | P5, overview, §4, §5 (RL-07, RL-16, RL-18, RL-21, RL-35, RL-39), §6 |
 | CM-01 approval | Architect's approval act, cited in §10 | After all rows above | §10 |
-| Specification v0.5 (CD1–CD3, §8 G1-T and G1-I, OI-15) | Drafted from the decisions; ratified separately | After approval | — |
+| Specification v0.5 (CD1–CD3, §8 G1-T and G1-I, OI-15; CD16 and CD17 for the Functional Adequacy Assessment and conditional designation) | Drafted from the decisions; ratified separately (RP-8, RP-9) | After approval | — |
 | Formal placement under disposition; reuse of CCO's Organization Capability pattern | Deferred to Stage 05 | Formalization | Q-09 |
 | Form of a plural basis (object aggregate or several assertions) | Deferred to Stage 05 | Formalization | Capability Basis |
 | Relation for develops | Deferred to Stage 05 | Formalization | Q-03 |
@@ -1404,10 +1471,10 @@ within an Evidence Scope.
 | CQ-6 | Which capability types does O's map record as needed (a target entry) with no assessment entry finding them present? | P3 | Capability Map, Capability Target, Capability Assessment, Presence Finding, Capability Type | RL-17, RL-18, RL-19 | Entries joined on the type they concern |
 | CQ-7 | For which act types does O have a sourcing arrangement, with which provider, and for which does O also bear a capability indexing that act type? | P4, P1, P2 | Capability Sourcing Statement, Organization, BPO Act Type, Business Capability, Capability Type, Realization Index | RL-16, RL-29, RL-18, RL-01, RL-02, RL-10, RL-11 | Two-party arrangements only (Q-04) |
 | CQ-8 | Which capability targets does O have, and which already match a capability O bears? | P3, P1 | Capability Target, Capability Type, Organization, Business Capability | RL-26, RL-18, RL-01, RL-02 | A target does not imply absence |
-| CQ-9 | Which APQC catalog nodes are standing functions with a capability class? | P5 | APQC Catalog Node, Standing Function, Capability Type | RL-36, RL-35 | — |
+| CQ-9 | Which APQC catalog nodes are standing functions with a capability class? | P5 | APQC Catalog Node, Standing Function, Capability Type | RL-36, RL-35 | Returns only standing functions that designate a whole-function type; designation is conditional |
 | CQ-10 | Which capability classes have not passed G1-T? | P1 | Capability Type, Type Admission Record | RL-09 | Types with no PASS record; under DP-2 (Option A, b4) a type is staged only transitionally |
 | CQ-11 | Which acts develop capability C, as distinct from realizing it? | P2 | Act, Business Capability | RL-13, RL-12 | No formal relation yet (Q-03) |
-| CQ-12 | Does O bear an instance of every capability class listed as a required component of standing function F? | P5, P1 | Coverage Register Entry, Standing Function, Capability Type, Organization, Business Capability | RL-38, RL-37, RL-01, RL-02 | Component possession only. Integration, availability and adequacy are findings of an assessment directed at F (RL-39, §6), never derived from this answer |
+| CQ-12 | Does O bear an instance of every capability class listed as a required component of standing function F? | P5, P1 | Coverage Register Entry, Standing Function, Capability Type, Organization, Business Capability | RL-38, RL-37, RL-01, RL-02 | Component possession only. Integration, availability and adequacy are findings of a Functional Adequacy Assessment directed at F (RL-39, §6), never derived from this answer |
 | CQ-13 | Which of O's capability-bearing claims lack a supporting present-finding assessment? | P1, P3 | Organization, Business Capability, Capability Assessment, Presence Finding, Evidence | RL-01, RL-23, RL-19, RL-20 | DP-2 decided (Option A). Under b5 a supporting assessment may cite evidence of capacity alone, so a never-exercised capability is not reported for lacking a realization |
 | CQ-14 | Which of O's sourcing arrangements have no sourcing assessment of the dependence? | P4 | Capability Sourcing Statement, Capability Sourcing Assessment, Organization | RL-16, RL-30 | — |
 
@@ -1445,9 +1512,10 @@ closed; their numbers are not reused. No open question blocks approval.
 - **Q-04.** Multi-party sourcing — brokers, intermediaries, provider networks — is outside
   the two-party statement (OI-18). *Carried forward.*
 - **Q-05.** An integrated-adequacy assessment of a function with no capability type of its
-  own has no type to concern (OI-15). Draft.2 gives it a conceptual target: it assesses
-  adequacy for the Standing Function (RL-39), with the four aspects of §6. Still open: how
-  that is formalized, and the findings' value sets. *Carried forward.*
+  own has no type to concern (OI-15). Draft.2 gave it a conceptual target, the Standing
+  Function (RL-39); draft.5 makes it its own kind of statement, the Functional Adequacy
+  Assessment, with three findings, each met, partly met or not met (R9). Still open: how
+  that is formalized and encoded. *Carried forward.*
 - **Q-06.** Bearing has no temporal qualification; CQ-4 asks about capabilities borne at
   query time. *Carried forward.*
 - **Q-07.** May a coverage register component itself be a standing function (OI-13)?
@@ -1500,13 +1568,13 @@ closed; their numbers are not reused. No open question blocks approval.
 | Approved | no |
 | DP-1 (RP-1) | decided: Option A with a1–a4 (`docs/decisions/2026-10-25-dp1-rp1-grounding-boundary.md`) |
 | DP-2 (RP-10) | decided: Option A with b1, b3, b4, b5; b2 rejected (`docs/decisions/2026-10-26-dp2-rp10-admission-attribution.md`) |
-| Stakeholder review | R8 reviewed draft.1; draft.2 answers it (disposition proposed) |
+| Stakeholder review | R8 reviewed draft.1 (answered in draft.2); R9 reviewed draft.4 (answered in draft.5); both dispositions proposed |
 | Automated completeness check | `tools/conceptual/check_models.py` |
 
 **Quality gates (standard §7), as the drafter assesses them for review.**
 
 - [x] The purpose and scope are clearly defined (§1).
-- [x] Principal domain concepts have been identified and described (§4, 32 concepts).
+- [x] Principal domain concepts have been identified and described (§4, 33 concepts).
 - [x] Important conceptual distinctions are documented (§6).
 - [x] Meaningful relationships are represented and explained (§5, 39 relationships).
 - [x] The model addresses the intended requirements and competency questions (§8).
@@ -1514,15 +1582,19 @@ closed; their numbers are not reused. No open question blocks approval.
   for names; by review for meaning).
 - [x] Significant ambiguities and assumptions have been documented (§7, §9).
 - [x] No unresolved conceptual question materially prevents agreement — DP-1 and DP-2 are
-  decided; every remaining open question is carried forward.
-- [ ] Domain stakeholders have reviewed the model — R8 reviewed draft.1; review of draft.2
-  and acceptance of the R8 disposition are pending.
+  decided; every remaining open question is carried forward. Reconfirmed in draft.5
+  after R9's three corrections: the adequacy statement no longer bends Capability
+  Assessment's rules, designation is conditional, and the artifact scope is stated.
+- [ ] Domain stakeholders have reviewed the model — R8 reviewed draft.1 and R9 draft.4;
+  acceptance of the R8 and R9 dispositions and review of draft.5 are pending.
 - [x] The model provides sufficient conceptual clarity to guide ontology formalization —
-  the drafter's assessment, for the architect to confirm in approving.
+  reconfirmed in draft.5 after R9's corrections; the drafter's assessment, for the
+  architect to confirm in approving.
 
 **To approve.** Both decision points are decided and applied (draft.3, draft.4). What
-remains is the architect's: review of this draft (the application of DP-1 and DP-2 and
-the R8 corrections), acceptance or revision of the R8 disposition, and an approval act
+remains is the architect's: review of this draft (the application of DP-1 and DP-2, the
+R8 corrections and the R9 corrections), acceptance or revision of the R8 and R9
+dispositions, and an approval act
 recorded verbatim in `docs/decisions/` with this file's digest, which the Approved row
 then cites. Specification v0.5 then carries the decisions
 into CD1–CD3 and §8.
@@ -1544,6 +1616,8 @@ fault lines and the findings SF-01 to SF-10 cited above.
   `reviews/R7-disposition.md` rows R7-04, R7-05, R7-17
 - Review R8 (of this model's draft.1): `reviews/R8-cm01-review.md`; proposed disposition
   `reviews/R8-disposition.md`
+- Review R9 (of this model's draft.4): `reviews/R9-cm01-draft4-review.md`; proposed
+  disposition `reviews/R9-disposition.md`
 - BPO at commit `66131945b525c54f44e4962f32bb1f52dfa0cd12` (the vendored extract's pin),
   read with the pinned CCO and BFO, for Q-12 to Q-14
 - Controlled vocabulary: `src/01_controlled_vocabulary/metamodel.yaml`,

@@ -197,8 +197,8 @@ components:
       Review findings against the specification and the artifacts, each
       filed verbatim as received: R5 (v0.4 against the v0.1 package), R6
       (the P5 vocabulary as published), R7 (the five generated
-      vocabulary Turtle files after R6) and R8 (conceptual model CM-01,
-      draft.1). R<n>-disposition.md is the
+      vocabulary Turtle files after R6), R8 (conceptual model CM-01,
+      draft.1) and R9 (CM-01 draft.4). R<n>-disposition.md is the
       project's proposed disposition of review R<n>. Recommendations and
       proposals, not ratified changes. All are rendered on the site's
       Reviews page.

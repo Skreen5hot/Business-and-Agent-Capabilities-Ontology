@@ -414,9 +414,9 @@ YAML where that commit's own layout contract puts it
 communications written before the move keep the old paths, as written.
 
 **CM-01 (drafted, not approved).** `src/02_conceptual_models/CM-01-business-capability.md`,
-0.1.0-draft.4 (draft.2 answered review R8; draft.3 and draft.4 apply DP-1 and DP-2): five patterns (capability and bearer; realization by BPO acts; description
+0.1.0-draft.5 (draft.2 answered review R8; draft.3 and draft.4 apply DP-1 and DP-2; draft.5 answers review R9): five patterns (capability and bearer; realization by BPO acts; description
 layer; sourcing and authorization; catalog, specialization and coverage), 6 Mermaid
-diagrams, 32 concepts, 39 relationships, CQ-1 to CQ-14 traced. RP-1 and RP-10 are its
+diagrams, 33 concepts, 39 relationships, CQ-1 to CQ-14 traced. RP-1 and RP-10 are its
 decision points DP-1 and DP-2, each with options, the R6 and R7 critiques, register
 evidence (SF-01 to SF-06) and a drafter's recommendation that is not a decision.
 **DP-1 (RP-1) is decided:** Option A with amendments a1–a4, 2026-10-25
@@ -430,9 +430,15 @@ is v0.5's work. The R8 disposition is still proposed.
 types, G1-I attributes each claim on evidence of capacity, with exercise supporting but
 never required; no interest-condition question. Draft.4 applies it. No open question
 in CM-01 blocks approval.
-**Next:** the architect reviews draft.4, accepts or revises the R8 disposition, and
-records an approval act with the model's digest; then specification v0.5 carries RP-1
-and RP-10 into CD1–CD3 and §8.
+**R9** reviewed draft.4: DP-1 and DP-2 implementation accepted; approval deferred for
+three corrections, made in draft.5 (a separate Functional Adequacy Assessment;
+conditional standing-function designation; artifacts "relevant to the capability's
+realization"). R8 and R9 dispositions are proposed.
+**Next:** the architect reviews draft.5, accepts or revises the R8 and R9
+dispositions, and records an approval act with the model's digest; then specification
+v0.5 carries RP-1 and RP-10 into CD1–CD3 and §8.
+**Roadmap:** a complementary Agent Capability conceptual model (CM-02, working title)
+is planned and not started; see `src/02_conceptual_models/README.md`.
 
 **Stage 02 tooling.** `tools/conceptual/check_models.py` holds every
 `src/02_conceptual_models/CM-*.md` to a format contract: the standard's ten sections in
