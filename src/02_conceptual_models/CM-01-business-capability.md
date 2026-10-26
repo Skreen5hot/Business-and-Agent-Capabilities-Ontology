@@ -4,7 +4,7 @@
 | --- | --- |
 | Model identifier | CM-01 |
 | Title | Business Capability Conceptual Domain Model |
-| Version | 0.1.0-draft.1 |
+| Version | 0.1.0-draft.2 |
 | Status | Draft. Not approved. Two decision points (DP-1, DP-2) await the architect |
 | Stage | 02 — Conceptual Modeling |
 | Standard | `docs/standards/stage-02-conceptual-modeling.md` |
@@ -34,6 +34,16 @@ model cannot be approved until the architect has decided both and the decisions 
 recorded as acts in `docs/decisions/`. Specification v0.5 follows from those decisions.
 Nothing here is a decision. In particular, the drafter's recommendations in §7 are inputs.
 
+**Revision history.** 0.1.0-draft.1 (2026-10-25): first draft. 0.1.0-draft.2 (2026-10-25):
+answers review R8 (`reviews/R8-cm01-review.md`; proposed disposition
+`reviews/R8-disposition.md`). The capability basis may be a single member (R8 finding 2);
+a capability may instantiate several types (finding 3); attribution evidence separates
+capacity from exercise, so a never-exercised capability can be attributed (finding 4,
+proposed to DP-2 as amendment b5); functional adequacy is given a conceptual target and
+four aspects (finding 5); BPO integration dependencies are measured and recorded
+(finding 6); DP-1 is made decision-ready; §7 gains a decision register. Neither decision
+point is presumed decided.
+
 **Inputs.**
 
 | Input | Where | Used for |
@@ -43,6 +53,8 @@ Nothing here is a decision. In particular, the drafter's recommendations in §7 
 | Source register and companion | `docs/sources/register.yaml`, `docs/sources/register-companion.md` | Six fault lines and the specification findings SF-01 to SF-10 |
 | Review R6 and its accepted disposition | `reviews/R6-vocabulary-review.md`, `reviews/R6-disposition.md` | Findings 1 and 2 (rows R6-02, R6-03, R6-32), deferred to RP-10 and RP-1 |
 | Review R7 and its accepted disposition | `reviews/R7-turtle-artifact-review.md`, `reviews/R7-disposition.md` | Findings C and D (rows R7-04, R7-05, R7-17) |
+| Review R8 of CM-01 draft.1 and its proposed disposition | `reviews/R8-cm01-review.md`, `reviews/R8-disposition.md` | Findings 1–6, answered in draft.2 |
+| BPO at the pinned commit `66131945` | The BPO repository's `ontology/` (slices, wiring, `apqc-ext.ttl`) with the pinned CCO | R8 finding 6: what BPO's capability index entries and shared classes actually are (§9, Q-12 to Q-14) |
 | Vendored upstream extracts | `vendor/` | Every BFO, CCO and BPO identifier this model cites is checked against them |
 
 **Reading conventions.** Preferred names of concepts are capitalized (Business Capability).
@@ -203,7 +215,7 @@ flowchart LR
   ORG -->|bears| BC
   BC -->|is an instance of| CT
   BC -.->|has as basis| BAS
-  BAS -.->|is an aggregate of| MA
+  BAS -.->|consists of| MA
   BAS -.->|is arranged by| ARR
   BC -.->|depends for realization on| EC
   MA -->|has skill| SK
@@ -211,11 +223,14 @@ flowchart LR
 ```
 
 **Reading the diagram.** An Organization bears a Business Capability, and each Business
-Capability is an instance of exactly one most specific Capability Type. Member Agents
+Capability is an instance of one or more Capability Types (a capability may fall under
+several applicable types; recording one primary type is an application convention, not
+a principle of the model). Member Agents
 (people, and organizations that are members) are members of the Organization; a person's
 own ability is a Skill the person has, not a business capability. As the specification
 proposes it, and subject to DP-1, the capability has as its basis a Capability Basis that
-is an aggregate of member agents, arranged by an Organizational Arrangement — positions,
+consists of one or more member agents — a single indispensable member can suffice —
+arranged by an Organizational Arrangement — positions,
 reporting lines, routines and coordination — which explains why those members, so
 organized, give the organization the capability. Systems, equipment, facilities and
 external services are Enabling Conditions: the capability depends on them for its
@@ -400,6 +415,7 @@ flowchart LR
   BAT{{"BPO Act Type"}}
   ORG["Organization"]
   BC["Business Capability"]
+  CA(["Capability Assessment"])
   SF -->|is a kind of| ACN
   ACN -->|designates| BAT
   SF -->|designates| CT
@@ -409,6 +425,8 @@ flowchart LR
   CT -.->|specializes| CTB
   ORG -->|bears| BC
   BC -->|is an instance of| CT
+  CA -->|describes| ORG
+  CA -.->|assesses adequacy for| SF
 ```
 
 **Reading the diagram.** An APQC Catalog Node designates a BPO Act Type when it names a
@@ -423,8 +441,12 @@ CD9); a broader type means some ability within its function, not complete abilit
 Coverage Register Entry is keyed by a Standing Function and lists the Capability Types it
 requires as components. Whether an organization bears an instance of every component is a
 question of component possession; whether those components work together as a whole is a
-separate matter for an assessment, never derived from the register. The register never
-generates specialization, and neither does APQC's numbering.
+separate matter for an assessment, never derived from the register. That assessment is a
+Capability Assessment that describes the organization and assesses its adequacy for one
+Standing Function (dashed: the conceptual target is proposed here, its formal treatment
+is open, Q-05). It states separate findings for integration, availability and adequacy
+against its own criteria, as §6 sets out, and never takes them from the possession
+answer. The register never generates specialization, and neither does APQC's numbering.
 
 ## 4. Concept descriptions
 
@@ -453,9 +475,11 @@ vendored extracts.
 - **Description.** What an organization is able to do: a particular ability of a particular
   organization, present whether or not it is being exercised, and shown when the
   organization's members carry out acts of the kinds its type admits.
-- **Distinguishing characteristics.** Borne by an Organization; an instance of one
-  Capability Type; grounded in the organization's own members as organized (DP-1);
-  realized only by acts that are exercises of it. It may never have been realized.
+- **Distinguishing characteristics.** Borne by an Organization; an instance of one or more
+  Capability Types (multiple classification is allowed; a single primary type may be
+  recorded by convention); grounded in the organization's own members as organized
+  (DP-1); realized only by acts that are exercises of it. It may never have been
+  realized, and can still be attributed on evidence of capacity (§6, DP-2 b5).
 - **Examples.** Acme's strategic planning capability; Acme's payroll processing capability,
   if Acme's own staff can run payroll.
 - **Boundaries.** Not the act (a process), not a role or permission (standing), not a
@@ -482,6 +506,10 @@ vendored extracts.
   analysis capability.
 - **Boundaries.** Not a catalog node or a vocabulary concept, which designate it. A type can
   be referred to (by a target, an absent finding) when no organization has an instance.
+  Types are not mutually exclusive: one capability may fall under several. BPO already
+  declares 145 classes under Organization Capability in its slices (at its pinned commit);
+  they are candidates for capability types, not admitted ones, and some were drawn from
+  standing-function catalog nodes (Q-12).
 - **Related concepts.** Business Capability, Realization Index, Type Admission Record,
   Capability Catalog Concept, Standing Function, Coverage Register Entry.
 
@@ -500,16 +528,23 @@ vendored extracts.
 
 ### Capability Basis
 
-- **Description.** As the specification proposes it: the members of the organization whose
-  being organized as they are gives the organization a capability.
-- **Distinguishing characteristics.** An aggregate of member agents, and so a material part
-  of the organization (SF-03). Losing the basis can end the capability. A capability can
-  depend on one indispensable member and still be organizational (CD2).
+- **Description.** As the specification proposes it: the constituent member agent or agents
+  of the organization in virtue of whose being organized as they are the organization has
+  a capability.
+- **Distinguishing characteristics.** Either a single member agent or a plurality of member
+  agents taken together; in both cases a material part of the organization, because the
+  organization's members are its parts (SF-03). Losing the basis can end the capability.
+  One indispensable member suffices where the capability is realized through
+  organizational arrangements (CD2): the basis is then that member, and the capability
+  is still the organization's, not the member's Skill.
 - **Examples.** The planning office staff and the executive committee members who together
-  ground Acme's strategic planning capability.
+  ground Acme's strategic planning capability; the one analyst who grounds a two-person
+  consultancy's competitive analysis capability (R6-08's case).
 - **Boundaries.** Not the arrangement itself, which is not material (SF-03), and not a
-  "set". Not the artifacts, under the specification's proposal. What may count as basis is
-  DP-1.
+  "set" or other abstract collection. Not the artifacts, under the specification's
+  proposal. What may count as basis is DP-1. Whether a plural basis is formalized as an
+  object aggregate or as several basis assertions is a Stage 05 question; either way the
+  object of has material basis must be material and part of the bearer.
 - **Related concepts.** Business Capability, Member Agent, Organizational Arrangement,
   Enabling Condition.
 - **Preliminary alignment.** The object of `obo:BFO_0000218` has material basis, which BFO
@@ -586,7 +621,8 @@ vendored extracts.
 - **Examples.** Strategic planning capability: acts of developing the mission and vision,
   setting strategic objectives, and evaluating strategic options (BPO slice act types).
 - **Boundaries.** Not a causal or modal claim. Not coverage (P5). A catalog node is never
-  an index member.
+  an index member, and neither is a capability type: every member must denote a kind of
+  act. BPO's current index entries break this in 14 places (Q-12).
 - **Related concepts.** Capability Type, BPO Act Type, Act.
 
 ### BPO Act Type
@@ -639,8 +675,12 @@ vendored extracts.
   citing its evidence and criteria.
 - **Distinguishing characteristics.** Concerns exactly one Capability Type; always states a
   Presence Finding; is about a particular Business Capability only when one is identified.
-  A present finding citing ability evidence is what supports a bearing claim (DP-2).
-  Availability, sourcing and integration are assessed here, never derived.
+  A present finding citing evidence of capacity is what supports a bearing claim (DP-2);
+  evidence that the capability has been exercised supports it too, but is never required,
+  so a capability that has never been exercised can be attributed. Availability,
+  sourcing and integration are assessed here, never derived. A functional adequacy
+  assessment is the same kind of statement directed at a Standing Function rather than a
+  Capability Type (§6, RL-39).
 - **Examples.** "Acme: strategic planning capability present", citing the planning office
   staffing record and the 2027 mission-setting session; "Acme: treasury management
   capability absent".
@@ -675,12 +715,20 @@ vendored extracts.
 ### Evidence
 
 - **Description.** A record an assessment cites in support of its finding.
-- **Distinguishing characteristics.** For a bearing claim it must bear on ability: members
-  with relevant skills in the positions concerned, or a recorded realization.
-- **Examples.** A staffing record of the planning office; the record of the 2027
-  mission-setting session.
+- **Distinguishing characteristics.** For a bearing claim it must bear on ability. Two
+  kinds are distinguished. *Evidence of capacity* shows the organization is able now:
+  members with the relevant skills in the positions concerned, the arrangement that
+  coordinates them in place, and, where available, a demonstration short of real
+  performance (an exercise, a test, a simulation, a qualification). *Evidence of
+  exercise* is a recorded realization. Evidence of capacity can suffice alone; evidence
+  of exercise supports a claim but is never a prerequisite (CD8).
+- **Examples.** Capacity: a staffing record of the planning office and the planning
+  procedure it works under; a business-continuity exercise for a capability never yet
+  called on. Exercise: the record of the 2027 mission-setting session.
 - **Boundaries.** Assignment and permission records (organization chart, charter,
   responsibility assignment, Authorization Record) may be cited but never suffice alone.
+  Past exercise is evidence about the past: it supports a present finding only together
+  with evidence that the basis and arrangement are still in place.
 - **Related concepts.** Capability Assessment, Skill, Act.
 
 ### Capability Maturity Rating
@@ -835,10 +883,11 @@ vendored extracts.
 - **Description.** A catalog node naming an ongoing business function ("Manage X") rather
   than a process, which designates a capability type (ADR-001 R5, R6).
 - **Distinguishing characteristics.** Keys the coverage register; need not have a capability
-  type of its own.
+  type of its own. It is what a functional adequacy assessment is directed at (RL-39).
 - **Examples.** A "Manage treasury operations" node.
 - **Boundaries.** Its coverage is component possession, not integrated ability (CD16).
-- **Related concepts.** APQC Catalog Node, Capability Type, Coverage Register Entry.
+- **Related concepts.** APQC Catalog Node, Capability Type, Coverage Register Entry,
+  Capability Assessment.
 
 ### Capability Catalog Concept
 
@@ -873,10 +922,10 @@ specification proposes one; formal selection belongs to Stage 05.
 | ID | Relationship | From | To | Direction | Meaning | Qualifications |
 | --- | --- | --- | --- | --- | --- | --- |
 | RL-01 | bears | Organization | Business Capability | Directed | The organization has the capability; the capability depends on the organization for its existence | Candidate `cco:ont00001954` has capability, inverse `cco:ont00001889` capability of. A claim needs a supporting assessment (RL-23). Not for member-wise abilities (`cco:ont00001898` aggregate has capability, never for a business capability) |
-| RL-02 | is an instance of | Business Capability or Act | Capability Type or BPO Act Type | Directed | The particular falls under the kind | A capability is checked against its type's index through its realizations (RL-12) |
+| RL-02 | is an instance of | Business Capability or Act | Capability Type or BPO Act Type | Directed | The particular falls under the kind | One or more types: multiple classification is allowed, and a single primary type is at most an application convention. A capability is checked against its types' indexes through its realizations (RL-12) |
 | RL-03 | is a member of | Member Agent | Organization | Directed | The agent is one of the agents the organization is a group of | A provider's staff are not members of the consumer |
 | RL-04 | has as basis | Business Capability | Capability Basis | Directed | The capability exists in virtue of these members, so organized | DP-1. Candidate `obo:BFO_0000218` has material basis, whose use classifies the capability as a disposition (SF-02): asserted only for admitted types |
-| RL-05 | is an aggregate of | Capability Basis | Member Agent | Directed | The basis consists of these members | DP-1. Under option B or C the basis may also include artifacts |
+| RL-05 | consists of | Capability Basis | Member Agent | Directed | The basis is this one member, or these members taken together | DP-1. One member can suffice (R8 finding 2); never an abstract set or the arrangement. Under option B or C the grounding may also include artifacts |
 | RL-06 | is arranged by | Capability Basis | Organizational Arrangement | Directed | The arrangement is why these members ground the capability | DP-1. The arrangement is not the basis (SF-03) |
 | RL-07 | depends for realization on | Business Capability | Enabling Condition | Directed | Realizations of the capability need this resource; its loss makes the capability unavailable | DP-1 decides whether some resources are constitutive instead. Recorded in assessments, not as parthood |
 | RL-08 | has skill | Member Agent | Skill | Directed | The person bears the ability | Candidate CCO bearer relation; evidence for, never identical to, a business capability |
@@ -889,9 +938,9 @@ specification proposes one; formal selection belongs to Stage 05.
 | RL-15 | specializes | Capability Type | Capability Type | Directed | Every capability of the narrower type is one of the broader type | Reviewed only (CD9, CAP-10); never induced from coverage or APQC numbering. BACM forbids specialization; recorded as a departure (SF-07) |
 | RL-16 | describes | Capability Map or Capability Assessment or Capability Sourcing Statement | Organization | Directed | The information is about this organization | Candidate `cco:ont00001982` describes. For a sourcing statement, the organization described is the consumer |
 | RL-17 | has entry | Capability Map | Capability Assessment or Capability Target | Directed | The assessment or target is a part of the map | Candidate `obo:BFO_0000178` has continuant part. A map has at least one entry |
-| RL-18 | concerns type | Capability Assessment or Capability Target or Agent Manifest or Capability Sourcing Statement or Authorization Record | Capability Type or BPO Act Type | Directed | The information refers to a kind, with no claim that an instance exists | Exactly one per record; capability types for assessments, targets and manifests, act types for sourcing and authorization records (CAP-17). Formal treatment is a Stage 05 matter (the specification proposes an annotation) |
+| RL-18 | concerns type | Capability Assessment or Capability Target or Agent Manifest or Capability Sourcing Statement or Authorization Record | Capability Type or BPO Act Type | Directed | The information refers to a kind, with no claim that an instance exists | Exactly one per record; capability types for assessments, targets and manifests, act types for sourcing and authorization records (CAP-17). A functional adequacy assessment has none and uses RL-39 instead. Formal treatment is a Stage 05 matter (the specification proposes an annotation) |
 | RL-19 | states | Capability Assessment | Presence Finding | Directed | The assessment's finding | Exactly one; partial requires criteria (RL-21) |
-| RL-20 | cites as evidence | Capability Assessment | Evidence | Directed | The assessment rests on this record | For a bearing claim, at least one cited record bears on ability (CAP-26) |
+| RL-20 | cites as evidence | Capability Assessment | Evidence | Directed | The assessment rests on this record | For a bearing claim, at least one cited record bears on ability (CAP-26). Evidence of capacity can suffice; evidence of exercise is never required (DP-2 b5) |
 | RL-21 | conforms to | Capability Assessment or Capability Sourcing Assessment or Capability Maturity Rating | Assessment Criteria or Maturity Scale | Directed | The statement is made relative to these criteria, or on this scale | A rating names exactly one scale |
 | RL-22 | is about | Capability Assessment | Business Capability | Directed | The assessment concerns this particular capability | Candidate `cco:ont00001808` is about. Only when a particular capability is identified; an absent finding has none |
 | RL-23 | supports bearing of | Capability Assessment | Business Capability | Directed | The assessment is the evidence for the claim that the organization bears this capability | DP-2. A present finding, matching type, citing ability evidence (CAP-26) |
@@ -910,6 +959,7 @@ specification proposes one; formal selection belongs to Stage 05.
 | RL-36 | is a kind of | Standing Function | APQC Catalog Node | Directed | Standing functions are catalog nodes of a particular kind | ADR-001 R5 decides which nodes |
 | RL-37 | requires component | Coverage Register Entry | Capability Type | Directed | The standing function requires a capability of this type | Component possession only; no specialization, assessment or bearing generated (CAP-22, CAP-29) |
 | RL-38 | is keyed by | Coverage Register Entry | Standing Function | Directed | The entry is for this function | Keyed by catalog node, not by a capability type |
+| RL-39 | assesses adequacy for | Capability Assessment | Standing Function | Directed | The assessment evaluates whether the organization it describes can perform this function adequately as an integrated whole | Proposed in draft.2 (R8 finding 5). Such an assessment concerns no Capability Type; it states findings for integration, availability and adequacy against stated criteria, and none is derived from component possession (CQ-12) or the coverage register (CAP-29). Formal treatment open (Q-05, specification OI-15) |
 
 ## 6. Conceptual boundaries
 
@@ -920,7 +970,9 @@ specification proposes one; formal selection belongs to Stage 05.
 | Able / permitted / in a position to | Business Capability; Authorization Record and Action Permission; Enabling Condition and assessment of availability | R6 Finding 1: possession, authorization and circumstances "are not equivalent". Both "able but not authorized" and "authorized but not able" must be representable | CD7, CD15, CD2; register fault line 6 (no source contradicts it) |
 | Capability / role / responsibility | Business Capability against Organizational Arrangement and assignment records | An org chart shows responsibility, not ability | CD7, G1-I question 2 |
 | Organizational / individual | Business Capability against Skill | A person's ability is not a business capability; several members each able is member-wise | CD1, CD10, SF-05 |
-| Organizational / one member | Fragility recorded, not reclassified | A capability resting on one indispensable member is still organizational if realized through organizational arrangements (R6-08's one-analyst firm) | CD2; DP-2 amendment b1 |
+| Organizational / one member | Fragility recorded, not reclassified; the basis may be that one member | A capability resting on one indispensable member is still organizational if realized through organizational arrangements (R6-08's one-analyst firm). Plurality of members is not what makes a capability organizational | CD2; R8 finding 2; DP-1 a1; DP-2 b1 |
+| One type / several types | is an instance of, one or more | A capability may fall under several applicable types; a single primary classification is an application convention at most | R8 finding 3 |
+| Capacity / exercise | Evidence of capacity against evidence of exercise | A capability never yet exercised is still a capability (CD8) and must be attributable; past exercise alone does not show present capacity | CD8; R8 finding 4; DP-2 b5 |
 | Basis / arrangement / enabling condition / realization constraint | Capability Basis; Organizational Arrangement; Enabling Condition; findings in assessments | R6 Finding 2 asks for these four to be distinguished | CD2, SF-03; DP-1 |
 | Type / instance / prospective reference | Capability Type; Business Capability; concerns type | R7 Finding D asks for three explicit patterns | CD14; P3 |
 | Realization / development | realizes against develops | Building or improving a capability is not exercising it | CD5 |
@@ -932,6 +984,25 @@ specification proposes one; formal selection belongs to Stage 05.
 | Finding / rating | Capability Assessment against Capability Maturity Rating | Ratings rank existing capabilities; assessments find presence | CD17 |
 | Recorded absence / absence | Evidence Scope | Open world: an empty result means unknown unless a scope is declared complete | CD15 |
 | Vocabulary concept / type / catalog node | Capability Catalog Concept; Capability Type; APQC Catalog Node | Ratifying a word is not admitting a type; a catalog code is not a type | ADR-003; ADR-001 R4 |
+
+**Functional coverage and adequacy (R8 finding 5).** Whether an organization can perform a
+standing function is four questions, not one. Each is answered by a different thing in
+the model, and none is inferred from another:
+
+| Aspect | Question | Answered by | Never derived from |
+| --- | --- | --- | --- |
+| Possession of components | Does O bear a capability of every type the function requires? | bears (RL-01) joined to the Coverage Register Entry (RL-37, RL-38); CQ-12 | — |
+| Integration and coordination | Do those capabilities work together through O's arrangements, with hand-offs and shared decisions in place? | A finding of a functional adequacy assessment (RL-39), citing the Organizational Arrangement across the components | Possession of components |
+| Operational availability | Are the enabling conditions the function needs in place now, internal or sourced? | A finding of the same assessment, citing Enabling Conditions and Capability Sourcing Statements | Possession; integration |
+| Adequacy for the function | Is O, so equipped, able to perform the function to the stated criteria (volume, quality, timeliness, risk)? | A finding of the same assessment, against its Assessment Criteria | Any of the three above |
+
+Possession is a conjunction of bearing facts. The other three are judgments an assessor
+makes and records, with evidence and criteria; a pipeline that writes them from CQ-12 is
+exactly what CAP-29 forbids. No new concept is introduced for this: the assessment is a
+Capability Assessment directed at a Standing Function (RL-39) instead of at a Capability
+Type, which also gives specification OI-15 a conceptual answer. How its findings are
+recorded (one assessment with several findings, or several assessments) and their
+value sets are Stage 05 questions.
 
 **Exclusions.** The model represents none of the following as business capabilities:
 process capability ratings (ISO/IEC 33020, CMMI, COBIT) and statistical capability
@@ -957,6 +1028,27 @@ Each decision is the architect's, recorded verbatim in `docs/decisions/` with th
 this file. The record should say which option is chosen and, separately, which of the
 listed amendments are accepted. The drafter's recommendation is given last in each, labeled
 as such; it is not a decision.
+
+**Decision register.** What needs the architect, and when; what waits for formalization.
+
+| Item | Needs | When | Where in this model |
+| --- | --- | --- | --- |
+| DP-1 (RP-1): option A, B, C or D | Architect's decision act | Before approval; first | §7 DP-1 |
+| DP-1 amendments a1–a4, each accepted or rejected | Architect's decision act, with DP-1 | Before approval | §7 DP-1 |
+| DP-2 (RP-10): option A, B or C | Architect's decision act | Before approval; after DP-1 | §7 DP-2 |
+| DP-2 amendments b1–b5, each accepted or rejected (b2 needs a yes or no) | Architect's decision act, with DP-2 | Before approval | §7 DP-2 |
+| The draft.2 corrections for R8 findings 2–5 (single-member basis, several types, capacity against exercise, functional adequacy) | Architect's review, as part of approving CM-01; the R8 disposition's acceptance | Before approval | §4, §5 (RL-02, RL-05, RL-18, RL-20, RL-39), §6 |
+| CM-01 approval | Architect's approval act, cited in §10 | After all rows above | §10 |
+| Specification v0.5 (CD1–CD3, §8 G1-T and G1-I, OI-15) | Drafted from the decisions; ratified separately | After approval | — |
+| Formal placement under disposition; reuse of CCO's Organization Capability pattern | Deferred to Stage 05 | Formalization | Q-09 |
+| Form of a plural basis (object aggregate or several assertions) | Deferred to Stage 05 | Formalization | Capability Basis |
+| Relation for develops | Deferred to Stage 05 | Formalization | Q-03 |
+| Treatment of concerns type and of RL-39 (annotation or otherwise); finding value sets, including adequacy findings | Deferred to Stage 05 | Formalization | RL-18, RL-39, §6 |
+| CCO identifiers still to verify (specification OI-8) | Deferred to Stage 05 | Formalization | — |
+| BPO integration: index entries that name capability classes; inconsistent shared declarations; slice act types not vendored | Deferred to integration, validated before Stage 05; raising them with BPO is the architect's call | Before formalization | Q-12, Q-13, Q-14 |
+| PCF edition (7.4 or 8.0) | Architect's call to raise with BPO | Any time | Q-11 |
+| Organization-only bearer departures by source and clause | Specification v0.5 | After approval | Q-08 |
+| Multi-party sourcing; components that are functions; parthood among capabilities; temporal bearing | Carried open | Later | Q-04, Q-07, Q-10, Q-06 |
 
 ### DP-1 — RP-1: the grounding boundary
 
@@ -990,6 +1082,11 @@ capability of an Organization, which CCO defines as a group of agents) can be re
   production facility or external service "cannot simply be treated as an organizational
   member". Reuse CCO's Organization Capability pattern. Disposition row R7-05 deferred this
   to RP-1; R7-04 deferred the CCO pattern to the formal layer.
+- *R8 finding 1* (critical): recommends option A with a1–a4, "subject to the architect's
+  explicit decision", and asks that A's consequence — permanently removing an essential
+  platform does not by itself end the capability — be documented as a commitment rather
+  than assumed to be universally true. R8 finding 2 asks that the basis admit a single
+  member; a1 now says so.
 
 **Register evidence.**
 
@@ -1057,13 +1154,30 @@ is postponed to Stage 05, where standard §8.2 expects the conceptual meaning to
 | Enabling system decommissioned permanently | Persists latently; assessed unavailable | Ends if the system was constitutive | Ends for types reviewed as socio-technical; otherwise as A | Assessed; model silent |
 | Outside provider takes over the acts | Consumer's capability persists only if its own members can still perform them; a sourcing statement records the arrangement | As A | As A | As A |
 
-**Amendments, available with A or C.** a1 — reword CD2 so the basis is an aggregate of
-member agents and the arrangement is the reason, not the basis (SF-03). a2 — assert a basis
-only for a capability whose type has been admitted (SF-02). a3 — adopt R6's four-way
-distinction explicitly: constitution (basis), configuration (arrangement), enabling
-conditions, and temporary realization constraints (recorded as findings). a4 — keep OI-14
-open and cite NAF and UAF for it (SF-06), with G1-T question 2 as the place a type is sent
-there.
+**Effect on the bearer and grounding relationships.**
+
+| Relationship | Option A | Option B | Option C | Option D |
+| --- | --- | --- | --- | --- |
+| bears (RL-01) | Organization only | A Socio-Technical System, which the Organization operates; two new conceptual relationships | Organization; for reviewed types, a Socio-Technical System the Organization operates | Organization only |
+| has as basis (RL-04) | Solid; asserted for admitted types (a2) | Replaced: the system's parts ground it | Solid by default; system parts for reviewed types | Removed from the model |
+| consists of (RL-05) | One or more member agents | Members and artifacts, as system parts | As A, or as B for reviewed types | Removed |
+| is arranged by (RL-06) | Solid | Solid, over the system | Solid | Kept as description only |
+| depends for realization on (RL-07) | Solid; every artifact | Only non-constitutive artifacts | As A, except constitutive artifacts of reviewed types | Solid |
+| Enabling Condition concept | Unchanged | Split: constitutive and enabling | Split for reviewed types | Unchanged |
+| G1-T question 2 | As stated; a type that fails goes to OI-14 (a4) | Replaced by a system-composition question | Gains a branch: constitutive artifact or not | Dropped |
+| CQ-1 | One path | Through the system | Two paths | One path |
+| CCO Organization Capability reuse | Direct, for every type | Lost | Lost for reviewed types | Direct |
+
+**Amendments, available with A or C.** a1 — reword CD2 so the basis is the relevant
+constituent member agent or agents — one member can suffice — and the arrangement is the
+reason they ground the capability, not part of the basis; neither the arrangement nor an
+abstract set is ever the basis (SF-03; R8 findings 1 and 2). a2 — assert a basis only for
+a capability whose type has passed type admission (SF-02). a3 — adopt R6's four-way
+distinction explicitly: material constitution (the basis), organizational configuration
+(the arrangement), enabling conditions, and temporary realization constraints (recorded
+as findings). a4 — keep OI-14 open for cases where evidence shows socio-technical
+grounding is needed, cite NAF and UAF for it (SF-06), make G1-T question 2 the place a
+type is sent there, and record the rationale and consequences of the chosen boundary.
 
 **Drafter's recommendation (not a decision).** Option A with amendments a1 to a4. A keeps
 CCO's Organization Capability, which R7 asks BCO to reuse, and satisfies BFO's definition of
@@ -1071,7 +1185,30 @@ material basis for every basis it asserts, which is R6's and R7's formal point. 
 R6's request for four distinctions inside the model, and a4 keeps C available for the first
 type whose review shows an artifact is constitutive, without building a second bearer
 pattern before a case needs one. The cost to record is the departure from NAF, UAF, APQC and
-DM2 (SF-06) and the bank-platform consequence, which the specification already states.
+DM2 (SF-06) and the bank-platform consequence, which the specification already states. R8
+reaches the same recommendation independently. No capability type has yet passed type
+admission, and the five catalog types all appear member-grounded, so no current case
+calls for C.
+
+**The commitment A makes, stated so it can be accepted or rejected.** Under A, permanently
+removing an artifact a capability depends on — even an essential platform — does not by
+itself end the capability. The capability persists, latent, and an assessment records it
+as unavailable until the artifact is replaced. The capability ends only when its basis or
+its arrangement goes. This is a modeling commitment of this ontology, not a claim that
+every business-architecture source agrees (SF-06 lists those that do not), and under a4
+it is revisited for any type whose review shows an artifact is constitutive.
+
+**If option A is chosen, what changes in CM-01.** The four dashed arrows in P1 and the
+overview become solid; Capability Basis, Organizational Arrangement and Enabling Condition
+lose their "as the specification proposes it" hedges; a1–a4 as accepted are written into
+§4 and §6; Q-01 is closed citing the decision; A-02 becomes the stated ground for the
+basis; the commitment above moves into §6 as a boundary. Nothing in P2–P5 changes.
+
+**What the DP-1 decision record must capture.** The option chosen; each of a1–a4 accepted
+or rejected; the rationale; the limitations acknowledged (for A, the commitment above and
+the SF-06 departures); the implications for CM-01 (the list above, or its equivalent for
+another option); and the SHA-256 of this file at the commit decided on, so the decision is
+about a fixed text.
 
 ### DP-2 — RP-10: admission and attribution
 
@@ -1104,6 +1241,10 @@ how CQ-10 and CQ-13 are answered.
   deferred this to RP-1 and RP-10.
 - *R7 Finding D*: separate capability-type designation, instance attribution and prospective
   reference. Admission is about a type; attribution about an instance.
+- *R8 finding 4* (high): the specification admits capabilities never realized (CD8), but
+  G1-I's emphasis on actual performance risks excluding them. Separate evidence of capacity
+  from evidence of past exercise; performance "may support attribution, but it must not be
+  a universal prerequisite". Resolve DP-1 first. Amendment b5 below answers it.
 
 **Register evidence.**
 
@@ -1146,20 +1287,30 @@ analysis, type questions included. *Gains:* one record per claim. *Costs:* the s
 questions are re-answered per organization and can be answered inconsistently; type and
 instance are conflated, against R7 Finding D; CQ-10 cannot be answered.
 
-**Amendments, available with A (b1 and b2 also with B).** b1 — reword G1-T question 3 so it
+**Amendments, available with A (b1 and b2 also with B; b5 with any option).** b1 — reword G1-T question 3 so it
 asks whether realizations run through the organization's arrangements, which may involve
 one member, rather than through coordination across several positions (R6-08). b2 — add
 SF-04's interest condition as a sixth G1-T question, or record why BCO declines it. b3 — use
 R6 Finding 1's constant-membership cases (DP-1's table) as worked examples in every type
 review. b4 — bound the staging state: a type that fails G1-T is reclassified or removed, never
-left staged (the specification's CD3 already says so; make it a review rule).
+left staged (the specification's CD3 already says so; make it a review rule). b5 — separate
+capacity from exercise in G1-I (R8 finding 4): question 2 asks for evidence of capacity
+(members with the skills in the positions concerned, the arrangement in place, a
+demonstration short of real performance where one exists), with a recorded realization as
+supporting evidence that is never required; question 3 asks *who would* perform realizing
+acts — the organization's own members, or a provider — rather than whether any act has been
+performed; and a present finding resting only on past exercise must also show the basis
+and arrangement are still in place. b5 applies under every option, since all three keep
+G1-I.
 
-**Drafter's recommendation (not a decision).** Option A with b1, b3 and b4, and a decision on
-b2 either way. A is the only option that keeps admission a matter of types and attribution a
-matter of evidence about one organization, which is R7 Finding D's split and R6 Finding 1's
-request for explicit criteria. b1 removes the one-analyst objection without weakening the
-organizational test. b2 is cheap to adopt and aligns with both BFO-family precedents, but it
-adds a commitment no reviewer asked for, so it is listed for the architect rather than
+**Drafter's recommendation (not a decision).** Option A with b1, b3, b4 and b5, and a
+decision on b2 either way. A is the only option that keeps admission a matter of types and
+attribution a matter of evidence about one organization, which is R7 Finding D's split and
+R6 Finding 1's request for explicit criteria. b1 removes the one-analyst objection without
+weakening the organizational test. b5 makes G1-I consistent with CD8: without it, a
+capability the specification says may never have been realized could never be shown
+present. b2 is cheap to adopt and aligns with both BFO-family precedents, but it adds a
+commitment no reviewer asked for, so it is listed for the architect rather than
 recommended.
 
 ## 8. Requirements traceability
@@ -1181,8 +1332,8 @@ within an Evidence Scope.
 | CQ-9 | Which APQC catalog nodes are standing functions with a capability class? | P5 | APQC Catalog Node, Standing Function, Capability Type | RL-36, RL-35 | — |
 | CQ-10 | Which capability classes have not passed G1-T? | P1 | Capability Type, Type Admission Record | RL-09 | Depends on DP-2; vacuous under its option B |
 | CQ-11 | Which acts develop capability C, as distinct from realizing it? | P2 | Act, Business Capability | RL-13, RL-12 | No formal relation yet (Q-03) |
-| CQ-12 | Does O bear an instance of every capability class listed as a required component of standing function F? | P5, P1 | Coverage Register Entry, Standing Function, Capability Type, Organization, Business Capability | RL-38, RL-37, RL-01, RL-02 | Component possession, not integrated ability |
-| CQ-13 | Which of O's capability-bearing claims lack a supporting present-finding assessment? | P1, P3 | Organization, Business Capability, Capability Assessment, Presence Finding, Evidence | RL-01, RL-23, RL-19, RL-20 | Depends on DP-2 |
+| CQ-12 | Does O bear an instance of every capability class listed as a required component of standing function F? | P5, P1 | Coverage Register Entry, Standing Function, Capability Type, Organization, Business Capability | RL-38, RL-37, RL-01, RL-02 | Component possession only. Integration, availability and adequacy are findings of an assessment directed at F (RL-39, §6), never derived from this answer |
+| CQ-13 | Which of O's capability-bearing claims lack a supporting present-finding assessment? | P1, P3 | Organization, Business Capability, Capability Assessment, Presence Finding, Evidence | RL-01, RL-23, RL-19, RL-20 | Depends on DP-2. Under b5 a supporting assessment may cite evidence of capacity alone, so a never-exercised capability is not reported for lacking a realization |
 | CQ-14 | Which of O's sourcing arrangements have no sourcing assessment of the dependence? | P4 | Capability Sourcing Statement, Capability Sourcing Assessment, Organization | RL-16, RL-30 | — |
 
 **Use cases served.** Capability-based planning (CQ-6, CQ-8, CQ-12); evidence and audit of
@@ -1218,7 +1369,9 @@ CQ-11); sourcing and compliance (CQ-5, CQ-7, CQ-14); catalog alignment (CQ-9).
 - **Q-04.** Multi-party sourcing — brokers, intermediaries, provider networks — is outside
   the two-party statement (OI-18). *Carried forward.*
 - **Q-05.** An integrated-adequacy assessment of a function with no capability type of its
-  own has no type to concern; should it concern the catalog node (OI-15)? *Carried forward.*
+  own has no type to concern (OI-15). Draft.2 gives it a conceptual target: it assesses
+  adequacy for the Standing Function (RL-39), with the four aspects of §6. Still open: how
+  that is formalized, and the findings' value sets. *Carried forward.*
 - **Q-06.** Bearing has no temporal qualification; CQ-4 asks about capabilities borne at
   query time. *Carried forward.*
 - **Q-07.** May a coverage register component itself be a standing function (OI-13)?
@@ -1233,6 +1386,31 @@ CQ-11); sourcing and compliance (CQ-5, CQ-7, CQ-14); catalog alignment (CQ-9).
   *Carried forward.*
 - **Q-11.** Should the catalog take PCF 8.0 rather than BPO's PCF 7.4 (SF-09)? Raising it
   with BPO is the architect's call. *Carried forward.*
+- **Q-12.** BPO's realization index entries do not all name acts (R8 finding 6). At BPO's
+  pinned commit `66131945`, with the pinned CCO and BFO loaded, 347 of the 361
+  `enablesProcess` entries (356 in `capabilities_wiring.ttl`, 5 in
+  `capabilities_roles.ttl`) name classes that reach CCO Planned Act; 14, all to slice 12.0
+  catalog-derived classes, name classes that are themselves under Organization
+  Capability — for example, legal and compliance capability indexing "Ensure compliance"
+  and stakeholder relationship management capability indexing "Manage government
+  relations". Those are standing functions modeled as capabilities, so as index members
+  they would point a capability at a capability, which the Realization Index forbids. They
+  must be re-indexed to the acts those functions contain before any BCO capability type
+  takes its index from BPO. BPO's slices also declare 145 classes under Organization
+  Capability; the specification plans to move them into BCO, as candidates for type
+  admission. *Carried forward.* Integration; validated before Stage 05.
+- **Q-13.** BPO's shared classes are declared repeatedly with differences (R8 finding 6).
+  At the same commit, 115 classes are declared in two or more BPO modules; 52 of them carry
+  differing definitions across modules (among them the act genera Act of Reporting and Act
+  of Forecasting), and 4 carry differing named superclasses (Business Strategy, Production
+  Equipment, Raw Material, Returned Product). None of the six act genera this model cites
+  is affected in its superclass: all six reach Planned Act and none falls under
+  Organization Capability. Which definition is authoritative for a genus is BPO's to
+  settle, under its single-source rule for shared terms. *Carried forward.* Integration;
+  validated before Stage 05.
+- **Q-14.** The vendored BPO extract holds only `apqc-ext.ttl`'s act genera, so this model
+  cites no slice act type by identifier, and Stage 05 cannot check an index against BPO
+  until the extract includes the slices it needs. *Carried forward.* Integration.
 
 ## 10. Review status
 
@@ -1241,7 +1419,7 @@ CQ-11); sourcing and compliance (CQ-5, CQ-7, CQ-14); catalog alignment (CQ-9).
 | Approved | no |
 | DP-1 (RP-1) | pending |
 | DP-2 (RP-10) | pending |
-| Stakeholder review | not started |
+| Stakeholder review | R8 reviewed draft.1; draft.2 answers it (disposition proposed) |
 | Automated completeness check | `tools/conceptual/check_models.py` |
 
 **Quality gates (standard §7), as the drafter assesses them for review.**
@@ -1249,14 +1427,15 @@ CQ-11); sourcing and compliance (CQ-5, CQ-7, CQ-14); catalog alignment (CQ-9).
 - [x] The purpose and scope are clearly defined (§1).
 - [x] Principal domain concepts have been identified and described (§4, 32 concepts).
 - [x] Important conceptual distinctions are documented (§6).
-- [x] Meaningful relationships are represented and explained (§5, 38 relationships).
+- [x] Meaningful relationships are represented and explained (§5, 39 relationships).
 - [x] The model addresses the intended requirements and competency questions (§8).
 - [x] Diagrams and textual descriptions are consistent (checked by the completeness checker
   for names; by review for meaning).
 - [x] Significant ambiguities and assumptions have been documented (§7, §9).
 - [ ] No unresolved conceptual question materially prevents agreement — DP-1 and DP-2 are
   open.
-- [ ] Domain stakeholders have reviewed the model.
+- [ ] Domain stakeholders have reviewed the model — R8 reviewed draft.1; review of draft.2
+  and acceptance of the R8 disposition are pending.
 - [ ] The model provides sufficient conceptual clarity to guide ontology formalization —
   only after DP-1 and DP-2.
 
@@ -1281,6 +1460,10 @@ fault lines and the findings SF-01 to SF-10 cited above.
   `reviews/R6-disposition.md` rows R6-02, R6-03, R6-08, R6-32
 - Review R7: `reviews/R7-turtle-artifact-review.md` §3 Findings C and D; disposition
   `reviews/R7-disposition.md` rows R7-04, R7-05, R7-17
+- Review R8 (of this model's draft.1): `reviews/R8-cm01-review.md`; proposed disposition
+  `reviews/R8-disposition.md`
+- BPO at commit `66131945b525c54f44e4962f32bb1f52dfa0cd12` (the vendored extract's pin),
+  read with the pinned CCO and BFO, for Q-12 to Q-14
 - Controlled vocabulary: `src/01_controlled_vocabulary/metamodel.yaml`,
   `src/01_controlled_vocabulary/catalog.yaml`
 - Vendored extracts: `vendor/bfo/`, `vendor/cco/`, `vendor/bpo/`
