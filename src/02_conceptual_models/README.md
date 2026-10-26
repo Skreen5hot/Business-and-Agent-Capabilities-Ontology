@@ -1,8 +1,9 @@
 # Stage 02 — Conceptual Modeling
 
 **Status:** in progress. CM-01, the Business Capability Conceptual Domain Model
-(`CM-01-business-capability.md`, 0.1.0-draft.2), is drafted and awaits the architect:
-its decision points DP-1 (RP-1) and DP-2 (RP-10) must be decided before it can be approved.
+(`CM-01-business-capability.md`, 0.1.0-draft.3), is drafted and awaits the architect.
+DP-1 (RP-1) is decided (Option A, `docs/decisions/2026-10-25-dp1-rp1-grounding-boundary.md`);
+DP-2 (RP-10) must be decided before the model can be approved.
 
 Standard: `docs/standards/stage-02-conceptual-modeling.md`. The architect's choices for
 this stage are in `docs/decisions/2026-10-25-stage-02-choices.md`: one domain model

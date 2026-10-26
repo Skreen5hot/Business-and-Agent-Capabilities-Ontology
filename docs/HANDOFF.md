@@ -414,14 +414,20 @@ YAML where that commit's own layout contract puts it
 communications written before the move keep the old paths, as written.
 
 **CM-01 (drafted, not approved).** `src/02_conceptual_models/CM-01-business-capability.md`,
-0.1.0-draft.2 (answering review R8): five patterns (capability and bearer; realization by BPO acts; description
+0.1.0-draft.3 (draft.2 answered review R8; draft.3 applies DP-1): five patterns (capability and bearer; realization by BPO acts; description
 layer; sourcing and authorization; catalog, specialization and coverage), 6 Mermaid
 diagrams, 32 concepts, 39 relationships, CQ-1 to CQ-14 traced. RP-1 and RP-10 are its
 decision points DP-1 and DP-2, each with options, the R6 and R7 critiques, register
 evidence (SF-01 to SF-06) and a drafter's recommendation that is not a decision.
-**Next:** the architect decides DP-1, then DP-2; each is recorded verbatim in
-`docs/decisions/` with the model's digest, the model is revised to match, and
-specification v0.5 follows.
+**DP-1 (RP-1) is decided:** Option A with amendments a1–a4, 2026-10-25
+(`docs/decisions/2026-10-25-dp1-rp1-grounding-boundary.md`): the Organization alone
+bears; the basis is its constituent member agent or agents; every artifact is an
+enabling condition, and permanently losing one does not by itself end a capability.
+Draft.3 applies it. This decides RP-1 for CM-01; carrying it into the specification
+is v0.5's work. The R8 disposition is still proposed.
+**Next:** the architect decides DP-2 (RP-10, with amendments b1–b5), recorded
+verbatim with the model's digest; the model is revised to match; then approval, and
+specification v0.5.
 
 **Stage 02 tooling.** `tools/conceptual/check_models.py` holds every
 `src/02_conceptual_models/CM-*.md` to a format contract: the standard's ten sections in
