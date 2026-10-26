@@ -4,7 +4,7 @@ Disposition drafted by Claude Code (claude-opus-5-5) at the architect's directio
 
 | Field | Value |
 | --- | --- |
-| Status | Proposed 2026-10-25, awaiting the architect's acceptance |
+| Status | Accepted 2026-10-26 by the architect, Aaron Damiano, with row R8-07 qualified by the corrections adopted in R9 — `docs/decisions/2026-10-26-cm01-approved-r8-r9-accepted.md` (act 2). The rows below are kept as proposed; the acceptance record relates them to the DP-1 and DP-2 decisions and their implementation in CM-01 |
 | Review | `reviews/R8-cm01-review.md`, filed verbatim as received |
 | Reviewed artifact | `src/02_conceptual_models/CM-01-business-capability.md` 0.1.0-draft.1 (PR #11, commit `3b18afb`) |
 | Answered in | The same file at 0.1.0-draft.2, on the same branch |

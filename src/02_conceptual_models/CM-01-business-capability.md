@@ -4,8 +4,8 @@
 | --- | --- |
 | Model identifier | CM-01 |
 | Title | Business Capability Conceptual Domain Model |
-| Version | 0.1.0-draft.5 |
-| Status | Draft. Not approved. DP-1 and DP-2 decided (both Option A); R9's three corrections applied; awaiting the architect's review and approval |
+| Version | 0.1.0 |
+| Status | Approved 2026-10-26 as the Stage 02 conceptual baseline for Business Capabilities (`docs/decisions/2026-10-26-cm01-approved-r8-r9-accepted.md`). Approved text: 0.1.0-draft.5, SHA-256 `a59e3cd4149693ce388deaa7c8953242a8c3355e4c7eef96d094c8e90a75b5a0` |
 | Stage | 02 — Conceptual Modeling |
 | Standard | `docs/standards/stage-02-conceptual-modeling.md` |
 | Stage choices | `docs/decisions/2026-10-25-stage-02-choices.md` |
@@ -66,6 +66,14 @@ whole-function Capability Type only where one is defined, and that type is disti
 the component types its coverage register entry requires. (3) "Every artifact is
 enabling" is qualified to artifacts relevant to the capability's realization; the
 platform-loss commitment is unchanged. The five patterns, DP-1 and DP-2 are unchanged.
+0.1.0 (2026-10-26): approval status only. The architect approved draft.5 (SHA-256
+`a59e3cd4149693ce388deaa7c8953242a8c3355e4c7eef96d094c8e90a75b5a0`) on 2026-10-26
+(`docs/decisions/2026-10-26-cm01-approved-r8-r9-accepted.md`). This revision records that approval and
+changes nothing else: the Version and Status rows of the opening table; this entry;
+the State column of five §7 decision-register rows (the reviews of draft.2, draft.3,
+draft.4 and draft.5, and the approval itself); and in §10 the Approved and Stakeholder
+review rows, the stakeholder-review gate, and the paragraph that said what approval
+needed. The approved text is reproduced exactly by `git show 1fa8b5a:` on this path.
 
 **Inputs.**
 
@@ -1157,13 +1165,13 @@ as such; it is not a decision.
 | --- | --- | --- | --- |
 | DP-1 (RP-1): option A, B, C or D | **Decided 2026-10-25: Option A** (`docs/decisions/2026-10-25-dp1-rp1-grounding-boundary.md`) | Done | §7 DP-1 |
 | DP-1 amendments a1–a4 | **Decided: all four accepted** (same record) | Done | §7 DP-1 |
-| Draft.3's application of the DP-1 decision | Architect's review, as part of approving CM-01 | Before approval | P1, overview, §4, §5, §6, §9 |
+| Draft.3's application of the DP-1 decision | Architect's review, as part of approving CM-01 | Done 2026-10-26 (approval act) | P1, overview, §4, §5, §6, §9 |
 | DP-2 (RP-10): option A, B or C | **Decided 2026-10-26: Option A** (`docs/decisions/2026-10-26-dp2-rp10-admission-attribution.md`) | Done | §7 DP-2 |
 | DP-2 amendments b1–b5 | **Decided: b1, b3, b4, b5 accepted; b2 rejected** (same record) | Done | §7 DP-2 |
-| Draft.4's application of the DP-2 decision | Architect's review, as part of approving CM-01 | Before approval | P1, P3, overview, §4, §5, §6, §8, §9 |
-| The draft.2 corrections for R8 findings 2–5 (single-member basis, several types, capacity against exercise, functional adequacy) | Architect's review, as part of approving CM-01; the R8 disposition's acceptance | Before approval | §4, §5 (RL-02, RL-05, RL-18, RL-20, RL-39), §6 |
-| The draft.5 corrections for R9 (Functional Adequacy Assessment as a separate statement; conditional designation and whole-function against component types; "relevant to its realization") | Architect's review, as part of approving CM-01; the R9 disposition's acceptance | Before approval | P5, overview, §4, §5 (RL-07, RL-16, RL-18, RL-21, RL-35, RL-39), §6 |
-| CM-01 approval | Architect's approval act, cited in §10 | After all rows above | §10 |
+| Draft.4's application of the DP-2 decision | Architect's review, as part of approving CM-01 | Done 2026-10-26 (approval act) | P1, P3, overview, §4, §5, §6, §8, §9 |
+| The draft.2 corrections for R8 findings 2–5 (single-member basis, several types, capacity against exercise, functional adequacy) | Architect's review, as part of approving CM-01; the R8 disposition's acceptance | Done 2026-10-26 (approval act) | §4, §5 (RL-02, RL-05, RL-18, RL-20, RL-39), §6 |
+| The draft.5 corrections for R9 (Functional Adequacy Assessment as a separate statement; conditional designation and whole-function against component types; "relevant to its realization") | Architect's review, as part of approving CM-01; the R9 disposition's acceptance | Done 2026-10-26 (approval act) | P5, overview, §4, §5 (RL-07, RL-16, RL-18, RL-21, RL-35, RL-39), §6 |
+| CM-01 approval | Architect's approval act, cited in §10 | Done 2026-10-26 (`docs/decisions/2026-10-26-cm01-approved-r8-r9-accepted.md`) | §10 |
 | Specification v0.5 (CD1–CD3, §8 G1-T and G1-I, OI-15; CD16 and CD17 for the Functional Adequacy Assessment and conditional designation) | Drafted from the decisions; ratified separately (RP-8, RP-9) | After approval | — |
 | Formal placement under disposition; reuse of CCO's Organization Capability pattern | Deferred to Stage 05 | Formalization | Q-09 |
 | Form of a plural basis (object aggregate or several assertions) | Deferred to Stage 05 | Formalization | Capability Basis |
@@ -1565,10 +1573,10 @@ closed; their numbers are not reused. No open question blocks approval.
 
 | Item | State |
 | --- | --- |
-| Approved | no |
+| Approved | docs/decisions/2026-10-26-cm01-approved-r8-r9-accepted.md |
 | DP-1 (RP-1) | decided: Option A with a1–a4 (`docs/decisions/2026-10-25-dp1-rp1-grounding-boundary.md`) |
 | DP-2 (RP-10) | decided: Option A with b1, b3, b4, b5; b2 rejected (`docs/decisions/2026-10-26-dp2-rp10-admission-attribution.md`) |
-| Stakeholder review | R8 reviewed draft.1 (answered in draft.2); R9 reviewed draft.4 (answered in draft.5); both dispositions proposed |
+| Stakeholder review | R8 reviewed draft.1 (answered in draft.2); R9 reviewed draft.4 (answered in draft.5); both dispositions accepted 2026-10-26; the architect reviewed draft.5 and approved it |
 | Automated completeness check | `tools/conceptual/check_models.py` |
 
 **Quality gates (standard §7), as the drafter assesses them for review.**
@@ -1585,19 +1593,19 @@ closed; their numbers are not reused. No open question blocks approval.
   decided; every remaining open question is carried forward. Reconfirmed in draft.5
   after R9's three corrections: the adequacy statement no longer bends Capability
   Assessment's rules, designation is conditional, and the artifact scope is stated.
-- [ ] Domain stakeholders have reviewed the model — R8 reviewed draft.1 and R9 draft.4;
-  acceptance of the R8 and R9 dispositions and review of draft.5 are pending.
+- [x] Domain stakeholders have reviewed the model — R8 reviewed draft.1 and R9 draft.4;
+  both dispositions were accepted and draft.5 approved on 2026-10-26, the architect
+  confirming that the model satisfies the quality gates sufficiently to proceed.
 - [x] The model provides sufficient conceptual clarity to guide ontology formalization —
   reconfirmed in draft.5 after R9's corrections; the drafter's assessment, for the
   architect to confirm in approving.
 
-**To approve.** Both decision points are decided and applied (draft.3, draft.4). What
-remains is the architect's: review of this draft (the application of DP-1 and DP-2, the
-R8 corrections and the R9 corrections), acceptance or revision of the R8 and R9
-dispositions, and an approval act
-recorded verbatim in `docs/decisions/` with this file's digest, which the Approved row
-then cites. Specification v0.5 then carries the decisions
-into CD1–CD3 and §8.
+**Approved.** The architect approved draft.5 on 2026-10-26 as the Stage 02 conceptual
+baseline for Business Capabilities (`docs/decisions/2026-10-26-cm01-approved-r8-r9-accepted.md`). The
+approval establishes the conceptual baseline, not OWL axiomatization or specification
+ratification. Specification v0.5 carries the decisions into CD1–CD3 and §8, under the
+implementation guidance in that record. Any later substantive change to this model goes
+through version control and review, as a new version.
 
 ## Sources
 

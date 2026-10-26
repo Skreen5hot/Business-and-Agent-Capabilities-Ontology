@@ -413,7 +413,7 @@ YAML where that commit's own layout contract puts it
 `reviews/`, `communications/`, `drafts/`, `site/`, `trials/`. Records, ADRs, reviews and
 communications written before the move keep the old paths, as written.
 
-**CM-01 (drafted, not approved).** `src/02_conceptual_models/CM-01-business-capability.md`,
+**CM-01 (approved 2026-10-26).** `src/02_conceptual_models/CM-01-business-capability.md`,
 0.1.0-draft.5 (draft.2 answered review R8; draft.3 and draft.4 apply DP-1 and DP-2; draft.5 answers review R9): five patterns (capability and bearer; realization by BPO acts; description
 layer; sourcing and authorization; catalog, specialization and coverage), 6 Mermaid
 diagrams, 33 concepts, 39 relationships, CQ-1 to CQ-14 traced. RP-1 and RP-10 are its
@@ -434,9 +434,23 @@ in CM-01 blocks approval.
 three corrections, made in draft.5 (a separate Functional Adequacy Assessment;
 conditional standing-function designation; artifacts "relevant to the capability's
 realization"). R8 and R9 dispositions are proposed.
-**Next:** the architect reviews draft.5, accepts or revises the R8 and R9
-dispositions, and records an approval act with the model's digest; then specification
-v0.5 carries RP-1 and RP-10 into CD1–CD3 and §8.
+**Approved.** On 2026-10-26 the architect approved draft.5 (SHA-256
+`a59e3cd4149693ce388deaa7c8953242a8c3355e4c7eef96d094c8e90a75b5a0`) as the Stage 02
+conceptual baseline and accepted the R8 disposition (R8-07 qualified by R9) and the R9
+disposition in full (`docs/decisions/2026-10-26-cm01-approved-r8-r9-accepted.md`). The file is
+0.1.0: draft.5 plus approval-status lines only. This is a conceptual baseline, not OWL
+and not specification ratification.
+**Next:** specification v0.5, carrying RP-1 and RP-10 into CD1–CD3 and §8, and the
+Functional Adequacy Assessment and conditional designation into CD16 and CD17, under
+the approval's implementation guidance: reuse BFO/CCO classes and relations; never
+infer functional adequacy from component possession; distinguish inadequate evidence
+from a "not met" finding; losing an enabling artifact may affect availability without
+ending the capability, and availability also depends on whether adequate alternatives
+exist; evaluate how to represent the Functional Adequacy Assessment before deciding on
+an OWL class; resolve the BPO act-index dependencies (CM-01 Q-12 to Q-14) before formal
+implementation. Two of these points (inadequate evidence against "not met"; adequate
+alternatives) refine CM-01 itself and are inputs to its next reviewed version, not
+edits to the approved text.
 **Roadmap:** a complementary Agent Capability conceptual model (CM-02, working title)
 is planned and not started; see `src/02_conceptual_models/README.md`.
 
