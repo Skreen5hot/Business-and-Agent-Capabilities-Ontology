@@ -1,0 +1,255 @@
+# Pinned sources of the Capability Term Inventory, and what may be done
+# with what is harvested from them.
+#
+# The inventory (docs/sources/inventory/) is source evidence: what other
+# projects say a capability is, recorded entry by entry with where each
+# one came from. It is not vocabulary and not an admission to the
+# ontology (scope approval D6, Amendment 4). Phase I-1 harvests one
+# source, the Business Process Ontology (BPO); tools/inventory/harvest_bpo.py
+# reads this file, and nothing else says which bytes the inventory was
+# built from.
+#
+# WHY PINNED TO A COMMIT, AND A DIFFERENT ONE FROM THE VENDORED EXTRACT
+#
+# The approval (D1) harvests BPO `main` HEAD resolved to an immutable
+# commit, and compares it with the commit config/upstream-sources.yaml
+# already pins for the vendored apqc-ext.ttl extract. Re-pinning that
+# extract is a separate decision, so the two pins live in two files: this
+# one moves when the inventory is re-harvested, that one only when the
+# architect re-pins the extract. A branch name would let the inventory
+# change with no commit in this repository, which is the failure a pin
+# exists to prevent.
+#
+# WHY A DIGEST FOR EVERY FILE
+#
+# The raw URLs below name the commit, so what they serve cannot change.
+# The digests are checked anyway, on every fetch and every cache read: a
+# proxy, a TLS appliance or a truncated download serves different bytes
+# from the same URL and none of them announces it. Per file rather than
+# per commit because the harvest reads 21 files out of a much larger
+# tree, and a digest over "the commit" would be a claim about bytes the
+# tool never opened. The generated outputs record the digests they were
+# built from, and the offline check requires those to equal the pins
+# here, so an output built from anything else is a refusal.
+#
+# The baseline's inputs are pinned the same way, because its counts are
+# recalculated from its own files rather than copied from an earlier
+# report. Its apqc-ext.ttl digest must equal the vendored extract's pin
+# in config/upstream-sources.yaml, which is what ties "the baseline" to
+# the commit this repository actually vendors.
+#
+# THE NAMESPACE MAPPING
+#
+# BPO v0.4.0 moved every IRI from the http://example.org/apqc base to
+# https://fandaws.com/ontology/bpo with local names unchanged; v0.4.1
+# renamed the prefix label ex: -> bpo: with no IRI change (BPO ADR-002, at
+# the selected commit, pinned below as evidence). The baseline is harvested
+# as it stands and then rewritten by that one base substitution before it
+# is compared, so the diff shows what changed in content rather than the
+# move itself.
+#
+# LICENSING
+#
+# Two rightsholders, recorded separately (Amendment 3). BPO's own text is
+# MIT, read from its LICENSE at the selected commit. Much of BPO is derived
+# from the APQC Process Classification Framework, whose conditions BPO's
+# MIT licence cannot waive. The APQC evidence BPO carries is pinned below;
+# what it permits is Phase I-2's question, so until then every literal the
+# harvest identifies as PCF text is withheld from the outputs (the rule is
+# in the generator's docstring and docs/sources/inventory/README.md). IRIs
+# and PCF codes are kept: they are identifiers, and the entries need them.
+#
+# The CCO and BFO files the harvest reasons over (to decide what reaches
+# Organization Capability and Planned Act) are the pins in
+# config/upstream-sources.yaml, fetched to the same cache; nothing from them
+# is written to the outputs except IRIs.
+
+version: 1
+
+# Every file the inventory's tools write lives here, and the admission
+# guard holds every file in it to YAML and Markdown.
+directory: docs/sources/inventory
+
+sources:
+
+  - id: bpo
+    project: Business Process Ontology
+    repository: https://github.com/Skreen5hot/BusinessProcessOntology
+    raw_base: https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology
+    commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
+    selected_as: >-
+      BPO main HEAD on 2026-10-27, resolved to this commit (v0.4.1, "Notify
+      BCO of the v0.4.1 prefix rename (no IRI change)"), per scope approval
+      D1.
+    namespace: https://fandaws.com/ontology/bpo#
+    entry_prefix: INV-BPO
+    outputs:
+      entries: docs/sources/inventory/bpo-entries.yaml
+      findings: docs/sources/inventory/bpo-findings.yaml
+      notice: docs/sources/inventory/NOTICE.md
+    inputs:
+      ontology:
+        - path: ontology/apqc-catalog.ttl
+          sha256: 593b438ab44d14445a92917b6fb357eaa2ef542845b0bf7ccc30ab3fa0888602
+        - path: ontology/apqc-ext.ttl
+          sha256: a8119728796872a1814aace8130a32cc8e42961b0bd5feaa28b736d60a0cc6fd
+        - path: ontology/capabilities_roles.ttl
+          sha256: 6a8aeaf8c3c4b94119399b9ae593538fecbf79ce01f517577c96d5997419ed7d
+        - path: ontology/capabilities_wiring.ttl
+          sha256: 78c837530d4364b825075be6ef74a0b596e2612d91b624b75b0726f375272b10
+        - path: ontology/delivery_processes.ttl
+          sha256: 2374d39c668914a304da5cb00777cf63238d93ad25f748a971e28e99981aca91
+        - path: ontology/reference/apqc_1_1_1.ttl
+          sha256: 99f97c080cc909bd7514c24e790854258381097a7d6551a3354049d46c3c9d4d
+        - path: ontology/slices/apqc_10_0.ttl
+          sha256: 47d2fb231d2beeb8166493d742a983f10d71d657002fd5109e9b1abd967384d5
+        - path: ontology/slices/apqc_11_0.ttl
+          sha256: 8fe83846119e13b15a2f17bcaf8a5b48b31b668adeb8670e565b493444c9a3ff
+        - path: ontology/slices/apqc_12_0.ttl
+          sha256: 827e94b61f0054bd6d56212967e41f5ce6a2022a7a7a86a33570f47bc2fdbfec
+        - path: ontology/slices/apqc_13_0.ttl
+          sha256: bfebd7d13eaa4bf1796fd00c0f66ba9c87fe12bf004c12e0515edbc40b448881
+        - path: ontology/slices/apqc_1_0.ttl
+          sha256: 6b6d8efb1e1c36f897edcd3514e6f0044e62c7745ed336a878132c0ee1010ad0
+        - path: ontology/slices/apqc_2_0.ttl
+          sha256: 680d6f262e8a14d555a45595f5102c0d5ccea0a1be5f9036d86daee2dfd5cf99
+        - path: ontology/slices/apqc_3_0.ttl
+          sha256: 0d8f5e7946a465616f45b5790fb630d3a20c5bbcf72ecde6caa6d9fb17366277
+        - path: ontology/slices/apqc_4_0.ttl
+          sha256: 6266f621df4108c2c7323770a5b8a04d627a0e4504f990b4d791b188af069114
+        - path: ontology/slices/apqc_5_0.ttl
+          sha256: f9998518d723f98eae3a7c384e47200b10fdc83624975537708f3ff84d1e5a6b
+        - path: ontology/slices/apqc_6_0.ttl
+          sha256: 30f68fb0dd17535c5b4ada76c78f2c91bc7671c78a5cc45b30bbba385459fb3a
+        - path: ontology/slices/apqc_7_0.ttl
+          sha256: 529f691420b43a8c7f8bcfec5565adf9168ee279588504457390204b55af5262
+        - path: ontology/slices/apqc_8_0.ttl
+          sha256: fc4dd0c1a442e2cae21f6a80791f1c7e39019b924f9f607db6d19b9edf35a7da
+        - path: ontology/slices/apqc_9_0.ttl
+          sha256: a7247e5f0836bd27895d19c9e18bd2237b9ec44e2b5140f897001c612e12df6d
+      scope:
+        path: capabilities/capability_scope.json
+        sha256: 2850b3ae7f4a99f0ea557d0f0eb92bfcc4ece9b6de6f07ca578b1bdc222dde57
+    excluded: >-
+      ontology/apqc_shapes.ttl, ontology/capabilities_roles_shapes.ttl and
+      ontology/apqc_bad_examples.ttl: SHACL shapes and a fixture built to be
+      invalid, not statements about capabilities. Every other ontology/**/*.ttl
+      file at the commit is an input; the list was read from `git ls-tree` of
+      the commit when it was pinned. The tool cannot re-list the tree itself
+      without a host other than raw.githubusercontent.com, so a file added to
+      BPO at a later commit is found by re-pinning, not by this tool.
+    baseline:
+      commit: 66131945b525c54f44e4962f32bb1f52dfa0cd12
+      pinned_by: config/upstream-sources.yaml (id bpo)
+      namespace: http://example.org/apqc#
+      namespace_mapping:
+        from: http://example.org/apqc
+        to: https://fandaws.com/ontology/bpo
+        evidence:
+          path: docs/adr/ADR-002-namespace.md
+          sha256: 2168d46b8d4a14c2e049f948f97185a603451ba6e170b75b4690559f535c2e58
+          what: >-
+            BPO's record of the move, at the selected commit: one base
+            substitution applied to every BPO IRI, local names unchanged.
+      inputs:
+        ontology:
+          - path: ontology/apqc-catalog.ttl
+            sha256: 0fe95558456b7dc7e8d0509a5559215dc25c422b8ae6dd7d6e54ab0aab55da7e
+          - path: ontology/apqc-ext.ttl
+            sha256: 1b9a9375cb7303003556004effd712b63913d6aa4935dbf604a653aec65cab4b
+          - path: ontology/capabilities_roles.ttl
+            sha256: 1c2b320954358b37d1388f4085c05d57ac039e196ceb0bd79e13237b14281f12
+          - path: ontology/capabilities_wiring.ttl
+            sha256: bd5d13112243452a79a14ad118af08f57775b11f2c94bc894cb857801ae94039
+          - path: ontology/delivery_processes.ttl
+            sha256: 7b1795a7d4ce5ce9c2306ec7f2983d95688813f8167150dc422a711d648012d1
+          - path: ontology/reference/apqc_1_1_1.ttl
+            sha256: 4381b5ab64b5e5424a99c64c86527d75c314443176ce3ca22389d3b68fd57e3b
+          - path: ontology/slices/apqc_10_0.ttl
+            sha256: bfde1d62639c8570a4b17e5a42cd6a1c2685ee3f83b4d4af9c59905a8fe95097
+          - path: ontology/slices/apqc_11_0.ttl
+            sha256: 375a9df39804f7627641eda12955b74222e30c138088087d144ef22ac26996a1
+          - path: ontology/slices/apqc_12_0.ttl
+            sha256: a10bc93fde78c041c8836a17394336ce0d3b8f245e068200dd9d3eae7dc57ff8
+          - path: ontology/slices/apqc_13_0.ttl
+            sha256: 4dfb7e07ae44981a8bce788a6036b14491f4ecdf0de548e5ab9bfd09574d7f88
+          - path: ontology/slices/apqc_1_0.ttl
+            sha256: 9a3d46953aaf33bd03d57e58a353f6e66ebe6e40c06d4b1f987b0802aaf0fa90
+          - path: ontology/slices/apqc_2_0.ttl
+            sha256: cad23271be78ab4cc98f910a0f9d3e090cc2d754effdc412ed1daba3a1816157
+          - path: ontology/slices/apqc_3_0.ttl
+            sha256: dac976916540f8503b6c9d4bf3c34d074ddefbba18f98a0e9efee464ee30346a
+          - path: ontology/slices/apqc_4_0.ttl
+            sha256: 4998fbed1d28126e6300f2d3dfe083d53205b27687cc3af0ab79518cc612bbc1
+          - path: ontology/slices/apqc_5_0.ttl
+            sha256: db1794bf4abbae9175d2e0e17bbab42debf3f13c3b23686d8382c46956e12e41
+          - path: ontology/slices/apqc_6_0.ttl
+            sha256: 39fdaa81fea090b09d932bd744b0328dc0edc37de7d2a51250fbd9503445e532
+          - path: ontology/slices/apqc_7_0.ttl
+            sha256: 74a07331592fcb294c932333a49194afadba4da3e9047bc09a38187ca4d74bd9
+          - path: ontology/slices/apqc_8_0.ttl
+            sha256: 02028d55ce8c4a4394817803c8cc8a5e2a63275381375fdb4249c9ba82f92b31
+          - path: ontology/slices/apqc_9_0.ttl
+            sha256: b365ed0b1499e1804fafc6b149aaddf9fbb8733ceca6d0c67f0ebb3cf89bd741
+        scope:
+          path: capabilities/capability_scope.json
+          sha256: d82a28cc5f2ae393c06b65c6ced6a75c8422f377b37671f726ca2f9c31406d39
+    licence:
+      spdx: MIT
+      path: LICENSE
+      sha256: 2154e0221f7e5119b2d45842fcd4be421c11c5d64a459601f2c35f53710c487a
+      licence_statement_contains: MIT License
+      attribution: >-
+        Business Process Ontology (BPO). Copyright (c) 2026 Aaron Damiano,
+        licensed under the MIT License; the full licence text is LICENSE at
+        commit bc64e91839378e1926189c01bf184d6a22d5c1b7 of
+        https://github.com/Skreen5hot/BusinessProcessOntology.
+      note: >-
+        Same author as this repository, but a different project with its own
+        licence: BPO-authored text in the inventory is redistributed under
+        BPO's MIT terms, with this attribution in
+        docs/sources/inventory/NOTICE.md, as a vendored file's would be.
+    apqc:
+      rightsholder: APQC
+      work: APQC Process Classification Framework (PCF), Cross-Industry
+      edition: "7.4"
+      rights_status: APQC terms not yet verified (Phase I-2)
+      withheld_marker: apqc-terms-unverified
+      evidence:
+        - path: "K014749_APQC Process Classification Framework (PCF) - Cross-Industry - Excel Version 7.4.xlsx"
+          sha256: 0e6e24b6cabe795cee9aa0a23912bd323257e419eb96a74a17ad328a08f97d24
+          member: xl/drawings/drawing3.xml
+          member_sha256: 9bde3d72a66495f0c2574181819f01352a4715cd70362ef210d9473ea58c05f7
+          member_contains: COPYRIGHT AND ATTRIBUTION
+          what: >-
+            APQC's own PCF 7.4 Excel export, committed to BPO. Its last sheet,
+            "Copyright and attribution" (sheet19, whose drawing is the member
+            above), carries APQC's copyright notice and a grant of rights
+            conditioned on the notice travelling with copies and derivative
+            works; every sheet footer carries an APQC copyright line. Not
+            reproduced here. Whether the grant covers this inventory, and
+            what attribution it would require, is Phase I-2's question.
+        - path: ontology/apqc-catalog.ttl
+          sha256: 593b438ab44d14445a92917b6fb357eaa2ef542845b0bf7ccc30ab3fa0888602
+          what: >-
+            The catalog layer's header: dct:source names the PCF Cross-Industry
+            v7.4 as its source, and it declares the provenance annotations
+            bpo:pcfID, bpo:hierarchyID and bpo:apqcSourceText that the
+            withholding rule reads.
+        - path: CLAUDE.md
+          sha256: 39948d20061deea9b28f2cdeab6bfdb2632ac0bc93d99a5515acbb79c976584f
+          what: >-
+            BPO's grounding states it is an ontology of the APQC PCF
+            (Cross-Industry, v7.4). BPO states no APQC licence terms anywhere
+            else at this commit; its LICENSE is MIT and names only its own
+            author.
+    standing_functions:
+      evidence:
+        - path: docs/adr/ADR-001-category-and-upper-level-modeling.md
+          sha256: 79edfb0d4a1528d593f9c66ddd619c60b8c97fe17e55d429e78989458f7f2bd2
+          what: >-
+            R5 classes a node that denotes a standing function as catalog only,
+            and R6 says such a node SHOULD be modeled as an Organization
+            Capability bridged from its catalog node by bpo:designatesProcessType
+            (R4). No rule defines a marker that records the standing-function
+            judgement itself.

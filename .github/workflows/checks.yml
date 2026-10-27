@@ -104,6 +104,12 @@ jobs:
       - name: The vendored site assets match their pins
         run: python tools/site/vendor_assets.py
 
+      # Offline: the Capability Term Inventory's outputs against their
+      # pinned input digests, the APQC withholding rule, the admission
+      # guard (no RDF, no authored-namespace IRI) and a fresh notice.
+      - name: The inventory keeps its pins, its rights rule and its admission guard
+        run: python tools/inventory/harvest_bpo.py
+
       - name: Tests
         run: python -m pytest tests/ -q -p no:randomly
 
@@ -166,3 +172,9 @@ jobs:
 
       - name: Fetch the pinned upstreams and compare
         run: python tools/ontology/vendor_upstream.py --confirm
+
+      # The same question for the inventory: are the committed outputs what
+      # harvesting BPO at the pinned commits (and the baseline) produces?
+      # Fetches from raw.githubusercontent.com only, sharing the cache above.
+      - name: Harvest BPO at the pinned commits and compare
+        run: python tools/inventory/harvest_bpo.py --confirm

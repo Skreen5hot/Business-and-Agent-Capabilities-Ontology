@@ -363,16 +363,19 @@ def test_the_extracts_say_what_cd1_and_cd3_assume(extracts):
 
 def test_the_extracts_are_third_party_and_redistributable(disposition):
     """The three extracts, among the vendored rows. The site's vendored
-    assets (config/site-vendor.yaml) are third-party-redistributed too,
-    and are held to their own pins in tests/test_site.py; here every
-    vendored row is only required to be accounted for by one pin file or
-    the other."""
+    assets (config/site-vendor.yaml) and the inventory's entries files
+    (config/inventory-sources.yaml) are third-party-redistributed too, and
+    are held to their own pins in tests/test_site.py and
+    tests/test_inventory.py; here every vendored row is only required to
+    be accounted for by exactly one of the three pin files."""
     rows = {row.path: row for row in disposition.classify()}
     extracts = disposition.vendored_sources()
     site_assets = disposition.site_vendored_assets()
+    inventory = disposition.inventory_sources()
     every = [row for row in rows.values()
              if row.disposition == disposition.VENDORED]
-    assert {row.path for row in every} == set(extracts) | set(site_assets)
+    assert {row.path for row in every} == (
+        set(extracts) | set(site_assets) | set(inventory))
     vendored = [row for row in every if row.path in extracts]
     assert len(vendored) == 3, [row.path for row in vendored]
     assert {row.licence for row in vendored} == {

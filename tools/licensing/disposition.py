@@ -59,6 +59,11 @@ NOTICE = "vendor/NOTICE.md"
 #: ran last.
 SITE_VENDOR = "config/site-vendor.yaml"
 SITE_NOTICE = "vendor/site/NOTICE.md"
+#: The Capability Term Inventory's pins. Each source names the entries file
+#: that carries its text, the licence it carries it under, and the notice
+#: tools/inventory/harvest_bpo.py writes beside it -- a third notice for a
+#: third tool, for the same reason as the site's.
+INVENTORY_SOURCES = "config/inventory-sources.yaml"
 
 #: SPDX identifiers this tool can recognise in a LICENSE file. Listed
 #: rather than pattern-matched, because "BSD" appears in several licences
@@ -165,12 +170,46 @@ def site_vendored_assets() -> dict:
     return found
 
 
+def inventory_sources() -> dict:
+    """Inventory entries files, {path: ({"licence": ...}, notice)}.
+
+    Read from config/inventory-sources.yaml, the same declaration the
+    harvester writes the notice from. Only a source's `entries` file is
+    third-party text; its findings and notice are this repository's.
+    """
+    import yaml
+
+    root = layout.repository_root()
+    path = root / INVENTORY_SOURCES
+    if not path.is_file():
+        raise Refused(
+            INVENTORY_SOURCES + " is missing, so the licence of the "
+            "inventory's third-party text would have to be guessed.")
+    raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    found = {}
+    for entry in raw.get("sources") or []:
+        licence = entry.get("licence") or {}
+        outputs = entry.get("outputs") or {}
+        for required in ("spdx", "attribution"):
+            if not licence.get(required):
+                raise Refused("%s declares no licence.%s for %s"
+                              % (INVENTORY_SOURCES, required, entry.get("id")))
+        for required in ("entries", "notice"):
+            if not outputs.get(required):
+                raise Refused("%s declares no outputs.%s for %s"
+                              % (INVENTORY_SOURCES, required, entry.get("id")))
+        found[outputs["entries"]] = ({"licence": licence,
+                                      "source": entry.get("id")},
+                                     outputs["notice"])
+    return found
+
+
 def redistributed_sources() -> dict:
     """Every vendored file's pin, with the notice that must attribute it.
 
-    {path: (entry, notice)}. Upstream extracts first, then site assets; a
-    path pinned by both is refused, because which licence it carries
-    would depend on lookup order.
+    {path: (entry, notice)}. Upstream extracts first, then site assets,
+    then inventory entries; a path pinned twice is refused, because which
+    licence it carries would depend on lookup order.
     """
     out = {path: (entry, NOTICE)
            for path, entry in vendored_sources().items()}
@@ -179,6 +218,11 @@ def redistributed_sources() -> dict:
             raise Refused("%s is pinned by both %s and %s"
                           % (path, UPSTREAM_SOURCES, SITE_VENDOR))
         out[path] = (entry, SITE_NOTICE)
+    for path, (entry, notice) in inventory_sources().items():
+        if path in out:
+            raise Refused("%s is pinned by %s and by another pin file"
+                          % (path, INVENTORY_SOURCES))
+        out[path] = (entry, notice)
     return out
 
 
@@ -189,9 +233,10 @@ def licence_of(disposition: str, relative=None):
         sources = redistributed_sources()
         if relative not in sources:
             raise Refused(
-                "%s is declared vendored, and neither %s nor %s pins a "
+                "%s is declared vendored, and none of %s, %s or %s pins a "
                 "source producing it, so nothing states what licence it "
-                "carries." % (relative, UPSTREAM_SOURCES, SITE_VENDOR))
+                "carries." % (relative, UPSTREAM_SOURCES, SITE_VENDOR,
+                              INVENTORY_SOURCES))
         return sources[relative][0]["licence"]["spdx"]
     return project_licence()
 
@@ -276,7 +321,18 @@ CITED_ROLES = {"third-party-reference"}
 #: against vendor/NOTICE.md. Not `vendored-ontology`, which the validation
 #: ladder, the term index and the site's upstream downloads all read as
 #: Turtle.
-VENDORED_ROLES = {"vendored-ontology", "vendored-asset"}
+#:
+#: `source-evidence`: the Capability Term Inventory's entries files
+#: (docs/sources/inventory/), which hold another project's labels and
+#: definitions verbatim as evidence -- today BPO's, under MIT. Written by a
+#: tool here, but the text is not this repository's, so it is classified
+#: like a vendored file: the licence is read from
+#: config/inventory-sources.yaml, and the attribution declared there is
+#: checked against the notice that file names. Text a source took from a
+#: third party whose terms are unverified (the APQC PCF) is withheld by
+#: the harvester, not licensed by this rule. Not `vendored-ontology`:
+#: these are YAML, and nothing that reads Turtle may select them.
+VENDORED_ROLES = {"vendored-ontology", "vendored-asset", "source-evidence"}
 
 #: Suffix rules for files no component claims. Kept small on purpose: the
 #: contract is the primary authority and this is the fallback, so a
@@ -357,9 +413,13 @@ def rules(relative: str, owner) -> list[tuple[str, str, str]]:
         elif role in VENDORED_ROLES:
             matched.append((
                 VENDORED, role,
-                ("a pinned extract of a third-party ontology"
-                 if role == "vendored-ontology"
-                 else "a pinned third-party file the site serves")
+                {"vendored-ontology":
+                     "a pinned extract of a third-party ontology",
+                 "vendored-asset":
+                     "a pinned third-party file the site serves",
+                 "source-evidence":
+                     "third-party text harvested at a pinned commit as "
+                     "inventory evidence"}[role]
                 + ", redistributed under the upstream licence and "
                   "requiring attribution"))
         elif role in SOFTWARE_ROLES:
