@@ -467,7 +467,8 @@ read from its own Review status table.
 ### 5.16 Capability Term Inventory, Phase I-1 (BPO harvest)
 
 `docs/sources/inventory/` is source evidence, not vocabulary and not an admission (scope
-approval D6, Amendment 4). `tools/inventory/harvest_bpo.py --rebuild` harvests BPO at
+approval D6, Amendment 4). I-1 was approved and merged as PR #12 (`ba8df1a`); the approval,
+its conditions and the reviewed digests are `docs/decisions/2026-10-27-inventory-i1-approved.md`. `tools/inventory/harvest_bpo.py --rebuild` harvests BPO at
 `bc64e91839378e1926189c01bf184d6a22d5c1b7` (main HEAD, v0.4.1) and at the vendored
 baseline `66131945…` under BPO ADR-002's namespace mapping, from the per-file pins in
 `config/inventory-sources.yaml`; the counts are in `bpo-findings.yaml`, derived, and
