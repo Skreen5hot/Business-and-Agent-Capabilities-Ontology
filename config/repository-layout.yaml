@@ -300,7 +300,11 @@ components:
       belongs in docs/Reference/ and is never tracked. Compiled
       2026-10-23 by AI research agents at the architect's direction.
       The register itself is three components declared below: the data,
-      the companion prose, and the Markdown generated from both.
+      the companion prose, and the Markdown generated from both. The one
+      exception to "citations and paraphrase only" is inventory/, the
+      Capability Term Inventory, whose files are declared on their own
+      below: it carries BPO's MIT-licensed text verbatim, as source
+      evidence, under BPO's licence and attribution.
 
   - id: sources.register
     path: docs/sources/register.yaml
@@ -333,6 +337,85 @@ components:
       from register.yaml and register-companion.md; a test requires the
       committed bytes to equal a fresh generation, so an edit here fails
       the suite.
+
+  # ---- Capability Term Inventory (scope approval 2026-10-27) ---------
+  #
+  # Source evidence (D6), not vocabulary and not an admission
+  # (Amendment 4): what other projects say a capability is, one entry per
+  # source item. Phase I-1 harvests the Business Process Ontology at a
+  # pinned commit (config/inventory-sources.yaml).
+  #
+  # The entries are `source-evidence`, not `generated-artifact`, although
+  # a tool writes them: they hold BPO's labels and definitions verbatim,
+  # and BPO is a different project under its own MIT licence. A
+  # generated-artifact is classified as this repository's content, which
+  # would report BPO's text as ours and check no attribution. As
+  # source-evidence they are dispositioned like the vendored files --
+  # third-party, redistributed under the pinned licence, with
+  # docs/sources/inventory/NOTICE.md as the attribution the licensing tool
+  # checks -- and, unlike `vendored-ontology`, nothing that reads Turtle
+  # (the validation ladder, the vendoring seeds, the site's term index)
+  # selects the role. The findings hold only counts and BPO's IRIs, which
+  # are facts about BPO measured here, so they are an ordinary generated
+  # artifact.
+
+  - id: inventory.bpo-entries
+    path: docs/sources/inventory/bpo-entries.yaml
+    role: source-evidence
+    generator: tool.inventory-harvest-bpo
+    redistributable: true
+    description: >-
+      Phase I-1: one entry per BPO source item at the pinned commit --
+      every capability class (closure under CCO Organization Capability)
+      with each module's declaration kept apart, and every
+      capability_scope.json entry -- never merged. Labels and definitions
+      tied to the APQC PCF are withheld until APQC's terms are verified
+      (Phase I-2).
+
+  - id: inventory.bpo-findings
+    path: docs/sources/inventory/bpo-findings.yaml
+    role: generated-artifact
+    generator: tool.inventory-harvest-bpo
+    description: >-
+      Counts recalculated at the selected BPO commit and at the vendored
+      baseline under BPO ADR-002's namespace mapping (capability classes,
+      scope entries, enablesProcess triples, Q-12, Q-13), and the diff.
+      IRIs and numbers only.
+
+  - id: inventory.notice
+    path: docs/sources/inventory/NOTICE.md
+    role: documentation
+    generator: tool.inventory-harvest-bpo
+    description: >-
+      Attribution for the BPO text the inventory redistributes, and the
+      APQC evidence pinned for Phase I-2. Generated from
+      config/inventory-sources.yaml; tools/licensing/disposition.py fails
+      if the declared attribution is missing here.
+
+  - id: inventory.readme
+    path: docs/sources/inventory/README.md
+    role: documentation
+    description: >-
+      What the inventory is and is not, its phases, the kinds of entry, the
+      rights rule and how to regenerate and check it.
+
+  - id: config.inventory-sources
+    path: config/inventory-sources.yaml
+    role: configuration
+    description: >-
+      The inventory's pins: BPO's selected commit and baseline, every input
+      file with its sha256, the namespace mapping, BPO's licence and the
+      APQC evidence, and where the outputs go.
+
+  - id: tool.inventory-harvest-bpo
+    path: tools/inventory/harvest_bpo.py
+    role: tool
+    description: >-
+      Checks the inventory offline by default (schema, pinned digests, the
+      rights rule, the admission guard, a fresh notice); with --rebuild,
+      fetches the pinned files from raw.githubusercontent.com and rewrites
+      the outputs; with --confirm, requires them to be byte-identical to a
+      fresh harvest.
 
   - id: docs.trials
     path: docs/trials

@@ -464,6 +464,25 @@ completeness and internal references only; conceptual adequacy is the architect'
 (standard section 7). The site's Models page renders each model, with its approval state
 read from its own Review status table.
 
+### 5.16 Capability Term Inventory, Phase I-1 (BPO harvest)
+
+`docs/sources/inventory/` is source evidence, not vocabulary and not an admission (scope
+approval D6, Amendment 4). `tools/inventory/harvest_bpo.py --rebuild` harvests BPO at
+`bc64e91839378e1926189c01bf184d6a22d5c1b7` (main HEAD, v0.4.1) and at the vendored
+baseline `66131945…` under BPO ADR-002's namespace mapping, from the per-file pins in
+`config/inventory-sources.yaml`; the counts are in `bpo-findings.yaml`, derived, and
+not repeated here. `bpo-entries.yaml` holds one entry per capability class and per
+`capability_scope.json` key, never merged; BPO marks no standing-function node, so that
+kind has no entries. Labels and definitions BPO ties to the APQC PCF (D7 `P<id>` names,
+`bpo:pcfID`/`hierarchyID`/`apqcSourceText`, text equal to a catalog literal or
+containing a catalog name of two or more words, or text withheld on another class) are
+withheld until APQC's terms are verified in Phase I-2; paraphrase the rule cannot see is
+the open residue. The entries are role `source-evidence` (third-party, MIT, attributed in
+the generated `NOTICE.md`). Not done: re-pinning the vendored extract (a separate
+decision), grouping (I-4), and any check that BPO added a module after the pinned file
+list was read. The offline check runs before every commit and in CI; `--confirm` runs in
+the weekly network job.
+
 ## 6. Outside the repository
 
 - **Nothing is pushed.** The import (`b4d4493`) and the setup commit are local to the
