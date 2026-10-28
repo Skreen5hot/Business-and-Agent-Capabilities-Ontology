@@ -101,7 +101,8 @@ too.
 
 Only `ontology/apqc-ext.ttl` at BPO `bc64e91` (v0.4.1; re-pinned on 2026-10-28 from
 `6613194`, with the IRI mapping and semantic comparison in
-`docs/decisions/2026-10-28-bpo-repin-migration.md`): 6 act genera. The reality-layer slices, the
+`docs/decisions/2026-10-28-bpo-repin-migration.md`; approved and merged at `6731f59`,
+`docs/decisions/2026-10-28-bpo-repin-approved.md`): 6 act genera. The reality-layer slices, the
 catalog and `capabilities_*.ttl` are not here, so BPO process classes the spec names
 (`ex:P10020` and others) resolve to nothing. They are listed in
 `config/upstream-extracts.json` under `specification_names_described_by_no_pinned_file`,
