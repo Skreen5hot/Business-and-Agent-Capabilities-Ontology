@@ -5,9 +5,9 @@
 # points the architect has to settle before I-2b (APQC PCF) and I-2c
 # (FEAF-II BRM, FIBF) write any catalog text.
 #
-# This file is a review, not a decision. Every `architect_decision` is
-# empty: the posture is the architect's act, recorded in docs/decisions/
-# and pointed to from here. It is also not catalog content: no PCF, BRM
+# This file is a review, not a decision. The posture is the architect's
+# act, recorded in docs/decisions/ and pointed to from each source's
+# `architect_decision` (since 2026-10-28, docs/decisions/2026-10-28-i2a-decided.md). It is also not catalog content: no PCF, BRM
 # or FIBF name, description, code or hierarchy appears in it, and quotes
 # are limited to the operative words of a notice, at most 15 words each.
 #
@@ -270,7 +270,8 @@ sources:
         recommendation: >-
           (a). The communications protocol applies; sending is the
           architect's act.
-    architect_decision: null
+    architect_decision:
+      record: docs/decisions/2026-10-28-i2a-decided.md
 
   # ====================================================================
   - id: apqc-pcf-8.0
@@ -347,7 +348,8 @@ sources:
         recommendation: >-
           (a) for the notice, which is small and settles the edition
           question; the delta itself follows APQC-1.
-    architect_decision: null
+    architect_decision:
+      record: docs/decisions/2026-10-28-i2a-decided.md
 
   # ====================================================================
   - id: feaf-brm-3.1
@@ -493,7 +495,8 @@ sources:
         recommendation: >-
           (c), because the inventory keeps sources apart and the two are
           separately listed by OMB; I-4 reconciles them.
-    architect_decision: null
+    architect_decision:
+      record: docs/decisions/2026-10-28-i2a-decided.md
 
   # ====================================================================
   - id: fibf-2026-10-28
@@ -1477,7 +1480,8 @@ sources:
         recommendation: >-
           (a): keep the evidence and let I-4 deduplicate, as I-1 did; the
           draft status and duplication are recorded on the entries.
-    architect_decision: null
+    architect_decision:
+      record: docs/decisions/2026-10-28-i2a-decided.md
 
 summary_for_the_architect: >-
   APQC PCF 7.4: the workbook's own notice is a broad, clear grant (use,

@@ -13,7 +13,7 @@ every run (below).
 | Phase | What | State |
 |---|---|---|
 | I-1 | BPO harvest, with Q-12 and Q-13 re-measured | **this directory** |
-| I-2a | Rights review of the public catalogs: APQC PCF 7.4 and 8.0, FEAF-II BRM 3.1, FIBF | **`rights.yaml`**, awaiting the architect's decisions |
+| I-2a | Rights review of the public catalogs: APQC PCF 7.4 and 8.0, FEAF-II BRM 3.1, FIBF | **`rights.yaml`**; decided 2026-10-28 (`docs/decisions/2026-10-28-i2a-decided.md`) |
 | I-2b | APQC PCF: 7.4 levels 1–2, level-3 standing-function candidates, the 8.0 delta | after I-2a is decided |
 | I-2c | Federal catalogs: FEAF-II BRM and FIBF | after I-2a is decided |
 | I-3 | Restricted catalogs, citation and coverage only | not started |
@@ -132,8 +132,9 @@ FIBF name, description, code or hierarchy. For each source and edition it record
 rights holder, the evidence (each document's URL or BPO path, sha256, retrieval date and
 what was checked in it), findings on names, descriptions, codes and hierarchy, derivative
 works, attribution and restrictions, the open questions, decision points with options and
-a recommendation, and an `architect_decision` left empty for the architect's act (when
-filled, it points at the record in `docs/decisions/`). Quotes are the operative words of a
+a recommendation, and an `architect_decision` that only points at the architect's act in
+`docs/decisions/`. The decisions of 2026-10-28 are in
+`docs/decisions/2026-10-28-i2a-decided.md`. Quotes are the operative words of a
 notice only, at most 15 words each. The documents are downloaded to
 `.upstream-cache/i2a/`, which is gitignored; none is committed. The file is hand-written,
 because it is judgement; `tools/inventory/rights.py` holds its shape and its pins.

@@ -9,7 +9,8 @@ Phase I-2a, under the architect's decision of 2026-10-28
 part C). I-2a establishes, for each source and edition, what the rights
 holder's terms permit, from primary evidence pinned by digest. It writes
 no catalog content, and it decides nothing: every source ends in decision
-points and an empty `architect_decision`.
+points, and its `architect_decision` only points at the architect's act in
+docs/decisions/ (2026-10-28-i2a-decided.md).
 
 WHY THE RECORD IS HAND-WRITTEN AND THIS TOOL ONLY CHECKS IT
 

@@ -21,8 +21,9 @@ from conftest import ROOT, load_tool
 TOOL = "tools/inventory/rights.py"
 RIGHTS = "docs/sources/inventory/rights.yaml"
 AUTHORITY = "docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md"
+DECIDED = "docs/decisions/2026-10-28-i2a-decided.md"
 COPIED = (RIGHTS, "docs/sources/register.yaml", "tools/ontology/validate.py",
-          "tools/inventory/harvest_bpo.py", AUTHORITY,
+          "tools/inventory/harvest_bpo.py", AUTHORITY, DECIDED,
           "docs/proposals/2026-10-28-inventory-i2-public-catalogs.md")
 
 
@@ -82,11 +83,20 @@ def test_the_committed_record_passes(rights):
     assert set(counts["status"].values()) <= set(rights.STATUSES)
 
 
-def test_every_source_ends_undecided(rights):
-    """I-2a decides nothing: the architect's act fills these, elsewhere."""
+def test_every_source_points_at_the_architects_decision(rights):
+    """I-2a decides nothing: each source's decision is the architect's act,
+    recorded in docs/decisions/, and the record only points at it."""
     for item in load(ROOT)["sources"]:
-        assert item["architect_decision"] is None, item["id"]
+        assert item["architect_decision"] == {"record": DECIDED}, item["id"]
         assert item["decision_points"], item["id"]
+
+
+def test_the_decision_record_settles_every_decision_point(rights):
+    """Every decision point offered is named in the architect's record."""
+    text = (ROOT / DECIDED).read_bytes().decode("utf-8")
+    for item in load(ROOT)["sources"]:
+        for point in item["decision_points"]:
+            assert "| %s |" % point["id"] in text, point["id"]
 
 
 def test_every_evidence_item_is_pinned_by_digest(rights):
