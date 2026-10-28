@@ -267,6 +267,15 @@ components:
       decided about. ADR-002, once ratified, is a separate document under
       docs/adr/ (spec section 2); its ratification act is recorded here.
 
+  - id: docs.proposals
+    path: docs/proposals
+    role: documentation
+    description: >-
+      Proposals put to the architect for a decision: what is proposed,
+      what was measured to support it, the options, and the decisions
+      asked for. A proposal is not a decision; the architect's act on it
+      is recorded in docs/decisions/, citing the proposal's commit.
+
   - id: docs.adr
     path: docs/adr
     role: documentation
