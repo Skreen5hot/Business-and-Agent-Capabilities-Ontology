@@ -219,7 +219,7 @@ documents:
 counts:
   entries: 2749
   fibf-business-capability: 2749
-  text_withheld: 3
+  text_withheld: 6
 entries:
 - id: INV-FIBF-CW-1-ACQ.010.010.011-fibf-business-capability
   kind: fibf-business-capability
@@ -39496,14 +39496,14 @@ entries:
   function_code: CYB.220
   ipo: P
   name: null
-  description: Develop and document approach to measure vulnerability impact uniformly
-    across the community for use in risk determination
+  description:
+    withheld: text-in-mitre-marked-document
   locator:
     sheet: Business Capabilities
     row: 101
   draft: true
   homonym_flag: true
-  rights_status: us-government-work
+  rights_status: us-government-work-text-withheld
 - id: INV-FIBF-ITS-1-CYB.220.030.032-fibf-business-capability
   kind: fibf-business-capability
   register: SRC-GOV-05
@@ -40936,13 +40936,14 @@ entries:
   function_code: CYB.220
   ipo: P
   name: null
-  description: Review and verify report triage (false positive filtering)
+  description:
+    withheld: text-in-mitre-marked-document
   locator:
     sheet: Business Capabilities
     row: 173
   draft: true
   homonym_flag: true
-  rights_status: us-government-work
+  rights_status: us-government-work-text-withheld
 - id: INV-FIBF-ITS-1-CYB.220.030.341-fibf-business-capability
   kind: fibf-business-capability
   register: SRC-GOV-05
@@ -41178,15 +41179,14 @@ entries:
   function_code: CYB.220
   ipo: P
   name: null
-  description: Develop and document countermeasure and/or mitigation recommendations
-    for appropriate changes to IDS, router, firewall rules within all internal Intelligence
-    reports/alerts
+  description:
+    withheld: text-in-mitre-marked-document
   locator:
     sheet: Business Capabilities
     row: 185
   draft: true
   homonym_flag: true
-  rights_status: us-government-work
+  rights_status: us-government-work-text-withheld
 - id: INV-FIBF-ITS-1-CYB.220.050.021-fibf-business-capability
   kind: fibf-business-capability
   register: SRC-GOV-05

@@ -73,10 +73,13 @@ the field and its code with `{withheld: <reason>}`:
 
   text-in-mitre-marked-document  the normalised text (case and punctuation
                                  ignored, two words or more) equals a cell
-                                 of a withheld MITRE-marked workbook: the
-                                 same words are not published from a second
-                                 file (I-1's shared-text rule, applied to
-                                 FIBF-1 c);
+                                 of a withheld MITRE-marked workbook, or
+                                 contains a whole such cell of six words or
+                                 more: the same words are not published
+                                 from a second file (I-1's shared-text
+                                 rule, applied to FIBF-1 c). Below six
+                                 words the shared phrases are names (of
+                                 systems, functions, programs), not text;
   third-party-mapping-text       the text names ITIL, TBM, AXELOS,
                                  PeopleCert or Technology Business
                                  Management (two words or more), or equals
@@ -191,6 +194,9 @@ FIBF_ID = "fibf-2026-10-28"
 RIGHTS_STATUS = "us-government-work"
 RIGHTS_STATUS_PARTIAL = "us-government-work-text-withheld"
 WITHHELD_MITRE_TEXT = "text-in-mitre-marked-document"
+# A MITRE-marked cell this long is withheld wherever it appears inside a
+# field; shorter shared phrases measured on the pinned bytes were names.
+MITRE_CONTAINED_WORDS = 6
 WITHHELD_THIRD_PARTY = "third-party-mapping-text"
 WITHHOLD_REASONS = (WITHHELD_MITRE_TEXT, WITHHELD_THIRD_PARTY)
 
@@ -829,6 +835,7 @@ class Withholding:
 
     def __init__(self, mitre_texts: set[str]):
         self.mitre = mitre_texts
+        self.mitre_long = mitre_long(mitre_texts)
         self.third = set()
 
     def field(self, text, counter: dict):
@@ -840,11 +847,29 @@ class Withholding:
             counter[WITHHELD_THIRD_PARTY] = counter.get(
                 WITHHELD_THIRD_PARTY, 0) + 1
             return {"withheld": WITHHELD_THIRD_PARTY}
-        if len(key.split()) >= 2 and key in self.mitre:
+        if mitre_text(key, self.mitre, self.mitre_long):
             counter[WITHHELD_MITRE_TEXT] = counter.get(WITHHELD_MITRE_TEXT,
                                                        0) + 1
             return {"withheld": WITHHELD_MITRE_TEXT}
         return text
+
+
+def mitre_long(texts: set[str]) -> list[str]:
+    """The cells long enough to be withheld wherever they appear, padded
+    so that containment is word by word."""
+    return [" %s " % t for t in texts
+            if len(t.split()) >= MITRE_CONTAINED_WORDS]
+
+
+def mitre_text(key: str, texts: set[str], long: list[str]) -> bool:
+    """Whether a normalised field equals a MITRE-marked cell, or contains a
+    whole long one."""
+    if len(key.split()) < 2:
+        return False
+    if key in texts:
+        return True
+    padded = " %s " % key
+    return any(t in padded for t in long)
 
 
 def mitre_texts(books: list[Workbook]) -> set[str]:
@@ -1897,7 +1922,9 @@ def build(cache: Path, base: Path | None = None,
                                       "another notice is present; treated as "
                                       "restricted",
                     WITHHELD_MITRE_TEXT: "field text equal to a cell of a "
-                                         "withheld MITRE-marked workbook",
+                                         "withheld MITRE-marked workbook, or "
+                                         "containing a whole such cell of "
+                                         "six words or more",
                     WITHHELD_THIRD_PARTY: "field text naming the third-party "
                                           "framework, or equal to a cell of "
                                           "a FIBF-2 a mapping column or "
@@ -2006,17 +2033,19 @@ def _walk_values(data, path=""):
 
 
 def mitre_findings(contents: dict, names: dict, texts: set) -> list[str]:
-    """No harvested name or description equals a withheld MITRE-marked
-    workbook's text. Needs the bytes, so --rebuild and --confirm only."""
+    """No harvested name or description equals, or contains a long cell
+    of, a withheld MITRE-marked workbook. Needs the bytes, so --rebuild and
+    --confirm only."""
     out = []
+    long = mitre_long(texts)
     for key in ("functions", "capabilities"):
         doc = parse_yaml(contents[names[key]])
         for e in doc.get("entries") or []:
             for field in ("name", "description"):
                 value = e.get(field)
-                if isinstance(value, str) and len(norm(value).split()) >= 2 \
-                        and norm(value) in texts:
-                    out.append("%s %s equals text in a MITRE-marked workbook "
+                if isinstance(value, str) and \
+                        mitre_text(norm(value), texts, long):
+                    out.append("%s %s carries text of a MITRE-marked workbook "
                                "(FIBF-1 c)" % (e.get("id"), field))
     return out
 

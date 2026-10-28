@@ -38,7 +38,7 @@ rules:
   withheld-ambiguous: rights.yaml and the bytes disagree, or another notice is present;
     treated as restricted
   text-in-mitre-marked-document: field text equal to a cell of a withheld MITRE-marked
-    workbook
+    workbook, or containing a whole such cell of six words or more
   third-party-mapping-text: field text naming the third-party framework, or equal
     to a cell of a FIBF-2 a mapping column or sheet in the same document
   excluded_fibf_2a: every column naming the third-party framework; `mapping` columns
@@ -1392,7 +1392,7 @@ documents:
     fibf-activity: 69
     fibf-business-capability: 417
   withheld_fields:
-    text-in-mitre-marked-document: 12
+    text-in-mitre-marked-document: 15
   duplicate_of: []
 - evidence: fibf-doc-its-2
   url: https://ussm.gsa.gov/assets/files/downloads/its/its_2025/ITS%20Operational%20Capabilities.xlsx

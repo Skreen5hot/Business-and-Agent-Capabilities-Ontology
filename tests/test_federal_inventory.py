@@ -509,6 +509,26 @@ def test_text_shared_with_a_mitre_workbook_is_withheld(harvest):
     assert counter == {"text-in-mitre-marked-document": 1}
 
 
+def test_a_long_mitre_cell_inside_a_field_is_withheld(harvest):
+    # A whole MITRE-marked cell of six words or more, inside a longer field.
+    cell = "measure the impact of a finding uniformly"
+    withhold = harvest.Withholding({harvest.norm(cell)})
+    counter = {}
+    assert withhold.field("Develop an approach to " + cell.upper() + ".",
+                          counter) == {"withheld": "text-in-mitre-marked-document"}
+    # Word by word: a cell inside a longer word does not count.
+    assert withhold.field("Premeasure the impact of a finding uniformly",
+                          counter) == \
+        "Premeasure the impact of a finding uniformly"
+    # Five words is a name, not text: it stays.
+    name = harvest.Withholding(
+        {harvest.norm("Work Schedule and Leave Management")})
+    assert name.field("Maintain Work Schedule and Leave Management records",
+                      counter) == \
+        "Maintain Work Schedule and Leave Management records"
+    assert counter == {"text-in-mitre-marked-document": 1}
+
+
 def test_third_party_names_and_mapping_cells_are_withheld(harvest):
     withhold = harvest.Withholding(set())
     withhold.third = {harvest.norm("Enterprise Data Center")}

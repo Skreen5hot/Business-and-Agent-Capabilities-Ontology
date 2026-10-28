@@ -223,7 +223,7 @@ record, not a BCO capability type, and is neither equated with one nor excluded.
 
 Inside a harvested document a field's text is withheld, keeping the code, when it equals
 (two words or more, case and punctuation ignored) a cell of a withheld MITRE-marked
-workbook, or when it names ITIL, TBM, AXELOS, PeopleCert or Technology Business
+workbook or contains a whole such cell of six words or more, or when it names ITIL, TBM, AXELOS, PeopleCert or Technology Business
 Management or equals a cell of a FIBF-2 a mapping column (a column whose header names
 them or half of whose cells do, and the ITS workbook's cost-categorization sheet). No
 mapping column is read; the snapshot lists every column that names them. Not harvested:

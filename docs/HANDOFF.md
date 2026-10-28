@@ -534,7 +534,7 @@ name ITIL or TBM); functions and activities are in `fibf-entries.yaml`, business
 capabilities in `fibf-business-capabilities.yaml` with the homonym flag (E5). Rights are
 checked from the bytes as well as `rights.yaml` (they agree: the 21 MITRE-marked workbooks
 are withheld, nothing else is). Inside a harvested document, text equal to a MITRE-marked
-workbook's, or naming or equal to FIBF-2 a mapping material, is withheld field by field;
+workbook's cell or containing a whole one of six words or more, or naming or equal to FIBF-2 a mapping material, is withheld field by field;
 mapping columns are never read. The attribution is `NOTICE-federal.md`, separate from I-1's
 `NOTICE.md`, whose bytes I-1's approval records; `tools/licensing/disposition.py` now reads
 both pin files. The offline check runs in CI and `--confirm` in the weekly job. Not done:
