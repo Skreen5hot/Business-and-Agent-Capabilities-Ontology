@@ -110,6 +110,12 @@ jobs:
       - name: The inventory keeps its pins, its rights rule and its admission guard
         run: python tools/inventory/harvest_bpo.py
 
+      # Offline: the I-2a rights review -- every piece of evidence pinned
+      # by digest, no catalog content, quotes within 15 words, a gap
+      # reason wherever a source is not complete, the admission guard.
+      - name: The rights review keeps its pins and writes no catalog content
+        run: python tools/inventory/rights.py
+
       - name: Tests
         run: python -m pytest tests/ -q -p no:randomly
 
@@ -178,3 +184,11 @@ jobs:
       # Fetches from raw.githubusercontent.com only, sharing the cache above.
       - name: Harvest BPO at the pinned commits and compare
         run: python tools/inventory/harvest_bpo.py --confirm
+
+      # And for the rights review: do the rights holders still serve the
+      # documents I-2a pinned? A moved digest is a new edition for the
+      # architect to review, not something to re-pin silently. Fetches from
+      # obamawhitehouse.archives.gov, ussm.gsa.gov, www.gsa.gov and
+      # raw.githubusercontent.com only; apqc.org is never fetched.
+      - name: Refetch the rights review's pinned documents and compare
+        run: python tools/inventory/rights.py --confirm

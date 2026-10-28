@@ -484,6 +484,25 @@ decision), grouping (I-4), and any check that BPO added a module after the pinne
 list was read. The offline check runs before every commit and in CI; `--confirm` runs in
 the weekly network job.
 
+### 5.17 Capability Term Inventory, Phase I-2a (rights review)
+
+Decision E1 (`docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md`) split I-2 into
+I-2a rights, I-2b APQC PCF and I-2c federal catalogs. I-2a is
+`docs/sources/inventory/rights.yaml`: per source and edition, the evidence pinned by
+sha256, findings, open questions, decision points, and an empty `architect_decision`. It
+writes no catalog content. Findings: **PCF 7.4** evidence complete, terms ambiguous (the
+workbook's notice grants publication and derivative works with the notice attached;
+APQC's July 2026 website Terms bar public distribution absent a licence agreement, and AI
+use); **PCF 8.0** a gap (needs the architect's registration); **BRM 3.1** evidence
+complete and unambiguous (primary OMB PDFs on the archived White House site, no notices);
+**FIBF** evidence complete, terms ambiguous (39 workbooks and 25 domain pages pinned; 21
+workbooks carry a MITRE copyright line). A request to APQC is drafted, unsent, in
+`docs/proposals/2026-10-28-apqc-clarification-request.md`. `tools/inventory/rights.py`
+checks the record offline (CI) and refetches every pin with `--confirm` (weekly); apqc.org
+is never fetched by a script. Not done: any decision (the architect's), any I-2b or I-2c
+content, lifting I-1's withholding (E7, a separate PR), and correcting the register's
+SRC-GOV-05 URL (now 404) and SRC-GOV-06's secondary-only citations.
+
 ## 6. Outside the repository
 
 - **Nothing is pushed.** The import (`b4d4493`) and the setup commit are local to the
