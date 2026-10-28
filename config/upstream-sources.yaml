@@ -94,20 +94,20 @@ sources:
 
   - id: bpo
     project: Business Process Ontology
-    release: main@6613194
-    commit: 66131945b525c54f44e4962f32bb1f52dfa0cd12
+    release: v0.4.1 (main@bc64e91)
+    commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
     url: >-
-      https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/66131945b525c54f44e4962f32bb1f52dfa0cd12/ontology/apqc-ext.ttl
-    sha256: 1b9a9375cb7303003556004effd712b63913d6aa4935dbf604a653aec65cab4b
-    namespace: http://example.org/apqc#
+      https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/ontology/apqc-ext.ttl
+    sha256: a8119728796872a1814aace8130a32cc8e42961b0bd5feaa28b736d60a0cc6fd
+    namespace: https://fandaws.com/ontology/bpo#
     prefix: ex
     extract: vendor/bpo/bpo-ext-bco-extract.ttl
     licence:
       spdx: MIT
       url: >-
-        https://github.com/Skreen5hot/BusinessProcessOntology/blob/66131945b525c54f44e4962f32bb1f52dfa0cd12/LICENSE
+        https://github.com/Skreen5hot/BusinessProcessOntology/blob/bc64e91839378e1926189c01bf184d6a22d5c1b7/LICENSE
       statement_url: >-
-        https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/66131945b525c54f44e4962f32bb1f52dfa0cd12/LICENSE
+        https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/LICENSE
       statement_sha256: 2154e0221f7e5119b2d45842fcd4be421c11c5d64a459601f2c35f53710c487a
       licence_statement_contains: MIT License
       attribution: >-
@@ -121,6 +121,12 @@ sources:
       the like) are listed in config/upstream-extracts.json as named by
       the specification and described by no pinned file. Widening this is
       a change to the vendoring tool (one url per source today), not just
-      to this file. The namespace is example.org, which is reserved for
-      documentation; that is BPO's RP-5 to settle, and it is why the BCO's
-      own terms do not share it.
+      to this file. Re-pinned on 2026-10-28 from 66131945 (namespace
+      http://example.org/apqc#) to v0.4.1, after BPO moved every IRI to
+      https://fandaws.com/ontology/bpo# with local names unchanged
+      (docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md, R1; the
+      mapping and the semantic comparison are in
+      docs/decisions/2026-10-28-bpo-repin-migration.md). The prefix stays
+      `ex` as a temporary binding for BPO's genera only (R3); BPO's own
+      Turtle now writes `bpo:`, and the BCO adopts it with specification
+      v0.5 and CM-01's next reviewed version.

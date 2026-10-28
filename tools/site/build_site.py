@@ -1406,17 +1406,16 @@ def build(out: Path) -> list[tuple[str, str]]:
            for name, entry in sorted(data["baseline"]["rungs"].items())]) \
         + vacuity
 
-    unresolved_parts = []
-    for key, record in sorted(data["extracts"]["extracts"].items()):
-        names = record["named_by_specification_described_by_no_pinned_file"]
-        if not names:
-            continue
-        unresolved_parts.append(
-            "<h3>%s namespace (%d)</h3>\n<ul class=\"term-list\">\n%s\n</ul>"
-            % (esc(key.upper()), len(names), "\n".join(
-                "  <li>%s</li>" % code(short_id(iri, data["known"]))
-                for iri in names)))
-    unresolved = "\n".join(unresolved_parts) or "<p>None.</p>"
+    # As the specification writes them, attributed to no namespace: the
+    # draft writes ex: for BPO's terms and for the BCO's own (decision
+    # 2026-10-28, R3), so grouping these under BPO would misattribute.
+    names = data["extracts"]["specification_names_described_by_no_pinned_file"]
+    unresolved = (
+        "<p>%d name(s), as the specification writes them.</p>\n"
+        "<ul class=\"term-list\">\n%s\n</ul>"
+        % (len(names), "\n".join("  <li>%s</li>" % code(name)
+                                 for name in names))
+        if names else "<p>None.</p>")
 
     def file_table(rows: list[dict], href_prefix: str, licence: bool) -> str:
         head = "<th>File</th><th>Bytes</th><th>SHA-256</th>" + (

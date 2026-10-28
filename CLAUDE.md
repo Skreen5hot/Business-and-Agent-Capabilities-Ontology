@@ -34,9 +34,12 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
   as `AUTHORED_NAMESPACES` in `tools/ontology/validate.py` (all provisional, pending RP-5):
   `https://fandaws.com/ontology/bco#` for ontology terms; `bco-metamodel#` and `bco-catalog#`
   for vocabulary concepts; `bco-sources#` and `bco-agents#` for source records and agents.
-  Vocabulary IRIs are minted by `tools/vocab/build.py`, never by hand. The spec writes terms
-  as `ex:`, which is BPO's namespace — do not copy spec Turtle examples verbatim. Reference BPO
-  act types by their `ex:` IRIs; never redeclare them. A namespace change edits the list and
+  Vocabulary IRIs are minted by `tools/vocab/build.py`, never by hand. The spec writes `ex:`
+  both for BPO's terms and for terms the BCO will mint (spec v0.5 corrects it) — do not copy
+  spec Turtle examples verbatim. Since the 2026-10-28 re-pin, `ex:` is a temporary prefix for
+  BPO's genera only, bound to `https://fandaws.com/ontology/bpo#`
+  (`docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md`, R3): reference BPO act types
+  through it, never redeclare them, and never write a BCO term with it. A namespace change edits the list and
   every shape's SPARQL filter in one commit; `tests/test_namespace.py` fails until they agree.
 - **Every tracked file is declared** in `config/repository-layout.yaml` with a role. A new
   file without a declaration fails the suite.

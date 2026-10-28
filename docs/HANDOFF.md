@@ -87,7 +87,10 @@ finding to RP-10.
 BCO terms are to be authored in `https://fandaws.com/ontology/bco#`, the architect's
 choice of 2026-10-23 pending **RP-5**; ADR-003 D1 adds four sibling namespaces for the
 vocabulary (`bco-metamodel#`, `bco-catalog#`, `bco-sources#`, `bco-agents#`). The spec
-writes terms as `ex:` in BPO's `http://example.org/apqc#`. When RP-5 is decided, change
+writes `ex:` both for BPO's terms and for terms the BCO will mint; spec v0.5 corrects that.
+Since the 2026-10-28 re-pin, `ex:` is bound to BPO's `https://fandaws.com/ontology/bpo#` as a
+temporary prefix for BPO's genera only (R3); it becomes `bpo:` with spec v0.5 and CM-01's
+next reviewed version. When RP-5 is decided, change
 `AUTHORED_NAMESPACES` in `tools/ontology/validate.py`, `NAMESPACES` in
 `tools/vocab/build.py`, and every SPARQL filter in `shapes/wellformedness_shapes.ttl` and
 `shapes/vocabulary_shapes.ttl` in one commit; `tests/test_namespace.py` fails until all
@@ -96,11 +99,13 @@ too.
 
 ### 5.2 BPO is vendored from one file
 
-Only `ontology/apqc-ext.ttl` at BPO `6613194`: 6 act genera. The reality-layer slices, the
+Only `ontology/apqc-ext.ttl` at BPO `bc64e91` (v0.4.1; re-pinned on 2026-10-28 from
+`6613194`, with the IRI mapping and semantic comparison in
+`docs/decisions/2026-10-28-bpo-repin-migration.md`): 6 act genera. The reality-layer slices, the
 catalog and `capabilities_*.ttl` are not here, so BPO process classes the spec names
 (`ex:P10020` and others) resolve to nothing. They are listed in
-`config/upstream-extracts.json` under `named_by_specification_described_by_no_pinned_file`,
-alongside the terms the BCO will mint and the spec's worked-example individuals — 61 in
+`config/upstream-extracts.json` under `specification_names_described_by_no_pinned_file`,
+as the spec writes them and attributed to no namespace, alongside the terms the BCO will mint and the spec's worked-example individuals — 61 in
 all, unsorted by kind. Widening BPO means teaching `vendor_upstream.py` to take more than
 one url per source; it is not just a config change.
 
