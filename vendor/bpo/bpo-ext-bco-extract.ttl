@@ -2,12 +2,12 @@
 #
 # A partial extract of Business Process Ontology, pinned.
 #
-#   release     main@6613194
-#   commit      66131945b525c54f44e4962f32bb1f52dfa0cd12
-#   source      https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/66131945b525c54f44e4962f32bb1f52dfa0cd12/ontology/apqc-ext.ttl
-#   sha256      1b9a9375cb7303003556004effd712b63913d6aa4935dbf604a653aec65cab4b
-#   licence     MIT (https://github.com/Skreen5hot/BusinessProcessOntology/blob/66131945b525c54f44e4962f32bb1f52dfa0cd12/LICENSE)
-#   as stated   MIT License (https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/66131945b525c54f44e4962f32bb1f52dfa0cd12/LICENSE)
+#   release     v0.4.1 (main@bc64e91)
+#   commit      bc64e91839378e1926189c01bf184d6a22d5c1b7
+#   source      https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/ontology/apqc-ext.ttl
+#   sha256      a8119728796872a1814aace8130a32cc8e42961b0bd5feaa28b736d60a0cc6fd
+#   licence     MIT (https://github.com/Skreen5hot/BusinessProcessOntology/blob/bc64e91839378e1926189c01bf184d6a22d5c1b7/LICENSE)
+#   as stated   MIT License (https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/LICENSE)
 #
 # Business Process Ontology (BPO). Copyright (c) 2026 Aaron Damiano, licensed under the MIT License; the full licence text is at the licence url above, at the pinned commit.
 #
@@ -28,13 +28,13 @@
 @prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
 @prefix obo:     <http://purl.obolibrary.org/obo/> .
 @prefix cco:     <https://www.commoncoreontologies.org/> .
-@prefix ex:      <http://example.org/apqc#> .
+@prefix ex:      <https://fandaws.com/ontology/bpo#> .
 
-<https://fandaws.com/ontology/bco/vendor/bpo-ext-bco-extract> dcterms:license <https://github.com/Skreen5hot/BusinessProcessOntology/blob/66131945b525c54f44e4962f32bb1f52dfa0cd12/LICENSE> .
-<https://fandaws.com/ontology/bco/vendor/bpo-ext-bco-extract> dcterms:source <https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/66131945b525c54f44e4962f32bb1f52dfa0cd12/ontology/apqc-ext.ttl> .
-<https://fandaws.com/ontology/bco/vendor/bpo-ext-bco-extract> owl:versionInfo "Business Process Ontology main@6613194, partial extract for the Business Capability Ontology"@en .
+<https://fandaws.com/ontology/bco/vendor/bpo-ext-bco-extract> dcterms:license <https://github.com/Skreen5hot/BusinessProcessOntology/blob/bc64e91839378e1926189c01bf184d6a22d5c1b7/LICENSE> .
+<https://fandaws.com/ontology/bco/vendor/bpo-ext-bco-extract> dcterms:source <https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/ontology/apqc-ext.ttl> .
+<https://fandaws.com/ontology/bco/vendor/bpo-ext-bco-extract> owl:versionInfo "Business Process Ontology v0.4.1 (main@bc64e91), partial extract for the Business Capability Ontology"@en .
 <https://fandaws.com/ontology/bco/vendor/bpo-ext-bco-extract> rdf:type owl:Ontology .
-<https://fandaws.com/ontology/bco/vendor/bpo-ext-bco-extract> rdfs:comment "Partial extract, not the upstream ontology. 0 axioms whose object is an anonymous class expression were dropped, so a reasoner over this file derives less than one over Business Process Ontology and cannot be used to claim consistency with it. Upstream licence as stated by the source: MIT License (https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/66131945b525c54f44e4962f32bb1f52dfa0cd12/LICENSE)"@en .
+<https://fandaws.com/ontology/bco/vendor/bpo-ext-bco-extract> rdfs:comment "Partial extract, not the upstream ontology. 0 axioms whose object is an anonymous class expression were dropped, so a reasoner over this file derives less than one over Business Process Ontology and cannot be used to claim consistency with it. Upstream licence as stated by the source: MIT License (https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/LICENSE)"@en .
 
 dcterms:license rdf:type owl:AnnotationProperty .
 
@@ -53,19 +53,19 @@ ex:ActOfDevelopment rdfs:subClassOf cco:ont00000228 .
 ex:ActOfDevelopment skos:definition "A Planned Act in which an Agent brings a novel product, service, solution, technology, component, prototype, or process from a specification or concept into an existent realized state." .
 
 ex:ActOfImprovement rdf:type owl:Class .
-ex:ActOfImprovement rdfs:comment "PROPOSE-EXT (D9). Anchored under cco:ont00000228 (Planned Act): it alters an existing occurrent-type or system rather than merely processing information or composing a new plan. Distinct from ex:ActOfImplementation (enacts a fixed directive). Rejected cco:ont00000950 'Act of Maintenance' (restores/preserves a Material Artifact's designed Qualities/Functions, whereas improvement raises performance of a process/system). Recurs in improve/reengineer/enhance/sustain processes (13.0)." .
+ex:ActOfImprovement rdfs:comment "PROPOSE-EXT (D9). Anchored under cco:ont00000228 (Planned Act): it alters an existing occurrent-type or system rather than merely processing information or composing a new plan. Distinct from bpo:ActOfImplementation (enacts a fixed directive). Rejected cco:ont00000950 'Act of Maintenance' (restores/preserves a Material Artifact's designed Qualities/Functions, whereas improvement raises performance of a process/system). Recurs in improve/reengineer/enhance/sustain processes (13.0)." .
 ex:ActOfImprovement rdfs:label "Act of Improvement" .
 ex:ActOfImprovement rdfs:subClassOf cco:ont00000228 .
 ex:ActOfImprovement skos:definition "A Planned Act in which an Agent modifies an existing process, system, or capability with the intent of raising its performance, quality, or fitness against stated objectives." .
 
 ex:ActOfOrganizationalEstablishment rdf:type owl:Class .
-ex:ActOfOrganizationalEstablishment rdfs:comment "PROPOSE-EXT (D9). CCO 2.0 has no Act-of-Establishment/Organization class (verified: no 'Act of Establish/Organiz/Constitut/Found' label in the closure). REJECTED ex:ActOfFormulation (Act of Planning): formulating composes a Directive ICE, but establishing a committee primarily constitutes an independent continuant (the body) rather than authoring a directive; the responsibility-assignment directive is a downstream byproduct of seating the body, not the act's primary product. Anchored at the generic cco:ont00000228 (Planned Act). Recurs in 9.0." .
+ex:ActOfOrganizationalEstablishment rdfs:comment "PROPOSE-EXT (D9). CCO 2.0 has no Act-of-Establishment/Organization class (verified: no 'Act of Establish/Organiz/Constitut/Found' label in the closure). REJECTED bpo:ActOfFormulation (Act of Planning): formulating composes a Directive ICE, but establishing a committee primarily constitutes an independent continuant (the body) rather than authoring a directive; the responsibility-assignment directive is a downstream byproduct of seating the body, not the act's primary product. Anchored at the generic cco:ont00000228 (Planned Act). Recurs in 9.0." .
 ex:ActOfOrganizationalEstablishment rdfs:label "Act of Organizational Establishment" .
 ex:ActOfOrganizationalEstablishment rdfs:subClassOf cco:ont00000228 .
 ex:ActOfOrganizationalEstablishment skos:definition "A Planned Act in which an Agent constitutes and seats an Organization or organizational body (such as a board, committee, or unit), bringing the body into existence and conferring its mandate." .
 
 ex:ActOfRemuneration rdf:type owl:Class .
-ex:ActOfRemuneration rdfs:comment "PROPOSE-EXT (D9). Inlines the verified CCO leaf cco:ont00000449 (Act of Remuneration, subClassOf cco:ont00001334 Act of Purchasing subClassOf cco:ont00000836) for payroll rows whose APQC text is salary/compensation disbursement to employees -- a closer genus than ex:ActOfFinancialTransaction. NOT used for payroll-TAX remittance to a government authority. cco:ont00000228 co-asserted because 449 is outside the standalone-SHACL S2 process-anchor allowlist." .
+ex:ActOfRemuneration rdfs:comment "PROPOSE-EXT (D9). Inlines the verified CCO leaf cco:ont00000449 (Act of Remuneration, subClassOf cco:ont00001334 Act of Purchasing subClassOf cco:ont00000836) for payroll rows whose APQC text is salary/compensation disbursement to employees -- a closer genus than bpo:ActOfFinancialTransaction. NOT used for payroll-TAX remittance to a government authority. cco:ont00000228 co-asserted because 449 is outside the standalone-SHACL S2 process-anchor allowlist." .
 ex:ActOfRemuneration rdfs:label "Act of Remuneration" .
 ex:ActOfRemuneration rdfs:subClassOf cco:ont00000228 .
 ex:ActOfRemuneration rdfs:subClassOf cco:ont00000449 .

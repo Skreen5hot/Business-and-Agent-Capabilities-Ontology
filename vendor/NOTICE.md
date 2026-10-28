@@ -22,15 +22,15 @@ Basic Formal Ontology (BFO) 2020, ISO/IEC 21838-2. Copyright the BFO contributor
 - as stated by the source: https://creativecommons.org/licenses/by/4.0/
 - 23 terms in full, 2 stubs, 22 axioms dropped
 
-## Business Process Ontology main@6613194
+## Business Process Ontology v0.4.1 (main@bc64e91)
 
 Business Process Ontology (BPO). Copyright (c) 2026 Aaron Damiano, licensed under the MIT License; the full licence text is at the licence url above, at the pinned commit.
 
 - extract: `vendor/bpo/bpo-ext-bco-extract.ttl`
-- source: https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/66131945b525c54f44e4962f32bb1f52dfa0cd12/ontology/apqc-ext.ttl
-- commit: `66131945b525c54f44e4962f32bb1f52dfa0cd12`
-- licence: MIT -- https://github.com/Skreen5hot/BusinessProcessOntology/blob/66131945b525c54f44e4962f32bb1f52dfa0cd12/LICENSE
-- as stated by the source: MIT License (https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/66131945b525c54f44e4962f32bb1f52dfa0cd12/LICENSE)
+- source: https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/ontology/apqc-ext.ttl
+- commit: `bc64e91839378e1926189c01bf184d6a22d5c1b7`
+- licence: MIT -- https://github.com/Skreen5hot/BusinessProcessOntology/blob/bc64e91839378e1926189c01bf184d6a22d5c1b7/LICENSE
+- as stated by the source: MIT License (https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/LICENSE)
 - 6 terms in full, 0 stubs, 0 axioms dropped
 
 ## Common Core Ontologies v2.0-2024-11-06

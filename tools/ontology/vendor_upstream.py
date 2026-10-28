@@ -94,7 +94,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import layout  # noqa: E402
 
-FORMAT_VERSION = 1
+FORMAT_VERSION = 2
+#: Where the manifest lists the names the spec writes that no pinned file
+#: describes. Format 1 listed them as IRIs under each extract, and the spec
+#: writes `ex:` both for BPO terms and for terms the BCO will mint, so
+#: `ex:BusinessCapability` was recorded as a term of BPO's namespace. Format
+#: 2 lists them once, as the spec writes them, attributed to no namespace
+#: (architect's decision 2026-10-28, R3).
+UNRESOLVED_KEY = "specification_names_described_by_no_pinned_file"
 GENERATOR = "tools/ontology/vendor_upstream.py"
 PINS = "config/upstream-sources.yaml"
 MANIFEST = "config/upstream-extracts.json"
@@ -271,8 +278,9 @@ def seed_terms(namespaces: tuple) -> set:
     return found
 
 
-def spec_terms() -> set:
-    """Upstream IRIs the current specification names.
+def spec_names() -> dict:
+    """Each upstream name the current specification writes, as written,
+    mapped to the IRI it expands to under the pins.
 
     The spec is Markdown, so it is read as text: `prefix:local` with a
     prefix from the pins, and full IRIs under a pinned namespace.
@@ -285,31 +293,52 @@ def spec_terms() -> set:
     dropped does not keep getting vendored.
     """
     declared = sources()
-    found = set()
+    found = {}
     for entry in layout.components(SPECIFICATION_ROLE):
         text = entry.resolve().read_text(encoding="utf-8")
         text = text.replace(chr(92) + "_", "_")
         for source in declared:
             pattern = (r"(?<![A-Za-z0-9_/#:])" + re.escape(source["prefix"])
                        + r":([A-Za-z_][A-Za-z0-9_]*)")
-            found.update(source["namespace"] + local
-                         for local in re.findall(pattern, text))
-            found.update(re.findall(
-                re.escape(source["namespace"]) + r"[A-Za-z0-9_]+", text))
+            for local in re.findall(pattern, text):
+                found[source["prefix"] + ":" + local] = (
+                    source["namespace"] + local)
+            for iri in re.findall(
+                    re.escape(source["namespace"]) + r"[A-Za-z0-9_]+", text):
+                found[iri] = iri
     return found
+
+
+def spec_terms() -> set:
+    """Upstream IRIs the current specification names."""
+    return set(spec_names().values())
+
+
+def expand_spec_name(name: str) -> str:
+    """A name as the spec writes it, expanded under the current pins."""
+    if "://" in name:
+        return name
+    prefix, _, local = name.partition(":")
+    for source in sources():
+        if source["prefix"] == prefix:
+            return source["namespace"] + local
+    raise Refused("%s records the spec name %r, whose prefix no pin in %s "
+                  "declares" % (MANIFEST, name, PINS))
 
 
 def recorded_unresolvable_spec_terms() -> set:
     """What the last build recorded as named by the spec and described by
     no pinned file. Offline verification excuses exactly these and
-    nothing else."""
+    nothing else.
+
+    The manifest records them as the spec writes them, not as IRIs (see
+    UNRESOLVED_KEY); they are expanded here, in memory, only to compare."""
     path = layout.repository_root() / MANIFEST
     if not path.is_file():
         return set()
     record = json.loads(path.read_text(encoding="utf-8"))
-    return {iri for entry in record.get("extracts", {}).values()
-            for iri in entry.get(
-                "named_by_specification_described_by_no_pinned_file", [])}
+    return {expand_spec_name(name)
+            for name in record.get(UNRESOLVED_KEY, [])}
 
 
 def select(upstream, seeds: set, namespaces: tuple):
@@ -605,10 +634,13 @@ def build(cache: Path) -> dict:
             upstream.add(triple)
 
     strict = seed_terms(namespaces)
-    spec = spec_terms()
+    names = spec_names()
+    spec = set(names.values())
     spec_described = {iri for iri in spec
                       if list(upstream.predicate_objects(rdflib.URIRef(iri)))}
     spec_unresolved = spec - spec_described
+    spec_unresolved_names = sorted(name for name, iri in names.items()
+                                   if iri in spec_unresolved)
     seeds = strict | spec_described
     full, stubs, dropped = select(upstream, seeds, namespaces)
     selected = triples_for(upstream, full, stubs)
@@ -660,11 +692,10 @@ def build(cache: Path) -> dict:
             "seeds": sorted(s for s in seeds if s.startswith(namespace)),
             "seeds_from_corpus_and_shapes": sorted(
                 s for s in strict if s.startswith(namespace)),
-            "spec_unresolved": sorted(
-                s for s in spec_unresolved if s.startswith(namespace)),
             "triples": len(mine),
         }
 
+    built["_spec_unresolved_names"] = spec_unresolved_names
     built["_totals"] = {"seeds": len(seeds),
                         "seeds_from_corpus_and_shapes": len(strict),
                         "seeds_from_specification": len(spec_described),
@@ -697,8 +728,6 @@ def manifest_of(built: dict) -> dict:
             "seed_terms": record["seeds"],
             "seed_terms_from_corpus_and_shapes":
                 record["seeds_from_corpus_and_shapes"],
-            "named_by_specification_described_by_no_pinned_file":
-                record["spec_unresolved"],
             "terms_described_in_full": record["counts"]["full"],
             "terms_declared_as_stubs": record["counts"]["stubs"],
             "axioms_dropped_anonymous_object": record["counts"]["dropped"],
@@ -714,6 +743,7 @@ def manifest_of(built: dict) -> dict:
         "pins": PINS,
         "totals": built["_totals"],
         "extracts": extracts,
+        UNRESOLVED_KEY: built["_spec_unresolved_names"],
         "not_covered": [
             "Axioms whose object is an anonymous class expression are "
             "dropped. OWL restrictions, equivalent-class expressions and "
@@ -725,13 +755,16 @@ def manifest_of(built: dict) -> dict:
             "BPO is vendored from apqc-ext.ttl alone. Its reality-layer "
             "slices, catalog and capability modules are not here, so a BPO "
             "process class the specification names is listed under "
-            "named_by_specification_described_by_no_pinned_file rather "
-            "than described.",
+            + UNRESOLVED_KEY + " rather than described.",
             "Specification seeds are read from the draft specification's "
             "text. A term it names that no pinned file describes is "
             "recorded, not refused: some are terms the BCO will mint, some "
             "are BPO terms from unvendored files, and some may be typos. "
-            "Which is which is not decided here.",
+            "Which is which is not decided here, so they are recorded as "
+            "the specification writes them and attributed to no namespace: "
+            "the specification writes ex: for BPO's terms and for the "
+            "BCO's own, and expanding ex:BusinessCapability under BPO's "
+            "namespace would attribute a BCO class to BPO.",
             "Only terms this repository names, and their structural "
             "ancestry, are present. A new upstream reference in the corpus "
             "is not covered until this is rebuilt; "

@@ -146,6 +146,10 @@ FORMAT = 1
 GENERATOR = "tools/inventory/harvest_bpo.py"
 PINS = "config/inventory-sources.yaml"
 UPSTREAM_PINS = "config/upstream-sources.yaml"
+#: The architect's decision that keeps I-1's baseline once the vendored
+#: extract has moved on (R5); it names the baseline by full commit.
+REVIEWED_BASELINE_RECORD = (
+    "docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md")
 VALIDATOR = "tools/ontology/validate.py"
 CACHE = ".upstream-cache"
 SOURCE_ID = "bpo"
@@ -334,28 +338,43 @@ def pins(base: Path | None = None) -> dict:
                                       remap(baseline["namespace"], mapping),
                                       source["namespace"]))
 
-    # The baseline is "the existing pinned baseline" only if it is the commit
-    # and the bytes config/upstream-sources.yaml vendors.
+    # The baseline is "the existing pinned baseline" (D1), in one of two
+    # states. While the extract is vendored at it, it must be the commit
+    # and the bytes config/upstream-sources.yaml vendors. Once the extract
+    # has been re-pinned, it is I-1's reviewed historical baseline, kept by
+    # the architect's R5: the vendored pin must then be the inventory's own
+    # commit, and R5's record must name the baseline by full commit.
+    # Anything else is a re-pin the inventory does not know about.
     vendored = upstream_pins(base).get(SOURCE_ID)
     if not vendored:
         raise Refused("%s pins no %r, so what baseline is this compared "
                       "with?" % (UPSTREAM_PINS, SOURCE_ID))
     if vendored["commit"] != baseline["commit"]:
-        raise Refused("%s: the baseline is %s, but %s vendors BPO at %s. "
-                      "Was the extract re-pinned without the inventory?"
-                      % (where, baseline["commit"], UPSTREAM_PINS,
-                         vendored["commit"]))
-    if vendored["namespace"] != baseline["namespace"]:
-        raise Refused("%s: the baseline namespace %s is not the vendored "
-                      "pin's %s" % (where, baseline["namespace"],
-                                    vendored["namespace"]))
-    vendored_path = vendored["url"].split(vendored["commit"] + "/", 1)[-1]
-    pinned = {i["path"]: i["sha256"] for i in source["baseline_flat"]}
-    if pinned.get(vendored_path) != vendored["sha256"]:
-        raise Refused("%s: the baseline pins %s at %s, but %s pins the same "
-                      "file at %s. Which bytes are the baseline?"
-                      % (where, vendored_path, pinned.get(vendored_path),
-                         UPSTREAM_PINS, vendored["sha256"]))
+        record = base / REVIEWED_BASELINE_RECORD
+        named = (record.is_file() and baseline["commit"]
+                 in record.read_bytes().decode("utf-8"))
+        if vendored["commit"] != source["commit"] or not named:
+            raise Refused(
+                "%s: the baseline is %s, but %s vendors BPO at %s. That is "
+                "the baseline only before a re-pin, and after one it must be "
+                "the inventory's commit %s with %s naming the baseline as "
+                "I-1's reviewed one. Was the extract re-pinned without the "
+                "inventory?" % (where, baseline["commit"], UPSTREAM_PINS,
+                                vendored["commit"], source["commit"],
+                                REVIEWED_BASELINE_RECORD))
+    else:
+        if vendored["namespace"] != baseline["namespace"]:
+            raise Refused("%s: the baseline namespace %s is not the vendored "
+                          "pin's %s" % (where, baseline["namespace"],
+                                        vendored["namespace"]))
+        vendored_path = vendored["url"].split(vendored["commit"] + "/",
+                                              1)[-1]
+        pinned = {i["path"]: i["sha256"] for i in source["baseline_flat"]}
+        if pinned.get(vendored_path) != vendored["sha256"]:
+            raise Refused("%s: the baseline pins %s at %s, but %s pins the "
+                          "same file at %s. Which bytes are the baseline?"
+                          % (where, vendored_path, pinned.get(vendored_path),
+                             UPSTREAM_PINS, vendored["sha256"]))
 
     licence = source["licence"]
     _require(licence, ("spdx", "path", "sha256", "licence_statement_contains",

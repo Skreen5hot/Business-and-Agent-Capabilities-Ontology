@@ -7,7 +7,10 @@ of 2026-10-23 in docs/decisions): bco# for the ontology, bco-metamodel#
 and bco-catalog# for the vocabulary's two concept schemes, bco-sources#
 for source records and bco-agents# for declared agents.
 tools/ontology/validate.py lists them as AUTHORED_NAMESPACES. The spec
-writes its terms as `ex:` in BPO's http://example.org/apqc#, and
+writes its terms as `ex:`, which was BPO's http://example.org/apqc#
+until BPO v0.4.0 moved to https://fandaws.com/ontology/bpo#; the pin
+followed on 2026-10-28, keeping `ex` as a temporary prefix for BPO's
+genera only (docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md, R3).
 `example.org` is IANA-reserved for documentation: IRIs under it can never
 be dereferenced and must never be cited. BPO is upstream and pinned, so
 references into its namespace are legitimate. Minting a term there is
@@ -33,6 +36,8 @@ import pytest
 from conftest import ROOT, load_tool
 
 RESERVED = "example.org"
+#: BPO's namespace since v0.4.0, and the vendored pin's since 2026-10-28.
+BPO = "https://fandaws.com/ontology/bpo#"
 STALE = "https://stale.invalid/ns#"
 
 #: `STRSTARTS(STR(?x), "<namespace>")`, as the shapes spell a namespace
@@ -140,7 +145,7 @@ def test_no_authored_namespace_is_an_upstream_one(namespaces, upstream):
         assert ns not in upstream
         assert not [u for u in upstream
                     if ns.startswith(u) or u.startswith(ns)], ns
-    assert "http://example.org/apqc#" in upstream, (
+    assert BPO in upstream, (
         "BPO's namespace is not treated as upstream, so a defect in the "
         "vendored BPO extract would be reported as a defect here")
 
@@ -149,7 +154,7 @@ def test_the_overlap_guard_refuses_a_clash(validator, monkeypatch):
     """Falsifies the guard in validate._upstream: an authored namespace
     under an upstream one is refused rather than silently attributed."""
     monkeypatch.setattr(validator, "AUTHORED_NAMESPACES",
-                        ("http://example.org/apqc#bco/",))
+                        (BPO + "bco/",))
     with pytest.raises(SystemExit) as error:
         validator._upstream()
     assert "cannot be told apart" in str(error.value)
@@ -177,10 +182,9 @@ def test_the_old_single_namespace_name_is_gone(validator, repo):
 def test_nothing_is_minted_in_the_reserved_domain(turtle, upstream):
     """Subjects, not references.
 
-    A BCO module will point at BPO act types, which live under
-    example.org, so a reference there is expected. Declaring a term
-    there is not: it would be a BCO term in BPO's namespace, under a
-    domain nobody can dereference.
+    BPO's act types lived under example.org until BPO v0.4.0 and the
+    re-pin of 2026-10-28. Declaring a term there would be a BCO term in
+    the namespace BPO left, under a domain nobody can dereference.
     """
     import rdflib
 
@@ -199,9 +203,10 @@ def test_nothing_is_minted_in_the_reserved_domain(turtle, upstream):
 
 def test_every_reserved_domain_reference_is_to_a_pinned_upstream(turtle,
                                                                 upstream):
-    """The other half. A reference into example.org that is not BPO's
-    pinned namespace is a typo or a leftover from the spec's `ex:`
-    examples, and either way points at nothing."""
+    """The other half. A reference into example.org that is not a pinned
+    namespace -- since the 2026-10-28 re-pin, none is -- is a typo or a
+    leftover from the spec's `ex:` examples or BPO's old namespace, and
+    either way points at nothing."""
     import rdflib
 
     stray = []
