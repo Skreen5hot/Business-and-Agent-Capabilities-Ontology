@@ -26,11 +26,14 @@ reaching cco:ont00001379, and the BCO has no authored class yet.
 
 from __future__ import annotations
 
+import json
+
 import pytest
 
 from conftest import load_tool
 
-BPO = "http://example.org/apqc#"
+#: BPO's namespace since v0.4.0; vendored at it since the 2026-10-28 re-pin.
+BPO = "https://fandaws.com/ontology/bpo#"
 PROCESS = "http://purl.obolibrary.org/obo/BFO_0000015"
 DISPOSITION = "http://purl.obolibrary.org/obo/BFO_0000016"
 REALIZABLE = "http://purl.obolibrary.org/obo/BFO_0000017"
@@ -190,16 +193,36 @@ def test_the_spec_is_actually_read(vendoring, manifest):
     assert ORGANIZATION in spec
 
     for key in ("bfo", "cco"):
-        entry = manifest["extracts"][key]
-        assert entry["named_by_specification_described_by_no_pinned_file"] \
-            == [], (key, entry[
-                "named_by_specification_described_by_no_pinned_file"])
-        assert len(entry["seed_terms"]) >= 6, key
+        assert len(manifest["extracts"][key]["seed_terms"]) >= 6, key
 
-    unresolved = manifest["extracts"]["bpo"][
-        "named_by_specification_described_by_no_pinned_file"]
-    assert BPO + "BusinessCapability" in unresolved
-    assert BPO + "ActOfAcquisition" not in unresolved
+    unresolved = manifest[vendoring.UNRESOLVED_KEY]
+    assert "ex:BusinessCapability" in unresolved
+    assert "ex:ActOfAcquisition" not in unresolved
+    assert not [n for n in unresolved
+                if n.startswith(("cco:", "obo:"))], unresolved
+
+
+def test_spec_names_nothing_describes_are_attributed_to_no_namespace(
+        vendoring, manifest):
+    """The spec writes `ex:` for BPO's terms and for terms the BCO will
+    mint, so expanding ex:BusinessCapability would record a BCO class as
+    a term of BPO's namespace -- what the architect's R3 (2026-10-28)
+    forbids. The manifest lists such names once, as the spec writes them,
+    and no extract's record names any of them as an IRI."""
+    unresolved = manifest[vendoring.UNRESOLVED_KEY]
+    assert unresolved, "the guard below would pass vacuously"
+    assert not [n for n in unresolved if "://" in n], unresolved[:5]
+    as_iris = {vendoring.expand_spec_name(n) for n in unresolved}
+    recorded = json.dumps(manifest["extracts"])
+    assert not [iri for iri in as_iris if '"%s"' % iri in recorded]
+
+
+def test_a_recorded_name_with_an_unknown_prefix_is_refused(vendoring):
+    """Falsifies the expansion the excuse list relies on: a name whose
+    prefix no pin declares names nothing, so it cannot be excused."""
+    assert vendoring.expand_spec_name("ex:Thing") == BPO + "Thing"
+    with pytest.raises(vendoring.Refused):
+        vendoring.expand_spec_name("zz:Thing")
 
 
 def test_a_markdown_escaped_underscore_does_not_truncate_a_term(

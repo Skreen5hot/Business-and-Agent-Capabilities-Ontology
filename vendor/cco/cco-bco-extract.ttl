@@ -28,7 +28,7 @@
 @prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
 @prefix obo:     <http://purl.obolibrary.org/obo/> .
 @prefix cco:     <https://www.commoncoreontologies.org/> .
-@prefix ex:      <http://example.org/apqc#> .
+@prefix ex:      <https://fandaws.com/ontology/bpo#> .
 
 <https://fandaws.com/ontology/bco/vendor/cco-bco-extract> dcterms:license <https://github.com/CommonCoreOntology/CommonCoreOntologies/blob/510dad76be0ef710b65a421075af912af25342b7/LICENSE> .
 <https://fandaws.com/ontology/bco/vendor/cco-bco-extract> dcterms:source <https://raw.githubusercontent.com/CommonCoreOntology/CommonCoreOntologies/510dad76be0ef710b65a421075af912af25342b7/src/cco-merged/CommonCoreOntologiesMerged.ttl> .

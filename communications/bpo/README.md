@@ -24,3 +24,5 @@ the copy here, in `incoming/`, names that file and commit as its `source`.
 **Announced by BPO (2026-10-23):** it will move every IRI it owns from
 `http://example.org/apqc#` to `https://fandaws.com/ontology/bpo#`, and send the mapping
 and landing commit here first. Every BPO IRI the BCO references changes with it.
+BPO did so in v0.4.0 (`327ea2c`, notice filed 2026-10-27); the BCO re-pinned its vendored
+extract to v0.4.1 (`bc64e91`) on 2026-10-28.

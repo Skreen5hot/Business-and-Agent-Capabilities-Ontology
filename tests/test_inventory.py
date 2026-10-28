@@ -31,7 +31,8 @@ FINDINGS = DIRECTORY + "/bpo-findings.yaml"
 NOTICE = DIRECTORY + "/NOTICE.md"
 COPIED = ("config/inventory-sources.yaml", "config/upstream-sources.yaml",
           "tools/ontology/validate.py", ENTRIES, FINDINGS, NOTICE,
-          DIRECTORY + "/README.md")
+          DIRECTORY + "/README.md",
+          "docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md")
 
 
 @pytest.fixture(scope="module")
@@ -164,12 +165,54 @@ def test_a_pin_changed_without_a_rebuild_is_refused(harvest, copy):
                for p in problems)
 
 
+BASELINE = "66131945b525c54f44e4962f32bb1f52dfa0cd12"
+SELECTED = "bc64e91839378e1926189c01bf184d6a22d5c1b7"
+
+
+def test_the_reviewed_baseline_needs_the_architects_record(harvest, copy):
+    """After the re-pin the vendored pin is the inventory's own commit and
+    the baseline is I-1's historical one. That is accepted only because
+    R5's record names the baseline by full commit: without it, a moved
+    pin and a kept baseline would look like a re-pin nobody reviewed."""
+    harvest.check(copy)
+    record = copy / harvest.REVIEWED_BASELINE_RECORD
+    text = record.read_bytes().decode("utf-8")
+    assert BASELINE in text
+    record.write_bytes(text.replace(BASELINE, "b" * 40).encode("utf-8"))
+    with pytest.raises(harvest.Refused,
+                       match="re-pinned without the inventory"):
+        harvest.check(copy)
+
+
+def test_the_pre_repin_state_still_holds_the_old_rule(harvest, copy):
+    """Positive control for the other branch: with the extract vendored at
+    the baseline (as at I-1's review), the baseline must be its commit,
+    namespace and bytes, and is accepted as such."""
+    path = copy / "config/upstream-sources.yaml"
+    text = path.read_bytes().decode("utf-8")
+    old = load(copy, "config/inventory-sources.yaml")["sources"][0][
+        "baseline"]
+    text = (text.replace(SELECTED, BASELINE)
+            .replace("namespace: https://fandaws.com/ontology/bpo#",
+                     "namespace: " + old["namespace"])
+            .replace("a8119728796872a1814aace8130a32cc8e42961b0bd5feaa28b736"
+                     "d60a0cc6fd",
+                     "1b9a9375cb7303003556004effd712b63913d6aa4935dbf604a653"
+                     "aec65cab4b"))
+    path.write_bytes(text.encode("utf-8"))
+    harvest.check(copy)
+    path.write_bytes(text.replace("namespace: " + old["namespace"],
+                                  "namespace: http://example.org/x#")
+                     .encode("utf-8"))
+    with pytest.raises(harvest.Refused, match="not the vendored pin's"):
+        harvest.check(copy)
+
+
 def test_a_baseline_other_than_the_vendored_pin_is_refused(harvest, copy):
     path = copy / "config/upstream-sources.yaml"
     text = path.read_bytes().decode("utf-8")
-    old = "66131945b525c54f44e4962f32bb1f52dfa0cd12"
-    assert text.count(old) >= 2
-    path.write_bytes(text.replace(old, "a" * 40).encode("utf-8"))
+    assert text.count(SELECTED) >= 2
+    path.write_bytes(text.replace(SELECTED, "a" * 40).encode("utf-8"))
     with pytest.raises(harvest.Refused) as refused:
         harvest.check(copy)
     assert "Was the extract re-pinned without the inventory?" in str(

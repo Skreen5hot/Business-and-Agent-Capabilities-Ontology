@@ -205,15 +205,18 @@ python tools/ontology/vendor_upstream.py --rebuild  # fetch and rewrite
 |---|---|---|
 | `bfo` | release-2024-01-29 | the same pin ARO uses |
 | `cco` | v2.0-2024-11-06 | BPO's act genera were anchored and verified against v2.0; ARO pins v2.2 |
-| `bpo` | `main@6613194`, `ontology/apqc-ext.ttl` only | the D9 registry of shared act genera |
+| `bpo` | v0.4.1 (`main@bc64e91`), `ontology/apqc-ext.ttl` only | the D9 registry of shared act genera; re-pinned 2026-10-28 from `6613194` after BPO's namespace move |
 
 **Seeds come from three places.** The authored modules and the shapes, as in ARO — and,
 here, the specification in force (role `specification`), read for `cco:`, `obo:` and `ex:`
 terms. A spec term no pinned file describes is recorded in `config/upstream-extracts.json`
-under `named_by_specification_described_by_no_pinned_file` rather than refused. Today that
-list is 61 `ex:` terms: the ones the BCO will mint, BPO process classes from slices that
-are not vendored, and the spec's worked-example individuals. Every `cco:` and `obo:` term
-the spec names resolves.
+under `specification_names_described_by_no_pinned_file` rather than refused, as the spec
+writes them and attributed to no namespace (manifest format 2, since the 2026-10-28 re-pin:
+the spec writes `ex:` for BPO's terms and for the BCO's own, so expanding them under BPO's
+namespace would attribute BCO classes to BPO, which R3 forbids). Today that list is 61
+`ex:` names: the ones the BCO will mint, BPO process classes from slices that are not
+vendored, and the spec's worked-example individuals. Every `cco:` and `obo:` term the spec
+names resolves.
 
 **When you must rebuild:** whenever the corpus, the shapes or the spec name an upstream
 term that is not yet vendored. The offline check catches it — that is exactly what it is
@@ -705,6 +708,7 @@ Inherited from ARO, because none of them announces itself.
 
 One that is specific to this repository:
 
-- **The spec writes BCO terms as `ex:`.** That prefix is BPO's namespace. Copying a Turtle
-  example out of the spec mints a term in BPO's namespace under `example.org`, and
-  `tests/test_namespace.py` will refuse it.
+- **The spec writes BCO terms as `ex:`.** That prefix is bound to BPO's namespace, as a
+  temporary prefix for BPO's genera only. Copying a Turtle example out of the spec mints a
+  term in BPO's namespace, and `tests/test_namespace.py` will refuse a term under the
+  `example.org` the spec still names.
