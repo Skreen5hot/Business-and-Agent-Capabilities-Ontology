@@ -15,7 +15,7 @@ every run (below).
 | I-1 | BPO harvest, with Q-12 and Q-13 re-measured | **this directory** |
 | I-2a | Rights review of the public catalogs: APQC PCF 7.4 and 8.0, FEAF-II BRM 3.1, FIBF | **`rights.yaml`**; decided 2026-10-28 (`docs/decisions/2026-10-28-i2a-decided.md`) |
 | I-2b | APQC PCF: 7.4 levels 1–2, level-3 standing-function candidates, the 8.0 delta | after I-2a is decided |
-| I-2c | Federal catalogs: FEAF-II BRM and FIBF | after I-2a is decided |
+| I-2c | Federal catalogs: FEAF-II BRM and FIBF | **`feaf-brm-entries.yaml`, `fibf-*.yaml`**; for review |
 | I-3 | Restricted catalogs, citation and coverage only | not started |
 | I-4 | Crosswalk, triage and report | not started |
 | I-5 | Recommendation of a first catalog tranche, for the architect's separate approval | not started |
@@ -38,6 +38,11 @@ reviewer needs in order to disagree with it.
 | `bpo-findings.yaml` | counts at the selected commit and at the baseline, and the diff; IRIs only | `harvest_bpo.py --rebuild` |
 | `NOTICE.md` | the attribution BPO's licence requires, and the APQC evidence | `harvest_bpo.py --rebuild` |
 | `rights.yaml` | I-2a: per source and edition, the rights evidence pinned by digest, findings, decision points | hand, checked by `rights.py` |
+| `feaf-brm-entries.yaml` | I-2c: FEAF-II BRM 3.1, both OMB documents kept apart | `harvest_federal.py --rebuild` |
+| `fibf-entries.yaml` | I-2c: FIBF functions and activities | `harvest_federal.py --rebuild` |
+| `fibf-business-capabilities.yaml` | I-2c: FIBF business capabilities, each with the homonym flag | `harvest_federal.py --rebuild` |
+| `fibf-snapshot.yaml` | I-2c: every pinned FIBF document, its status, draft and duplicate findings, FIBF-2 a columns | `harvest_federal.py --rebuild` |
+| `NOTICE-federal.md` | I-2c: the attribution of the federal text (OMB; GSA and the standards lead agencies) | `harvest_federal.py --rebuild` |
 | `README.md` | this file | hand |
 
 The pins are `config/inventory-sources.yaml`: BPO `main` HEAD on 2026-10-27, resolved to
@@ -170,3 +175,76 @@ and, for BPO evidence without a local clone, raw.githubusercontent.com, and alwa
 the network rather than the cache: a moved digest means the publisher changed the
 document, which is a new edition for the architect, not a re-pin. apqc.org is never
 fetched: it challenges scripted clients and its Terms forbid automated access.
+
+## The federal catalogs (Phase I-2c)
+
+Harvested under the architect's I-2a decisions of 2026-10-28
+(`docs/decisions/2026-10-28-i2a-decided.md`): BRM-1 a and BRM-2 c for the BRM, FIBF-1 c,
+FIBF-2 a and FIBF-3 a for FIBF. `tools/inventory/harvest_federal.py` reads the pinned
+documents from `.upstream-cache/i2a/` (named by sha256, gitignored; a missing one is fetched
+from its pinned URL and must match). The pins are `config/inventory-federal-sources.yaml`,
+which names evidence items whose URL and digest stay in `rights.yaml`, so each document has
+one pin. Nothing is minted, grouped or merged; every entry names its document, the
+document's digest and a locator (page; sheet and row; or, for the EEO page, the HTML line).
+Ids are `INV-<source>-<code>-<kind>`; a code repeated inside one document keeps one entry
+per row, its id carrying the row.
+
+**FEAF-II BRM 3.1** (`feaf-brm-entries.yaml`, register SRC-GOV-06). Both OMB documents,
+kept apart (BRM-2 c): the service codes and definitions table (`INV-FEAF-BRM-SCD-...`,
+`brm-service`) and the taxonomy appendix (`INV-FEAF-BRM-TAX-...`: `brm-mission-sector` from
+the section headings, `brm-business-function` and `brm-service` from the table rows), levels
+named as the BRM names them. A service row also records the mission sector and business
+function its own columns print, as printed. The taxonomy states its structure on page 1
+(10 mission sectors, 40 business functions, 228 services) and its tables print 20 business
+function rows and 208 service rows; the rest appear only in the tree diagrams, which are
+not harvested. The two PDFs are read with pypdf (pinned in `requirements-dev.txt`) for
+their objects only; the tool places every glyph itself and assigns it to a column by
+position, and every row is accounted for or the build refuses.
+
+**FIBF** (register SRC-GOV-05). `fibf-snapshot.yaml` lists every pinned FIBF document
+(FIBF-3 a) with its status:
+
+- **harvested**: no MITRE notice in `rights.yaml` *and* none in the bytes, and no other
+  copyright, licence or proprietary notice in any header, footer, drawing, document
+  property or cell. The rights were validated from the bytes, not taken from `rights.yaml`
+  alone; they agree for every document.
+- **withheld-mitre** (FIBF-1 c): the content is not harvested, and the snapshot lists the
+  document by locator, digest and status only.
+- **withheld-ambiguous**: `rights.yaml` and the bytes disagree, or another notice is present;
+  treated as restricted. None today.
+
+Draft status comes from the bytes (a cover drawing reading "Draft") or the pinned domain
+page (the ITS page calls its functions and activities draft); duplicates are workbooks
+whose every cell is identical (the two contract-writing workbooks), recorded both ways and
+never merged. Functions and activities are in `fibf-entries.yaml`; business capabilities,
+in FIBF's own meaning, are in `fibf-business-capabilities.yaml`, each with
+`homonym_flag: true` (E5): a FIBF business capability is an outcome-based requirement
+record, not a BCO capability type, and is neither equated with one nor excluded.
+
+Inside a harvested document a field's text is withheld, keeping the code, when it equals
+(two words or more, case and punctuation ignored) a cell of a withheld MITRE-marked
+workbook, or when it names ITIL, TBM, AXELOS, PeopleCert or Technology Business
+Management or equals a cell of a FIBF-2 a mapping column (a column whose header names
+them or half of whose cells do, and the ITS workbook's cost-categorization sheet). No
+mapping column is read; the snapshot lists every column that names them. Not harvested:
+other FIBF components (service measures, data elements, scenarios), bibliographies, hidden
+working sheets, and the EEO page's activity and capability tables, which are empty in the
+pinned bytes (the browser fills them from a resource that is not pinned).
+
+Observed and recorded, not acted on: the eleven HR business-capability lists carry no
+notice, but their external-link targets point at files on a MITRE host
+(`external_links_to_mitre_host` in the snapshot); like the BRM's contractor residual, a
+residual rather than a notice.
+
+```bash
+python tools/inventory/harvest_federal.py             # offline check (before committing; CI)
+python tools/inventory/harvest_federal.py --rebuild   # harvest the cached pinned documents, rewrite
+python tools/inventory/harvest_federal.py --confirm   # refetch every document, require byte-identity
+```
+
+The offline check refuses what `docs/DEVELOPMENT.md` lists for `harvest_federal.py`;
+`--rebuild` and `--confirm` also refuse any harvested text equal to a MITRE-marked
+workbook's, which needs those workbooks' bytes. `--confirm` fetches only from ussm.gsa.gov, www.gsa.gov
+and obamawhitehouse.archives.gov, never from the cache. Not done: the register's
+SRC-GOV-05 URL (now 404) and SRC-GOV-06's secondary citations are still to be corrected in
+a separate change.

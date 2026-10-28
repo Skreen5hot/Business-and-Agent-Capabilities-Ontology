@@ -1,0 +1,104 @@
+# Pins and posture of the Capability Term Inventory's federal catalogs
+# (Phase I-2c): FEAF-II BRM 3.1 and FIBF.
+#
+# Read by tools/inventory/harvest_federal.py, which writes the outputs
+# named here, and by tools/licensing/disposition.py, which reads the
+# licence and attribution of each entries file from here (as it reads
+# config/inventory-sources.yaml for Phase I-1).
+#
+# WHERE THE DIGESTS ARE
+#
+# Not here. Every document this phase reads is pinned by URL and sha256 in
+# docs/sources/inventory/rights.yaml (I-2a), which the architect's decision
+# of 2026-10-28 accepted as the evidence for I-2c. This file names those
+# evidence items by id and the generator reads their digests from there, so
+# a document has one pin, in one place; a digest copied here could drift
+# from the one the rights review checked. rights.yaml is checked by
+# tools/inventory/rights.py; the generator refuses a document id it cannot
+# find there, and an output recording any other digest.
+#
+# WHAT THIS FILE DECIDES, AND WHAT IT DOES NOT
+#
+# Nothing about rights. The posture is the architect's
+# (docs/decisions/2026-10-28-i2a-decided.md: BRM-1 a, BRM-2 c, FIBF-1 c,
+# FIBF-2 a, FIBF-3 a), and which FIBF documents are published is decided by
+# the generator from the bytes and rights.yaml together, under the rule in
+# its docstring: a document carrying a MITRE notice, or any other
+# copyright, licence or proprietary notice, is not harvested, and a
+# document where rights.yaml and the bytes disagree is treated as
+# restricted. This file only says which documents are in the snapshot,
+# where the outputs go, and the attribution the notice carries.
+#
+# LICENCE
+#
+# Both sources are works of the United States Government (OMB; GSA and the
+# standards lead agencies), free of copyright in the United States under
+# 17 U.S.C. 105, with no licence to point to. `LicenseRef-US-Government-Work`
+# is a local SPDX reference for that status, not a licence text. No
+# attribution is legally required (rights.yaml, attribution.required:
+# false); the attribution below is the citation the inventory owes its
+# reader, and the licensing check holds the notice to it.
+
+format: 1
+phase: I-2c
+directory: docs/sources/inventory
+rights: docs/sources/inventory/rights.yaml
+decisions:
+  - docs/decisions/2026-10-28-i2a-decided.md
+  - docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md
+
+sources:
+  - id: feaf-brm-3.1
+    register: SRC-GOV-06
+    rights_record: feaf-brm-3.1
+    project: Federal Enterprise Architecture Business Reference Model (BRM) 3.1
+    # BRM-2 c: both documents, harvested separately; each has its own
+    # entry prefix so that an id names the document it came from.
+    documents:
+      - evidence: brm-3.1-service-codes-and-definitions
+        entry_prefix: INV-FEAF-BRM-SCD
+      - evidence: brm-3.1-taxonomy
+        entry_prefix: INV-FEAF-BRM-TAX
+    context:
+      - omb-fea-archive-page
+      - wh-archive-copyright-policy
+    licence:
+      spdx: LicenseRef-US-Government-Work
+      attribution: >-
+        Federal Enterprise Architecture Business Reference Model version
+        3.1 and its taxonomy (Appendix H), both dated 15 May 2013, by the
+        Office of Management and Budget, Executive Office of the President
+        of the United States, as archived by the National Archives at
+        https://obamawhitehouse.archives.gov/omb/e-gov/FEA. A work of the
+        United States Government; no endorsement by OMB is implied.
+    outputs:
+      entries:
+        - docs/sources/inventory/feaf-brm-entries.yaml
+      notice: docs/sources/inventory/NOTICE-federal.md
+
+  - id: fibf-2026-10-28
+    register: SRC-GOV-05
+    rights_record: fibf-2026-10-28
+    project: Federal Integrated Business Framework (FIBF)
+    entry_prefix: INV-FIBF
+    # FIBF-3 a: the full pinned snapshot -- every rights.yaml evidence item
+    # marked `snapshot: candidate` (39 workbooks and the EEO page). The
+    # generator refuses a list that differs from rights.yaml's.
+    snapshot: candidate
+    context:
+      - fibf-index-page
+      - gsa-website-policies
+    licence:
+      spdx: LicenseRef-US-Government-Work
+      attribution: >-
+        Federal Integrated Business Framework business standards, published
+        by the U.S. General Services Administration (Office of Shared
+        Solutions and Performance Improvement) at https://ussm.gsa.gov/fibf/
+        for each domain's standards lead agency. Works of the United States
+        Government; no endorsement by GSA or any agency is implied.
+    outputs:
+      entries:
+        - docs/sources/inventory/fibf-entries.yaml
+        - docs/sources/inventory/fibf-business-capabilities.yaml
+      snapshot: docs/sources/inventory/fibf-snapshot.yaml
+      notice: docs/sources/inventory/NOTICE-federal.md

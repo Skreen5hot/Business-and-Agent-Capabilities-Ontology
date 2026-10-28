@@ -20,6 +20,13 @@
 #   Markdown    tools/site/build_site.py renders the specification and the
 #               review for the public site. 3.11 rather than the newest
 #               3.11.x: the newest was days old when this was pinned.
+#   pypdf       tools/inventory/harvest_federal.py parses the two pinned BRM
+#               PDFs' objects and content streams (the text placement is
+#               the tool's own). Only --rebuild and --confirm import it;
+#               the offline check does not. BSD-3-Clause, pure Python, no
+#               dependencies on Python 3.11 and later. 6.20.1 rather than
+#               the newest 6.21.x: the newest were days old when this was
+#               pinned (6.20.1 was released 2026-10-12).
 #
 # ARO also pins jsonschema and owlrl. Nothing ported here imports either,
 # and ARO's own rule is to take out a pin nothing exercises, so they are
@@ -31,3 +38,4 @@ PyYAML==6.0.3
 rdflib==7.6.0
 pyshacl==0.40.1
 Markdown==3.11
+pypdf==6.20.1

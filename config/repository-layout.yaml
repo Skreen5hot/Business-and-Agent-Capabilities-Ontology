@@ -451,6 +451,87 @@ components:
       every pinned document from its official host and requires its
       digest.
 
+  # Phase I-2c, the federal catalogs (FEAF-II BRM 3.1 and FIBF), harvested
+  # under the architect's I-2a decisions of 2026-10-28. The entries files
+  # hold OMB's and GSA's text verbatim, so they are `source-evidence` like
+  # I-1's, with their licence and attribution in their own pin file; the
+  # snapshot holds digests, statuses and locators only, so it is a
+  # generated artifact. The attribution is a notice of its own, because
+  # NOTICE.md is I-1's and its bytes are recorded in I-1's approval. The
+  # documents are read from .upstream-cache/i2a/ and never committed;
+  # nothing from a MITRE-marked workbook is.
+  - id: inventory.feaf-brm-entries
+    path: docs/sources/inventory/feaf-brm-entries.yaml
+    role: source-evidence
+    generator: tool.inventory-harvest-federal
+    redistributable: true
+    description: >-
+      Phase I-2c: FEAF-II BRM 3.1, both OMB documents kept apart (BRM-2 c)
+      -- the service codes and definitions table and the taxonomy
+      appendix -- one entry per row or section, levels named as the BRM
+      names them, each with its document digest and page.
+
+  - id: inventory.fibf-entries
+    path: docs/sources/inventory/fibf-entries.yaml
+    role: source-evidence
+    generator: tool.inventory-harvest-federal
+    redistributable: true
+    description: >-
+      Phase I-2c: FIBF functions and activities from the clearly
+      redistributable documents of the pinned snapshot, one entry per row,
+      each with its document digest and sheet and row (or HTML line).
+
+  - id: inventory.fibf-business-capabilities
+    path: docs/sources/inventory/fibf-business-capabilities.yaml
+    role: source-evidence
+    generator: tool.inventory-harvest-federal
+    redistributable: true
+    description: >-
+      Phase I-2c: FIBF Business Capabilities in FIBF's own meaning
+      (outcome-based requirement records), each with the homonym flag (E5),
+      kept apart from functions and activities.
+
+  - id: inventory.fibf-snapshot
+    path: docs/sources/inventory/fibf-snapshot.yaml
+    role: generated-artifact
+    generator: tool.inventory-harvest-federal
+    description: >-
+      Phase I-2c: every pinned FIBF document (FIBF-3 a) by digest, with
+      its status (harvested, withheld-mitre, withheld-ambiguous), draft and
+      duplicate findings, and for harvested workbooks the sheets read and
+      not read and the columns that name the third-party frameworks
+      (FIBF-2 a). Withheld documents by locator and digest only.
+
+  - id: inventory.notice-federal
+    path: docs/sources/inventory/NOTICE-federal.md
+    role: documentation
+    generator: tool.inventory-harvest-federal
+    description: >-
+      Attribution for the federal catalogs' text (OMB, the National
+      Archives' copy; GSA and the standards lead agencies), generated from
+      config/inventory-federal-sources.yaml; tools/licensing/disposition.py
+      fails if a declared attribution is missing here.
+
+  - id: config.inventory-federal-sources
+    path: config/inventory-federal-sources.yaml
+    role: configuration
+    description: >-
+      Phase I-2c's pins: which rights.yaml evidence items each source
+      harvests (the digests stay in rights.yaml), the licence and
+      attribution of each entries file, and where the outputs go.
+
+  - id: tool.inventory-harvest-federal
+    path: tools/inventory/harvest_federal.py
+    role: tool
+    description: >-
+      Checks the federal inventory offline by default (digests against
+      rights.yaml, the snapshot, entry schema and locators, the homonym
+      flag, no third-party mapping text, a fresh notice, the admission
+      guard); with --rebuild, harvests the pinned documents from the cache
+      and rewrites the outputs; with --confirm, refetches them from
+      ussm.gsa.gov, www.gsa.gov and obamawhitehouse.archives.gov and requires
+      byte-identical outputs.
+
   - id: docs.trials
     path: docs/trials
     role: documentation
