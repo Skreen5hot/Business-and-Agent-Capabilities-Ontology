@@ -520,6 +520,22 @@ checks the record offline (CI) and refetches every pin with `--confirm` (weekly)
 is never fetched by a script. Not done: any I-2b or I-2c content, lifting I-1's withholding (E7, a separate PR), and correcting the register's
 SRC-GOV-05 URL (now 404) and SRC-GOV-06's secondary-only citations.
 
+### 5.19 Capability Term Inventory, Phase I-2b (APQC PCF, citation only)
+
+Under APQC-1 c (`docs/decisions/2026-10-28-i2a-decided.md`) the PCF is citation only in
+public until APQC answers in writing. `tools/inventory/harvest_pcf.py --write` reads the
+PCF 7.4 workbook BPO commits (pinned by digest in `config/inventory-sources.yaml`) into
+`.inventory-internal/i2b/` — gitignored, `tracked: false`, never committed: levels 1–3
+with names, descriptions, hierarchy ids, locators and BPO's bridge evidence, and an
+empty E4 worksheet. The only public file is the generated
+`docs/sources/inventory/pcf-status.yaml`: citation, posture, counts per level and the
+internal outputs' sha256, guarded against any PCF name, description or code. Not done:
+the **E4 judgements**, deferred until APQC answers question 6 (AI processing) or the
+architect decides; **PCF 8.0**, a gap until the architect supplies the file (`--pcf80
+<path>`, kept outside the repository) and its notice is pinned in `rights.yaml` as an I-2a
+amendment. CI checks the record's shape and guard offline; the weekly job's `--confirm`
+rebuilds it from the workbook fetched from GitHub.
+
 ## 6. Outside the repository
 
 - **Nothing is pushed.** The import (`b4d4493`) and the setup commit are local to the

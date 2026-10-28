@@ -116,6 +116,13 @@ jobs:
       - name: The rights review keeps its pins and writes no catalog content
         run: python tools/inventory/rights.py
 
+      # Offline: the I-2b PCF status record -- citation and counts only,
+      # no PCF name, description or code (APQC-1 c), the admission guard.
+      # CI has no copy of the workbook, so the byte-for-byte reproduction
+      # is the weekly job's.
+      - name: The PCF status record is citation and counts only
+        run: python tools/inventory/harvest_pcf.py
+
       - name: Tests
         run: python -m pytest tests/ -q -p no:randomly
 
@@ -192,3 +199,12 @@ jobs:
       # raw.githubusercontent.com only; apqc.org is never fetched.
       - name: Refetch the rights review's pinned documents and compare
         run: python tools/inventory/rights.py --confirm
+
+      # And for I-2b: does the PCF 7.4 workbook BPO commits still build the
+      # committed status record byte for byte? The workbook is already in
+      # the cache from harvest_bpo.py --confirm (its APQC evidence check);
+      # otherwise it is fetched from raw.githubusercontent.com at the
+      # pinned commit, never from apqc.org. The internal outputs it builds
+      # stay in memory: nothing PCF-derived is written in CI.
+      - name: Rebuild the PCF status record from the pinned workbook and compare
+        run: python tools/inventory/harvest_pcf.py --confirm

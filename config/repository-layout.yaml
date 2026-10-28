@@ -451,6 +451,52 @@ components:
       every pinned document from its official host and requires its
       digest.
 
+  # Phase I-2b, the APQC PCF, under APQC-1 c: citation only in public
+  # until APQC answers in writing (docs/decisions/2026-10-28-i2a-decided.md).
+  # The tool reads the PCF 7.4 workbook BPO commits into internal evidence
+  # that is never committed, and publishes only a status record of the
+  # citation, the posture, aggregate counts and the internal outputs'
+  # digests. The status record holds no PCF content, so it is this
+  # repository's generated artifact, not `source-evidence`.
+  - id: inventory.pcf-status
+    path: docs/sources/inventory/pcf-status.yaml
+    role: generated-artifact
+    generator: tool.inventory-harvest-pcf
+    description: >-
+      Phase I-2b, public: the PCF 7.4 citation (rights holder, work,
+      edition, BPO locator and workbook sha256), the APQC-1 c posture,
+      counts per level and per entry kind, the sha256 of each internal
+      output, and the state of E4 (deferred) and of PCF 8.0 (a gap until
+      supplied). No PCF name, description, code or hierarchy.
+
+  - id: tool.inventory-harvest-pcf
+    path: tools/inventory/harvest_pcf.py
+    role: tool
+    description: >-
+      Checks the PCF status record offline by default (closed schema,
+      pins, consistent counts, a guard against any PCF name, description,
+      element or hierarchy id, the admission guard; with the workbook
+      cached, byte identity with a fresh build and the internal outputs'
+      digests); with --write, reads the pinned workbook and writes the
+      internal outputs and the status record, refusing any internal path
+      git tracks or does not ignore; with --confirm, fetches the workbook
+      from GitHub and requires byte identity; with --pcf80, the 7.4 to 8.0
+      delta.
+
+  - id: inventory.internal
+    path: .inventory-internal
+    role: third-party-reference
+    redistributable: false
+    tracked: false
+    description: >-
+      Phase I-2b's internal evidence: the PCF 7.4 entries (levels 1-3,
+      with names, descriptions, hierarchy ids, locators and BPO bridge
+      evidence), the empty E4 worksheet and, once the architect supplies
+      PCF 8.0, the delta. APQC content whose public redistribution
+      APQC-1 c withholds; it is gitignored, the tool refuses to write it
+      anywhere git does not ignore, and `tracked: false` makes the
+      repository-layout test require it absent from the index.
+
   - id: docs.trials
     path: docs/trials
     role: documentation
