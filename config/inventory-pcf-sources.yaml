@@ -53,7 +53,7 @@
 # It was measured, not typed from the notice: the notice's text exists in
 # this repository only as the tool's copy of it.
 #
-# PCF-BEARING FILES, AND THE ONE EXCEPTION
+# PCF-BEARING FILES, AND EXCEPTIONS
 #
 # `pcf_bearing` lists every tracked file that carries PCF material, with
 # what it carries; NOTICE.md at the repository root is generated from it,
@@ -61,12 +61,33 @@
 # tracked files the gate finds carrying PCF content. Each must carry the
 # notice, except a file in `exceptions`, which names its reason.
 #
-# docs/sources/inventory/bpo-entries.yaml is Phase I-1's output. It
-# publishes PCF element IDs (`pcf_code`), so it is PCF-bearing, and it does
-# not carry the notice. Only the E7 pull request may change an I-1 output
-# (docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md, E7); until it
-# does, the file is listed here, and a test pins this list exactly, so the
-# E7 PR has to empty it.
+# `exceptions` is empty. Until E7 it held Phase I-1's bpo-entries.yaml,
+# "awaits E7": an I-1 output, approved by digest before the decision of
+# 2026-10-29, that only the E7 pull request could change. E7 has added the
+# notice to it, so the list is empty, and a test pins it empty: a new
+# exception is a new decision, not a line added here.
+#
+# E7: LIFTING PHASE I-1'S WITHHOLDING
+#
+# `i1_release` (on the source below) is what tools/inventory/harvest_bpo.py
+# reads to release the labels and definitions Phase I-1 withheld as
+# `apqc-terms-unverified`: decision E7 of
+# docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md, prepared under
+# section 5 of the decision of 2026-10-29. The record of what changed is
+# docs/sources/inventory/e7-release.md.
+# Section 3 of that decision takes all PCF material from BPO at a pinned
+# commit that carries BPO's NOTICE.md, so the released text is read at
+# this source's commit -- the same commit, NOTICE.md and notice digest as
+# the catalog -- and not at I-1's harvest commit bc64e91, which predates
+# BPO's NOTICE.md. `modules` pins, by sha256 at that commit, each BPO
+# module that declares a withheld class: every withheld declaration I-1
+# recorded is in one of them, and the tool refuses one that is not. Each
+# module's ontology header carries APQC's notice in its dct:rights, and
+# the tool requires that too. The tool releases a text only when it is,
+# literal for literal, the text I-1 withheld at bc64e91; a difference is
+# a refusal, because releasing changed text would be a new harvest, not
+# a lift. Kept here rather than in config/inventory-sources.yaml, which is
+# an approved I-1 output recorded by digest and is unchanged by E7.
 
 format: 1
 phase: I-2b
@@ -110,6 +131,33 @@ sources:
         ontology/apqc-catalog.ttl at commit
         2e55edd9e86a0bc20fa88a21595cc61402faa5dc, and used under APQC's
         licence, whose notice is reproduced in full below.
+    i1_release:
+      act: E7
+      authority:
+        - docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md
+        - docs/decisions/2026-10-29-apqc-pcf-sourcing-decided.md
+      i1_approval: docs/decisions/2026-10-27-inventory-i1-approved.md
+      record: docs/sources/inventory/e7-release.md
+      rights_status: apqc-pcf-7.4
+      modules:
+        - path: ontology/slices/apqc_3_0.ttl
+          sha256: 4ee99f5481ee6ca96b8541bb4c22d20f66970857d7df5d16543e511e2ca51238
+        - path: ontology/slices/apqc_6_0.ttl
+          sha256: 02ce2d1874082e38b895137add1282625c951c5ea04ba813976a1f06fc708f8a
+        - path: ontology/slices/apqc_7_0.ttl
+          sha256: ed0060425d0c5f83fa00357409a9aa89c4e2269864eb0b3b99b685c14c4aa1c3
+        - path: ontology/slices/apqc_8_0.ttl
+          sha256: 657d9c20e9290eccdc5c53b43a6974599e9c7a64d8679732ee4da9f02818aacf
+        - path: ontology/slices/apqc_9_0.ttl
+          sha256: cb4f0be31dfca19647ccc0dca237e50b6ce25c012777e1156afab1d4041407fa
+        - path: ontology/slices/apqc_10_0.ttl
+          sha256: 70c39bb71b7788ee2f98aca325580acb3dd4d77ca3dd1e026c7d598d85ace01d
+        - path: ontology/slices/apqc_11_0.ttl
+          sha256: 81833ee01314b4f64b0b4dc5220f39d0498fa2910d58cc1bdb4d184a57f447c6
+        - path: ontology/slices/apqc_12_0.ttl
+          sha256: 04267a0766f7a8ea43735143471a2d019f40a67a3f539b5f7725cb3589fac2fc
+        - path: ontology/slices/apqc_13_0.ttl
+          sha256: d5735c00abe70bcaac0acb27f701f9e681cf6bac80ec2d87f37de7cf463f84f2
 
 pcf_bearing:
   - path: docs/sources/inventory/pcf-7.4-entries.yaml
@@ -119,11 +167,7 @@ pcf_bearing:
   - path: docs/sources/inventory/bpo-entries.yaml
     carries: >-
       PCF element IDs, as `pcf_code` on BPO's capability classes and their
-      catalog bridges (Phase I-1)
+      catalog bridges (Phase I-1), and, since E7, the labels and definitions
+      Phase I-1 had withheld as tied to the PCF
 
-exceptions:
-  - path: docs/sources/inventory/bpo-entries.yaml
-    reason: >-
-      awaits E7: a Phase I-1 output, approved and recorded by digest before
-      the decision of 2026-10-29; only the E7 pull request may change it
-      and add the notice
+exceptions: []

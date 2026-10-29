@@ -347,10 +347,13 @@ CITED_ROLES = {"third-party-reference"}
 #: like a vendored file: the licence is read from
 #: config/inventory-sources.yaml or config/inventory-pcf-sources.yaml, and
 #: the attribution declared there is checked against the notice that file
-#: names. PCF text in I-1's BPO entries is still withheld by that
-#: harvester until the E7 pull request lifts it, not licensed by this
-#: rule. Not `vendored-ontology`: these are YAML, and nothing that reads
-#: Turtle may select them.
+#: names. I-1's BPO entries are recorded here under BPO's MIT licence,
+#: their pin's; since E7 they also carry the PCF text I-1 had withheld,
+#: which is APQC's, and for that the stronger condition is
+#: tools/licensing/pcf_notice.py's (APQC's notice on the file, and the file
+#: listed in the root NOTICE.md), not this rule's one licence per file.
+#: Not `vendored-ontology`: these are YAML, and nothing that reads Turtle
+#: may select them.
 VENDORED_ROLES = {"vendored-ontology", "vendored-asset", "source-evidence"}
 
 #: Suffix rules for files no component claims. Kept small on purpose: the

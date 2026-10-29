@@ -58,7 +58,7 @@ source:
   scheme: https://fandaws.com/ontology/bpo/scheme#PCF
 bridge_input:
   path: docs/sources/inventory/bpo-entries.yaml
-  sha256: 2fd975314aa3ac839aa70ede2ec4e1dd0e78e47628d18a4878689dd5a6f5fe7b
+  sha256: 96fd4631c9d5f01a20c6064919ea5b5a9b690ed9ee7344977d1ca8c4425edb42
   note: 'BPO''s bridge (ADR-001 R4/R6), from Phase I-1''s entries: evidence, not
     proof. I-1 found it is not a standing-function marker'
   codes_not_in_the_catalog: []

@@ -89,14 +89,48 @@ each withholding can be checked. A scope entry carries no literal, so the
 rule decides only its status. What the rule cannot see: PCF text BPO
 paraphrased closely enough to be APQC's but not equal to it. That is the
 residue Phase I-2 has to judge with APQC's terms in hand, and it is why
-the status is "unverified" rather than "clear".
+the status was "unverified" rather than "clear".
+
+E7: THE RELEASE
+
+The rule above is I-1's as approved, and it still runs: it decides which
+entries are tied to the PCF, and `apqc_evidence` still says why. What
+changed is what happens next. The architect's decision of 2026-10-29
+(docs/decisions/2026-10-29-apqc-pcf-sourcing-decided.md) lets PCF 7.4
+names and descriptions be published, taken only from BPO at a pinned
+commit that carries BPO's NOTICE.md, with APQC's notice on the artifact;
+decision E7 (docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md) lifts
+I-1's withholding in a pull request of its own. So, as a separate step
+after the rule (`release`), every withheld entry is released:
+
+  - its labels and definitions are read from the same module at the
+    commit config/inventory-pcf-sources.yaml pins for the PCF (the
+    source's `i1_release` block pins each module by sha256), whose
+    ontology header must carry APQC's notice in its dct:rights;
+  - they must equal, literal for literal, what the rule withheld at the
+    harvest commit. Releasing different text would be a new harvest, not a
+    lift, so a difference is a refusal and a question for the architect;
+  - the declaration records where the released text was read
+    (`text_from`, a line locator at the release commit), and the entry's
+    rights_status becomes the release status (`apqc-pcf-7.4`);
+  - the entries file carries APQC's notice (`apqc_notice`, taken from
+    BPO's NOTICE.md and checked against the pinned digest, as
+    tools/licensing/pcf_notice.py requires) and a `release` block naming
+    the commit, the digests and the authority.
+
+Everything else is I-1's harvest, unchanged: the harvest commit, the
+baseline, the findings, and every entry the rule did not tie to the PCF.
+docs/sources/inventory/e7-release.md records what E7 changed and the
+digests of the versions the I-1 approval recorded.
 
 THE OFFLINE CHECK
 
 What runs before every commit and in CI, with no network: the pins are
 well formed; the outputs parse, keep their schema, and record exactly the
-pinned input digests; every withheld entry carries no label or definition
-text and every entry with APQC evidence is withheld; the counts in the
+pinned input digests; no entry is still withheld, every entry with APQC
+evidence or a PCF code is released, every released declaration carries its
+text and names the release commit, and the entries file carries APQC's
+notice and the release block the pins give; the counts in the
 findings agree with the entries; NOTICE.md is a fresh generation; and the
 admission guard (Amendment 4) holds -- no file in the inventory directory
 is anything but YAML or Markdown, none is an RDF serialization, none names
@@ -151,6 +185,11 @@ UPSTREAM_PINS = "config/upstream-sources.yaml"
 REVIEWED_BASELINE_RECORD = (
     "docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md")
 VALIDATOR = "tools/ontology/validate.py"
+#: E7's pins: the source of PCF material (config/inventory-pcf-sources.yaml),
+#: read through the tool that owns that file, from this tool's repository.
+RELEASE_PINS = "config/inventory-pcf-sources.yaml"
+HARVEST_PCF = "tools/inventory/harvest_pcf.py"
+TOOL_ROOT = Path(__file__).resolve().parents[2]
 CACHE = ".upstream-cache"
 SOURCE_ID = "bpo"
 #: The only host --rebuild may reach. A pin naming another is refused, so a
@@ -695,7 +734,11 @@ class Harvest:
                                                 found))
         return found[0] if found else None
 
-    def literals(self, graph, iri: str, properties) -> list[dict]:
+    @staticmethod
+    def literals(graph, iri: str, properties) -> list[dict]:
+        """The literal values of `properties` on `iri` in one graph, sorted.
+        Static, because E7's release reads the same fields, the same way,
+        from a module at another commit."""
         import rdflib
 
         out = []
@@ -1008,6 +1051,198 @@ def scope_entries(h: Harvest, source: dict) -> list[dict]:
     return out
 
 
+# ------------------------------------------------------------------ E7
+
+
+_PCF_TOOL: dict = {}
+
+
+def harvest_pcf():
+    """tools/inventory/harvest_pcf.py, from this tool's own repository.
+
+    The PCF pins are that tool's file; reading them through its pins()
+    keeps one reading of them, and the notice is extracted by the same
+    function that wrote it into the repository-root NOTICE.md."""
+    if "module" not in _PCF_TOOL:
+        import importlib.util
+
+        spec = importlib.util.spec_from_file_location(
+            "bco_harvest_pcf_for_bpo", TOOL_ROOT / HARVEST_PCF)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        _PCF_TOOL["module"] = module
+    return _PCF_TOOL["module"]
+
+
+def release_pins(base: Path) -> dict:
+    """E7's pins: the PCF source of config/inventory-pcf-sources.yaml and
+    its `i1_release` block, checked.
+
+    {repository, raw_base, commit, notice: {path, sha256, section},
+    apqc_notice_sha256, act, authority, i1_approval, record, rights_status,
+    modules: [{path, sha256}]}.
+    """
+    source = harvest_pcf().pins(base)
+    where = "%s source %s i1_release" % (RELEASE_PINS, source["id"])
+    block = source.get("i1_release")
+    _require(block, ("act", "authority", "i1_approval", "record",
+                     "rights_status", "modules"), where)
+    if block["rights_status"] in (RIGHTS_BPO,):
+        raise Refused("%s: rights_status %r is BPO's MIT status; released "
+                      "PCF text is APQC's" % (where, block["rights_status"]))
+    modules = []
+    for item in block["modules"]:
+        _require(item, ("path", "sha256"), where + " modules")
+        if not HEX64.match(str(item["sha256"])):
+            raise Refused("%s: %s has sha256 %r, which is not 64 lowercase "
+                          "hex characters" % (where, item["path"],
+                                              item["sha256"]))
+        modules.append({"path": item["path"], "sha256": item["sha256"]})
+    paths = [m["path"] for m in modules]
+    if len(paths) != len(set(paths)):
+        raise Refused("%s pins a module twice; which digest is meant?"
+                      % where)
+    notice = source["inputs"]["notice"]
+    return {
+        "repository": source["repository"],
+        "raw_base": source["raw_base"],
+        "commit": source["commit"],
+        "notice": {"path": notice["path"], "sha256": notice["sha256"],
+                   "section": notice["section"]},
+        "apqc_notice_sha256": source["apqc_notice_sha256"],
+        "act": block["act"],
+        "authority": list(block["authority"]),
+        "i1_approval": block["i1_approval"],
+        "record": block["record"],
+        "rights_status": block["rights_status"],
+        "modules": sorted(modules, key=lambda m: m["path"]),
+    }
+
+
+def release_inputs(rp: dict) -> list[dict]:
+    """Every file the release reads at its commit, as {path, sha256}."""
+    return [{"path": rp["notice"]["path"], "sha256": rp["notice"]["sha256"]}
+            ] + rp["modules"]
+
+
+def release_notice(rp: dict, notice_md: bytes) -> str:
+    """APQC's notice, from BPO's NOTICE.md at the release commit, held to
+    the pinned digest."""
+    pcf = harvest_pcf()
+    notice = pcf.extract_notice(
+        notice_md.decode("utf-8"), rp["notice"]["section"],
+        "BPO's %s at %s" % (rp["notice"]["path"], rp["commit"][:7]))
+    if sha256(notice.encode("utf-8")) != rp["apqc_notice_sha256"]:
+        raise Refused("APQC's notice as extracted from BPO's %s at %s "
+                      "digests to %s; %s pins %s"
+                      % (rp["notice"]["path"], rp["commit"][:7],
+                         sha256(notice.encode("utf-8")), RELEASE_PINS,
+                         rp["apqc_notice_sha256"]))
+    return notice
+
+
+def release(entries: list[dict], h: Harvest, source: dict, rp: dict,
+            notice: str, modules: dict[str, bytes]) -> list[dict]:
+    """E7: every withheld entry, released; every other entry, untouched.
+
+    `h` is the harvest at I-1's commit, whose declarations hold the text
+    the rule withheld; `modules` are the pinned modules at the release
+    commit, {path: bytes}. Returns new entry dicts; refuses rather than
+    release text that differs from what was withheld.
+    """
+    import rdflib
+
+    marker_value = source["apqc"]["withheld_marker"]
+    marker = {"withheld": marker_value}
+    graphs, lines = {}, {}
+    for path in sorted(modules):
+        text = modules[path].decode("utf-8")
+        graph = rdflib.Graph()
+        graph.parse(data=text, format="turtle")
+        _framing, stated = harvest_pcf().rights_notice(
+            graph, "BPO's %s at %s" % (path, rp["commit"][:7]))
+        if stated != notice:
+            raise Refused("BPO's %s at %s carries a dct:rights whose APQC "
+                          "part is not APQC's notice as BPO's %s states it; "
+                          "text is released only from a module that carries "
+                          "the notice" % (path, rp["commit"][:7],
+                                          rp["notice"]["path"]))
+        graphs[path] = graph
+        lines[path] = LineIndex(text)
+
+    out, differing = [], []
+    for entry in entries:
+        if entry["rights_status"] != marker_value:
+            out.append(entry)
+            continue
+        released = dict(entry, rights_status=rp["rights_status"])
+        if entry["kind"] == KIND_CLASS:
+            withheld_at = {d["module"]: d for d in h.declarations(
+                entry["iri"])}
+            rendered = []
+            for d in entry["declarations"]:
+                if d["label"] != marker or d["definition"] != marker:
+                    raise Refused("%s is withheld but its declaration in %s "
+                                  "is not; the rule and the entry disagree"
+                                  % (entry["id"], d["module"]))
+                if d["module"] not in graphs:
+                    raise Refused("%s withholds text declared in %s, which "
+                                  "%s does not pin for the release. Which "
+                                  "bytes should it be read from?"
+                                  % (entry["id"], d["module"], RELEASE_PINS))
+                graph = graphs[d["module"]]
+                label = Harvest.literals(graph, entry["iri"],
+                                         LABEL_PROPERTIES)
+                definition = Harvest.literals(graph, entry["iri"],
+                                              DEFINITION_PROPERTIES)
+                before = withheld_at[d["module"]]
+                if (label, definition) != (before["label"],
+                                           before["definition"]):
+                    differing.append("%s in %s" % (entry["id"], d["module"]))
+                    continue
+                line = lines[d["module"]].line_of(entry["iri"])
+                if line is None:
+                    raise Refused("%s at %s has no line beginning with %s"
+                                  % (d["module"], rp["commit"][:7],
+                                     entry["iri"]))
+                rendered.append(dict(
+                    d, label=label, definition=definition,
+                    text_from=blob_url(rp, rp["commit"], d["module"],
+                                       line)))
+            released["declarations"] = rendered
+        out.append(released)
+    if differing:
+        raise Refused(
+            "E7 releases text only where BPO at the release commit %s states "
+            "what I-1 withheld at %s, and %d declaration(s) differ: %s. "
+            "Releasing them would publish text nobody reviewed under I-1; "
+            "that is the architect's question, not this tool's."
+            % (rp["commit"][:7], source["commit"][:7], len(differing),
+               ", ".join(differing[:10])))
+    return out
+
+
+def release_document(rp: dict) -> dict:
+    """The entries file's `release` block, from the pins alone."""
+    return {
+        "act": rp["act"],
+        "authority": rp["authority"],
+        "i1_approval": rp["i1_approval"],
+        "record": rp["record"],
+        "repository": rp["repository"],
+        "commit": rp["commit"],
+        "inputs": release_inputs(rp),
+        "apqc_notice_sha256": rp["apqc_notice_sha256"],
+        "rule": (
+            "every label and definition I-1's rights rule withheld "
+            "(apqc_evidence on the entry says why) is read from the same "
+            "module at this commit, whose ontology header carries APQC's "
+            "notice in its dct:rights, and released only when it equals, "
+            "literal for literal, the text withheld at the harvest commit; "
+            "text_from on the declaration is where it was read"),
+    }
+
+
 def measure(h: Harvest, entry_prefix: str, mapping: dict | None) -> dict:
     """The counts and lists the findings report, for one commit.
 
@@ -1191,9 +1426,11 @@ def header(lines: list[str]) -> str:
     return "".join("# %s\n" % line if line else "#\n" for line in lines)
 
 
-def entries_document(source: dict, entries: list[dict]) -> dict:
+def entries_document(source: dict, entries: list[dict], rp: dict,
+                     notice: str) -> dict:
     apqc = source["apqc"]
-    withheld = sum(1 for e in entries if e["rights_status"] != RIGHTS_BPO)
+    released = sum(1 for e in entries
+                   if e["rights_status"] == rp["rights_status"])
     return {
         "format": FORMAT,
         "generator": GENERATOR,
@@ -1213,11 +1450,17 @@ def entries_document(source: dict, entries: list[dict]) -> dict:
             RIGHTS_BPO: ("BPO-authored text, redistributed under BPO's MIT "
                          "licence with the attribution in %s"
                          % source["outputs"]["notice"]),
-            apqc["withheld_marker"]: (
-                "%s; every label and definition the rule ties to the %s %s "
-                "is withheld, keeping the IRI and PCF code"
-                % (apqc["rights_status"], apqc["work"], apqc["edition"])),
+            rp["rights_status"]: (
+                "material of the %s %s, by %s, used under APQC's licence, "
+                "whose notice is apqc_notice below, and not under BPO's MIT "
+                "licence: every label and definition the I-1 rule ties to "
+                "the PCF, withheld as %s when I-1 was approved and released "
+                "under %s from BPO at %s (see release)"
+                % (apqc["work"], apqc["edition"], apqc["rightsholder"],
+                   apqc["withheld_marker"], rp["act"], rp["commit"])),
         },
+        "apqc_notice": notice,
+        "release": release_document(rp),
         "standing_functions": {
             "marker_found": False,
             "entries": 0,
@@ -1230,7 +1473,7 @@ def entries_document(source: dict, entries: list[dict]) -> dict:
             "entries": len(entries),
             KIND_CLASS: sum(1 for e in entries if e["kind"] == KIND_CLASS),
             KIND_SCOPE: sum(1 for e in entries if e["kind"] == KIND_SCOPE),
-            "withheld": withheld,
+            "released": released,
         },
         "entries": entries,
     }
@@ -1247,8 +1490,13 @@ ENTRIES_HEADER = [
     "merged. Read docs/sources/inventory/README.md first.",
     "",
     "Rights: BPO-authored text is BPO's, under the MIT License; see NOTICE.md",
-    "in this directory. Text tied to the APQC PCF is withheld until APQC's",
-    "terms are verified (Phase I-2).",
+    "in this directory. Text tied to the APQC Process Classification",
+    "Framework (PCF) -- entries whose rights_status is apqc-pcf-7.4 -- is",
+    "APQC's material, used under APQC's licence and not under the MIT",
+    "License; APQC's notice is the `apqc_notice` field below, copied from",
+    "BPO's NOTICE.md. APQC does not endorse this work. Keep the notice with",
+    "any copy or derivative of this file. I-1 withheld that text; E7",
+    "released it (docs/sources/inventory/e7-release.md).",
 ]
 
 FINDINGS_HEADER = [
@@ -1302,7 +1550,7 @@ def findings_document(source: dict, selected: dict, baseline: dict,
     }
 
 
-def notice_text(source: dict) -> bytes:
+def notice_text(source: dict, rp: dict) -> bytes:
     """docs/sources/inventory/NOTICE.md, from the pins alone."""
     licence = source["licence"]
     apqc = source["apqc"]
@@ -1312,8 +1560,9 @@ def notice_text(source: dict) -> bytes:
         "The inventory files in this directory redistribute text from the",
         "projects below. Each licence requires attribution, and this file is",
         "that attribution. It is generated by `%s` from" % GENERATOR,
-        "`%s`; the licensing check reads the same pins and" % PINS,
-        "fails if an attribution declared there is missing here.",
+        "`%s` and `%s`; the licensing check reads" % (PINS, RELEASE_PINS),
+        "the same pins and fails if an attribution declared there is missing",
+        "here.",
         "",
         "## %s" % source["project"],
         "",
@@ -1328,19 +1577,36 @@ def notice_text(source: dict) -> bytes:
         "",
         "## %s, %s" % (apqc["work"], apqc["edition"]),
         "",
-        "Rightsholder: %s. Status: %s." % (apqc["rightsholder"],
-                                           apqc["rights_status"]),
+        "Rightsholder: %s. BPO's MIT licence does not speak for APQC's"
+        % apqc["rightsholder"],
+        "material, and APQC does not endorse this work.",
         "",
-        "Every label and definition the harvest ties to the PCF is withheld",
-        "(`withheld: %s`); the rule, and the paraphrase it" % apqc[
-            "withheld_marker"],
-        "cannot detect, are in `README.md` in this directory. Entries keep",
-        "BPO's IRIs and the PCF codes, which are APQC's identifiers for its",
-        "process elements. BPO's MIT licence does not speak for APQC's",
-        "material. Whether APQC's terms cover what is kept, and what",
-        "attribution they would require, is Phase I-2's question. The",
-        "evidence of APQC's terms that BPO carries, pinned in",
-        "`%s`:" % PINS,
+        "Every label and definition the harvest ties to the PCF (the rule is",
+        "in `README.md` in this directory) was withheld, as `%s`,"
+        % apqc["withheld_marker"],
+        "when Phase I-1 was approved (`%s`)." % rp["i1_approval"],
+        "Under %s and the architect's decision of 2026-10-29 it is released:"
+        % rp["act"],
+        "in `%s` those entries have rights_status `%s`,"
+        % (source["outputs"]["entries"], rp["rights_status"]),
+        "and their text is APQC's material, used under APQC's licence.",
+        "APQC's notice travels with it as that file's `apqc_notice` field and",
+        "is reproduced in the repository-root `NOTICE.md`. The text was read",
+        "from BPO at the commit below, the first that carries BPO's",
+        "`NOTICE.md`, from modules whose ontology headers carry the same",
+        "notice, and it equals what I-1 withheld; what changed is recorded in",
+        "`%s`." % rp["record"],
+        "",
+        "- repository: %s" % rp["repository"],
+        "- commit: `%s`" % rp["commit"],
+    ]
+    for item in release_inputs(rp):
+        lines.append("- `%s`, sha256 `%s`" % (item["path"], item["sha256"]))
+    lines += [
+        "",
+        "Entries keep BPO's IRIs and the PCF codes, which are APQC's",
+        "identifiers for its process elements. The evidence of APQC's terms",
+        "that BPO carried at the harvest commit, pinned in `%s`:" % PINS,
         "",
     ]
     for item in apqc["evidence"]:
@@ -1372,9 +1638,23 @@ def build(cache: Path, base: Path | None = None) -> dict[str, bytes]:
                        upstream)
     mapping = source["baseline"]["namespace_mapping"]
 
+    # I-1's harvest and rule, as approved...
     entries = sorted(class_entries(selected, source)
                      + scope_entries(selected, source),
                      key=lambda e: e["id"])
+    # ...then E7's release, a separate step over the rule's result.
+    rp = release_pins(base)
+    if rp["repository"] != source["repository"]:
+        raise Refused("%s takes the PCF from %s, but I-1 harvested %s; "
+                      "released text must come from the project it was "
+                      "withheld from" % (RELEASE_PINS, rp["repository"],
+                                         source["repository"]))
+    released_files = fetch_commit(rp, rp["commit"], release_inputs(rp),
+                                  cache)
+    notice = release_notice(rp, released_files[rp["notice"]["path"]])
+    entries = release(entries, selected, source, rp, notice,
+                      {m["path"]: released_files[m["path"]]
+                       for m in rp["modules"]})
     ids = [e["id"] for e in entries]
     if len(ids) != len(set(ids)):
         raise Refused("two entries share an id: %s"
@@ -1382,7 +1662,7 @@ def build(cache: Path, base: Path | None = None) -> dict[str, bytes]:
 
     outputs = source["outputs"]
     entries_bytes = (header(ENTRIES_HEADER) + "\n" + _dump(
-        entries_document(source, entries))).encode("utf-8")
+        entries_document(source, entries, rp, notice))).encode("utf-8")
     findings_bytes = (header(FINDINGS_HEADER) + "\n" + _dump(
         findings_document(
             source,
@@ -1392,8 +1672,8 @@ def build(cache: Path, base: Path | None = None) -> dict[str, bytes]:
     )).encode("utf-8")
     built = {outputs["entries"]: entries_bytes,
              outputs["findings"]: findings_bytes,
-             outputs["notice"]: notice_text(source)}
-    problems = check_documents(source, built, base)
+             outputs["notice"]: notice_text(source, rp)}
+    problems = check_documents(source, built, base, rp)
     if problems:
         raise Refused("the harvest built outputs its own check refuses:\n  "
                       + "\n  ".join(problems))
@@ -1486,9 +1766,10 @@ def admission_findings(base: Path, directory: str,
     return out
 
 
-def _entry_findings(entry: dict, source: dict) -> list[str]:
+def _entry_findings(entry: dict, source: dict, rp: dict) -> list[str]:
     marker_value = source["apqc"]["withheld_marker"]
     marker = {"withheld": marker_value}
+    released = rp["rights_status"]
     eid = entry.get("id", "<no id>")
     out = []
     for key in ("id", "kind", "iri", "version", "rights_status",
@@ -1513,34 +1794,50 @@ def _entry_findings(entry: dict, source: dict) -> list[str]:
         out.append("%s records version %r, not the pinned commit %s"
                    % (eid, entry["version"], source["commit"]))
     status = entry["rights_status"]
-    if status not in (RIGHTS_BPO, marker_value):
+    if status == marker_value:
+        out.append("%s is still withheld (%s); E7 released every withheld "
+                   "entry. Was it built by the rule without the release?"
+                   % (eid, marker_value))
+    elif status not in (RIGHTS_BPO, released):
         out.append("%s has rights_status %r; it is %s or %s"
-                   % (eid, status, RIGHTS_BPO, marker_value))
+                   % (eid, status, RIGHTS_BPO, released))
     tied = bool(entry["apqc_evidence"]) or entry["pcf_code"] is not None
-    if tied and status != marker_value:
+    if tied and status == RIGHTS_BPO:
         out.append("%s has APQC evidence %s (PCF code %r) and rights_status "
-                   "%r. Who verified APQC's terms?" % (
-                       eid, entry["apqc_evidence"], entry["pcf_code"],
-                       status))
-    if status == marker_value and not tied:
-        out.append("%s is withheld with no APQC evidence recorded; what "
-                   "ties it to the PCF?" % eid)
+                   "%r. Text tied to the PCF is APQC's, under APQC's notice, "
+                   "not BPO's MIT text" % (eid, entry["apqc_evidence"],
+                                           entry["pcf_code"], status))
+    if status == released and not tied:
+        out.append("%s is released as PCF material with no APQC evidence "
+                   "recorded; what ties it to the PCF?" % eid)
+    origin = "%s/blob/%s/" % (rp["repository"], rp["commit"])
 
     def texts(holder, where):
         for field in ("label", "definition"):
             if field not in holder:
                 out.append("%s %s has no %r field" % (eid, where, field))
                 continue
-            value = holder[field]
-            if status == marker_value:
-                if value is not None and value != marker:
-                    out.append("%s is withheld (%s) but its %s %s carries %r. "
-                               "Withheld means the text is absent; where did "
-                               "it come from?" % (eid, marker_value, where,
-                                                  field, value))
-            elif value == marker:
-                out.append("%s is %s but its %s %s is withheld; which is it?"
-                           % (eid, status, where, field))
+            if holder[field] == marker:
+                out.append("%s %s %s is still withheld (%s); E7 released "
+                           "every withheld field" % (eid, where, field,
+                                                     marker_value))
+        if status == released and entry["kind"] == KIND_CLASS:
+            if not all(isinstance(holder.get(f), list)
+                       for f in ("label", "definition")):
+                out.append("%s is released but its %s carries no label or "
+                           "definition list; what was released?"
+                           % (eid, where))
+            module = holder.get("module")
+            if not str(holder.get("text_from", "")).startswith(
+                    origin + str(module) + "#L"):
+                out.append("%s %s is released but its text_from %r is not a "
+                           "line of %s at the release commit %s"
+                           % (eid, where, holder.get("text_from"), module,
+                              rp["commit"]))
+        elif "text_from" in holder:
+            out.append("%s %s names text_from but is not released text; "
+                       "only E7's release reads text at another commit"
+                       % (eid, where))
 
     if entry["kind"] == KIND_CLASS:
         for key in ("declarations", "designated_by"):
@@ -1567,7 +1864,7 @@ def _entry_findings(entry: dict, source: dict) -> list[str]:
 
 
 def check_documents(source: dict, contents: dict[str, bytes],
-                    base: Path) -> list[str]:
+                    base: Path, rp: dict) -> list[str]:
     """Every rule the offline check enforces, over the given bytes."""
     import yaml
 
@@ -1603,6 +1900,18 @@ def check_documents(source: dict, contents: dict[str, bytes],
                         "%s. Was it built from other bytes, or the pins "
                         "changed without --rebuild?" % (outputs["entries"],
                                                         PINS))
+    notice = entries_doc.get("apqc_notice")
+    if not isinstance(notice, str) or sha256(notice.encode("utf-8")) != \
+            rp["apqc_notice_sha256"]:
+        problems.append("%s carries no apqc_notice, or one that is not APQC's "
+                        "notice as %s pins it (sha256 %s)"
+                        % (outputs["entries"], RELEASE_PINS,
+                           rp["apqc_notice_sha256"]))
+    if entries_doc.get("release") != release_document(rp):
+        problems.append("%s records a release that is not what %s pins "
+                        "(commit, inputs, authority). Was it built from "
+                        "other bytes, or the pins changed without "
+                        "--rebuild?" % (outputs["entries"], RELEASE_PINS))
     selected = findings_doc.get("selected") or {}
     baseline = findings_doc.get("baseline") or {}
     if (selected.get("commit"), selected.get("inputs")) != (
@@ -1631,14 +1940,14 @@ def check_documents(source: dict, contents: dict[str, bytes],
         problems.append("%s is not sorted by id, so it is not what the tool "
                         "writes" % outputs["entries"])
     for entry in entries:
-        problems.extend(_entry_findings(entry, source))
+        problems.extend(_entry_findings(entry, source, rp))
 
     counts = entries_doc.get("counts") or {}
     by_kind = {k: sum(1 for e in entries if e.get("kind") == k)
                for k in KINDS}
-    withheld = sum(1 for e in entries
-                   if e.get("rights_status") != RIGHTS_BPO)
-    expected = dict({"entries": len(entries), "withheld": withheld},
+    released = sum(1 for e in entries
+                   if e.get("rights_status") == rp["rights_status"])
+    expected = dict({"entries": len(entries), "released": released},
                     **by_kind)
     if counts != expected:
         problems.append("%s states counts %r; its entries give %r"
@@ -1663,7 +1972,7 @@ def check_documents(source: dict, contents: dict[str, bytes],
                             % (outputs["findings"], row["entry"],
                                outputs["entries"]))
 
-    if contents[outputs["notice"]] != notice_text(source):
+    if contents[outputs["notice"]] != notice_text(source, rp):
         problems.append("%s is not what %s writes from %s. Was it edited by "
                         "hand, or a pin changed without --rebuild?"
                         % (outputs["notice"], GENERATOR, PINS))
@@ -1675,12 +1984,13 @@ def check(base: Path | None = None) -> tuple[list[str], dict]:
     """(findings, the entries document's counts), offline."""
     base = base or root()
     source = pins(base)
+    rp = release_pins(base)
     contents = {}
     for key in ("entries", "findings", "notice"):
         path = base / source["outputs"][key]
         if path.is_file():
             contents[source["outputs"][key]] = path.read_bytes()
-    problems = check_documents(source, contents, base)
+    problems = check_documents(source, contents, base, rp)
     counts = {}
     if not problems:
         counts = parse_yaml(contents[source["outputs"]["entries"]])[
@@ -1727,11 +2037,11 @@ def main(argv=None) -> int:
         for problem in problems:
             print("  FINDING: %s" % problem)
         return 1
-    print("  ok: %d entries (%d capability-class, %d scope-entry, %d "
-          "withheld), digests match the pins, rights and admission rules "
-          "hold, NOTICE.md is fresh"
+    print("  ok: %d entries (%d capability-class, %d scope-entry; %d "
+          "released under E7 with APQC's notice), digests match the pins, "
+          "rights and admission rules hold, NOTICE.md is fresh"
           % (counts["entries"], counts[KIND_CLASS], counts[KIND_SCOPE],
-             counts["withheld"]))
+             counts["released"]))
     return 0
 
 

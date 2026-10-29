@@ -48,8 +48,9 @@ harvest_pcf.py generates from the pins. A PCF-bearing file without the
 notice is a finding unless config/inventory-pcf-sources.yaml lists it in
 `exceptions` with a reason; an exception for a file that no longer needs
 one (untracked, not PCF-bearing, or carrying the notice) is a finding too,
-so the list cannot outlive its reason. Today it holds Phase I-1's
-bpo-entries.yaml, which only the E7 pull request may change.
+so the list cannot outlive its reason. It is empty: until E7 it held
+Phase I-1's bpo-entries.yaml ("awaits E7"), and E7 gave that file the
+notice (docs/sources/inventory/e7-release.md).
 """
 
 from __future__ import annotations

@@ -12,7 +12,7 @@ every run (below).
 
 | Phase | What | State |
 |---|---|---|
-| I-1 | BPO harvest, with Q-12 and Q-13 re-measured | **this directory** |
+| I-1 | BPO harvest, with Q-12 and Q-13 re-measured | **this directory**; its APQC withholding lifted by E7 (**`e7-release.md`**) |
 | I-2a | Rights review of the public catalogs: APQC PCF 7.4 and 8.0, FEAF-II BRM 3.1, FIBF | **`rights.yaml`**; decided 2026-10-28 (`docs/decisions/2026-10-28-i2a-decided.md`) |
 | I-2b | APQC PCF 7.4, every element, from BPO's catalog with APQC's notice (decision of 2026-10-29) | **`pcf-7.4-entries.yaml`**; E4 open, PCF 8.0 deferred |
 | I-2c | Federal catalogs: FEAF-II BRM and FIBF | after I-2a is decided |
@@ -36,7 +36,8 @@ reviewer needs in order to disagree with it.
 |---|---|---|
 | `bpo-entries.yaml` | one entry per BPO source item, never merged | `harvest_bpo.py --rebuild` |
 | `bpo-findings.yaml` | counts at the selected commit and at the baseline, and the diff; IRIs only | `harvest_bpo.py --rebuild` |
-| `NOTICE.md` | the attribution BPO's licence requires, and the APQC evidence | `harvest_bpo.py --rebuild` |
+| `NOTICE.md` | the attribution BPO's licence requires, and where the PCF text released by E7 came from | `harvest_bpo.py --rebuild` |
+| `e7-release.md` | E7: what lifting I-1's withholding changed, and the digests the I-1 approval recorded | hand, checked by `tests/test_inventory.py` |
 | `rights.yaml` | I-2a: per source and edition, the rights evidence pinned by digest, findings, decision points | hand, checked by `rights.py` |
 | `pcf-7.4-entries.yaml` | I-2b: every PCF 7.4 element as BPO's catalog states it, under APQC's notice; not MIT | `harvest_pcf.py --write` |
 | `README.md` | this file | hand |
@@ -45,7 +46,9 @@ The pins are `config/inventory-sources.yaml`: BPO `main` HEAD on 2026-10-27, res
 commit `bc64e91839378e1926189c01bf184d6a22d5c1b7` (v0.4.1), every input file with its
 SHA-256, and the baseline, commit `66131945b525c54f44e4962f32bb1f52dfa0cd12`, which
 `config/upstream-sources.yaml` vendors. Re-pinning the vendored extract is a separate
-decision (D1); this directory does not do it.
+decision (D1); this directory does not do it. E7's release reads BPO at the PCF pin in
+`config/inventory-pcf-sources.yaml` (its `i1_release` block), not here: this file is an
+approved I-1 output and E7 leaves it unchanged.
 
 ## What an entry is
 
@@ -79,8 +82,10 @@ commit, `version.commit`, `rights_status`, `apqc_evidence` and `pcf_code`.
 BPO is MIT, and its own text is redistributed here under that licence with the
 attribution in `NOTICE.md`. BPO's licence cannot waive APQC's conditions on the Process
 Classification Framework, so (Amendment 3) every literal the harvest can tie to the PCF
-is **withheld**: the field is present and holds `{withheld: apqc-terms-unverified}`, and
-the IRI and PCF code are kept. An entry is tied to the PCF when BPO itself says so:
+was **withheld** when I-1 was approved: the field held `{withheld: apqc-terms-unverified}`,
+and the IRI and PCF code were kept. E7 has since released it (below); the rule still runs,
+and still decides which entries are PCF material. An entry is tied to the PCF when BPO
+itself says so:
 
 1. **IRI scheme** — its local name is `P<digits>` or `PCF_<digits>`, BPO's D7 scheme for
    a class minted from a PCF node and for a catalog node (stated in every slice header);
@@ -94,14 +99,45 @@ the IRI and PCF code are kept. An entry is tied to the PCF when BPO itself says 
 5. **shared text** — one of its labels or definitions equals text withheld on another
    class by any of these rules, so the same words are not published under a second IRI.
 
-The evidence is listed on each entry, so every withholding can be checked. What the rule
-cannot see is PCF text BPO paraphrased closely without carrying an annotation; that
-residue is why the status says *unverified*, and it is Phase I-2's to judge with APQC's
-terms in hand. The APQC evidence BPO carries — its PCF 7.4 workbook, whose last sheet
-holds APQC's copyright and attribution notice — is pinned by digest in the config and
-listed in `NOTICE.md`; it is not reproduced here.
+The evidence is listed on each entry, so every tie to the PCF can be checked. What the
+rule cannot see is PCF text BPO paraphrased closely without carrying an annotation; that
+residue was why I-1's status said *unverified*. E7 does not change it: text the rule does
+not tie to the PCF stays recorded as BPO's (`bpo-mit`), and a close paraphrase the rule
+cannot see stays a stated limit of the rule, not a finding. The APQC evidence BPO carried at the harvest commit — its PCF 7.4 workbook,
+whose last sheet holds APQC's copyright and attribution notice — is pinned by digest in
+the config and listed in `NOTICE.md`; it is not reproduced here.
 
 `bpo-findings.yaml` holds IRIs and counts only, so nothing in it is subject to the rule.
+
+### E7: the withholding lifted
+
+Decision E7 (`docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md`) required a separate
+reviewed pull request to lift I-1's withholding, with the I-1 approval and historical
+outputs kept traceable; the architect's decision of 2026-10-29 (section 5) authorized
+preparing it, and its section 3 takes all PCF material from BPO at a pinned commit that
+carries BPO's `NOTICE.md`. `harvest_bpo.py` applies it as a separate step after the rule
+(`release`):
+
+- the labels and definitions of each withheld entry are read from the **same module** at
+  BPO `2e55edd9e86a0bc20fa88a21595cc61402faa5dc`, the commit
+  `config/inventory-pcf-sources.yaml` pins for the PCF; its `i1_release` block pins each
+  module by sha256, and each module's ontology header must carry APQC's notice in its
+  `dct:rights`;
+- the text is released only if it **equals, literal for literal,** what I-1 withheld at
+  `bc64e91`; a difference is a refusal and a question for the architect, because it would
+  publish text nobody reviewed under I-1. At E7 every one was equal;
+- the declaration gains `text_from` (the line at the release commit), the entry's
+  `rights_status` becomes `apqc-pcf-7.4`, and `apqc_evidence` keeps the reason it is
+  PCF material;
+- the entries file gains APQC's notice (`apqc_notice`, from BPO's `NOTICE.md`, held to the
+  pinned digest) and a `release` block naming the commit, every input digest and the
+  authority.
+
+Everything else is I-1's harvest unchanged: the harvest commit `bc64e91` on every entry,
+the baseline `66131945`, `bpo-findings.yaml`, `config/inventory-sources.yaml`, and every
+entry the rule did not tie to the PCF, byte for byte. `e7-release.md` records the
+digests the I-1 approval recorded, the digests now, the counts released and the equality
+measured; the approved versions are in git at the I-1 merge commit `ba8df1a`.
 
 ## Regenerating, and what is checked
 
@@ -112,16 +148,20 @@ python tools/inventory/harvest_bpo.py --confirm   # fetch, harvest, require byte
 ```
 
 `--rebuild` and `--confirm` fetch only from raw.githubusercontent.com at the pinned
-commits (BPO's files, BPO's LICENSE and evidence, and the full CCO and BFO pinned in
-`config/upstream-sources.yaml`), checking every digest; downloads are cached in
-`.upstream-cache/`. Two rebuilds produce identical bytes.
+commits (BPO's files, BPO's LICENSE and evidence, the full CCO and BFO pinned in
+`config/upstream-sources.yaml`, and E7's modules and `NOTICE.md` at the PCF pin),
+checking every digest; downloads are cached in `.upstream-cache/`. Two rebuilds produce
+identical bytes. Nothing is fetched from apqc.org.
 
 The offline check refuses: outputs whose recorded input digests are not the pins; an
 entry missing a field, with an unknown kind, an id that is not
-`INV-BPO-<local name>-<kind>`, or a commit other than the pin; a withheld entry carrying
-label or definition text; an entry with APQC evidence or a PCF code that is not
-withheld; counts in the findings that disagree with the entries; a `NOTICE.md` that is
-not a fresh generation; and, over every file in this directory, anything but YAML or
+`INV-BPO-<local name>-<kind>`, or a commit other than the pin; an entry or field still
+withheld; an entry with APQC evidence or a PCF code that is not released, or a released
+one with none; a released declaration without its label and definition lists or whose
+`text_from` is not a line of its module at the release commit; an `apqc_notice` that is
+not the pinned notice, or a `release` block other than the pins give; counts in the
+findings that disagree with the entries; a `NOTICE.md` that is not a fresh generation;
+and, over every file in this directory, anything but YAML or
 Markdown, anything that reads as an RDF serialization, any IRI in this repository's
 authored namespaces (`AUTHORED_NAMESPACES` in `tools/ontology/validate.py`), and any
 ratification or vocabulary key.
@@ -217,10 +257,10 @@ architect-approved judgements) and **PCF 8.0 deferred**.
 **`NOTICE.md` at the repository root** separates this repository's MIT work from the PCF
 material, lists every PCF-bearing file (from `pcf_bearing` in the pin file), reproduces
 APQC's notice and records where it was copied from. Phase I-1's `bpo-entries.yaml`
-publishes PCF element IDs (`pcf_code`), so it is listed as PCF-bearing; it does not yet
-carry the notice, because only the E7 pull request may change an I-1 output. It is the
-one entry in the pin file's `exceptions`, with the reason "awaits E7", and a test pins
-that list so the E7 PR has to empty it.
+publishes PCF element IDs (`pcf_code`) and, since E7, the labels and definitions I-1 had
+withheld, so it is listed as PCF-bearing and carries the notice. Until E7 it was the one
+entry in the pin file's `exceptions` ("awaits E7"); E7 emptied the list, and a test pins
+it empty.
 
 ```bash
 python tools/inventory/harvest_pcf.py             # offline check (before committing; CI)

@@ -26,7 +26,7 @@ PCF material is taken only from BPO at a pinned commit that carries BPO's `NOTIC
 ## Files that carry PCF material
 
 - `docs/sources/inventory/pcf-7.4-entries.yaml`: every PCF 7.4 element's element ID, hierarchy ID, name and description, with its parent and level (Phase I-2b). Carries the notice.
-- `docs/sources/inventory/bpo-entries.yaml`: PCF element IDs, as `pcf_code` on BPO's capability classes and their catalog bridges (Phase I-1). **Does not yet carry the notice**: awaits E7: a Phase I-1 output, approved and recorded by digest before the decision of 2026-10-29; only the E7 pull request may change it and add the notice.
+- `docs/sources/inventory/bpo-entries.yaml`: PCF element IDs, as `pcf_code` on BPO's capability classes and their catalog bridges (Phase I-1), and, since E7, the labels and definitions Phase I-1 had withheld as tied to the PCF. Carries the notice.
 
 `tools/licensing/pcf_notice.py` fails when a tracked file carries PCF content and is not listed here, or lacks the notice without a recorded exception.
 
