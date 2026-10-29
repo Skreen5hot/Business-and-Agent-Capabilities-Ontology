@@ -1,14 +1,21 @@
-# Request to APQC for written clarification of the PCF terms — text for sending
+# Request to APQC for written clarification of the PCF terms — not sent, superseded
+
+> **Not sent. Superseded on 2026-10-29** by the architect's decision
+> `docs/decisions/2026-10-29-apqc-pcf-sourcing-decided.md`. That decision withdraws APQC-2,
+> so the request is not sent and APQC is not added as a communications team. It replaces
+> APQC-1 with the architect's own rights position: PCF 7.4 is published, sourced from BPO
+> and with APQC's notice. It defers APQC80-1. The text below is kept as it stood when the
+> decision was taken (`b120b48`), as the record of what was considered.
 
 | Field | Value |
 |---|---|
-| Status | **Authorized in principle, not yet sent** (APQC-2 a, `docs/decisions/2026-10-28-i2a-decided.md`, section 3). This revision makes the two disclosures that decision requires, and records the check of the contact. The draft the decision was taken on is this file at `4143880` (SHA-256 `f6818a9b…f63f`) |
+| Status | **Not sent; superseded** by `docs/decisions/2026-10-29-apqc-pcf-sourcing-decided.md`, which withdrew APQC-2. Before that: authorized in principle (APQC-2 a, `docs/decisions/2026-10-28-i2a-decided.md`, section 3). This revision makes the two disclosures that decision requires, and records the check of the contact. The draft the decision was taken on is this file at `4143880` (SHA-256 `f6818a9b…f63f`) |
 | Date | 2026-10-28 |
 | Prepared by | Claude Code (`claude-opus-5-5`), under decisions E2 and APQC-2 |
 | Why | The I-2a rights review (`docs/sources/inventory/rights.yaml`, source `apqc-pcf-7.4`) found APQC's terms ambiguous for this repository's use |
 | Addressee | `pcf_feedback@apqc.org` (see "The contact" below) |
 | Sender | The architect, by email from the architect's own account. The message is signed in the architect's name, so only the architect can send it |
-| After sending | The sent text is filed in `communications/apqc/outgoing/` under the communications protocol, with APQC added as a team. APQC's answer is recorded verbatim in `communications/apqc/incoming/` |
+| After sending | Not applicable: the request is not sent (see the status above) |
 
 ## The contact
 
