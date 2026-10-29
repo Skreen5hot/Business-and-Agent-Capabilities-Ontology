@@ -71,6 +71,8 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
 .venv/Scripts/python tools/site/vendor_assets.py
 .venv/Scripts/python tools/inventory/harvest_bpo.py
 .venv/Scripts/python tools/inventory/rights.py
+.venv/Scripts/python tools/inventory/harvest_pcf.py
+.venv/Scripts/python tools/licensing/pcf_notice.py
 .venv/Scripts/python -m pytest tests/ -q -p no:randomly
 .venv/Scripts/python tools/site/build_site.py && .venv/Scripts/python tools/site/check_site.py
 ```

@@ -64,6 +64,16 @@ SITE_NOTICE = "vendor/site/NOTICE.md"
 #: tools/inventory/harvest_bpo.py writes beside it -- a third notice for a
 #: third tool, for the same reason as the site's.
 INVENTORY_SOURCES = "config/inventory-sources.yaml"
+#: Phase I-2b's pins (the APQC PCF 7.4, taken from BPO), written beside
+#: I-1's rather than into it: I-1's file and notice are approved outputs,
+#: recorded by digest. Same shape. Its entries file is APQC's material
+#: under APQC's licence (a LicenseRef, not an SPDX licence), and its
+#: notice is the repository-root NOTICE.md that
+#: tools/inventory/harvest_pcf.py writes; tools/licensing/pcf_notice.py
+#: checks that APQC's own notice travels with every PCF-bearing file,
+#: which is a stronger condition than the attribution checked here.
+INVENTORY_PCF_SOURCES = "config/inventory-pcf-sources.yaml"
+INVENTORY_PIN_FILES = (INVENTORY_SOURCES, INVENTORY_PCF_SOURCES)
 
 #: SPDX identifiers this tool can recognise in a LICENSE file. Listed
 #: rather than pattern-matched, because "BSD" appears in several licences
@@ -173,34 +183,40 @@ def site_vendored_assets() -> dict:
 def inventory_sources() -> dict:
     """Inventory entries files, {path: ({"licence": ...}, notice)}.
 
-    Read from config/inventory-sources.yaml, the same declaration the
-    harvester writes the notice from. Only a source's `entries` file is
+    Read from config/inventory-sources.yaml (Phase I-1) and
+    config/inventory-pcf-sources.yaml (Phase I-2b), the declarations the
+    harvesters write their notices from. Only a source's `entries` file is
     third-party text; its findings and notice are this repository's.
     """
     import yaml
 
     root = layout.repository_root()
-    path = root / INVENTORY_SOURCES
-    if not path.is_file():
-        raise Refused(
-            INVENTORY_SOURCES + " is missing, so the licence of the "
-            "inventory's third-party text would have to be guessed.")
-    raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
     found = {}
-    for entry in raw.get("sources") or []:
-        licence = entry.get("licence") or {}
-        outputs = entry.get("outputs") or {}
-        for required in ("spdx", "attribution"):
-            if not licence.get(required):
-                raise Refused("%s declares no licence.%s for %s"
-                              % (INVENTORY_SOURCES, required, entry.get("id")))
-        for required in ("entries", "notice"):
-            if not outputs.get(required):
-                raise Refused("%s declares no outputs.%s for %s"
-                              % (INVENTORY_SOURCES, required, entry.get("id")))
-        found[outputs["entries"]] = ({"licence": licence,
-                                      "source": entry.get("id")},
-                                     outputs["notice"])
+    for name in INVENTORY_PIN_FILES:
+        path = root / name
+        if not path.is_file():
+            raise Refused(
+                name + " is missing, so the licence of the inventory's "
+                "third-party text would have to be guessed.")
+        raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+        for entry in raw.get("sources") or []:
+            licence = entry.get("licence") or {}
+            outputs = entry.get("outputs") or {}
+            for required in ("spdx", "attribution"):
+                if not licence.get(required):
+                    raise Refused("%s declares no licence.%s for %s"
+                                  % (name, required, entry.get("id")))
+            for required in ("entries", "notice"):
+                if not outputs.get(required):
+                    raise Refused("%s declares no outputs.%s for %s"
+                                  % (name, required, entry.get("id")))
+            if outputs["entries"] in found:
+                raise Refused("%s is pinned twice among %s"
+                              % (outputs["entries"],
+                                 ", ".join(INVENTORY_PIN_FILES)))
+            found[outputs["entries"]] = ({"licence": licence,
+                                          "source": entry.get("id")},
+                                         outputs["notice"])
     return found
 
 
@@ -221,7 +237,7 @@ def redistributed_sources() -> dict:
     for path, (entry, notice) in inventory_sources().items():
         if path in out:
             raise Refused("%s is pinned by %s and by another pin file"
-                          % (path, INVENTORY_SOURCES))
+                          % (path, " or ".join(INVENTORY_PIN_FILES)))
         out[path] = (entry, notice)
     return out
 
@@ -236,7 +252,7 @@ def licence_of(disposition: str, relative=None):
                 "%s is declared vendored, and none of %s, %s or %s pins a "
                 "source producing it, so nothing states what licence it "
                 "carries." % (relative, UPSTREAM_SOURCES, SITE_VENDOR,
-                              INVENTORY_SOURCES))
+                              " or ".join(INVENTORY_PIN_FILES)))
         return sources[relative][0]["licence"]["spdx"]
     return project_licence()
 
@@ -324,14 +340,17 @@ CITED_ROLES = {"third-party-reference"}
 #:
 #: `source-evidence`: the Capability Term Inventory's entries files
 #: (docs/sources/inventory/), which hold another project's labels and
-#: definitions verbatim as evidence -- today BPO's, under MIT. Written by a
+#: definitions verbatim as evidence -- BPO's, under MIT, and since I-2b the
+#: APQC PCF 7.4 as BPO's catalog carries it, under APQC's licence
+#: (docs/decisions/2026-10-29-apqc-pcf-sourcing-decided.md). Written by a
 #: tool here, but the text is not this repository's, so it is classified
 #: like a vendored file: the licence is read from
-#: config/inventory-sources.yaml, and the attribution declared there is
-#: checked against the notice that file names. Text a source took from a
-#: third party whose terms are unverified (the APQC PCF) is withheld by
-#: the harvester, not licensed by this rule. Not `vendored-ontology`:
-#: these are YAML, and nothing that reads Turtle may select them.
+#: config/inventory-sources.yaml or config/inventory-pcf-sources.yaml, and
+#: the attribution declared there is checked against the notice that file
+#: names. PCF text in I-1's BPO entries is still withheld by that
+#: harvester until the E7 pull request lifts it, not licensed by this
+#: rule. Not `vendored-ontology`: these are YAML, and nothing that reads
+#: Turtle may select them.
 VENDORED_ROLES = {"vendored-ontology", "vendored-asset", "source-evidence"}
 
 #: Suffix rules for files no component claims. Kept small on purpose: the

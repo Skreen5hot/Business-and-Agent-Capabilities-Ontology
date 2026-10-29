@@ -116,12 +116,20 @@ jobs:
       - name: The rights review keeps its pins and writes no catalog content
         run: python tools/inventory/rights.py
 
-      # Offline: the I-2b PCF status record -- citation and counts only,
-      # no PCF name, description or code (APQC-1 c), the admission guard.
-      # CI has no copy of the workbook, so the byte-for-byte reproduction
-      # is the weekly job's.
-      - name: The PCF status record is citation and counts only
+      # Offline: the I-2b PCF entries and the repository-root NOTICE.md --
+      # the generator's form, APQC's notice by its pinned digest, the
+      # header the pins and the decision give, consistent entries, BPO's
+      # bridge as the committed I-1 file gives it, a fresh NOTICE.md and
+      # the admission guard. CI has no copy of BPO's files, so the
+      # byte-for-byte rebuild is the weekly job's.
+      - name: The PCF entries keep their pins, their notice and their form
         run: python tools/inventory/harvest_pcf.py
+
+      # The decision of 2026-10-29, section 4: every tracked file that
+      # carries PCF material carries APQC's notice (or has a recorded
+      # exception), and NOTICE.md lists exactly those files.
+      - name: Every PCF-bearing file carries APQC's notice
+        run: python tools/licensing/pcf_notice.py
 
       - name: Tests
         run: python -m pytest tests/ -q -p no:randomly
@@ -200,11 +208,9 @@ jobs:
       - name: Refetch the rights review's pinned documents and compare
         run: python tools/inventory/rights.py --confirm
 
-      # And for I-2b: does the PCF 7.4 workbook BPO commits still build the
-      # committed status record byte for byte? The workbook is already in
-      # the cache from harvest_bpo.py --confirm (its APQC evidence check);
-      # otherwise it is fetched from raw.githubusercontent.com at the
-      # pinned commit, never from apqc.org. The internal outputs it builds
-      # stay in memory: nothing PCF-derived is written in CI.
-      - name: Rebuild the PCF status record from the pinned workbook and compare
+      # And for I-2b: do BPO's catalog and NOTICE.md at the pinned commit
+      # still build the committed PCF entries and NOTICE.md byte for byte?
+      # Fetches from raw.githubusercontent.com at the pinned commit only;
+      # nothing is ever fetched from apqc.org.
+      - name: Rebuild the PCF entries and NOTICE.md from BPO and compare
         run: python tools/inventory/harvest_pcf.py --confirm

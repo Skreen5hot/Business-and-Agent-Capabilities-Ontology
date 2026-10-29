@@ -313,7 +313,9 @@ components:
       exception to "citations and paraphrase only" is inventory/, the
       Capability Term Inventory, whose files are declared on their own
       below: it carries BPO's MIT-licensed text verbatim, as source
-      evidence, under BPO's licence and attribution.
+      evidence, under BPO's licence and attribution, and (Phase I-2b) the
+      APQC PCF 7.4 as BPO's catalog states it, under APQC's licence and
+      notice.
 
   - id: sources.register
     path: docs/sources/register.yaml
@@ -451,51 +453,80 @@ components:
       every pinned document from its official host and requires its
       digest.
 
-  # Phase I-2b, the APQC PCF, under APQC-1 c: citation only in public
-  # until APQC answers in writing (docs/decisions/2026-10-28-i2a-decided.md).
-  # The tool reads the PCF 7.4 workbook BPO commits into internal evidence
-  # that is never committed, and publishes only a status record of the
-  # citation, the posture, aggregate counts and the internal outputs'
-  # digests. The status record holds no PCF content, so it is this
-  # repository's generated artifact, not `source-evidence`.
-  - id: inventory.pcf-status
-    path: docs/sources/inventory/pcf-status.yaml
-    role: generated-artifact
+  # Phase I-2b, the APQC PCF, under the architect's decision of
+  # 2026-10-29 (docs/decisions/2026-10-29-apqc-pcf-sourcing-decided.md),
+  # which replaced APQC-1's citation-only posture: PCF 7.4 element IDs,
+  # hierarchy IDs, names and descriptions are published, taken only from
+  # BPO's catalog at a pinned commit that carries BPO's NOTICE.md, with
+  # APQC's notice on every PCF-bearing file and a check that refuses one
+  # without it. The entries are APQC's text, so `source-evidence`, like
+  # I-1's: third-party, redistributed under the pinned licence (here
+  # APQC's, a LicenseRef), attributed in the repository-root NOTICE.md.
+  - id: inventory.pcf-entries
+    path: docs/sources/inventory/pcf-7.4-entries.yaml
+    role: source-evidence
     generator: tool.inventory-harvest-pcf
+    redistributable: true
     description: >-
-      Phase I-2b, public: the PCF 7.4 citation (rights holder, work,
-      edition, BPO locator and workbook sha256), the APQC-1 c posture,
-      counts per level and per entry kind, the sha256 of each internal
-      output, and the state of E4 (deferred) and of PCF 8.0 (a gap until
-      supplied). No PCF name, description, code or hierarchy.
+      Phase I-2b: one entry per APQC PCF 7.4 element as BPO's
+      ontology/apqc-catalog.ttl states it at the pinned commit -- element
+      ID, hierarchy ID, level, parent, name, description, BPO's IRI, a
+      line locator, and BPO's bridge evidence from I-1's entries -- under
+      a header carrying the citation, APQC's notice verbatim (copied from
+      BPO's NOTICE.md), the statement that the material is not under this
+      repository's MIT licence, no endorsement, and the marks. E4 open,
+      PCF 8.0 deferred.
+
+  - id: config.inventory-pcf-sources
+    path: config/inventory-pcf-sources.yaml
+    role: configuration
+    description: >-
+      Phase I-2b's pins: the BPO commit, its catalog and NOTICE.md by
+      sha256, the sha256 of APQC's notice as extracted, the outputs, the
+      licence and attribution the licensing tool reads, every PCF-bearing
+      file, and the exceptions to the notice rule (today only I-1's
+      bpo-entries.yaml, awaiting E7).
 
   - id: tool.inventory-harvest-pcf
     path: tools/inventory/harvest_pcf.py
     role: tool
     description: >-
-      Checks the PCF status record offline by default (closed schema,
-      pins, consistent counts, a guard against any PCF name, description,
-      element or hierarchy id, the admission guard; with the workbook
-      cached, byte identity with a fresh build and the internal outputs'
-      digests); with --write, reads the pinned workbook and writes the
-      internal outputs and the status record, refusing any internal path
-      git tracks or does not ignore; with --confirm, fetches the workbook
-      from GitHub and requires byte identity; with --pcf80, the 7.4 to 8.0
-      delta.
+      Checks the PCF entries and the root NOTICE.md offline by default
+      (generator form, header equal to what the pins, rights.yaml and the
+      decision give, the notice's pinned digest, well-formed and sorted
+      entries with consistent parents and counts, BPO's bridge as the
+      committed bpo-entries.yaml gives it, a fresh NOTICE.md, the admission
+      guard; with BPO's files cached, byte identity with a fresh build);
+      with --write, fetches BPO's catalog and NOTICE.md from
+      raw.githubusercontent.com at the pinned commit (or the cache),
+      extracts APQC's notice, requires it to equal the catalog's
+      dct:rights, and writes both outputs; with --confirm, requires them
+      byte for byte.
 
-  - id: inventory.internal
-    path: .inventory-internal
-    role: third-party-reference
-    redistributable: false
-    tracked: false
+  - id: notice.pcf
+    path: NOTICE.md
+    role: documentation
+    generator: tool.inventory-harvest-pcf
     description: >-
-      Phase I-2b's internal evidence: the PCF 7.4 entries (levels 1-3,
-      with names, descriptions, hierarchy ids, locators and BPO bridge
-      evidence), the empty E4 worksheet and, once the architect supplies
-      PCF 8.0, the delta. APQC content whose public redistribution
-      APQC-1 c withholds; it is gitignored, the tool refuses to write it
-      anywhere git does not ignore, and `tracked: false` makes the
-      repository-layout test require it absent from the index.
+      The repository's notice (decision of 2026-10-29, section 4):
+      separates this repository's MIT work from the APQC PCF material,
+      lists every PCF-bearing file and whether it carries the notice yet,
+      reproduces APQC's notice verbatim with the digest of the BPO file it
+      was copied from, and states no endorsement and the marks. Generated
+      from config/inventory-pcf-sources.yaml; the licensing tool requires
+      the PCF entries' attribution in it.
+
+  - id: tool.pcf-notice
+    path: tools/licensing/pcf_notice.py
+    role: tool
+    description: >-
+      The PCF notice gate: reads every tracked YAML, JSON and RDF file,
+      finds those carrying PCF material (PCF id keys; bpo:pcfID,
+      hierarchyID or apqcSourceText, or BPO's PCF scheme), and fails
+      unless each carries APQC's notice (a top-level apqc_notice equal to
+      it; one dct:rights on one ontology header containing it) or has a
+      recorded exception, NOTICE.md reproduces the pinned notice, is
+      fresh, and lists exactly the PCF-bearing files.
 
   - id: docs.trials
     path: docs/trials

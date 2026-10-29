@@ -1,0 +1,129 @@
+# Pins and posture of the Capability Term Inventory's APQC PCF material
+# (Phase I-2b): the PCF 7.4, Cross-Industry, as the Business Process
+# Ontology (BPO) carries it.
+#
+# Read by tools/inventory/harvest_pcf.py, which writes the outputs named
+# here; by tools/licensing/pcf_notice.py, the gate that refuses a
+# PCF-bearing file without APQC's notice; and by
+# tools/licensing/disposition.py, which reads the licence and attribution
+# of the entries file from here (as it reads config/inventory-sources.yaml
+# for Phase I-1).
+#
+# THE AUTHORITY
+#
+# docs/decisions/2026-10-29-apqc-pcf-sourcing-decided.md. The architect
+# replaced APQC-1 (citation only) with this: PCF 7.4 element IDs,
+# hierarchy IDs, names and descriptions may be published, taken only from
+# BPO's repository at a pinned commit that carries BPO's NOTICE.md, with
+# APQC's notice -- copied from that file, not retyped, its digest recorded
+# -- on every PCF-bearing artifact, and a check that fails when one lacks
+# it. Nothing is ever fetched from apqc.org.
+#
+# WHY A FILE OF ITS OWN
+#
+# The PCF workbook pin in config/inventory-sources.yaml is Phase I-1's,
+# and that file is an approved I-1 output recorded by digest
+# (docs/decisions/2026-10-27-inventory-i1-approved.md), so I-2b does not
+# edit it -- the same reason I-2c pinned its federal sources beside it.
+# config/upstream-sources.yaml pins BPO for the vendored apqc-ext.ttl
+# extract, which only the architect's re-pin process moves; this pin is
+# not that one either.
+#
+# WHAT IS PINNED, AND HOW
+#
+# BPO commit 2e55edd, the first commit that carries BPO's NOTICE.md (and
+# BPO's head on 2026-10-29): the earliest the decision admits. Two files,
+# each by sha256 of its bytes, fetched only from raw.githubusercontent.com
+# at the commit and cached under .upstream-cache/ (gitignored, never
+# committed):
+#
+#   ontology/apqc-catalog.ttl  every PCF 7.4 element as a SKOS concept
+#                              with bpo:pcfID, bpo:hierarchyID,
+#                              skos:prefLabel, bpo:apqcSourceText and
+#                              skos:broader; its ontology header's
+#                              dct:rights is BPO's framing sentence, a
+#                              blank line, and APQC's notice.
+#   NOTICE.md                  BPO's notice file; APQC's notice is the
+#                              blockquote under "## APQC's notice".
+#
+# `apqc_notice_sha256` is the sha256 (UTF-8) of APQC's notice as the tool
+# extracts it from that blockquote, its `> ` lines unwrapped into one
+# paragraph. The tool refuses unless the extraction digests to it and is
+# equal to the APQC part of the catalog's dct:rights at the same commit.
+# It was measured, not typed from the notice: the notice's text exists in
+# this repository only as the tool's copy of it.
+#
+# PCF-BEARING FILES, AND THE ONE EXCEPTION
+#
+# `pcf_bearing` lists every tracked file that carries PCF material, with
+# what it carries; NOTICE.md at the repository root is generated from it,
+# and tools/licensing/pcf_notice.py requires it to be exactly the set of
+# tracked files the gate finds carrying PCF content. Each must carry the
+# notice, except a file in `exceptions`, which names its reason.
+#
+# docs/sources/inventory/bpo-entries.yaml is Phase I-1's output. It
+# publishes PCF element IDs (`pcf_code`), so it is PCF-bearing, and it does
+# not carry the notice. Only the E7 pull request may change an I-1 output
+# (docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md, E7); until it
+# does, the file is listed here, and a test pins this list exactly, so the
+# E7 PR has to empty it.
+
+format: 1
+phase: I-2b
+directory: docs/sources/inventory
+rights: docs/sources/inventory/rights.yaml
+rights_source: apqc-pcf-7.4
+decision: docs/decisions/2026-10-29-apqc-pcf-sourcing-decided.md
+
+sources:
+
+  - id: apqc-pcf-7.4-via-bpo
+    project: Business Process Ontology
+    repository: https://github.com/Skreen5hot/BusinessProcessOntology
+    raw_base: https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology
+    commit: 2e55edd9e86a0bc20fa88a21595cc61402faa5dc
+    selected_as: >-
+      The first BPO commit that carries BPO's NOTICE.md ("Carry APQC's PCF
+      notice on every PCF-bearing artifact (NOTICE.md)"), BPO's main HEAD on
+      2026-10-29: the earliest commit the architect's decision of 2026-10-29
+      admits.
+    namespace: https://fandaws.com/ontology/bpo#
+    scheme: https://fandaws.com/ontology/bpo/scheme#PCF
+    entry_prefix: INV-PCF74
+    inputs:
+      catalog:
+        path: ontology/apqc-catalog.ttl
+        sha256: 598faf6efa81ef6545cac04000c3d3834a9e8478f7619a3b8eed848a5b8d1547
+      notice:
+        path: NOTICE.md
+        sha256: ab7d5122a2d6384b9f380f13b76bb94c31295c69aeaa56f7b1ccdf25b79953e3
+        section: APQC's notice
+    apqc_notice_sha256: 582e0ea522de7927c22838ff302adfb95d247b4bd1d96fd9b73edfc83c1c7f2c
+    outputs:
+      entries: docs/sources/inventory/pcf-7.4-entries.yaml
+      notice: NOTICE.md
+    licence:
+      spdx: LicenseRef-APQC-PCF
+      attribution: >-
+        APQC Process Classification Framework (PCF), Cross-Industry, version
+        7.4, by APQC; taken from the Business Process Ontology,
+        ontology/apqc-catalog.ttl at commit
+        2e55edd9e86a0bc20fa88a21595cc61402faa5dc, and used under APQC's
+        licence, whose notice is reproduced in full below.
+
+pcf_bearing:
+  - path: docs/sources/inventory/pcf-7.4-entries.yaml
+    carries: >-
+      every PCF 7.4 element's element ID, hierarchy ID, name and
+      description, with its parent and level (Phase I-2b)
+  - path: docs/sources/inventory/bpo-entries.yaml
+    carries: >-
+      PCF element IDs, as `pcf_code` on BPO's capability classes and their
+      catalog bridges (Phase I-1)
+
+exceptions:
+  - path: docs/sources/inventory/bpo-entries.yaml
+    reason: >-
+      awaits E7: a Phase I-1 output, approved and recorded by digest before
+      the decision of 2026-10-29; only the E7 pull request may change it
+      and add the notice
