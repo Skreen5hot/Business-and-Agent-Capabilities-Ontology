@@ -502,18 +502,33 @@ APQC's July 2026 website Terms bar public distribution absent a licence agreemen
 use); **PCF 8.0** a gap (needs the architect's registration); **BRM 3.1** evidence
 complete and unambiguous (primary OMB PDFs on the archived White House site, no notices);
 **FIBF** evidence complete, terms ambiguous (39 workbooks and 25 domain pages pinned; 21
-workbooks carry a MITRE copyright line). A request to APQC is drafted, unsent, in
-`docs/proposals/2026-10-28-apqc-clarification-request.md`.
+workbooks carry a MITRE copyright line). A request to APQC was drafted in
+`docs/proposals/2026-10-28-apqc-clarification-request.md`; it was never sent (see below).
 **Decided 2026-10-28** (`docs/decisions/2026-10-28-i2a-decided.md`):
-- **APQC:** citation only in public until APQC answers (APQC-1 c). The request is
-  authorized once the contact is verified and the BPO and AI disclosures are explicit
-  (APQC-2 a). The architect obtains 8.0 (APQC80-1 a).
+- **APQC, as decided on 2026-10-28:** citation only in public until APQC answers
+  (APQC-1 c), the request authorized (APQC-2 a), and 8.0 obtained by the architect
+  (APQC80-1 a). All three were superseded the next day (below).
 - **BRM:** the primary documents are accepted, and both are kept as separate sources
   (BRM-1 a, BRM-2 c).
 - **FIBF:**
   - the content of the MITRE-marked workbooks is not published until cleared (FIBF-1 c);
   - the ITIL and TBM columns are excluded (FIBF-2 a);
   - the full snapshot is kept (FIBF-3 a), which does not override FIBF-1.
+
+**APQC superseded 2026-10-29** (`docs/decisions/2026-10-29-apqc-pcf-sourcing-decided.md`).
+The architect takes the position that the PCF's own notice governs its use, and that the
+AI clause in APQC's Terms does not reach this work, and accepts the residual risk.
+- **APQC-2 is withdrawn.** The request is not sent, and APQC is not a communications team.
+- **APQC-1 is replaced.** PCF 7.4 is published under three conditions:
+  - it is sourced only from BPO, at a pinned commit that carries BPO's `NOTICE.md`
+    (`2e55edd` or later);
+  - APQC's notice, copied from that file, travels with every PCF-bearing artifact;
+  - a check enforces it.
+- **APQC80-1 is deferred,** with the 7.4-to-8.0 comparison, until a version upgrade is
+  planned.
+- **The evidence is unchanged.** `rights.yaml` still records the terms as ambiguous. Its
+  two APQC sources name the new decision as `superseded_by`.
+- **apqc.org is still never accessed** for PCF material.
 
 `tools/inventory/rights.py`
 checks the record offline (CI) and refetches every pin with `--confirm` (weekly); apqc.org

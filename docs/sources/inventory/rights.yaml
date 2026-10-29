@@ -7,7 +7,11 @@
 #
 # This file is a review, not a decision. The posture is the architect's
 # act, recorded in docs/decisions/ and pointed to from each source's
-# `architect_decision` (since 2026-10-28, docs/decisions/2026-10-28-i2a-decided.md). It is also not catalog content: no PCF, BRM
+# `architect_decision` (since 2026-10-28, docs/decisions/2026-10-28-i2a-decided.md;
+# for the two APQC sources, `superseded_by` names the architect's later
+# decision, docs/decisions/2026-10-29-apqc-pcf-sourcing-decided.md, which
+# resolves their publication posture and leaves this evidence, and its
+# finding that the terms are ambiguous, as it was). It is also not catalog content: no PCF, BRM
 # or FIBF name, description, code or hierarchy appears in it, and quotes
 # are limited to the operative words of a notice, at most 15 words each.
 #
@@ -272,6 +276,7 @@ sources:
           architect's act.
     architect_decision:
       record: docs/decisions/2026-10-28-i2a-decided.md
+      superseded_by: docs/decisions/2026-10-29-apqc-pcf-sourcing-decided.md
 
   # ====================================================================
   - id: apqc-pcf-8.0
@@ -350,6 +355,7 @@ sources:
           question; the delta itself follows APQC-1.
     architect_decision:
       record: docs/decisions/2026-10-28-i2a-decided.md
+      superseded_by: docs/decisions/2026-10-29-apqc-pcf-sourcing-decided.md
 
   # ====================================================================
   - id: feaf-brm-3.1
