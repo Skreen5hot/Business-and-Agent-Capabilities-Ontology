@@ -1015,7 +1015,7 @@ components:
     role: communication
     description: >-
       What this repository has said to, and heard from, other teams: one
-      folder per team (BPO, ARO) with incoming/ and outgoing/. The
+      folder per team (BPO, ARO, EXAMPLE) with incoming/ and outgoing/. The
       protocol is communications/README.md; tools/communications.py checks
       every header, refuses an edited message, and derives which threads
       are open. Not published on the site.
