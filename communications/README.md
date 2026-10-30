@@ -12,7 +12,8 @@ communications/
 ```
 
 Teams today: **BPO** (Business Process Ontology), whose act genera this repository vendors,
-and **ARO** (Application Requirement Ontology), whose tooling and method it carries.
+**ARO** (Application Requirement Ontology), whose tooling and method it carries, and
+**EXAMPLE** (the Ontology Template), which generalizes that tooling and method.
 
 `tools/communications.py` checks every message against this protocol and lists the
 threads still open. `tests/test_communications.py` runs the same checks on every push.
