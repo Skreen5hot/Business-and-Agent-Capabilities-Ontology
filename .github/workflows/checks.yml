@@ -116,6 +116,14 @@ jobs:
       - name: The rights review keeps its pins and writes no catalog content
         run: python tools/inventory/rights.py
 
+      # Offline: the I-2c federal catalogs (FEAF-II BRM, FIBF) -- digests
+      # against rights.yaml, the snapshot of every pinned FIBF document,
+      # nothing from a MITRE-marked workbook, no third-party mapping text,
+      # a locator and (for FIBF capabilities) a homonym flag on every
+      # entry, a fresh notice, the admission guard.
+      - name: The federal inventory keeps its pins, its rights posture and its admission guard
+        run: python tools/inventory/harvest_federal.py
+
       # Offline: the I-2b PCF entries and the repository-root NOTICE.md --
       # the generator's form, APQC's notice by its pinned digest, the
       # header the pins and the decision give, consistent entries, BPO's
@@ -207,6 +215,14 @@ jobs:
       # raw.githubusercontent.com only; apqc.org is never fetched.
       - name: Refetch the rights review's pinned documents and compare
         run: python tools/inventory/rights.py --confirm
+
+      # And for I-2c: are the federal inventory's outputs what harvesting
+      # the refetched documents produces, byte for byte? Fetches from
+      # ussm.gsa.gov, www.gsa.gov and obamawhitehouse.archives.gov only, never from a
+      # cache; also checks that no harvested text equals a MITRE-marked
+      # workbook's, which needs those workbooks' bytes.
+      - name: Harvest the federal catalogs from the refetched documents and compare
+        run: python tools/inventory/harvest_federal.py --confirm
 
       # And for I-2b: do BPO's catalog and NOTICE.md at the pinned commit
       # still build the committed PCF entries and NOTICE.md byte for byte?

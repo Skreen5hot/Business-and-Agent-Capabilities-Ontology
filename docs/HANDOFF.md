@@ -536,6 +536,35 @@ checks the record offline (CI) and refetches every pin with `--confirm` (weekly)
 is never fetched by a script. Not done: any I-2b or I-2c content, lifting I-1's withholding (E7, a separate PR), and correcting the register's
 SRC-GOV-05 URL (now 404) and SRC-GOV-06's secondary-only citations.
 
+### 5.18 Capability Term Inventory, Phase I-2c (federal catalogs)
+
+Under the I-2a decisions (BRM-1 a, BRM-2 c, FIBF-1 c, FIBF-2 a, FIBF-3 a),
+`tools/inventory/harvest_federal.py --rebuild` harvests the documents `rights.yaml` pins,
+read from `.upstream-cache/i2a/` by digest (`config/inventory-federal-sources.yaml` names
+them; the digests stay in `rights.yaml`). **BRM:** both OMB PDFs, kept apart, in
+`feaf-brm-entries.yaml`; read with pypdf (now in `requirements-dev.txt`) for the PDF objects
+only, the glyph placement and table segmentation being the tool's own, with a page on every
+entry. **FIBF:** every pinned document is listed in `fibf-snapshot.yaml` (harvested,
+withheld-mitre or withheld-ambiguous, with draft and duplicate findings and the columns that
+name ITIL or TBM); functions and activities are in `fibf-entries.yaml`, business
+capabilities in `fibf-business-capabilities.yaml` with the homonym flag (E5). Rights are
+checked from the bytes as well as `rights.yaml` (they agree: the 21 MITRE-marked workbooks
+are withheld, nothing else is). Inside a harvested document, text equal to a MITRE-marked
+workbook's cell or containing a whole one of six words or more, or naming or equal to FIBF-2 a mapping material, is withheld field by field
+(the six-word screen is a safeguard, not a clearance); the eleven HR business-capability
+lists, whose external links point at `communityshare.mitre.org`, have every label and
+description withheld under the closure decision of 2026-10-30, keeping identifiers,
+locators and digests (1,557 entries; `text_withheld_documents` in the pins);
+mapping columns are never read. The attribution is `NOTICE-federal.md`, separate from I-1's
+`NOTICE.md`, whose bytes I-1's approval records; `tools/licensing/disposition.py` now reads
+both pin files. The offline check runs in CI and `--confirm` in the weekly job. Not done:
+the taxonomy's tree diagrams (20 of its 40 business functions have no table row of their
+own, being named only there and in service rows, and 20 of its 228 services appear only
+there), the EEO page's activity and capability tables (empty in the pinned
+bytes), anything from the MITRE-marked workbooks until GSA or MITRE clears them, the
+register's SRC-GOV-05/06 corrections, and everything I-4 does (grouping, deduplication,
+triage).
+
 ### 5.19 Capability Term Inventory, Phase I-2b (APQC PCF 7.4, from BPO, with APQC's notice)
 
 The architect's decision of 2026-10-29
