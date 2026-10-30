@@ -425,14 +425,30 @@ entries:
 - id: SRC-GOV-05
   authority: A3
   citation: US GSA Office of Shared Solutions and Performance Improvement, *Federal
-    Integrated Business Framework (FIBF)*; FFM business capabilities published as
-    FFMSRs (FMCF-3, FY 2024)
+    Integrated Business Framework (FIBF)*, the per-domain business standards of each
+    standards lead agency, as published at ussm.gsa.gov on 2026-10-28 (39 workbooks
+    and one page, each pinned by SHA-256 in the inventory's rights review, source
+    fibf-2026-10-28). FFM business capabilities were formerly published as FFMSRs
+    (FMCF-3, FY 2024)
   urls:
   - label: GSA FIBF
     url: https://ussm.gsa.gov/fibf/
+    suffix: (SHA-256 `9d32b82c297961d248592a13818069ddf857b05926caf3e1331cc00266e8f49a`,
+      retrieved 2026-10-28)
   - label: FMCF-3 FY2024
     url: https://ussm.gsa.gov/assets/files/downloads/fm/FMCF-3%20FFM%20Business%20Capabilities%20(FFMSRs)_FY%202024%20Release.pdf
-  access_terms: Public domain
+    prefix: 'Historical:'
+    suffix: (returned HTTP 404 on 2026-10-28; the financial management page now publishes
+      2025 workbooks instead)
+  access_terms: 'Mixed, and not uniformly public domain. Unmarked FIBF documents are
+    US Government works, free of copyright under 17 U.S.C. 105; GSA''s reuse policy
+    tells readers to check each item for a copyright credit. 21 of the 39 pinned workbooks
+    carry a MITRE Corporation copyright line with unlimited usage rights for the Federal
+    Government: the public''s right to redistribute them is not established, and the
+    inventory does not harvest them. The 11 HR business-capability lists carry no notice
+    but link to files on a MITRE host; their text is withheld pending provenance evidence.
+    The IT and cybersecurity operational workbooks map entries to third-party frameworks,
+    whose mapping text is excluded. Evidence: docs/sources/inventory/rights.yaml'
   definition: Business capabilities are outcome-based needs linked to authoritative
     references, inputs, outputs and data standards; that is, requirement records.
     Lifecycles are {Q1}
@@ -442,21 +458,48 @@ entries:
   claims:
   - status: V
     scope: page
-    note: FFMSR front matter not read
+    note: FFMSR front matter not read; the FMCF-3 URL returned HTTP 404 on 2026-10-28;
+      the rights notices of the 40 pinned documents were read in their bytes in the
+      inventory's rights review
 - id: SRC-GOV-06
   authority: A3
-  citation: US OMB, FEAF-II Consolidated Reference Model / Business Reference Model
-    (BRM 3.1, 2013)
+  citation: US OMB, *Federal Enterprise Architecture Business Reference Model*, version
+    3.1, and its taxonomy (Appendix H), both dated 15 May 2013; the business reference
+    model of the FEAF-II Consolidated Reference Model. Served from the archived White
+    House site at obamawhitehouse.archives.gov
   urls:
+  - label: OMB FEA archive page
+    url: https://obamawhitehouse.archives.gov/omb/e-gov/FEA
+    suffix: (SHA-256 `c7c726cd3af8bfa8cf76fcd6549aff70c201bf56f7d1c6a3628b60b336c8f538`,
+      retrieved 2026-10-28)
+  - label: BRM 3.1 service codes and definitions
+    url: https://obamawhitehouse.archives.gov/sites/default/files/omb/assets/egov_docs/brm_v3-1-service_codes_and_definitions_rev1_20130615.pdf
+    suffix: (PDF, SHA-256 `249c5fc0ed745aafc6d6cf180b7781b576b6842e2efd71a22e059d5687c48208`,
+      retrieved 2026-10-28; located by page in the inventory's feaf-brm-entries.yaml)
+  - label: BRM 3.1 taxonomy
+    url: https://obamawhitehouse.archives.gov/sites/default/files/omb/assets/egov_docs/brm_v3-1_taxonomy_20130615.pdf
+    suffix: (PDF, SHA-256 `52ccabf3a3e7970b4265c79f116652447a228664e31db019f9eac384fe0fa9ce`,
+      retrieved 2026-10-28; located by page in the inventory's feaf-brm-entries.yaml)
   - label: 'Wikipedia: FEA'
     url: https://en.wikipedia.org/wiki/Federal_enterprise_architecture
+    prefix: 'Historical secondary reference:'
   - label: CIO-Wiki CRM
     url: https://cio-wiki.com/wiki/Consolidated_Reference_Model_(CRM)
-  access_terms: Public domain
-  definition: The BRM organizes federal operations by mission and support areas
-    and business functions, not by agency. Legacy, largely dormant
+    prefix: 'Historical secondary reference:'
+  access_terms: US Government work, free of copyright in the United States under 17
+    U.S.C. 105. The archive's copyright policy states that government-produced material
+    there is not copyright protected, and neither document carries a third-party notice.
+    Neither names its drafters, so contractor authorship is a recorded residual. Evidence
+    docs/sources/inventory/rights.yaml, source feaf-brm-3.1
+  definition: The taxonomy organizes federal business into 10 mission sectors, 40
+    business functions and 228 services (its page 1); the service
+    codes and definitions table gives each service a code and a definition. Dated 2013
+    and served from an archive, the model is legacy
   claims:
-  - status: S
+  - status: V
+    scope: both OMB documents
+    note: read in full for the inventory's I-2c harvest, except the taxonomy's tree diagrams;
+      the secondary references are kept as historical
 - id: SRC-IND-01
   authority: A4
   citation: APQC, *Process Classification Framework* (cross-industry). PCF 8.0,

@@ -257,22 +257,24 @@ bcos:SRC-GOV-04-claim-1 bco:claimIndex "1"^^xsd:integer .
 bcos:SRC-GOV-04-claim-1 bco:claimStatus "V" .
 
 bcos:SRC-GOV-05 bco:hasClaim bcos:SRC-GOV-05-claim-1 .
-bcos:SRC-GOV-05 dcterms:bibliographicCitation "US GSA Office of Shared Solutions and Performance Improvement, *Federal Integrated Business Framework (FIBF)*; FFM business capabilities published as FFMSRs (FMCF-3, FY 2024)" .
+bcos:SRC-GOV-05 dcterms:bibliographicCitation "US GSA Office of Shared Solutions and Performance Improvement, *Federal Integrated Business Framework (FIBF)*, the per-domain business standards of each standards lead agency, as published at ussm.gsa.gov on 2026-10-28 (39 workbooks and one page, each pinned by SHA-256 in the inventory's rights review, source fibf-2026-10-28). FFM business capabilities were formerly published as FFMSRs (FMCF-3, FY 2024)" .
 bcos:SRC-GOV-05 dcterms:identifier "SRC-GOV-05" .
 bcos:SRC-GOV-05 rdf:type dcterms:BibliographicResource .
 
 bcos:SRC-GOV-05-claim-1 bco:claimIndex "1"^^xsd:integer .
-bcos:SRC-GOV-05-claim-1 bco:claimNote "FFMSR front matter not read" .
+bcos:SRC-GOV-05-claim-1 bco:claimNote "FFMSR front matter not read; the FMCF-3 URL returned HTTP 404 on 2026-10-28; the rights notices of the 40 pinned documents were read in their bytes in the inventory's rights review" .
 bcos:SRC-GOV-05-claim-1 bco:claimScope "page" .
 bcos:SRC-GOV-05-claim-1 bco:claimStatus "V" .
 
 bcos:SRC-GOV-06 bco:hasClaim bcos:SRC-GOV-06-claim-1 .
-bcos:SRC-GOV-06 dcterms:bibliographicCitation "US OMB, FEAF-II Consolidated Reference Model / Business Reference Model (BRM 3.1, 2013)" .
+bcos:SRC-GOV-06 dcterms:bibliographicCitation "US OMB, *Federal Enterprise Architecture Business Reference Model*, version 3.1, and its taxonomy (Appendix H), both dated 15 May 2013; the business reference model of the FEAF-II Consolidated Reference Model. Served from the archived White House site at obamawhitehouse.archives.gov" .
 bcos:SRC-GOV-06 dcterms:identifier "SRC-GOV-06" .
 bcos:SRC-GOV-06 rdf:type dcterms:BibliographicResource .
 
 bcos:SRC-GOV-06-claim-1 bco:claimIndex "1"^^xsd:integer .
-bcos:SRC-GOV-06-claim-1 bco:claimStatus "S" .
+bcos:SRC-GOV-06-claim-1 bco:claimNote "read in full for the inventory's I-2c harvest, except the taxonomy's tree diagrams; the secondary references are kept as historical" .
+bcos:SRC-GOV-06-claim-1 bco:claimScope "both OMB documents" .
+bcos:SRC-GOV-06-claim-1 bco:claimStatus "V" .
 
 bcos:SRC-IND-01 bco:hasClaim bcos:SRC-IND-01-claim-1 .
 bcos:SRC-IND-01 dcterms:bibliographicCitation "APQC, *Process Classification Framework* (cross-industry). PCF 8.0, 24 Mar 2026; 7.4, Aug 2024. Category 13.0 \"Develop and Manage Business Capabilities\" (12.0 in v6.1.1)" .

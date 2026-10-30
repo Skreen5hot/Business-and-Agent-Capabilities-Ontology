@@ -14,8 +14,8 @@ every run (below).
 |---|---|---|
 | I-1 | BPO harvest, with Q-12 and Q-13 re-measured | **this directory**; its APQC withholding lifted by E7 (**`e7-release.md`**) |
 | I-2a | Rights review of the public catalogs: APQC PCF 7.4 and 8.0, FEAF-II BRM 3.1, FIBF | **`rights.yaml`**; decided 2026-10-28 (`docs/decisions/2026-10-28-i2a-decided.md`) |
-| I-2b | APQC PCF 7.4, every element, from BPO's catalog with APQC's notice (decision of 2026-10-29) | **`pcf-7.4-entries.yaml`**; E4 open, PCF 8.0 deferred |
-| I-2c | Federal catalogs: FEAF-II BRM and FIBF | **`feaf-brm-entries.yaml`, `fibf-*.yaml`**; for review |
+| I-2b | APQC PCF 7.4, every element, from BPO's catalog with APQC's notice (decision of 2026-10-29) | **`pcf-7.4-entries.yaml`**; E4 method decided, no element judged; PCF 8.0 deferred |
+| I-2c | Federal catalogs: FEAF-II BRM and FIBF | **`feaf-brm-entries.yaml`, `fibf-*.yaml`**; approved and merged 2026-10-30, the HR lists' text withheld |
 | I-3 | Restricted catalogs, citation and coverage only | not started |
 | I-4 | Crosswalk, triage and report | not started |
 | I-5 | Recommendation of a first catalog tranche, for the architect's separate approval | not started |
@@ -298,9 +298,9 @@ python tools/inventory/harvest_federal.py --confirm   # refetch every document, 
 The offline check refuses what `docs/DEVELOPMENT.md` lists for `harvest_federal.py`;
 `--rebuild` and `--confirm` also refuse any harvested text equal to a MITRE-marked
 workbook's, which needs those workbooks' bytes. `--confirm` fetches only from ussm.gsa.gov, www.gsa.gov
-and obamawhitehouse.archives.gov, never from the cache. Not done: the register's
-SRC-GOV-05 URL (now 404) and SRC-GOV-06's secondary citations are still to be corrected in
-a separate change.
+and obamawhitehouse.archives.gov, never from the cache. The register's SRC-GOV-05
+and SRC-GOV-06 entries were corrected from this evidence under the closure decision of
+2026-10-30.
 
 ## The APQC PCF (Phase I-2b): published from BPO, with APQC's notice
 
