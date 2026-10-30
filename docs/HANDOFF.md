@@ -446,7 +446,10 @@ realization"). R8 and R9 dispositions are proposed.
 conceptual baseline and accepted the R8 disposition (R8-07 qualified by R9) and the R9
 disposition in full (`docs/decisions/2026-10-26-cm01-approved-r8-r9-accepted.md`). The file is
 0.1.0: draft.5 plus approval-status lines only. This is a conceptual baseline, not OWL
-and not specification ratification.
+and not specification ratification. Its §10 rests the stakeholder-review gate on R8 and
+R9; the erratum of 2026-10-30 (`docs/decisions/2026-10-30-cm01-stakeholder-review-erratum.md`)
+records that the architect's review of draft.5, as product owner, met it, and that R8
+and R9 were ontological reviews. CM-01 is unchanged.
 **Next:** specification v0.5, carrying RP-1 and RP-10 into CD1–CD3 and §8, and the
 Functional Adequacy Assessment and conditional designation into CD16 and CD17, under
 the approval's implementation guidance: reuse BFO/CCO classes and relations; never
