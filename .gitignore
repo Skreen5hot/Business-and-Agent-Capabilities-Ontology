@@ -39,6 +39,15 @@ docs/Reference/
 _site/
 _site_again/
 
+# Where Phase I-2b used to write internal PCF evidence under APQC-1 c's
+# citation-only posture. The architect replaced that posture on 2026-10-29
+# (docs/decisions/2026-10-29-apqc-pcf-sourcing-decided.md) and nothing
+# writes here any more; the PCF entries are now published, with APQC's
+# notice, in docs/sources/inventory/. Still ignored, because a copy left on
+# a machine holds PCF names and descriptions without the notice, and must
+# never be committed. Delete it locally.
+.inventory-internal/
+
 # Upstream sources, downloaded to rebuild the vendored extracts. The
 # extracts are committed; these are not -- the pins in
 # config/upstream-sources.yaml fetch them again byte-for-byte.

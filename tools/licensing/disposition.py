@@ -64,12 +64,21 @@ SITE_NOTICE = "vendor/site/NOTICE.md"
 #: tools/inventory/harvest_bpo.py writes beside it -- a third notice for a
 #: third tool, for the same reason as the site's.
 INVENTORY_SOURCES = "config/inventory-sources.yaml"
-#: Phase I-2c's pins (the federal catalogs), written beside I-1's rather
-#: than into it: I-1's file and notice are approved outputs, recorded by
-#: digest. Same shape, except that a source may name several entries
-#: files; tools/inventory/harvest_federal.py writes their notice.
+#: Phase I-2b's pins (the APQC PCF 7.4, taken from BPO), written beside
+#: I-1's rather than into it: I-1's file and notice are approved outputs,
+#: recorded by digest. Same shape. Its entries file is APQC's material
+#: under APQC's licence (a LicenseRef, not an SPDX licence), and its
+#: notice is the repository-root NOTICE.md that
+#: tools/inventory/harvest_pcf.py writes; tools/licensing/pcf_notice.py
+#: checks that APQC's own notice travels with every PCF-bearing file,
+#: which is a stronger condition than the attribution checked here.
+INVENTORY_PCF_SOURCES = "config/inventory-pcf-sources.yaml"
+#: Phase I-2c's pins (the federal catalogs), likewise beside I-1's. Same
+#: shape, except that a source may name several entries files;
+#: tools/inventory/harvest_federal.py writes their notice.
 INVENTORY_FEDERAL_SOURCES = "config/inventory-federal-sources.yaml"
-INVENTORY_PIN_FILES = (INVENTORY_SOURCES, INVENTORY_FEDERAL_SOURCES)
+INVENTORY_PIN_FILES = (INVENTORY_SOURCES, INVENTORY_PCF_SOURCES,
+                       INVENTORY_FEDERAL_SOURCES)
 
 #: SPDX identifiers this tool can recognise in a LICENSE file. Listed
 #: rather than pattern-matched, because "BSD" appears in several licences
@@ -179,11 +188,13 @@ def site_vendored_assets() -> dict:
 def inventory_sources() -> dict:
     """Inventory entries files, {path: ({"licence": ...}, notice)}.
 
-    Read from config/inventory-sources.yaml (Phase I-1) and
+    Read from config/inventory-sources.yaml (Phase I-1),
+    config/inventory-pcf-sources.yaml (Phase I-2b) and
     config/inventory-federal-sources.yaml (Phase I-2c), the declarations
     the harvesters write their notices from. Only a source's `entries`
     files are third-party text; its findings, snapshot and notice are this
-    repository's. `entries` is one path (I-1) or a list of paths (I-2c).
+    repository's. `entries` is one path (I-1, I-2b) or a list of paths
+    (I-2c).
     """
     import yaml
 
@@ -217,7 +228,54 @@ def inventory_sources() -> dict:
                 found[entries_path] = ({"licence": licence,
                                         "source": entry.get("id")},
                                        outputs["notice"])
+    for path, rights in pcf_rights(found).items():
+        found[path][0]["rights"] = rights
     return found
+
+
+def pcf_rights(found: dict) -> dict:
+    """{path: [spdx, ...]} for the entries files that carry more than one.
+
+    A file pinned under one licence can also carry another's text: since
+    E7, I-1's bpo-entries.yaml holds BPO's MIT-licensed text and the PCF
+    labels and definitions I-1 had withheld, which are APQC's (review of
+    PR #22, docs/decisions/2026-10-30-e7-approved.md). The file keeps one
+    disposition; its licence is then every right that applies, joined
+    with AND as SPDX expressions are, so the report cannot say MIT alone.
+
+    Which files carry PCF material is read from `pcf_bearing` in
+    config/inventory-pcf-sources.yaml, the list
+    tools/licensing/pcf_notice.py holds equal to what the gate finds in
+    the files; the PCF licence from that file's one source. Which entry
+    carries which right stays with each entry's `rights_status`, and
+    APQC's notice with the notice gate: this only stops the file-level
+    report from understating what the file holds.
+    """
+    import yaml
+
+    path = layout.repository_root() / INVENTORY_PCF_SOURCES
+    raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    licences = {(s.get("licence") or {}).get("spdx")
+                for s in raw.get("sources") or []}
+    if len(licences) != 1 or None in licences:
+        raise Refused("%s must declare exactly one PCF licence, and "
+                      "declares %r" % (INVENTORY_PCF_SOURCES,
+                                       sorted(map(str, licences))))
+    pcf = licences.pop()
+    out = {}
+    for item in raw.get("pcf_bearing") or []:
+        bearing = item.get("path")
+        if bearing not in found:
+            continue
+        own = found[bearing][0]["licence"]["spdx"]
+        if own != pcf:
+            out[bearing] = [own, pcf]
+    return out
+
+
+def licence_expression(entry: dict) -> str:
+    """A pin's licence as one SPDX expression: every right, AND-joined."""
+    return " AND ".join(entry.get("rights") or [entry["licence"]["spdx"]])
 
 
 def redistributed_sources() -> dict:
@@ -253,7 +311,7 @@ def licence_of(disposition: str, relative=None):
                 "source producing it, so nothing states what licence it "
                 "carries." % (relative, UPSTREAM_SOURCES, SITE_VENDOR,
                               " or ".join(INVENTORY_PIN_FILES)))
-        return sources[relative][0]["licence"]["spdx"]
+        return licence_expression(sources[relative][0])
     return project_licence()
 
 ADJUDICATIONS = "config/licensing-adjudications.yaml"
@@ -340,16 +398,25 @@ CITED_ROLES = {"third-party-reference"}
 #:
 #: `source-evidence`: the Capability Term Inventory's entries files
 #: (docs/sources/inventory/), which hold another project's labels and
-#: definitions verbatim as evidence -- BPO's, under MIT, and since I-2c the
-#: federal catalogs' (OMB's BRM and GSA's FIBF, US Government works).
-#: Written by a tool here, but the text is not this repository's, so it is
-#: classified like a vendored file: the licence is read from
-#: config/inventory-sources.yaml or config/inventory-federal-sources.yaml,
-#: and the attribution declared there is checked against the notice that
-#: file names. Text a source took from a
-#: third party whose terms are unverified (the APQC PCF) is withheld by
-#: the harvester, not licensed by this rule. Not `vendored-ontology`:
-#: these are YAML, and nothing that reads Turtle may select them.
+#: definitions verbatim as evidence -- BPO's, under MIT; since I-2b the
+#: APQC PCF 7.4 as BPO's catalog carries it, under APQC's licence
+#: (docs/decisions/2026-10-29-apqc-pcf-sourcing-decided.md); and since
+#: I-2c the federal catalogs' (OMB's BRM and GSA's FIBF, US Government
+#: works). Written by a tool here, but the text is not this repository's,
+#: so it is classified like a vendored file: the licence is read from
+#: config/inventory-sources.yaml, config/inventory-pcf-sources.yaml or
+#: config/inventory-federal-sources.yaml, and the attribution declared
+#: there is checked against the notice that file names. I-1's BPO entries
+#: are pinned under BPO's MIT licence; since E7 they also carry the PCF
+#: text I-1 had withheld, which is APQC's, so their one disposition
+#: records both rights, "MIT AND LicenseRef-APQC-PCF" (pcf_rights()). The
+#: condition APQC's licence sets is checked by
+#: tools/licensing/pcf_notice.py (APQC's notice on the file, and the file
+#: listed in the root NOTICE.md), and which entry is whose by each entry's
+#: `rights_status`. FIBF text from a MITRE-marked workbook is withheld by
+#: the harvester, not licensed by this rule.
+#: Not `vendored-ontology`: these are YAML, and nothing that reads Turtle
+#: may select them.
 VENDORED_ROLES = {"vendored-ontology", "vendored-asset", "source-evidence"}
 
 #: Suffix rules for files no component claims. Kept small on purpose: the
@@ -601,7 +668,7 @@ def main(argv=None) -> int:
         key = (row.disposition, row.licence or "(no rights granted)")
         counts[key] = counts.get(key, 0) + 1
     for (disposition, licence), count in sorted(counts.items()):
-        print("    %-26s %-14s %4d" % (disposition, licence, count))
+        print("    %-26s %-28s %4d" % (disposition, licence, count))
 
     problems = findings(rows)
     if problems:

@@ -124,6 +124,21 @@ jobs:
       - name: The federal inventory keeps its pins, its rights posture and its admission guard
         run: python tools/inventory/harvest_federal.py
 
+      # Offline: the I-2b PCF entries and the repository-root NOTICE.md --
+      # the generator's form, APQC's notice by its pinned digest, the
+      # header the pins and the decision give, consistent entries, BPO's
+      # bridge as the committed I-1 file gives it, a fresh NOTICE.md and
+      # the admission guard. CI has no copy of BPO's files, so the
+      # byte-for-byte rebuild is the weekly job's.
+      - name: The PCF entries keep their pins, their notice and their form
+        run: python tools/inventory/harvest_pcf.py
+
+      # The decision of 2026-10-29, section 4: every tracked file that
+      # carries PCF material carries APQC's notice (or has a recorded
+      # exception), and NOTICE.md lists exactly those files.
+      - name: Every PCF-bearing file carries APQC's notice
+        run: python tools/licensing/pcf_notice.py
+
       - name: Tests
         run: python -m pytest tests/ -q -p no:randomly
 
@@ -208,3 +223,10 @@ jobs:
       # workbook's, which needs those workbooks' bytes.
       - name: Harvest the federal catalogs from the refetched documents and compare
         run: python tools/inventory/harvest_federal.py --confirm
+
+      # And for I-2b: do BPO's catalog and NOTICE.md at the pinned commit
+      # still build the committed PCF entries and NOTICE.md byte for byte?
+      # Fetches from raw.githubusercontent.com at the pinned commit only;
+      # nothing is ever fetched from apqc.org.
+      - name: Rebuild the PCF entries and NOTICE.md from BPO and compare
+        run: python tools/inventory/harvest_pcf.py --confirm

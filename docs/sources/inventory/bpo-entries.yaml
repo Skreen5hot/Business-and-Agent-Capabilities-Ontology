@@ -8,8 +8,13 @@
 # merged. Read docs/sources/inventory/README.md first.
 #
 # Rights: BPO-authored text is BPO's, under the MIT License; see NOTICE.md
-# in this directory. Text tied to the APQC PCF is withheld until APQC's
-# terms are verified (Phase I-2).
+# in this directory. Text tied to the APQC Process Classification
+# Framework (PCF) -- entries whose rights_status is apqc-pcf-7.4 -- is
+# APQC's material, used under APQC's licence and not under the MIT
+# License; APQC's notice is the `apqc_notice` field below, copied from
+# BPO's NOTICE.md. APQC does not endorse this work. Keep the notice with
+# any copy or derivative of this file. I-1 withheld that text; E7
+# released it (docs/sources/inventory/e7-release.md).
 
 format: 1
 generator: tools/inventory/harvest_bpo.py
@@ -68,9 +73,54 @@ source:
 rights:
   bpo-mit: BPO-authored text, redistributed under BPO's MIT licence with the attribution
     in docs/sources/inventory/NOTICE.md
-  apqc-terms-unverified: APQC terms not yet verified (Phase I-2); every label and
-    definition the rule ties to the APQC Process Classification Framework (PCF),
-    Cross-Industry 7.4 is withheld, keeping the IRI and PCF code
+  apqc-pcf-7.4: 'material of the APQC Process Classification Framework (PCF), Cross-Industry
+    7.4, by APQC, used under APQC''s licence, whose notice is apqc_notice below,
+    and not under BPO''s MIT licence: every label and definition the I-1 rule ties
+    to the PCF, withheld as apqc-terms-unverified when I-1 was approved and released
+    under E7 from BPO at 2e55edd9e86a0bc20fa88a21595cc61402faa5dc (see release)'
+apqc_notice: ©2024 APQC. ALL RIGHTS RESERVED. This Process Classification Framework®
+  (“PCF”) is the copyrighted intellectual property of APQC. APQC encourages the wide
+  distribution, discussion, and use of the PCF for classifying and defining organizational
+  processes. Accordingly, APQC hereby grants you a perpetual, worldwide, royalty-free
+  license to use, copy, publish, modify, and create derivative works of the PCF,
+  provided that all copies of the PCF and any derivative works contain a copy of
+  this notice.
+release:
+  act: E7
+  authority:
+  - docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md
+  - docs/decisions/2026-10-29-apqc-pcf-sourcing-decided.md
+  i1_approval: docs/decisions/2026-10-27-inventory-i1-approved.md
+  record: docs/sources/inventory/e7-release.md
+  repository: https://github.com/Skreen5hot/BusinessProcessOntology
+  commit: 2e55edd9e86a0bc20fa88a21595cc61402faa5dc
+  inputs:
+  - path: NOTICE.md
+    sha256: ab7d5122a2d6384b9f380f13b76bb94c31295c69aeaa56f7b1ccdf25b79953e3
+  - path: ontology/slices/apqc_10_0.ttl
+    sha256: 70c39bb71b7788ee2f98aca325580acb3dd4d77ca3dd1e026c7d598d85ace01d
+  - path: ontology/slices/apqc_11_0.ttl
+    sha256: 81833ee01314b4f64b0b4dc5220f39d0498fa2910d58cc1bdb4d184a57f447c6
+  - path: ontology/slices/apqc_12_0.ttl
+    sha256: 04267a0766f7a8ea43735143471a2d019f40a67a3f539b5f7725cb3589fac2fc
+  - path: ontology/slices/apqc_13_0.ttl
+    sha256: d5735c00abe70bcaac0acb27f701f9e681cf6bac80ec2d87f37de7cf463f84f2
+  - path: ontology/slices/apqc_3_0.ttl
+    sha256: 4ee99f5481ee6ca96b8541bb4c22d20f66970857d7df5d16543e511e2ca51238
+  - path: ontology/slices/apqc_6_0.ttl
+    sha256: 02ce2d1874082e38b895137add1282625c951c5ea04ba813976a1f06fc708f8a
+  - path: ontology/slices/apqc_7_0.ttl
+    sha256: ed0060425d0c5f83fa00357409a9aa89c4e2269864eb0b3b99b685c14c4aa1c3
+  - path: ontology/slices/apqc_8_0.ttl
+    sha256: 657d9c20e9290eccdc5c53b43a6974599e9c7a64d8679732ee4da9f02818aacf
+  - path: ontology/slices/apqc_9_0.ttl
+    sha256: cb4f0be31dfca19647ccc0dca237e50b6ce25c012777e1156afab1d4041407fa
+  apqc_notice_sha256: 582e0ea522de7927c22838ff302adfb95d247b4bd1d96fd9b73edfc83c1c7f2c
+  rule: every label and definition I-1's rights rule withheld (apqc_evidence on the
+    entry says why) is read from the same module at this commit, whose ontology header
+    carries APQC's notice in its dct:rights, and released only when it equals, literal
+    for literal, the text withheld at the harvest commit; text_from on the declaration
+    is where it was read
 standing_functions:
   marker_found: false
   entries: 0
@@ -81,7 +131,7 @@ counts:
   entries: 186
   capability-class: 145
   scope-entry: 41
-  withheld: 59
+  released: 59
 entries:
 - id: INV-BPO-AccountingCapability-scope-entry
   kind: scope-entry
@@ -112,7 +162,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#AnalystRelationsManagementCapability
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'text-shared-with-withheld: ontology/slices/apqc_12_0.ttl skos:definition equals
     text of https://fandaws.com/ontology/bpo#P11036'
@@ -126,9 +176,14 @@ entries:
       subclass_of:
       - https://fandaws.com/ontology/bpo#StakeholderRelationshipManagementCapability
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Analyst Relations Management Capability
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an Organization in virtue
+        of its capacity to create and maintain long-term relationships with financial
+        analysts so as to elicit market intelligence.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_12_0.ttl#L361
   designated_by: []
   enables_process:
   - target: https://fandaws.com/ontology/bpo#P11036
@@ -159,7 +214,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#AnalyticsCapability
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'text-contains-pcf: ontology/slices/apqc_13_0.ttl skos:definition contains the
     name of https://fandaws.com/ontology/bpo#PCF_20959'
@@ -173,9 +228,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Analytics Capability
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an Organization in virtue
+        of its capacity to develop, manage, and deliver analytics across its data-management
+        pipeline, realized in its bounded analytics acts.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_13_0.ttl#L367
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_20959
     pcf_code: '20959'
@@ -219,7 +279,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#ApplicantDataManagementCapability
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -233,9 +293,15 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Applicant Data Management Capability
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an Organization in virtue
+        of its capacity to keep track of and maintain applicant information through
+        an applicant-tracking system, realized in the bounded acts of classifying
+        and recording applicants.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_7_0.ttl#L1412
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_10467
     pcf_code: '10467'
@@ -428,7 +494,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#BenchmarkingCapability
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'text-contains-pcf: ontology/slices/apqc_13_0.ttl skos:definition contains the
     name of https://fandaws.com/ontology/bpo#PCF_21584'
@@ -442,9 +508,15 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Benchmarking Capability
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an Organization in virtue
+        of its capacity to measure and benchmark the performance of its internal
+        processes and of the organization as a whole against internal or external
+        reference points, realized in its bounded measure-and-benchmark cycles.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_13_0.ttl#L360
   designated_by: []
   enables_process:
   - target: https://fandaws.com/ontology/bpo#P21584
@@ -530,7 +602,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#BusinessResiliencyCapability
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -545,9 +617,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Business Resiliency Capability
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that is realized in acts of developing resilience
+        strategy, planning, testing, and maintaining continuous business operations,
+        and sharing risk knowledge so an organization can rapidly adapt to disruption.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_11_0.ttl#L454
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_11216
     pcf_code: '11216'
@@ -642,7 +719,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#ChannelManagementCapability
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -658,9 +735,15 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Channel Management Capability
+    - property: skos:altLabel
+      text: Analyze and manage channel performance
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that is realized in Acts of defining, analyzing,
+        and managing marketing and distribution channels.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_3_0.ttl#L708
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_20006
     pcf_code: '20006'
@@ -902,7 +985,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#CustomerInquiryManagementCapability
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'text-contains-pcf: ontology/slices/apqc_6_0.ttl skos:definition contains the
     name of https://fandaws.com/ontology/bpo#PCF_10396'
@@ -916,9 +999,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Customer Inquiry Management Capability
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an Organization in virtue
+        of its capacity to receive, analyze, resolve, and respond to customer problems,
+        requests, and inquiries and to surface sales opportunities arising from them.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_6_0.ttl#L955
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_10388
     pcf_code: '10388'
@@ -1183,7 +1271,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#DevelopAndManageServicesSolutionsCapability
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -1200,9 +1288,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Develop and Manage Services/Solutions Capability
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an IT service provider in
+        virtue of its capacity to develop, build, deploy, and maintain IT services
+        and solutions.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_8_0.ttl#L1073
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_20784
     pcf_code: '20784'
@@ -1260,7 +1353,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#EmployeeCareerDevelopmentCapability
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -1274,9 +1367,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Employee Career Development Capability
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an Organization to the extent
+        of its capacity to establish development guidelines, lay out career plans
+        and paths, and administer the development of employee skills and competencies.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_7_0.ttl#L1474
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_10472
     pcf_code: '10472'
@@ -1488,7 +1586,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#EmployeeOrientationAndDeploymentCapability
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -1502,9 +1600,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Employee Orientation and Deployment Capability
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an Organization to the extent
+        of its capacity to create, maintain, evaluate, and execute employee onboarding
+        and orientation programs.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_7_0.ttl#L1450
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_10469
     pcf_code: '10469'
@@ -1524,7 +1627,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#EmployeePerformanceManagementCapability
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -1538,9 +1641,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Employee Performance Management Capability
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an Organization to the extent
+        of its capacity to define performance objectives, appraise employee performance,
+        and evaluate and revise its performance-management program.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_7_0.ttl#L1462
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_10470
     pcf_code: '10470'
@@ -1654,7 +1762,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#EmployeeTrainingCapability
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -1668,9 +1776,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Employee Training Capability
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an Organization to the extent
+        of its capacity to align development needs, define competencies, and conduct
+        and manage employee and management training programs.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_7_0.ttl#L1486
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_10473
     pcf_code: '10473'
@@ -1731,7 +1844,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#EnterpriseQualityManagementCapability
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'text-contains-pcf: ontology/slices/apqc_13_0.ttl skos:definition contains the
     name of https://fandaws.com/ontology/bpo#PCF_17472'
@@ -1749,9 +1862,15 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Enterprise Quality Management Capability
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an Organization in virtue
+        of its capacity to establish quality requirements, evaluate performance against
+        them, manage non-conformance, and operate an enterprise quality management
+        system.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_13_0.ttl#L338
   designated_by: []
   enables_process:
   - target: https://fandaws.com/ontology/bpo#P17472
@@ -2347,7 +2466,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#ITInterdependencyManagementCapability
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -2362,9 +2481,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: IT Projects and Services Interdependency Management Capability
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an IT service provider in
+        virtue of its capacity to manage the interdependencies among IT projects
+        and services required for their successful delivery.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_8_0.ttl#L1061
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_20689
     pcf_code: '20689'
@@ -2434,7 +2558,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#ITRollBackManagementCapability
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -2449,9 +2573,13 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: IT Roll-Back Management Capability
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that is realized in acts of executing IT roll-back
+        plans to return a deployment to its previous operating state.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_8_0.ttl#L1087
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_20839
     pcf_code: '20839'
@@ -2494,7 +2622,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#ITStrategicAlignmentMaintenanceCapability
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -2509,9 +2637,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: IT Strategic Alignment Maintenance Capability
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an IT service provider in
+        virtue of its capacity to keep the organization's business divisions and
+        staff continuously aligned with its planned IT objectives.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_8_0.ttl#L1049
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_20659
     pcf_code: '20659'
@@ -2525,7 +2658,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#ITStrategicIntelligenceCapability
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -2540,9 +2673,15 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: IT Strategic Intelligence Capability
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an IT service provider in
+        virtue of its capacity to understand business trends presenting threats or
+        opportunities for IT and to maintain intelligence supporting management and
+        operational levels.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_8_0.ttl#L1037
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_20654
     pcf_code: '20654'
@@ -3175,7 +3314,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#LenderRelationsManagementCapability
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'text-shared-with-withheld: ontology/slices/apqc_12_0.ttl skos:definition equals
     text of https://fandaws.com/ontology/bpo#P11035'
@@ -3189,9 +3328,15 @@ entries:
       subclass_of:
       - https://fandaws.com/ontology/bpo#StakeholderRelationshipManagementCapability
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Lender Relations Management Capability
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an Organization in virtue
+        of its capacity to build, maintain, and advance ongoing relationships with
+        bankers and lenders so as to foster a receptive environment for favorable
+        lending terms.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_12_0.ttl#L355
   designated_by: []
   enables_process:
   - target: https://fandaws.com/ontology/bpo#P11035
@@ -3401,7 +3546,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P10728
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -3419,9 +3564,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Perform planning and management accounting (capability)
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in a finance function in virtue
+        of its capacity to plan, budget, account for, and evaluate financial performance,
+        realized in acts of management accounting.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_9_0.ttl#L952
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_10728
     pcf_code: '10728'
@@ -3432,7 +3582,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P10734
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -3449,9 +3599,13 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage treasury operations
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that is realized in acts of managing an organization's
+        investments, financial assets, liquidity, and financial risk.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_9_0.ttl#L2813
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_10734
     pcf_code: '10734'
@@ -3462,7 +3616,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P10758
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -3479,9 +3633,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage treasury policies and procedures
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that is realized in acts of establishing,
+        developing, monitoring, auditing, and revising the policies and procedures
+        governing treasury operations.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_9_0.ttl#L2827
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_10758
     pcf_code: '10758'
@@ -3492,7 +3651,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P10759
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -3509,9 +3668,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage cash
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that is realized in acts of reconciling cash
+        positions, transferring funds, forecasting cash flow, and accounting for
+        and reporting on cash activity.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_9_0.ttl#L2927
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_10759
     pcf_code: '10759'
@@ -3522,7 +3686,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P10760
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -3539,9 +3703,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage in-house bank accounts
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that is realized in acts of operating an internal
+        banking structure providing financial services to the corporation and its
+        subsidiaries.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_9_0.ttl#L3026
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_10760
     pcf_code: '10760'
@@ -3552,7 +3721,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P10761
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -3569,9 +3738,13 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage debt and investment
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that is realized in acts of establishing investment
+        policy and processing the organization's debt and investment transactions.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_9_0.ttl#L3119
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_10761
     pcf_code: '10761'
@@ -3582,7 +3755,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P10788
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -3600,9 +3773,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage continuous cost improvement (capability)
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an organization in virtue
+        of its capacity to regularly improve cost distribution, realized in recurring
+        acts of cost reduction.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_9_0.ttl#L1277
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_10788
     pcf_code: '10788'
@@ -3613,7 +3791,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P10894
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -3630,9 +3808,13 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage cash equivalents
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that is realized in acts of holding and utilizing
+        short-term assets readily convertible into cash.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_9_0.ttl#L2953
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_10894
     pcf_code: '10894'
@@ -3643,7 +3825,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P10897
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -3660,9 +3842,13 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage cash flows
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that is realized in acts of optimizing the
+        timing of cash inflows and outflows.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_9_0.ttl#L2984
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_10897
     pcf_code: '10897'
@@ -3673,7 +3859,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P10899
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -3690,9 +3876,13 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage and oversee banking relationships
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that is realized in acts of maintaining and
+        directing relationships with banking partners.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_9_0.ttl#L3005
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_10899
     pcf_code: '10899'
@@ -3703,7 +3893,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P10901
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -3720,9 +3910,13 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage in-house bank accounts for subsidiaries
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that is realized in acts of maintaining and
+        servicing subsidiary accounts held within the corporation's in-house bank.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_9_0.ttl#L3042
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_10901
     pcf_code: '10901'
@@ -3733,7 +3927,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P10908
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -3750,9 +3944,13 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage financial intermediary relationships
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that is realized in acts of maintaining relationships
+        with financial intermediaries that provide loans and services.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_9_0.ttl#L3144
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_10908
     pcf_code: '10908'
@@ -3763,7 +3961,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P10909
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -3780,9 +3978,13 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage liquidity
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that is realized in acts of maintaining sufficient
+        cash and cash equivalents to meet the organization's obligations.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_9_0.ttl#L3154
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_10909
     pcf_code: '10909'
@@ -3793,7 +3995,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P10910
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -3810,9 +4012,13 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage issuer exposure
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that is realized in acts of controlling the
+        credit exposure incurred toward issuers and borrowers.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_9_0.ttl#L3164
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_10910
     pcf_code: '10910'
@@ -3823,7 +4029,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P11010
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -3841,9 +4047,14 @@ entries:
       - https://fandaws.com/ontology/bpo#InvestorRelationsCapability
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Build investor relationships
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Investor Relations Capability that inheres in an Organization in virtue
+        of its capacity to realize the integrated two-way engagement of the organization
+        with lenders, analysts, and shareholders.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_12_0.ttl#L600
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_11010
     pcf_code: '11010'
@@ -3854,7 +4065,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P11012
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -3872,9 +4083,14 @@ entries:
       - https://fandaws.com/ontology/bpo#StakeholderRelationshipManagementCapability
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage relations with board of directors
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an Organization in virtue
+        of its capacity to sustain communicative and reporting relations with its
+        board of directors and the stockholders the board represents.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_12_0.ttl#L888
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_11012
     pcf_code: '11012'
@@ -3885,7 +4101,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P11013
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -3903,9 +4119,14 @@ entries:
       - https://fandaws.com/ontology/bpo#LegalAndComplianceCapability
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage legal and ethical issues
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that an Organization realizes in the acts
+        by which it manages its legal and ethical practices so as to abide by the
+        law.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_12_0.ttl#L934
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_11013
     pcf_code: '11013'
@@ -3916,7 +4137,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P11035
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -3934,9 +4155,15 @@ entries:
       - https://fandaws.com/ontology/bpo#LenderRelationsManagementCapability
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Plan, build, and manage lender relations
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an Organization in virtue
+        of its capacity to build, maintain, and advance ongoing relationships with
+        bankers and lenders so as to foster a receptive environment for favorable
+        lending terms.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_12_0.ttl#L615
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_11035
     pcf_code: '11035'
@@ -3947,7 +4174,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P11036
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -3965,9 +4192,14 @@ entries:
       - https://fandaws.com/ontology/bpo#AnalystRelationsManagementCapability
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Plan, build, and manage analyst relations
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an Organization in virtue
+        of its capacity to create and maintain long-term relationships with financial
+        analysts so as to elicit market intelligence.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_12_0.ttl#L628
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_11036
     pcf_code: '11036'
@@ -3978,7 +4210,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P11038
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -3995,9 +4227,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage government relations
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an Organization in virtue
+        of its capacity to establish, assess, monitor, and advance relationships
+        with government bodies in order to influence public and government policy.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_12_0.ttl#L659
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_11038
     pcf_code: '11038'
@@ -4008,7 +4245,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P11039
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -4025,9 +4262,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage relations with quasi-government bodies
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an Organization in virtue
+        of its capacity to establish, maintain, and advance relationships with quasi-government
+        bodies.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_12_0.ttl#L676
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_11039
     pcf_code: '11039'
@@ -4038,7 +4280,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P11040
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -4055,9 +4297,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage relations with trade or industry groups
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an Organization in virtue
+        of its capacity to evaluate, establish, monitor, extend, and modify relationships
+        with trade or industry groups.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_12_0.ttl#L691
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_11040
     pcf_code: '11040'
@@ -4068,7 +4315,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P11041
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -4085,9 +4332,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage lobby activities
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an Organization in virtue
+        of its capacity to conduct and coordinate lobbying activities aimed at affecting
+        government policies.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_12_0.ttl#L705
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_11041
     pcf_code: '11041'
@@ -4098,7 +4350,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P11045
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -4116,9 +4368,14 @@ entries:
       - https://fandaws.com/ontology/bpo#LegalAndComplianceCapability
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage corporate governance policies
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that an Organization realizes in administering
+        the system of rules, practices, and processes through which it is directed
+        and controlled while balancing stakeholder interests.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_12_0.ttl#L961
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_11045
     pcf_code: '11045'
@@ -4129,7 +4386,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P11047
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -4147,9 +4404,15 @@ entries:
       - https://fandaws.com/ontology/bpo#LegalAndComplianceCapability
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Ensure compliance
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an Organization in virtue
+        of its capacity to ensure and oversee its compliance position by designing
+        compliance programs and validating adherence to statutes, regulatory directions,
+        and legal principles.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_12_0.ttl#L981
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_11047
     pcf_code: '11047'
@@ -4160,7 +4423,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P11048
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -4178,9 +4441,14 @@ entries:
       - https://fandaws.com/ontology/bpo#LegalAndComplianceCapability
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage outside counsel
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that an Organization realizes in the acts
+        by which it engages, oversees, pays, and monitors externally sourced professionals
+        for legal and ethical assistance.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_12_0.ttl#L1017
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_11048
     pcf_code: '11048'
@@ -4191,7 +4459,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P11049
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -4209,9 +4477,14 @@ entries:
       - https://fandaws.com/ontology/bpo#IntellectualPropertyManagementCapability
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Protect intellectual property
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that an Organization realizes in the acts
+        by which it safeguards, registers, licenses, and polices its intellectual
+        property.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_12_0.ttl#L1114
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_11049
     pcf_code: '11049'
@@ -4222,7 +4495,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P11208
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -4239,9 +4512,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Monitor and execute risk and hedging transactions
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that is realized in acts of developing hedging
+        strategy, managing market and exposure risks, executing hedges, and accounting
+        for hedging activity.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_9_0.ttl#L3215
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_11208
     pcf_code: '11208'
@@ -4252,7 +4530,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P11209
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -4269,9 +4547,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage interest rate risk
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that is realized in acts of collecting interest-rate
+        market data, determining interest-rate exposure and hedge requirements, and
+        executing interest-rate trades.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_9_0.ttl#L3237
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_11209
     pcf_code: '11209'
@@ -4282,7 +4565,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P11210
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -4299,9 +4582,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage foreign exchange risk
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that is realized in acts of managing FX market
+        data, determining FX exposure and hedge requirements, executing FX trades,
+        and managing balance-sheet FX risk.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_9_0.ttl#L3294
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_11210
     pcf_code: '11210'
@@ -4312,7 +4600,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P11211
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -4329,9 +4617,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage exposure risk
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that is realized in acts of determining customer
+        exposures, resolving limit violations, managing collateral, and reviewing
+        customer credit.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_9_0.ttl#L3362
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_11211
     pcf_code: '11211'
@@ -4342,7 +4635,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P16958
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -4359,9 +4652,13 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage financial fraud/dispute cases
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that is realized in acts of handling financial-fraud
+        cases and resolving disputes.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_9_0.ttl#L3498
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_16958
     pcf_code: '16958'
@@ -4372,7 +4669,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P17060
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -4389,9 +4686,15 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage enterprise risk
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an organization in virtue
+        of its capacity to create enterprise-risk frameworks and policies and to
+        coordinate, monitor, and communicate all risk-management activities across
+        the entire organization and each of its functions.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_11_0.ttl#L475
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_17060
     pcf_code: '17060'
@@ -4402,7 +4705,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P17471
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -4421,9 +4724,15 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage enterprise quality
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an Organization to the extent
+        of its capacity to establish quality requirements, evaluate quality performance
+        against those requirements, handle nonconformances, and operate an enterprise
+        quality management system.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_13_0.ttl#L1349
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_17471
     pcf_code: '17471'
@@ -4434,7 +4743,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P19228
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -4451,9 +4760,15 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage safety, security, and access to sites
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an Organization in virtue
+        of its capacity to continuously maintain the safety, security, and access
+        of construction and operational sites in conformance with safety and regulatory
+        guidelines.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_10_0.ttl#L1124
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_19228
     pcf_code: '19228'
@@ -4464,7 +4779,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P19250
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -4481,9 +4796,15 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage maintenance work safety
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an Organization in virtue
+        of its capacity to continuously assure that maintenance work practices implement
+        and follow applicable safety laws and regulations and align with regulatory
+        bureaus such as OSHA, EHS, and ISO.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_10_0.ttl#L1314
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_19250
     pcf_code: '19250'
@@ -4494,7 +4815,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P20137
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -4511,9 +4832,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Execute hedging transactions
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that is realized in acts of measuring positions,
+        establishing and unwinding hedges, refining hedging positions, and monitoring
+        credit to implement a hedging strategy.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_9_0.ttl#L3421
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_20137
     pcf_code: '20137'
@@ -4524,7 +4850,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P20866
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -4541,9 +4867,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Create and manage support services/solutions
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that an organization realizes in the acts
+        by which it establishes and manages services for supporting users of IT services
+        and solutions.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_8_0.ttl#L1098
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_20866
     pcf_code: '20866'
@@ -4554,7 +4885,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#P20914
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -4571,9 +4902,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Manage infrastructure resource administration
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that an organization realizes in the acts
+        by which it administers IT infrastructure resources, inventory, assets, and
+        capacity.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_8_0.ttl#L1115
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_20914
     pcf_code: '20914'
@@ -5403,7 +5739,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#RemediationManagementCapability
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'annotation: bpo:apqcSourceText'
   - 'annotation: bpo:hierarchyID'
@@ -5418,9 +5754,13 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Remediation Management Capability
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that is realized in acts of planning, resourcing,
+        investigating, and policy-making for the remediation of environmental adulteration.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_11_0.ttl#L449
   designated_by:
   - node: https://fandaws.com/ontology/bpo#PCF_11185
     pcf_code: '11185'
@@ -6242,7 +6582,7 @@ entries:
   iri: https://fandaws.com/ontology/bpo#TreasuryManagementCapability
   version:
     commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
-  rights_status: apqc-terms-unverified
+  rights_status: apqc-pcf-7.4
   apqc_evidence:
   - 'text-contains-pcf: ontology/slices/apqc_9_0.ttl skos:definition contains the
     name of https://fandaws.com/ontology/bpo#PCF_10759'
@@ -6256,9 +6596,14 @@ entries:
       subclass_of:
       - https://www.commoncoreontologies.org/ont00000568
     label:
-      withheld: apqc-terms-unverified
+    - property: rdfs:label
+      text: Treasury Management Capability
     definition:
-      withheld: apqc-terms-unverified
+    - property: skos:definition
+      text: An Organization Capability that inheres in an Organization in virtue
+        of its capacity to manage cash, liquidity, debt, investments, and financial
+        risk.
+    text_from: https://github.com/Skreen5hot/BusinessProcessOntology/blob/2e55edd9e86a0bc20fa88a21595cc61402faa5dc/ontology/slices/apqc_9_0.ttl#L247
   designated_by: []
   enables_process:
   - target: https://fandaws.com/ontology/bpo#P10885

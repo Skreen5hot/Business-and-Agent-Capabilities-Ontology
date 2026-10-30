@@ -47,7 +47,8 @@ Refuses a rights record that:
     quotation mark typed into any other string), or attributes a quote to
     evidence the source does not list;
   - fills `architect_decision` with anything but a pointer to a decision
-    record that exists;
+    record that exists (`record`, and, where a later decision replaced
+    it, `superseded_by`);
   - fails the admission guard (Amendment 4): an IRI in this repository's
     AUTHORED_NAMESPACES, text that reads as an RDF serialization, or a
     ratification or vocabulary key. The guard's constants are
@@ -134,7 +135,8 @@ ATTRIBUTION_KEYS = {"required", "summary", "locators"}
 QUOTE_KEYS = {"evidence", "locator", "quote"}
 DECISION_POINT_KEYS = {"id", "question", "options", "recommendation"}
 OPTION_KEYS = {"key", "option"}
-ARCHITECT_KEYS = {"record"}
+ARCHITECT_KEYS = {"record", "superseded_by"}
+ARCHITECT_REQUIRED = {"record"}
 PREPARED_KEYS = {"by", "date"}
 
 #: Keys that would hold a catalog's own content. Refused anywhere except
@@ -429,13 +431,15 @@ def _source(source, where, known_register, base, out) -> None:
     decision = source.get("architect_decision")
     if decision is not None:
         dw = where + "/architect_decision"
-        if _keys(decision, ARCHITECT_KEYS, ARCHITECT_KEYS, dw, out):
-            record = str(decision.get("record", ""))
-            if not (record.startswith(DECISIONS) and record.endswith(".md")
-                    and (base / record).is_file()):
-                out.append("%s points at %r, which is not a decision record "
-                           "in %s. The decision is the architect's act, "
-                           "recorded there" % (dw, record, DECISIONS))
+        if _keys(decision, ARCHITECT_KEYS, ARCHITECT_REQUIRED, dw, out):
+            for key in sorted(set(decision) & ARCHITECT_KEYS):
+                record = str(decision.get(key, ""))
+                if not (record.startswith(DECISIONS) and record.endswith(".md")
+                        and (base / record).is_file()):
+                    out.append("%s/%s points at %r, which is not a decision "
+                               "record in %s. The decision is the architect's "
+                               "act, recorded there" % (dw, key, record,
+                                                        DECISIONS))
 
 
 def _content_findings(data, out) -> None:
