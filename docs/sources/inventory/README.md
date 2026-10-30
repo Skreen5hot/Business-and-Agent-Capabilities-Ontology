@@ -14,7 +14,7 @@ every run (below).
 |---|---|---|
 | I-1 | BPO harvest, with Q-12 and Q-13 re-measured | **this directory** |
 | I-2a | Rights review of the public catalogs: APQC PCF 7.4 and 8.0, FEAF-II BRM 3.1, FIBF | **`rights.yaml`**; decided 2026-10-28 (`docs/decisions/2026-10-28-i2a-decided.md`) |
-| I-2b | APQC PCF: 7.4 levels 1–2, level-3 standing-function candidates, the 8.0 delta | after I-2a is decided |
+| I-2b | APQC PCF 7.4, every element, from BPO's catalog with APQC's notice (decision of 2026-10-29) | **`pcf-7.4-entries.yaml`**; E4 open, PCF 8.0 deferred |
 | I-2c | Federal catalogs: FEAF-II BRM and FIBF | after I-2a is decided |
 | I-3 | Restricted catalogs, citation and coverage only | not started |
 | I-4 | Crosswalk, triage and report | not started |
@@ -38,6 +38,7 @@ reviewer needs in order to disagree with it.
 | `bpo-findings.yaml` | counts at the selected commit and at the baseline, and the diff; IRIs only | `harvest_bpo.py --rebuild` |
 | `NOTICE.md` | the attribution BPO's licence requires, and the APQC evidence | `harvest_bpo.py --rebuild` |
 | `rights.yaml` | I-2a: per source and edition, the rights evidence pinned by digest, findings, decision points | hand, checked by `rights.py` |
+| `pcf-7.4-entries.yaml` | I-2b: every PCF 7.4 element as BPO's catalog states it, under APQC's notice; not MIT | `harvest_pcf.py --write` |
 | `README.md` | this file | hand |
 
 The pins are `config/inventory-sources.yaml`: BPO `main` HEAD on 2026-10-27, resolved to
@@ -170,3 +171,80 @@ and, for BPO evidence without a local clone, raw.githubusercontent.com, and alwa
 the network rather than the cache: a moved digest means the publisher changed the
 document, which is a new edition for the architect, not a re-pin. apqc.org is never
 fetched: it challenges scripted clients and its Terms forbid automated access.
+
+## The APQC PCF (Phase I-2b): published from BPO, with APQC's notice
+
+**The posture.** On 2026-10-29 the architect replaced APQC-1's citation-only posture
+(`docs/decisions/2026-10-29-apqc-pcf-sourcing-decided.md`): PCF 7.4 element IDs,
+hierarchy IDs, names and descriptions may be published, taken **only** from BPO's
+repository at a pinned commit that carries BPO's `NOTICE.md`, with APQC's notice —
+copied from that file, not retyped — on every PCF-bearing artifact, and a check that
+refuses one without it. APQC-2 (the clarification request) is withdrawn and APQC80-1
+(PCF 8.0) deferred with the 7.4-to-8.0 comparison. Nothing is ever fetched from apqc.org.
+The first I-2b, which read the workbook into internal evidence and published only a status
+record, is withdrawn with the posture it served: the workbook is no longer read,
+`pcf-status.yaml` and the `--pcf80` delta are gone, and `.inventory-internal/` stays
+gitignored only so a stale local copy cannot be committed (delete it).
+
+**The source.** `config/inventory-pcf-sources.yaml` pins BPO commit
+`2e55edd9e86a0bc20fa88a21595cc61402faa5dc`, the first with `NOTICE.md`, and two files by
+sha256: `ontology/apqc-catalog.ttl` (every element as a SKOS concept with `bpo:pcfID`,
+`bpo:hierarchyID`, `skos:prefLabel`, `bpo:apqcSourceText`, `skos:broader`) and `NOTICE.md`.
+I-1's `config/inventory-sources.yaml` is an approved output and is not edited; the
+vendored extract's pin in `config/upstream-sources.yaml` moves only by re-pin.
+
+**The notice.** `harvest_pcf.py` takes APQC's notice from the blockquote under "## APQC's
+notice" in BPO's `NOTICE.md`, unwrapping its `> ` lines into one paragraph, and refuses
+unless it digests to the pinned `apqc_notice_sha256` and equals the APQC part of the
+catalog's one `dct:rights` (after BPO's framing sentence and a blank line) at the same
+commit. Both outputs record the `NOTICE.md` digest.
+
+**What an entry is.** One per catalog element, sorted by hierarchy id: `id`
+(`INV-PCF74-<element id>`), `pcf_element_id`, `pcf_hierarchy_id`, `level` (from the
+hierarchy id: `N.0` is 1, `N.M` is 2, otherwise the number of components, checked against
+BPO's level comment), `parent_pcf_element_id` (the `skos:broader`, which must be the
+hierarchy parent), `name`, `description`, `bpo_iri`, `locator` (the line of the node in the
+catalog at the pinned commit) and `bpo_bridge`: the capability-class entries of
+`bpo-entries.yaml` whose `designated_by` names that element's catalog node, and those whose
+own `pcf_code` is its id — evidence, not proof (I-1 found the bridge is not a
+standing-function marker), recorded with the input's digest. The header carries the
+citation, `apqc_notice`, `apqc_notice_source`, the statement that the material is APQC's
+and not under this repository's MIT licence, that APQC does not endorse this work, that
+APQC's marks are used only to identify the source, the counts per level, **E4 open** (no
+element is judged a standing function or a capability; E4 Option A needs written,
+architect-approved judgements) and **PCF 8.0 deferred**.
+
+**`NOTICE.md` at the repository root** separates this repository's MIT work from the PCF
+material, lists every PCF-bearing file (from `pcf_bearing` in the pin file), reproduces
+APQC's notice and records where it was copied from. Phase I-1's `bpo-entries.yaml`
+publishes PCF element IDs (`pcf_code`), so it is listed as PCF-bearing; it does not yet
+carry the notice, because only the E7 pull request may change an I-1 output. It is the
+one entry in the pin file's `exceptions`, with the reason "awaits E7", and a test pins
+that list so the E7 PR has to empty it.
+
+```bash
+python tools/inventory/harvest_pcf.py             # offline check (before committing; CI)
+python tools/inventory/harvest_pcf.py --write     # fetch BPO's two files (cache, else GitHub), write both outputs
+python tools/inventory/harvest_pcf.py --confirm   # fetch, rebuild in memory, require byte identity
+python tools/licensing/pcf_notice.py              # the repository-wide notice gate
+```
+
+The offline check refuses an entries file that is not the generator's rendering of its
+data, leaves its closed schema, has a header other than the pins, `rights.yaml` and the
+decision give, an `apqc_notice` with another digest, a malformed, repeated or unsorted
+entry, a parent not one level up, counts that disagree, a bridge that is not what the
+committed `bpo-entries.yaml` gives, a stale `NOTICE.md`, CRLF, or the admission guard's
+refusals. With BPO's files cached (or under `--confirm`, weekly in CI) both outputs must
+also be a byte-identical rebuild; that is what catches a consistent hand edit of a name
+or description, which the offline check cannot tell from BPO's text.
+
+**The gate.** `tools/licensing/pcf_notice.py` reads every tracked YAML, JSON and RDF file.
+A file is PCF-bearing when it holds a PCF id key (`pcf_code`, `pcf_element_id`,
+`pcf_hierarchy_id`, `hierarchy_id`, `element_id`, ...) or asserts `bpo:pcfID`,
+`bpo:hierarchyID` or `bpo:apqcSourceText` (by local name, in any namespace) or BPO's PCF
+scheme. Each must carry the notice — for YAML or JSON a top-level `apqc_notice` equal to
+it, for RDF exactly one `dct:rights` on exactly one ontology header containing it — unless
+it has an exception; `NOTICE.md` must reproduce the pinned notice, be fresh, and list
+exactly the PCF-bearing files. **What it cannot see:** prose. Markdown and HTML are not
+read, and BPO IRIs that embed PCF element IDs (`bpo:PCF_<id>`, `bpo:P<id>`) are identifiers,
+not catalog data, wherever they appear (`bpo-findings.yaml`, the specification, reviews).
