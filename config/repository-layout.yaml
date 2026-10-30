@@ -242,6 +242,15 @@ components:
       is not. Dated at the commit it describes: it is a snapshot, and a
       snapshot that pretends otherwise is worse than none.
 
+  - id: docs.roadmap
+    path: docs/ROADMAP.md
+    role: documentation
+    description: >-
+      The order of work: the decision path and the terminology lane, each
+      step with its entry gate, its standard and its exit, and the gates
+      every step keeps. It orders work and authorizes none; proposed until
+      the architect approves it.
+
   - id: docs.development
     path: docs/DEVELOPMENT.md
     role: documentation
