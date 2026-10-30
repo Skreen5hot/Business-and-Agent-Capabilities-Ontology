@@ -533,8 +533,9 @@ AI clause in APQC's Terms does not reach this work, and accepts the residual ris
 
 `tools/inventory/rights.py`
 checks the record offline (CI) and refetches every pin with `--confirm` (weekly); apqc.org
-is never fetched by a script. Not done: any I-2b or I-2c content, lifting I-1's withholding (E7, a separate PR), and correcting the register's
-SRC-GOV-05 URL (now 404) and SRC-GOV-06's secondary-only citations.
+is never fetched by a script. Since done: I-2b, I-2c and E7, each in its own PR, and the
+register's SRC-GOV-05 and SRC-GOV-06 entries, corrected from this evidence under the closure
+decision of 2026-10-30 (`docs/decisions/2026-10-30-closure-decided.md`).
 
 ### 5.18 Capability Term Inventory, Phase I-2c (federal catalogs)
 
@@ -561,9 +562,10 @@ both pin files. The offline check runs in CI and `--confirm` in the weekly job. 
 the taxonomy's tree diagrams (20 of its 40 business functions have no table row of their
 own, being named only there and in service rows, and 20 of its 228 services appear only
 there), the EEO page's activity and capability tables (empty in the pinned
-bytes), anything from the MITRE-marked workbooks until GSA or MITRE clears them, the
-register's SRC-GOV-05/06 corrections, and everything I-4 does (grouping, deduplication,
-triage).
+bytes), anything from the MITRE-marked workbooks until GSA or MITRE clears them, the HR
+lists' withheld text until provenance or rights evidence is adequate, and everything I-4
+does (grouping, deduplication, triage). The register's SRC-GOV-05/06 corrections are done
+(closure decision of 2026-10-30).
 
 ### 5.19 Capability Term Inventory, Phase I-2b (APQC PCF 7.4, from BPO, with APQC's notice)
 
@@ -598,7 +600,7 @@ stays gitignored only so a stale local copy is never committed. Now:
   `bpo-entries.yaml`, "awaits E7"; E7 emptied the list (section 5.20), and a test pins it
   empty.
 
-Not done: **E4** (open: no element is judged a standing function); **PCF 8.0** (deferred with the comparison). Prose is not scanned: the
+Not done: **E4** judgments (the method, Option A, is decided: `docs/decisions/2026-10-30-e4-method-decided.md`; no element is judged a standing function, and none is approved); **PCF 8.0** (deferred with the comparison). Prose is not scanned: the
 specification and some reviews cite BPO IRIs that embed PCF element IDs
 and a few hierarchy IDs, and `bpo-findings.yaml` and
 `config/upstream-extracts.json` list such IRIs; the gate does not treat IRIs or prose as
