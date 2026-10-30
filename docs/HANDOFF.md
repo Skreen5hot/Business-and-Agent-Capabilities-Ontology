@@ -483,9 +483,9 @@ not repeated here. `bpo-entries.yaml` holds one entry per capability class and p
 `capability_scope.json` key, never merged; BPO marks no standing-function node, so that
 kind has no entries. Labels and definitions BPO ties to the APQC PCF (D7 `P<id>` names,
 `bpo:pcfID`/`hierarchyID`/`apqcSourceText`, text equal to a catalog literal or
-containing a catalog name of two or more words, or text withheld on another class) are
-withheld until APQC's terms are verified in Phase I-2; paraphrase the rule cannot see is
-the open residue. The entries are role `source-evidence` (third-party, MIT, attributed in
+containing a catalog name of two or more words, or text withheld on another class) were
+withheld when I-1 was approved, and E7 has released them (section 5.20); paraphrase the
+rule cannot see is the open residue. The entries are role `source-evidence` (third-party, MIT, attributed in
 the generated `NOTICE.md`). Not done: re-pinning the vendored extract (a separate
 decision), grouping (I-4), and any check that BPO added a module after the pinned file
 list was read. The offline check runs before every commit and in CI; `--confirm` runs in
@@ -565,17 +565,41 @@ stays gitignored only so a stale local copy is never committed. Now:
 - **The gate.** `tools/licensing/pcf_notice.py` reads every tracked YAML, JSON and RDF file
   and fails when one carries PCF material (PCF id keys; `bpo:pcfID`/`hierarchyID`/
   `apqcSourceText` or BPO's PCF scheme) without the notice, when the notice is altered, or
-  when `NOTICE.md` lists anything other than those files. Its one exception is I-1's
-  `bpo-entries.yaml` (PCF element IDs as `pcf_code`), "awaits E7"; a test pins the list.
+  when `NOTICE.md` lists anything other than those files. Its one exception was I-1's
+  `bpo-entries.yaml`, "awaits E7"; E7 emptied the list (section 5.20), and a test pins it
+  empty.
 
-Not done: **E7**, the separate PR that lifts I-1's withholding and adds the notice to
-`bpo-entries.yaml` (and empties the exception list); **E4** (open: no element is judged a
-standing function); **PCF 8.0** (deferred with the comparison). Prose is not scanned: the
+Not done: **E4** (open: no element is judged a standing function); **PCF 8.0** (deferred with the comparison). Prose is not scanned: the
 specification and some reviews cite BPO IRIs that embed PCF element IDs
 and a few hierarchy IDs, and `bpo-findings.yaml` and
 `config/upstream-extracts.json` list such IRIs; the gate does not treat IRIs or prose as
 PCF-bearing. No site page shows the catalog; the specification and review pages show those cited IRIs and hierarchy IDs, which predate this decision (whether they need the site footer notice is the architect's call). CI runs both checks offline; the weekly job's
 `harvest_pcf.py --confirm` rebuilds both outputs from BPO.
+
+### 5.20 E7: Inventory I-1's APQC withholding lifted (approved 2026-10-30)
+
+Decision E7 (`docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md`) required its own
+reviewed PR, with the I-1 approval and historical outputs kept traceable; section 5 of the
+decision of 2026-10-29 authorized preparing it. `tools/inventory/harvest_bpo.py` now runs
+I-1's rule unchanged and then a separate `release` step: each withheld entry's labels and
+definitions are read from the same BPO module at the PCF pin (`2e55edd`, pinned per module
+in the `i1_release` block of `config/inventory-pcf-sources.yaml`; each module's header
+must carry APQC's notice) and released only if they equal, literal for literal, the text
+withheld at `bc64e91`. They all did. Released entries have `rights_status: apqc-pcf-7.4`
+and `text_from` locators; `bpo-entries.yaml` carries `apqc_notice` and a `release` block;
+the inventory `NOTICE.md` says where the text came from; the root `NOTICE.md` lists the
+file as carrying the notice; the gate's exception list is empty. Unchanged:
+`bpo-findings.yaml`, `config/inventory-sources.yaml`, the harvest commit, the baseline
+`66131945`, and every entry the rule did not tie to the PCF, byte for byte.
+`docs/sources/inventory/e7-release.md` records the approval's digests beside today's, the
+counts released and the equality measured; `pcf-7.4-entries.yaml` changed only in the
+digest of its bridge input.
+
+The architect approved E7 on 2026-10-30 (`docs/decisions/2026-10-30-e7-approved.md`), with
+one correction required before merge. `tools/licensing/disposition.py` had reported
+`bpo-entries.yaml` as MIT alone, which is BPO's pin. It now reports one disposition with
+both rights, `MIT AND LicenseRef-APQC-PCF`, for any MIT-pinned entries file that
+`pcf_bearing` names. A regression test refuses a report of MIT alone.
 
 ## 6. Outside the repository
 

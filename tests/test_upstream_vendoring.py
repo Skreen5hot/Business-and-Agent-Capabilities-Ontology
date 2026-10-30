@@ -419,7 +419,8 @@ def test_the_licence_comes_from_the_pins_not_from_this_repository(
     """
     monkeypatch.setattr(disposition, "project_licence",
                         lambda: "SENTINEL-PROJECT-LICENCE")
-    pinned = {path: entry["licence"]["spdx"] for path, (entry, _notice)
+    pinned = {path: disposition.licence_expression(entry)
+              for path, (entry, _notice)
               in disposition.redistributed_sources().items()}
     rows = [row for row in disposition.classify()
             if row.disposition == disposition.VENDORED]

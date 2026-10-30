@@ -301,16 +301,17 @@ def test_every_finding_has_a_negative_fixture(gate):
 def test_the_repository_passes_the_gate(gate):
     problems, report = gate.findings(ROOT)
     assert problems == []
-    assert report["bearing"] == {ENTRIES: None, BPO_ENTRIES: gate.LACKS}
-    assert report["excepted"] == [BPO_ENTRIES]
+    assert report["bearing"] == {ENTRIES: None, BPO_ENTRIES: None}
+    assert report["excepted"] == []
 
 
-def test_the_exception_list_is_exactly_i1s_entries_awaiting_e7(h):
-    """Pinned so the E7 pull request has to empty it, and nothing else
-    can join it unnoticed."""
-    exceptions = h.pins(ROOT)["exceptions"]
-    assert [e["path"] for e in exceptions] == [BPO_ENTRIES]
-    assert exceptions[0]["reason"].startswith("awaits E7")
+def test_the_exception_list_is_empty_since_e7(h):
+    """It held I-1's entries, "awaits E7", until E7 gave them the notice.
+    Pinned empty, so nothing joins it unnoticed: a new exception is a new
+    decision."""
+    assert h.pins(ROOT)["exceptions"] == []
+    text = (ROOT / "NOTICE.md").read_bytes().decode("utf-8")
+    assert "Does not yet carry the notice" not in text
 
 
 def test_root_notice_lists_every_pcf_bearing_file(h):

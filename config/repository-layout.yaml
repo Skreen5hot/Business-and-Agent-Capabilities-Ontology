@@ -380,8 +380,9 @@ components:
       every capability class (closure under CCO Organization Capability)
       with each module's declaration kept apart, and every
       capability_scope.json entry -- never merged. Labels and definitions
-      tied to the APQC PCF are withheld until APQC's terms are verified
-      (Phase I-2).
+      tied to the APQC PCF were withheld when I-1 was approved; E7 released
+      them from BPO at the PCF pin, with APQC's notice on the file
+      (apqc_notice) and a release block naming the commit and digests.
 
   - id: inventory.bpo-findings
     path: docs/sources/inventory/bpo-findings.yaml
@@ -398,10 +399,12 @@ components:
     role: documentation
     generator: tool.inventory-harvest-bpo
     description: >-
-      Attribution for the BPO text the inventory redistributes, and the
-      APQC evidence pinned for Phase I-2. Generated from
-      config/inventory-sources.yaml; tools/licensing/disposition.py fails
-      if the declared attribution is missing here.
+      Attribution for the BPO text the inventory redistributes, where the
+      PCF text released by E7 came from (commit and digests), and the APQC
+      evidence pinned at the harvest commit. Generated from
+      config/inventory-sources.yaml and config/inventory-pcf-sources.yaml;
+      tools/licensing/disposition.py fails if the declared attribution is
+      missing here.
 
   - id: inventory.readme
     path: docs/sources/inventory/README.md
@@ -409,6 +412,17 @@ components:
     description: >-
       What the inventory is and is not, its phases, the kinds of entry, the
       rights rule and how to regenerate and check it.
+
+  - id: inventory.e7-release
+    path: docs/sources/inventory/e7-release.md
+    role: documentation
+    description: >-
+      E7, lifting Phase I-1's APQC withholding: the authority, the BPO
+      commits used, the equality measured between the withheld and the
+      released text, the fields released, and for every I-1 file the
+      digest the I-1 approval recorded beside its digest now, so the
+      approved versions stay traceable. tests/test_inventory.py checks
+      the digests against the approval record and the files.
 
   - id: config.inventory-sources
     path: config/inventory-sources.yaml
@@ -423,10 +437,11 @@ components:
     role: tool
     description: >-
       Checks the inventory offline by default (schema, pinned digests, the
-      rights rule, the admission guard, a fresh notice); with --rebuild,
-      fetches the pinned files from raw.githubusercontent.com and rewrites
-      the outputs; with --confirm, requires them to be byte-identical to a
-      fresh harvest.
+      rights rule and E7's release, APQC's notice, the admission guard, a
+      fresh notice); with --rebuild, fetches the pinned files from
+      raw.githubusercontent.com (I-1's harvest commit, and E7's modules at
+      the PCF pin) and rewrites the outputs; with --confirm, requires them
+      to be byte-identical to a fresh harvest.
 
   # Phase I-2a, the rights review: hand-written judgement, checked by a
   # tool. It holds paraphrase, pins and quotes of at most 15 words from
@@ -483,9 +498,9 @@ components:
     description: >-
       Phase I-2b's pins: the BPO commit, its catalog and NOTICE.md by
       sha256, the sha256 of APQC's notice as extracted, the outputs, the
-      licence and attribution the licensing tool reads, every PCF-bearing
-      file, and the exceptions to the notice rule (today only I-1's
-      bpo-entries.yaml, awaiting E7).
+      licence and attribution the licensing tool reads, E7's release pins
+      for I-1's withheld text (i1_release), every PCF-bearing file, and the
+      exceptions to the notice rule (none since E7).
 
   - id: tool.inventory-harvest-pcf
     path: tools/inventory/harvest_pcf.py

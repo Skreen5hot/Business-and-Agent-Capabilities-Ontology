@@ -7,9 +7,10 @@ against the committed outputs, and then against copies in tmp_path broken
 one rule at a time -- each mutation asserted to have changed something
 before the check runs, each failure required to be the finding for that
 rule (docs/process/PROCESS.md section 2). The harvest's own rules (what is
-a capability class, what is withheld, Q-12, Q-13) are tested on a small
-synthetic BPO built here in memory, so they run without the network; the
-real harvest is held to its pins by --confirm in the weekly CI job.
+a capability class, what is withheld, Q-12, Q-13) and E7's release of the
+withheld text are tested on a small synthetic BPO built here in memory, so
+they run without the network; the real harvest is held to its pins by
+--confirm in the weekly CI job.
 
 No tracked fixture: every broken case is built at run time, because a
 `test-fixture` component is loaded as Turtle by the validation ladder.
@@ -17,7 +18,9 @@ No tracked fixture: every broken case is built at run time, because a
 
 from __future__ import annotations
 
+import hashlib
 import json
+import re
 
 import pytest
 import yaml
@@ -29,7 +32,13 @@ DIRECTORY = "docs/sources/inventory"
 ENTRIES = DIRECTORY + "/bpo-entries.yaml"
 FINDINGS = DIRECTORY + "/bpo-findings.yaml"
 NOTICE = DIRECTORY + "/NOTICE.md"
+RECORD = DIRECTORY + "/e7-release.md"
+APPROVAL = "docs/decisions/2026-10-27-inventory-i1-approved.md"
+RELEASED = "apqc-pcf-7.4"
+WITHHELD = "apqc-terms-unverified"
+RELEASE_COMMIT = "2e55edd9e86a0bc20fa88a21595cc61402faa5dc"
 COPIED = ("config/inventory-sources.yaml", "config/upstream-sources.yaml",
+          "config/inventory-pcf-sources.yaml",
           "tools/ontology/validate.py", ENTRIES, FINDINGS, NOTICE,
           DIRECTORY + "/README.md",
           "docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md")
@@ -87,7 +96,7 @@ def test_the_committed_outputs_pass(harvest):
     assert problems == [], problems
     # Guard the guard: a check over an empty inventory would pass too.
     assert counts["capability-class"] > 0 and counts["scope-entry"] > 0
-    assert 0 < counts["withheld"] < counts["entries"]
+    assert 0 < counts["released"] < counts["entries"]
 
 
 def test_the_copy_is_clean_before_anything_is_broken(harvest, copy):
@@ -109,26 +118,145 @@ def test_the_findings_agree_with_the_entries(harvest):
         assert row["target"] in listed
 
 
-def test_no_withheld_entry_carries_text(harvest):
-    """The rights rule over the real data, read directly rather than
-    through the tool's own check."""
-    marker = {"withheld": "apqc-terms-unverified"}
-    withheld = [e for e in load(ROOT, ENTRIES)["entries"]
-                if e["rights_status"] == "apqc-terms-unverified"]
-    assert withheld
-    for entry in withheld:
+def test_every_withholding_is_released_with_the_notice(harvest):
+    """E7 over the real data, read directly rather than through the
+    tool's own check: nothing is still withheld, every released
+    declaration carries text read at the release commit, and the file
+    carries APQC's notice as pinned."""
+    document = load(ROOT, ENTRIES)
+    text = (ROOT / ENTRIES).read_bytes().decode("utf-8")
+    assert WITHHELD + "}" not in text and "withheld: " + WITHHELD not in text
+    released = [e for e in document["entries"]
+                if e["rights_status"] == RELEASED]
+    assert released and all(e["apqc_evidence"] or e["pcf_code"]
+                            for e in released)
+    for entry in released:
         for d in entry.get("declarations", []):
-            assert d["label"] == marker and d["definition"] == marker, \
-                entry["id"]
+            assert isinstance(d["label"], list) and d["label"], entry["id"]
+            assert isinstance(d["definition"], list), entry["id"]
+            assert d["text_from"].startswith(
+                "https://github.com/Skreen5hot/BusinessProcessOntology/blob/"
+                + RELEASE_COMMIT + "/" + d["module"] + "#L"), entry["id"]
+    pins = load(ROOT, "config/inventory-pcf-sources.yaml")["sources"][0]
+    assert hashlib.sha256(document["apqc_notice"].encode("utf-8")) \
+        .hexdigest() == pins["apqc_notice_sha256"]
+    assert document["release"]["commit"] == pins["commit"] == RELEASE_COMMIT
+
+
+def test_only_released_entries_name_a_release_line(harvest):
+    """E7 adds a field only to what I-1 withheld, and keeps I-1's counts.
+    (That every other entry is byte-identical to the approved file was
+    measured when E7 was prepared and is recorded in e7-release.md; the
+    approved file is in git, at ba8df1a, not in the tree.)"""
+    document = load(ROOT, ENTRIES)
+    for entry in document["entries"]:
+        if entry["rights_status"] == "bpo-mit":
+            for d in entry.get("declarations", []):
+                assert "text_from" not in d, entry["id"]
+    assert document["counts"]["entries"] == 186
+    assert document["counts"]["released"] == 59
+
+
+# --------------------------------------------- E7: traceability of I-1
+
+
+def record_rows():
+    """{path: (approved digest, digest at E7)} from e7-release.md."""
+    rows = {}
+    text = (ROOT / RECORD).read_bytes().decode("utf-8")
+    for match in re.finditer(r"(?m)^\| `([^`]+)` \| `([0-9a-f]{64})` \| "
+                             r"`([0-9a-f]{64})` \| (changed|unchanged)",
+                             text):
+        rows[match.group(1)] = (match.group(2), match.group(3),
+                                match.group(4))
+    return rows
+
+
+def test_the_record_cites_every_digest_the_approval_recorded():
+    """The approval is the architect's and is never edited; the record
+    must carry each digest it recorded, so the approved versions stay
+    findable (git show ba8df1a:<path>)."""
+    approval = (ROOT / APPROVAL).read_bytes().decode("utf-8")
+    recorded = dict(re.findall(r"(?m)^\| `([^`]+)` \| `([0-9a-f]{64})` \|$",
+                               approval))
+    assert len(recorded) == 6
+    rows = record_rows()
+    assert set(rows) == set(recorded)
+    for path, digest in recorded.items():
+        assert rows[path][0] == digest, path
+
+
+def test_the_record_pins_the_i1_outputs_as_they_now_are():
+    """The I-1 outputs and pins, held to the record: an output changed
+    after E7 without a new record is refused here. Those E7 did not
+    change are still the approved bytes."""
+    rows = record_rows()
+    for path in (ENTRIES, FINDINGS, NOTICE, "config/inventory-sources.yaml"):
+        approved, now, state = rows[path]
+        digest = hashlib.sha256((ROOT / path).read_bytes()).hexdigest()
+        assert digest == now, path
+        assert (state == "unchanged") == (approved == now), path
+    assert rows[FINDINGS][2] == "unchanged"
+    assert rows["config/inventory-sources.yaml"][2] == "unchanged"
+    assert rows[ENTRIES][2] == rows[NOTICE][2] == "changed"
 
 
 def test_the_entries_are_dispositioned_as_third_party_text(disposition):
     rows = {r.path: r for r in disposition.classify()}
     row = rows[ENTRIES]
     assert row.disposition == disposition.VENDORED
-    assert row.licence == "MIT"
+    assert row.licence == "MIT AND LicenseRef-APQC-PCF"
     assert rows[FINDINGS].disposition == disposition.CONTENT
     assert disposition.attribution_findings(list(rows.values())) == []
+
+
+def test_a_mixed_rights_file_is_not_reported_as_mit_only(disposition,
+                                                         monkeypatch):
+    """Review of PR #22: the entries hold BPO's MIT text and, since E7,
+    APQC's PCF text, and one file-level disposition must say both.
+
+    Checked both ways: a MIT-pinned file that `pcf_bearing` names gets
+    both rights and one that it does not name keeps its pin's alone; and
+    with pcf_rights() emptied the entries fall back to MIT, which shows
+    the report's licence is read from it rather than passing by accident.
+    """
+    rows = {r.path: r for r in disposition.classify()}
+    assert rows[ENTRIES].licence.split(" AND ") == [
+        "MIT", "LicenseRef-APQC-PCF"]
+    assert len([r for r in rows.values()
+                if r.disposition == disposition.VENDORED]) == len(
+        {r.path for r in rows.values()
+         if r.disposition == disposition.VENDORED})
+
+    mit = {"licence": {"spdx": "MIT"}}
+    elsewhere = DIRECTORY + "/not-pcf-bearing.yaml"
+    rights = disposition.pcf_rights({ENTRIES: (dict(mit), NOTICE),
+                                     elsewhere: (dict(mit), NOTICE)})
+    assert rights == {ENTRIES: ["MIT", "LicenseRef-APQC-PCF"]}
+    assert disposition.licence_expression(
+        dict(mit, rights=rights[ENTRIES])) == "MIT AND LicenseRef-APQC-PCF"
+    assert disposition.licence_expression(dict(mit)) == "MIT"
+
+    monkeypatch.setattr(disposition, "pcf_rights", lambda found: {})
+    assert disposition.licence_of(disposition.VENDORED, ENTRIES) == "MIT", (
+        "the report's licence for the entries is not coming from "
+        "pcf_rights(), so nothing here stops it saying MIT alone")
+
+
+def test_more_than_one_pcf_licence_is_refused(disposition, monkeypatch):
+    import yaml as _yaml
+    load = _yaml.safe_load
+
+    def two(text):
+        raw = load(text)
+        if isinstance(raw, dict) and "pcf_bearing" in raw:
+            extra = dict(raw["sources"][0],
+                         licence={"spdx": "LicenseRef-Other"})
+            raw = dict(raw, sources=raw["sources"] + [extra])
+        return raw
+    monkeypatch.setattr(_yaml, "safe_load", two)
+    with pytest.raises(disposition.Refused, match="exactly one PCF licence"):
+        disposition.pcf_rights({})
 
 
 def test_ci_runs_the_check_and_the_weekly_confirmation(repo):
@@ -282,7 +410,7 @@ def test_counts_that_disagree_with_the_entries_are_refused(harvest, copy):
     rewrite(copy, FINDINGS, data)
     assert any("capability classes;" in p for p in findings(harvest, copy))
     data = load(copy, ENTRIES)
-    data["counts"]["withheld"] -= 1
+    data["counts"]["released"] -= 1
     rewrite(copy, ENTRIES, data)
     assert any("states counts" in p for p in findings(harvest, copy))
 
@@ -290,47 +418,98 @@ def test_counts_that_disagree_with_the_entries_are_refused(harvest, copy):
 # ------------------------------------------------------------ rights rule
 
 
-def test_a_withheld_entry_carrying_a_label_is_refused(harvest, copy):
+def test_an_entry_still_withheld_is_refused(harvest, copy):
+    """The rule's output without E7's release is no longer what the tool
+    writes."""
     data = load(copy, ENTRIES)
-    entry = first(data["entries"], "capability-class",
-                  "apqc-terms-unverified")
-    entry["declarations"][0]["label"] = [
-        {"property": "rdfs:label", "text": "Some PCF wording"}]
+    entry = first(data["entries"], "capability-class", RELEASED)
+    entry["rights_status"] = WITHHELD
+    for d in entry["declarations"]:
+        d["label"] = d["definition"] = {"withheld": WITHHELD}
+        del d["text_from"]
     rewrite(copy, ENTRIES, data)
-    assert any("is withheld (apqc-terms-unverified) but its declaration 0 "
-               "label carries" in p for p in findings(harvest, copy))
+    problems = findings(harvest, copy)
+    assert any("is still withheld (apqc-terms-unverified); E7 released "
+               "every withheld entry" in p for p in problems), problems
+    assert any("label is still withheld" in p for p in problems)
 
 
-def test_a_withheld_entry_carrying_a_definition_is_refused(harvest, copy):
+def test_a_withheld_field_on_a_released_entry_is_refused(harvest, copy):
     data = load(copy, ENTRIES)
-    entry = first(data["entries"], "capability-class",
-                  "apqc-terms-unverified")
-    entry["declarations"][0]["definition"] = [
-        {"property": "skos:definition", "text": "Some PCF wording"}]
+    entry = first(data["entries"], "capability-class", RELEASED)
+    entry["declarations"][0]["definition"] = {"withheld": WITHHELD}
     rewrite(copy, ENTRIES, data)
-    assert any("declaration 0 definition carries" in p
+    problems = findings(harvest, copy)
+    assert any("declaration 0 definition is still withheld" in p
+               for p in problems), problems
+    assert any("carries no label or definition list" in p for p in problems)
+
+
+def test_released_text_without_its_source_line_is_refused(harvest, copy):
+    data = load(copy, ENTRIES)
+    entry = first(data["entries"], "capability-class", RELEASED)
+    declaration = entry["declarations"][0]
+    declaration["text_from"] = declaration["locator"]
+    rewrite(copy, ENTRIES, data)
+    assert any("is not a line of" in p and "at the release commit" in p
                for p in findings(harvest, copy))
 
 
-def test_apqc_evidence_on_an_unwithheld_entry_is_refused(harvest, copy):
-    """Releasing an entry by flipping its status, with the evidence still
-    on it, is exactly the act Phase I-2 has not authorized."""
-    data = load(copy, ENTRIES)
-    entry = first(data["entries"], "capability-class",
-                  "apqc-terms-unverified")
-    entry["rights_status"] = "bpo-mit"
-    rewrite(copy, ENTRIES, data)
-    assert any("Who verified APQC's terms?" in p
-               for p in findings(harvest, copy))
-
-
-def test_a_withholding_with_no_evidence_is_refused(harvest, copy):
+def test_text_from_on_bpo_text_is_refused(harvest, copy):
     data = load(copy, ENTRIES)
     entry = first(data["entries"], "capability-class", "bpo-mit")
-    entry["rights_status"] = "apqc-terms-unverified"
+    entry["declarations"][0]["text_from"] = "https://example.org/x"
     rewrite(copy, ENTRIES, data)
-    assert any("withheld with no APQC evidence recorded" in p
+    assert any("names text_from but is not released text" in p
                for p in findings(harvest, copy))
+
+
+def test_apqc_evidence_on_a_bpo_mit_entry_is_refused(harvest, copy):
+    """Recording PCF text as BPO's MIT text, with the evidence still on
+    it, would drop APQC's notice from text that needs it."""
+    data = load(copy, ENTRIES)
+    entry = first(data["entries"], "capability-class", RELEASED)
+    entry["rights_status"] = "bpo-mit"
+    rewrite(copy, ENTRIES, data)
+    assert any("not BPO's MIT text" in p for p in findings(harvest, copy))
+
+
+def test_a_release_with_no_evidence_is_refused(harvest, copy):
+    data = load(copy, ENTRIES)
+    entry = first(data["entries"], "capability-class", "bpo-mit")
+    entry["rights_status"] = RELEASED
+    rewrite(copy, ENTRIES, data)
+    assert any("released as PCF material with no APQC evidence" in p
+               for p in findings(harvest, copy))
+
+
+def test_an_altered_or_missing_apqc_notice_is_refused(harvest, copy):
+    data = load(copy, ENTRIES)
+    data["apqc_notice"] = data["apqc_notice"].replace("APQC", "ACME", 1)
+    rewrite(copy, ENTRIES, data)
+    assert any("not APQC's notice as" in p for p in findings(harvest, copy))
+    del data["apqc_notice"]
+    rewrite(copy, ENTRIES, data)
+    assert any("carries no apqc_notice" in p for p in findings(harvest, copy))
+
+
+def test_a_release_other_than_the_pins_is_refused(harvest, copy):
+    data = load(copy, ENTRIES)
+    data["release"]["inputs"][1]["sha256"] = "0" * 64
+    rewrite(copy, ENTRIES, data)
+    assert any("records a release that is not what" in p
+               for p in findings(harvest, copy))
+
+
+def test_a_release_pin_changed_without_a_rebuild_is_refused(harvest, copy):
+    path = copy / "config/inventory-pcf-sources.yaml"
+    text = path.read_bytes().decode("utf-8")
+    old = "04267a0766f7a8ea43735143471a2d019f40a67a3f539b5f7725cb3589fac2fc"
+    assert old in text
+    path.write_bytes(text.replace(old, "2" * 64).encode("utf-8"))
+    problems = findings(harvest, copy)
+    assert any("records a release that is not what" in p for p in problems)
+    assert any("NOTICE.md is not what" in p for p in problems)
 
 
 def test_an_edited_notice_is_refused(harvest, copy):
@@ -582,6 +761,84 @@ def test_scope_entries_keep_order_and_are_not_merged(harvest):
     assert scope["CapA"]["capability_class_entry"] == \
         "INV-BPO-CapA-capability-class"
     assert scope["Helper"]["capability_class_entry"] is None
+
+
+# ------------------------------------------ E7's release, synthetic
+
+NOTICE_TEXT = "(c) Example. A notice that must travel with the text."
+RP = {"repository": SOURCE["repository"], "commit": "d" * 40,
+      "rights_status": RELEASED, "notice": {"path": "NOTICE.md"}}
+
+
+def release_module(slice_text=SLICE, notice=NOTICE_TEXT):
+    """The synthetic slice as BPO would serve it at the release commit:
+    the same declarations, with APQC's notice on the ontology header."""
+    header = ('<https://fandaws.com/ontology/bpo/slice/1.0> a owl:Ontology ;\n'
+              '    <http://purl.org/dc/terms/rights> """Framing.\n\n%s""" ;\n'
+              % notice)
+    text = slice_text.replace(
+        "<https://fandaws.com/ontology/bpo/slice/1.0> a owl:Ontology ;\n",
+        header)
+    assert text != slice_text
+    return text.encode()
+
+
+def released(harvest, module=None, h=None):
+    h = h or synthetic(harvest)
+    entries = harvest.class_entries(h, SOURCE)
+    module = release_module() if module is None else module
+    return {e["iri"][len(NS):]: e for e in harvest.release(
+        entries, h, SOURCE, RP, NOTICE_TEXT,
+        {"ontology/slices/a.ttl": module})}
+
+
+def test_the_release_fills_withheld_text_and_leaves_the_rest(harvest):
+    h = synthetic(harvest)
+    before = {e["iri"][len(NS):]: e
+              for e in harvest.class_entries(h, SOURCE)}
+    entries = released(harvest, h=h)
+    assert entries["CapA"] == before["CapA"]
+    for name in ("P10001", "CapB", "CapC"):
+        entry = entries[name]
+        assert entry["rights_status"] == RELEASED
+        assert entry["apqc_evidence"] == before[name]["apqc_evidence"]
+        (d,) = entry["declarations"]
+        assert d["label"] == h.declarations(NS + name)[0]["label"]
+        assert d["definition"] == h.declarations(NS + name)[0]["definition"]
+        assert d["text_from"].startswith(
+            SOURCE["repository"] + "/blob/" + "d" * 40
+            + "/ontology/slices/a.ttl#L")
+    # The line is the release module's, not the harvest's: the header
+    # grew by the lines of its dct:rights.
+    grew = release_module().count(b"\n") - SLICE.count("\n")
+    assert grew > 0
+    assert entries["CapB"]["declarations"][0]["text_from"].endswith(
+        "#L%d" % (before["CapB"]["declarations"][0]["line"] + grew))
+
+
+def test_the_release_refuses_text_that_changed(harvest):
+    """Falsifies the equality rule: one word of one withheld definition
+    changed at the release commit, and nothing is released."""
+    module = release_module(SLICE.replace('"Annotated."', '"Annotated anew."'))
+    with pytest.raises(harvest.Refused,
+                       match=r"1 declaration\(s\) differ: "
+                             r"INV-BPO-CapC-capability-class"):
+        released(harvest, module)
+    # Positive control: the same module unchanged is released.
+    assert released(harvest)["CapC"]["rights_status"] == RELEASED
+
+
+def test_the_release_refuses_a_module_without_the_notice(harvest):
+    module = release_module(notice="Some other words.")
+    with pytest.raises(harvest.Refused, match="carries the notice"):
+        released(harvest, module)
+
+
+def test_the_release_refuses_an_unpinned_module(harvest):
+    h = synthetic(harvest)
+    entries = harvest.class_entries(h, SOURCE)
+    with pytest.raises(harvest.Refused, match="does not pin for the release"):
+        harvest.release(entries, h, SOURCE, RP, NOTICE_TEXT, {})
 
 
 def test_the_baseline_mapping_is_one_base_substitution(harvest):

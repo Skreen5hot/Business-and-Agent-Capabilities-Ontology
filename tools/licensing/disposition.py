@@ -217,7 +217,54 @@ def inventory_sources() -> dict:
             found[outputs["entries"]] = ({"licence": licence,
                                           "source": entry.get("id")},
                                          outputs["notice"])
+    for path, rights in pcf_rights(found).items():
+        found[path][0]["rights"] = rights
     return found
+
+
+def pcf_rights(found: dict) -> dict:
+    """{path: [spdx, ...]} for the entries files that carry more than one.
+
+    A file pinned under one licence can also carry another's text: since
+    E7, I-1's bpo-entries.yaml holds BPO's MIT-licensed text and the PCF
+    labels and definitions I-1 had withheld, which are APQC's (review of
+    PR #22, docs/decisions/2026-10-30-e7-approved.md). The file keeps one
+    disposition; its licence is then every right that applies, joined
+    with AND as SPDX expressions are, so the report cannot say MIT alone.
+
+    Which files carry PCF material is read from `pcf_bearing` in
+    config/inventory-pcf-sources.yaml, the list
+    tools/licensing/pcf_notice.py holds equal to what the gate finds in
+    the files; the PCF licence from that file's one source. Which entry
+    carries which right stays with each entry's `rights_status`, and
+    APQC's notice with the notice gate: this only stops the file-level
+    report from understating what the file holds.
+    """
+    import yaml
+
+    path = layout.repository_root() / INVENTORY_PCF_SOURCES
+    raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    licences = {(s.get("licence") or {}).get("spdx")
+                for s in raw.get("sources") or []}
+    if len(licences) != 1 or None in licences:
+        raise Refused("%s must declare exactly one PCF licence, and "
+                      "declares %r" % (INVENTORY_PCF_SOURCES,
+                                       sorted(map(str, licences))))
+    pcf = licences.pop()
+    out = {}
+    for item in raw.get("pcf_bearing") or []:
+        bearing = item.get("path")
+        if bearing not in found:
+            continue
+        own = found[bearing][0]["licence"]["spdx"]
+        if own != pcf:
+            out[bearing] = [own, pcf]
+    return out
+
+
+def licence_expression(entry: dict) -> str:
+    """A pin's licence as one SPDX expression: every right, AND-joined."""
+    return " AND ".join(entry.get("rights") or [entry["licence"]["spdx"]])
 
 
 def redistributed_sources() -> dict:
@@ -253,7 +300,7 @@ def licence_of(disposition: str, relative=None):
                 "source producing it, so nothing states what licence it "
                 "carries." % (relative, UPSTREAM_SOURCES, SITE_VENDOR,
                               " or ".join(INVENTORY_PIN_FILES)))
-        return sources[relative][0]["licence"]["spdx"]
+        return licence_expression(sources[relative][0])
     return project_licence()
 
 ADJUDICATIONS = "config/licensing-adjudications.yaml"
@@ -347,10 +394,15 @@ CITED_ROLES = {"third-party-reference"}
 #: like a vendored file: the licence is read from
 #: config/inventory-sources.yaml or config/inventory-pcf-sources.yaml, and
 #: the attribution declared there is checked against the notice that file
-#: names. PCF text in I-1's BPO entries is still withheld by that
-#: harvester until the E7 pull request lifts it, not licensed by this
-#: rule. Not `vendored-ontology`: these are YAML, and nothing that reads
-#: Turtle may select them.
+#: names. I-1's BPO entries are pinned under BPO's MIT licence; since E7
+#: they also carry the PCF text I-1 had withheld, which is APQC's, so their
+#: one disposition records both rights, "MIT AND LicenseRef-APQC-PCF"
+#: (pcf_rights()). The condition APQC's licence sets is checked by
+#: tools/licensing/pcf_notice.py (APQC's notice on the file, and the file
+#: listed in the root NOTICE.md), and which entry is whose by each entry's
+#: `rights_status`.
+#: Not `vendored-ontology`: these are YAML, and nothing that reads Turtle
+#: may select them.
 VENDORED_ROLES = {"vendored-ontology", "vendored-asset", "source-evidence"}
 
 #: Suffix rules for files no component claims. Kept small on purpose: the
@@ -602,7 +654,7 @@ def main(argv=None) -> int:
         key = (row.disposition, row.licence or "(no rights granted)")
         counts[key] = counts.get(key, 0) + 1
     for (disposition, licence), count in sorted(counts.items()):
-        print("    %-26s %-14s %4d" % (disposition, licence, count))
+        print("    %-26s %-28s %4d" % (disposition, licence, count))
 
     problems = findings(rows)
     if problems:
