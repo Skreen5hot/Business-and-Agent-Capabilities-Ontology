@@ -26,6 +26,7 @@ source:
   decisions:
   - docs/decisions/2026-10-28-i2a-decided.md
   - docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md
+  - docs/decisions/2026-10-30-closure-decided.md
   licence: LicenseRef-US-Government-Work
 documents:
 - evidence: brm-3.1-service-codes-and-definitions

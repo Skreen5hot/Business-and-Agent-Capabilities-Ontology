@@ -29,6 +29,7 @@ source:
   decisions:
   - docs/decisions/2026-10-28-i2a-decided.md
   - docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md
+  - docs/decisions/2026-10-30-closure-decided.md
   licence: LicenseRef-US-Government-Work
 rules:
   harvested: no MITRE notice in rights.yaml or in the bytes, and no other copyright,
@@ -41,6 +42,10 @@ rules:
     workbook, or containing a whole such cell of six words or more
   third-party-mapping-text: field text naming the third-party framework, or equal
     to a cell of a FIBF-2 a mapping column or sheet in the same document
+  text-in-document-linking-mitre-host: every label and description of a workbook
+    whose external links point at a MITRE host (communityshare.mitre.org), pending
+    provenance or rights evidence (closure decision of 2026-10-30); identifiers,
+    locators and digests kept
   excluded_fibf_2a: every column naming the third-party framework; `mapping` columns
     (header names it, or half the cells do) are never read into entries
 counts:
@@ -134,6 +139,7 @@ documents:
   draft:
     value: false
     basis: []
+  text_withheld: text-in-document-linking-mitre-host
   edition:
     version: v6.0
     date: '2024-10-08'
@@ -168,7 +174,8 @@ documents:
     fibf-function: 0
     fibf-activity: 0
     fibf-business-capability: 237
-  withheld_fields: {}
+  withheld_fields:
+    text-in-document-linking-mitre-host: 237
   duplicate_of: []
 - evidence: fibf-doc-hr-cb-2
   url: https://ussm.gsa.gov/assets/files/downloads/HCM_Comp_Ben_2025/Compensation%20and%20Benefits%20Business%20Lifecycle.xlsx
@@ -204,6 +211,7 @@ documents:
   draft:
     value: false
     basis: []
+  text_withheld: text-in-document-linking-mitre-host
   edition:
     version: v5.0
     date: '2024-10-08'
@@ -238,7 +246,8 @@ documents:
     fibf-function: 0
     fibf-activity: 0
     fibf-business-capability: 34
-  withheld_fields: {}
+  withheld_fields:
+    text-in-document-linking-mitre-host: 34
   duplicate_of: []
 - evidence: fibf-doc-hr-ea-2
   url: https://ussm.gsa.gov/assets/files/downloads/HCM_Emp_Acc_2025/Employee%20Accountability%20Business%20Lifecycle.xlsx
@@ -274,6 +283,7 @@ documents:
   draft:
     value: false
     basis: []
+  text_withheld: text-in-document-linking-mitre-host
   edition:
     version: v6.0
     date: '2024-10-08'
@@ -308,7 +318,8 @@ documents:
     fibf-function: 0
     fibf-activity: 0
     fibf-business-capability: 188
-  withheld_fields: {}
+  withheld_fields:
+    text-in-document-linking-mitre-host: 188
   duplicate_of: []
 - evidence: fibf-doc-hr-epm-2
   url: https://ussm.gsa.gov/assets/files/downloads/HCM_Emp_MGMT_2025/Employee%20Performance%20Management%20Business%20Lifecycle.xlsx
@@ -344,6 +355,7 @@ documents:
   draft:
     value: false
     basis: []
+  text_withheld: text-in-document-linking-mitre-host
   edition:
     version: v4.0
     date: '2024-06-28'
@@ -378,7 +390,8 @@ documents:
     fibf-function: 0
     fibf-activity: 0
     fibf-business-capability: 62
-  withheld_fields: {}
+  withheld_fields:
+    text-in-document-linking-mitre-host: 62
   duplicate_of: []
 - evidence: fibf-doc-hr-hce-2
   url: https://ussm.gsa.gov/assets/files/downloads/HCM_Eval_2025/Human%20Capital%20Evaluations%20Business%20Lifecycle.xlsx
@@ -414,6 +427,7 @@ documents:
   draft:
     value: false
     basis: []
+  text_withheld: text-in-document-linking-mitre-host
   edition:
     version: v5.0
     date: '2024-10-08'
@@ -448,7 +462,8 @@ documents:
     fibf-function: 0
     fibf-activity: 0
     fibf-business-capability: 219
-  withheld_fields: {}
+  withheld_fields:
+    text-in-document-linking-mitre-host: 219
   duplicate_of: []
 - evidence: fibf-doc-hr-hca-2
   url: https://ussm.gsa.gov/assets/files/downloads/HCM_HCA_2025/Human%20Capital%20Analytics%20&%20Employee%20Records%20Business%20Lifecycle.xlsx
@@ -484,6 +499,7 @@ documents:
   draft:
     value: false
     basis: []
+  text_withheld: text-in-document-linking-mitre-host
   edition:
     version: v5.0
     date: '2024-06-28'
@@ -518,7 +534,8 @@ documents:
     fibf-function: 0
     fibf-activity: 0
     fibf-business-capability: 75
-  withheld_fields: {}
+  withheld_fields:
+    text-in-document-linking-mitre-host: 75
   duplicate_of: []
 - evidence: fibf-doc-hr-lr-2
   url: https://ussm.gsa.gov/assets/files/downloads/HCM_Labor_2025/Labor%20Relations%20Business%20Lifecycle.xlsx
@@ -554,6 +571,7 @@ documents:
   draft:
     value: false
     basis: []
+  text_withheld: text-in-document-linking-mitre-host
   edition:
     version: v6.0
     date: '2024-10-08'
@@ -588,7 +606,8 @@ documents:
     fibf-function: 0
     fibf-activity: 0
     fibf-business-capability: 93
-  withheld_fields: {}
+  withheld_fields:
+    text-in-document-linking-mitre-host: 93
   duplicate_of: []
 - evidence: fibf-doc-hr-sep-ret-2
   url: https://ussm.gsa.gov/assets/files/downloads/HCM_Sep_Ret_2025/Separation%20and%20Retirement%20Business%20Lifecycle.xlsx
@@ -624,6 +643,7 @@ documents:
   draft:
     value: false
     basis: []
+  text_withheld: text-in-document-linking-mitre-host
   edition:
     version: v5.0
     date: '2024-10-08'
@@ -658,7 +678,8 @@ documents:
     fibf-function: 0
     fibf-activity: 0
     fibf-business-capability: 251
-  withheld_fields: {}
+  withheld_fields:
+    text-in-document-linking-mitre-host: 251
   duplicate_of: []
 - evidence: fibf-doc-hr-hcs-2
   url: https://ussm.gsa.gov/assets/files/downloads/HCM_Strat_2024/Human%20Capital%20Strategy,%20Policies,%20&%20Operation%20Plan%20Business%20Lifecycle.xlsx
@@ -694,6 +715,7 @@ documents:
   draft:
     value: false
     basis: []
+  text_withheld: text-in-document-linking-mitre-host
   edition:
     version: v6.0
     date: '2024-10-08'
@@ -728,7 +750,8 @@ documents:
     fibf-function: 0
     fibf-activity: 0
     fibf-business-capability: 165
-  withheld_fields: {}
+  withheld_fields:
+    text-in-document-linking-mitre-host: 165
   duplicate_of: []
 - evidence: fibf-doc-hr-ac-2
   url: https://ussm.gsa.gov/assets/files/downloads/HCM_Tal_Acq_2025/Talent%20Acquisition%20Business%20Lifecycle.xlsx
@@ -764,6 +787,7 @@ documents:
   draft:
     value: false
     basis: []
+  text_withheld: text-in-document-linking-mitre-host
   edition:
     version: v6.0
     date: '2024-10-08'
@@ -798,7 +822,8 @@ documents:
     fibf-function: 0
     fibf-activity: 0
     fibf-business-capability: 223
-  withheld_fields: {}
+  withheld_fields:
+    text-in-document-linking-mitre-host: 223
   duplicate_of: []
 - evidence: fibf-doc-hr-td-2
   url: https://ussm.gsa.gov/assets/files/downloads/HCM_Tal_Dev_2025/Talent%20Development%20Business%20Lifecycle.xlsx
@@ -834,6 +859,7 @@ documents:
   draft:
     value: false
     basis: []
+  text_withheld: text-in-document-linking-mitre-host
   edition:
     version: v5.0
     date: '2024-10-08'
@@ -868,7 +894,8 @@ documents:
     fibf-function: 0
     fibf-activity: 0
     fibf-business-capability: 10
-  withheld_fields: {}
+  withheld_fields:
+    text-in-document-linking-mitre-host: 10
   duplicate_of: []
 - evidence: fibf-doc-hr-par-2
   url: https://ussm.gsa.gov/assets/files/downloads/PAR_2025/Personnel%20Action%20Request%20(PAR)%20Processing%20Business%20Lifecycle.xlsx

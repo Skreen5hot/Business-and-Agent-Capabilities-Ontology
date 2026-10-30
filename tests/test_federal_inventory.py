@@ -38,7 +38,11 @@ RIGHTS = DIRECTORY + "/rights.yaml"
 COPIED = (PINS, RIGHTS, BRM, FA, CAPS, SNAPSHOT, NOTICE,
           "tools/inventory/harvest_bpo.py", "tools/ontology/validate.py",
           "docs/decisions/2026-10-28-i2a-decided.md",
-          "docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md")
+          "docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md",
+          "docs/decisions/2026-10-30-closure-decided.md")
+HR_LINKED = ["fibf-doc-hr-%s-1" % d for d in (
+    "cb", "ea", "epm", "hce", "hca", "lr", "sep-ret", "hcs", "ac", "td",
+    "par")]
 
 
 @pytest.fixture(scope="module")
@@ -206,6 +210,69 @@ def test_withheld_fields_carry_no_text(committed):
                     assert set(e[field]) == {"withheld"}, e["id"]
                     assert e["rights_status"] == \
                         "us-government-work-text-withheld"
+
+
+def test_the_hr_lists_linking_to_a_mitre_host_publish_no_text(harvest,
+                                                             committed):
+    """Closure decision of 2026-10-30, PR #20 item 1: the eleven HR
+    business-capability lists keep their identifiers, locators, digests and
+    withholding status, and publish no label or description."""
+    pinned = harvest.pins(ROOT)
+    assert pinned["fibf"]["text_withheld"] == set(HR_LINKED)
+    linked = {d["evidence"] for d in committed[SNAPSHOT]["documents"]
+              if (d.get("rights_validation") or {}).get(
+                  "external_links_to_mitre_host")}
+    assert linked == set(HR_LINKED)
+    for d in committed[SNAPSHOT]["documents"]:
+        if d["evidence"] in HR_LINKED:
+            assert d["status"] == "harvested"
+            assert d["text_withheld"] == harvest.WITHHELD_MITRE_LINKED
+    entries = [e for path in (FA, CAPS) for e in committed[path]["entries"]
+               if e["document"] in HR_LINKED]
+    assert {e["document"] for e in entries} == set(HR_LINKED)
+    for e in entries:
+        assert e["code"] and e["locator"]["row"] and e["document_sha256"]
+        assert e["rights_status"] == "us-government-work-text-withheld"
+        for field in ("name", "description"):
+            assert e[field] in (None, {
+                "withheld": harvest.WITHHELD_MITRE_LINKED}), e["id"]
+
+
+def test_released_text_from_a_linked_hr_list_is_refused(harvest, copy):
+    doc = load(copy, CAPS)
+    entry = next(e for e in doc["entries"]
+                 if e["document"] == "fibf-doc-hr-par-1")
+    entry["description"] = "Provide the ability to generate ad-hoc reports."
+    entry["rights_status"] = "us-government-work"
+    doc["counts"]["text_withheld"] -= 1
+    rewrite(copy, CAPS, doc)
+    assert_finding(findings(harvest, copy), entry["id"],
+                   "Was withheld text released?")
+
+
+def test_a_linked_hr_list_dropped_from_the_pins_is_refused(harvest, copy):
+    """Taking a document off the list is a release, which only a decision
+    makes: the snapshot still records its links, and the check says so."""
+    pins = load(copy, PINS)
+    fibf = next(s for s in pins["sources"] if s["id"] == "fibf-2026-10-28")
+    fibf["text_withheld_documents"]["documents"].remove("fibf-doc-hr-par-1")
+    rewrite(copy, PINS, pins)
+    assert_finding(findings(harvest, copy), "fibf-doc-hr-par-1",
+                   "linking to a MITRE host")
+
+
+def test_a_rebuild_refuses_an_unlisted_linked_document(harvest, copy):
+    """The build, reading the bytes, refuses to harvest the text of a
+    workbook that links to a MITRE host and is not listed."""
+    if not _cache_ready(harvest):
+        pytest.skip("the pinned documents are not in .upstream-cache/i2a/")
+    pins = load(copy, PINS)
+    fibf = next(s for s in pins["sources"] if s["id"] == "fibf-2026-10-28")
+    fibf["text_withheld_documents"]["documents"].remove("fibf-doc-hr-par-1")
+    rewrite(copy, PINS, pins)
+    with pytest.raises(harvest.Refused, match="links to a MITRE host and is "
+                                              "not listed"):
+        harvest.build(ROOT / harvest.CACHE, copy)
 
 
 def test_the_snapshot_is_rights_yamls_candidates(committed):

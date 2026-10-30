@@ -198,7 +198,13 @@ WITHHELD_MITRE_TEXT = "text-in-mitre-marked-document"
 # field; shorter shared phrases measured on the pinned bytes were names.
 MITRE_CONTAINED_WORDS = 6
 WITHHELD_THIRD_PARTY = "third-party-mapping-text"
-WITHHOLD_REASONS = (WITHHELD_MITRE_TEXT, WITHHELD_THIRD_PARTY)
+#: Every label and description of a harvested workbook whose external-link
+#: targets point at a MITRE host: the eleven HR business-capability lists,
+#: named in `text_withheld_documents` in the pins (closure decision of
+#: 2026-10-30, PR #20 item 1). Identifiers, locators and digests are kept.
+WITHHELD_MITRE_LINKED = "text-in-document-linking-mitre-host"
+WITHHOLD_REASONS = (WITHHELD_MITRE_TEXT, WITHHELD_THIRD_PARTY,
+                    WITHHELD_MITRE_LINKED)
 
 STATUS_HARVESTED = "harvested"
 STATUS_MITRE = "withheld-mitre"
@@ -373,6 +379,22 @@ def pins(base: Path | None = None) -> dict:
                      if e["id"].startswith("fibf-page-") and e.get("domain")}
     fibf["mitre_marked"] = {e["id"] for e in fibf["items"]
                             if "MITRE" in (e.get("notices") or "")}
+    block = fibf.get("text_withheld_documents") or {}
+    listed = list(block.get("documents") or [])
+    if listed:
+        if block.get("reason") != WITHHELD_MITRE_LINKED:
+            raise Refused("%s text_withheld_documents gives reason %r; the "
+                          "one reason it can give is %r"
+                          % (PINS, block.get("reason"), WITHHELD_MITRE_LINKED))
+        if block.get("decision") not in raw["decisions"]:
+            raise Refused("%s text_withheld_documents cites %r, which is not "
+                          "among its decisions" % (PINS, block.get("decision")))
+        unknown = sorted(set(listed) - {e["id"] for e in fibf["items"]})
+        if unknown or len(listed) != len(set(listed)):
+            raise Refused("%s text_withheld_documents names %s, not each once "
+                          "among the snapshot's documents"
+                          % (PINS, unknown or listed))
+    fibf["text_withheld"] = set(listed)
     raw["brm"], raw["fibf"] = brm, fibf
     raw["base"] = base
     return raw
@@ -831,16 +853,25 @@ def split_code(text):
 
 
 class Withholding:
-    """The two field-level rules, with counts for the snapshot."""
+    """The field-level rules, with counts for the snapshot.
+
+    `linked` withholds every label and description of the document being
+    read: set for a workbook named in `text_withheld_documents`.
+    """
 
     def __init__(self, mitre_texts: set[str]):
         self.mitre = mitre_texts
         self.mitre_long = mitre_long(mitre_texts)
         self.third = set()
+        self.linked = False
 
     def field(self, text, counter: dict):
         if text is None:
             return None
+        if self.linked:
+            counter[WITHHELD_MITRE_LINKED] = counter.get(
+                WITHHELD_MITRE_LINKED, 0) + 1
+            return {"withheld": WITHHELD_MITRE_LINKED}
         key = norm(text)
         if THIRD_PARTY.search(text) or (len(key.split()) >= 2
                                         and key in self.third):
@@ -1163,8 +1194,21 @@ def harvest_fibf(pinned: dict, read: Bytes) -> dict:
 
         validation["external_links_to_mitre_host"] = \
             r["external_links_to_mitre_host"]
+        linked = r["external_links_to_mitre_host"] > 0
+        listed = item["id"] in source["text_withheld"]
+        if linked != listed:
+            raise Refused(
+                "%s %s to a MITRE host and is %s in %s text_withheld_documents."
+                " The list must be exactly the harvested documents that do: a "
+                "new one is withheld by adding it, and one is released only by "
+                "a decision (closure decision of 2026-10-30)"
+                % (item["id"], "links" if linked else "does not link",
+                   "not listed" if linked else "listed", PINS))
         counter = {}
         withhold = Withholding(texts)
+        withhold.linked = listed
+        if listed:
+            record["text_withheld"] = WITHHELD_MITRE_LINKED
         harvested_sheets, observations = [], []
         f, a, c = [], [], []
         if book is None:
@@ -1929,6 +1973,14 @@ def build(cache: Path, base: Path | None = None,
                                           "framework, or equal to a cell of "
                                           "a FIBF-2 a mapping column or "
                                           "sheet in the same document",
+                    WITHHELD_MITRE_LINKED: "every label and description of a "
+                                           "workbook whose external links "
+                                           "point at a MITRE host "
+                                           "(communityshare.mitre.org), "
+                                           "pending provenance or rights "
+                                           "evidence (closure decision of "
+                                           "2026-10-30); identifiers, "
+                                           "locators and digests kept",
                     "excluded_fibf_2a": "every column naming the third-party "
                                         "framework; `mapping` columns (header "
                                         "names it, or half the cells do) are "
@@ -2187,6 +2239,21 @@ def check_documents(pinned: dict, contents: dict[str, bytes],
                 problems.append("%s is withheld-mitre but rights.yaml records "
                                 "no MITRE notice; that is withheld-ambiguous"
                                 % d.get("evidence"))
+    linked_docs = {d.get("evidence") for d in snapshot
+                   if d.get("status") == STATUS_HARVESTED
+                   and (d.get("rights_validation") or {}).get(
+                       "external_links_to_mitre_host")}
+    if linked_docs != fibf["text_withheld"]:
+        problems.append("%s records %s as linking to a MITRE host; %s "
+                        "text_withheld_documents names %s"
+                        % (names["snapshot"], sorted(linked_docs), PINS,
+                           sorted(fibf["text_withheld"])))
+    for d in snapshot:
+        if d.get("evidence") in fibf["text_withheld"] and \
+                d.get("text_withheld") != WITHHELD_MITRE_LINKED:
+            problems.append("%s: %s is named in text_withheld_documents and "
+                            "its record does not say its text is withheld"
+                            % (names["snapshot"], d.get("evidence")))
     counts = docs["snapshot"].get("counts") or {}
     statuses = [d.get("status") for d in snapshot]
     for s in STATUSES:
@@ -2227,6 +2294,17 @@ def check_documents(pinned: dict, contents: dict[str, bytes],
         for e in entries:
             problems.extend(_entry_findings(e, names[key], kinds,
                                             allowed_docs, digests, prefixes))
+            if isinstance(e, dict) and \
+                    e.get("document") in fibf["text_withheld"]:
+                for field in ("name", "description"):
+                    value = e.get(field)
+                    if value is not None and value != {
+                            "withheld": WITHHELD_MITRE_LINKED}:
+                        problems.append(
+                            "%s %s carries %r from %s, whose labels and "
+                            "descriptions are withheld (closure decision of "
+                            "2026-10-30). Was withheld text released?"
+                            % (e.get("id"), field, value, e.get("document")))
         expected = _counts([e for e in entries if isinstance(e, dict)
                             and "rights_status" in e and "kind" in e], kinds)
         if doc.get("counts") != expected:

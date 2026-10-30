@@ -237,8 +237,9 @@ the section headings, `brm-business-function` and `brm-service` from the table r
 named as the BRM names them. A service row also records the mission sector and business
 function its own columns print, as printed. The taxonomy states its structure on page 1
 (10 mission sectors, 40 business functions, 228 services) and its tables print 20 business
-function rows and 208 service rows; the rest appear only in the tree diagrams, which are
-not harvested. The two PDFs are read with pypdf (pinned in `requirements-dev.txt`) for
+function rows and 208 service rows; the rest, 20 business functions and 20 services,
+appear only in the tree diagrams, which are not harvested (the extraction stays
+table-based under the closure decision of 2026-10-30). The two PDFs are read with pypdf (pinned in `requirements-dev.txt`) for
 their objects only; the tool places every glyph itself and assigns it to a column by
 position, and every row is accounted for or the build refuses.
 
@@ -272,10 +273,21 @@ other FIBF components (service measures, data elements, scenarios), bibliographi
 working sheets, and the EEO page's activity and capability tables, which are empty in the
 pinned bytes (the browser fills them from a resource that is not pinned).
 
-Observed and recorded, not acted on: the eleven HR business-capability lists carry no
-notice, but their external-link targets point at files on a MITRE host
-(`external_links_to_mitre_host` in the snapshot); like the BRM's contractor residual, a
-residual rather than a notice.
+**The eleven HR business-capability lists** (`fibf-doc-hr-*-1`) carry no notice, but
+their external-link targets point at files on `communityshare.mitre.org`
+(`external_links_to_mitre_host` in the snapshot). Under the closure decision of 2026-10-30
+(`docs/decisions/2026-10-30-closure-decided.md`), their labels and descriptions are withheld
+pending adequate provenance or rights evidence, as `text-in-document-linking-mitre-host`.
+Their entries keep their identifiers, locators and document digests, and their snapshot
+records say `text_withheld`. `config/inventory-federal-sources.yaml` names them in
+`text_withheld_documents`. The tool requires that list to be exactly the harvested
+workbooks that link to a MITRE host: a new one is refused until it is listed, and one
+leaves the list only by a decision. Withheld text is never released silently, in this
+phase or a later one.
+
+The same decision keeps codes that appear in independently redistributable government
+documents. Code overlap is not permission to reproduce restricted material. The six-word
+overlap screen is a technical safeguard, not proof of copyright clearance.
 
 ```bash
 python tools/inventory/harvest_federal.py             # offline check (before committing; CI)
