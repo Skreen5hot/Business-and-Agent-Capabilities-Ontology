@@ -1,0 +1,1514 @@
+# Capability Term Inventory, Phase I-2a: the rights review.
+#
+# For each source and edition in I-2's scope: what the rights holder's
+# terms permit, from primary evidence pinned by digest, and the decision
+# points the architect has to settle before I-2b (APQC PCF) and I-2c
+# (FEAF-II BRM, FIBF) write any catalog text.
+#
+# This file is a review, not a decision. The posture is the architect's
+# act, recorded in docs/decisions/ and pointed to from each source's
+# `architect_decision` (since 2026-10-28, docs/decisions/2026-10-28-i2a-decided.md). It is also not catalog content: no PCF, BRM
+# or FIBF name, description, code or hierarchy appears in it, and quotes
+# are limited to the operative words of a notice, at most 15 words each.
+#
+# Hand-written, and checked by tools/inventory/rights.py (offline by
+# default; --confirm refetches every pinned document and requires its
+# digest). The downloaded documents are in .upstream-cache/i2a/, which is
+# gitignored; none of them is committed.
+
+format: 1
+review: I-2a
+authority: docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md
+proposal: docs/proposals/2026-10-28-inventory-i2-public-catalogs.md
+prepared:
+  by: Claude Code (claude-opus-5-5), for the architect's review
+  date: 2026-10-28
+scope_note: >-
+  Decision E2 asks for the actual APQC terms and attribution requirements
+  per edition; E3 lets the PCF 8.0 file be absent; E5 asks for the exact
+  FIBF documents and editions a harvest snapshot would include, pinned;
+  E6 asks for the primary BRM 3.1 documents, validated and pinned, with
+  their redistribution rights, or a recorded gap. Part C bars publishing
+  further restricted catalog material and minting anything. An edition
+  is identified here by the bytes pinned: where a publisher keeps a
+  version number inside a document, I-2b or I-2c records it from the
+  same bytes. Nothing was sent to any rights holder.
+
+sources:
+
+  # ====================================================================
+  - id: apqc-pcf-7.4
+    register: SRC-IND-01
+    rightsholder: APQC (American Productivity & Quality Center), Houston, Texas
+    work: APQC Process Classification Framework (PCF), Cross-Industry
+    edition: "7.4"
+    status: evidence-complete
+    terms: ambiguous
+    gap_reason: null
+    evidence:
+      - id: apqc74-workbook
+        kind: bpo-git-blob
+        repository: https://github.com/Skreen5hot/BusinessProcessOntology
+        commit: bc64e91839378e1926189c01bf184d6a22d5c1b7
+        path: "K014749_APQC Process Classification Framework (PCF) - Cross-Industry - Excel Version 7.4.xlsx"
+        sha256: 0e6e24b6cabe795cee9aa0a23912bd323257e419eb96a74a17ad328a08f97d24
+        bytes: 1145519
+        retrieved: 2026-10-28
+        members:
+          - member: xl/drawings/drawing3.xml
+            sha256: 9bde3d72a66495f0c2574181819f01352a4715cd70362ef210d9473ea58c05f7
+          - member: xl/worksheets/sheet19.xml
+            sha256: 6c6f5c3547c601281bc8bf3b9d23b30d5134d64b122eb18037f4c3fe5ec5ef40
+          - member: xl/worksheets/sheet2.xml
+            sha256: 259fd4c8acc76c7f0085edeaff46d57f535769dbc49f75ab0c5a55a4bd1b8454
+          - member: xl/drawings/drawing1.xml
+            sha256: c3cb3755071815ad46c80aff2be117364c18ce92a371e094b537fc0912c32c83
+        checked: >-
+          APQC's own Excel export as BPO committed it, read from the local
+          BPO clone's git objects (never edited) and parsed as zip/XML data.
+          drawing1 (Introduction sheet) states cross-industry version 7.4,
+          generated 6 August 2024. drawing3 is the last sheet, Copyright and
+          attribution: an APQC description, then a 2024 APQC copyright line
+          with all rights reserved, then a grant of rights (quoted below).
+          Sheet footers: 17 sheets carry a 2024 APQC copyright line; the
+          About sheet (sheet2, an explanatory page on reading the file)
+          carries a 2014 copyright line naming APQC and IBM; the Metrics
+          sheet carries none. The Combined sheet's columns include element
+          descriptions as well as names, ids and hierarchy ids, so the
+          workbook is evidence for all three. No other licence text is in
+          the file, and BPO states none (I-1, config/inventory-sources.yaml).
+      - id: apqc-terms-of-service
+        kind: browser-text
+        url: https://www.apqc.org/terms-of-service
+        sha256: 2ed517dff2f3db5c7683d8d5b8b787cc519beb1c282edf7ca6d541e5b5364483
+        bytes: 12861
+        retrieved: 2026-10-28
+        normalisation: >-
+          The textContent of the page's main element, every run of
+          whitespace replaced by one space, leading and trailing space
+          removed, encoded as UTF-8; digested in the page with
+          crypto.subtle at 2026-10-28T06:46:37Z.
+        why_not_refetched: >-
+          apqc.org answers scripted clients with a Cloudflare challenge
+          (HTTP 403), which this review does not bypass, and these Terms
+          forbid automated access. The page was read once in the desktop
+          app's browser pane, which passed without any challenge being
+          shown; a reviewer can reproduce the digest in a browser console.
+        checked: >-
+          APQC Terms of Service, last modified July 2026. They govern APQC's
+          Online Resources (the website and Resource Library, from which the
+          PCF is downloaded) and all other APQC products. A limited licence
+          for internal process improvement within your organization; no
+          public display, reproduction, publication or distribution of any
+          part except as an applicable APQC membership or license agreement
+          permits; a list of improper uses that includes automated download
+          or access and using the resources to create, train or test AI or
+          machine-learning systems; another written agreement with APQC (a
+          license agreement is the example given) controls over these Terms
+          where they conflict; a copyright notice covering structure,
+          selection and arrangement. The Terms do not mention the PCF by
+          name or the PCF's own notice.
+    unpinned_observations:
+      - url: https://www.apqc.org/process-frameworks
+        retrieved: 2026-10-28
+        observed: >-
+          APQC's PCF page offers the Cross-Industry PCF in Excel and PDF,
+          names Excel 8.0 as the latest version, and links the download
+          through APQC's Resource Library. It states no licence terms for
+          the PCF; its footer links the Terms of Service above.
+        why_unpinned: >-
+          Read in the browser pane before the Terms of Service were read;
+          its text was not digested. Once the Terms' clause on automated
+          access was read, no further apqc.org page was opened, including
+          the 8.0 download listing.
+      - url: https://www.apqc.org/process-frameworks/pcf-faqs
+        retrieved: 2026-10-28
+        observed: >-
+          APQC's PCF FAQ says the latest version is 8.0 and that APQC
+          supports all versions; it encourages organizations to adapt and
+          rename PCF elements while keeping the element ids. It states no
+          licence or redistribution terms.
+        why_unpinned: Read in the browser pane, not digested (as above).
+    findings:
+      names: >-
+        The notice inside the 7.4 file grants a perpetual, worldwide,
+        royalty-free licence to use, copy, publish, modify and create
+        derivative works of the PCF, on the single condition that every copy
+        and derivative work carries the notice. On its own terms that covers
+        republishing element names as source evidence. APQC's current
+        website Terms forbid publishing or distributing any part of its
+        Online Resources unless an APQC licence agreement permits it; they
+        do not say whether the PCF's own notice is such an agreement, though
+        their conflict clause gives a licence agreement precedence.
+      descriptions: >-
+        As for names: the same notice covers the whole PCF, and the 7.4
+        workbook carries element descriptions alongside the names. The same
+        unresolved interaction with the website Terms applies. The separate
+        process-definition documents APQC sells or offers to members are not
+        in hand and are not covered by this finding.
+      codes_and_hierarchy: >-
+        Element ids and hierarchy ids are identifiers; APQC itself
+        encourages keeping element ids when an organization renames
+        elements. The arrangement of the hierarchy is part of the PCF the
+        notice licenses, and the website Terms claim structure, selection
+        and arrangement. So codes and hierarchy are no freer than names
+        under the website Terms, and no less free under the notice; the
+        lowest-risk use is ids alone.
+      derivative_works: >-
+        Expressly licensed by the notice (modify and create derivative
+        works), subject to the notice travelling with the derivative work.
+        An inventory entry, BPO's ontology, and a page of this repository's
+        public site that shows PCF-derived text would each be derivative
+        works or copies.
+      attribution:
+        required: true
+        summary: >-
+          Every copy and every derivative work must contain a copy of the
+          notice itself, which is the 2024 APQC copyright line and the grant
+          (about sixty words). A citation alone does not satisfy it; the
+          notice text has to be reproduced, which the grant itself permits.
+          Where text appears on the public site as well as in the
+          repository, the notice has to reach the site too.
+        locators:
+          - apqc74-workbook, sheet Copyright and attribution (xl/drawings/drawing3.xml)
+          - apqc74-workbook, every sheet footer except About and Metrics
+      restrictions:
+        - >-
+          APQC's website Terms (July 2026) bar public reproduction or
+          distribution of any part of the Online Resources unless an APQC
+          licence agreement permits it, and give such an agreement
+          precedence. Whether the PCF notice is that agreement is the
+          central open question.
+        - >-
+          The website Terms bar using the Online Resources to create, train
+          or test AI or machine-learning systems. This repository is built
+          with an AI coding agent and models agent capabilities; whether
+          either is within the clause is not stated.
+        - >-
+          The website Terms bar automated download or access; any future
+          retrieval of APQC files is by the architect, by hand.
+        - >-
+          Trademarks: APQC marks Process Classification Framework and PCF
+          as registered. The notice licenses copyright only; naming the PCF
+          to identify it is ordinary citation, but no use may suggest APQC
+          endorses BCO.
+        - >-
+          The About sheet carries a 2014 copyright line shared with IBM; the
+          notice licenses the PCF, not that explanatory page, which no phase
+          needs.
+    quotes:
+      - evidence: apqc74-workbook
+        locator: sheet Copyright and attribution, xl/drawings/drawing3.xml, the grant
+        quote: a perpetual, worldwide, royalty-free license to use, copy, publish, modify, and create derivative works
+      - evidence: apqc74-workbook
+        locator: sheet Copyright and attribution, xl/drawings/drawing3.xml, the condition
+        quote: all copies of the PCF and any derivative works contain a copy of this notice
+      - evidence: apqc-terms-of-service
+        locator: Terms of Service, Limited License
+        quote: you may not publicly display, perform, reproduce, publish, license, transfer, sell, or distribute any part
+      - evidence: apqc-terms-of-service
+        locator: Terms of Service, opening paragraph, on conflicts with other agreements
+        quote: the terms of that other agreement shall control
+      - evidence: apqc-terms-of-service
+        locator: Terms of Service, Use of Online Resources
+        quote: create, train, or test any large language models or other artificial intelligence
+    open_questions:
+      - >-
+        Is the PCF's in-file notice an APQC licence agreement within the
+        website Terms, so that its grant (publish, derivative works)
+        controls over the Terms' bar on public distribution?
+      - >-
+        Does the grant reach a public, non-commercial ontology repository
+        and its public site that redistribute PCF names, descriptions, ids
+        and hierarchy as cited source evidence, with the notice reproduced
+        in a NOTICE file and on each site page that shows PCF text?
+      - >-
+        Does the grant flow to people who receive the PCF from such a
+        repository (or from BPO) without registering with APQC?
+      - >-
+        Is using the PCF in an ontology built with an AI coding assistant,
+        and describing agent capabilities, within the Terms' bar on
+        creating, training or testing AI systems?
+      - >-
+        Is one copy of the notice per published file (and per site page)
+        enough, or does APQC expect it on each entry?
+    decision_points:
+      - id: APQC-1
+        question: >-
+          What may I-2b (and, under E7, a later PR on I-1's withheld
+          entries) publish from PCF 7.4?
+        options:
+          - key: a
+            option: >-
+              Rely on the in-file grant now: names, descriptions, ids and
+              hierarchy, with the full notice reproduced in NOTICE.md and on
+              every site page that shows PCF text.
+          - key: b
+            option: >-
+              Ids and hierarchy positions only (names and descriptions
+              withheld, as in I-1) until APQC answers in writing; then
+              widen to (a) if the answer allows.
+          - key: c
+            option: >-
+              Citation only: no PCF-derived entries in the public
+              repository; I-2b keeps its work outside the repository.
+        recommendation: >-
+          (b), with the clarification request sent. The in-file grant is
+          broad and clear on its own; the conflict is with APQC's later
+          website Terms, and the AI clause is unaddressed. Waiting costs
+          I-2b its names, not its structure, and a written answer would
+          settle both I-2b and E7.
+      - id: APQC-2
+        question: >-
+          Send the drafted clarification request
+          (docs/proposals/2026-10-28-apqc-clarification-request.md) to APQC?
+        options:
+          - key: a
+            option: Authorize sending it, as drafted or amended.
+          - key: b
+            option: Do not send; decide APQC-1 on the evidence as it stands.
+        recommendation: >-
+          (a). The communications protocol applies; sending is the
+          architect's act.
+    architect_decision:
+      record: docs/decisions/2026-10-28-i2a-decided.md
+
+  # ====================================================================
+  - id: apqc-pcf-8.0
+    register: SRC-IND-01
+    rightsholder: APQC (American Productivity & Quality Center), Houston, Texas
+    work: APQC Process Classification Framework (PCF), Cross-Industry
+    edition: "8.0 (24 March 2026)"
+    status: gap
+    terms: not-established
+    gap_reason: >-
+      The 8.0 file is not in hand: it is downloaded from APQC's Resource
+      Library, which needs a registration this review may not create (E3).
+      Its in-file notice cannot be read without it, and the 7.4 notice
+      cannot be assumed to carry over. Closed when the architect downloads
+      8.0 under his registration and its notice (sheet and footers) is
+      pinned here by digest, the file itself staying outside the
+      repository unless that notice permits redistribution.
+    evidence:
+      - id: apqc-terms-of-service-for-8.0
+        kind: browser-text
+        url: https://www.apqc.org/terms-of-service
+        sha256: 2ed517dff2f3db5c7683d8d5b8b787cc519beb1c282edf7ca6d541e5b5364483
+        bytes: 12861
+        retrieved: 2026-10-28
+        normalisation: As apqc-pcf-7.4 / apqc-terms-of-service.
+        why_not_refetched: As apqc-pcf-7.4 / apqc-terms-of-service.
+        checked: >-
+          The only publicly reachable terms that would govern obtaining 8.0.
+          Downloading it means registering and accepting these Terms, so
+          their bar on public distribution and their AI clause apply to 8.0
+          at least as much as to 7.4.
+    unpinned_observations:
+      - url: https://www.apqc.org/process-frameworks
+        retrieved: 2026-10-28
+        observed: >-
+          Excel 8.0 is offered as the latest Cross-Industry PCF, through
+          the Resource Library.
+        why_unpinned: >-
+          Not digested (see apqc-pcf-7.4). The 8.0 download listing page
+          was not opened, so no 8.0-specific statement of terms was seen.
+    findings:
+      names: Not established; depends on the notice inside the 8.0 file.
+      descriptions: Not established; as for names.
+      codes_and_hierarchy: >-
+        Not established. Element ids persist across editions by APQC's own
+        account, so the delta can be keyed by id once the file is in hand.
+      derivative_works: Not established; as for names.
+      attribution:
+        required: true
+        summary: >-
+          Presumed at least the 7.4 requirement (the notice travels with
+          copies and derivative works) until the 8.0 notice is read.
+        locators:
+          - apqc-pcf-7.4 / apqc74-workbook, as the prior edition's notice
+      restrictions:
+        - The website Terms, as for 7.4, apply to obtaining the file.
+    quotes: []
+    open_questions:
+      - Does the 8.0 workbook carry the same grant as 7.4, a narrower one, or none?
+      - The open questions of 7.4 apply to 8.0 as well.
+    decision_points:
+      - id: APQC80-1
+        question: How is the 8.0 gap closed?
+        options:
+          - key: a
+            option: >-
+              The architect downloads 8.0 under his registration and gives
+              its notice to I-2a (an amendment to this record), before I-2b
+              writes the delta.
+          - key: b
+            option: >-
+              Defer the 8.0 delta; I-2b covers 7.4 only, and 8.0 waits for
+              the APQC answer.
+        recommendation: >-
+          (a) for the notice, which is small and settles the edition
+          question; the delta itself follows APQC-1.
+    architect_decision:
+      record: docs/decisions/2026-10-28-i2a-decided.md
+
+  # ====================================================================
+  - id: feaf-brm-3.1
+    register: SRC-GOV-06
+    rightsholder: >-
+      United States Government, Office of Management and Budget (Executive
+      Office of the President)
+    work: Federal Enterprise Architecture Business Reference Model (BRM)
+    edition: 3.1, with its taxonomy (both dated 15 May 2013)
+    status: evidence-complete
+    terms: unambiguous
+    gap_reason: null
+    evidence:
+      - id: omb-fea-archive-page
+        kind: url
+        url: https://obamawhitehouse.archives.gov/omb/e-gov/FEA
+        sha256: c7c726cd3af8bfa8cf76fcd6549aff70c201bf56f7d1c6a3628b60b336c8f538
+        bytes: 28651
+        retrieved: 2026-10-28
+        checked: >-
+          The archived OMB Federal Enterprise Architecture page on the
+          National Archives' frozen copy of the 2009-2017 White House site,
+          under Office of Management and Budget. Under FEA Reference Models
+          it lists Business Reference Model version 3.1 (May 15, 2013) and
+          Business Reference Model version 3.1 Taxonomy (May 15, 2013), each
+          a PDF under OMB's egov_docs path, as the architect stated; also the
+          Common Approach (2 May 2012) and FEAF version 2 (29 January 2013).
+          Identical bytes on two fetches.
+      - id: brm-3.1-service-codes-and-definitions
+        kind: url
+        url: https://obamawhitehouse.archives.gov/sites/default/files/omb/assets/egov_docs/brm_v3-1-service_codes_and_definitions_rev1_20130615.pdf
+        sha256: 249c5fc0ed745aafc6d6cf180b7781b576b6842e2efd71a22e059d5687c48208
+        bytes: 196421
+        retrieved: 2026-10-28
+        checked: >-
+          The document the archive page links as BRM version 3.1. Its page
+          header reads Business Reference Model v3.1, Service Codes and
+          Definitions, May 15, 2013; 24 pages; produced with Acrobat
+          Distiller, created 7 June 2013 (XMP). The file name carries rev1
+          and 20130615, later than the stated date: a revision posted in
+          June of the May edition. The text names no issuing body (identity
+          rests on the OMB page that links it). No copyright, licence,
+          trademark or proprietary notice; it cites federal sources (OMB,
+          GAO, FASAB, NIST) by name only.
+      - id: brm-3.1-taxonomy
+        kind: url
+        url: https://obamawhitehouse.archives.gov/sites/default/files/omb/assets/egov_docs/brm_v3-1_taxonomy_20130615.pdf
+        sha256: 52ccabf3a3e7970b4265c79f116652447a228664e31db019f9eac384fe0fa9ce
+        bytes: 996966
+        retrieved: 2026-10-28
+        checked: >-
+          The document the archive page links as the BRM 3.1 taxonomy. Its
+          pages read Appendix H, Business Reference Model Taxonomy with
+          Definitions, May 15, 2013, 52 pages, created 6 June 2013. It is an
+          appendix by its own heading, but does not name the document it
+          belongs to (FEAF v2, listed on the same archive page, is the
+          likely parent; not verified).
+          It states a three-layer structure (mission sectors, business
+          functions, services) aligned to OMB Circular A-11 budget function
+          codes. No issuing body named in the text; no copyright, licence,
+          trademark or proprietary notice.
+      - id: wh-archive-copyright-policy
+        kind: url
+        url: https://obamawhitehouse.archives.gov/copyright
+        sha256: 8cf74b4897c9a6e6e5b99d6e6f9290c01c69ec1a3fa2e8ebdcd26fe879e867d4
+        bytes: 27549
+        retrieved: 2026-10-28
+        checked: >-
+          The archived site's copyright policy: government-produced material
+          on the site is not copyright protected; the Government may hold
+          copyrights transferred to it; third-party content is, unless
+          noted, under Creative Commons Attribution 3.0 US. Identical bytes
+          on two fetches.
+    findings:
+      names: >-
+        Free to redistribute. Both documents are works of OMB, a federal
+        agency, published on the Government's own archived site, which
+        states that government-produced material there is not under
+        copyright (17 U.S.C. 105). Neither carries any third-party notice.
+      descriptions: Free to redistribute, on the same evidence.
+      codes_and_hierarchy: Free to redistribute, on the same evidence.
+      derivative_works: Unrestricted for a US Government work.
+      attribution:
+        required: false
+        summary: >-
+          No attribution is legally required for a US Government work.
+          Citing OMB, the document, its date and the archive URL is good
+          practice, and is what the inventory's provenance needs anyway. A
+          derivative must not imply OMB endorses it.
+        locators:
+          - wh-archive-copyright-policy
+          - brm-3.1-service-codes-and-definitions and brm-3.1-taxonomy (no notices)
+      restrictions:
+        - >-
+          17 U.S.C. 105 frees US Government works in the United States;
+          outside it, the Government may assert copyright. No such assertion
+          appears in these documents or on the archive.
+        - >-
+          The archive is frozen historical material; the documents are not
+          maintained, and OMB's current site does not republish them. The
+          BRM is dormant, as the register already records.
+    quotes:
+      - evidence: wh-archive-copyright-policy
+        locator: Copyright Policy, first sentence
+        quote: government-produced materials appearing on this site are not copyright protected
+    open_questions:
+      - >-
+        Contractor authorship: the documents do not say who drafted them.
+        A contractor-written work given to the Government can keep its
+        copyright, but none is marked and the publisher states the material
+        is government-produced. Recorded as a residual, not a blocker.
+      - >-
+        Which of the two is the BRM for I-2c: the service codes and
+        definitions table, the taxonomy appendix, or both? They overlap.
+    decision_points:
+      - id: BRM-1
+        question: Accept the BRM 3.1 documents as redistributable for I-2c?
+        options:
+          - key: a
+            option: >-
+              Accept: E6 is met (primary OMB documents, validated against the
+              OMB archive listing, pinned); I-2c harvests names, definitions,
+              codes and hierarchy with a citation to OMB and the archive.
+          - key: b
+            option: >-
+              Accept the documents as primary but treat the contractor
+              residual as open; harvest codes and hierarchy only.
+          - key: c
+            option: Defer the BRM despite the evidence.
+        recommendation: >-
+          (a). The primary documents are where the architect said, they are
+          what they claim, and nothing in them or on the archive limits
+          redistribution.
+      - id: BRM-2
+        question: Which document is the BRM harvest's source?
+        options:
+          - key: a
+            option: The taxonomy appendix (structure with definitions), the other as a cross-check.
+          - key: b
+            option: The service codes and definitions table, the other as a cross-check.
+          - key: c
+            option: Both, as separate entries per document (amendment 2 style).
+        recommendation: >-
+          (c), because the inventory keeps sources apart and the two are
+          separately listed by OMB; I-4 reconciles them.
+    architect_decision:
+      record: docs/decisions/2026-10-28-i2a-decided.md
+
+  # ====================================================================
+  - id: fibf-2026-10-28
+    register: SRC-GOV-05
+    rightsholder: >-
+      United States Government: GSA (Office of Shared Solutions and
+      Performance Improvement) as publisher; each domain's standards lead
+      agency (for example OPM, EEOC, NARA, CISA, DOJ) as author. Most
+      workbooks were prepared by The MITRE Corporation, which marks them
+      with its own copyright.
+    work: Federal Integrated Business Framework (FIBF), per-domain business standards
+    edition: >-
+      As published at ussm.gsa.gov on 2026-10-28: the documents pinned below,
+      each identified by its digest. Internal version tables (by domain,
+      2024 and 2025 releases) are I-2c's to record from the same bytes.
+    status: evidence-complete
+    terms: ambiguous
+    gap_reason: null
+    evidence:
+      # ---- the enumeration: the FIBF index page and each domain page
+      - id: fibf-index-page
+        kind: url
+        url: https://ussm.gsa.gov/fibf/
+        sha256: 9d32b82c297961d248592a13818069ddf857b05926caf3e1331cc00266e8f49a
+        bytes: 101877
+        retrieved: 2026-10-28
+        snapshot: context
+        checked: >-
+          The FIBF index. It lists 25 domain pages (publishing functions and
+          initiating functions) and states the five FIBF components; the
+          same bytes were served on two fetches the same day. It names no
+          copyright or licence; the footer links GSA website policies.
+      - id: fibf-page-cw
+        kind: url
+        url: https://ussm.gsa.gov/fibf-cw/
+        sha256: 3916f84364e71d06795966f12787a4b24114e77ad5ffef05ed68bc59052c83e9
+        bytes: 83227
+        retrieved: 2026-10-28
+        domain: fibf-cw
+        snapshot: context
+        checked: >-
+          Domain page; links 2 workbook(s) in the snapshot scope (below). No copyright or licence notice in the page.
+      - id: fibf-page-cyb-cvd
+        kind: url
+        url: https://ussm.gsa.gov/fibf-cyb-cvd/
+        sha256: d6e986b9eb95ea507fbf7750ccc0662906750fa33e4d82d347ec673fb938def0
+        bytes: 79832
+        retrieved: 2026-10-28
+        domain: fibf-cyb-cvd
+        snapshot: context
+        checked: >-
+          Domain page; links 1 workbook(s) in the snapshot scope (below). No copyright or licence notice in the page.
+      - id: fibf-page-cyb-soc
+        kind: url
+        url: https://ussm.gsa.gov/fibf-cyb-soc/
+        sha256: ddb536706e4a238ad063108252fc3f9f48bfcd745d5e2d3a0d7b3c2f98e86b2f
+        bytes: 87056
+        retrieved: 2026-10-28
+        domain: fibf-cyb-soc
+        snapshot: context
+        checked: >-
+          Domain page; links 1 workbook(s) in the snapshot scope (below). No copyright or licence notice in the page.
+      - id: fibf-page-erm
+        kind: url
+        url: https://ussm.gsa.gov/fibf-ERM/
+        sha256: 8e642c484b7b9748f78c7d447ca2147ff4e136032e89488dd0d770fcef848816
+        bytes: 83683
+        retrieved: 2026-10-28
+        domain: fibf-ERM
+        snapshot: context
+        checked: >-
+          Domain page; links 1 workbook(s) in the snapshot scope (below). No copyright or licence notice in the page.
+      - id: fibf-page-fm
+        kind: url
+        url: https://ussm.gsa.gov/fibf-fm/
+        sha256: ebee75a98c6630ca23b3ba8755a54078b6e4d5eded669b708e1d693ed318b823
+        bytes: 95294
+        retrieved: 2026-10-28
+        domain: fibf-fm
+        snapshot: context
+        checked: >-
+          Domain page; links 2 workbook(s) in the snapshot scope (below). No copyright or licence notice in the page.
+      - id: fibf-page-gm
+        kind: url
+        url: https://ussm.gsa.gov/fibf-gm/
+        sha256: 979994981d2b36fc36f699ce50ca355a86de101b6ac85a2bfa0fbd131afef81b
+        bytes: 86754
+        retrieved: 2026-10-28
+        domain: fibf-gm
+        snapshot: context
+        checked: >-
+          Domain page; links 2 workbook(s) in the snapshot scope (below). No copyright or licence notice in the page.
+      - id: fibf-page-hr-hcm
+        kind: url
+        url: https://ussm.gsa.gov/fibf-hr-hcm/
+        sha256: 7a2a29de46bade3ff99c8b3ecf6e2a0d36af9bd721be92d166bd371cffa995a3
+        bytes: 75915
+        retrieved: 2026-10-28
+        domain: fibf-hr-hcm
+        snapshot: context
+        checked: >-
+          An index of the eleven HC-FIBF sub-function pages (OPM HRLOB is the standards lead); it links no FIBF document of its own. No copyright or licence notice in the page.
+      - id: fibf-page-hr-hcs
+        kind: url
+        url: https://ussm.gsa.gov/fibf-hr-hcs/
+        sha256: 1a4286806ced4d63aaf011ad3171d2a013f7a02c02a93c09c9143137527e7b81
+        bytes: 89574
+        retrieved: 2026-10-28
+        domain: fibf-hr-hcs
+        snapshot: context
+        checked: >-
+          Domain page; links 2 workbook(s) in the snapshot scope (below). No copyright or licence notice in the page.
+      - id: fibf-page-hr-hce
+        kind: url
+        url: https://ussm.gsa.gov/fibf-hr-hce/
+        sha256: 16a3fcbe0f555ac8094d5064fdac9053a0b13a2766d1e9bd03cd104ed1080510
+        bytes: 86267
+        retrieved: 2026-10-28
+        domain: fibf-hr-hce
+        snapshot: context
+        checked: >-
+          Domain page; links 2 workbook(s) in the snapshot scope (below). No copyright or licence notice in the page.
+      - id: fibf-page-hr-ac
+        kind: url
+        url: https://ussm.gsa.gov/fibf-hr-ac/
+        sha256: 3b9d1888aadb0157a17d9f42906591f73b41d76a97a5139533715bdc3333bbb5
+        bytes: 90437
+        retrieved: 2026-10-28
+        domain: fibf-hr-ac
+        snapshot: context
+        checked: >-
+          Domain page; links 2 workbook(s) in the snapshot scope (below). No copyright or licence notice in the page.
+      - id: fibf-page-hr-td
+        kind: url
+        url: https://ussm.gsa.gov/fibf-hr-td/
+        sha256: e04acbbf6e47430e7482c5d0c7919f689466fe4cfd9f1228196d4db88d9222d5
+        bytes: 88002
+        retrieved: 2026-10-28
+        domain: fibf-hr-td
+        snapshot: context
+        checked: >-
+          Domain page; links 2 workbook(s) in the snapshot scope (below). No copyright or licence notice in the page.
+      - id: fibf-page-hr-epm
+        kind: url
+        url: https://ussm.gsa.gov/fibf-hr-epm/
+        sha256: f07b3d6ce8a368e9ada9a9261bfdc7190f5721ab1f430227759e132c89d19ec1
+        bytes: 88362
+        retrieved: 2026-10-28
+        domain: fibf-hr-epm
+        snapshot: context
+        checked: >-
+          Domain page; links 2 workbook(s) in the snapshot scope (below). No copyright or licence notice in the page.
+      - id: fibf-page-hr-cb
+        kind: url
+        url: https://ussm.gsa.gov/fibf-hr-cb/
+        sha256: 6b0c5c319fb13b668deb6f75699c53c8b03cb13f87a174e46ccf44f977728517
+        bytes: 88688
+        retrieved: 2026-10-28
+        domain: fibf-hr-cb
+        snapshot: context
+        checked: >-
+          Domain page; links 2 workbook(s) in the snapshot scope (below). No copyright or licence notice in the page.
+      - id: fibf-page-hr-sep-ret
+        kind: url
+        url: https://ussm.gsa.gov/fibf-hr-sep-ret/
+        sha256: d6e4db246fc6baec49d079513cf8300dfb774e3287a09788947181d07d277b68
+        bytes: 86929
+        retrieved: 2026-10-28
+        domain: fibf-hr-sep-ret
+        snapshot: context
+        checked: >-
+          Domain page; links 2 workbook(s) in the snapshot scope (below). No copyright or licence notice in the page.
+      - id: fibf-page-hr-ea
+        kind: url
+        url: https://ussm.gsa.gov/fibf-hr-ea/
+        sha256: efd76b2ef97355fb61755cc659309c2ee25a9acc880119541a8727c568be0965
+        bytes: 87374
+        retrieved: 2026-10-28
+        domain: fibf-hr-ea
+        snapshot: context
+        checked: >-
+          Domain page; links 2 workbook(s) in the snapshot scope (below). No copyright or licence notice in the page.
+      - id: fibf-page-hr-lr
+        kind: url
+        url: https://ussm.gsa.gov/fibf-hr-lr/
+        sha256: 1b33db2b9f86a76f8590fb03ea22f422d8ce65aab1171fd7912a78f37efbc6b1
+        bytes: 87982
+        retrieved: 2026-10-28
+        domain: fibf-hr-lr
+        snapshot: context
+        checked: >-
+          Domain page; links 2 workbook(s) in the snapshot scope (below). No copyright or licence notice in the page.
+      - id: fibf-page-hr-hca
+        kind: url
+        url: https://ussm.gsa.gov/fibf-hr-hca/
+        sha256: e96fe1f967416af750395676ddc7c6669199ecf41da68232a7171cd3ac64db16
+        bytes: 90250
+        retrieved: 2026-10-28
+        domain: fibf-hr-hca
+        snapshot: context
+        checked: >-
+          Domain page; links 2 workbook(s) in the snapshot scope (below). No copyright or licence notice in the page.
+      - id: fibf-page-hr-par
+        kind: url
+        url: https://ussm.gsa.gov/fibf-hr-par/
+        sha256: 22e3f372e0901cc37f93098311126159c8432cfbec9fa0e75d126e869585ac4c
+        bytes: 86692
+        retrieved: 2026-10-28
+        domain: fibf-hr-par
+        snapshot: context
+        checked: >-
+          Domain page; links 2 workbook(s) in the snapshot scope (below). No copyright or licence notice in the page.
+      - id: fibf-page-mom
+        kind: url
+        url: https://ussm.gsa.gov/fibf-mom/
+        sha256: 420e8c609ada4dfbbefffc7a58a5e936600dd35d65e34a2143bb8d2379e3de62
+        bytes: 84641
+        retrieved: 2026-10-28
+        domain: fibf-mom
+        snapshot: context
+        checked: >-
+          Domain page; links 2 workbook(s) in the snapshot scope (below). No copyright or licence notice in the page.
+      - id: fibf-page-rpm
+        kind: url
+        url: https://ussm.gsa.gov/fibf-RPM/
+        sha256: bb6ac21dcd6ef7fd0ecef59bd2b7c8b6c5ddde2e59249e60b1abf55f970a1b97
+        bytes: 89690
+        retrieved: 2026-10-28
+        domain: fibf-RPM
+        snapshot: context
+        checked: >-
+          Domain page; links 2 workbook(s) in the snapshot scope (below). No copyright or licence notice in the page.
+      - id: fibf-page-travel
+        kind: url
+        url: https://ussm.gsa.gov/fibf-travel/
+        sha256: c086cc7c629dc8305c1ae75255939f984792575a995effc74e84eec60806210b
+        bytes: 85560
+        retrieved: 2026-10-28
+        domain: fibf-travel
+        snapshot: context
+        checked: >-
+          Domain page; links 2 workbook(s) in the snapshot scope (below). No copyright or licence notice in the page.
+      - id: fibf-page-eeo
+        kind: url
+        url: https://ussm.gsa.gov/fibf-eeo/
+        sha256: 1d1edf3504e7c60866624aab8977672136cb6730485e99bec12f724bd6c7da54
+        bytes: 88557
+        retrieved: 2026-10-28
+        domain: fibf-eeo
+        snapshot: candidate
+        checked: >-
+          Standards lead EEOC. Links only a service-measures workbook; its functions are published in the page HTML itself, with no lifecycle or business-capability download. The page is therefore the only source for this domain. No copyright or licence notice in the page.
+      - id: fibf-page-foia
+        kind: url
+        url: https://ussm.gsa.gov/fibf-foia/
+        sha256: 3332e8340f7b3de0f05a9c8e3223bbdafc4efd90b01a1b60cef65e9ca03a557c
+        bytes: 75617
+        retrieved: 2026-10-28
+        domain: fibf-foia
+        snapshot: context
+        checked: >-
+          Standards lead DOJ Office of Information Policy. The component sections are present but empty: nothing is published for this domain. No copyright or licence notice in the page.
+      - id: fibf-page-its
+        kind: url
+        url: https://ussm.gsa.gov/fibf-its/
+        sha256: eea63678efd562436a5420aa6c9f6088114bc0f348e303dd9dff7b44a2df3292
+        bytes: 76544
+        retrieved: 2026-10-28
+        domain: fibf-its
+        snapshot: context
+        checked: >-
+          Links two operational-capability workbooks (ITS and CYB, posted 2024-11-15). The page describes their functions and activities as draft, and says they feed the TBM cost taxonomy and OMB Circular A-11 reporting. No copyright or licence notice in the page.
+      - id: fibf-page-rm
+        kind: url
+        url: https://ussm.gsa.gov/fibf-rm/
+        sha256: 635f27e67211df3bc1dd31a3170925b2524d70c92a6b9e6cd1273ce4104052f4
+        bytes: 75387
+        retrieved: 2026-10-28
+        domain: fibf-rm
+        snapshot: context
+        checked: >-
+          Standards lead GSA. The component sections are present but empty: nothing is published for this domain. No copyright or licence notice in the page.
+      # ---- the documents: functions and activities, and business capabilities
+      - id: fibf-doc-fm-1
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/Finance_Excel/business_capabilities_2025.xlsx
+        sha256: 12c64ff4781c75b8fdb48d7cd763e951293e90a892bf2c25efa2ec9a70ea34c2
+        bytes: 471804
+        retrieved: 2026-10-28
+        domain: fibf-fm
+        components: [business-capabilities]
+        snapshot: candidate
+        notices: >-
+          The footer of 1 of 5 sheets (Auth and Other References) carries a copyright line for The
+          MITRE Corporation (2018), all rights reserved, with a line stating unlimited usage rights for the Federal Government.
+        third_party_references: [ISO]
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-fm-2
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/Finance_Excel/functions_and_activities_2025.xlsx
+        sha256: 9731c4c199d03b30abc00f8f5451a5bc85a4e4f271ccc183c97cfc9b52c2be4e
+        bytes: 408768
+        retrieved: 2026-10-28
+        domain: fibf-fm
+        components: [functions-activities]
+        snapshot: candidate
+        notices: >-
+          The footer of 3 of 5 sheets (Workbook Overview; Function-Activity List; Auth and Other References) carries a copyright line for The
+          MITRE Corporation (2018), all rights reserved, with a line stating unlimited usage rights for the Federal Government.
+        third_party_references: [ISO]
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-hr-cb-1
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/HCM_Comp_Ben_2025/Compensation%20and%20Benefits%20Business%20Capabilities%20List.xlsx
+        sha256: 232ee7ba40f85700d72419d5c9c1bdfffc3c17fa657bb14af1581c1f79377b0e
+        bytes: 2720584
+        retrieved: 2026-10-28
+        domain: fibf-hr-cb
+        components: [business-capabilities]
+        snapshot: candidate
+        notices: No copyright or licence notice in any sheet, header, footer or drawing.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-hr-cb-2
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/HCM_Comp_Ben_2025/Compensation%20and%20Benefits%20Business%20Lifecycle.xlsx
+        sha256: 8e95cedffff7a307a72b316ba1bf4c4098dc5f6a3835f6a0256d97707de32827
+        bytes: 57305
+        retrieved: 2026-10-28
+        domain: fibf-hr-cb
+        components: [functions-activities]
+        snapshot: candidate
+        notices: >-
+          The footer of 1 of 5 sheets (Service Functions) carries a copyright line for The
+          MITRE Corporation (2018), all rights reserved, with a line stating unlimited usage rights for the Federal Government.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-hr-ea-1
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/HCM_Emp_Acc_2025/Employee%20Accountability%20Business%20Capabilities%20List.xlsx
+        sha256: 84bedd857260863160a12894b83ffc36cab2318266ae11d33b19ad9458c14683
+        bytes: 60803
+        retrieved: 2026-10-28
+        domain: fibf-hr-ea
+        components: [business-capabilities]
+        snapshot: candidate
+        notices: No copyright or licence notice in any sheet, header, footer or drawing.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-hr-ea-2
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/HCM_Emp_Acc_2025/Employee%20Accountability%20Business%20Lifecycle.xlsx
+        sha256: 646a6b7046d4389c3aa9569b20a09f4ba0bf2f29cea8cfe5c18fbbca1292f85a
+        bytes: 59058
+        retrieved: 2026-10-28
+        domain: fibf-hr-ea
+        components: [functions-activities]
+        snapshot: candidate
+        notices: >-
+          The footer of 1 of 5 sheets (Service Functions) carries a copyright line for The
+          MITRE Corporation (2018), all rights reserved, with a line stating unlimited usage rights for the Federal Government.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-hr-epm-1
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/HCM_Emp_MGMT_2025/Employee%20Performance%20Management%20Business%20Capabilities%20List.xlsx
+        sha256: 0b5c46be8d1280b5a00f129f2b6fd7747a6ee3b485e12599df1820a58a0e9a84
+        bytes: 2714830
+        retrieved: 2026-10-28
+        domain: fibf-hr-epm
+        components: [business-capabilities]
+        snapshot: candidate
+        notices: No copyright or licence notice in any sheet, header, footer or drawing.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-hr-epm-2
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/HCM_Emp_MGMT_2025/Employee%20Performance%20Management%20Business%20Lifecycle.xlsx
+        sha256: 7a51cc208c8323596564fd1292a92d7a484215ee9192dacefa66d0b3a049ab49
+        bytes: 56288
+        retrieved: 2026-10-28
+        domain: fibf-hr-epm
+        components: [functions-activities]
+        snapshot: candidate
+        notices: >-
+          The footer of 1 of 5 sheets (Service Functions) carries a copyright line for The
+          MITRE Corporation (2018), all rights reserved, with a line stating unlimited usage rights for the Federal Government.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-hr-hce-1
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/HCM_Eval_2025/Human%20Capital%20Evaluations%20Business%20Capabilities%20List.xlsx
+        sha256: e01ae753079e3d80692b05f4d47a526441a4a931dfdb76e98c3178b57c6fa809
+        bytes: 62495
+        retrieved: 2026-10-28
+        domain: fibf-hr-hce
+        components: [business-capabilities]
+        snapshot: candidate
+        notices: No copyright or licence notice in any sheet, header, footer or drawing.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-hr-hce-2
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/HCM_Eval_2025/Human%20Capital%20Evaluations%20Business%20Lifecycle.xlsx
+        sha256: 2f43379e37b2f791fb23694d09d89eae7b20fb18706c0eb21d38c59d210b1642
+        bytes: 59466
+        retrieved: 2026-10-28
+        domain: fibf-hr-hce
+        components: [functions-activities]
+        snapshot: candidate
+        notices: >-
+          The footer of 1 of 5 sheets (Service Functions) carries a copyright line for The
+          MITRE Corporation (2018), all rights reserved, with a line stating unlimited usage rights for the Federal Government.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-hr-hca-1
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/HCM_HCA_2025/Human%20Capital%20Analytics%20&%20Employee%20Records%20Business%20Capabilities%20List.xlsx
+        sha256: fe33a385cee12f30bff4c4064d94c86d5b9d3def3068eaed33abd3900c8d9d73
+        bytes: 75915
+        retrieved: 2026-10-28
+        domain: fibf-hr-hca
+        components: [business-capabilities]
+        snapshot: candidate
+        notices: No copyright or licence notice in any sheet, header, footer or drawing.
+        third_party_references: [ISO]
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-hr-hca-2
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/HCM_HCA_2025/Human%20Capital%20Analytics%20&%20Employee%20Records%20Business%20Lifecycle.xlsx
+        sha256: 641c636293034d16b10bb96cd5bed351a88dfe05515be9f6465b5263f1ce3c19
+        bytes: 61696
+        retrieved: 2026-10-28
+        domain: fibf-hr-hca
+        components: [functions-activities]
+        snapshot: candidate
+        notices: >-
+          The footer of 1 of 5 sheets (Service Functions) carries a copyright line for The
+          MITRE Corporation (2018), all rights reserved, with a line stating unlimited usage rights for the Federal Government.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-hr-lr-1
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/HCM_Labor_2025/Labor%20Relations%20Business%20Capabilities%20List.xlsx
+        sha256: a96d6690aaa029502ec5b19c81f39d0f79289bd566b993afa65889fa5cef697b
+        bytes: 66002
+        retrieved: 2026-10-28
+        domain: fibf-hr-lr
+        components: [business-capabilities]
+        snapshot: candidate
+        notices: No copyright or licence notice in any sheet, header, footer or drawing.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-hr-lr-2
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/HCM_Labor_2025/Labor%20Relations%20Business%20Lifecycle.xlsx
+        sha256: c0c7ab9a9b2b1cec680d7218dde31729bf66b27c455f87a9d23d2b38a6b9e1ed
+        bytes: 59345
+        retrieved: 2026-10-28
+        domain: fibf-hr-lr
+        components: [functions-activities]
+        snapshot: candidate
+        notices: >-
+          The footer of 1 of 5 sheets (Service Functions) carries a copyright line for The
+          MITRE Corporation (2018), all rights reserved, with a line stating unlimited usage rights for the Federal Government.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-hr-sep-ret-1
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/HCM_Sep_Ret_2025/Separation%20and%20Retirement%20Business%20Capabilities%20List.xlsx
+        sha256: 18adffa3a3cb556f751ca9a513068794a6714ba6ab63f1f180411a8a062af066
+        bytes: 2707863
+        retrieved: 2026-10-28
+        domain: fibf-hr-sep-ret
+        components: [business-capabilities]
+        snapshot: candidate
+        notices: No copyright or licence notice in any sheet, header, footer or drawing.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-hr-sep-ret-2
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/HCM_Sep_Ret_2025/Separation%20and%20Retirement%20Business%20Lifecycle.xlsx
+        sha256: 82d40474f65397aee6ee5490750531de769264038b5c825d3394f99949d34093
+        bytes: 54259
+        retrieved: 2026-10-28
+        domain: fibf-hr-sep-ret
+        components: [functions-activities]
+        snapshot: candidate
+        notices: >-
+          The footer of 1 of 5 sheets (Service Functions) carries a copyright line for The
+          MITRE Corporation (2018), all rights reserved, with a line stating unlimited usage rights for the Federal Government.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-hr-hcs-1
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/HCM_Strat_2024/Human%20Capital%20Strategy,%20Policies,%20&%20Operation%20Plan%20Business%20Capabilities%20List.xlsx
+        sha256: a9d79cf0816a9499af3fd80887e66ec090d61a21732d51c9fe744a306cf591ea
+        bytes: 75453
+        retrieved: 2026-10-28
+        domain: fibf-hr-hcs
+        components: [business-capabilities]
+        snapshot: candidate
+        notices: No copyright or licence notice in any sheet, header, footer or drawing.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-hr-hcs-2
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/HCM_Strat_2024/Human%20Capital%20Strategy,%20Policies,%20&%20Operation%20Plan%20Business%20Lifecycle.xlsx
+        sha256: 73336e40b4968595cfeec16bb18e1617f3bb571d6cd917e05556780dfe1c5f95
+        bytes: 64343
+        retrieved: 2026-10-28
+        domain: fibf-hr-hcs
+        components: [functions-activities]
+        snapshot: candidate
+        notices: >-
+          The footer of 1 of 5 sheets (Service Functions) carries a copyright line for The
+          MITRE Corporation (2018), all rights reserved, with a line stating unlimited usage rights for the Federal Government.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-hr-ac-1
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/HCM_Tal_Acq_2025/Talent%20Acquisition%20Business%20Capabilities%20List.xlsx
+        sha256: aebf624a6164049013a911ebe853fcc36d9b7efd257b24e96165b123b26a1194
+        bytes: 2711829
+        retrieved: 2026-10-28
+        domain: fibf-hr-ac
+        components: [business-capabilities]
+        snapshot: candidate
+        notices: No copyright or licence notice in any sheet, header, footer or drawing.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-hr-ac-2
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/HCM_Tal_Acq_2025/Talent%20Acquisition%20Business%20Lifecycle.xlsx
+        sha256: dddc8dee9f286a7aa9f940bd2a43a98ade87e4e6d8d1e6017653dd250625cb49
+        bytes: 57697
+        retrieved: 2026-10-28
+        domain: fibf-hr-ac
+        components: [functions-activities]
+        snapshot: candidate
+        notices: >-
+          The footer of 1 of 5 sheets (Service Functions) carries a copyright line for The
+          MITRE Corporation (2018), all rights reserved, with a line stating unlimited usage rights for the Federal Government.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-hr-td-1
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/HCM_Tal_Dev_2025/Talent%20Development%20Business%20Capabilities%20List.xlsx
+        sha256: a75fac5fe7d4ed25e0326fba3d3c3e912ef683402340e3acaeedd328ee92012c
+        bytes: 2717864
+        retrieved: 2026-10-28
+        domain: fibf-hr-td
+        components: [business-capabilities]
+        snapshot: candidate
+        notices: No copyright or licence notice in any sheet, header, footer or drawing.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-hr-td-2
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/HCM_Tal_Dev_2025/Talent%20Development%20Business%20Lifecycle.xlsx
+        sha256: ac74551833ea7d9e04b7f2b102782f6c23b50c51b8ff69dae1b785d25dc137e9
+        bytes: 56679
+        retrieved: 2026-10-28
+        domain: fibf-hr-td
+        components: [functions-activities]
+        snapshot: candidate
+        notices: >-
+          The footer of 1 of 5 sheets (Service Functions) carries a copyright line for The
+          MITRE Corporation (2018), all rights reserved, with a line stating unlimited usage rights for the Federal Government.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-hr-par-1
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/PAR_2025/Personnel%20Action%20Request%20(PAR)%20Processing%20Business%20Capabilities%20List.xlsx
+        sha256: 0df9f78ba03b8c1c5efe16b47b1350e37efe54879adb970d16e1e0f7a32e18c2
+        bytes: 57631
+        retrieved: 2026-10-28
+        domain: fibf-hr-par
+        components: [business-capabilities]
+        snapshot: candidate
+        notices: No copyright or licence notice in any sheet, header, footer or drawing.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-hr-par-2
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/PAR_2025/Personnel%20Action%20Request%20(PAR)%20Processing%20Business%20Lifecycle.xlsx
+        sha256: 344566e7f128168916971d3347bf7bf631b79f9aae8f5d81e093f56f0549a5ce
+        bytes: 58184
+        retrieved: 2026-10-28
+        domain: fibf-hr-par
+        components: [functions-activities]
+        snapshot: candidate
+        notices: >-
+          The footer of 1 of 5 sheets (Service Functions) carries a copyright line for The
+          MITRE Corporation (2018), all rights reserved, with a line stating unlimited usage rights for the Federal Government.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-rpm-1
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/RPM_2024/Excel/Real%20Property%20Management%20Business%20Capabilities.xlsx
+        sha256: 1f91dd8a967a7632a6a6f9aab2dbd87648aff2eb086fc63a544f9a4573a914d7
+        bytes: 268233
+        retrieved: 2026-10-28
+        domain: fibf-RPM
+        components: [business-capabilities]
+        snapshot: candidate
+        notices: >-
+          The footer of 6 of 8 sheets (Cover; Workbook Overview; Legend; RPM Business Capabilities; Auth and Other References; Capability Totals) carries a copyright line for The
+          MITRE Corporation (2021, 2022), all rights reserved, with a line stating unlimited usage rights for the Federal Government.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-rpm-2
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/RPM_2024/Excel/Real%20Property%20Management%20Business%20Lifecycle.xlsx
+        sha256: 894b422750e671eb244926884c6d4f6781a3a6b2c7860f92a48de9e37c60e1ce
+        bytes: 249714
+        retrieved: 2026-10-28
+        domain: fibf-RPM
+        components: [functions-activities]
+        snapshot: candidate
+        notices: >-
+          The footer of 4 of 7 sheets (Cover; Workbook Overview; Legend; Auth and Other References) carries a copyright line for The
+          MITRE Corporation (2021, 2022), all rights reserved, with a line stating unlimited usage rights for the Federal Government.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-travel-1
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/Travel_2024/Excel/Travel%20and%20Expense%20Management%20Business%20Capabilities.xlsx
+        sha256: d8430f302349391a8df7c5879146781d47d81a6ec5b059eb4843ea782331f9cf
+        bytes: 58145
+        retrieved: 2026-10-28
+        domain: fibf-travel
+        components: [business-capabilities]
+        snapshot: candidate
+        notices: No copyright or licence notice in any sheet, header, footer or drawing.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-travel-2
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/Travel_2024/Excel/Travel%20and%20Expense%20Management%20Business%20Lifecycle.xlsx
+        sha256: 410a37c74b97b25e08d4ad1e0955f66230aa84cdf4d990d1c4fdaf12f40f8f82
+        bytes: 18781
+        retrieved: 2026-10-28
+        domain: fibf-travel
+        components: [functions-activities]
+        snapshot: candidate
+        notices: No copyright or licence notice in any sheet, header, footer or drawing.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-cw-1
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/acq/Contract-Writing-Business-Capabilities.xlsx
+        sha256: 886effd434300c15493062e23efa916be1e7d51959618f9d93cd1f1038f435b9
+        bytes: 60314
+        retrieved: 2026-10-28
+        domain: fibf-cw
+        components: [functions-activities, business-capabilities]
+        snapshot: candidate
+        notices: No copyright or licence notice in any sheet, header, footer or drawing.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-cw-2
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/acq/Contract-Writing-Federal-Business-Lifecycle.xlsx
+        sha256: 2c85e22fb82d4e83c9d0aac9d15980841a24a9b07639fa00fc59f42640ffed1c
+        bytes: 59400
+        retrieved: 2026-10-28
+        domain: fibf-cw
+        components: [functions-activities, business-capabilities]
+        snapshot: candidate
+        notices: No copyright or licence notice in any sheet, header, footer or drawing.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-cyb-cvd-1
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/cyb/Cybersecurity-Services(CVD)-Business-Capabilities.xlsx
+        sha256: e8e14cbdfe128a72af5ff2e679cef53bcca430334b4f7916f5428139bd964cfa
+        bytes: 42353
+        retrieved: 2026-10-28
+        domain: fibf-cyb-cvd
+        components: [functions-activities, business-capabilities]
+        snapshot: candidate
+        notices: >-
+          The footer of 5 of 8 sheets (Cover; Workbook Overview; Legend; Auth and Other Sources; Business Capability List) carries a copyright line for The
+          MITRE Corporation (2017, 2019), all rights reserved, with a line stating unlimited usage rights for the Federal Government.
+        third_party_references: [CMU/SEI, ISO/IEC]
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-cyb-soc-1
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/cyb/Cybersecurity-Services(SOC)-Business-Capabilities.xlsx
+        sha256: 9e5accce034dd59443c379fe75cb6cea9e76c5c659ed2da1f9f6bed8acf48c4d
+        bytes: 78937
+        retrieved: 2026-10-28
+        domain: fibf-cyb-soc
+        components: [functions-activities, business-capabilities]
+        snapshot: candidate
+        notices: >-
+          The footer of 8 of 8 sheets (Cover; Workbook Overview; Legend; Service Areas; CYB Service Functions; CYB Service Activities; Auth and Other Sources; CYB Business Capabilities) carries a copyright line for The
+          MITRE Corporation (2017, 2018, 2019, 2020), all rights reserved, with a line stating unlimited usage rights for the Federal Government.
+        third_party_references: [COBIT]
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-erm-1
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/erm/Electronic-Records-Management-Business-Capabilities.xlsx
+        sha256: f351fbb8496cef9e84563a8fbf94ff9856661186b38677f9ee1e659ca9064134
+        bytes: 130138
+        retrieved: 2026-10-28
+        domain: fibf-ERM
+        components: [functions-activities, business-capabilities]
+        snapshot: candidate
+        notices: No copyright or licence notice in any sheet, header, footer or drawing.
+        third_party_references: [ISO]
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-gm-1
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/grants/Grants-Management-Business-Capabilities-version-2.0.xlsm
+        sha256: c3da458ed035510f779251102d383ecccf767f199f104b74be746a47a1e26f83
+        bytes: 102581
+        retrieved: 2026-10-28
+        domain: fibf-gm
+        components: [business-capabilities]
+        snapshot: candidate
+        notices: >-
+          The footer of 5 of 6 sheets (Workbook Overview; Capablity Guidelines; Legend; Business Capabilities; Capability Totals) carries a copyright line for The
+          MITRE Corporation (2021), all rights reserved, with a line stating unlimited usage rights for the Federal Government.
+        macro_enabled: true
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers. A macro-enabled workbook; the macros were neither opened nor run.
+      - id: fibf-doc-gm-2
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/grants/Grants-Management-Federal-Business-Lifecycle-version-2.0.xlsx
+        sha256: 71980857e3496c08cf160841e33999eef7236bee9896e17df895f7c602aa1460
+        bytes: 32192
+        retrieved: 2026-10-28
+        domain: fibf-gm
+        components: [functions-activities]
+        snapshot: candidate
+        notices: >-
+          The footer of 3 of 5 sheets (Cover; Service Areas; GRM Service Activities) carries a copyright line for The
+          MITRE Corporation (2021), all rights reserved, with a line stating unlimited usage rights for the Federal Government.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-its-1
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/its/its_2025/Cybersecurity%20Operational%20Capabilities.xlsx
+        sha256: c16eaaa36d3a2ec26b618e1e91223640c0e00d7216d3ef61cb21f0eb220387ff
+        bytes: 177022
+        retrieved: 2026-10-28
+        domain: fibf-its
+        components: [functions-activities, business-capabilities]
+        snapshot: candidate
+        notices: No copyright or licence notice in any sheet, header, footer or drawing.
+        third_party_references: [COBIT, ISO/IEC, ITIL, TBM Taxonomy]
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-its-2
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/its/its_2025/ITS%20Operational%20Capabilities.xlsx
+        sha256: d70af13f017084da47211866208771bcec94fe4ec710ba8a3eef2c6387298986
+        bytes: 272625
+        retrieved: 2026-10-28
+        domain: fibf-its
+        components: [functions-activities, business-capabilities]
+        snapshot: candidate
+        notices: No copyright or licence notice in any sheet, header, footer or drawing.
+        third_party_references: [ISO, ISO/IEC, ITIL, TBM Taxonomy]
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-mom-1
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/mom/Mail%20Operations%20Management%20Business%20Capabilities.xlsx
+        sha256: 65533b1bbb9e2e316767c10cf057a46c4f6ca705f2a294ba044cc754fdd5400e
+        bytes: 66963
+        retrieved: 2026-10-28
+        domain: fibf-mom
+        components: [business-capabilities]
+        snapshot: candidate
+        notices: >-
+          The footer of 7 of 7 sheets (Cover; Workbook Overview; Capabilities Change Log; Legend; MOM Business Capabilities; Auth and Other References; Capability Totals) carries a copyright line for The
+          MITRE Corporation (2024), all rights reserved, with a line stating unlimited usage rights for the Federal Government.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: fibf-doc-mom-2
+        kind: url
+        url: https://ussm.gsa.gov/assets/files/downloads/mom/Mail%20Operations%20Management%20Business%20Lifecycle.xlsx
+        sha256: 7c4bb7a7c9d12908f8ca0dbe0dc81b5b714c9d703921f593dd10eb0ef12279df
+        bytes: 51157
+        retrieved: 2026-10-28
+        domain: fibf-mom
+        components: [functions-activities]
+        snapshot: candidate
+        notices: >-
+          The footer of 6 of 6 sheets (Cover; Workbook Overview; Func. & Act. Change Log; Legend; MOM Functions and Activities; Auth and Other References) carries a copyright line for The
+          MITRE Corporation (2024), all rights reserved, with a line stating unlimited usage rights for the Federal Government.
+        checked: >-
+          Read as zip/XML data only: workbook sheet names, document properties, every header and footer, the shared strings scanned for copyright, licence and standards-body markers.
+      - id: gsa-website-policies
+        kind: url
+        url: https://www.gsa.gov/website-information/website-policies
+        sha256: 58fb6f3eeb2788bbf691553894a1d88be2de8d6b94279e922c01cce91c04ac96
+        bytes: 188962
+        retrieved: 2026-10-28
+        snapshot: context
+        checked: >-
+          GSA's website policies, linked from every FIBF page footer. Under
+          Reuse and copyright: most GSA material is free of copyright and may
+          be copied without permission; works of federal employees are
+          generally public domain in the US; GSA sometimes uses licensed or
+          restricted material, and readers should look for a copyright notice
+          and judge for themselves. Identical bytes on two fetches.
+    excluded_from_snapshot:
+      - what: Service measures workbooks (per domain) and the ERM performance measures workbook
+        why: >-
+          A different FIBF component (how delivery is measured), not
+          functions, activities or business capabilities (E5). Not
+          downloaded.
+      - what: Business use case archives, business information exchanges and pre-built report workbooks
+        why: >-
+          Other FIBF components (use cases, data exchange, reports). Not
+          downloaded.
+      - what: The Download All archives per domain
+        why: >-
+          Bundles of the same component files; the individual files are
+          pinned instead, so a digest names one document.
+      - what: >-
+          The FMCF-3 FFM Business Capabilities (FY 2024) PDF that the
+          register cites for SRC-GOV-05
+        why: >-
+          Its register URL now returns HTTP 404; the financial management
+          page publishes the 2025 workbooks pinned above instead. The
+          register entry is out of date (a separate fix).
+      - what: The domain pages for FOIA and Regulation Management
+        why: >-
+          Pinned above as context, but they publish no component, so no
+          document from them is in the snapshot.
+    findings:
+      names: >-
+        For the 18 workbooks with no notice (the 11 HR business capability
+        lists, travel, contract writing, records management and the two IT
+        and cybersecurity operational workbooks) and for the EEO page:
+        US Government work, free to redistribute, subject to the
+        third-party references noted below. For the 21 workbooks with a
+        MITRE copyright line, all rights reserved, and a line stating
+        unlimited usage rights for the Federal Government, in the printed
+        footer of some or all sheets (listed per document): not
+        established. The Government's unlimited rights let
+        it use and release the work, and GSA has released it publicly and
+        says most of its material is free of copyright; but MITRE's
+        copyright is expressly asserted, the public's own right to
+        redistribute is not stated, and GSA's policy tells readers to check
+        notices and decide for themselves.
+      descriptions: As for names; the same 21 workbooks are affected.
+      codes_and_hierarchy: >-
+        Function and activity identifiers and their parent-child structure
+        are the least exposed part of a MITRE-marked workbook, but they are
+        part of it; no FIBF document grants or withholds them separately.
+      derivative_works: >-
+        Unrestricted for the unmarked US Government works. For the MITRE-
+        marked workbooks, as for names.
+      attribution:
+        required: false
+        summary: >-
+          None required for US Government works; citing GSA, the domain's
+          standards lead, the document and its URL is the inventory's
+          provenance anyway. If MITRE-marked material is redistributed, its
+          copyright line should travel with it, whatever the decision on
+          permission.
+        locators:
+          - gsa-website-policies, Reuse and copyright
+          - every fibf-doc item with a notices line naming MITRE
+      restrictions:
+        - >-
+          21 of the 39 workbooks carry a MITRE Corporation copyright line
+          (2017 to 2024), with a line stating unlimited usage rights for the
+          Federal Government, in the printed footer of some or all sheets.
+          MITRE operates federally funded research and development centers;
+          the marking is the usual one for work delivered to the Government
+          under contract. Its placement is uneven: in the 11 HR lifecycle
+          workbooks it is on the Service Functions sheet only, and their
+          companion capability lists (the same OPM releases) carry none; in
+          the financial management capability workbook it is only on the
+          references sheet, whose page header names a different domain
+          (travel), which suggests a reused template. Uneven or not, it is
+          an express notice, and this review does not discount it.
+        - >-
+          The two IT and cybersecurity operational workbooks map entries to
+          ITIL practice names (AXELOS/PeopleCert) and TBM Taxonomy labels
+          (the TBM Council), and cite ISO/IEC and COBIT (ISACA). Those
+          mapping columns are third-party material inside a federal file.
+          The CVD, SOC, records management, HR analytics and financial
+          management workbooks cite ISO/IEC, CMU/SEI or COBIT works by
+          reference only.
+        - >-
+          The grants business capability workbook is macro-enabled (.xlsm).
+          Any harvest reads it as data only and never runs it.
+        - >-
+          The pages and files are live and change: a digest that moves at
+          --confirm means GSA published a new edition, which is a new
+          snapshot for the architect, not a silent re-pin.
+    quotes:
+      - evidence: gsa-website-policies
+        locator: Website policies, Reuse and copyright
+        quote: free of copyright and may be copied and distributed without permission
+      - evidence: gsa-website-policies
+        locator: Website policies, Reuse and copyright
+        quote: Check to see if there is a copyright or photo credit.
+      - evidence: fibf-doc-mom-1
+        locator: sheet footers (the same line, by year, in each MITRE-marked workbook)
+        quote: The MITRE Corporation – all rights reserved. Federal Government – unlimited usage rights.
+    open_questions:
+      - >-
+        Does GSA (or MITRE) confirm that the public may redistribute the
+        MITRE-marked FIBF workbooks' function, activity and business
+        capability text, given the Government's unlimited rights and GSA's
+        public release?
+      - >-
+        Should the ITS and CYB operational workbooks be in the snapshot at
+        all? The ITS page calls their functions and activities draft, and
+        the CYB workbook folds in the CVD and SOC capabilities that the
+        cybersecurity pages also publish separately.
+      - >-
+        The two contract-writing workbooks have the same sheet set and both
+        contain functions, activities and capabilities; which is the source,
+        or are both kept?
+      - >-
+        The EEO domain publishes its functions only in the page HTML. Is a
+        web page an acceptable source document for the snapshot?
+    decision_points:
+      - id: FIBF-1
+        question: What may I-2c publish from the MITRE-marked workbooks?
+        options:
+          - key: a
+            option: >-
+              Treat them as redistributable: a federal release of a work in
+              which the Government holds unlimited rights, under GSA's reuse
+              policy; carry MITRE's copyright line with the text.
+          - key: b
+            option: >-
+              Publish identifiers and structure only from the MITRE-marked
+              workbooks, and full text from the unmarked ones, until GSA
+              confirms in writing.
+          - key: c
+            option: >-
+              Exclude the MITRE-marked workbooks from I-2c until GSA
+              confirms.
+        recommendation: >-
+          (b), with a short written question to GSA's FIBF contact if the
+          architect wants (a). The marking is explicit and the public's
+          right is inferred, not stated; (b) loses no structure while the
+          question is open. No request to GSA is drafted here, as the brief
+          asked for one only for APQC.
+      - id: FIBF-2
+        question: The third-party mapping columns in the ITS and CYB operational workbooks?
+        options:
+          - key: a
+            option: Exclude the ITIL and TBM mapping columns from any harvest; keep FIBF's own fields.
+          - key: b
+            option: Exclude both operational workbooks from the snapshot.
+          - key: c
+            option: Include them as they are.
+        recommendation: >-
+          (a). The mappings are not functions, activities or business
+          capabilities, which is all E5 asks for.
+      - id: FIBF-3
+        question: The snapshot's document set (E5)?
+        options:
+          - key: a
+            option: >-
+              The 39 workbooks plus the EEO page, as pinned, each domain's
+              documents kept separately (duplicates kept, flagged).
+          - key: b
+            option: >-
+              As (a), but without the draft ITS and CYB operational workbooks
+              and with one contract-writing workbook.
+        recommendation: >-
+          (a): keep the evidence and let I-4 deduplicate, as I-1 did; the
+          draft status and duplication are recorded on the entries.
+    architect_decision:
+      record: docs/decisions/2026-10-28-i2a-decided.md
+
+summary_for_the_architect: >-
+  APQC PCF 7.4: the workbook's own notice is a broad, clear grant (use,
+  copy, publish, modify, derivative works) whose one condition is that the
+  notice travels with every copy and derivative. APQC's website Terms,
+  revised July 2026, cut across it: they bar public distribution of any
+  part of APQC's online resources unless an APQC licence agreement permits
+  it, and bar using them to create, train or test AI systems. Whether the
+  in-file notice is such an agreement is not stated, so the terms are
+  ambiguous for this repository's use, and a clarification request is
+  drafted for your authorization (APQC-2). Recommended until APQC answers:
+  ids and hierarchy only (APQC-1 b); I-1's withholding stands (E7).
+  APQC PCF 8.0: a gap. The file needs your registration; its notice is
+  unread, and the Terms above govern its download (APQC80-1). FEAF-II BRM
+  3.1: evidence complete and unambiguous. The OMB archive lists BRM 3.1 and
+  its taxonomy, both dated 15 May 2013, as you stated; both PDFs are pinned
+  and match their listing; they carry no notice, and the archive states
+  government-produced material is not under copyright. Recommended: accept
+  for I-2c (BRM-1 a), both documents kept apart (BRM-2 c). FIBF: 25 domain
+  pages and 39 functions-and-activities and business-capability workbooks
+  are pinned, plus the EEO page, which is that domain's only source; FOIA
+  and Regulation Management publish nothing. 21 workbooks carry a MITRE
+  copyright line with unlimited rights for the Government, so the public's
+  right to redistribute their text is inferred rather than stated; two IT
+  workbooks embed ITIL and TBM mappings. Recommended: identifiers and
+  structure from the MITRE-marked files and full text from the rest until
+  GSA confirms (FIBF-1 b), the third-party mapping columns left out
+  (FIBF-2 a), every document kept (FIBF-3 a). Separately, the register's
+  SRC-GOV-05 URL is dead and SRC-GOV-06 cites only secondary sources; both
+  are corrections for another change.

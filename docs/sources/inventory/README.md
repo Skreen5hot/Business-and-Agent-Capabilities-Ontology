@@ -13,14 +13,17 @@ every run (below).
 | Phase | What | State |
 |---|---|---|
 | I-1 | BPO harvest, with Q-12 and Q-13 re-measured | **this directory** |
-| I-2 | Public catalogs: the APQC terms check first, then PCF 7.4 levels 1–2, the 8.0 delta, FEAF BRM and FIBF | not started |
+| I-2a | Rights review of the public catalogs: APQC PCF 7.4 and 8.0, FEAF-II BRM 3.1, FIBF | **`rights.yaml`**; decided 2026-10-28 (`docs/decisions/2026-10-28-i2a-decided.md`) |
+| I-2b | APQC PCF: 7.4 levels 1–2, level-3 standing-function candidates, the 8.0 delta | after I-2a is decided |
+| I-2c | Federal catalogs: FEAF-II BRM and FIBF | after I-2a is decided |
 | I-3 | Restricted catalogs, citation and coverage only | not started |
 | I-4 | Crosswalk, triage and report | not started |
 | I-5 | Recommendation of a first catalog tranche, for the architect's separate approval | not started |
 
 The phases are as the scope proposal stated them; the architect's approval, with its
-amendments, is `docs/decisions/2026-10-27-capability-inventory-scope-approved.md`. Only
-I-1 is authorized; each later phase comes as its own pull request.
+amendments, is `docs/decisions/2026-10-27-capability-inventory-scope-approved.md`. I-2 is
+split into I-2a, I-2b and I-2c, each its own reviewed pull request, by decision E1
+(`docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md`); I-3 to I-5 are not authorized.
 
 Phase I-1 does not group, deduplicate or triage. Two BPO items that look like the same
 capability are two entries; a class BPO declares in two modules keeps both declarations
@@ -34,6 +37,7 @@ reviewer needs in order to disagree with it.
 | `bpo-entries.yaml` | one entry per BPO source item, never merged | `harvest_bpo.py --rebuild` |
 | `bpo-findings.yaml` | counts at the selected commit and at the baseline, and the diff; IRIs only | `harvest_bpo.py --rebuild` |
 | `NOTICE.md` | the attribution BPO's licence requires, and the APQC evidence | `harvest_bpo.py --rebuild` |
+| `rights.yaml` | I-2a: per source and edition, the rights evidence pinned by digest, findings, decision points | hand, checked by `rights.py` |
 | `README.md` | this file | hand |
 
 The pins are `config/inventory-sources.yaml`: BPO `main` HEAD on 2026-10-27, resolved to
@@ -120,3 +124,49 @@ not a fresh generation; and, over every file in this directory, anything but YAM
 Markdown, anything that reads as an RDF serialization, any IRI in this repository's
 authored namespaces (`AUTHORED_NAMESPACES` in `tools/ontology/validate.py`), and any
 ratification or vocabulary key.
+
+## The rights review (Phase I-2a)
+
+`rights.yaml` is a review, not a decision, and holds no catalog content: no PCF, BRM or
+FIBF name, description, code or hierarchy. For each source and edition it records the
+rights holder, the evidence (each document's URL or BPO path, sha256, retrieval date and
+what was checked in it), findings on names, descriptions, codes and hierarchy, derivative
+works, attribution and restrictions, the open questions, decision points with options and
+a recommendation, and an `architect_decision` that only points at the architect's act in
+`docs/decisions/`. The decisions of 2026-10-28 are in
+`docs/decisions/2026-10-28-i2a-decided.md`. Quotes are the operative words of a
+notice only, at most 15 words each. The documents are downloaded to
+`.upstream-cache/i2a/`, which is gitignored; none is committed. The file is hand-written,
+because it is judgement; `tools/inventory/rights.py` holds its shape and its pins.
+
+What it found, in short (the full summary is the file's `summary_for_the_architect`):
+
+| Source | Status | Terms | The point to decide |
+|---|---|---|---|
+| APQC PCF 7.4 | evidence complete | ambiguous | The workbook's notice grants use, copying, publication and derivative works if the notice travels with them; APQC's website Terms (July 2026) bar public distribution unless an APQC licence agreement permits it, and bar AI use. A clarification request is drafted (`docs/proposals/2026-10-28-apqc-clarification-request.md`); sending it is the architect's act |
+| APQC PCF 8.0 | gap | not established | The file needs the architect's registration; its notice is unread |
+| FEAF-II BRM 3.1 | evidence complete | unambiguous | Primary OMB documents found where the architect said, pinned, with no notice; US Government work |
+| FIBF | evidence complete | ambiguous | 25 domain pages and 39 workbooks pinned; 21 workbooks carry a MITRE copyright line with unlimited rights for the Government; two embed ITIL and TBM mappings |
+
+```bash
+python tools/inventory/rights.py             # offline check (before committing; CI)
+python tools/inventory/rights.py --confirm   # refetch every pinned document, require its digest
+```
+
+The offline check refuses a record outside its closed schema (an unknown key is where
+catalog content would go); a source repeated, with a register id the register does not
+hold, an unknown status or terms value, a gap or deferral without a reason, a complete
+source with one, or ambiguous terms with no open question; evidence without a sha256, a
+retrieval date or what was checked, on a host other than the rights holders' (a secondary
+transcription is refused), BPO evidence without a full commit, browser-read text without
+its normalisation; a catalog field (label, name, definition, description, functions,
+activities, capabilities and the like) outside the findings block, or a code in a
+catalog's own pattern; a quote over 15 words, a quotation mark outside a quote, a quote
+from evidence the source does not list; a decision point with fewer than two options; an
+`architect_decision` that is not a pointer to an existing decision record; and the
+admission guard's refusals (authored-namespace IRIs, RDF text, ratification keys).
+`--confirm` fetches only from obamawhitehouse.archives.gov, ussm.gsa.gov, www.gsa.gov
+and, for BPO evidence without a local clone, raw.githubusercontent.com, and always from
+the network rather than the cache: a moved digest means the publisher changed the
+document, which is a new edition for the architect, not a re-pin. apqc.org is never
+fetched: it challenges scripted clients and its Terms forbid automated access.

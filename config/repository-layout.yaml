@@ -426,6 +426,31 @@ components:
       the outputs; with --confirm, requires them to be byte-identical to a
       fresh harvest.
 
+  # Phase I-2a, the rights review: hand-written judgement, checked by a
+  # tool. It holds paraphrase, pins and quotes of at most 15 words from
+  # the rights holders' notices -- no catalog content -- so it is this
+  # repository's own text, `documentation`, not `source-evidence`. The
+  # documents it pins are downloaded to .upstream-cache/i2a/ and never
+  # committed.
+  - id: inventory.rights
+    path: docs/sources/inventory/rights.yaml
+    role: documentation
+    description: >-
+      Phase I-2a: for APQC PCF 7.4 and 8.0, FEAF-II BRM 3.1 and FIBF, what
+      the rights holder's terms permit, from primary evidence pinned by
+      sha256; findings, open questions, decision points, and an empty
+      architect_decision per source.
+
+  - id: tool.inventory-rights
+    path: tools/inventory/rights.py
+    role: tool
+    description: >-
+      Checks the rights review offline by default (closed schema, every
+      evidence item pinned, no catalog content or codes, quotes within 15
+      words, gap reasons, the admission guard); with --confirm, refetches
+      every pinned document from its official host and requires its
+      digest.
+
   - id: docs.trials
     path: docs/trials
     role: documentation
