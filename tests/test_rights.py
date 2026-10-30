@@ -22,8 +22,11 @@ TOOL = "tools/inventory/rights.py"
 RIGHTS = "docs/sources/inventory/rights.yaml"
 AUTHORITY = "docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md"
 DECIDED = "docs/decisions/2026-10-28-i2a-decided.md"
+SOURCING = "docs/decisions/2026-10-29-apqc-pcf-sourcing-decided.md"
+#: The sources whose I-2a decisions the 2026-10-29 sourcing decision replaced.
+SUPERSEDED = {"apqc-pcf-7.4", "apqc-pcf-8.0"}
 COPIED = (RIGHTS, "docs/sources/register.yaml", "tools/ontology/validate.py",
-          "tools/inventory/harvest_bpo.py", AUTHORITY, DECIDED,
+          "tools/inventory/harvest_bpo.py", AUTHORITY, DECIDED, SOURCING,
           "docs/proposals/2026-10-28-inventory-i2-public-catalogs.md")
 
 
@@ -87,8 +90,22 @@ def test_every_source_points_at_the_architects_decision(rights):
     """I-2a decides nothing: each source's decision is the architect's act,
     recorded in docs/decisions/, and the record only points at it."""
     for item in load(ROOT)["sources"]:
-        assert item["architect_decision"] == {"record": DECIDED}, item["id"]
+        expected = {"record": DECIDED}
+        if item["id"] in SUPERSEDED:
+            expected["superseded_by"] = SOURCING
+        assert item["architect_decision"] == expected, item["id"]
         assert item["decision_points"], item["id"]
+
+
+def test_the_sourcing_decision_names_each_point_it_replaced(rights):
+    """APQC-1, APQC-2 and APQC80-1 are each named in the later decision's
+    table, and only the APQC sources point at it."""
+    text = (ROOT / SOURCING).read_bytes().decode("utf-8")
+    for item in load(ROOT)["sources"]:
+        if item["id"] not in SUPERSEDED:
+            continue
+        for point in item["decision_points"]:
+            assert "| %s (" % point["id"] in text, point["id"]
 
 
 def test_the_decision_record_settles_every_decision_point(rights):
@@ -262,6 +279,13 @@ def test_an_architect_decision_must_point_at_a_record(rights, copy):
         "record": "docs/decisions/2099-01-01-not-made.md"}
     rewrite(copy, data)
     refused(rights, copy, "which is not a decision record")
+
+
+def test_a_superseding_decision_must_point_at_a_record(rights, copy):
+    data = load(copy)
+    source(data, "apqc-pcf-7.4")["architect_decision"]["superseded_by"] =         "docs/decisions/2099-01-01-not-made.md"
+    rewrite(copy, data)
+    refused(rights, copy, "superseded_by points at")
 
 
 def test_an_architect_decision_pointing_at_a_record_is_accepted(rights,

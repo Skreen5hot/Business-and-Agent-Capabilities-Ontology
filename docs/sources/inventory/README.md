@@ -143,8 +143,8 @@ What it found, in short (the full summary is the file's `summary_for_the_archite
 
 | Source | Status | Terms | The point to decide |
 |---|---|---|---|
-| APQC PCF 7.4 | evidence complete | ambiguous | The workbook's notice grants use, copying, publication and derivative works if the notice travels with them; APQC's website Terms (July 2026) bar public distribution unless an APQC licence agreement permits it, and bar AI use. A clarification request is drafted (`docs/proposals/2026-10-28-apqc-clarification-request.md`); sending it is the architect's act |
-| APQC PCF 8.0 | gap | not established | The file needs the architect's registration; its notice is unread |
+| APQC PCF 7.4 | evidence complete | ambiguous | The workbook's notice grants use, copying, publication and derivative works if the notice travels with them; APQC's website Terms (July 2026) bar public distribution unless an APQC licence agreement permits it, and bar AI use. The architect resolved the publication posture on 2026-10-29 (`docs/decisions/2026-10-29-apqc-pcf-sourcing-decided.md`): published from BPO, with APQC's notice. The clarification request was not sent |
+| APQC PCF 8.0 | gap | not established | Deferred on 2026-10-29 until a version upgrade is planned |
 | FEAF-II BRM 3.1 | evidence complete | unambiguous | Primary OMB documents found where the architect said, pinned, with no notice; US Government work |
 | FIBF | evidence complete | ambiguous | 25 domain pages and 39 workbooks pinned; 21 workbooks carry a MITRE copyright line with unlimited rights for the Government; two embed ITIL and TBM mappings |
 
