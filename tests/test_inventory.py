@@ -205,9 +205,58 @@ def test_the_entries_are_dispositioned_as_third_party_text(disposition):
     rows = {r.path: r for r in disposition.classify()}
     row = rows[ENTRIES]
     assert row.disposition == disposition.VENDORED
-    assert row.licence == "MIT"
+    assert row.licence == "MIT AND LicenseRef-APQC-PCF"
     assert rows[FINDINGS].disposition == disposition.CONTENT
     assert disposition.attribution_findings(list(rows.values())) == []
+
+
+def test_a_mixed_rights_file_is_not_reported_as_mit_only(disposition,
+                                                         monkeypatch):
+    """Review of PR #22: the entries hold BPO's MIT text and, since E7,
+    APQC's PCF text, and one file-level disposition must say both.
+
+    Checked both ways: a MIT-pinned file that `pcf_bearing` names gets
+    both rights and one that it does not name keeps its pin's alone; and
+    with pcf_rights() emptied the entries fall back to MIT, which shows
+    the report's licence is read from it rather than passing by accident.
+    """
+    rows = {r.path: r for r in disposition.classify()}
+    assert rows[ENTRIES].licence.split(" AND ") == [
+        "MIT", "LicenseRef-APQC-PCF"]
+    assert len([r for r in rows.values()
+                if r.disposition == disposition.VENDORED]) == len(
+        {r.path for r in rows.values()
+         if r.disposition == disposition.VENDORED})
+
+    mit = {"licence": {"spdx": "MIT"}}
+    elsewhere = DIRECTORY + "/not-pcf-bearing.yaml"
+    rights = disposition.pcf_rights({ENTRIES: (dict(mit), NOTICE),
+                                     elsewhere: (dict(mit), NOTICE)})
+    assert rights == {ENTRIES: ["MIT", "LicenseRef-APQC-PCF"]}
+    assert disposition.licence_expression(
+        dict(mit, rights=rights[ENTRIES])) == "MIT AND LicenseRef-APQC-PCF"
+    assert disposition.licence_expression(dict(mit)) == "MIT"
+
+    monkeypatch.setattr(disposition, "pcf_rights", lambda found: {})
+    assert disposition.licence_of(disposition.VENDORED, ENTRIES) == "MIT", (
+        "the report's licence for the entries is not coming from "
+        "pcf_rights(), so nothing here stops it saying MIT alone")
+
+
+def test_more_than_one_pcf_licence_is_refused(disposition, monkeypatch):
+    import yaml as _yaml
+    load = _yaml.safe_load
+
+    def two(text):
+        raw = load(text)
+        if isinstance(raw, dict) and "pcf_bearing" in raw:
+            extra = dict(raw["sources"][0],
+                         licence={"spdx": "LicenseRef-Other"})
+            raw = dict(raw, sources=raw["sources"] + [extra])
+        return raw
+    monkeypatch.setattr(_yaml, "safe_load", two)
+    with pytest.raises(disposition.Refused, match="exactly one PCF licence"):
+        disposition.pcf_rights({})
 
 
 def test_ci_runs_the_check_and_the_weekly_confirmation(repo):

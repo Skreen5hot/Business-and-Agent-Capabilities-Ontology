@@ -576,7 +576,7 @@ and a few hierarchy IDs, and `bpo-findings.yaml` and
 PCF-bearing. No site page shows the catalog; the specification and review pages show those cited IRIs and hierarchy IDs, which predate this decision (whether they need the site footer notice is the architect's call). CI runs both checks offline; the weekly job's
 `harvest_pcf.py --confirm` rebuilds both outputs from BPO.
 
-### 5.20 E7: Inventory I-1's APQC withholding lifted (prepared; awaiting review)
+### 5.20 E7: Inventory I-1's APQC withholding lifted (approved 2026-10-30)
 
 Decision E7 (`docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md`) required its own
 reviewed PR, with the I-1 approval and historical outputs kept traceable; section 5 of the
@@ -593,7 +593,13 @@ file as carrying the notice; the gate's exception list is empty. Unchanged:
 `66131945`, and every entry the rule did not tie to the PCF, byte for byte.
 `docs/sources/inventory/e7-release.md` records the approval's digests beside today's, the
 counts released and the equality measured; `pcf-7.4-entries.yaml` changed only in the
-digest of its bridge input. Not done: the architect's review of this PR.
+digest of its bridge input.
+
+The architect approved E7 on 2026-10-30 (`docs/decisions/2026-10-30-e7-approved.md`), with
+one correction required before merge. `tools/licensing/disposition.py` had reported
+`bpo-entries.yaml` as MIT alone, which is BPO's pin. It now reports one disposition with
+both rights, `MIT AND LicenseRef-APQC-PCF`, for any MIT-pinned entries file that
+`pcf_bearing` names. A regression test refuses a report of MIT alone.
 
 ## 6. Outside the repository
 
