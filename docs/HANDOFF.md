@@ -647,9 +647,14 @@ both rights, `MIT AND LicenseRef-APQC-PCF`, for any MIT-pinned entries file that
 
 ## 7. What comes next
 
-The order of work is `docs/ROADMAP.md`: the decision path (CM-02's scope, specification
-v0.5, CP-0, then Stages 05 and 06) and the terminology lane beside it, each step with its
-entry gate and standard. It is proposed for the architect's approval and authorizes no
+The order of work is `docs/ROADMAP.md`, revision 2: the decision path D1 to D8 and the
+terminology and source-evidence lane T1 to T8, each step with its entry gate, standard and
+exit, under the architect's decisions AD-1 to AD-3
+(`docs/decisions/2026-10-30-roadmap-direction-ad1-ad3.md`). The first release is the
+Business Capability module on CM-01; Agent Capability follows through CM-02. A
+domain-practitioner review of CM-01 comes before CP-0, and Stage 05 proceeds tranche by
+tranche, each with a reviewed terminology and taxonomy baseline. Revision 2 is returned
+for the architect's final approval; until then it does not govern, and it authorizes no
 step by itself. It replaces this section's setup-day list, whose items are done
 (pushing, the first CI run), carried into the roadmap (RP-1 within CP-0; the BPO-slice
 decision before the first realization index) or superseded by it (CAP shapes come after
