@@ -462,7 +462,7 @@ implementation. Two of these points (inadequate evidence against "not met"; adeq
 alternatives) refine CM-01 itself and are inputs to its next reviewed version, not
 edits to the approved text.
 **Roadmap:** a complementary Agent Capability conceptual model (CM-02, working title)
-is planned and not started; see `src/02_conceptual_models/README.md`.
+has an approved scope (D2, 2026-10-31, `docs/decisions/2026-10-31-d2-cm02-scope-approved.md`) and is not started; see `src/02_conceptual_models/README.md`.
 
 **Stage 02 tooling.** `tools/conceptual/check_models.py` holds every
 `src/02_conceptual_models/CM-*.md` to a format contract: the standard's ten sections in
@@ -659,7 +659,8 @@ it governs, and it authorizes no step by itself. The architect authorized D2 (th
 scope note) and D3 (specification v0.5 and the practitioner review of CM-01) on
 2026-10-31 (`docs/decisions/2026-10-31-d2-d3-authorized.md`); they may run concurrently,
 D3 cannot complete until a practitioner reviewer is engaged (O-3), and nothing beyond
-them is authorized. It replaces this section's setup-day list, whose items are done
+them is authorized. D2 is complete: the architect approved the CM-02 scope note,
+revision 2, on 2026-10-31 (`docs/decisions/2026-10-31-d2-cm02-scope-approved.md`). It replaces this section's setup-day list, whose items are done
 (pushing, the first CI run), carried into the roadmap (RP-1 within CP-0; the BPO-slice
 decision before the first realization index) or superseded by it (CAP shapes come after
 specification v0.5, in Stage 05). The Ontology Template is not adopted

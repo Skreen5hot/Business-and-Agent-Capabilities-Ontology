@@ -10,6 +10,7 @@ property, subclass axiom or vocabulary ratification is authorized by it.
 | 1 | 2026-10-30 | Proposed after the architect directed that the plan recommended after the Ontology Template exchange be followed (`docs/decisions/2026-10-30-template-not-adopted-roadmap-directed.md`) |
 | 2 | 2026-10-30 | Revised under the architect's direction approving revision 1 in principle and deciding AD-1 to AD-3 (`docs/decisions/2026-10-30-roadmap-direction-ad1-ad3.md`). Section 12 maps that direction to this text |
 | 2, amended | 2026-10-31 | O-1 and O-2 marked decided, citing their decision records; the rights gate names the architect as the licensing and redistribution authority |
+| 2, amended | 2026-10-31 | D2 complete: section 3's Stage 02 row and O-4 record the CM-02 scope approval |
 
 It replaces HANDOFF §7, which dated from the repository's setup.
 
@@ -74,7 +75,7 @@ unfinished.
 |---|---|
 | Specification | v0.4.0-draft.1; predates CM-01; nothing ratified; CP-0 not met |
 | Stage 01, controlled vocabulary | 14 concepts (9 metamodel, 5 catalog), all Draft; no Stage 01 standard (ADR-003 stands in) |
-| Stage 02, conceptual models | CM-01 approved 2026-10-26 (stakeholder-review erratum of 2026-10-30); CM-02 planned, not started |
+| Stage 02, conceptual models | CM-01 approved 2026-10-26 (stakeholder-review erratum of 2026-10-30); CM-02's scope approved 2026-10-31 (D2, `docs/decisions/2026-10-31-d2-cm02-scope-approved.md`), the model not started |
 | Capability Term Inventory (Stage 01 source evidence) | I-1, I-2a, I-2b, I-2c and E7 done; closure set complete; E4 method decided, nothing judged; I-3 to I-5 not authorized |
 | Stage 03, taxonomy | not started; no standard |
 | Stage 04, thesaurus | not started; no standard |
@@ -241,7 +242,7 @@ owner is the BCO team.
 | O-1 | Final approval of this roadmap. **Decided 2026-10-31**: approved (`docs/decisions/2026-10-31-roadmap-revision-2-approved.md`) | D1, and every step | this document |
 | O-2 | Decision authority for licensing and redistribution: confirm the architect, or designate another. **Decided 2026-10-31**: the architect (`docs/decisions/2026-10-31-o2-licensing-authority-decided.md`) | new harvests (T5); D8 | direction §5 |
 | O-3 | Practitioner reviewer(s) identified and engaged | D3's exit; D4 | AD-2 |
-| O-4 | CM-02 scope and integration boundary | D4 | D2, AD-1 |
+| O-4 | CM-02 scope and integration boundary. **Decided 2026-10-31**: the scope note approved (`docs/decisions/2026-10-31-d2-cm02-scope-approved.md`) | D4 | D2, AD-1 |
 | O-5 | RP-1 to RP-10 and the other applicable specification decisions ratified; ADR-002 accepted | D4 | spec §10 |
 | O-6 | Permanent namespace (RP-5) | D4 | spec RP-5; ADR-003 D1 |
 | O-7 | Stage 01 standard | T2's ratifications | T1 |
