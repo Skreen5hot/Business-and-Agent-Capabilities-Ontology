@@ -2,7 +2,7 @@
 
 | Field | Value |
 |---|---|
-| Status | Proposal for the architect's approval under D2. **Not a decision.** Revision 2 |
+| Status | **Approved 2026-10-31** as the CM-02 scope and integration-boundary baseline under D2 (`docs/decisions/2026-10-31-d2-cm02-scope-approved.md`). The approved text is revision 2 at `a3a4175`; this status line is the only change since |
 | Date | 2026-10-31 |
 | Revision | 1, proposed at `6db7183`. 2, the architect's review of revision 1 applied: S-1 decided (S-1a) and three clarifications made (`docs/decisions/2026-10-31-cm02-scope-s1-decided.md`) |
 | Prepared by | Claude Code (`claude-opus-5-5`), for the BCO team |
