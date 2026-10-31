@@ -655,7 +655,11 @@ Business Capability module on CM-01; Agent Capability follows through CM-02. A
 domain-practitioner review of CM-01 comes before CP-0, and Stage 05 proceeds tranche by
 tranche, each with a reviewed terminology and taxonomy baseline. The architect approved
 revision 2 on 2026-10-31 (`docs/decisions/2026-10-31-roadmap-revision-2-approved.md`);
-it governs, and it authorizes no step by itself. It replaces this section's setup-day list, whose items are done
+it governs, and it authorizes no step by itself. The architect authorized D2 (the CM-02
+scope note) and D3 (specification v0.5 and the practitioner review of CM-01) on
+2026-10-31 (`docs/decisions/2026-10-31-d2-d3-authorized.md`); they may run concurrently,
+D3 cannot complete until a practitioner reviewer is engaged (O-3), and nothing beyond
+them is authorized. It replaces this section's setup-day list, whose items are done
 (pushing, the first CI run), carried into the roadmap (RP-1 within CP-0; the BPO-slice
 decision before the first realization index) or superseded by it (CAP shapes come after
 specification v0.5, in Stage 05). The Ontology Template is not adopted
