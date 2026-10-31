@@ -9,6 +9,7 @@ property, subclass axiom or vocabulary ratification is authorized by it.
 |---|---|---|
 | 1 | 2026-10-30 | Proposed after the architect directed that the plan recommended after the Ontology Template exchange be followed (`docs/decisions/2026-10-30-template-not-adopted-roadmap-directed.md`) |
 | 2 | 2026-10-30 | Revised under the architect's direction approving revision 1 in principle and deciding AD-1 to AD-3 (`docs/decisions/2026-10-30-roadmap-direction-ad1-ad3.md`). Section 12 maps that direction to this text |
+| 2, amended | 2026-10-31 | O-1 and O-2 marked decided, citing their decision records; the rights gate names the architect as the licensing and redistribution authority |
 
 It replaces HANDOFF §7, which dated from the repository's setup.
 
@@ -193,7 +194,7 @@ These run beside the decision path. None writes an OWL axiom.
 | **Standard supplied** | a stage starts only under its approved standard | every stage; the release |
 | **Practitioner review** | a recorded review: reviewer, capacity, findings, dispositions, affected artifacts | before CP-0 (D3–D4) for CM-01; before CM-02's approval; after any substantive CM-01 change |
 | **Source adequacy** | a source a specification or decision relies on is at the required status (V or P), or under a documented exception approved specifically: the affected claims, the justification, the approving authority, and the stage by which it must be closed | D3; every decision record; tranche readiness |
-| **Rights and provenance** | the decision authority for licensing and redistribution is the architect, as on every rights decision so far (I-2a, the APQC decisions, E7, the closure decision), unless the architect designates another (open decision O-2). No harvesting or publication beyond the approved rights posture | every new source (T5); the site; D8 |
+| **Rights and provenance** | the decision authority for licensing and redistribution is the architect, Aaron Damiano (O-2, decided 2026-10-31, `docs/decisions/2026-10-31-o2-licensing-authority-decided.md`), as on every rights decision so far (I-2a, the APQC decisions, E7, the closure decision). No harvesting or publication beyond the approved rights posture | every new source (T5); the site; D8 |
 | **Conceptual fidelity** | every authored class and logical axiom traces to its governing conceptual model, the ratified specification, or a separately approved architectural decision. An incompatibility found in formalization goes to change control; meaning is never changed silently | D6; the Agent Capability module's formalization |
 | **Decision propagation** | every decision record names the documents it changes, and each of them cites it | every decision |
 | **Closure** | blocking decisions are distinguished from deferrable issues. A deferred issue has a named owner, rationale, affected dependencies and a latest permissible resolution gate. A material blocker is not carried forward again without an explicit architectural decision | before each new phase |
@@ -237,8 +238,8 @@ owner is the BCO team.
 
 | Id | Issue | Blocks | Source |
 |---|---|---|---|
-| O-1 | Final approval of this roadmap | D1, and every step | this document |
-| O-2 | Decision authority for licensing and redistribution: confirm the architect, or designate another | new harvests (T5); D8 | direction §5 |
+| O-1 | Final approval of this roadmap. **Decided 2026-10-31**: approved (`docs/decisions/2026-10-31-roadmap-revision-2-approved.md`) | D1, and every step | this document |
+| O-2 | Decision authority for licensing and redistribution: confirm the architect, or designate another. **Decided 2026-10-31**: the architect (`docs/decisions/2026-10-31-o2-licensing-authority-decided.md`) | new harvests (T5); D8 | direction §5 |
 | O-3 | Practitioner reviewer(s) identified and engaged | D3's exit; D4 | AD-2 |
 | O-4 | CM-02 scope and integration boundary | D4 | D2, AD-1 |
 | O-5 | RP-1 to RP-10 and the other applicable specification decisions ratified; ADR-002 accepted | D4 | spec §10 |
