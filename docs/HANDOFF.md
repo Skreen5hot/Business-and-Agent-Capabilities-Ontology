@@ -645,15 +645,21 @@ both rights, `MIT AND LicenseRef-APQC-PCF`, for any MIT-pinned entries file that
 - **ARO and BPO are reference clones** beside this one under `source/repos/`; nothing here
   depends on them being present.
 
-## 7. Suggested next steps
+## 7. What comes next
 
-1. Push, and watch the first CI run.
-2. Ratify RP-1 (spec §10), and record it in `docs/decisions/`.
-3. Write the CAP shapes the spec has fixtures for, each with its negative fixture, before
-   the terms they constrain — the spec says a requirement stays DRAFT until its falsifying
-   fixture exists.
-4. Decide whether the BPO slices need vendoring before the first realization index is
-   written (CD4, RP-2): the index points at BPO process classes, and today none resolve.
+The order of work is `docs/ROADMAP.md`, revision 2: the decision path D1 to D8 and the
+terminology and source-evidence lane T1 to T8, each step with its entry gate, standard and
+exit, under the architect's decisions AD-1 to AD-3
+(`docs/decisions/2026-10-30-roadmap-direction-ad1-ad3.md`). The first release is the
+Business Capability module on CM-01; Agent Capability follows through CM-02. A
+domain-practitioner review of CM-01 comes before CP-0, and Stage 05 proceeds tranche by
+tranche, each with a reviewed terminology and taxonomy baseline. The architect approved
+revision 2 on 2026-10-31 (`docs/decisions/2026-10-31-roadmap-revision-2-approved.md`);
+it governs, and it authorizes no step by itself. It replaces this section's setup-day list, whose items are done
+(pushing, the first CI run), carried into the roadmap (RP-1 within CP-0; the BPO-slice
+decision before the first realization index) or superseded by it (CAP shapes come after
+specification v0.5, in Stage 05). The Ontology Template is not adopted
+(`docs/decisions/2026-10-30-template-not-adopted-roadmap-directed.md`).
 
 ## 8. Where to look
 
