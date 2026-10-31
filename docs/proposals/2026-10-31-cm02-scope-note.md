@@ -2,8 +2,9 @@
 
 | Field | Value |
 |---|---|
-| Status | Proposal for the architect's approval under D2. **Not a decision.** |
+| Status | Proposal for the architect's approval under D2. **Not a decision.** Revision 2 |
 | Date | 2026-10-31 |
+| Revision | 1, proposed at `6db7183`. 2, the architect's review of revision 1 applied: S-1 decided (S-1a) and three clarifications made (`docs/decisions/2026-10-31-cm02-scope-s1-decided.md`) |
 | Prepared by | Claude Code (`claude-opus-5-5`), for the BCO team |
 | Arises from | The architect's direction authorizing D2 (`docs/decisions/2026-10-31-d2-d3-authorized.md`); roadmap row D2 (`docs/ROADMAP.md` §4) |
 | Governed by | The Stage 02 standard (`docs/standards/stage-02-conceptual-modeling.md`), §4.1 (establish scope) |
@@ -22,8 +23,10 @@ without modeling them (`src/02_conceptual_models/README.md`):
 
 1. **A person's abilities**: CCO's Skill, and whatever else a person can do that bears on
    organizational work.
-2. **Member-wise abilities of a group**: several agents each able to do something, which
-   CM-01 keeps apart from an organization's ability (CD10).
+2. **Member-wise abilities of a group**: abilities a group has only in that its members
+   each have them. The capabilities belong to the individual members. Saying the group has
+   them is collective attribution, never an Organization Capability inhering in an
+   organization (CD10).
 3. **What acting artificial systems bear**: software agents and the computing artifacts
    they run on, which CM-01 treats only as enabling conditions and as subjects of agent
    manifests (CD13).
@@ -49,26 +52,39 @@ without modeling them (`src/02_conceptual_models/README.md`):
 - A new act hierarchy. Acts come from BPO (CM-01 A-01).
 - Deontic reasoning and temporal qualification of bearing (CM-01 Q-06).
 
-**One scope choice for the architect (S-1): artificial systems.** CCO defines an Agent as
-"A Material Entity that bears an Agent Capability", so CCO itself does not rule out an
-artificial system as a bearer. UAF lets any capable element, including resources,
-exhibit a capability (SRC-OMG-04, V), and IOF lets any independent continuant bear one
-(SRC-FO-02, V). CM-01 says software is information and bears nothing, and that any
-function belongs to the computing artifact that runs it.
+**Artificial systems (S-1, decided 2026-10-31: S-1a).** Artificial systems are included
+as subject matter (`docs/decisions/2026-10-31-cm02-scope-s1-decided.md`). This is a scope
+decision only. It does not establish that an artificial system is an Agent, that it bears
+an Agent Capability, or that its functions are identical to Agent Capabilities.
 
-- **Option S-1a.** Include artificial systems as subject matter. CM-02 must then answer
-  what such a system bears, an artifact's function or an Agent Capability, without the
-  answer being presumed here.
-- **Option S-1b.** Exclude them. CM-02 covers persons and member-wise abilities only.
-  Software agents stay where CM-01 puts them, and the question is recorded as deferred.
+CCO defines an Agent as "A Material Entity that bears an Agent Capability", so CCO itself
+does not rule out an artificial system as a bearer. UAF lets any capable element,
+including resources, exhibit a capability (SRC-OMG-04, V), and IOF lets any independent
+continuant bear one (SRC-FO-02, V). CM-01 says software is information and bears
+nothing, and that any function belongs to the computing artifact that runs it.
 
-**Recommendation: S-1a.** The repository's name and CM-01's routing use both point at
-software agents, and the question will be asked whether or not the model answers it.
-Under either option, CM-01's treatment stands for the Business Capability module:
+Apparent autonomous behavior alone does not establish that a system is a CCO Agent. The
+full CM-02 must state the necessary conditions for attributing an Agent Capability, and
+test candidate artificial systems against them. Its analysis keeps five things apart:
 
-- a system is never a member agent;
-- a system is an enabling condition;
-- a software agent bears no Organization Capability.
+1. software agents taken as information, or as software specifications;
+2. deployed material computing systems executing software;
+3. Agent Capabilities, realized through Planned Acts;
+4. artifact functions, borne by designed material artifacts;
+5. activities performed autonomously, under human direction, or as part of
+   organizational processes.
+
+How an artifact's function and an Agent Capability relate is evaluated, not assumed: they
+are presumed neither equivalent nor necessarily disjoint.
+
+For the Business Capability module, CM-01's treatment stands:
+
+- a system is never a member agent, and is outside the material basis of every business
+  capability (DP-1);
+- a system is an enabling condition only of those capabilities whose realization actually
+  depends on it;
+- a software agent bears no Organization Capability, and an agent manifest is a routing
+  description, not a bearer (CD13).
 
 ## 2. CCO alignment
 
@@ -130,14 +146,23 @@ CM-02 meets CM-01 at five points. At each, CM-01's approved meaning governs.
 | Member Agent | A person or member organization that is part of the organization; never a system | The person as bearer of Skills and other abilities | Make a system a member agent |
 | Capability Basis (DP-1) | The member agent or agents themselves: material constitution (a1, a3) | What the members of a basis can each do | Make a skill the basis. The basis is the member, and the skill inheres in the member |
 | Organizational Arrangement (DP-1) | The configuration that explains why the basis grounds the capability; not material (a3) | Nothing. Arrangement stays CM-01's | Recast arrangement as a sum of skills |
-| Enabling Condition (DP-1) | Every artifact relevant to the capability's realization, owned or not; absence makes the capability unavailable, not ended | Under S-1a, what an artificial system bears | Move an artifact into the basis. A type whose review shows an artifact is constitutive goes to Q-15 (OI-14), by change control on CM-01 |
+| Enabling Condition (DP-1) | Every artifact relevant to the capability's realization, owned or not; absence makes the capability unavailable, not ended | What an artificial system bears, once CM-02 settles C-1 | Move an artifact into the basis. A type whose review shows an artifact is constitutive goes to Q-15 (OI-14), by change control on CM-01 |
 | Evidence and attribution (DP-2) | G1-I: evidence of capacity can suffice; a skill of a position holder is evidence | The representation of skills that an assessment cites | Let a skill, or skills together, assert bearing |
 
 The distinction DP-1 keeps between an organization's *basis* (its member agents, as
 organized) and the *enabling conditions* relevant to its realization (artifacts and
 outside services) passes into CM-02 unchanged. A member's skill falls on neither side
 on its own: it is borne by a part of the basis. An artificial system, whatever CM-02
-finds it bears, remains an enabling condition of the organization's capabilities.
+finds it bears, stays outside the material basis of every business capability. It is an
+enabling condition only of those capabilities whose realization actually depends on it.
+
+The scope decision reopens neither DP-1, DP-2 nor CM-01's approval. CM-02 keeps apart:
+
+- individual capabilities and organizational capabilities;
+- an organization's material basis and the Skills its members bear;
+- artifact functions and genuine Agent Capabilities;
+- an organization's possession of a capability and member-wise attribution to a group;
+- software-agent routing descriptions and the entities that actually bear capabilities.
 
 ## 4. Module boundaries and dependencies
 
@@ -150,21 +175,22 @@ Act Type, Enabling Condition, Evidence, Agent Manifest.
 - Skill as G1-I evidence.
 - Skill types related to capability types for gap analysis. This relation is not
   "requires", which CM-01 forbids for acts (CD12).
-- Agent manifests resting on CM-02's account of artificial systems (under S-1a).
+- Agent manifests resting on CM-02's account of artificial systems.
 - BPO's `ex:CompetitiveAnalysisCapability`, an Agent Capability borne by an analyst,
   which the specification sends to Skill. Re-homing it is BPO's to decide.
 
-**Exclusions.** Everything listed outside scope in section 1. Under S-1b, artificial
-systems as well.
+**Exclusions.** Everything listed outside scope in section 1.
 
 **Unresolved questions for the full CM-02.**
 
-- **C-1.** Under S-1a: does an acting artificial system bear an artifact function, an
-  Agent Capability, or either according to the case? What follows from CCO making
-  whatever bears an Agent Capability an Agent?
-- **C-2.** Are there person-borne abilities relevant here that are not Skills, and are
-  there Agent Capabilities borne by groups that are not organizations (a team without
-  organization rules)?
+- **C-1.** What are the necessary conditions for attributing an Agent Capability, and
+  does a candidate artificial system meet them? Does it bear an artifact function, an
+  Agent Capability, both, or one or the other according to the case, with neither
+  equivalence nor disjointness assumed? What follows from CCO making whatever bears an
+  Agent Capability an Agent? C-1 is material to CM-02's meaning.
+- **C-2.** Are there person-borne abilities relevant here that are not Skills? Can a
+  group that is not an organization (a team without organization rules) bear a
+  capability of its own, as distinct from member-wise attribution to its members?
 - **C-3.** How skill types relate to capability types, and to the acts both are realized
   in, without implying requirement.
 - **C-4.** Whether skill catalogs (competency frameworks) enter as a catalog layer, as
@@ -173,7 +199,8 @@ systems as well.
   CM-02 question only: b2's rejection for business capabilities stands.
 
 **Deferred to the full CM-02.** Its concepts, patterns, relationships, competency
-questions, practitioner review and approval.
+questions, practitioner review and approval. The full CM-02 resolves its material
+conceptual questions, C-1 above all, before its own Stage 02 approval (standard §4.6).
 
 **Dependencies.**
 
@@ -191,34 +218,40 @@ None selects a property, introduces a class or states an axiom.
   realizable entity. CM-01 admits a business-capability type as a disposition only after
   G1-T (DP-2). Whether CM-02 types need an admission test of their own, and whether any
   is a disposition, is open. CM-01's answer is not to be assumed for persons.
-- **Artificial systems (S-1a).** A designed artifact's ability fits BFO's function
+- **Artificial systems.** A designed artifact's ability fits BFO's function
   (`obo:BFO_0000034`), which is defined through intentional design. CCO's Agent
   Capability is defined through Planned Acts, which need an agent holding a directive
   information content entity. Which reading fits a given system, and whether both can,
   is the formal side of C-1.
 - **Member-wise bearing.** CCO already has `cco:ont00001898` (aggregate has capability).
-  CD10 restricts its use for business capabilities. CM-02 may use it for member-wise
-  abilities, subject to formalization review.
+  The specification reads it as each member bearing its own capability, and forbids it
+  for business capabilities (CD10). Whether CM-02 uses it is a formalization question.
 - **Organization alignment.** CCO's Organization is a Group of Agents (`cco:ont00000300`),
   an object aggregate with only agents as parts. A member's skill is therefore borne by
   a part of the organization, which keeps it consistent with DP-1's basis without being
   the basis.
+- **Relation reuse.** Before any formal relationship is selected, Stage 05 checks CCO's
+  Extended Relation Ontology first, then the relevant CCO domain ontology, and reuses an
+  existing construct wherever one applies, as the architect's review directs.
 - **Namespaces.** No IRI is minted for CM-02 before its formalization tranche, and then
   only under ADR-003 D1.
 
 ## 6. Decisions requested
 
-1. Approve this note as the CM-02 scope and integration boundary (D2's exit).
-2. Decide S-1: include artificial systems (S-1a, recommended) or exclude them (S-1b).
+1. Approve this note, revision 2, as the CM-02 scope and integration boundary (D2's
+   exit).
 
-Approval would authorize nothing beyond D2's completion: not the full CM-02, and no
-Agent Capability class, property or axiom.
+S-1 is decided (S-1a, `docs/decisions/2026-10-31-cm02-scope-s1-decided.md`). Approval
+would authorize nothing beyond D2's completion: not the full CM-02, specification
+ratification or Agent Capability formalization, and no class, object property, namespace
+or OWL axiom.
 
 ## Sources
 
 - CM-01, approved: `src/02_conceptual_models/CM-01-business-capability.md` (P1, §4
   Member Agent, Capability Basis, Organizational Arrangement, Enabling Condition, Skill,
   Agent Manifest; §6; Q-15)
+- The architect's review of revision 1: `docs/decisions/2026-10-31-cm02-scope-s1-decided.md`
 - DP-1: `docs/decisions/2026-10-25-dp1-rp1-grounding-boundary.md`; DP-2:
   `docs/decisions/2026-10-26-dp2-rp10-admission-attribution.md`
 - Specification v0.4.0-draft.1: CD1, CD10, CD13, §8 G1-I
