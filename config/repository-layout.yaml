@@ -249,8 +249,8 @@ components:
       The order of work: the decision path and the terminology lane, each
       step with its entry gate, its standard and its exit, and the gates
       every step keeps; the module release boundary; open decisions. It
-      orders work and authorizes none, and governs only once the architect
-      gives it final approval.
+      orders work and authorizes none; the governing development plan since
+      the architect's approval of revision 2 on 2026-10-31.
 
   - id: docs.development
     path: docs/DEVELOPMENT.md

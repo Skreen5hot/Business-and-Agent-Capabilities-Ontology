@@ -1,7 +1,7 @@
 # BCO roadmap
 
-**Status: revision 2, returned for the architect's final approval.** It is not yet the
-governing development plan. It orders work and authorizes none: each step starts only
+**Status: revision 2, approved by the architect on 2026-10-31; it is the governing
+development plan** (`docs/decisions/2026-10-31-roadmap-revision-2-approved.md`). It orders work and authorizes none: each step starts only
 when the architect authorizes it and its entry gate is met. No ontology class, object
 property, subclass axiom or vocabulary ratification is authorized by it.
 
