@@ -183,6 +183,19 @@ components:
       until the architect ratifies it. The vendoring tool reads it for
       the cco:, obo: and ex: terms it names.
 
+  - id: spec.v0.5-draft
+    path: specifications/Business-Capability-Ontology-v0.5.0-draft.1.md
+    role: documentation
+    description: >-
+      BCO specification v0.5.0-draft.1 (2026-10-31), prepared under D3: the
+      decisions taken since v0.4 (DP-1, DP-2, R8, R9, the CM-01 approval
+      guidance, the CM-02 scope, the re-pin) carried into the text with a
+      traceability table, the R5 disposition proposed, sources cited by
+      register id, and the bco:/ex: prefix split. Under review, not accepted
+      for ratification, so not the specification in force: v0.4 keeps that
+      role and still seeds the vendored extracts until the architect
+      accepts v0.5.
+
   - id: spec.v0.3
     path: specifications/Business-Capability-Ontology-v0.3.0-draft.1.md
     role: documentation
