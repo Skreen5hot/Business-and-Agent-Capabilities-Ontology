@@ -309,6 +309,16 @@ components:
       asked for. A proposal is not a decision; the architect's act on it
       is recorded in docs/decisions/, citing the proposal's commit.
 
+  - id: docs.practitioner-review
+    path: docs/practitioner-review
+    role: documentation
+    description: >-
+      Domain-practitioner review packages (roadmap AD-2, section 6): what a
+      practitioner reviewer is given. cm01/ is the package for CM-01,
+      proposed to the architect and not approved for distribution. A
+      package records no finding; completed findings are filed separately
+      under reviews/, verbatim, with a proposed disposition.
+
   - id: docs.adr
     path: docs/adr
     role: documentation

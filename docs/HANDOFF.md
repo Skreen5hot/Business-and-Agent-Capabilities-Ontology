@@ -667,7 +667,9 @@ Draft.2 (`specifications/Business-Capability-Ontology-v0.5.0-draft.2.md`) answer
 a proposed disposition (`reviews/R10-disposition.md`) and is returned for review; draft.1
 is kept unchanged as provenance. Neither is accepted for ratification, v0.4 stays the
 specification in force for the tooling, and the practitioner review (its §0.3) has not
-been conducted. It replaces this section's setup-day list, whose items are done
+been conducted. A review package for it (`docs/practitioner-review/cm01/`: brief, plain
+summary, five scenarios, questionnaire, findings template, references) is proposed to the
+architect and not approved for distribution; no reviewer is engaged yet (O-3). It replaces this section's setup-day list, whose items are done
 (pushing, the first CI run), carried into the roadmap (RP-1 within CP-0; the BPO-slice
 decision before the first realization index) or superseded by it (CAP shapes come after
 specification v0.5, in Stage 05). The Ontology Template is not adopted
