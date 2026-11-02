@@ -11,6 +11,8 @@
 
 This note is for the architect. The reviewer receives files 01 to 06.
 
+> **Later status, 2026-11-02.** The package was given to a synthetic practitioner, whose desk review is R11 (`reviews/R11-cm01-practitioner-desk-review.md`). By the product owner's decision of 2026-11-02, R11 satisfies the AD-2 practitioner review and O-3 is closed (`docs/decisions/2026-11-02-r11-practitioner-validation-decided.md`). The rest of this note is kept as proposed.
+
 ## Contents
 
 | File | For the reviewer | What it is |

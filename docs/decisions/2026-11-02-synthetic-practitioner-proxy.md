@@ -2,6 +2,8 @@
 
 Recorded verbatim by Claude Code (`claude-opus-5-5`) on 2026-11-02, from the direction the product owner and architect, Aaron Damiano, gave in session. The act is the architect's.
 
+> **Later decision, 2026-11-02.** The product owner decided that R11 satisfies AD-2, that O-3 is closed, and that no additional human practitioner review is required before CP-0 (`docs/decisions/2026-11-02-r11-practitioner-validation-decided.md`). R11's standing is *product-owner-authorized synthetic practitioner validation, accepted as satisfying the BCO domain-practitioner review requirement*. The departures listed below are resolved by that decision: roadmap §6 and §9 are amended, specification draft.3 §0.3 carries the designation, and R11's own statement that it does not close O-3 is superseded for project governance. This record is otherwise unchanged.
+
 **What it is about:**
 
 - *The review.* `CM-01_Enterprise_Architecture_Practitioner_Desk_Review_2026-11-02.md`, an analytical desk review of CM-01, submitted with the direction. Its author is ChatGPT (GPT-6), acting in "an enterprise-architect / ontology-aware analytical role".
