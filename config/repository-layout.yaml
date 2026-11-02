@@ -220,7 +220,9 @@ components:
       filed verbatim as received: R5 (v0.4 against the v0.1 package), R6
       (the P5 vocabulary as published), R7 (the five generated
       vocabulary Turtle files after R6), R8 (conceptual model CM-01,
-      draft.1), R9 (CM-01 draft.4) and R10 (specification v0.5.0-draft.1).
+      draft.1), R9 (CM-01 draft.4), R10 (specification v0.5.0-draft.1) and
+      R11 (the AD-2 practitioner desk review of CM-01, by a synthetic
+      practitioner the architect designated as proxy).
       R<n>-disposition.md is the
       project's proposed disposition of review R<n>. Recommendations and
       proposals, not ratified changes. All are rendered on the site's

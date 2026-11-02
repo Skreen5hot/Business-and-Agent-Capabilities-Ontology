@@ -668,8 +668,13 @@ a proposed disposition (`reviews/R10-disposition.md`) and is returned for review
 is kept unchanged as provenance. Neither is accepted for ratification, v0.4 stays the
 specification in force for the tooling, and the practitioner review (its §0.3) has not
 been conducted. A review package for it (`docs/practitioner-review/cm01/`: brief, plain
-summary, five scenarios, questionnaire, findings template, references) is proposed to the
-architect and not approved for distribution; no reviewer is engaged yet (O-3). It replaces this section's setup-day list, whose items are done
+summary, five scenarios, questionnaire, findings template, references) was proposed to the
+architect. On 2026-11-02 the architect designated a synthetic practitioner as proxy for the
+human practitioner (`docs/decisions/2026-11-02-synthetic-practitioner-proxy.md`); its desk
+review of CM-01 is filed as R11 (`reviews/R11-cm01-practitioner-desk-review.md`), which
+answers O-3 by that designation. The proposed disposition (`reviews/R11-disposition.md`)
+is not accepted; once it is, accepted findings go into a v0.5 draft.3 and its §0.3. CM-01
+is unchanged. It replaces this section's setup-day list, whose items are done
 (pushing, the first CI run), carried into the roadmap (RP-1 within CP-0; the BPO-slice
 decision before the first realization index) or superseded by it (CAP shapes come after
 specification v0.5, in Stage 05). The Ontology Template is not adopted

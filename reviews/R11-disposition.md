@@ -1,0 +1,77 @@
+# R11 Disposition — CM-01 domain-practitioner desk review
+
+Disposition drafted by Claude Code (claude-opus-5-5) at the architect's direction, 2026-11-02. It answers R11, the practitioner desk review of CM-01, which the architect designated as the AD-2 practitioner review (`docs/decisions/2026-11-02-synthetic-practitioner-proxy.md`). It decides nothing. Accepting this disposition, and any change to CM-01, are the architect's acts.
+
+| Field | Value |
+| --- | --- |
+| Status | Proposed. Not accepted |
+| Review | `reviews/R11-cm01-practitioner-desk-review.md`, filed verbatim as received (SHA-256 `a7d774e6235383f30e85c42b3a15a7f162c8506111d4648b59a9f633ff6fa7cc`) |
+| Reviewer and capacity | ChatGPT (GPT-6), in an enterprise-architect / ontology-aware analytical role, as R11's section 1 states. It is the proxy for the human practitioner, by the architect's direction of 2026-11-02 |
+| Reviewed artifact | CM-01 0.1.0, `src/02_conceptual_models/CM-01-business-capability.md` (SHA-256 `292c8f36d64075b9663e159985a15b448aa933c3b5ed4baff3b2a556ca861ccc`). Specification v0.5.0-draft.2 was given as context (SHA-256 `7b0911b8eeb51201396e228b98c588dade7d616a3ba154a752b4d227ee3e956b`) |
+| Where accepted dispositions go | Specification v0.5, in a draft.3 written after this disposition is accepted. Its §0.3 then lists each accepted finding with the sections it changes (roadmap §6). Nothing goes into draft.2, which is under review on PR #33 |
+| Effect on CM-01 | None. No finding is proposed as a change to CM-01 now. P-10 is proposed as a candidate for CM-01's next reviewed version, which only the architect can open |
+
+## Summary
+
+R11's overall determination is "Support further development with substantive conditions".
+
+- **What it keeps.** The architecture stays as it is, and so do DP-1 and DP-2. R11 asks for neither to be reversed. It asks for no new object property and no new ontology class.
+- **Its eleven findings fall into three groups:**
+  - three High findings (P-01 to P-03), about what a "present" finding can be read to mean at the point of decision;
+  - seven Medium findings (P-04 to P-10), mostly conventions for applying the model;
+  - one Low finding (P-11), about labeling.
+
+**How the disposition answers them:**
+
+- **In the specification only.** Most findings are answered in the specification: the G1-I questions, CD2, CD14, the vendor case and open issues. Only one asks something of CM-01's text (P-10).
+- **Outside the ontology.** Several recommendations are about how capability maps are presented to a board. The ontology does not govern presentation. The disposition gives that part to the application layer, and keeps in the specification only what a presentation needs the data to carry.
+
+Proposed dispositions: 6 accepted for v0.5 (P-01, P-02, P-04, P-05, P-09, P-10), 2 accepted in part (P-03, P-06), 2 already answered in CM-01 or draft.2 with a clarification added (P-07, P-08), and 1 accepted with no specification change (P-11).
+
+## Disposition table
+
+"§" without a document means specification v0.5. "Draft.3" means the revision that would carry accepted dispositions.
+
+| ID | Finding (severity) | Proposed disposition | Where | What changes |
+| --- | --- | --- | --- | --- |
+| P-01 | Permanent technology loss can make "present" misleading (High) | **Accepted for v0.5. DP-1 unchanged** | CD2 (platform-loss bullets); §8 G1-I question 4; §8 G1-T; OI-14 | (1) A Capability Assessment whose present finding coexists with an unavailable essential enabling condition records that unavailability in the same assessment: a finding about the enabling condition, its date, and any alternative. That way the data a view draws on carries possession and availability together, and a view cannot show "present" without "unavailable". (2) An escalation trigger: an irreversible loss of an enabling condition with no feasible alternative sends the capability type to a G1-T re-review under DP-1 a4 (OI-14 / CM-01 Q-15). The re-review checks whether the artifact was constitutive. (3) R5-09's rule (G1-I re-asked when a platform's loss removes members' capacity) is restated as a test of member-grounded ability that remains. It is not presumed from continued employment |
+| P-02 | Evidence of capacity needs an operational sufficiency test (High) | **Accepted for v0.5** | §8 G1-I question 2; CD14; gate F | Each completed assessment's criteria state the ability claimed and the threshold it is judged against. Its evidence is dated. Gate F's review checks that the evidence is sufficient for the finding, as it already checks negative findings. Past real exercise stays not required (DP-2 b5). Nothing new is minted: criteria and evidence are the existing `dct:conformsTo` and `dct:source`. Draft.3 proposes a date property for evidence (see points to check) |
+| P-03 | No effective temporal model for capability-bearing conclusions (High) | **Accepted in part** | CD14; §10 Known limits; new open issue | *Accepted:* every completed assessment carries an as-of date. An assessment can be marked as superseded by a later one, its representation to be a new open issue paralleling OI-21. Known limits states that an unqualified bearing assertion does not answer a historical question. *Not proposed:* temporal qualification of bearing itself. That is CM-01 Q-06, and changing it would be a change to CM-01. R11 asks that Q-06 be advanced "before production rollout", which is after CP-0. The architect decides whether that becomes a release precondition |
+| P-04 | A single-member capability must expose fragility, not just possession (Medium) | **Accepted for v0.5. DP-1 a1 unchanged** | §8 G1-I questions 2 and 5 | Question 2 asks for evidence that the arrangement supports the organization's enactment, beyond describing one person's work. Question 5 records single-point-of-failure exposure and any succession expectation, as assessment content or as a Capability Target. Fragility still does not change the finding |
+| P-05 | Sourcing needs a clear retained-capability boundary (Medium) | **Accepted for v0.5** | §5 "The vendor case"; CD14 (maps); instance pattern 2 | A mapping convention for **retained, sourced and hybrid** work. Retained act types get the organization's own assessments. Provided act types get Capability Sourcing Statements and their sourcing assessment. A map entry concerns a type, and a top-level label such as "Payroll management" is never read as possession. Only existing terms are used |
+| P-06 | Functional adequacy is sound but needs a board-level decision view (Medium) | **Accepted in part** | CD16/CD17 (via P-02 and P-03); application guidance | *Accepted:* each adequacy finding is dated and names its threshold, which follows from P-02 and P-03 applied to CAP-33. *For the application layer, not the ontology:* the board dashboard, and showing impacted outcomes, residual risk and remediation. CAP-33's negative fixtures are already specified in draft.2; their files come in Stage 05 |
+| P-07 | Capability-map decomposition and BPO alignment need a practitioner convention (Medium) | **Already answered. Clarification added** | CD14 (maps); CD9; OI-20 | CM-01 already says map arrangement is not parthood and APQC numbering never generates specialization (P5; Q-10). Draft.3 states the convention in one place: map levels are presentation or coverage groupings unless a reviewed specialization exists, and a required component is not a specialization. Deriving realization indexes waits on OI-20 (Q-12 to Q-14), as draft.2 already requires. A real catalog crosswalk is Stage 03/04 and inventory work, not v0.5 |
+| P-08 | "Absent" must never mean "not yet evidenced" (Medium) | **Already answered in draft.2. OI-23 annotated** | CD14; CAP-27; CAP-33; OI-23 | R11 agrees with draft.2's rule. OI-23 records R11's recommendation: "not assessed" and "insufficient evidence" are workflow or display states outside a completed assessment, never a fourth presence value, and no class is minted unless a persistent record is needed |
+| P-09 | Multi-party delivery needs an explicit boundary before scale use (Medium) | **Accepted for v0.5 as a provisional pattern. Scope unchanged** | §5 (sourcing); OI-18 | Multi-party delivery is recorded as several two-party Capability Sourcing Statements with explicit boundaries. Responsibility or contracting gaps are reported, never filled by inference. Q-04 / OI-18 stays open, and R11's reason to reopen it is recorded there |
+| P-10 | "Organizational Arrangement" mixes an arrangement with evidence describing it (Medium) | **Accepted for v0.5 as a clarification. CM-01 candidate for change control** | CD2 item 2; §4 Organizational Arrangement; G1-I question 2 | CM-01 already says the arrangement is the configuration and not itself material. Its example "a standing operating procedure for month-end close" can be read as the document. Draft.3 states that the arrangement is the effective configuration, and that a written procedure or mandate is information about it (`cco:ont00001808` *is about*) and is evidence of it, not the arrangement itself. CM-01 §4's example wording is a candidate for its next reviewed version. Whether to open one is the architect's call. RL-06's relation stays a Stage 05 choice under §3.1's reuse order |
+| P-11 | The Agent Capability scope must not be overstated (Low) | **Accepted. No specification change** | §1; release and review summaries | Draft.2 §1 and Known limits already scope the module to Business Capability, with CM-02 out. Summaries of this review, of D3 and of any release say "Business Capability module (CM-01 only)" |
+
+**Tally:** 6 accepted for v0.5 · 2 accepted in part · 2 already answered, with a clarification · 1 accepted with no specification change (11 rows).
+
+## Other points in R11 outside its findings
+
+- **Scenario responses (R11 §5).** These support the findings above and raise nothing new. S4's objection to an undifferentiated "present" is P-01.
+- **Questionnaire answers (R11 §6):**
+  - **Q9, maintainability.** R11 recommends tiered assurance. This is compatible: only a claim that an organization bears a capability needs a supporting assessment (CAP-26). A catalog entry or a target needs none.
+  - **Q10, value, cost, ownership, demand.** Noted. CM-01 does not model them, and R11 does not ask for core classes. No change is proposed.
+  - **Q12, A-01, A-02 and DP-1.** Noted as calls for domain validation, with no change. R11 rates A-05 as appropriate.
+- **Ontology alignment notes (R11 §7).** Every identifier R11 cites was checked against the vendored extracts on 2026-11-02, and each label matches:
+  - `obo:BFO_0000218` *has material basis*;
+  - `obo:BFO_0000055` *realizes*;
+  - `cco:ont00000568` *Organization Capability*;
+  - `cco:ont00000089` *Skill*;
+  - `cco:ont00001954` *has capability*;
+  - `cco:ont00001889` *capability of*;
+  - `cco:ont00001808` *is about*.
+
+  The notes agree with §3.1's reuse order, and no action is proposed.
+
+## Points for the architect to check
+
+None of these is a decision taken.
+
+- **The date property (P-02, P-03).** Draft.3 would need a property for an assessment's as-of date and for evidence dates. `dct:date` is from Dublin Core, a vocabulary already in use, and is not a BCO term. Choosing it is a design choice for draft.3, like `dct:identifier` in draft.2.
+- **Q-06 as a release precondition (P-03).** R11 asks that temporal bearing be advanced before production rollout. Making it a CP-0 or release condition would mean a change to CM-01. The disposition proposes neither, and records the request.
+- **CM-01 change control (P-10).** The disposition answers P-10 in the specification without editing CM-01. It names CM-01 §4's example as a candidate for the next reviewed version. If you consider the specification clarification a substantive change to CM-01's meaning, it needs a new CM-01 version instead.
+- **The escalation trigger (P-01).** Sending a type to G1-T re-review on irreversible platform loss applies DP-1 a4. It does not change a4. If you read it as extending a4, it needs your decision under DP-1.
+- **Roadmap and §0.3 wording.** Both still describe a human reviewer in one of three capacities. The proxy direction stands without editing them. Whether to amend them is open.
