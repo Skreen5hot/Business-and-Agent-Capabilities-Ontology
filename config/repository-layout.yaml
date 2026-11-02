@@ -184,6 +184,19 @@ components:
       the cco:, obo: and ex: terms it names.
 
   - id: spec.v0.5-draft
+    path: specifications/Business-Capability-Ontology-v0.5.0-draft.3.md
+    role: documentation
+    description: >-
+      BCO specification v0.5.0-draft.3 (2026-11-02), prepared under D3: draft.2
+      with review R11, the domain-practitioner review of CM-01, carried in.
+      Section 0.3 records R11 as product-owner-authorized synthetic
+      practitioner validation satisfying AD-2, and its eleven findings with
+      their proposed dispositions and the sections they change. Not accepted
+      for ratification, so not the specification in force: v0.4 keeps that
+      role and still seeds the vendored extracts until the architect accepts
+      v0.5.
+
+  - id: spec.v0.5-draft2
     path: specifications/Business-Capability-Ontology-v0.5.0-draft.2.md
     role: documentation
     description: >-
@@ -192,9 +205,9 @@ components:
       R8, R9, the CM-01 approval guidance, the CM-02 scope, the re-pin)
       carried into the text with a traceability table, the R5 and R10
       dispositions proposed, sources cited by register id, and the bco:/ex:
-      prefix split. Under review, not accepted for ratification, so not the
-      specification in force: v0.4 keeps that role and still seeds the
-      vendored extracts until the architect accepts v0.5.
+      prefix split. Superseded by draft.3 and kept unchanged as review
+      provenance (commit be8a732); R11 had it as context, and its SHA-256 is
+      recorded in draft.3's document control.
 
   - id: spec.v0.5-draft1
     path: specifications/Business-Capability-Ontology-v0.5.0-draft.1.md
