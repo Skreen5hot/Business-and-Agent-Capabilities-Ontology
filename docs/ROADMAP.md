@@ -12,6 +12,7 @@ property, subclass axiom or vocabulary ratification is authorized by it.
 | 2, amended | 2026-10-31 | O-1 and O-2 marked decided, citing their decision records; the rights gate names the architect as the licensing and redistribution authority |
 | 2, amended | 2026-10-31 | D2 complete: section 3's Stage 02 row and O-4 record the CM-02 scope approval |
 | 2, amended | 2026-11-02 | The practitioner review of CM-01 met by R11, a product-owner-authorized synthetic practitioner validation: section 6, the practitioner-review gate (section 9) and O-3 closed (`docs/decisions/2026-11-02-r11-practitioner-validation-decided.md`) |
+| 2, amended | 2026-11-03 | The practitioner-review gate (section 9) records R11's dispositions accepted (`docs/decisions/2026-11-03-r11-disposition-accepted.md`) |
 
 It replaces HANDOFF §7, which dated from the repository's setup.
 
@@ -204,7 +205,7 @@ These run beside the decision path. None writes an OWL axiom.
 | Gate | Requirement | Applies at |
 |---|---|---|
 | **Standard supplied** | a stage starts only under its approved standard | every stage; the release |
-| **Practitioner review** | a recorded review: reviewer, capacity, findings, dispositions, affected artifacts. A product-owner-authorized synthetic practitioner stands as proxy for the human practitioner (section 6) | before CP-0 (D3–D4) for CM-01: **met by R11** (2026-11-02); its dispositions are still to be accepted and carried into v0.5. Before CM-02's approval; after any substantive CM-01 change |
+| **Practitioner review** | a recorded review: reviewer, capacity, findings, dispositions, affected artifacts. A product-owner-authorized synthetic practitioner stands as proxy for the human practitioner (section 6) | before CP-0 (D3–D4) for CM-01: **met by R11** (2026-11-02); its dispositions accepted 2026-11-03 (`docs/decisions/2026-11-03-r11-disposition-accepted.md`) and carried into v0.5.0-draft.3. Before CM-02's approval; after any substantive CM-01 change |
 | **Source adequacy** | a source a specification or decision relies on is at the required status (V or P), or under a documented exception approved specifically: the affected claims, the justification, the approving authority, and the stage by which it must be closed | D3; every decision record; tranche readiness |
 | **Rights and provenance** | the decision authority for licensing and redistribution is the architect, Aaron Damiano (O-2, decided 2026-10-31, `docs/decisions/2026-10-31-o2-licensing-authority-decided.md`), as on every rights decision so far (I-2a, the APQC decisions, E7, the closure decision). No harvesting or publication beyond the approved rights posture | every new source (T5); the site; D8 |
 | **Conceptual fidelity** | every authored class and logical axiom traces to its governing conceptual model, the ratified specification, or a separately approved architectural decision. An incompatibility found in formalization goes to change control; meaning is never changed silently | D6; the Agent Capability module's formalization |

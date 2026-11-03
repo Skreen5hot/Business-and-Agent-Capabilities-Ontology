@@ -674,10 +674,12 @@ designated a synthetic practitioner as proxy for the human practitioner
 filed as R11 (`reviews/R11-cm01-practitioner-desk-review.md`). The same day the product
 owner decided that R11 satisfies AD-2, closed O-3, and required no further human review
 before CP-0 (`docs/decisions/2026-11-02-r11-practitioner-validation-decided.md`); R11's
-standing is product-owner-authorized synthetic practitioner validation. Its proposed
-disposition (`reviews/R11-disposition.md`) is not accepted. Specification v0.5.0-draft.3
+standing is product-owner-authorized synthetic practitioner validation. Its disposition
+(`reviews/R11-disposition.md`) was accepted as proposed on 2026-11-03
+(`docs/decisions/2026-11-03-r11-disposition-accepted.md`). Specification v0.5.0-draft.3
 (`specifications/Business-Capability-Ontology-v0.5.0-draft.3.md`, superseding draft.2)
-carries it as proposed, with §0.3 recording the review. CM-01 is unchanged; CP-0's other
+carries it, with §0.3 recording the review; the R5 and R10 dispositions are still
+proposed. CM-01 is unchanged; CP-0's other
 requirements stand. It replaces this section's setup-day list, whose items are done
 (pushing, the first CI run), carried into the roadmap (RP-1 within CP-0; the BPO-slice
 decision before the first realization index) or superseded by it (CAP shapes come after
