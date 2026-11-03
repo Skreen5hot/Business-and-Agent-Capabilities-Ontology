@@ -89,8 +89,8 @@ counts:
   likely_bfo_cco_capabilities: 526
   review_status:
     deferred: 135
-    generated-draft: 386
-    needs-review: 412
+    generated-draft: 371
+    needs-review: 427
     rejected: 113
   rejected_or_deferred: 248
   rejected_or_deferred_by_reason:
@@ -279,26 +279,28 @@ candidates:
   name: Accounting Capability
   key: accounting|accounting
   definition:
-    text: A business capability of an organization to account for accounting, grounded in
-      the organization's members as organized.
+    text: A business capability of an organization to carry out accounting, grounded in the
+      organization's members as organized.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to account for accounting
+    differentia: the ability to carry out accounting
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'cross-sector: commercial (PCF/BPO) and U.S. federal sources'
   distinctive_ability:
     family: accounting
-    ability: account for accounting
+    ability: carry out accounting
     object: accounting
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: generated-draft
-    justification: generated; passed every automated check
-    flags: []
+    status: needs-review
+    justification: 'generated; quality flags to clear: circular differentia: the label names
+      only the ability; a reader writes it'
+    flags:
+    - 'circular differentia: the label names only the ability; a reader writes it'
   sources:
   - inventory_id: INV-BPO-AccountingCapability-scope-entry
     source: BPO
@@ -624,9 +626,11 @@ candidates:
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: generated-draft
-    justification: generated; passed every automated check
-    flags: []
+    status: needs-review
+    justification: 'generated; quality flags to clear: deontic index member (G1-T question
+      4: re-index to the non-deontic act)'
+    flags:
+    - 'deontic index member (G1-T question 4: re-index to the non-deontic act)'
   sources:
   - inventory_id: INV-PCF74-10756
     source: APQC PCF 7.4
@@ -2029,26 +2033,28 @@ candidates:
   name: Analytics Capability
   key: analysis|analytics
   definition:
-    text: A business capability of an organization to examine and assess analytics so as to
-      inform decisions, grounded in the organization's members as organized.
+    text: A business capability of an organization to carry out analytics, grounded in the
+      organization's members as organized.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to examine and assess analytics so as to inform decisions
+    differentia: the ability to carry out analytics
   bearer:
     proposed: cco:ont00001180 Organization
     context: cross-industry organizations (PCF/BPO)
   distinctive_ability:
     family: analysis
-    ability: examine and assess analytics so as to inform decisions
+    ability: carry out analytics
     object: analytics
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: generated-draft
-    justification: generated; passed every automated check
-    flags: []
+    status: needs-review
+    justification: 'generated; quality flags to clear: circular differentia: the label names
+      only the ability; a reader writes it'
+    flags:
+    - 'circular differentia: the label names only the ability; a reader writes it'
   sources:
   - inventory_id: INV-BPO-AnalyticsCapability-capability-class
     source: BPO
@@ -4763,26 +4769,28 @@ candidates:
   name: Benchmarking Capability
   key: analysis|benchmarking
   definition:
-    text: A business capability of an organization to examine and assess benchmarking so as
-      to inform decisions, grounded in the organization's members as organized.
+    text: A business capability of an organization to carry out benchmarking, grounded in
+      the organization's members as organized.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to examine and assess benchmarking so as to inform decisions
+    differentia: the ability to carry out benchmarking
   bearer:
     proposed: cco:ont00001180 Organization
     context: cross-industry organizations (PCF/BPO)
   distinctive_ability:
     family: analysis
-    ability: examine and assess benchmarking so as to inform decisions
+    ability: carry out benchmarking
     object: benchmarking
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: generated-draft
-    justification: generated; passed every automated check
-    flags: []
+    status: needs-review
+    justification: 'generated; quality flags to clear: circular differentia: the label names
+      only the ability; a reader writes it'
+    flags:
+    - 'circular differentia: the label names only the ability; a reader writes it'
   sources:
   - inventory_id: INV-BPO-BenchmarkingCapability-capability-class
     source: BPO
@@ -7952,18 +7960,17 @@ candidates:
   name: Certification and Accreditation Capability
   key: verification|certification and accreditation
   definition:
-    text: A business capability of an organization to check, test and confirm certification
-      and accreditation against requirements, grounded in the organization's members as organized.
+    text: A business capability of an organization to carry out certification and accreditation,
+      grounded in the organization's members as organized.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to check, test and confirm certification and accreditation against
-      requirements
+    differentia: the ability to carry out certification and accreditation
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: verification
-    ability: check, test and confirm certification and accreditation against requirements
+    ability: carry out certification and accreditation
     object: certification and accreditation
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
@@ -7971,9 +7978,10 @@ candidates:
   bfo_cco_compatibility: possible
   review:
     status: needs-review
-    justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+    justification: 'generated; quality flags to clear: circular differentia: the label names
+      only the ability; a reader writes it; no BPO act type: realization index to be drawn'
     flags:
+    - 'circular differentia: the label names only the ability; a reader writes it'
     - 'no BPO act type: realization index to be drawn'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-656-brm-service
@@ -8005,20 +8013,19 @@ candidates:
   name: Change Deployment Control Management Capability
   key: management|change deployment control
   definition:
-    text: A business capability of an organization to direct and control change deployment
-      control on a continuing basis, grounded in the organization's members as organized,
-      exercised as part of controls operation, and shown in acts of the kinds act of appraisal,
-      act of data management, act of development or act of scheduling.
+    text: A business capability of an organization to carry out change deployment control,
+      grounded in the organization's members as organized, exercised as part of controls operation,
+      and shown in acts of the kinds act of appraisal, act of data management, act of development
+      or act of scheduling.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to direct and control change deployment control on a continuing
-      basis
+    differentia: the ability to carry out change deployment control
   bearer:
     proposed: cco:ont00001180 Organization
     context: cross-industry organizations (PCF/BPO)
   distinctive_ability:
     family: management
-    ability: direct and control change deployment control on a continuing basis
+    ability: carry out change deployment control
     object: change deployment control
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
@@ -8026,9 +8033,12 @@ candidates:
   bfo_cco_compatibility: likely
   review:
     status: needs-review
-    justification: 'generated; quality flags to clear: development-act-genus (CAP-06: needs
-      a recorded reason)'
+    justification: 'generated; quality flags to clear: circular differentia: the label names
+      only the ability; a reader writes it; deontic index member (G1-T question 4: re-index
+      to the non-deontic act); development-act-genus (CAP-06: needs a recorded reason)'
     flags:
+    - 'circular differentia: the label names only the ability; a reader writes it'
+    - 'deontic index member (G1-T question 4: re-index to the non-deontic act)'
     - 'development-act-genus (CAP-06: needs a recorded reason)'
   sources:
   - inventory_id: INV-PCF74-20840
@@ -9486,18 +9496,17 @@ candidates:
   name: Communication Capability
   key: communication|communication
   definition:
-    text: A business capability of an organization to convey communication to the intended
-      audiences, grounded in the organization's members as organized, exercised as part of
-      workplace.
+    text: A business capability of an organization to carry out communication, grounded in
+      the organization's members as organized, exercised as part of workplace.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to convey communication to the intended audiences
+    differentia: the ability to carry out communication
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: communication
-    ability: convey communication to the intended audiences
+    ability: carry out communication
     object: communication
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
@@ -9505,9 +9514,10 @@ candidates:
   bfo_cco_compatibility: possible
   review:
     status: needs-review
-    justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+    justification: 'generated; quality flags to clear: circular differentia: the label names
+      only the ability; a reader writes it; no BPO act type: realization index to be drawn'
     flags:
+    - 'circular differentia: the label names only the ability; a reader writes it'
     - 'no BPO act type: realization index to be drawn'
   sources:
   - inventory_id: INV-FIBF-ITS-2-ITS.430.020-fibf-activity
@@ -10123,19 +10133,18 @@ candidates:
   name: Compliance Assurance Capability
   key: compliance|compliance
   definition:
-    text: A business capability of an organization to keep compliance in conformance with
-      applicable obligations, grounded in the organization's members as organized, exercised
-      as part of legal and ethical issues management, and shown in acts of the kinds act of
-      formulation or planned act.
+    text: A business capability of an organization to carry out compliance, grounded in the
+      organization's members as organized, exercised as part of legal and ethical issues management,
+      and shown in acts of the kinds act of formulation or planned act.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to keep compliance in conformance with applicable obligations
+    differentia: the ability to carry out compliance
   bearer:
     proposed: cco:ont00001180 Organization
     context: cross-industry organizations (PCF/BPO)
   distinctive_ability:
     family: compliance
-    ability: keep compliance in conformance with applicable obligations
+    ability: carry out compliance
     object: compliance
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
@@ -10144,9 +10153,10 @@ candidates:
   review:
     status: needs-review
     justification: 'generated; quality flags to clear: act type typed under a capability class
-      (Q-12)'
+      (Q-12); circular differentia: the label names only the ability; a reader writes it'
     flags:
     - act type typed under a capability class (Q-12)
+    - 'circular differentia: the label names only the ability; a reader writes it'
   sources:
   - inventory_id: INV-BPO-P11047-capability-class
     source: BPO
@@ -11831,27 +11841,29 @@ candidates:
   name: Controls Operation Capability
   key: management|control
   definition:
-    text: A business capability of an organization to direct and control controls on a continuing
-      basis, grounded in the organization's members as organized, and shown in acts of the
-      kinds act of monitoring or planned act.
+    text: A business capability of an organization to carry out controls, grounded in the
+      organization's members as organized, and shown in acts of the kinds act of monitoring
+      or planned act.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to direct and control controls on a continuing basis
+    differentia: the ability to carry out controls
   bearer:
     proposed: cco:ont00001180 Organization
     context: cross-industry organizations (PCF/BPO)
   distinctive_ability:
     family: management
-    ability: direct and control controls on a continuing basis
+    ability: carry out controls
     object: controls
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: generated-draft
-    justification: generated; passed every automated check
-    flags: []
+    status: needs-review
+    justification: 'generated; quality flags to clear: circular differentia: the label names
+      only the ability; a reader writes it'
+    flags:
+    - 'circular differentia: the label names only the ability; a reader writes it'
   sources:
   - inventory_id: INV-PCF74-21574
     source: APQC PCF 7.4
@@ -12100,9 +12112,11 @@ candidates:
   bfo_cco_compatibility: likely
   review:
     status: needs-review
-    justification: 'generated; quality flags to clear: development-act-genus (CAP-06: needs
-      a recorded reason)'
+    justification: 'generated; quality flags to clear: deontic index member (G1-T question
+      4: re-index to the non-deontic act); development-act-genus (CAP-06: needs a recorded
+      reason)'
     flags:
+    - 'deontic index member (G1-T question 4: re-index to the non-deontic act)'
     - 'development-act-genus (CAP-06: needs a recorded reason)'
   sources:
   - inventory_id: INV-PCF74-20929
@@ -18980,26 +18994,28 @@ candidates:
   name: Delivery Governance Servicing Capability
   key: service|delivery governance
   definition:
-    text: A business capability of an organization to provide delivery governance to those
-      it serves, grounded in the organization's members as organized.
+    text: A business capability of an organization to carry out delivery governance, grounded
+      in the organization's members as organized.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to provide delivery governance to those it serves
+    differentia: the ability to carry out delivery governance
   bearer:
     proposed: cco:ont00001180 Organization
     context: cross-industry organizations (PCF/BPO)
   distinctive_ability:
     family: service
-    ability: provide delivery governance to those it serves
+    ability: carry out delivery governance
     object: delivery governance
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: generated-draft
-    justification: generated; passed every automated check
-    flags: []
+    status: needs-review
+    justification: 'generated; quality flags to clear: circular differentia: the label names
+      only the ability; a reader writes it'
+    flags:
+    - 'circular differentia: the label names only the ability; a reader writes it'
   sources:
   - inventory_id: INV-BPO-ServiceDeliveryGovernanceCapability-capability-class
     source: BPO
@@ -19158,26 +19174,28 @@ candidates:
   name: Delivery Servicing Capability
   key: service|delivery
   definition:
-    text: A business capability of an organization to provide delivery to those it serves,
-      grounded in the organization's members as organized.
+    text: A business capability of an organization to carry out delivery, grounded in the
+      organization's members as organized.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to provide delivery to those it serves
+    differentia: the ability to carry out delivery
   bearer:
     proposed: cco:ont00001180 Organization
     context: cross-industry organizations (PCF/BPO)
   distinctive_ability:
     family: service
-    ability: provide delivery to those it serves
+    ability: carry out delivery
     object: delivery
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: generated-draft
-    justification: generated; passed every automated check
-    flags: []
+    status: needs-review
+    justification: 'generated; quality flags to clear: circular differentia: the label names
+      only the ability; a reader writes it'
+    flags:
+    - 'circular differentia: the label names only the ability; a reader writes it'
   sources:
   - inventory_id: INV-BPO-ServiceDeliveryCapability-capability-class
     source: BPO
@@ -19400,18 +19418,18 @@ candidates:
   name: Deployment and Administration Capability
   key: deployment|deployment and administration
   definition:
-    text: A business capability of an organization to deploy and introduce deployment and
-      administration into use, grounded in the organization's members as organized, exercised
-      as part of information technology management.
+    text: A business capability of an organization to carry out deployment and administration,
+      grounded in the organization's members as organized, exercised as part of information
+      technology management.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to deploy and introduce deployment and administration into use
+    differentia: the ability to carry out deployment and administration
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: deployment
-    ability: deploy and introduce deployment and administration into use
+    ability: carry out deployment and administration
     object: deployment and administration
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
@@ -19419,9 +19437,10 @@ candidates:
   bfo_cco_compatibility: possible
   review:
     status: needs-review
-    justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+    justification: 'generated; quality flags to clear: circular differentia: the label names
+      only the ability; a reader writes it; no BPO act type: realization index to be drawn'
     flags:
+    - 'circular differentia: the label names only the ability; a reader writes it'
     - 'no BPO act type: realization index to be drawn'
   sources:
   - inventory_id: INV-FIBF-ITS-2-ITS.340.010-fibf-activity
@@ -20142,18 +20161,17 @@ candidates:
   name: Discussions Capability
   key: communication|discussion
   definition:
-    text: A business capability of an organization to convey discussions to the intended audiences,
-      grounded in the organization's members as organized, exercised as part of negotiations
-      and discussions.
+    text: A business capability of an organization to carry out discussions, grounded in the
+      organization's members as organized, exercised as part of negotiations and discussions.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to convey discussions to the intended audiences
+    differentia: the ability to carry out discussions
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: communication
-    ability: convey discussions to the intended audiences
+    ability: carry out discussions
     object: discussions
   classification: requirement
   classification_reason: supported only by FIBF business capabilities, which are outcome-based
@@ -20164,7 +20182,8 @@ candidates:
     justification: 'not a capability type: supported only by FIBF business capabilities, which
       are outcome-based requirement records (E5 homonym), with no process or function behind
       it; its records are kept as evidence'
-    flags: []
+    flags:
+    - 'circular differentia: the label names only the ability; a reader writes it'
   sources:
   - inventory_id: INV-FIBF-CW-1-ACQ.040.030.011-fibf-business-capability
     source: FIBF
@@ -26053,9 +26072,11 @@ candidates:
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: generated-draft
-    justification: generated; passed every automated check
-    flags: []
+    status: needs-review
+    justification: 'generated; quality flags to clear: deontic index member (G1-T question
+      4: re-index to the non-deontic act)'
+    flags:
+    - 'deontic index member (G1-T question 4: re-index to the non-deontic act)'
   sources:
   - inventory_id: INV-PCF74-10757
     source: APQC PCF 7.4
@@ -39779,18 +39800,17 @@ candidates:
   name: Inspection and Auditing Capability
   key: verification|inspection and auditing
   definition:
-    text: A business capability of an organization to check, test and confirm inspection and
-      auditing against requirements, grounded in the organization's members as organized,
-      exercised as part of general government.
+    text: A business capability of an organization to carry out inspection and auditing, grounded
+      in the organization's members as organized, exercised as part of general government.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to check, test and confirm inspection and auditing against requirements
+    differentia: the ability to carry out inspection and auditing
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: verification
-    ability: check, test and confirm inspection and auditing against requirements
+    ability: carry out inspection and auditing
     object: inspection and auditing
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
@@ -39798,9 +39818,10 @@ candidates:
   bfo_cco_compatibility: possible
   review:
     status: needs-review
-    justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+    justification: 'generated; quality flags to clear: circular differentia: the label names
+      only the ability; a reader writes it; no BPO act type: realization index to be drawn'
     flags:
+    - 'circular differentia: the label names only the ability; a reader writes it'
     - 'no BPO act type: realization index to be drawn'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-077-brm-service
@@ -46601,9 +46622,11 @@ candidates:
   bfo_cco_compatibility: likely
   review:
     status: needs-review
-    justification: 'generated; quality flags to clear: development-act-genus (CAP-06: needs
-      a recorded reason)'
+    justification: 'generated; quality flags to clear: deontic index member (G1-T question
+      4: re-index to the non-deontic act); development-act-genus (CAP-06: needs a recorded
+      reason)'
     flags:
+    - 'deontic index member (G1-T question 4: re-index to the non-deontic act)'
     - 'development-act-genus (CAP-06: needs a recorded reason)'
   sources:
   - inventory_id: INV-PCF74-10216
@@ -47639,18 +47662,18 @@ candidates:
   name: Negotiations and Discussions Capability
   key: negotiation|negotiation and discussion
   definition:
-    text: A business capability of an organization to negotiate negotiations and discussions
-      with other parties, grounded in the organization's members as organized, exercised as
-      part of selection sourcing.
+    text: A business capability of an organization to carry out negotiations and discussions,
+      grounded in the organization's members as organized, exercised as part of selection
+      sourcing.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to negotiate negotiations and discussions with other parties
+    differentia: the ability to carry out negotiations and discussions
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: negotiation
-    ability: negotiate negotiations and discussions with other parties
+    ability: carry out negotiations and discussions
     object: negotiations and discussions
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
@@ -47658,9 +47681,10 @@ candidates:
   bfo_cco_compatibility: possible
   review:
     status: needs-review
-    justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+    justification: 'generated; quality flags to clear: circular differentia: the label names
+      only the ability; a reader writes it; no BPO act type: realization index to be drawn'
     flags:
+    - 'circular differentia: the label names only the ability; a reader writes it'
     - 'no BPO act type: realization index to be drawn'
   sources:
   - inventory_id: INV-FIBF-CW-1-ACQ.040.030-fibf-activity
@@ -50469,9 +50493,11 @@ candidates:
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: generated-draft
-    justification: generated; passed every automated check
-    flags: []
+    status: needs-review
+    justification: 'generated; quality flags to clear: deontic index member (G1-T question
+      4: re-index to the non-deontic act)'
+    flags:
+    - 'deontic index member (G1-T question 4: re-index to the non-deontic act)'
   sources:
   - inventory_id: INV-PCF74-10872
     source: APQC PCF 7.4
@@ -50533,17 +50559,17 @@ candidates:
   name: Payments Capability
   key: transaction|payment
   definition:
-    text: A business capability of an organization to carry out financial transactions for
-      payments, grounded in the organization's members as organized.
+    text: A business capability of an organization to carry out payments, grounded in the
+      organization's members as organized.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to carry out financial transactions for payments
+    differentia: the ability to carry out payments
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: transaction
-    ability: carry out financial transactions for payments
+    ability: carry out payments
     object: payments
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
@@ -50551,9 +50577,10 @@ candidates:
   bfo_cco_compatibility: possible
   review:
     status: needs-review
-    justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+    justification: 'generated; quality flags to clear: circular differentia: the label names
+      only the ability; a reader writes it; no BPO act type: realization index to be drawn'
     flags:
+    - 'circular differentia: the label names only the ability; a reader writes it'
     - 'no BPO act type: realization index to be drawn'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-126-brm-service
@@ -51786,28 +51813,30 @@ candidates:
   name: Planning, Budgeting and Forecasting Capability
   key: planning|planning, budgeting and forecasting
   definition:
-    text: A business capability of an organization to plan planning, budgeting and forecasting
-      ahead of need, grounded in the organization's members as organized, exercised as part
-      of planning and management accounting, and shown in acts of the kinds act of analysis,
-      act of formulation, act of prediction or planned act.
+    text: A business capability of an organization to carry out planning, budgeting and forecasting,
+      grounded in the organization's members as organized, exercised as part of planning and
+      management accounting, and shown in acts of the kinds act of analysis, act of formulation,
+      act of prediction or planned act.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to plan planning, budgeting and forecasting ahead of need
+    differentia: the ability to carry out planning, budgeting and forecasting
   bearer:
     proposed: cco:ont00001180 Organization
     context: cross-industry organizations (PCF/BPO)
   distinctive_ability:
     family: planning
-    ability: plan planning, budgeting and forecasting ahead of need
+    ability: carry out planning, budgeting and forecasting
     object: planning, budgeting and forecasting
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: generated-draft
-    justification: generated; passed every automated check
-    flags: []
+    status: needs-review
+    justification: 'generated; quality flags to clear: circular differentia: the label names
+      only the ability; a reader writes it'
+    flags:
+    - 'circular differentia: the label names only the ability; a reader writes it'
   sources:
   - inventory_id: INV-PCF74-10738
     source: APQC PCF 7.4
@@ -52877,18 +52906,17 @@ candidates:
   name: Preparation Capability
   key: formulation|preparation
   definition:
-    text: A business capability of an organization to formulate, set out and keep current
-      preparation, grounded in the organization's members as organized, exercised as part
-      of vendor relationship management.
+    text: A business capability of an organization to carry out preparation, grounded in the
+      organization's members as organized, exercised as part of vendor relationship management.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to formulate, set out and keep current preparation
+    differentia: the ability to carry out preparation
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: formulation
-    ability: formulate, set out and keep current preparation
+    ability: carry out preparation
     object: preparation
   classification: requirement
   classification_reason: supported only by FIBF business capabilities, which are outcome-based
@@ -52899,7 +52927,8 @@ candidates:
     justification: 'not a capability type: supported only by FIBF business capabilities, which
       are outcome-based requirement records (E5 homonym), with no process or function behind
       it; its records are kept as evidence'
-    flags: []
+    flags:
+    - 'circular differentia: the label names only the ability; a reader writes it'
   sources:
   - inventory_id: INV-FIBF-CW-1-ACQ.020.080.011-fibf-business-capability
     source: FIBF
@@ -53180,27 +53209,29 @@ candidates:
   name: Pricing Capability
   key: analysis|pricing
   definition:
-    text: A business capability of an organization to examine and assess pricing so as to
-      inform decisions, grounded in the organization's members as organized, exercised as
-      part of pricing strategy definition, and shown in acts of the kinds act of analysis.
+    text: A business capability of an organization to carry out pricing, grounded in the organization's
+      members as organized, exercised as part of pricing strategy definition, and shown in
+      acts of the kinds act of analysis.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to examine and assess pricing so as to inform decisions
+    differentia: the ability to carry out pricing
   bearer:
     proposed: cco:ont00001180 Organization
     context: cross-industry organizations (PCF/BPO)
   distinctive_ability:
     family: analysis
-    ability: examine and assess pricing so as to inform decisions
+    ability: carry out pricing
     object: pricing
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: generated-draft
-    justification: generated; passed every automated check
-    flags: []
+    status: needs-review
+    justification: 'generated; quality flags to clear: circular differentia: the label names
+      only the ability; a reader writes it'
+    flags:
+    - 'circular differentia: the label names only the ability; a reader writes it'
   sources:
   - inventory_id: INV-BPO-PricingCapability-capability-class
     source: BPO
@@ -53426,9 +53457,11 @@ candidates:
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: generated-draft
-    justification: generated; passed every automated check
-    flags: []
+    status: needs-review
+    justification: 'generated; quality flags to clear: deontic index member (G1-T question
+      4: re-index to the non-deontic act)'
+    flags:
+    - 'deontic index member (G1-T question 4: re-index to the non-deontic act)'
   sources:
   - inventory_id: INV-PCF74-10123
     source: APQC PCF 7.4
@@ -54387,27 +54420,28 @@ candidates:
   name: Procurement Capability
   key: acquisition|procurement
   definition:
-    text: A business capability of an organization to obtain procurement from suppliers or
-      other sources, grounded in the organization's members as organized, exercised as part
-      of supply chain management.
+    text: A business capability of an organization to carry out procurement, grounded in the
+      organization's members as organized, exercised as part of supply chain management.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to obtain procurement from suppliers or other sources
+    differentia: the ability to carry out procurement
   bearer:
     proposed: cco:ont00001180 Organization
     context: cross-industry organizations (PCF/BPO)
   distinctive_ability:
     family: acquisition
-    ability: obtain procurement from suppliers or other sources
+    ability: carry out procurement
     object: procurement
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: generated-draft
-    justification: generated; passed every automated check
-    flags: []
+    status: needs-review
+    justification: 'generated; quality flags to clear: circular differentia: the label names
+      only the ability; a reader writes it'
+    flags:
+    - 'circular differentia: the label names only the ability; a reader writes it'
   sources:
   - inventory_id: INV-BPO-ProcurementCapability-capability-class
     source: BPO
@@ -55623,26 +55657,28 @@ candidates:
   name: Production Capability
   key: production|production
   definition:
-    text: A business capability of an organization to produce production, grounded in the
+    text: A business capability of an organization to carry out production, grounded in the
       organization's members as organized, exercised as part of supply chain management.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to produce production
+    differentia: the ability to carry out production
   bearer:
     proposed: cco:ont00001180 Organization
     context: cross-industry organizations (PCF/BPO)
   distinctive_ability:
     family: production
-    ability: produce production
+    ability: carry out production
     object: production
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: generated-draft
-    justification: generated; passed every automated check
-    flags: []
+    status: needs-review
+    justification: 'generated; quality flags to clear: circular differentia: the label names
+      only the ability; a reader writes it'
+    flags:
+    - 'circular differentia: the label names only the ability; a reader writes it'
   sources:
   - inventory_id: INV-BPO-ProductionCapability-capability-class
     source: BPO
@@ -57491,18 +57527,17 @@ candidates:
   name: Protection Capability
   key: protection|protection
   definition:
-    text: A business capability of an organization to protect protection against harm, loss
-      or misuse, grounded in the organization's members as organized, exercised as part of
-      national defense.
+    text: A business capability of an organization to carry out protection, grounded in the
+      organization's members as organized, exercised as part of national defense.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to protect protection against harm, loss or misuse
+    differentia: the ability to carry out protection
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: protection
-    ability: protect protection against harm, loss or misuse
+    ability: carry out protection
     object: protection
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
@@ -57510,9 +57545,10 @@ candidates:
   bfo_cco_compatibility: possible
   review:
     status: needs-review
-    justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+    justification: 'generated; quality flags to clear: circular differentia: the label names
+      only the ability; a reader writes it; no BPO act type: realization index to be drawn'
     flags:
+    - 'circular differentia: the label names only the ability; a reader writes it'
     - 'no BPO act type: realization index to be drawn'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-282-brm-service
@@ -61908,9 +61944,11 @@ candidates:
   bfo_cco_compatibility: likely
   review:
     status: needs-review
-    justification: 'generated; quality flags to clear: development-act-genus (CAP-06: needs
-      a recorded reason)'
+    justification: 'generated; quality flags to clear: deontic index member (G1-T question
+      4: re-index to the non-deontic act); development-act-genus (CAP-06: needs a recorded
+      reason)'
     flags:
+    - 'deontic index member (G1-T question 4: re-index to the non-deontic act)'
     - 'development-act-genus (CAP-06: needs a recorded reason)'
   sources:
   - inventory_id: INV-PCF74-20094
@@ -63920,18 +63958,17 @@ candidates:
   name: Scheduling Capability
   key: scheduling|scheduling
   definition:
-    text: A business capability of an organization to schedule and sequence scheduling, grounded
-      in the organization's members as organized, exercised as part of information technology
-      management.
+    text: A business capability of an organization to carry out scheduling, grounded in the
+      organization's members as organized, exercised as part of information technology management.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to schedule and sequence scheduling
+    differentia: the ability to carry out scheduling
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: scheduling
-    ability: schedule and sequence scheduling
+    ability: carry out scheduling
     object: scheduling
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
@@ -63942,6 +63979,7 @@ candidates:
     justification: 'one source record and no realization or requirement evidence: kept, not
       yet supported'
     flags:
+    - 'circular differentia: the label names only the ability; a reader writes it'
     - 'no BPO act type: realization index to be drawn'
   sources:
   - inventory_id: INV-FIBF-ITS-2-ITS.340.020-fibf-activity
@@ -66712,17 +66750,17 @@ candidates:
   name: Services Delivery Capability
   key: service|service
   definition:
-    text: A business capability of an organization to provide services to those it serves,
-      grounded in the organization's members as organized.
+    text: A business capability of an organization to carry out services, grounded in the
+      organization's members as organized.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to provide services to those it serves
+    differentia: the ability to carry out services
   bearer:
     proposed: cco:ont00001180 Organization
     context: cross-industry organizations (PCF/BPO)
   distinctive_ability:
     family: service
-    ability: provide services to those it serves
+    ability: carry out services
     object: services
   classification: function
   classification_reason: 'a top-level area of a catalog (PCF category or BRM mission sector
@@ -66736,6 +66774,7 @@ candidates:
       function) or a coordination of several abilities: a standing function whose whole-function
       type is defined only where one is (CD16, conditional designation R9); E4 is open'
     flags:
+    - 'circular differentia: the label names only the ability; a reader writes it'
     - realization evidence only through narrower candidates
   sources:
   - inventory_id: INV-PCF74-20025
@@ -67125,18 +67164,17 @@ candidates:
   name: Solicitation Capability
   key: acquisition|solicitation
   definition:
-    text: A business capability of an organization to obtain solicitation from suppliers or
-      other sources, grounded in the organization's members as organized, exercised as part
-      of acquisition package preparation.
+    text: A business capability of an organization to carry out solicitation, grounded in
+      the organization's members as organized, exercised as part of acquisition package preparation.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to obtain solicitation from suppliers or other sources
+    differentia: the ability to carry out solicitation
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: acquisition
-    ability: obtain solicitation from suppliers or other sources
+    ability: carry out solicitation
     object: solicitation
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
@@ -67144,9 +67182,10 @@ candidates:
   bfo_cco_compatibility: possible
   review:
     status: needs-review
-    justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+    justification: 'generated; quality flags to clear: circular differentia: the label names
+      only the ability; a reader writes it; no BPO act type: realization index to be drawn'
     flags:
+    - 'circular differentia: the label names only the ability; a reader writes it'
     - 'no BPO act type: realization index to be drawn'
   sources:
   - inventory_id: INV-FIBF-CW-1-ACQ.030.050-fibf-activity
@@ -68727,17 +68766,17 @@ candidates:
   name: Storage Capability
   key: maintenance|storage
   definition:
-    text: A business capability of an organization to keep storage in a working, current and
-      serviceable state, grounded in the organization's members as organized.
+    text: A business capability of an organization to carry out storage, grounded in the organization's
+      members as organized.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to keep storage in a working, current and serviceable state
+    differentia: the ability to carry out storage
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: maintenance
-    ability: keep storage in a working, current and serviceable state
+    ability: carry out storage
     object: storage
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
@@ -68748,6 +68787,7 @@ candidates:
     justification: 'one source record and no realization or requirement evidence: kept, not
       yet supported'
     flags:
+    - 'circular differentia: the label names only the ability; a reader writes it'
     - 'no BPO act type: realization index to be drawn'
   sources:
   - inventory_id: INV-FIBF-ITS-2-ITS.130-fibf-function
@@ -70103,9 +70143,11 @@ candidates:
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: generated-draft
-    justification: generated; passed every automated check
-    flags: []
+    status: needs-review
+    justification: 'generated; quality flags to clear: deontic index member (G1-T question
+      4: re-index to the non-deontic act)'
+    flags:
+    - 'deontic index member (G1-T question 4: re-index to the non-deontic act)'
   sources:
   - inventory_id: INV-PCF74-10278
     source: APQC PCF 7.4
@@ -75696,9 +75738,11 @@ candidates:
   bfo_cco_compatibility: likely
   review:
     status: needs-review
-    justification: 'generated; quality flags to clear: development-act-genus (CAP-06: needs
-      a recorded reason)'
+    justification: 'generated; quality flags to clear: deontic index member (G1-T question
+      4: re-index to the non-deontic act); development-act-genus (CAP-06: needs a recorded
+      reason)'
     flags:
+    - 'deontic index member (G1-T question 4: re-index to the non-deontic act)'
     - 'development-act-genus (CAP-06: needs a recorded reason)'
   sources:
   - inventory_id: INV-PCF74-12669

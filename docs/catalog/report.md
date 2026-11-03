@@ -60,8 +60,8 @@ Derived in part from the APQC Process Classification Framework® 7.4 (APQC's not
 | Review status | Candidates |
 | --- | --- |
 | deferred | 135 |
-| generated-draft | 386 |
-| needs-review | 412 |
+| generated-draft | 371 |
+| needs-review | 427 |
 | rejected | 113 |
 
 ## Rejected or deferred, by reason
@@ -108,6 +108,8 @@ Flags raised on candidates (a candidate may carry several):
 | generic object: named with its broader candidate | 46 |
 | act type typed under a capability class (Q-12) | 42 |
 | development-act-genus (CAP-06: needs a recorded reason) | 41 |
+| circular differentia: the label names only the ability; a reader writes it | 25 |
+| deontic index member (G1-T question 4: re-index to the non-deontic act) | 10 |
 | BPO index member is not an act (Q-12) | 5 |
 
 Exceptions found by the consistency checks (13):

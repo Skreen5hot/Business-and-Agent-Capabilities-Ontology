@@ -105,6 +105,8 @@ read: the generator sees only the committed inventory, where it is already withh
 | `act type typed under a capability class (Q-12)` | BPO types the act under Organization Capability or a capability class |
 | `BPO index member is not an act (Q-12)` | a BPO `enablesProcess` target is a capability or catalog node |
 | `generic object: named with its broader candidate` | the object ("results", "risk") picks out nothing without its context |
+| `circular differentia: …` | the object is only ability words, one of them the candidate's own family ("Procurement": "obtain procurement"). The differentia is reduced to "carry out procurement", and a reader writes the real one |
+| `deontic index member (G1-T question 4: …)` | an act in the evidence approves, authorizes, certifies or licenses: it confers standing, and must be re-indexed to the non-deontic act or removed |
 
 ## A candidate record
 

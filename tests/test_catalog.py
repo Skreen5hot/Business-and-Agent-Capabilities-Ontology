@@ -120,6 +120,36 @@ def test_sentences_stop_at_a_clause(tool):
     assert f.object == "synthetic widgets"
 
 
+def test_a_label_naming_only_its_ability_is_circular(tool):
+    # "Synthetic procurement" would read "obtain ... procurement": the
+    # object is the ability itself (found by the product owner on
+    # BCC-cc2de1a5, 2026-11-03).
+    assert tool.circular("procurement", "acquisition")
+    assert tool.circular("certification and accreditation", "verification")
+    assert not tool.circular("synthetic widgets", "acquisition")
+    assert not tool.circular("payments", "governance")   # approving payments
+
+
+def test_no_unflagged_candidate_has_a_circular_differentia(committed):
+    cat, _ = committed
+    for x in cat["candidates"]:
+        if x["review"]["status"] == "generated-draft":
+            assert not any("circular" in f for f in x["review"]["flags"])
+    procurement = next(x for x in cat["candidates"] if x["id"] == "BCC-cc2de1a5")
+    assert procurement["review"]["status"] == "needs-review"
+    assert "obtain procurement" not in procurement["definition"]["text"]
+
+
+def test_an_approval_in_the_evidence_is_flagged_deontic(committed):
+    cat, _ = committed
+    by = {x["id"]: x for x in cat["candidates"]}
+    # Payments Approval: both its acts approve or authorize (G1-T q4).
+    assert any("deontic" in f for f in by["BCC-9ecf360b"]["review"]["flags"])
+    assert by["BCC-9ecf360b"]["review"]["status"] == "needs-review"
+    # Positive control: complaint handling has no approval act.
+    assert not any("deontic" in f for f in by["BCC-373b146e"]["review"]["flags"])
+
+
 def test_fibf_codes_are_padded_for_matching(tool):
     assert tool.norm_code("TRT.010.70") == tool.norm_code("TRT.010.070")
 

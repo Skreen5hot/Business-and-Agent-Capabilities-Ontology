@@ -474,6 +474,11 @@ FAMILY_GENERA = {
 }
 
 
+#: Verbs whose act confers or exercises standing (CM-01: Authorization Record).
+DEONTIC_VERBS = {"approve", "authorize", "certify", "accredit", "license", "grant",
+                 "sign", "endorse", "ratify", "sanction", "delegate"}
+DEONTIC = "deontic index member (G1-T question 4: re-index to the non-deontic act)"
+
 #: Families whose acts span every genus (managing a thing includes planning,
 #: appraising and monitoring it) and genera too general to agree or disagree
 #: with anything: both are left out of the agreement count.
@@ -1183,6 +1188,11 @@ def realization(s: dict, key: str, c: dict) -> None:
         gs = row["genus"] or []
         if any(g in DEVELOPMENT_GENERA for g in gs):
             flags.add("development-act-genus (CAP-06: needs a recorded reason)")
+        # An approval or authorization grants standing: G1-T question 4 asks
+        # that every index member be describable without it.
+        f = by_id[row["via"]].get("frame") if row["via"] in by_id else None
+        if f and f.verbs and f.verbs[0] in DEONTIC_VERBS:
+            flags.add(DEONTIC)
         if any(genera.get(g, {}).get("kind") in ("bpo-capability-class",
                                                  "cco-capability-class") for g in gs):
             flags.add("act type typed under a capability class (Q-12)")
@@ -1250,6 +1260,23 @@ def title(words: str) -> str:
     return " ".join(out)
 
 
+CIRCULAR = "circular differentia: the label names only the ability; a reader writes it"
+
+
+def circular(obj: str, family: str) -> bool:
+    """Whether the object is only ability nominals, one of them the family's own.
+
+    "Procurement" read through its family gives "obtain procurement": the
+    differentia restates the name and says nothing. Such a candidate gets
+    the neutral "carry out procurement" and a flag that keeps it from
+    passing as a generated draft.
+    """
+    words = [singular(w) for w in obj.lower().replace(",", " ").split()
+             if w not in ("and", "or")]
+    return bool(words) and all(w in N for w in words) and any(
+        N[w] == family for w in words)
+
+
 def display_object(c: dict, by_id: dict) -> tuple[str, str | None]:
     """The object and nominal(s) of the best designating record."""
     def rank(rid):
@@ -1296,13 +1323,17 @@ def describe(s: dict) -> list[dict]:
             fam = key.split("|", 1)[0]
             names[key] = "%s (%s)" % (names[key], fam)
     for c in cands.values():
+        if circular(c["display_object"], c["key"].split("|", 1)[0]):
+            c["flags"].add(CIRCULAR)
         status(c)
     out = []
     for key in sorted(cands, key=lambda k: (names[k].lower(), k)):
         c = cands[key]
         fam, objkey = key.split("|", 1)
         broader = sorted(c["broader"], key=lambda k: names[k].lower())
-        ability = FAMILY.get(fam, "carry out {o}").format(o=c["display_object"])
+        template = "carry out {o}" if CIRCULAR in c["flags"] else FAMILY.get(
+            fam, "carry out {o}")
+        ability = template.format(o=c["display_object"])
         gl = sorted({genera[g]["label"] for row in c["realization"]
                      for g in (row["genus"] or []) if g in genera
                      and genera[g]["kind"] in ("bpo-act-genus", "cco-class")})
