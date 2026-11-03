@@ -573,6 +573,16 @@ components:
       every field of a candidate, the classification rules, how to
       regenerate and check it, and its limits.
 
+  - id: catalog.tranche-1
+    path: docs/catalog/tranche-1.md
+    role: documentation
+    description: >-
+      Phase I-5, tranche 1: the readiness record (roadmap section 7) for the
+      three candidates the product owner put forward on 2026-11-03, with
+      checked definitions, disposition interpretation, proposed realization
+      indexes, drafted G1-T evidence and the decisions asked of the
+      architect. A recommendation; it approves and admits nothing.
+
   - id: catalog.bpo-act-types
     path: docs/catalog/bpo-act-types.yaml
     role: generated-artifact
