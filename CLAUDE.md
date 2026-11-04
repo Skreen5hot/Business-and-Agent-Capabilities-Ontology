@@ -7,12 +7,13 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
 ## What is true right now
 
 - The design is `specifications/Business-Capability-Ontology-v0.5.0-draft.3.md`, accepted for
-  ratification on 2026-11-04 (D3's exit). **RP-1 and RP-10 are ratified** (CD1 to CD3, §8's
-  G1-T and G1-I; `docs/decisions/2026-11-04-d4-rp1-rp10-ratified-option-b.md`); that record is also the architectural
+  ratification on 2026-11-04 (D3's exit). **RP-1, RP-2 and RP-10 are ratified** (CD1 to CD5,
+  §8's G1-T and G1-I; `docs/decisions/2026-11-04-d4-rp1-rp10-ratified-option-b.md`,
+  `docs/decisions/2026-11-04-rp2-ratified.md`); that record is also the architectural
   admission of the parent `bco:BusinessCapability`, which is not minted. Everything else in
-  it, RP-2 to RP-9 included, is a draft until ratified. Do not implement an unratified CD or
-  CAP item as if it were decided. No G1-T record may be a PASS until RP-2 is ratified
-  (Option B), and OWL waits for all of CP-0 and D5. v0.4.0-draft.1 is kept as the prior
+  it, RP-3 to RP-9 included, is a draft until ratified. Do not implement an unratified CD or
+  CAP item as if it were decided. Under Option B, G1-T review may now record PASS or
+  FAIL, signed by the named reviewer; OWL waits for all of CP-0 and D5. v0.4.0-draft.1 is kept as the prior
   version.
 - The repository follows six stages, `src/01_controlled_vocabulary/` to
   `src/06_knowledge_graph/` (`docs/decisions/2026-10-25-stage-02-choices.md`); each stage

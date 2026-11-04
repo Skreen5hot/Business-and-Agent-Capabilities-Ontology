@@ -2,7 +2,7 @@
 
 | Field | Value |
 |---|---|
-| Status | **Proposed**, for the architect's decision. RP-2 is not ratified, and no G1-T record may be a PASS until it is |
+| Status | **Decided 2026-11-04**: RP-2 ratified on this check's recommended terms, CD5 included (`docs/decisions/2026-11-04-rp2-ratified.md`). The text decided on is this check at `2b2135f`; this status line is the only change since |
 | Date | 2026-11-04 |
 | Prepared by | Claude Code (`claude-opus-5-5`), for the BCO team |
 | Authorized by | The D4 decision of 2026-11-04, act 8 (`docs/decisions/2026-11-04-d4-rp1-rp10-ratified-option-b.md`) |
