@@ -1,13 +1,13 @@
-# Tranche 1 — readiness record (Phase I-5), revision 2
+# Tranche 1 — readiness record (Phase I-5), revision 3
 
 | Field | Value |
 | --- | --- |
-| Status | **Approved for evaluation, with conditions** (`docs/decisions/2026-11-04-i5-tranche-1-approved-for-evaluation.md`). Not admitted. Ready for evaluation is not approved for ontology inclusion |
-| Candidates | T1-01 BCC-373b146e and T1-02 BCC-d95f68fd: proceed. T1-03 BCC-62e789bf: held for remediation, remediated below, awaiting the architect's re-review |
+| Status | **Approved for evaluation**: all three candidates (`docs/decisions/2026-11-04-i5-tranche-1-approved-for-evaluation.md`; `docs/decisions/2026-11-04-i5-proceed-payroll-synonym-ap-hold-lifted.md`). Not admitted: each waits for the ratified admission test (D4). Ready for evaluation is not approved for ontology inclusion |
+| Candidates | T1-01 BCC-373b146e, T1-02 BCC-d95f68fd (canonical; BRM Payroll BCC-b7c46718 retired into it as a designation), T1-03 BCC-62e789bf (hold lifted on the seven-act index) |
 | Catalog reviewed | `docs/catalog/candidates.yaml` at `9854052` (SHA-256 `4242de571a4b14309634bbab7c9513ae625d9214b82dcdf6c15e1fda3c6297d9`) |
 | Specification | v0.4.0-draft.1 (in force for the tooling). G1-T is §8; it is not ratified (D4), so no record below can be a PASS |
 | Conceptual model | CM-01, approved 2026-10-26 (SHA-256 `292c8f36…1ccc`) |
-| Revisions | 1, `f320a67`, proposed (`docs/decisions/2026-11-03-i5-first-tranche-directed.md`). 2, this one: applies the architect's decision of 2026-11-04 |
+| Revisions | 1, proposed: `f320a67`, rebased as `1948237` (`docs/decisions/2026-11-03-i5-first-tranche-directed.md`). 2, the first decision of 2026-11-04 applied: `b7930e7`, rebased as `35c85ea`. 3, this one: the second decision of 2026-11-04 applied |
 | Recorded by | Claude Code (`claude-opus-5-5`), 2026-11-03 and 2026-11-04 |
 
 The sections follow roadmap §7's eight conditions. The readiness review keeps four things
@@ -24,8 +24,8 @@ APQC's notice in `NOTICE.md`). APQC does not endorse this work.
 | Candidate | State after revision 2 | What remains before admission |
 | --- | --- | --- |
 | **T1-01** Customer Complaint Management | Index of 4, every member justified. The analysis act is excluded | G1-T ratification |
-| **T1-02** Payroll Processing | Index of 11, drawn act by act from two of the three components; every policy-setting and summary act excluded | The architect's confirmation that BRM "Payroll" is equivalent (§8), then G1-T ratification |
-| **T1-03** Accounts Payable Processing | Index rebuilt: 7 members. Both removed acts are out, and three more are excluded | The architect's re-review of the rebuilt index (the hold is theirs to lift), then G1-T ratification |
+| **T1-02** Payroll Processing | Index of 11, drawn act by act from two of the three components; every policy-setting and summary act excluded. BRM "Payroll" confirmed as a designation of it (§8) | G1-T ratification |
+| **T1-03** Accounts Payable Processing | Index rebuilt: 7 members, accepted for evaluation. Both removed acts are out, and three more are excluded | G1-T ratification |
 
 **Payments Approval (BCC-9ecf360b) is rejected as an ability candidate** (decision act 5).
 Its source evidence stays where it is, for possible standing-related modeling (CM-01,
@@ -33,6 +33,11 @@ Authorization Record): PCF 9.6.1.4 "Approve payments" (INV-PCF74-10872, `bpo:P10
 PCF 6.3.2.8 "Authorize payment" (INV-PCF74-20104, `bpo:P20104`). The generated catalog
 still shows it as `needs-review` with the deontic flag; the catalog is the generator's
 output and is not hand-edited, and this record is where the disposition lives.
+
+**BRM Payroll (BCC-b7c46718) is retired as a separate active candidate** (second decision of
+2026-11-04, act 2): it and T1-02 designate one candidate capability, and BCC-d95f68fd is
+canonical. Both BRM source records keep their provenance (§4, §8). The generated catalog
+still lists BCC-b7c46718, for the same reason it still lists Payments Approval.
 
 Not in the tranche: **Procurement Capability (BCC-cc2de1a5)**, excluded until its
 differentia is corrected (`9854052` flags it and 24 others).
@@ -159,6 +164,11 @@ judged on its own; realizing a component is not taken as realizing T1-02.
 The genera are BPO's, read from `bpo-act-types.yaml`, where BPO types several of these
 acts directly under CCO genera (Act of Information Processing, `cco:ont00000366`).
 
+**Payroll tax operations are distinct from tax planning and general business tax
+preparation** (second decision of 2026-11-04, act 3). The index holds the operations: `P10866`,
+`P10867`, `P10868`. Planning (`P14075`) is out above, and T1-03's `P10874`, the
+enterprise's tax returns, is out of both indexes.
+
 PCF 9.5.3.2 "Manage tax plan" (INV-PCF74-14076) has no BPO act type at the pin, so the
 catalog cites none for it. It would be out in any case, with `P14075`: managing a plan to
 reduce liability is formulation.
@@ -213,7 +223,7 @@ Questions as specification v0.4 §8 states them, with question 2 as DP-1 settled
 | 3 Organizational, not individual | Yes: intake, routing and resolution cross positions | Yes: earnings, deductions, payment and tax reporting cross HR and finance | Yes: matching, exception resolution and payment cross purchasing and finance |
 | 4 Every index member non-deontic | Yes. Granting redress is not indexed | Yes. Tax filing is reporting, not standing | Yes, as rebuilt. `P10872` is out |
 | 5 Exercise, not development | Yes, with `P19072` out | Yes, with `P10853` and `P14075` out | Yes |
-| Draft outcome | Pass expected | Pass expected, given the synonym confirmation | Pass expected, once the architect lifts the hold |
+| Draft outcome | Pass expected | Pass expected | Pass expected |
 
 Drafts by the recorder, for a reviewer. CAP-04 requires a PASS record with reviewer and
 date, and none is given here.
@@ -225,7 +235,7 @@ date, and none is given here.
 | CM-01 | P1 (capability and bearer), P2 (realization by BPO acts), Realization Index, Enabling Condition | as T1-01, plus P5 (catalog designation from two nodes) and Capability Sourcing Statement (outsourced payroll) | as T1-01, plus Authorization Record (the approval act, outside the index) |
 | Competency questions | CQ-2 (index), CQ-10 (not yet admitted), CQ-11 (the excluded development act) | CQ-2, CQ-7 (payroll is commonly sourced), CQ-10, CQ-11 | CQ-2, CQ-5 (approval needs an Authorization Record, not an index member), CQ-10 |
 | Specification (draft) | CD3, CD4, CD5; CAP-03, CAP-04, CAP-06, CAP-07 | the same, plus CD16 (components) | the same |
-| Decision of 2026-11-04 | act 2 | act 3 | acts 4 and 5 |
+| Decisions of 2026-11-04 | first, act 2 | first, act 3; second, acts 2 to 4 | first, acts 4 and 5; second, act 5 |
 
 Every index member traces to its PCF record (column "Via") and, for T1-02, to its
 originating component. The ratified specification does not exist yet (RP-1 to RP-10,
@@ -235,15 +245,14 @@ ADR-002): this traceability is to the drafts and must be re-checked at ratificat
 
 | Item | State |
 | --- | --- |
-| BRM "Payroll" (BCC-b7c46718, key `provision\|payroll`) and T1-02 (`administration\|payroll`) | **Proposed synonym; not retired.** For equivalence: BRM defines Payroll as the capabilities "to involve the administration of employees compensation" (SCD 624, TAX B10.805.624), which is what T1-02's index realizes. BRM draws the same boundaries this record draws: Time Reporting (613) and Employee Benefits and Compensation (254, designing compensation programs) are sibling services, outside Payroll. Against: BRM's definition is one clause, and does not say whether remitting and reporting payroll taxes is inside it. **The architect is asked to confirm equivalence** before BCC-b7c46718 is retired (decision act 3) |
+| BRM "Payroll" (BCC-b7c46718, key `provision\|payroll`) and T1-02 (`administration\|payroll`) | **Confirmed: one candidate capability, two designations** (second decision of 2026-11-04, act 2). BCC-d95f68fd is canonical; BCC-b7c46718 is retired as a separate active candidate. BRM "Payroll" (SCD 624, TAX B10.805.624) is recorded as an alternative designation of T1-02, not a new type, with both source records and their provenance kept. BRM's sibling services Time Reporting (613) and Employee Benefits and Compensation (254) stay outside it. No `owl:equivalentClass` is asserted and no object property is proposed |
 | BPO's class `CustomerComplaintManagementCapability` | the source term for T1-01. BPO's class is not reused or redeclared: BCO would mint its own term at admission, and BPO's class is a designation of it |
 | "Process" in two of the names | the names name the ability, not the process. A reviewer may prefer "payroll capability" and "accounts payable capability" |
 | Homonym register (roadmap T4) | none of the three is a homonym of an ISO/IEC 33020, CMMI or FIBF use |
 
 ## What remains
 
-1. **T1-03:** the architect's re-review of the rebuilt index, to lift the hold.
-2. **T1-02:** the architect's confirmation, or not, that BRM "Payroll" is equivalent.
-   If not, BCC-b7c46718 stays a separate candidate with an overlap, and T1-02 is unchanged.
-3. **All three:** G1-T ratification (D4). Until then no record above is a PASS, and
-   nothing is asserted in OWL (roadmap §7, T7).
+1. **All three:** G1-T ratification (D4, roadmap: CP-0). Until then no record above is a
+   PASS, and nothing is asserted in OWL (roadmap §7, T7).
+2. Nothing else is open in this record. The tranche is not to be expanded (second decision of
+   2026-11-04, act 7).
