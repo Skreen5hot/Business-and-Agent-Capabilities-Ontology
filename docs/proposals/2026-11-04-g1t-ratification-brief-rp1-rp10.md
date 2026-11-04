@@ -2,7 +2,7 @@
 
 | Field | Value |
 |---|---|
-| Status | **Proposed**, for the architect's decision. Nothing here is ratified, accepted or admitted |
+| Status | **Decided 2026-11-04** (`docs/decisions/2026-11-04-d4-rp1-rp10-ratified-option-b.md`): P1 to P3 accepted, RP-1 and RP-10 ratified, sequencing Option B, Aaron Damiano named G1-T reviewer for tranche 1. The text decided on is this brief at `7bd032d`; this status line is the only change since |
 | Date | 2026-11-04 |
 | Prepared by | Claude Code (`claude-opus-5-5`), for the BCO team |
 | Arises from | The architect's I-5 decision of 2026-11-04: "Priority: D4 — ratify G1-T" (`docs/decisions/2026-11-04-i5-proceed-payroll-synonym-ap-hold-lifted.md`, on PR #36) |

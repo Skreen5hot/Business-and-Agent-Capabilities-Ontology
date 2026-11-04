@@ -74,7 +74,11 @@ evidence the checks work.
 
 v0.4.0-draft.1 (2026-10-22). Its own order for what comes next (§9, §10): ratify **RP-1**
 first, because it decides what every G1-T record argues; then RP-2 and RP-3; then the rest;
-then ADR-002. CP-0 is "RP-1 to RP-10 ratified; ADR-002 accepted". Nothing has been ratified.
+then ADR-002. CP-0 is "RP-1 to RP-10 ratified; ADR-002 accepted". *Update 2026-11-04:* v0.5.0-draft.3
+was accepted for ratification, with the R5 and R10 dispositions, and RP-1 and RP-10 were
+ratified (`docs/decisions/2026-11-04-d4-rp1-rp10-ratified-option-b.md`). RP-2's faithfulness check is
+`docs/proposals/2026-11-04-rp2-faithfulness-check.md`. Under Option B, G1-T review of the
+first tranche may begin once RP-2 is ratified; OWL waits for all of CP-0 and D5.
 
 R5 records further blockers: material basis policy, maturity-value encoding, instance
 evidence, and migration of BPO existential restrictions. R6 (section 5.13) adds wording
