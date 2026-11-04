@@ -583,6 +583,16 @@ components:
       indexes, drafted G1-T evidence and the decisions asked of the
       architect. A recommendation; it approves and admits nothing.
 
+  - id: catalog.admission
+    path: docs/catalog/admission
+    role: documentation
+    description: >-
+      G1-T type admission records for tranche 1 (specification v0.5 section 8,
+      CAP-04), one per candidate class, drafted for the named reviewer under
+      Option B (decisions of 2026-11-04). A record is a PASS or FAIL only when
+      the reviewer completes its confirmation; a draft is not a signature.
+      Nothing here asserts OWL.
+
   - id: catalog.bpo-act-types
     path: docs/catalog/bpo-act-types.yaml
     role: generated-artifact
