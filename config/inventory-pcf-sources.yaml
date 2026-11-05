@@ -169,5 +169,17 @@ pcf_bearing:
       PCF element IDs, as `pcf_code` on BPO's capability classes and their
       catalog bridges (Phase I-1), and, since E7, the labels and definitions
       Phase I-1 had withheld as tied to the PCF
+  - path: docs/catalog/bpo-act-types.yaml
+    carries: >-
+      PCF element IDs, as `pcf_element_id` on each BPO act type (Phase I-4)
+  - path: docs/catalog/candidates.yaml
+    carries: >-
+      PCF element IDs, hierarchy codes and element names on the candidates'
+      source records, and candidate names and definitions derived from them
+      (Phase I-4)
+  - path: docs/catalog/crosswalk.yaml
+    carries: >-
+      PCF element IDs and hierarchy codes on every PCF record, and the
+      object phrases read from PCF element names (Phase I-4)
 
 exceptions: []

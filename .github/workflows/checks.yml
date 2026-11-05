@@ -133,6 +133,12 @@ jobs:
       - name: The PCF entries keep their pins, their notice and their form
         run: python tools/inventory/harvest_pcf.py
 
+      # Offline: Phase I-4, the Candidate Capability Catalog -- regenerated
+      # from the committed inventories and act types, byte for byte, with
+      # its consistency checks and the admission guard.
+      - name: The candidate catalog is the generator's output and passes its checks
+        run: python tools/catalog/synthesize.py
+
       # The decision of 2026-10-29, section 4: every tracked file that
       # carries PCF material carries APQC's notice (or has a recorded
       # exception), and NOTICE.md lists exactly those files.
