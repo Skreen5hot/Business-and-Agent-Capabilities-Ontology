@@ -73,11 +73,11 @@ Approving the Business Capability module authorizes no Agent Capability ontology
 Stage 05 work on the Business Capability module is not blocked because CM-02 is
 unfinished.
 
-## 3. Where things stand (2026-10-30)
+## 3. Where things stand (2026-11-05)
 
 | Stage or item | State |
 |---|---|
-| Specification | v0.4.0-draft.1; predates CM-01; nothing ratified; CP-0 not met |
+| Specification | v0.5.0-draft.3, accepted for ratification 2026-11-04 (D3's exit). RP-1, RP-2 (with CD5) and RP-10 ratified; RP-3, RP-4 and RP-6 to RP-9 draft; RP-5 open; ADR-002 not written; SE-1 and SE-2 open. CP-0 not met: `docs/proposals/2026-11-05-cp0-closure-matrix.md` |
 | Stage 01, controlled vocabulary | 14 concepts (9 metamodel, 5 catalog), all Draft; no Stage 01 standard (ADR-003 stands in) |
 | Stage 02, conceptual models | CM-01 approved 2026-10-26 (stakeholder-review erratum of 2026-10-30); CM-02's scope approved 2026-10-31 (D2, `docs/decisions/2026-10-31-d2-cm02-scope-approved.md`), the model not started |
 | Capability Term Inventory (Stage 01 source evidence) | I-1, I-2a, I-2b, I-2c and E7 done; closure set complete; E4 method decided, nothing judged; I-3 to I-5 not authorized |
