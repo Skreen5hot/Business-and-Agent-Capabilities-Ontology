@@ -61,8 +61,13 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
 - **Line endings are LF** (`.gitattributes`). Digests in this repository are over LF bytes.
   On Windows, write files as bytes (`write_bytes`), not `write_text`, which writes CRLF.
 - **Communications with other teams** go in `communications/<team>/{incoming,outgoing}/`
-  under the protocol in `communications/README.md`. A committed message is never edited;
-  a correction is a new message replying to it. Sending one is the architect's call.
+  under the communications protocol 1.1 (`Skreen5hot/communications`, `PROTOCOL.md`),
+  which `communications/README.md` pins with this record's local rules. A committed message
+  is never edited, moved with changed bytes, or deleted; a correction is a new message
+  replying to it. Messages are announced on that repository's Discussions board. Sending a
+  message, posting an alert or commenting there is the architect's call. At session start,
+  check the board's Alerts for messages to `BCO` (`tools/inbox.py --code BCO` there) and
+  report any to the architect.
 
 ## Before committing
 

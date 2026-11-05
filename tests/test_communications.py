@@ -230,3 +230,46 @@ def test_a_committed_message_that_is_edited_is_refused(comms, tree):
                    check=True, capture_output=True)
     findings = comms.check(tree)["findings"]
     assert any("never edited" in f for f in findings), findings
+
+
+def commit(tree, *args):
+    for command in (args, ["commit", "-q", "-m", "change"]):
+        subprocess.run(["git", *command], cwd=str(tree), check=True,
+                       capture_output=True)
+
+
+def test_a_move_that_keeps_the_bytes_passes(comms, tree):
+    """Rule 1 since protocol 1.1: a message may move, bytes unchanged."""
+    old = tree / "communications/bpo/outgoing" / FILENAME
+    old.rename(tree / "communications/bpo/outgoing/2026-10-23-moved.md")
+    commit(tree, "add", "-A")
+    findings = comms.check(tree)["findings"]
+    assert not any("never edited" in f or "deleted" in f
+                   for f in findings), findings
+
+
+def test_a_move_that_edits_the_message_is_refused(comms, tree):
+    """Before 1.1 a rename gave the message a fresh history, so this
+    passed. Following renames, the edit is seen wherever the file now is."""
+    old = tree / "communications/bpo/outgoing" / FILENAME
+    new = tree / "communications/bpo/outgoing/2026-10-23-moved.md"
+    new.write_bytes(old.read_bytes().replace(b"Body.", b"Body, revised."))
+    old.unlink()
+    commit(tree, "add", "-A")
+    findings = comms.check(tree)["findings"]
+    assert any("never edited" in f for f in findings), findings
+
+
+def test_a_deleted_message_is_refused(comms, tree):
+    commit(tree, "rm", "-q", "communications/bpo/outgoing/" + FILENAME)
+    findings = comms.check(tree)["findings"]
+    assert any("never deleted" in f for f in findings), findings
+
+
+def test_a_file_that_was_never_a_message_may_be_removed(comms, tree):
+    stray = tree / "communications/bpo/outgoing/2026-10-23-notes.md"
+    stray.write_bytes(b"Notes, no header.\n")
+    commit(tree, "add", "-A")
+    commit(tree, "rm", "-q", "communications/bpo/outgoing/2026-10-23-notes.md")
+    findings = comms.check(tree)["findings"]
+    assert not any("deleted" in f for f in findings), findings

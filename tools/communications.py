@@ -4,13 +4,14 @@
     python tools/communications.py          # findings, then open threads
     python tools/communications.py --json   # the same, as one JSON object
 
-The protocol is communications/README.md. This is the part of it a tool
+The protocol is PROTOCOL.md in Skreen5hot/communications, at the version
+and digest communications/README.md names. This is the part of it a tool
 can hold: the header has every field and each is well formed; the id,
 date, team and direction agree with where the file sits; a reply names a
 message that exists and is not later than itself; every ref names a
 commit and a digest, and a ref into this repository still matches; an
 incoming copy's body is the original's bytes; and no committed message
-has been edited since.
+has been edited or deleted since, following renames.
 
 Status is derived here, never stored: a request or finding is open until
 some later message answers it. A status field would be one more thing to
@@ -209,9 +210,40 @@ def check_local_ref(root: Path, ref: dict) -> list[str]:
     return []
 
 
-def edits(root: Path, relative: str) -> int:
-    code, out = git(root, "log", "--format=%H", "--", relative)
-    return len(out.split()) if code == 0 else 0
+def states(root: Path, relative: str) -> int:
+    """How many different byte states a message has had, following
+    renames (protocol 1.1, Rule 1). A move that keeps the bytes adds no
+    state; a move that also edits them does. Counting commits by path, as
+    before 1.1, gave a renamed message a fresh history."""
+    code, out = git(root, "log", "--follow", "--format=", "--raw",
+                    "--no-abbrev", "--", relative)
+    if code:
+        return 0
+    blobs = {line.split()[3] for line in out.decode().splitlines()
+             if line.startswith(":")}
+    return len(blobs - {"0" * 40})
+
+
+def deleted(root: Path) -> list[str]:
+    """Messages that history holds and the record no longer does. A move
+    within the record is a rename, not a deletion; a file that never had a
+    header was never a message, and may be removed (Rule 1)."""
+    code, out = git(root, "log", "-M", "--diff-filter=D", "--name-only",
+                    "--format=%x00%H", "--", ROOT_DIR)
+    if code:
+        return []
+    gone = []
+    for chunk in out.decode().split("\x00")[1:]:
+        commit, *paths = [line.strip() for line in chunk.splitlines()]
+        for relative in filter(None, paths):
+            parts = relative.split("/")
+            if (len(parts) != 4 or parts[2] not in DIRECTIONS
+                    or (root / relative).exists() or relative in gone):
+                continue
+            code, data = git(root, "show", "%s^:%s" % (commit, relative))
+            if code == 0 and split(data)[2] is None:
+                gone.append(relative)
+    return gone
 
 
 def collect(root: Path) -> tuple[list[dict], list[str]]:
@@ -279,11 +311,15 @@ def check(root: Path | None = None) -> dict:
                     and not check_ref(ref):
                 problems.extend("%s: %s" % (path, p)
                                 for p in check_local_ref(root, ref))
-        if edits(root, path) > 1:
+        count = states(root, path)
+        if count > 1:
             problems.append(
-                "%s: changed by %d commits. A committed message is never "
-                "edited; send a correction that replies to it."
-                % (path, edits(root, path)))
+                "%s: has had %d different contents. A committed message is "
+                "never edited; send a correction that replies to it."
+                % (path, count))
+    problems.extend("%s: deleted. A committed message is never deleted; "
+                    "send a correction that replies to it." % path
+                    for path in deleted(root))
 
     closed = {m["header"].get("in_reply_to") for m in messages
               if m["header"].get("type") in CLOSING}
