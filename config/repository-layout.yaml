@@ -591,6 +591,8 @@ components:
       CAP-04), one per candidate class, drafted for the named reviewer under
       Option B (decisions of 2026-11-04). A record is a PASS or FAIL only when
       the reviewer completes its confirmation; a draft is not a signature.
+      G1T-T1-review-2026-11-05.md is an independent AI-authored review of the
+      three drafts, filed verbatim as received; it is not a signature.
       Nothing here asserts OWL.
 
   - id: catalog.bpo-act-types

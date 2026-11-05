@@ -8,8 +8,9 @@
 | Review date | — (set by the reviewer) |
 | Candidate | BCC-62e789bf, catalog key `administration\|account payable`; tranche id T1-03. Hold lifted on its seven-act index, 2026-11-04 |
 | Test | G1-T, specification v0.5.0-draft.3 §8 (`c3f1ba2`, SHA-256 `2224f869…c574`), ratified under RP-1, RP-2 (with CD5) and RP-10 on 2026-11-04 (`docs/decisions/2026-11-04-d4-rp1-rp10-ratified-option-b.md`, `docs/decisions/2026-11-04-rp2-ratified.md`) |
-| Evidence | `docs/catalog/tranche-1.md` revision 3 (SHA-256 `155cf9e9…a10c`); `docs/catalog/candidates.yaml` (SHA-256 `4242de57…97d9`); BPO act types at the I-1 pin `bc64e91` |
-| Drafted by | Claude Code (`claude-opus-5-5`), 2026-11-04 |
+| Evidence | `docs/catalog/tranche-1.md` revision 4 (SHA-256 `dfafb555…c045`); `docs/catalog/candidates.yaml` (SHA-256 `4242de57…97d9`); BPO act types at the I-1 pin `bc64e91` |
+| Drafted by | Claude Code (`claude-opus-5-5`), 2026-11-04; review clarifications applied 2026-11-05 |
+| Review | Independent review of 2026-11-05 (My Ontologist 2.0, an AI system), `docs/catalog/admission/G1T-T1-review-2026-11-05.md` (SHA-256 `8373b4e7…a84e`): finding PASS, with the clarifications it requires applied below. AI-authored: not the reviewer's signature, which the confirmation table records |
 
 A PASS licenses asserting this class under `obo:BFO_0000016` (disposition), and so under
 `bco:BusinessCapability`, for this class only (CAP-04). It licenses no organization's claim
@@ -22,8 +23,10 @@ IDs, under APQC's notice in `NOTICE.md`). APQC does not endorse this work.
 
 **Definition** (tranche-1 §2, checked against CAP-07: no deontic terms). A business
 capability of an organization to verify the amounts it owes its suppliers against what was
-ordered and invoiced, resolve the exceptions, settle them by payment, account for them,
-and answer inquiries about them, grounded in the organization's members as organized.
+invoiced and, where a purchase order applies, what was ordered, resolve the exceptions,
+settle them by payment, account for them, and answer inquiries about them, grounded in the
+organization's members as organized. (Revision 4 qualifies purchase-order matching, so that
+a supplier invoice with no purchase order is not excluded; review of 2026-11-05.)
 
 **Realization index** (CD4; tranche-1 §4, rebuilt from the twelve inventoried 9.6.1 acts,
 none relabelled):
@@ -52,7 +55,7 @@ Index checks: every member is a BPO act type, none a capability class or catalog
 |---|---|---|---|
 | 1 | **Bearer kind.** Is the bearer an Organization? | **Yes** | The amounts are the organization's debts to its suppliers, settled from its accounts. PCF 9.6.1 places the ability with the enterprise. A clerk's skill at matching invoices is evidence, not the capability (CD1) |
 | 2 | **Basis kind.** Can the basis be stated as the relevant member agents, as organized, without counting any artifact as basis? | **Yes** | The basis is the AP, purchasing and finance members who match, audit, resolve, accrue, pay and answer. The AP system, the vendor master file and payment rails are enabling conditions. Matching and payment can be done by hand, so none is constitutive (worked case 4). OI-14 is not engaged |
-| 3 | **Through the organization's arrangements.** Do realizations run through its arrangements, not one person's skill on their own account? | **Yes** | Verification against purchase orders (`P10869`) depends on purchasing's records, exception resolution on purchasing and receiving, and payment on treasury: the work crosses positions. A one-person AP function still pays the organization's suppliers on its behalf (b1) |
+| 3 | **Through the organization's arrangements.** Do realizations run through its arrangements, not one person's skill on their own account? | **Yes** | The acts are performed through the organization's arrangements and on its behalf: verification draws on its records of what was ordered and received where a purchase order applies (`P10869`), and payment draws on its accounts. These arrangements often cross purchasing, receiving and treasury positions, but that is common, not required. A one-person AP function still acts through an arrangement and pays the organization's suppliers on its behalf (b1; review of 2026-11-05) |
 | 4 | **Non-deontic.** Is every index member describable without standing or authorization? | **Yes** | "Approve payments" (`P10872`) was removed (decision of 2026-11-04, act 4); approval is standing, which an Authorization Record states. The verification that precedes approval is in the index as `P10869` and `P10871`. No member is relabelled. Processing a payment (`P10876`) executes it, and does not authorize it |
 | 5 | **Exercise, not development.** Is every index member an exercise rather than its development (CD5)? | **Yes** | The summary act, whose source description includes developing AP policies and procedures, is out. Every member is part of handling an amount owed |
 

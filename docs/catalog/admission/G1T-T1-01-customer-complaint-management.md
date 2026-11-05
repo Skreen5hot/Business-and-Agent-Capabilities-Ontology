@@ -8,8 +8,9 @@
 | Review date | — (set by the reviewer) |
 | Candidate | BCC-373b146e, catalog key `management\|customer complaint`; tranche id T1-01 |
 | Test | G1-T, specification v0.5.0-draft.3 §8 (`c3f1ba2`, SHA-256 `2224f869…c574`), ratified under RP-1, RP-2 (with CD5) and RP-10 on 2026-11-04 (`docs/decisions/2026-11-04-d4-rp1-rp10-ratified-option-b.md`, `docs/decisions/2026-11-04-rp2-ratified.md`) |
-| Evidence | `docs/catalog/tranche-1.md` revision 3 (SHA-256 `155cf9e9…a10c`); `docs/catalog/candidates.yaml` (SHA-256 `4242de57…97d9`); BPO act types at the I-1 pin `bc64e91` |
-| Drafted by | Claude Code (`claude-opus-5-5`), 2026-11-04 |
+| Evidence | `docs/catalog/tranche-1.md` revision 4 (SHA-256 `dfafb555…c045`); `docs/catalog/candidates.yaml` (SHA-256 `4242de57…97d9`); BPO act types at the I-1 pin `bc64e91` |
+| Drafted by | Claude Code (`claude-opus-5-5`), 2026-11-04; review clarifications applied 2026-11-05 |
+| Review | Independent review of 2026-11-05 (My Ontologist 2.0, an AI system), `docs/catalog/admission/G1T-T1-review-2026-11-05.md` (SHA-256 `8373b4e7…a84e`): finding PASS, with the clarification it requires applied below. AI-authored: not the reviewer's signature, which the confirmation table records |
 
 A PASS licenses asserting this class under `obo:BFO_0000016` (disposition), and so under
 `bco:BusinessCapability`, for this class only (CAP-04). It licenses no organization's claim
@@ -45,7 +46,7 @@ Index checks: every member is a BPO act type, none a capability class or catalog
 
 | # | Question (§8) | Answer | Reasons and evidence |
 |---|---|---|---|
-| 1 | **Bearer kind.** Is the bearer an Organization? | **Yes** | Complaints are made against the organization's offerings and answered on its behalf. PCF 6.2.3 and BPO's `CustomerComplaintManagementCapability` both place the ability with the enterprise, not a person. A service representative's skill in calming a customer is CCO Skill (`cco:ont00000089`), and is evidence, not the capability (CD1) |
+| 1 | **Bearer kind.** Is the bearer an Organization? | **Yes** | Complaints are made against the organization's offerings and answered on its behalf. PCF 6.2.3 and BPO's `CustomerComplaintManagementCapability` both place the ability with the enterprise, not a person. BPO's class is cited only as that evidence: it is a distinct capability type, which also takes in complaint analysis (`P19072`), and is neither equivalent to this class nor a designation of it; no subclass relation is established (review of 2026-11-05). A service representative's skill in calming a customer is CCO Skill (`cco:ont00000089`), and is evidence, not the capability (CD1) |
 | 2 | **Basis kind.** Can the basis be stated as the relevant member agents, as organized, without counting any artifact as basis? | **Yes** | The basis is the members who take in, route, resolve and answer complaints: service staff, and the product, operations and finance members a complaint is routed to. The complaint-tracking system, phone lines and web forms are enabling conditions (CD2 item 3). The work can be done, worse, without any one of them, so none is constitutive (worked case 4). OI-14 is not engaged |
 | 3 | **Through the organization's arrangements.** Do realizations run through its arrangements, not one person's skill on their own account? | **Yes** | Routing (`P10398`) exists to bring a complaint to the members able to act on it, which is the arrangement exercised. A resolution may commit the organization's product, service or finance positions. A small firm where one member handles every complaint still acts through an arrangement on the organization's behalf (b1) |
 | 4 | **Non-deontic.** Is every index member describable without standing or authorization? | **Yes** | Receiving, routing, resolving and answering are operational. Resolving means correcting the situation. A grant of redress that confers a right on the customer (a refund entitlement, a waiver) is standing, is recorded by an Authorization Record if at all, and is not `P10399` |

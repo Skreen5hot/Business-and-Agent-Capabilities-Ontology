@@ -1,4 +1,4 @@
-# Tranche 1 — readiness record (Phase I-5), revision 3
+# Tranche 1 — readiness record (Phase I-5), revision 4
 
 | Field | Value |
 | --- | --- |
@@ -7,8 +7,8 @@
 | Catalog reviewed | `docs/catalog/candidates.yaml` at `9854052` (SHA-256 `4242de571a4b14309634bbab7c9513ae625d9214b82dcdf6c15e1fda3c6297d9`) |
 | Specification | v0.4.0-draft.1 (in force for the tooling). G1-T is §8; it is not ratified (D4), so no record below can be a PASS |
 | Conceptual model | CM-01, approved 2026-10-26 (SHA-256 `292c8f36…1ccc`) |
-| Revisions | 1, proposed: `f320a67`, rebased as `1948237` (`docs/decisions/2026-11-03-i5-first-tranche-directed.md`). 2, the first decision of 2026-11-04 applied: `b7930e7`, rebased as `35c85ea`. 3, this one: the second decision of 2026-11-04 applied |
-| Recorded by | Claude Code (`claude-opus-5-5`), 2026-11-03 and 2026-11-04 |
+| Revisions | 1, proposed: `f320a67`, rebased as `1948237` (`docs/decisions/2026-11-03-i5-first-tranche-directed.md`). 2, the first decision of 2026-11-04 applied: `b7930e7`, rebased as `35c85ea`. 3, the second decision of 2026-11-04 applied: `b341042`. 4, this one: the clarifications the G1-T review of 2026-11-05 requires (`docs/catalog/admission/G1T-T1-review-2026-11-05.md`), to T1-01's terminology relationship (§8), T1-03's definition (§2) and T1-03's question 3 (§6) |
+| Recorded by | Claude Code (`claude-opus-5-5`), 2026-11-03, 2026-11-04 and 2026-11-05 |
 
 The sections follow roadmap §7's eight conditions. The readiness review keeps four things
 apart: **source terminology** (the labels below), **vocabulary ratification** (none is
@@ -79,12 +79,17 @@ recording time is Time Reporting's exercise, and payroll consumes its result (§
 **T1-03 Accounts payable processing capability.**
 *Generated:* "…to administer the recurring work of accounts payable…". Restates the name.
 *Checked:* A business capability of an organization to verify the amounts it owes its
-suppliers against what was ordered and invoiced, resolve the exceptions, settle them by
-payment, account for them, and answer inquiries about them, grounded in the
-organization's members as organized.
+suppliers against what was invoiced and, where a purchase order applies, what was
+ordered, resolve the exceptions, settle them by payment, account for them, and answer
+inquiries about them, grounded in the organization's members as organized.
 *Revision 2:* "receive … and record" becomes "verify … against what was ordered and
 invoiced", which the rebuilt index realizes. Approval is not in it: whoever approves a
 payment exercises standing, which an Authorization Record states (CM-01).
+*Revision 4:* "against what was ordered and invoiced" becomes "against what was invoiced
+and, where a purchase order applies, what was ordered", so that a supplier invoice with
+no purchase order is not excluded by the wording (G1-T review of 2026-11-05). The index
+is unchanged: `P10871`, auditing invoices, and `P10875`, resolving exceptions, already
+cover invoices without one. The definition still has no deontic term.
 
 ## 3. Conceptual distinctions and candidate BFO/CCO parents
 
@@ -220,7 +225,7 @@ Questions as specification v0.4 §8 states them, with question 2 as DP-1 settled
 | --- | --- | --- | --- |
 | 1 Bearer is an Organization | Yes: handled for the organization by several members | Yes | Yes |
 | 2 Basis is members in an arrangement, no artifact counted | Yes: service, product and finance positions in a routing arrangement; the case system is an enabling condition | Yes: payroll, HR and finance positions; the payroll system is an enabling condition | Yes: AP clerks, buyers and finance positions; the AP system is an enabling condition |
-| 3 Organizational, not individual | Yes: intake, routing and resolution cross positions | Yes: earnings, deductions, payment and tax reporting cross HR and finance | Yes: matching, exception resolution and payment cross purchasing and finance |
+| 3 Organizational, not individual | Yes: intake, routing and resolution cross positions | Yes: earnings, deductions, payment and tax reporting cross HR and finance | Yes: the acts are performed through the organization's arrangements on its behalf. They often cross purchasing, receiving and treasury, but need not; one member doing all of them still acts through an arrangement (revision 4) |
 | 4 Every index member non-deontic | Yes. Granting redress is not indexed | Yes. Tax filing is reporting, not standing | Yes, as rebuilt. `P10872` is out |
 | 5 Exercise, not development | Yes, with `P19072` out | Yes, with `P10853` and `P14075` out | Yes |
 | Draft outcome | Pass expected | Pass expected | Pass expected |
@@ -246,7 +251,7 @@ ADR-002): this traceability is to the drafts and must be re-checked at ratificat
 | Item | State |
 | --- | --- |
 | BRM "Payroll" (BCC-b7c46718, key `provision\|payroll`) and T1-02 (`administration\|payroll`) | **Confirmed: one candidate capability, two designations** (second decision of 2026-11-04, act 2). BCC-d95f68fd is canonical; BCC-b7c46718 is retired as a separate active candidate. BRM "Payroll" (SCD 624, TAX B10.805.624) is recorded as an alternative designation of T1-02, not a new type, with both source records and their provenance kept. BRM's sibling services Time Reporting (613) and Employee Benefits and Compensation (254) stay outside it. No `owl:equivalentClass` is asserted and no object property is proposed |
-| BPO's class `CustomerComplaintManagementCapability` | the source term for T1-01. BPO's class is not reused or redeclared: BCO would mint its own term at admission, and BPO's class is a designation of it |
+| BPO's class `CustomerComplaintManagementCapability` | the source term for T1-01, and **a distinct capability type**: BPO's definition includes analyzing complaints (`P19072`), which T1-01 excludes. The two are not equivalent, and BPO's class is not a designation of T1-01 (revision 4, correcting revision 3, which said it was). No subclass relation either way is established. BPO's class is not reused or redeclared; BCO would mint its own term at admission |
 | "Process" in two of the names | the names name the ability, not the process. A reviewer may prefer "payroll capability" and "accounts payable capability" |
 | Homonym register (roadmap T4) | none of the three is a homonym of an ISO/IEC 33020, CMMI or FIBF use |
 
