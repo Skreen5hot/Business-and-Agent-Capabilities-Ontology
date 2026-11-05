@@ -120,14 +120,16 @@ entries:
 - id: SRC-ISO-05
   authority: A1
   citation: ISO 9000:2015, *Quality management systems — Fundamentals and vocabulary*,
-    3.6.12
+    edition 4, 3.6.12. Withdrawn; revised by ISO 9000:2026
   urls:
   - label: ISO 45481
     url: https://www.iso.org/standard/45481.html
-    suffix: (number unverified)
+    suffix: (catalogue page read 2026-11-05; it gives the number, the edition and the
+      withdrawal)
   - label: ERA terminology reproduction
     url: https://www.era.europa.eu/era-railway-terminology-collection/capability/term_1/sms_safety_culture_human_and_organisational_factor
-  access_terms: Paid
+  access_terms: Paid. The Online Browsing Platform shows terms only after its Terms
+    of Use are accepted; they were not accepted
   definition: The ability of any object to realize an output that meets the requirements
     for that output. Note 1 points statistical process capability to ISO 3534-2
   claims:
@@ -313,7 +315,8 @@ entries:
     url: https://community.opengroup.org/archimate-community/workgroups/archimate-feedback/-/issues/13
   - label: Calhau et al. 2024 §2
     url: https://conferences.big.tuwien.ac.at/biweek2024/pdfs/biweek2024_paper_150.pdf
-  access_terms: Open Group copyright; registration
+  access_terms: Open Group copyright; registration. On 2026-11-05 the 3.2 and 3.1
+    online chapters at pubs.opengroup.org redirected to an Open Group sign-in
   definition: 'A strategy-layer behaviour element: {Q1}, with organization, person
     or system as examples. Core behaviour elements (business, application, technology)
     realize it. Capabilities can serve other capabilities; resources are assigned
@@ -351,6 +354,9 @@ entries:
   urls:
   - label: DoDAF home
     url: https://dodcio.defense.gov/DODAF/
+  - label: DM2 conceptual data model
+    url: https://dodcio.defense.gov/Library/DoD-Architecture-Framework/dodaf20_conceptual/
+    suffix: (read 2026-11-05; the older /DODAF/ addresses now redirect under /Library/DoD-Architecture-Framework/)
   - label: Capability data group
     url: https://dodcio.defense.gov/DODAF/dodaf20_capability_mm
   - label: glossary
@@ -358,17 +364,20 @@ entries:
   - label: v2.02 PDF
     url: https://dodcio.defense.gov/Portals/0/Documents/DODAF/DoDAF_v2-02_web.pdf
   access_terms: US Government work, public domain; redistributable
-  definition: '{Q1}, through combinations of ways and means (activities and resources).
-    A Desired Effect is a desired state of a Resource. A Service gives access to
-    the activities and resources that would produce the effect'
+  definition: '{Q1}, through combinations of ways and means (activities and resources)
+    to perform a set of activities. A Resource is data, information, performers, materiel
+    or personnel types; a Performer is human, automated or an aggregation of both, and
+    provides a capability. A Desired Effect is a desired state of a Resource. A Service
+    is a Performer giving access to one or more capabilities'
   quotes:
   - key: SRC-GOV-01-Q1
     text: The ability to achieve a Desired Effect under specified [performance]
       standards and conditions
   claims:
-  - status: S
-    scope: search extracts
-    note: site returned 403
+  - status: V
+    scope: DM2 conceptual data model page
+    note: read 2026-11-05, after the site returned 403 in an earlier round; the v2.02
+      PDF, the capability data group page and the DM2 data dictionary not read
 - id: SRC-GOV-02
   authority: A3
   citation: CJCSI 5123.01 and the JCIDS Manual (last public update 2021); SecDef
@@ -558,7 +567,8 @@ entries:
     url: https://www.tmforum.org/oda/business-capability-framework-2
   - label: community thread
     url: https://engage.tmforum.org/discussion/business-capability-missing-from-oda
-  access_terms: Mixed member and public; unconfirmed (403)
+  access_terms: Mixed member and public; unconfirmed (403). On 2026-11-05 the GB1029C
+    page held at a bot-verification page
   definition: 'Takes ArchiMate''s definition: an ability possessed by an active
     structure element (organization, person or system), focused on business outcomes.
     ODA had no capability mapping as of Oct 2024'
@@ -584,6 +594,7 @@ entries:
   urls:
   - label: ITIL V3 Glossary (Utah copy)
     url: https://it.utah.edu/_resources/documents/itil/ITILV3_Glossary.pdf
+    suffix: (no longer served on 2026-11-05; the site returns its page-not-available page)
   - label: ITIL V3 slides
     url: https://www.slideshare.net/slideshow/itil-v3-foundations-introduction-lifecycle-and-phases-29544649/29544649
   access_terms: Proprietary, paid
