@@ -2,10 +2,10 @@
 
 | Field | Value |
 |---|---|
-| Status | **DRAFT, not signed.** Prepared for the reviewer. An automated draft is not a signature (D4 decision of 2026-11-04, act 9) |
-| Recommended finding | **PASS** |
+| Status | **Signed: PASS**, by the reviewer, 2026-11-05 (`docs/decisions/2026-11-05-g1t-tranche-1-signed.md`). Drafted by an agent for the reviewer; the signature is the reviewer's own confirmation below (D4 decision of 2026-11-04, act 9) |
+| Finding | **PASS** (recommended in the draft; confirmed by the reviewer) |
 | Reviewer | Aaron Damiano, the named approving reviewer for tranche 1 |
-| Review date | — (set by the reviewer) |
+| Review date | 2026-11-05 |
 | Candidate | BCC-d95f68fd, catalog key `administration\|payroll`; tranche id T1-02. Alternative designation: FEAF-II BRM "Payroll" (BCC-b7c46718, retired into this candidate on 2026-11-04) |
 | Test | G1-T, specification v0.5.0-draft.3 §8 (`c3f1ba2`, SHA-256 `2224f869…c574`), ratified under RP-1, RP-2 (with CD5) and RP-10 on 2026-11-04 (`docs/decisions/2026-11-04-d4-rp1-rp10-ratified-option-b.md`, `docs/decisions/2026-11-04-rp2-ratified.md`) |
 | Evidence | `docs/catalog/tranche-1.md` revision 4 (SHA-256 `dfafb555…c045`); `docs/catalog/candidates.yaml` (SHA-256 `4242de57…97d9`); BPO act types at the I-1 pin `bc64e91` |
@@ -81,8 +81,9 @@ removed, not left under `cco:ont00000568`.
 
 ## Reviewer's confirmation
 
-To be completed by the reviewer only. The drafting agent leaves it blank.
+Completed by the reviewer, Aaron Damiano, in session on 2026-11-05, and transcribed
+verbatim into this table by the drafting agent (`docs/decisions/2026-11-05-g1t-tranche-1-signed.md`).
 
 | Finding (PASS / FAIL) | Reviewer | Date | Notes |
 |---|---|---|---|
-| | | | |
+| PASS | Aaron Damiano | 2026-11-05 (given as 11/5/2026) | Confirm all five answers and worked cases. Accept the eleven-act index, including P10865. Preserve CD2 escalation, the distinction from Time Reporting, and CAP-34 outsourcing treatment. |
