@@ -1,90 +1,58 @@
 # Communications
 
 The record of what this repository has said to, and heard from, the teams it depends on
-or that depend on it. One folder per team; inside it, `incoming/` and `outgoing/`.
+or that depend on it.
+
+This record follows the communications protocol, version 1.1:
+Skreen5hot/communications, PROTOCOL.md at 05068d800506bae6bbf66f6cb11d4eccc6adb312, sha256
+fb3a06309eb5ecd5920a7737789df524000e5447f86c008ec16fee6203d9d74d.
+
+That file is the only copy of the rules with authority: what a message is, its header,
+the rules on editing, status, refs, decisions, agents, sending and digests, and how
+messages are announced on the board (the repository's Discussions). This README does not
+restate them. It states what this record adds, as the protocol allows (§ Adopting).
 
 ```text
 communications/
-  README.md                 this protocol
+  README.md                 this file: the protocol version followed, and the local rules
   <team>/README.md          who the team is and where its repository lives
   <team>/incoming/          messages received, copied verbatim with their source
   <team>/outgoing/          messages sent
 ```
 
-Teams today: **BPO** (Business Process Ontology), whose act genera this repository vendors,
-**ARO** (Application Requirement Ontology), whose tooling and method it carries, and
-**EXAMPLE** (the Ontology Template), which generalizes that tooling and method.
+## Teams
 
-`tools/communications.py` checks every message against this protocol and lists the
-threads still open. `tests/test_communications.py` runs the same checks on every push.
+| Folder | Code in ids | Team | In `correspondents.yaml` |
+|---|---|---|---|
+| `bpo/` | `BPO` | Business Process Ontology | yes, `BPO` |
+| `example/` | `EXAMPLE` | Ontology Template | yes, as an alias of `OT`. This record keeps the alias it already uses (§ Codes) |
+| `aro/` | `ARO` | Application Requirement Ontology | **no.** No message has been exchanged. Adding ARO there is a pull request to the communications repository, needed before a first message to ARO |
+
+This repository's own code is `BCO`.
+
+## Local rules
+
+These add to the protocol and do not contradict it.
+
+1. **The checker.** `tools/communications.py` checks every message against the protocol
+   and lists the threads still open. `tests/test_communications.py` runs the same checks
+   on every push. It follows renames, so a byte-identical move passes. It refuses a
+   message whose bytes have had more than one state, and a message that was deleted
+   (Rule 1).
+2. **Adding a team.** Create `communications/<team>/README.md` with a header naming the
+   team and its repository (see `bpo/README.md`), and add the team's code to `TEAMS` in
+   `tools/communications.py`. The checker refuses a message folder for a team it does not
+   know. A new team also needs its entry in `correspondents.yaml` (§ Codes).
+3. **Decisions.** The decision record is `docs/decisions/` (Rule 4).
+4. **Sending is the architect's call.** That includes posting an alert or commenting on
+   the board. An agent may draft a message and preview its alert (with the communications
+   repository's `tools/alert.py`, without `--post`), but posts nothing without the
+   architect's say-so. Whatever it posts is named as an agent's (Rule 5).
+5. **The inbox at session start.** An agent gets no GitHub notifications. When a session
+   starts, it checks the board's **Alerts** category for messages to `BCO` not yet held in
+   `incoming/`, with the communications repository's `tools/inbox.py --code BCO`, and
+   reports any it finds to the architect.
+6. **Messages before the board.** Every message recorded before this adoption was sent
+   before the board existed. None of them needs an alert (§ Alerts, 1).
+
 Nothing here is published on the site.
-
----
-
-## A message
-
-One Markdown file: a YAML header between `---` lines, then the body.
-
-**Filename** — `YYYY-MM-DD-<slug>.md`, the date the message was sent or received, and a
-short lowercase slug (`a-z`, `0-9`, `-`). The folder says the team and the direction.
-
-**Header**
-
-```yaml
----
-id: BCO-BPO-2026-10-23-vendoring-pin   # <FROM>-<TO>-<date>-<slug>; must match the path
-from: BCO
-to: BPO
-date: 2026-10-23                        # must match the filename
-type: request                           # request | finding | answer | notice | acknowledgment
-subject: One line, what this is about
-in_reply_to: null                       # the id of the message this answers, or null
-refs:                                   # what the message is about, bound by digest
-  - repo: Skreen5hot/BusinessProcessOntology
-    commit: 66131945b525c54f44e4962f32bb1f52dfa0cd12
-    path: ontology/apqc-ext.ttl
-    sha256: 1b9a9375cb7303003556004effd712b63913d6aa4935dbf604a653aec65cab4b
-author: Aaron Damiano                   # a person, or an agent named as an agent
-requires_act: false                     # true when only the architect can answer it
----
-```
-
-Incoming messages carry one more field, `source`, saying where the original lives:
-
-```yaml
-source:
-  repo: Skreen5hot/BusinessProcessOntology
-  commit: <the commit the original was read at>
-  path: <its path there>
-  sha256: <SHA-256 of the original file's bytes>
-```
-
-and the body below the header is that original, byte for byte. The checker recomputes the
-digest of the body and requires it to equal `source.sha256`, so a copy that has been
-"tidied" fails rather than quietly standing in for what was sent.
-
-## Rules
-
-1. **A committed message never changes.** A correction is a new message whose `in_reply_to`
-   names the one it corrects. The checker reads git history and refuses a message file
-   that more than one commit has touched.
-2. **Status is derived, not written.** A `request` or `finding` is *open* until a later
-   message answers it (`in_reply_to` its id) with type `answer` or `acknowledgment`. There
-   is no status field to forget to update; `python tools/communications.py` lists what is
-   open.
-3. **Every ref is digest-bound.** A path without a commit and a SHA-256 names whatever is
-   there today. A ref into this repository is recomputed from `git show <commit>:<path>`;
-   a ref into another repository is checked for shape here and can be verified there.
-4. **A message is not a decision.** It can ask for one (`requires_act: true`). The act
-   itself is the architect's and goes in `docs/decisions/`, citing the message by id.
-5. **Agents are named as agents.** A message drafted by an agent says so in `author`, and
-   whose direction it was drafted at.
-6. **Sending is outside the repository.** An outgoing message here is the record of what
-   was said; it reaches the other team however that team receives things (an issue, a
-   file in their repository, a conversation). The record does not claim delivery.
-
-## Adding a team
-
-Create `communications/<team>/README.md` with a header naming the team and its repository
-(see `bpo/README.md`), and add the team's code to `TEAMS` in `tools/communications.py`.
-The checker refuses a message folder for a team it does not know.

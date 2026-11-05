@@ -40,3 +40,8 @@
 # it to content detection, and -diff keeps a 2.5 MB single-line bundle out
 # of every diff. tools/site/vendor_assets.py checks the bytes either way.
 vendor/site/mermaid/** -text -diff
+
+# The communications record is kept byte for byte (communications protocol
+# 1.1, Rule 7 and Adopting): an incoming copy's body is digest-checked
+# against the original, so git must never convert its line endings.
+communications/** -text
