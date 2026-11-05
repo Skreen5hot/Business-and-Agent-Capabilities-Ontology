@@ -183,6 +183,41 @@ components:
       until the architect ratifies it. The vendoring tool reads it for
       the cco:, obo: and ex: terms it names.
 
+  - id: spec.v0.5-draft
+    path: specifications/Business-Capability-Ontology-v0.5.0-draft.3.md
+    role: documentation
+    description: >-
+      BCO specification v0.5.0-draft.3 (2026-11-02), prepared under D3: draft.2
+      with review R11, the domain-practitioner review of CM-01, carried in.
+      Section 0.3 records R11 as product-owner-authorized synthetic
+      practitioner validation satisfying AD-2, and its eleven findings with
+      their proposed dispositions and the sections they change. Not accepted
+      for ratification, so not the specification in force: v0.4 keeps that
+      role and still seeds the vendored extracts until the architect accepts
+      v0.5.
+
+  - id: spec.v0.5-draft2
+    path: specifications/Business-Capability-Ontology-v0.5.0-draft.2.md
+    role: documentation
+    description: >-
+      BCO specification v0.5.0-draft.2 (2026-10-31), prepared under D3 and
+      revised after review R10: the decisions taken since v0.4 (DP-1, DP-2,
+      R8, R9, the CM-01 approval guidance, the CM-02 scope, the re-pin)
+      carried into the text with a traceability table, the R5 and R10
+      dispositions proposed, sources cited by register id, and the bco:/ex:
+      prefix split. Superseded by draft.3 and kept unchanged as review
+      provenance (commit be8a732); R11 had it as context, and its SHA-256 is
+      recorded in draft.3's document control.
+
+  - id: spec.v0.5-draft1
+    path: specifications/Business-Capability-Ontology-v0.5.0-draft.1.md
+    role: documentation
+    description: >-
+      BCO specification v0.5.0-draft.1 (2026-10-31, commit 853fc0a), the
+      text review R10 is of. Superseded by draft.2 and kept unchanged as
+      review provenance; its SHA-256 is recorded in draft.2's document
+      control and in reviews/R10-disposition.md.
+
   - id: spec.v0.3
     path: specifications/Business-Capability-Ontology-v0.3.0-draft.1.md
     role: documentation
@@ -198,7 +233,10 @@ components:
       filed verbatim as received: R5 (v0.4 against the v0.1 package), R6
       (the P5 vocabulary as published), R7 (the five generated
       vocabulary Turtle files after R6), R8 (conceptual model CM-01,
-      draft.1) and R9 (CM-01 draft.4). R<n>-disposition.md is the
+      draft.1), R9 (CM-01 draft.4), R10 (specification v0.5.0-draft.1) and
+      R11 (the AD-2 practitioner desk review of CM-01, by a synthetic
+      practitioner the architect designated as proxy).
+      R<n>-disposition.md is the
       project's proposed disposition of review R<n>. Recommendations and
       proposals, not ratified changes. All are rendered on the site's
       Reviews page.
@@ -285,6 +323,16 @@ components:
       what was measured to support it, the options, and the decisions
       asked for. A proposal is not a decision; the architect's act on it
       is recorded in docs/decisions/, citing the proposal's commit.
+
+  - id: docs.practitioner-review
+    path: docs/practitioner-review
+    role: documentation
+    description: >-
+      Domain-practitioner review packages (roadmap AD-2, section 6): what a
+      practitioner reviewer is given. cm01/ is the package for CM-01,
+      proposed to the architect and not approved for distribution. A
+      package records no finding; completed findings are filed separately
+      under reviews/, verbatim, with a proposed disposition.
 
   - id: docs.adr
     path: docs/adr
