@@ -567,14 +567,23 @@ entries:
     url: https://www.tmforum.org/oda/business-capability-framework-2
   - label: community thread
     url: https://engage.tmforum.org/discussion/business-capability-missing-from-oda
-  access_terms: Mixed member and public; unconfirmed (403). On 2026-11-05 the GB1029C
-    page held at a bot-verification page
-  definition: 'Takes ArchiMate''s definition: an ability possessed by an active
-    structure element (organization, person or system), focused on business outcomes.
-    ODA had no capability mapping as of Oct 2024'
+  access_terms: Member registration. The GB1029C v2.0.0 page is HTML for a signed-in
+    member; on 2026-11-05 its PDF download did not work, and the agent's browser was
+    held at a bot-verification page
+  definition: 'The TM Forum Capability Framework rests on Capability, defined in
+    ArchiMate''s words as {Q1} possesses, focused on business outcomes. A capability
+    gives a high-level view of an organization''s current and desired abilities; it
+    is realized by people, processes, information and systems, and one capability
+    may serve another. ODA had no capability mapping as of Oct 2024'
+  quotes:
+  - key: SRC-IND-04-Q1
+    text: an ability that an active structure element, such as an organization, person,
+      or system
   claims:
-  - status: S
-  - status: L
+  - status: V
+    scope: GB1029C v2.0.0 HTML page, the definition of Capability
+    note: read on 2026-11-05 by the architect, Aaron Damiano, signed in as a member,
+      and transcribed in session; the agent could not reach the page
 - id: SRC-IND-05
   authority: A4
   citation: 'ISACA, *COBIT 2019 Framework: Introduction and Methodology*, Fig. 6.2'
