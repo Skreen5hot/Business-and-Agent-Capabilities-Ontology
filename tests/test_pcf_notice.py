@@ -25,6 +25,10 @@ PINS = "config/inventory-pcf-sources.yaml"
 RIGHTS = "docs/sources/inventory/rights.yaml"
 ENTRIES = "docs/sources/inventory/pcf-7.4-entries.yaml"
 BPO_ENTRIES = "docs/sources/inventory/bpo-entries.yaml"
+#: Phase I-4 (decision of 2026-11-03): the candidate catalog cites PCF
+#: element IDs and derives names from PCF element names.
+CATALOG_FILES = ["docs/catalog/bpo-act-types.yaml", "docs/catalog/candidates.yaml",
+                 "docs/catalog/crosswalk.yaml"]
 SCHEME = "https://fandaws.com/ontology/bpo/scheme#PCF"
 
 
@@ -301,7 +305,7 @@ def test_every_finding_has_a_negative_fixture(gate):
 def test_the_repository_passes_the_gate(gate):
     problems, report = gate.findings(ROOT)
     assert problems == []
-    assert report["bearing"] == {ENTRIES: None, BPO_ENTRIES: None}
+    assert report["bearing"] == dict.fromkeys([ENTRIES, BPO_ENTRIES] + CATALOG_FILES)
     assert report["excepted"] == []
 
 
@@ -316,7 +320,7 @@ def test_the_exception_list_is_empty_since_e7(h):
 
 def test_root_notice_lists_every_pcf_bearing_file(h):
     text = (ROOT / "NOTICE.md").read_bytes().decode("utf-8")
-    assert h.listed_files(text) == [ENTRIES, BPO_ENTRIES]
+    assert h.listed_files(text) == [ENTRIES, BPO_ENTRIES] + CATALOG_FILES
 
 
 def test_the_vendored_bpo_extract_carries_no_pcf_material(gate):

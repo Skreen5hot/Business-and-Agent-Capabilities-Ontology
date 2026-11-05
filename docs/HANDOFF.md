@@ -42,6 +42,7 @@ evidence the checks work.
 | `src/01_controlled_vocabulary/`, `tools/vocab/`, `config/vocab-schema.*`, `requirements-vocab.txt` | the controlled-vocabulary build (ADR-003, P3): authored YAML, generated Turtle in `src/01_controlled_vocabulary/generated/`, the LinkML schema and its JSON Schema | the tool and its checks; since P5, 9 metamodel and 5 catalog concepts, all **Draft**. See sections 5.10 to 5.12 |
 | `communications/` | messages to and from BPO, ARO and the Ontology Template (EXAMPLE), under `communications/README.md` | checked by `tools/communications.py`; the vendoring-pin request to BPO was acknowledged (BPO `8f6622c`), BPO announced a namespace move to `https://fandaws.com/ontology/bpo#`, and BPO's notice that PCF 7.4 is to be sourced from `2e55edd` (BPO `e3ee6ad`) is filed and acknowledged now that the pin is on `main` |
 | `docs/ARTIFACT-INVENTORY.md`, `docs/artifact-manifest.json` | the 2026-10-22 import record | held to its digests by a test |
+| `docs/catalog/` | Phase I-4, the Candidate Capability Catalog and its crosswalk, generated from every inventory record by `tools/catalog/synthesize.py` (directed 2026-11-03, `docs/decisions/2026-11-03-bulk-capability-synthesis-directed.md`); counts in `report.md` | candidates for review, not types: no admission, no IRI, preliminary rule-based classification. The offline check regenerates it byte for byte (`docs/catalog/README.md`) |
 
 ## 3. What is ready to rely on
 

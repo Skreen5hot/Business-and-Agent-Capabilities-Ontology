@@ -607,6 +607,71 @@ components:
       ussm.gsa.gov, www.gsa.gov and obamawhitehouse.archives.gov and requires
       byte-identical outputs.
 
+  # Phase I-4, the Candidate Capability Catalog, directed on 2026-11-03
+  # (docs/decisions/2026-11-03-bulk-capability-synthesis-directed.md).
+  # Synthesis, not source evidence: candidates derived from the
+  # inventories, with no admission, no IRI and no ontology. Generated, and
+  # PCF-bearing (each YAML carries APQC's notice).
+  - id: catalog.readme
+    path: docs/catalog/README.md
+    role: documentation
+    description: >-
+      What the Candidate Capability Catalog is and is not, the method
+      (extract, normalize, generate, crosswalk, relate, classify, check),
+      every field of a candidate, the classification rules, how to
+      regenerate and check it, and its limits.
+
+  - id: catalog.bpo-act-types
+    path: docs/catalog/bpo-act-types.yaml
+    role: generated-artifact
+    generator: tool.catalog-synthesize
+    description: >-
+      BPO's act types (bpo:P<element id>) at the Phase I-1 pin, read from
+      the pinned modules by digest: each one's named superclasses (its
+      genus), its outputs, module and line, with the genera's labels from
+      the data. IRIs only; APQC's notice on the file. Written by
+      --rebuild-acts; the catalog's realization evidence.
+
+  - id: catalog.candidates
+    path: docs/catalog/candidates.yaml
+    role: generated-artifact
+    generator: tool.catalog-synthesize
+    description: >-
+      The Candidate Capability Catalog: one record per candidate, with a
+      provisional BCC- identifier (never an IRI), name, genus-differentia
+      definition, bearer, ability, source records, realization evidence,
+      broader and narrower, overlaps, synonyms, preliminary classification
+      with its reason, and review status. APQC's notice on the file.
+
+  - id: catalog.crosswalk
+    path: docs/catalog/crosswalk.yaml
+    role: generated-artifact
+    generator: tool.catalog-synthesize
+    description: >-
+      Every source record of the five inventories, with the frame read from
+      its label and its interpretation (designates, realization evidence,
+      requirement evidence, context) or the reason it has none. APQC's
+      notice on the file.
+
+  - id: catalog.report
+    path: docs/catalog/report.md
+    role: generated-artifact
+    generator: tool.catalog-synthesize
+    description: >-
+      The catalog's counts and quality findings, computed by the generator
+      from the catalog and the crosswalk.
+
+  - id: tool.catalog-synthesize
+    path: tools/catalog/synthesize.py
+    role: tool
+    description: >-
+      Phase I-4. Offline by default: regenerates the catalog from the
+      committed inventories and act types, runs its consistency checks and
+      the inventory admission guard, and requires byte identity with the
+      committed files. --write regenerates; --rebuild-acts re-reads BPO's
+      act types at the I-1 pin (raw.githubusercontent.com or the cache,
+      digest checked).
+
   # Phase I-2b, the APQC PCF, under the architect's decision of
   # 2026-10-29 (docs/decisions/2026-10-29-apqc-pcf-sourcing-decided.md),
   # which replaced APQC-1's citation-only posture: PCF 7.4 element IDs,
