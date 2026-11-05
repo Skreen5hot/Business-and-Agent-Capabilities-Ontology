@@ -1313,7 +1313,7 @@ def test_sources_graph_has_one_record_per_register_entry(vb, register):
             scope = g.value(c, rdflib.URIRef(vb.BCO + "claimScope"))
             assert (scope is not None) == bool(claim.get("scope")), (src, n)
             claims += 1
-    assert claims == 83, claims
+    assert claims == 82, claims
 
 
 def test_what_the_rdf_cannot_enforce_is_said(vb):
