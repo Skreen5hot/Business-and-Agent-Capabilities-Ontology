@@ -1,13 +1,13 @@
-# Tranche 1 — readiness record (Phase I-5), revision 4
+# Tranche 1 — readiness record (Phase I-5), revision 5
 
 | Field | Value |
 | --- | --- |
-| Status | **Approved for evaluation**: all three candidates (`docs/decisions/2026-11-04-i5-tranche-1-approved-for-evaluation.md`; `docs/decisions/2026-11-04-i5-proceed-payroll-synonym-ap-hold-lifted.md`). Not admitted: each waits for the ratified admission test (D4). Ready for evaluation is not approved for ontology inclusion |
+| Status | **Approved for evaluation**: all three candidates (`docs/decisions/2026-11-04-i5-tranche-1-approved-for-evaluation.md`; `docs/decisions/2026-11-04-i5-proceed-payroll-synonym-ap-hold-lifted.md`). Not admitted. Each G1-T record is **AI-reviewed: PASS recommended; human confirmation pending** (§6, "What remains"). Ready for evaluation is not approved for ontology inclusion |
 | Candidates | T1-01 BCC-373b146e, T1-02 BCC-d95f68fd (canonical; BRM Payroll BCC-b7c46718 retired into it as a designation), T1-03 BCC-62e789bf (hold lifted on the seven-act index) |
 | Catalog reviewed | `docs/catalog/candidates.yaml` at `9854052` (SHA-256 `4242de571a4b14309634bbab7c9513ae625d9214b82dcdf6c15e1fda3c6297d9`) |
-| Specification | v0.4.0-draft.1 (in force for the tooling). G1-T is §8; it is not ratified (D4), so no record below can be a PASS |
+| Specification | v0.5.0-draft.3 (SHA-256 `2224f869…c574`). G1-T is §8, ratified with RP-1, RP-2 and RP-10 on 2026-11-04. Revisions 1 to 3 were written against v0.4.0-draft.1, when no PASS was possible |
 | Conceptual model | CM-01, approved 2026-10-26 (SHA-256 `292c8f36…1ccc`) |
-| Revisions | 1, proposed: `f320a67`, rebased as `1948237` (`docs/decisions/2026-11-03-i5-first-tranche-directed.md`). 2, the first decision of 2026-11-04 applied: `b7930e7`, rebased as `35c85ea`. 3, the second decision of 2026-11-04 applied: `b341042`. 4, this one: the clarifications the G1-T review of 2026-11-05 requires (`docs/catalog/admission/G1T-T1-review-2026-11-05.md`), to T1-01's terminology relationship (§8), T1-03's definition (§2) and T1-03's question 3 (§6) |
+| Revisions | 1, proposed: `f320a67`, rebased as `1948237` (`docs/decisions/2026-11-03-i5-first-tranche-directed.md`). 2, the first decision of 2026-11-04 applied: `b7930e7`, rebased as `35c85ea`. 3, the second decision of 2026-11-04 applied: `b341042`. 4, the clarifications the G1-T review of 2026-11-05 requires (`docs/catalog/admission/G1T-T1-review-2026-11-05.md`), to T1-01's terminology relationship (§8), T1-03's definition (§2) and T1-03's question 3 (§6). 5, this one: the status lines brought up to the ratification of G1-T and to the approval provenance of 2026-11-05 (`docs/decisions/2026-11-05-g1t-approval-provenance-corrected.md`). Revision 5 changes no definition, index or exclusion: the classes are those of revision 4, which the G1-T records cite |
 | Recorded by | Claude Code (`claude-opus-5-5`), 2026-11-03, 2026-11-04 and 2026-11-05 |
 
 The sections follow roadmap §7's eight conditions. The readiness review keeps four things
@@ -217,7 +217,7 @@ catalog's evidence, not this index.
 None of these is an OWL assertion. The catalog's "broader" links mix whole-part and
 kind-of relations, and Stage 03 has to separate them. No object property is proposed.
 
-## 6. G1-T admission evidence (drafted; no PASS is possible before D4)
+## 6. G1-T admission evidence (summary; the records are in `docs/catalog/admission/`)
 
 Questions as specification v0.4 §8 states them, with question 2 as DP-1 settled it.
 
@@ -230,8 +230,9 @@ Questions as specification v0.4 §8 states them, with question 2 as DP-1 settled
 | 5 Exercise, not development | Yes, with `P19072` out | Yes, with `P10853` and `P14075` out | Yes |
 | Draft outcome | Pass expected | Pass expected | Pass expected |
 
-Drafts by the recorder, for a reviewer. CAP-04 requires a PASS record with reviewer and
-date, and none is given here.
+Drafts by the recorder, for a reviewer, written before G1-T was ratified. CAP-04 requires a
+PASS record with reviewer and date. The signed form of each is its record in
+`docs/catalog/admission/`, and none is signed yet.
 
 ## 7. Traceability
 
@@ -257,7 +258,17 @@ ADR-002): this traceability is to the drafts and must be re-checked at ratificat
 
 ## What remains
 
-1. **All three:** G1-T ratification (D4, roadmap: CP-0). Until then no record above is a
-   PASS, and nothing is asserted in OWL (roadmap §7, T7).
+1. **All three: the reviewer's signature.** Four things are kept apart:
+   - **The admission criteria are ratified.** G1-T (§8 of v0.5.0-draft.3) was ratified with
+     RP-1, RP-2 and RP-10 on 2026-11-04. Under Option B a review may now record PASS or
+     FAIL.
+   - **A PASS is recommended, by AI.** The drafts and the independent AI review of
+     2026-11-05 (`docs/catalog/admission/G1T-T1-review-2026-11-05.md`) recommend PASS for
+     all three. A recommendation is not a finding.
+   - **No PASS is human-confirmed yet.** A finding needs one authenticated approval by Aaron
+     Damiano, the named reviewer, that identifies each record, its finding and the reviewed
+     version. The signature recorded at `15ac666` was withdrawn (`docs/decisions/2026-11-05-g1t-approval-provenance-corrected.md`).
+   - **The implementation gate is unchanged.** Even a signed PASS licenses no OWL before all
+     of CP-0 (D4) and D5, and no organization's claim to bear the capability (G1-I).
 2. Nothing else is open in this record. The tranche is not to be expanded (second decision of
    2026-11-04, act 7).
