@@ -2,7 +2,7 @@
 
 | Field | Value |
 |---|---|
-| Status | **Proposed.** For the architect. It decides nothing; the treatment is the architect's act |
+| Status | **Decided 2026-11-05**: option A, CD6 to CD11 ratified together (`docs/decisions/2026-11-05-cd6-cd11-ratified.md`). The text decided on is this note at `2df604e`; this status line is the only change since |
 | Closes | CP-0 closure matrix item 14, "every other applicable specification decision" (`docs/proposals/2026-11-05-cp0-closure-matrix.md`, decision 1) |
 | Read from | Specification v0.5.0-draft.3 §3 and §10 (SHA-256 `2224f869…c574`); CM-01, approved 2026-10-26 (`src/02_conceptual_models/CM-01-business-capability.md`); the decision records of 2026-11-04 and 2026-11-05 |
 | Prepared by | Claude Code (`claude-opus-5-5`), 2026-11-05 |

@@ -80,7 +80,8 @@ was accepted for ratification, with the R5 and R10 dispositions, and RP-1 and RP
 ratified (`docs/decisions/2026-11-04-d4-rp1-rp10-ratified-option-b.md`). RP-2's faithfulness check is
 `docs/proposals/2026-11-04-rp2-faithfulness-check.md`. RP-2 was ratified the same day, with CD5
 (`docs/decisions/2026-11-04-rp2-ratified.md`), so under Option B G1-T review of the first tranche may
-begin; OWL waits for all of CP-0 and D5.
+begin; OWL waits for all of CP-0 and D5. *Update 2026-11-05:* CD6 to CD11 were ratified together,
+closing CP-0's item for the CDs outside the register (`docs/decisions/2026-11-05-cd6-cd11-ratified.md`).
 
 R5 records further blockers: material basis policy, maturity-value encoding, instance
 evidence, and migration of BPO existential restrictions. R6 (section 5.13) adds wording
