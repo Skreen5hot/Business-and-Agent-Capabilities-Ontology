@@ -2,10 +2,10 @@
 
 | Field | Value |
 |---|---|
-| Status | **AI-reviewed: PASS recommended; human confirmation pending.** A signature needs one authenticated approval by Aaron Damiano identifying this record, its finding and the reviewed version (`docs/decisions/2026-11-05-g1t-approval-provenance-corrected.md`, correcting `15ac666`). Neither an automated draft nor an AI review is a signature (D4 decision of 2026-11-04, act 9) |
-| Finding | **PASS recommended** (by the draft and by the AI review of 2026-11-05); not confirmed |
+| Status | **Signed: PASS**, by the reviewer, Aaron Damiano, 2026-11-05. His confirmation was recorded at `15ac666`, withdrawn pending attribution (`docs/decisions/2026-11-05-g1t-approval-provenance-corrected.md`), and affirmed by him as his own approval (`docs/decisions/2026-11-05-g1t-tranche-1-approval-affirmed.md`). Reviewed version: this record at `7515f44` |
+| Finding | **PASS** (recommended by the draft and by the AI review of 2026-11-05; confirmed by the reviewer) |
 | Reviewer | Aaron Damiano, the named approving reviewer for tranche 1 |
-| Review date | — (pending human confirmation) |
+| Review date | 2026-11-05 |
 | Candidate | BCC-62e789bf, catalog key `administration\|account payable`; tranche id T1-03. Hold lifted on its seven-act index, 2026-11-04 |
 | Test | G1-T, specification v0.5.0-draft.3 §8 (`c3f1ba2`, SHA-256 `2224f869…c574`), ratified under RP-1, RP-2 (with CD5) and RP-10 on 2026-11-04 (`docs/decisions/2026-11-04-d4-rp1-rp10-ratified-option-b.md`, `docs/decisions/2026-11-04-rp2-ratified.md`) |
 | Evidence | `docs/catalog/tranche-1.md` revision 4 (SHA-256 `dfafb555…c045`); `docs/catalog/candidates.yaml` (SHA-256 `4242de57…97d9`); BPO act types at the I-1 pin `bc64e91` |
@@ -78,16 +78,9 @@ removed, not left under `cco:ont00000568`.
 
 ## Reviewer's confirmation
 
-To be completed only from an authenticated approval by the reviewer. The drafting agent
-leaves it blank.
+Completed from the reviewer's confirmation of 2026-11-05, transcribed verbatim, and affirmed
+by him as his approval (`docs/decisions/2026-11-05-g1t-tranche-1-approval-affirmed.md`).
 
 | Finding (PASS / FAIL) | Reviewer | Date | Notes |
 |---|---|---|---|
-| | | | |
-
-**Withdrawn row.** Commit `15ac666` wrote a row here giving PASS, Aaron Damiano and
-2026-11-05, with the note below. It came from a message that the directive of 2026-11-05
-identifies as an AI recommendation, not his signature, so it is withdrawn
-(`docs/decisions/2026-11-05-g1t-approval-provenance-corrected.md`):
-
-> Confirm all five answers and worked cases. Accept the seven-act index, including P10877; retain the exclusion of payment authorization. Accept non-purchase-order invoices and single-member organizational arrangements.
+| PASS | Aaron Damiano | 2026-11-05 (given as 11/5/2026) | Confirm all five answers and worked cases. Accept the seven-act index, including P10877; retain the exclusion of payment authorization. Accept non-purchase-order invoices and single-member organizational arrangements. |

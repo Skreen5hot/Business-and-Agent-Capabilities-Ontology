@@ -3,6 +3,9 @@
 > **Superseded on 2026-11-05** by `docs/decisions/2026-11-05-g1t-approval-provenance-corrected.md`. The confirmation
 > below was an AI recommendation, not an authenticated signature by Aaron Damiano,
 > and no record is signed by it. The text below is unchanged from `15ac666`.
+>
+> **Reinstated on 2026-11-05.** The reviewer affirmed in his own words that this
+> confirmation is his approval (`docs/decisions/2026-11-05-g1t-tranche-1-approval-affirmed.md`).
 
 Recorded verbatim by Claude Code (`claude-opus-5-5`) on 2026-11-05, from the confirmation
 the named approving reviewer for tranche 1, Aaron Damiano, gave in session. The finding and
