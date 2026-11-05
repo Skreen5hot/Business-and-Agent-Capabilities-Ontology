@@ -2,10 +2,10 @@
 
 | Field | Value |
 |---|---|
-| Status | **Signed: PASS**, by the reviewer, 2026-11-05 (`docs/decisions/2026-11-05-g1t-tranche-1-signed.md`). Drafted by an agent for the reviewer; the signature is the reviewer's own confirmation below (D4 decision of 2026-11-04, act 9) |
-| Finding | **PASS** (recommended in the draft; confirmed by the reviewer) |
+| Status | **AI-reviewed: PASS recommended; human confirmation pending.** A signature needs one authenticated approval by Aaron Damiano identifying this record, its finding and the reviewed version (`docs/decisions/2026-11-05-g1t-approval-provenance-corrected.md`, correcting `15ac666`). Neither an automated draft nor an AI review is a signature (D4 decision of 2026-11-04, act 9) |
+| Finding | **PASS recommended** (by the draft and by the AI review of 2026-11-05); not confirmed |
 | Reviewer | Aaron Damiano, the named approving reviewer for tranche 1 |
-| Review date | 2026-11-05 |
+| Review date | — (pending human confirmation) |
 | Candidate | BCC-373b146e, catalog key `management\|customer complaint`; tranche id T1-01 |
 | Test | G1-T, specification v0.5.0-draft.3 §8 (`c3f1ba2`, SHA-256 `2224f869…c574`), ratified under RP-1, RP-2 (with CD5) and RP-10 on 2026-11-04 (`docs/decisions/2026-11-04-d4-rp1-rp10-ratified-option-b.md`, `docs/decisions/2026-11-04-rp2-ratified.md`) |
 | Evidence | `docs/catalog/tranche-1.md` revision 4 (SHA-256 `dfafb555…c045`); `docs/catalog/candidates.yaml` (SHA-256 `4242de57…97d9`); BPO act types at the I-1 pin `bc64e91` |
@@ -71,9 +71,16 @@ removed, not left under `cco:ont00000568`.
 
 ## Reviewer's confirmation
 
-Completed by the reviewer, Aaron Damiano, in session on 2026-11-05, and transcribed
-verbatim into this table by the drafting agent (`docs/decisions/2026-11-05-g1t-tranche-1-signed.md`).
+To be completed only from an authenticated approval by the reviewer. The drafting agent
+leaves it blank.
 
 | Finding (PASS / FAIL) | Reviewer | Date | Notes |
 |---|---|---|---|
-| PASS | Aaron Damiano | 2026-11-05 (given as 11/5/2026) | Confirm all five G1-T answers and worked cases. Accept the four-act index and exclusion of P19072. BPO's broader type is distinct; no equivalence or subclass relationship is asserted. |
+| | | | |
+
+**Withdrawn row.** Commit `15ac666` wrote a row here giving PASS, Aaron Damiano and
+2026-11-05, with the note below. It came from a message that the directive of 2026-11-05
+identifies as an AI recommendation, not his signature, so it is withdrawn
+(`docs/decisions/2026-11-05-g1t-approval-provenance-corrected.md`):
+
+> Confirm all five G1-T answers and worked cases. Accept the four-act index and exclusion of P19072. BPO's broader type is distinct; no equivalence or subclass relationship is asserted.
