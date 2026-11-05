@@ -1090,10 +1090,12 @@ components:
     role: communication
     description: >-
       What this repository has said to, and heard from, other teams: one
-      folder per team (BPO, ARO, EXAMPLE) with incoming/ and outgoing/. The
-      protocol is communications/README.md; tools/communications.py checks
-      every header, refuses an edited message, and derives which threads
-      are open. Not published on the site.
+      folder per team (BPO, ARO, EXAMPLE) with incoming/ and outgoing/,
+      under the communications protocol 1.1 (Skreen5hot/communications,
+      PROTOCOL.md), pinned by commit and digest in communications/README.md
+      with this record's local rules. tools/communications.py checks every
+      header, refuses an edited or deleted message following renames, and
+      derives which threads are open. Not published on the site.
 
   - id: tool.communications
     path: tools/communications.py

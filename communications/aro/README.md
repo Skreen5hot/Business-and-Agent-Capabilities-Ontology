@@ -18,3 +18,6 @@ message about it has been sent yet.
 
 ARO's own cross-team record cites messages in IntegratedAgent's `experiments/comms/` by
 repository, path, commit and digest — the same binding this folder's `source` field uses.
+
+ARO is not in the communications repository's `correspondents.yaml`. Before a first
+message to ARO, it needs an entry there (protocol 1.1, § Codes).
