@@ -659,7 +659,7 @@ revision 2 on 2026-10-31 (`docs/decisions/2026-10-31-roadmap-revision-2-approved
 it governs, and it authorizes no step by itself. The architect authorized D2 (the CM-02
 scope note) and D3 (specification v0.5 and the practitioner review of CM-01) on
 2026-10-31 (`docs/decisions/2026-10-31-d2-d3-authorized.md`); they may run concurrently,
-D3 cannot complete until a practitioner reviewer is engaged (O-3), and nothing beyond
+D3 needed a practitioner reviewer (O-3), and nothing beyond
 them is authorized. D2 is complete: the architect approved the CM-02 scope note,
 revision 2, on 2026-10-31 (`docs/decisions/2026-10-31-d2-cm02-scope-approved.md`).
 Under D3, specification v0.5.0-draft.1 was drafted and reviewed by the architect as R10
@@ -667,8 +667,21 @@ Under D3, specification v0.5.0-draft.1 was drafted and reviewed by the architect
 Draft.2 (`specifications/Business-Capability-Ontology-v0.5.0-draft.2.md`) answers R10 under
 a proposed disposition (`reviews/R10-disposition.md`) and is returned for review; draft.1
 is kept unchanged as provenance. Neither is accepted for ratification, v0.4 stays the
-specification in force for the tooling, and the practitioner review (its §0.3) has not
-been conducted. It replaces this section's setup-day list, whose items are done
+specification in force for the tooling. A review package for the practitioner review
+(`docs/practitioner-review/cm01/`: brief, plain summary, five scenarios, questionnaire,
+findings template, references) was proposed to the architect. On 2026-11-02 the architect
+designated a synthetic practitioner as proxy for the human practitioner
+(`docs/decisions/2026-11-02-synthetic-practitioner-proxy.md`); its desk review of CM-01 is
+filed as R11 (`reviews/R11-cm01-practitioner-desk-review.md`). The same day the product
+owner decided that R11 satisfies AD-2, closed O-3, and required no further human review
+before CP-0 (`docs/decisions/2026-11-02-r11-practitioner-validation-decided.md`); R11's
+standing is product-owner-authorized synthetic practitioner validation. Its disposition
+(`reviews/R11-disposition.md`) was accepted as proposed on 2026-11-03
+(`docs/decisions/2026-11-03-r11-disposition-accepted.md`). Specification v0.5.0-draft.3
+(`specifications/Business-Capability-Ontology-v0.5.0-draft.3.md`, superseding draft.2)
+carries it, with §0.3 recording the review; the R5 and R10 dispositions are still
+proposed. CM-01 is unchanged; CP-0's other
+requirements stand. It replaces this section's setup-day list, whose items are done
 (pushing, the first CI run), carried into the roadmap (RP-1 within CP-0; the BPO-slice
 decision before the first realization index) or superseded by it (CAP shapes come after
 specification v0.5, in Stage 05). The Ontology Template is not adopted
