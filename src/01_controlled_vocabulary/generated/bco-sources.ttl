@@ -226,9 +226,9 @@ bcos:SRC-GOV-01 dcterms:identifier "SRC-GOV-01" .
 bcos:SRC-GOV-01 rdf:type dcterms:BibliographicResource .
 
 bcos:SRC-GOV-01-claim-1 bco:claimIndex "1"^^xsd:integer .
-bcos:SRC-GOV-01-claim-1 bco:claimNote "site returned 403" .
-bcos:SRC-GOV-01-claim-1 bco:claimScope "search extracts" .
-bcos:SRC-GOV-01-claim-1 bco:claimStatus "S" .
+bcos:SRC-GOV-01-claim-1 bco:claimNote "read 2026-11-05, after the site returned 403 in an earlier round; the v2.02 PDF, the capability data group page and the DM2 data dictionary not read" .
+bcos:SRC-GOV-01-claim-1 bco:claimScope "DM2 conceptual data model page" .
+bcos:SRC-GOV-01-claim-1 bco:claimStatus "V" .
 
 bcos:SRC-GOV-02 bco:hasClaim bcos:SRC-GOV-02-claim-1 .
 bcos:SRC-GOV-02 dcterms:bibliographicCitation "CJCSI 5123.01 and the JCIDS Manual (last public update 2021); SecDef memo directing JCIDS disestablishment (official PDF dated 7 Nov 2025; press reports Aug 2025)" .
@@ -306,16 +306,14 @@ bcos:SRC-IND-03-claim-1 bco:claimIndex "1"^^xsd:integer .
 bcos:SRC-IND-03-claim-1 bco:claimStatus "P" .
 
 bcos:SRC-IND-04 bco:hasClaim bcos:SRC-IND-04-claim-1 .
-bcos:SRC-IND-04 bco:hasClaim bcos:SRC-IND-04-claim-2 .
 bcos:SRC-IND-04 dcterms:bibliographicCitation "TM Forum, GB1029C *Business Capability Map* v2.0.0; GB1007A *Capability Reference Map* v4.0.0; GB1007 v3.0" .
 bcos:SRC-IND-04 dcterms:identifier "SRC-IND-04" .
 bcos:SRC-IND-04 rdf:type dcterms:BibliographicResource .
 
 bcos:SRC-IND-04-claim-1 bco:claimIndex "1"^^xsd:integer .
-bcos:SRC-IND-04-claim-1 bco:claimStatus "S" .
-
-bcos:SRC-IND-04-claim-2 bco:claimIndex "2"^^xsd:integer .
-bcos:SRC-IND-04-claim-2 bco:claimStatus "L" .
+bcos:SRC-IND-04-claim-1 bco:claimNote "read on 2026-11-05 by the architect, Aaron Damiano, signed in as a member, and transcribed in session; the agent could not reach the page" .
+bcos:SRC-IND-04-claim-1 bco:claimScope "GB1029C v2.0.0 HTML page, the definition of Capability" .
+bcos:SRC-IND-04-claim-1 bco:claimStatus "V" .
 
 bcos:SRC-IND-05 bco:hasClaim bcos:SRC-IND-05-claim-1 .
 bcos:SRC-IND-05 dcterms:bibliographicCitation "ISACA, *COBIT 2019 Framework: Introduction and Methodology*, Fig. 6.2" .
@@ -404,7 +402,7 @@ bcos:SRC-ISO-04-claim-2 bco:claimIndex "2"^^xsd:integer .
 bcos:SRC-ISO-04-claim-2 bco:claimStatus "L" .
 
 bcos:SRC-ISO-05 bco:hasClaim bcos:SRC-ISO-05-claim-1 .
-bcos:SRC-ISO-05 dcterms:bibliographicCitation "ISO 9000:2015, *Quality management systems — Fundamentals and vocabulary*, 3.6.12" .
+bcos:SRC-ISO-05 dcterms:bibliographicCitation "ISO 9000:2015, *Quality management systems — Fundamentals and vocabulary*, edition 4, 3.6.12. Withdrawn; revised by ISO 9000:2026" .
 bcos:SRC-ISO-05 dcterms:identifier "SRC-ISO-05" .
 bcos:SRC-ISO-05 rdf:type dcterms:BibliographicResource .
 

@@ -782,7 +782,7 @@ def test_the_real_claims_and_records_are_selected(layout):
     assert vocabulary_violations(layout, graph) == []
 
     claims = set(graph.objects(None, rdflib.URIRef(bco + "hasClaim")))
-    assert len(claims) == 83, len(claims)
+    assert len(claims) == 82, len(claims)
     departures = set(graph.subjects(rdflib.URIRef(bco + "relation"),
                                     rdflib.Literal("departs-from")))
     assert departures
