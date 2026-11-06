@@ -99,7 +99,7 @@ The two modules spec v0.4 §2 names exist as `owl:Ontology` headers only:
 Before the first term is minted:
 
 1. **ADR-002 is ratified.** The spec is a draft; nothing in it is normative until the
-   architect ratifies it (RP-1, RP-2 and RP-10 ratified 2026-11-04, CD6 to CD11 on 2026-11-05, RP-3 and RP-4 on 2026-11-06; RP-5 to RP-9 pending;
+   architect ratifies it (RP-1, RP-2 and RP-10 ratified 2026-11-04, CD6 to CD11 on 2026-11-05, RP-3, RP-4 and RP-6 to RP-9 on 2026-11-06; RP-5 pending;
    `docs/proposals/2026-11-05-cp0-closure-matrix.md`). Record the act in
    `docs/decisions/`, and land the ADR itself under `docs/adr/` (spec §2).
 2. **The namespace is the provisional one.** Author in `https://fandaws.com/ontology/bco#`,

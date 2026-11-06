@@ -2,7 +2,7 @@
 
 | Field | Value |
 |---|---|
-| Status | **Proposed.** For the architect. It decides nothing; ratifying any of RP-6 to RP-9 is the architect's act |
+| Status | **Decided 2026-11-06**: RP-6 to RP-9 ratified together (`docs/decisions/2026-11-06-rp6-rp9-ratified.md`). The text decided on is this check at `d525f32`; this status line is the only change since |
 | Date | 2026-11-06 |
 | Prepared by | Claude Code (`claude-opus-5-5`), for the BCO team |
 | Closes, if decided | CP-0 closure matrix items 10 to 13, decision 4 (`docs/proposals/2026-11-05-cp0-closure-matrix.md`) |
