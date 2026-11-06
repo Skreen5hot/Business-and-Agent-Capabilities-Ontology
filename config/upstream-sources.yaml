@@ -130,3 +130,15 @@ sources:
       `ex` as a temporary binding for BPO's genera only (R3); BPO's own
       Turtle now writes `bpo:`, and the BCO adopts it with specification
       v0.5 and CM-01's next reviewed version.
+    # The RP-3 import boundary (docs/decisions/2026-11-06-rp3-ratified.md):
+    # BPO modules that assert bpo:requiresCapability, which BCO withdraws,
+    # never enter BCO's effective ontology graph -- not vendored, not
+    # imported directly or transitively, not assembled into a validation
+    # graph. Counts are at the pin. The inventory harvest may still read
+    # them as source evidence (enablesProcess). Recorded, not yet enforced:
+    # the check is Stage 05 validation.
+    excluded_modules:
+      - path: ontology/capabilities_wiring.ttl
+        reason: 356 bpo:requiresCapability assertions
+      - path: ontology/delivery_processes.ttl
+        reason: 5 bpo:requiresCapability assertions

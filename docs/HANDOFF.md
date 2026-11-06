@@ -83,7 +83,9 @@ ratified (`docs/decisions/2026-11-04-d4-rp1-rp10-ratified-option-b.md`). RP-2's 
 begin; OWL waits for all of CP-0 and D5. *Update 2026-11-05:* CD6 to CD11 were ratified together,
 closing CP-0's item for the CDs outside the register (`docs/decisions/2026-11-05-cd6-cd11-ratified.md`).
 *Update 2026-11-06:* SE-1 was approved as an exception for ArchiMate, ISO 9000 and ITIL, and SE-2
-closed by reading DM2 (`docs/decisions/2026-11-06-se1-approved-se2-closed.md`).
+closed by reading DM2 (`docs/decisions/2026-11-06-se1-approved-se2-closed.md`). RP-3 was
+ratified the same day, closing OI-6's lookup; BPO modules asserting `requiresCapability` stay
+out of BCO's graph (`docs/decisions/2026-11-06-rp3-ratified.md`).
 
 R5 records further blockers: material basis policy, maturity-value encoding, instance
 evidence, and migration of BPO existential restrictions. R6 (section 5.13) adds wording
