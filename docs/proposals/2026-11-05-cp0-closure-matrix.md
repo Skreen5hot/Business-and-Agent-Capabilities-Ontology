@@ -2,7 +2,7 @@
 
 | Field | Value |
 |---|---|
-| Status | **Proposed.** For the architect. It decides nothing; each closure below is the architect's act |
+| Status | **Proposed.** For the architect. It decides nothing; each closure below is the architect's act. *Since:* item 14 closed 2026-11-05, CD6 to CD11 ratified (`docs/decisions/2026-11-05-cd6-cd11-ratified.md`); this status line is the only change |
 | Directed by | The execution directive of 2026-11-05, act 5, recorded verbatim on PR #38 in `docs/decisions/2026-11-05-g1t-approval-provenance-corrected.md` |
 | Read from | `docs/ROADMAP.md` (D4 row, §9, §11 O-5 and O-6), specification v0.5.0-draft.3 §10 (ratification register, source adequacy, CP-0 checklist; SHA-256 `2224f869…c574`), the decision records of 2026-11-03 to 2026-11-05 |
 | Prepared by | Claude Code (`claude-opus-5-5`), 2026-11-05 |
