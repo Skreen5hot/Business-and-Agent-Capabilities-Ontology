@@ -2,7 +2,7 @@
 
 | Field | Value |
 |---|---|
-| Status | **Proposed.** For the architect. It decides nothing; ratifying RP-3 is the architect's act |
+| Status | **Decided 2026-11-06**: RP-3 ratified, with a clarification on `requiresCapability`, and OI-6's lookup closed (`docs/decisions/2026-11-06-rp3-ratified.md`). The text decided on is this check at `a4ba28a`; this status line is the only change since |
 | Date | 2026-11-06 |
 | Prepared by | Claude Code (`claude-opus-5-5`), for the BCO team |
 | Closes, if decided | CP-0 closure matrix item 7, decision 2 (`docs/proposals/2026-11-05-cp0-closure-matrix.md`); the lookup answers OI-6 |
