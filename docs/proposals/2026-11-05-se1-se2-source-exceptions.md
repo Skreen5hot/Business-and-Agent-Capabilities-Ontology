@@ -2,7 +2,7 @@
 
 | Field | Value |
 |---|---|
-| Status | **Proposed.** For the architect. It decides nothing; closing or approving an exception is the architect's act |
+| Status | **Decided 2026-11-06.** SE-1 approved as an exception for ArchiMate, ISO 9000 and ITIL; SE-2 closed by reading (`docs/decisions/2026-11-06-se1-approved-se2-closed.md`). The body below is the evidence as proposed |
 | Closes | CP-0 closure matrix items 15 and 16 (`docs/proposals/2026-11-05-cp0-closure-matrix.md`, decision 5) |
 | Read from | Specification v0.5.0-draft.3 §3 CD1's departures table, §10 source adequacy (SHA-256 `2224f869…c574`); `docs/sources/register.yaml`; the five sources' own sites, 2026-11-05 |
 | Prepared by | Claude Code (`claude-opus-5-5`), 2026-11-05 |
