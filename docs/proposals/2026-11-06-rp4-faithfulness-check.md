@@ -2,7 +2,7 @@
 
 | Field | Value |
 |---|---|
-| Status | **Proposed.** For the architect. It decides nothing; ratifying RP-4 is the architect's act |
+| Status | **Decided 2026-11-06**: RP-4 ratified, and OI-10 closed for CP-0 with its release check kept (`docs/decisions/2026-11-06-rp4-ratified.md`). The text decided on is this check at `e1da561`; this status line is the only change since |
 | Date | 2026-11-06 |
 | Prepared by | Claude Code (`claude-opus-5-5`), for the BCO team |
 | Closes, if decided | CP-0 closure matrix item 8, decision 3 (`docs/proposals/2026-11-05-cp0-closure-matrix.md`); the consumer check answers OI-10 for CP-0 |
