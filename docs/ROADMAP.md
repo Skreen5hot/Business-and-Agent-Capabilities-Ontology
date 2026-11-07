@@ -24,6 +24,7 @@ property, subclass axiom or vocabulary ratification is authorized by it.
 | 2, amended | 2026-11-07 | ADR-002 and the CP-0 stage-completion record drafted for review (`docs/decisions/2026-11-07-cp0-closeout-and-integration-authorized.md`). The D4 row says so |
 | 2, amended | 2026-11-07 | ADR-002 accepted and CP-0 complete (`docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md`). The state, D4 and O-5 rows say so |
 | 2, amended | 2026-11-07 | I-4 closed after its four corrections (`docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md`, act 3). The inventory state row and T5 say so |
+| 2, amended | 2026-11-07 | Semantic-curation tranche 2 approved and curated (`docs/decisions/2026-11-07-curation-tranche-2-approved.md`); the Stage 03 standard proposed (`docs/proposals/2026-11-07-stage-03-taxonomy-standard.md`). The Stage 01 row says so |
 
 It replaces HANDOFF §7, which dated from the repository's setup.
 
@@ -87,7 +88,7 @@ unfinished.
 | Stage or item | State |
 |---|---|
 | Specification | v0.5.0-draft.3, accepted for ratification 2026-11-04 (D3's exit). RP-1 to RP-10 ratified (RP-2 with CD5); SE-1 approved as an exception and SE-2 closed (2026-11-06); ADR-002 accepted. **CP-0 complete** 2026-11-07 (`docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md`). Draft.3 is the historical ratification baseline; its aligned version is to follow |
-| Stage 01, controlled vocabulary | 14 concepts (9 metamodel, 5 catalog), all Draft; no Stage 01 standard (ADR-003 stands in) |
+| Stage 01, controlled vocabulary | 78 concepts (9 metamodel, 69 catalog), all Draft; 64 of the catalog concepts from semantic-curation tranche 2 (`docs/decisions/2026-11-07-curation-tranche-2-approved.md`, `docs/catalog/tranche-2.md`); no Stage 01 standard (ADR-003 stands in) |
 | Stage 02, conceptual models | CM-01 approved 2026-10-26 (stakeholder-review erratum of 2026-10-30); CM-02's scope approved 2026-10-31 (D2, `docs/decisions/2026-10-31-d2-cm02-scope-approved.md`), the model not started |
 | Capability Term Inventory (Stage 01 source evidence) | I-1, I-2a, I-2b, I-2c and E7 done; closure set complete; E4 method decided, nothing judged; I-4 authorized 2026-11-03 and closed 2026-11-07 (`docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md`, act 3); I-5's first tranche directed 2026-11-03, its G1-T records signed PASS 2026-11-05; I-3 not authorized |
 | Stage 03, taxonomy | not started; no standard |

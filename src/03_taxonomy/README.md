@@ -20,3 +20,9 @@ closed on 2026-11-07 (`docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md
 tranche was directed on 2026-11-03 and its three G1-T records signed PASS on 2026-11-05
 (`docs/catalog/tranche-1.md`). The catalog's broader links are proposals, not taxonomy.
 Taxonomy development here waits for its own authorization and its standard.
+
+*Since 2026-11-07:* semantic-curation tranche 2 (`docs/decisions/2026-11-07-curation-tranche-2-approved.md`) classified
+every proposed link of PCF 9.0's subtree as specialization, component or incorrect
+(`docs/catalog/tranche-2-review.yaml`). Its standard is proposed
+(`docs/proposals/2026-11-07-stage-03-taxonomy-standard.md`); until it is approved the
+links are classified, not validated.

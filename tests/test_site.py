@@ -311,7 +311,7 @@ def test_the_real_vocabulary_page_matches_the_real_vocabulary(built, repo,
         assert needle in page, needle
     assert (notice in page) == (not concepts), (len(concepts), notice)
 
-    assert len(concepts) == 14, len(concepts)
+    assert len(concepts) == 78, len(concepts)   # 9 metamodel, 69 catalog
     for concept in concepts:
         labels = [str(o) for o in graph.objects(
             concept, rdflib.URIRef(skos + "prefLabel"))
@@ -331,8 +331,8 @@ def test_the_real_vocabulary_page_matches_the_real_vocabulary(built, repo,
         status = graph.value(claim, rdflib.URIRef(bco + "claimStatus"))
         assert "claim %s, status %s" % (index, status) in page, claim
     # Review R7, E: the genus and the ancestor of each catalog concept.
-    assert page.count("<dt>Genus</dt>") == 5, page.count("<dt>Genus</dt>")
-    assert page.count("<dt>Foundational ancestor</dt>") == 5
+    assert page.count("<dt>Genus</dt>") == 69, page.count("<dt>Genus</dt>")
+    assert page.count("<dt>Foundational ancestor</dt>") == 69
 
 
 def test_the_empty_state_shows_when_there_are_no_concepts(builder,

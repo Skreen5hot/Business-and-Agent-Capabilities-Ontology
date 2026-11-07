@@ -733,7 +733,7 @@ def test_the_real_concepts_and_departures_are_selected(layout):
     """Since P5 the concept shapes run on real concepts: 9 metamodel and 5
     catalog, all Draft. Their zero is not a target selecting nothing:
     strip every concept's definition and every departs-from reference's
-    departure note, in memory, and each of the 14 concepts and each
+    departure note, in memory, and each of the 78 concepts and each
     departs-from reference is reported -- and nothing else."""
     import rdflib
 
@@ -746,7 +746,8 @@ def test_the_real_concepts_and_departures_are_selected(layout):
                                   rdflib.URIRef(skos + "Concept")))
     metamodel = {c for c in concepts if str(c).startswith(BCOM)}
     catalog = {c for c in concepts if str(c).startswith(BCOC)}
-    assert (len(metamodel), len(catalog)) == (9, 5), (metamodel, catalog)
+    # 5 P5 pilots and 64 from tranche 2 (docs/catalog/tranche-2.md).
+    assert (len(metamodel), len(catalog)) == (9, 69), (metamodel, catalog)
     assert metamodel | catalog == concepts
     status = rdflib.URIRef(bco + "lifecycleStatus")
     assert {str(graph.value(c, status)) for c in concepts} == {"Draft"}
@@ -801,9 +802,10 @@ def test_the_real_claims_and_records_are_selected(layout):
     records = current | set(graph.subjects(digest, None))
     revising = set(graph.subjects(rdflib.URIRef(prov + "wasRevisionOf"),
                                   None))
-    # 14 current records; 19 prior: 9 + 5 of the P5 pilot, 5 of R6. 19
-    # records revise another: the 14 current and the 5 R6 catalog records.
-    assert (len(current), len(records), len(revising)) == (14, 33, 19), (
+    # 78 current records; 20 prior: 9 + 5 of the P5 pilot, 5 of R6, and the
+    # Treasury Management record tranche 2 revised. 20 records revise another:
+    # the 14 pilot-era current records, the 5 R6 catalog records and that one.
+    assert (len(current), len(records), len(revising)) == (78, 98, 20), (
         len(current), len(records), len(revising))
     stripped = real_vocabulary(layout)
     stripped.remove((None, digest, None))

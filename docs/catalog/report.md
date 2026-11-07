@@ -16,13 +16,13 @@ Derived in part from the APQC Process Classification Framework® 7.4 (APQC's not
 | Duplicates merged | 660 |
 | Candidates supported by two or more sources | 103 |
 | Classified as likely BFO/CCO-compatible capabilities | 526 |
-| Rejected or deferred | 249 |
+| Rejected or deferred | 250 |
 | Source records lacking a proposed interpretation | 1603 |
 | Broader links proposed | 1027 |
 | Overlap links | 737 |
 | Candidates whose overlap list is cut at 6 (`overlaps_truncated` gives the number found) | 22 |
-| Recorded reviewer dispositions in effect (`docs/catalog/dispositions.yaml`) | 2 |
-| Pinned identifiers of reviewed candidates | 14 |
+| Recorded reviewer dispositions in effect (`docs/catalog/dispositions.yaml`) | 9 |
+| Pinned identifiers of reviewed candidates | 104 |
 | Realization evidence rows (act types per candidate) | 2195 |
 | Distinct BPO act types cited | 1825 |
 | Requirement-evidence links (FIBF business capabilities) | 1140 |
@@ -63,10 +63,10 @@ Derived in part from the APQC Process Classification Framework® 7.4 (APQC's not
 | Review status | Candidates |
 | --- | --- |
 | deferred | 135 |
-| generated-draft | 365 |
-| needs-review | 431 |
-| rejected | 114 |
-| retired | 1 |
+| generated-draft | 361 |
+| needs-review | 429 |
+| rejected | 115 |
+| retired | 6 |
 
 ## Rejected or deferred, by reason
 
@@ -77,6 +77,7 @@ Derived in part from the APQC Process Classification Framework® 7.4 (APQC's not
 | function: a top-level area of a catalog (PCF category or BRM mission sector or business function) or a coordination of several abilities: a standing function whose whole-function type is defined only where one is (CD16, conditional designation R9); E4 is open | 35 |
 | process: names one act episode with a definite end, with no process of its own beneath it: realization evidence for a broader capability, not a type | 13 |
 | unresolved: its labels name an artifact (a plan, document, record or notice), not an ability; the ability is inferred and needs a reader | 7 |
+| capability: rejected (tranche 2): one act episode (converting a foreign-currency value to local currency, for customs valuation under PCF 9.11): realization evidence for Trade and Customs Documentation, as duty calculation is; not a capability type | 1 |
 | capability: rejected as an ability candidate (Payments Approval); its source evidence is kept for possible standing-related modeling (CM-01, Authorization Record) | 1 |
 
 ## Source records lacking a proposed interpretation

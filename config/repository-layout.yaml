@@ -631,6 +631,26 @@ components:
       indexes, drafted G1-T evidence and the decisions asked of the
       architect. A recommendation; it approves and admits nothing.
 
+  - id: catalog.tranche-2
+    path: docs/catalog/tranche-2.md
+    role: documentation
+    description: >-
+      Semantic-curation tranche 2 (decision of 2026-11-07): the report on
+      PCF 9.0 Financial Resources Management and the 72 candidates beneath
+      it -- dispositions, normalized concepts, definitions reviewed, links
+      classified, candidates ready for G1-T, the synthetic domain review,
+      and the issues for the architect. It admits no class.
+
+  - id: catalog.tranche-2-review
+    path: docs/catalog/tranche-2-review.yaml
+    role: documentation
+    description: >-
+      Hand-authored structured review record for tranche 2: each candidate's
+      disposition, concept, classification and G1-T readiness, and each
+      proposed broader link's kind (specialization, component, incorrect),
+      action and reason, with the links reviewers added. The tests hold it
+      to the catalog and the vocabulary.
+
   - id: catalog.admission
     path: docs/catalog/admission
     role: documentation

@@ -24,7 +24,10 @@ from conftest import ROOT, load_tool
 TOOL = "tools/catalog/synthesize.py"
 DISPOSITIONS = "docs/catalog/dispositions.yaml"
 #: Where reviewers cite candidates by identifier: each one cited is pinned.
-REVIEW_RECORDS = ("docs/catalog/tranche-1.md", "docs/catalog/admission", "docs/decisions")
+REVIEW_RECORDS = ("docs/catalog/tranche-1.md", "docs/catalog/admission", "docs/decisions",
+                  "docs/catalog/tranche-2.md", "docs/catalog/tranche-2-review.yaml")
+TRANCHE_2 = "docs/catalog/tranche-2-review.yaml"
+VOCAB_CATALOG = "src/01_controlled_vocabulary/catalog.yaml"
 CATALOG = "docs/catalog/candidates.yaml"
 CROSSWALK = "docs/catalog/crosswalk.yaml"
 REPORT = "docs/catalog/report.md"
@@ -193,7 +196,8 @@ def test_recorded_dispositions_govern_and_keep_the_generated_status(committed):
     assert len(by["BCC-b7c46718"]["sources"]) == 2
     # Positive control: an undisposed candidate has no disposition.
     assert "disposition" not in by["BCC-373b146e"]["review"]
-    assert cat["counts"]["recorded_dispositions"] == 2
+    recorded = yaml.safe_load((ROOT / DISPOSITIONS).read_text(encoding="utf-8"))
+    assert cat["counts"]["recorded_dispositions"] == len(recorded["dispositions"]) >= 2
 
 
 def test_every_reviewed_candidate_is_pinned(committed):
@@ -402,3 +406,77 @@ def test_retirement_into_a_non_candidate_is_refused(tool, built):
     found = hard(tool, with_review(built, dispositions=disp))
     assert any("retired into BCC-00000000, which is not an active candidate" in f
                for f in found)
+
+
+# ------------------------------------------------------------ tranche 2 curation
+
+
+@pytest.fixture(scope="module")
+def tranche2():
+    review = yaml.safe_load((ROOT / TRANCHE_2).read_text(encoding="utf-8"))
+    vocab = yaml.safe_load((ROOT / VOCAB_CATALOG).read_text(encoding="utf-8"))
+    return review, {c["id"]: c for c in vocab["concepts"]}
+
+
+def test_every_tranche_2_candidate_has_one_disposition(committed, tranche2):
+    cat, _ = committed
+    review, concepts = tranche2
+    by = {x["id"]: x for x in cat["candidates"]}
+    scope, todo = [], [review["scope"]["root"]]
+    while todo:
+        for n in by[todo.pop()]["narrower"]:
+            if n["id"] not in scope:
+                scope.append(n["id"])
+                todo.append(n["id"])
+    assert len(scope) == review["scope"]["candidates_beneath"] == 72
+    rows = {r["id"]: r for r in review["candidates"]}
+    assert len(rows) == len(review["candidates"])
+    assert set(rows) == set(scope) | {review["scope"]["root"]} | set(review["scope"]["additions"])
+    kinds = {"accepted", "merged", "rejected", "deferred"}
+    for r in rows.values():
+        assert r["disposition"] in kinds and r["batch"] in (1, 2, 3)
+        if r["disposition"] in ("accepted", "merged"):
+            assert r["id"] in concepts[r["concept"]]["catalog_candidates"]
+        if r["disposition"] == "merged":
+            assert by[r["id"]]["review"]["disposition"]["into"] == r["into"]
+            assert rows[r["into"]]["disposition"] == "accepted"
+        if r["disposition"] == "rejected":
+            assert by[r["id"]]["review"]["status"] == "rejected"
+
+
+def test_admitted_tranche_1_definitions_are_carried_unchanged(tranche2):
+    _, concepts = tranche2
+    for concept, record in (("bcoc:PayrollProcessing", "G1T-T1-02-payroll-processing.md"),
+                            ("bcoc:AccountsPayableProcessing",
+                             "G1T-T1-03-accounts-payable-processing.md")):
+        text = " ".join((ROOT / "docs/catalog/admission" / record).read_text(
+            encoding="utf-8").split())
+        assert " ".join(concepts[concept]["definition"].split()) in text
+
+
+def test_every_proposed_link_is_classified_and_the_vocabulary_follows(committed, tranche2):
+    cat, _ = committed
+    review, concepts = tranche2
+    by = {x["id"]: x for x in cat["candidates"]}
+    rows = {r["id"]: r for r in review["candidates"]}
+    proposed = {(x, b["id"]) for x in rows for b in by[x]["broader"]}
+    links = {(l["narrower"], l["broader"]): l for l in review["links"]}
+    assert set(links) == proposed
+    kinds = {"specialization", "component", "incorrect"}
+    for l in list(links.values()) + review["added_links"]:
+        assert l["kind"] in kinds and l["reason"]
+        assert l["action"] in ("kept", "kept-outside", "retargeted", "merged", "dropped",
+                               "held", "rejected", "redundant", "added")
+        assert (l["kind"] == "incorrect") == (l["action"] in ("dropped", "rejected"))
+    concept_of = {r["id"]: r["concept"] for r in rows.values() if "concept" in r}
+    want = set()
+    for l in list(links.values()) + review["added_links"]:
+        if l["action"] in ("kept", "retargeted", "added"):
+            b = l.get("retargeted_to", l["broader"])
+            if l["narrower"] in concept_of and b in concept_of:
+                want.add((concept_of[l["narrower"]], concept_of[b]))
+    got = {(c, b) for c, r in concepts.items() if c in concept_of.values()
+           for b in r.get("broader", [])}
+    assert got == want
+    # No generated broader link becomes a subclass axiom (decision A4).
+    assert "subClassOf" not in (ROOT / VOCAB_CATALOG).read_text(encoding="utf-8")

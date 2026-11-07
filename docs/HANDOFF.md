@@ -92,7 +92,9 @@ manifest is routing description only, and OI-10 is closed for CP-0, its release 
 namespaces are permanent as they stood. ADR-002 and the CP-0 stage-completion record were drafted
 for the architect's review (`docs/decisions/2026-11-07-cp0-closeout-and-integration-authorized.md`). The same day the architect
 accepted ADR-002, approved the record and declared **CP-0 complete** (`docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md`). CP-0 does not
-by itself authorize Stage 05; OWL waits for D5.
+by itself authorize Stage 05; OWL waits for D5. Semantic-curation tranche 2 was approved the
+same day (`docs/decisions/2026-11-07-curation-tranche-2-approved.md`) and curated: 64 new catalog concepts from PCF 9.0's
+subtree, its links classified under a proposed Stage 03 standard (`docs/catalog/tranche-2.md`).
 
 R5 records further blockers: material basis policy, maturity-value encoding, instance
 evidence, and migration of BPO existential restrictions. R6 (section 5.13) adds wording

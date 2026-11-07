@@ -52,7 +52,7 @@ inputs:
 - path: docs/catalog/bpo-act-types.yaml
   sha256: 25be29e5d4df6b7d8671128a7fae4cafa20aec2a6ac53cb2dbae2f8f76b800eb
 - path: docs/catalog/dispositions.yaml
-  sha256: dae4aaed2b454235bf0b5b4d4f5b27c4c0b72e6278ed5c0dbb0a46eb9444cd14
+  sha256: 73174ae3483767157bb239ad544d8e97ee63026045cb4ba336ba63a02b5ee1e2
 counts:
   source_records_processed:
     total: 5565

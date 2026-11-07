@@ -218,7 +218,10 @@ CATALOG_REQUIRED = ("pref_label", "definition", "genus",
                     "foundational_ancestor")
 CATALOG_FIELDS = (set(COMMON_REQUIRED) | set(COMMON_OPTIONAL)
                   | set(CATALOG_REQUIRED)
-                  | {"broader", "notation", "designates_class"})
+                  | {"broader", "notation", "designates_class", "alt_label",
+                     "catalog_candidates"})
+#: A Candidate Capability Catalog identifier (docs/catalog/), never an IRI.
+CANDIDATE_ID = re.compile(r"^BCC-[0-9a-f]{8}$")
 SOURCE_FIELDS = {"source", "locator", "relation", "support",
                  "departure_note", "claim"}
 AGENT_FIELDS = {"id", "type", "name", "model", "acted_on_behalf_of"}
@@ -275,6 +278,15 @@ PROPERTIES = {
                              "hierarchy meets BFO/CCO and asserts no subclass "
                              "axiom, for the concept's class or for its "
                              "genus."),
+    "catalogCandidate": ("catalog candidate",
+                         "The identifier of a Candidate Capability Catalog "
+                         "record (docs/catalog/candidates.yaml) the concept was "
+                         "normalized from; one per record, several where "
+                         "generated candidates were merged into the concept.",
+                         "A literal inventory identifier, never an IRI. It "
+                         "asserts nothing about the candidate, and nothing "
+                         "about a class (%s)." % "docs/decisions/"
+                         "2026-11-07-curation-tranche-2-approved.md"),
     "sourceReference": ("source reference",
                         "Relates a concept to a reference to a register "
                         "entry (ADR-003 D6)."),
@@ -822,6 +834,31 @@ def check_labels(labels, where: str, findings: list) -> list:
     return good
 
 
+def check_alt_labels(labels, prefs: list, where: str, findings: list) -> None:
+    """Alternative labels: {value, language}, distinct, none a pref_label."""
+    if not isinstance(labels, list):
+        findings.append(Finding("catalog-label", "%s alt_label is not a list" % where))
+        return
+    taken = {(p["value"].lower(), p["language"]) for p in prefs}
+    seen = set()
+    for label in labels:
+        if (not isinstance(label, dict) or set(label) != {"value", "language"}
+                or not isinstance(label.get("value"), str)
+                or not label["value"].strip()
+                or not isinstance(label.get("language"), str)
+                or not LANGUAGE.fullmatch(label["language"])):
+            findings.append(Finding("catalog-label",
+                                    "%s alt_label %r is not {value, language}"
+                                    % (where, label)))
+            continue
+        key = (label["value"].lower(), label["language"])
+        if key in taken or key in seen:
+            findings.append(Finding("catalog-label",
+                                    "%s alt_label %r repeats a label"
+                                    % (where, label["value"])))
+        seen.add(key)
+
+
 def check_common(record: dict, where: str, agents: dict, findings: list):
     if record.get("authored_status") not in AUTHORED_STATUSES:
         findings.append(Finding(
@@ -1075,7 +1112,16 @@ def build(inputs: Inputs) -> Result:
     for kind, namespace, record, row, where in concepts:
         if kind != "catalog":
             continue
-        check_labels(record.get("pref_label"), where, findings)
+        prefs = check_labels(record.get("pref_label"), where, findings)
+        check_alt_labels(record.get("alt_label", []), prefs, where, findings)
+        cands = record.get("catalog_candidates", [])
+        if not isinstance(cands, list) or len(set(map(str, cands))) != len(cands) \
+                or any(not isinstance(c, str) or not CANDIDATE_ID.fullmatch(c)
+                       for c in cands):
+            findings.append(Finding(
+                "catalog-candidate",
+                "%s catalog_candidates %r must list distinct BCC- identifiers"
+                % (where, cands)))
         definition = record.get("definition")
         if not isinstance(definition, str) or not re.match(
                 r"^An? [a-z]", definition.strip()):
@@ -1388,8 +1434,13 @@ def concept_triples(kind, namespace, iri, record, row, status, digest, refs,
         for label in record["pref_label"]:
             t.append((s, U(SKOS + "prefLabel"),
                       L(label["value"], label["language"])))
+        for label in record.get("alt_label", []):
+            t.append((s, U(SKOS + "altLabel"),
+                      L(label["value"], label["language"])))
         for broader in record.get("broader", []):
             t.append((s, U(SKOS + "broader"), U(full[broader])))
+        for cand in record.get("catalog_candidates", []):
+            t.append((s, U(BCO + "catalogCandidate"), L(cand)))
         if "notation" in record:
             t.append((s, U(SKOS + "notation"),
                       L(record["notation"], datatype=BCO + "PCFCode")))
