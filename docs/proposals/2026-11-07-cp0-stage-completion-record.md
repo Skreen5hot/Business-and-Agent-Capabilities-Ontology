@@ -2,7 +2,7 @@
 
 | Field | Value |
 |---|---|
-| Status | **Proposed.** For the architect's final review. It declares nothing complete; deciding whether CP-0 is complete is the architect's act (`docs/decisions/2026-11-07-cp0-closeout-and-integration-authorized.md`, B, decision 1) |
+| Status | **Approved** 2026-11-07 by the architect, who declared CP-0 complete (`docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md`, act 2), as reviewed at `6aae53e`, SHA-256 `0d0cfc0366e5bb05d53c7a6559d622a083f15f37b9be41328715c6e1f743b13f`. Since then only the status line, §1, items 17 and 18, the integration line and §8 changed, to record the decision |
 | Date | 2026-11-07 |
 | Prepared by | Claude Code (`claude-opus-5-5`), for the BCO team |
 | Gate | D4, CP-0: specification §10 acceptance checkpoint and roadmap D4 row; the form is roadmap §10, "Stage-completion record" |
@@ -10,13 +10,11 @@
 
 ## 1. Verdict for decision
 
-**Seventeen of the eighteen CP-0 obligations are closed by recorded acts. One is open:
-ADR-002's acceptance (item 17).** ADR-002 is drafted for review in
-`docs/adr/ADR-002-organizational-capabilities.md`; its consistency check found no
-architectural contradiction. This record (item 18) is the last.
-
-If the architect accepts ADR-002 and approves this record, every condition of CP-0 is met.
-Nothing found in preparing either document blocks that.
+**All eighteen CP-0 obligations are satisfied, and CP-0 is complete** (`docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md`).
+Items 1 to 16 were satisfied by earlier recorded acts. The architect's approval of ADR-002
+(`docs/adr/ADR-002-organizational-capabilities.md`) and of this record satisfied items 17 and
+18 on 2026-11-07. ADR-002's consistency check found no architectural contradiction; its six
+documentary discrepancies are administrative follow-ups.
 
 ## 2. Approved deliverables
 
@@ -25,7 +23,7 @@ Nothing found in preparing either document blocks that.
 | Specification v0.5.0-draft.3 | `c3f1ba2`, SHA-256 `2224f869b0ec7a1e31b0afc1c2b403ad222ea290c334bff48a93ebbb6516c574` | Accepted for ratification 2026-11-04, D3's exit (`docs/decisions/2026-11-04-d4-rp1-rp10-ratified-option-b.md`, act 2); ratified item by item (§4) |
 | CM-01, Business Capability conceptual model | SHA-256 `292c8f36d64075b9663e159985a15b448aa933c3b5ed4baff3b2a556ca861ccc` | Approved 2026-10-26 (`docs/decisions/2026-10-26-cm01-approved-r8-r9-accepted.md`); erratum `docs/decisions/2026-10-30-cm01-stakeholder-review-erratum.md` |
 | CM-02 scope note | `docs/proposals/2026-10-31-cm02-scope-note.md`, SHA-256 `35036ef2d6d0111f851af043c72cd733e83bc9e05774b014734b1d7dbc573a77` | Approved 2026-10-31 (`docs/decisions/2026-10-31-d2-cm02-scope-approved.md`) |
-| ADR-002 | `docs/adr/ADR-002-organizational-capabilities.md`, at the commit that adds it | **Proposed**, for acceptance |
+| ADR-002 | `docs/adr/ADR-002-organizational-capabilities.md` at `6aae53e`, SHA-256 `71f97176e14d4dfd7338e75284699be7fed5276473492c6b3f47a622c6a4bbf1` | Accepted 2026-11-07 (`docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md`) |
 
 ## 3. Applicable standard and reviewers
 
@@ -61,15 +59,15 @@ architect closes it.
 | 14 | Every other applicable specification decision (CD6 to CD11) | Ratified 2026-11-05 | `docs/decisions/2026-11-05-cd6-cd11-ratified.md` |
 | 15 | SE-1 | Approved as an exception 2026-11-06 | `docs/decisions/2026-11-06-se1-approved-se2-closed.md` |
 | 16 | SE-2 | Closed by reading 2026-11-06 | the same |
-| 17 | ADR-002 accepted | **Open**: drafted, for review | `docs/adr/ADR-002-organizational-capabilities.md` |
-| 18 | This record | **Open**: for approval | this file |
+| 17 | ADR-002 accepted | Accepted 2026-11-07 | `docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md`, act 1 |
+| 18 | This record | Approved 2026-11-07 | `docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md`, act 2 |
 
 **Coverage.** Every CD (CD1 to CD17) and every register item (RP-1 to RP-10) is ratified by
 one of the records above. The CP-0 checklist's six conditions are items 1; 2; 3; 15 and 16;
 4 to 14 with 17; and 9.
 
 **Integration.** The ratified changes are merged into `main` in dependency order: RP-3
-(#42), RP-4 (#43), RP-6 to RP-9 (#44); RP-5 (#45) merges once CI passes, under the
+(#42), RP-4 (#43), RP-6 to RP-9 (#44); RP-5 (#45), each after its CI passed, under the
 integration authorization of 2026-11-07. Each PR's diff was reviewed for unrelated changes.
 
 ## 5. Validation results
@@ -136,8 +134,8 @@ The RP-3 import boundary excludes BPO's `capabilities_wiring.ttl` and
 ## 8. Approval authority and completion decision
 
 - **Authority:** the architect, Aaron Damiano.
-- **Completion decision:** *not made.* For the architect: accept ADR-002, approve this
-  record, and decide whether CP-0 is complete.
+- **Completion decision:** *made* 2026-11-07. ADR-002 accepted, this record approved, and
+  CP-0 declared complete (`docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md`). Stage 05 is not authorized by it.
 - **What CP-0 completion would permit**, per the roadmap: D5, formalization readiness (the
   Stage 05 standard, the validation architecture, the first tranche's reviewed terminology
   and taxonomy baseline, and BPO's Q-12 to Q-14), which also needs T1 to T3 and T8. It

@@ -2,7 +2,7 @@
 
 | Field | Value |
 | --- | --- |
-| Status | **PROPOSED.** For the architect's review. It is accepted only by a ratification act in `docs/decisions/` that cites this file by path, full commit and SHA-256 |
+| Status | **ACCEPTED** 2026-11-07 by the architect (`docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md`, act 1), as reviewed at `6aae53e`, SHA-256 `71f97176e14d4dfd7338e75284699be7fed5276473492c6b3f47a622c6a4bbf1`. This status line is the only change since |
 | Date | 2026-11-07 |
 | Drafted by | Claude Code (`claude-opus-5-5`), a software agent, at the direction of Aaron Damiano (`docs/decisions/2026-11-07-cp0-closeout-and-integration-authorized.md`, act A1) |
 | Ratifies | The architect, Aaron Damiano |
