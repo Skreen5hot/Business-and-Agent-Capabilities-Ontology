@@ -2,11 +2,11 @@
 
 | Field | Value |
 |---|---|
-| Status | **Curated**, for the architect's review of the issues in section 6. Admits no class: G1-T admission, the Stage 03 standard and Stage 05 stay the architect's (`docs/decisions/2026-11-07-curation-tranche-2-approved.md`, C) |
+| Status | **Accepted** as the working terminology baseline, subject to final artifact verification (`docs/decisions/2026-11-07-tranche-2-accepted-g1t-preparation-authorized.md`). Revision 2: the counts reconciled from the records (section 1a), the links in the Stage 03 standard's terms, and four readiness reasons corrected (section 5). Admits no class: G1-T admission, the Stage 03 standard's ratification and Stage 05 stay the architect's |
 | Date | 2026-11-07 |
 | Scope | `BCC-4fda51aa` and the 72 candidates beneath it, plus `BCC-ded8ed18` (PCF 9.8.2), which the generator's cycle-breaking left outside the walk |
-| Records | `docs/catalog/tranche-2-review.yaml` (every disposition and link); `src/01_controlled_vocabulary/catalog.yaml` (the concepts); `docs/catalog/dispositions.yaml` (merges, rejections, pins) |
-| Standard | `docs/proposals/2026-11-07-stage-03-taxonomy-standard.md`, **proposed**: the links below are *classified*, not validated, until it is approved |
+| Records | `docs/catalog/tranche-2-review.yaml` (every disposition and link, format 2); `docs/catalog/admission/G1T-T2-batch.md` (G1-T preparation for the 43 ready candidates); `docs/catalog/tranche-2-q12.md` (the Q-12 dependencies); `src/01_controlled_vocabulary/catalog.yaml` (the concepts); `docs/catalog/dispositions.yaml` (merges, rejections, pins) |
+| Standard | `docs/proposals/2026-11-07-stage-03-taxonomy-standard.md`, its rules approved and its text **submitted for ratification**: the links below are *classified*, not validated, until it is ratified |
 
 ## 1. The figures
 
@@ -15,10 +15,50 @@
 | Candidates dispositioned, of 72 | **72**: 63 accepted, 5 merged, 3 rejected, 1 deferred. The root and the 9.8.2 addition are accepted too |
 | Distinct normalized concepts | **65**: 64 new, and the pilot `bcoc:TreasuryManagement` revised (alternative label, broader, candidate). The vocabulary now holds 69 catalog concepts |
 | Definitions reviewed and accepted | **64 of 65**, after the synthetic domain review (section 4). The pilot Treasury Management keeps its definition, pending its next revision (R26). Payroll Processing and Accounts Payable Processing carry their signed tranche-1 definitions unchanged |
-| Proposed links | **89**, every one classified: 60 kept (4 of them reclassified from the PCF reading to specialization), 2 re-targeted, 11 rejected or dropped as incorrect, 3 kept with a target outside the tranche, 4 redundant, 6 carried by a merge, 3 held |
-| Links added by review | **7** |
-| `broader` written to the vocabulary | 66, each a kept specialization or component between two tranche concepts |
+| Proposed links | **89**, each with a disposition: 75 retained (60 kept, 4 of them reclassified from the PCF reading to `kind-of`; 2 retargeted; 3 with an end outside the tranche; 4 redundant; 6 carried by a merge), 11 incorrect, 3 unresolved |
+| Links added by review | **7**, all retained: 4 between tranche concepts, 3 to candidates outside the tranche |
+| `broader` written to the vocabulary | **66** = 60 kept + 2 retargeted + 4 added between tranche concepts; 59 `part-of` and 7 `kind-of` (section 1a) |
 | Ready for G1-T admission | **43** (section 5); 2 already admitted (T1-02, T1-03); 15 not ready; 5 capability areas not proposed |
+
+## 1a. Reconciliation (revision 2)
+
+Every figure here is counted from `docs/catalog/tranche-2-review.yaml` and
+`src/01_controlled_vocabulary/catalog.yaml`, and `tests/test_catalog.py` checks them.
+
+**Catalog concepts by G1-T status.** All 69 catalog concepts in the vocabulary.
+
+| Status | Concepts | Which |
+|---|---|---|
+| Admitted | 2 | Payroll Processing (T1-02), Accounts Payable Processing (T1-03), signed PASS 2026-11-05. T1-01 (customer complaint management) is admitted too, but has no vocabulary concept yet |
+| Ready | 43 | section 5; prepared for batch review in `docs/catalog/admission/G1T-T2-batch.md` |
+| Not ready | 15 | 9 whose only act evidence is a class BPO types as a capability (Q-12); 4 whose designating class is a BPO capability class but whose BPO wiring names act types, each a component's; 2 with no act type in their evidence (section 5; `docs/catalog/tranche-2-q12.md`) |
+| Outside G1-T review scope | 9 | 5 tranche-2 capability areas (Financial Resource Management, Payables and Reimbursement Management, Capital Expenditure Management, Global Trade Management, Debt and Investment Management), broad or conjunctive (CD16, E4); the 4 P5 pilots outside the tranche (Strategic Planning, Business Model Governance, Competitive Analysis, Customer Experience Management), which no tranche has curated |
+| **Total** | **69** | 65 from tranche 2, 4 P5 pilots |
+
+**Links by disposition.**
+
+| | Proposed | Added | Written as `broader` | Not written |
+|---|---|---|---|---|
+| Retained, `part-of` | 62 | 2 | 59 | 5: 1 outside, 4 carried by a merge |
+| Retained, `kind-of` | 13 | 5 | 7 | 11: 2 + 3 outside, 4 redundant, 2 carried by a merge |
+| Incorrect | 11 | — | — | 11: 3 homonyms, 2 containment artifacts, 1 reversed, 1 dependency, 4 rejected candidates |
+| Unresolved | 3 | — | — | 3: Internal Control and Global Trade Management under the root, and the deferred restitution candidate |
+| **Total** | **89** | **7** | **66** | **30** |
+
+The proposed subclass relations are the 18 retained `kind-of` links, and only those
+(standard, section 5). None is an axiom.
+
+**What changed from revision 1.** Revision 1's figures stand, but four statements were
+inexact:
+- "`broader` written: 66, each a kept specialization or component" counted the 4 added links
+  between tranche concepts as kept;
+- the 3 added links to candidates outside the tranche were not said to be unwritten;
+- four of the 15 not-ready concepts were said to have only capability-typed act evidence.
+  BPO's `enablesProcess` wiring gives them act types, which the evidence lists without a
+  genus, and the count missed them. Their genera are in `docs/catalog/bpo-act-types.yaml`.
+  None becomes ready (section 5), but the stated reason was wrong;
+- the links were described as specialization, component and incorrect, where the standard
+  now says `kind-of`, `part-of`, and the disposition `incorrect`.
 
 ## 2. Dispositions that are not acceptances
 
@@ -46,7 +86,7 @@ By batch. *Area* marks a broad or conjunctive capability area, not proposed for 
 | `bcoc:InternationalFundsManagement` | International Funds Management | BCC-87e3a26b | Financial Resource Management, Treasury Management | not ready: no act type in its evidence |
 | `bcoc:InternationalRateMonitoring` | International Rate Monitoring | BCC-5dfa2101 | International Funds Management | ready |
 | `bcoc:CrossBorderFundsTransferManagement` | Cross-Border Funds Transfer Management | BCC-bf62316a | International Funds Management | ready |
-| `bcoc:TreasuryManagement` | Treasury Management | BCC-0ba10d44 | Financial Resource Management | not ready: every act type in its evidence is typed under a capability class (Q-12) |
+| `bcoc:TreasuryManagement` | Treasury Management | BCC-0ba10d44 | Financial Resource Management | not ready: Q-12 designating class; act types only through its components (section 5) |
 | `bcoc:CashManagement` | Cash Management | BCC-a1c5454d | Treasury Management | ready |
 | `bcoc:BankingRelationshipManagement` | Banking Relationship Management | BCC-a750d13a | Cash Management, Financial Intermediary Relationship Management | not ready: every act type in its evidence is typed under a capability class (Q-12) |
 | `bcoc:CashEquivalentManagement` | Cash Equivalent Management | BCC-314dba7d | Cash Management | not ready: every act type in its evidence is typed under a capability class (Q-12) |
@@ -86,7 +126,7 @@ By batch. *Area* marks a broad or conjunctive capability area, not proposed for 
 | `bcoc:AccountsReceivableProcessing` | Accounts Receivable Processing | BCC-6587dedf | Revenue and Receivables Management | ready |
 | `bcoc:CustomerDeductionManagement` | Customer Deduction and Adjustment Management | BCC-cebf0da8 | Revenue and Receivables Management | ready |
 | `bcoc:CollectionsManagement` | Collections Management | BCC-c4904759 | Revenue and Receivables Management | ready |
-| `bcoc:DefaultAccountManagement` | Default Account Management | BCC-38b3c836 | Collections Management | not ready: every act type in its evidence is typed under a capability class (Q-12) |
+| `bcoc:DefaultAccountManagement` | Default Account Management | BCC-38b3c836 | Collections Management | not ready: Q-12 designating class; act types only through its components (section 5) |
 | `bcoc:CustomerCreditManagement` | Customer Credit Management | BCC-b7ff0eac | Revenue and Receivables Management | ready |
 | `bcoc:CustomerInvoicing` | Customer Invoicing | BCC-8a70a337 | Revenue and Receivables Management | ready |
 
@@ -106,14 +146,14 @@ By batch. *Area* marks a broad or conjunctive capability area, not proposed for 
 | `bcoc:RestrictedPartyScreening` | Restricted Party Screening | BCC-f6799472 | Global Trade Management | ready |
 | `bcoc:TradeDocumentation` | Trade and Customs Documentation | BCC-c5e7dca0, BCC-6daa0467 | Global Trade Management | ready |
 | `bcoc:TradePreferenceManagement` | Trade Preference Management | BCC-0c80b752 | Global Trade Management | ready |
-| `bcoc:InternalControl` | Internal Control | BCC-5a4bc396 | — | not ready: every act type in its evidence is typed under a capability class (Q-12) |
+| `bcoc:InternalControl` | Internal Control | BCC-5a4bc396 | — | not ready: Q-12 designating class; act types only through its components (section 5) |
 | `bcoc:InternalControlReporting` | Internal Control Reporting | BCC-b55668bc | Internal Control | ready |
 | `bcoc:InternalControlDesign` | Internal Control Design | BCC-80a63f8e | Internal Control | ready |
 | `bcoc:PayrollProcessing` | Payroll Processing | BCC-d95f68fd, BCC-b7c46718 | Financial Resource Management | admitted: T1-02, signed PASS 2026-11-05 |
 | `bcoc:PayManagement` | Pay Management | BCC-d105ff07 | Payroll Processing | ready |
 | `bcoc:PayrollTaxProcessing` | Payroll Tax Processing | BCC-394909c1 | Payroll Processing, Tax Management | ready |
 | `bcoc:TimeReporting` | Time Reporting | BCC-85fbcb90 | — | ready |
-| `bcoc:TaxManagement` | Tax Management | BCC-c64ca466 | Financial Resource Management | not ready: every act type in its evidence is typed under a capability class (Q-12) |
+| `bcoc:TaxManagement` | Tax Management | BCC-c64ca466 | Financial Resource Management | not ready: Q-12 designating class; act types only through its components (section 5) |
 | `bcoc:TaxPlanning` | Tax Planning | BCC-ce052840 | Tax Management | ready |
 | `bcoc:TaxProcessing` | Tax Processing | BCC-52f0795a | Tax Management | ready |
 | `bcoc:InternalControlOperation` | Internal Control Operation and Monitoring | BCC-ded8ed18 | Internal Control | ready |
@@ -186,12 +226,30 @@ Not applied: R26 (re-phrase the pilot Treasury Management in the tranche-2 patte
 | BCC-7757c12b | Treasury Policy Management | 8 / 9 | P10885 (establishing treasury governance) needs a CAP-06 record; P10891 (treasury internal controls: Internal Control Design's) and P10892 (system security requirements) are out |
 | BCC-ded8ed18 | Internal Control Operation and Monitoring | 3 / 3 | — |
 
-**Not ready:** Export and Import Control (no act type in its evidence); Internal Control (every act type in its evidence is typed under a capability class (Q-12)); International Funds Management (no act type in its evidence); Financial Planning and Management Accounting (every act type in its evidence is typed under a capability class (Q-12)); Continuous Cost Improvement (every act type in its evidence is typed under a capability class (Q-12)); Default Account Management (every act type in its evidence is typed under a capability class (Q-12)); Tax Management (every act type in its evidence is typed under a capability class (Q-12)); Treasury Management (every act type in its evidence is typed under a capability class (Q-12)); Banking Relationship Management (every act type in its evidence is typed under a capability class (Q-12)); Cash Equivalent Management (every act type in its evidence is typed under a capability class (Q-12)); Cash Flow Management (every act type in its evidence is typed under a capability class (Q-12)); Financial Intermediary Relationship Management (every act type in its evidence is typed under a capability class (Q-12)); Issuer Credit Exposure Management (every act type in its evidence is typed under a capability class (Q-12)); Liquidity Management (every act type in its evidence is typed under a capability class (Q-12)); Financial Fraud and Dispute Case Management (every act type in its evidence is typed under a capability class (Q-12)).
+**Not ready (15).** The reasons are the review record's.
+
+| Candidate | Concept | Acts usable / in evidence | Reason |
+|---|---|---|---|
+| BCC-13b94120 | Issuer Credit Exposure Management | 0 / 1 | every act type in its evidence is typed under a capability class (Q-12); an index waits for BPO |
+| BCC-314dba7d | Cash Equivalent Management | 0 / 1 | every act type in its evidence is typed under a capability class (Q-12); an index waits for BPO |
+| BCC-3421f274 | Continuous Cost Improvement | 0 / 1 | every act type in its evidence is typed under a capability class (Q-12); an index waits for BPO |
+| BCC-4464d04f | Liquidity Management | 0 / 1 | every act type in its evidence is typed under a capability class (Q-12); an index waits for BPO |
+| BCC-9b5ec2fd | Financial Fraud and Dispute Case Management | 0 / 1 | every act type in its evidence is typed under a capability class (Q-12); an index waits for BPO |
+| BCC-a750d13a | Banking Relationship Management | 0 / 1 | every act type in its evidence is typed under a capability class (Q-12); an index waits for BPO |
+| BCC-ca61edb4 | Financial Planning and Management Accounting | 0 / 1 | every act type in its evidence is typed under a capability class (Q-12); an index waits for BPO |
+| BCC-d6966c88 | Financial Intermediary Relationship Management | 0 / 1 | every act type in its evidence is typed under a capability class (Q-12); an index waits for BPO |
+| BCC-d71abe9a | Cash Flow Management | 0 / 1 | every act type in its evidence is typed under a capability class (Q-12); an index waits for BPO |
+| BCC-0ba10d44 | Treasury Management | 4 / 5 | its designating class P10734 is typed under a capability class (Q-12); BPO's enablesProcess names four act types (P10885, P10893, P12974, P14079), one from each of four components; its definition is preserved pending its recorded revision (R26) |
+| BCC-38b3c836 | Default Account Management | 1 / 1 | no designating act type, since BPO's DefaultAccountManagementCapability is a capability class (Q-12); BPO's enablesProcess names only P14007 (recovery workout, PCF 9.2.4.6), which Collections Management's index also takes; whether that one act suffices is the reviewer's question |
+| BCC-5a4bc396 | Internal Control | 3 / 3 | no designating act type, since BPO's InternalControlCapability is a capability class (Q-12); BPO's enablesProcess names three act types (P10762, P21574, P10764), each the designating act of one of its three components, so an index would be the union of theirs; whether it is a capability area (CD16, E4) is open, and its link to the root is unresolved |
+| BCC-c64ca466 | Tax Management | 1 / 1 | no designating act type, since BPO's TaxManagementCapability is a capability class (Q-12); BPO's enablesProcess names only P10866 (payroll taxes), Payroll Tax Processing's act, which does not cover the definition |
+| BCC-87e3a26b | International Funds Management | 0 / 0 | no act type in its evidence |
+| BCC-cd7f1007 | Export and Import Control | 0 / 0 | no act type in its evidence |
 
 ## 6. For the architect: material issues and source limitations
 
-1. **Q-12 holds back the concepts whose only act type is BPO's designating class.** BPO types the designating act class of many candidates, treasury's above all, under a capability class. The readiness counts use only the PCF processes beneath, which BPO types as acts. Where none exists, the concept waits for BPO: 13 concepts, listed in section 5 as not ready.
-2. **Two components of the root fail its coverage test (R12).** Internal Control (operations, reporting and compliance) and Global Trade Management (export control, screening, classification) are placed under PCF 9.0, but neither is financial resource work. Their links are held, not written. A governance, risk and compliance parent, and a trade-compliance parent, belong to later domains. The alternative, narrowing Internal Control to control over financial reporting, would change its meaning; that choice is the architect's.
+1. **Q-12 holds back 13 concepts** (deferred, decision of 2026-11-07, B). BPO types the designating act class of many candidates, treasury's above all, under a capability class. For 9 concepts that class is all the act evidence there is. For 4 more, BPO names act types through `enablesProcess`, but each belongs to one of the concept's components. All 13 stay blocked. `docs/catalog/tranche-2-q12.md` lists them, with each BPO class, its typing, and its module and line at the pin, for the separate decision on an upstream correction or an existing mapping. Eight ready concepts have a capability-typed designating class too, but their processes beneath give them indexes.
+2. **Two components of the root fail its coverage test (R12).** Internal Control (operations, reporting and compliance) and Global Trade Management (export control, screening, classification) are placed under PCF 9.0, but neither is financial resource work. Their links are **unresolved**, and not written (decision of 2026-11-07, B: they stay so until the cross-domain concepts exist, and no concept's meaning changes to fit PCF 9.0). A governance, risk and compliance parent, and a trade-compliance parent, belong to later domains. The alternative, narrowing Internal Control to control over financial reporting, would change its meaning; that choice is the architect's.
 3. **Re-targetings that depart from PCF.** Liquidity Management sits under Treasury Management, not Debt and Investment. Continuous Cost Improvement specializes Cost Management. International Funds Management is also a component of Treasury Management. Each is reasoned in the review record.
 4. **PCF 9.10 'consolidation' read as cash concentration**, from its description, not financial consolidation, which is PCF 9.3.4.8 under Financial Reporting.
 5. **Payroll tax.** It is kept as a *component* of Tax Management, not a specialization, so that payroll tax operations stay distinct from tax planning and general tax processing (decision of 2026-11-04, act 3).
@@ -206,7 +264,7 @@ Not applied: R26 (re-phrase the pilot Treasury Management in the tranche-2 patte
 
 The tranche took one decision, one review and one report. The rest of the catalog can follow the same path **without a new proposal or decision per domain**:
 
-1. **Approve the Stage 03 standard once**, and with it a standing rule. A domain is curated under the standard and this tranche's practice (`tranche-<n>-review.yaml`, concepts with `catalog_candidates`, dispositions, one report), with no proposal of its own.
+1. **Ratify the Stage 03 standard once** (its rules were approved on 2026-11-07), and with it a standing rule. A domain is curated under the standard and this tranche's practice (`tranche-<n>-review.yaml`, concepts with `catalog_candidates`, dispositions, one report), with no proposal of its own.
 2. **One synthetic domain review per domain**, given the files and the rules, not the drafter's reasoning. Substantive findings are applied or escalated; the architect sees only the consolidated issues (this report's section 6) and one G1-T batch per domain.
 3. **G1-T in batches.** This tranche leaves 43 candidates ready. One batch per domain, each record drafted from the ready list and its index notes, signed by the named reviewer, keeps admission from becoming the bottleneck.
 4. **Order by readiness and overlap**, from the generated catalog (candidates beneath each top-level function, *likely* capabilities first):

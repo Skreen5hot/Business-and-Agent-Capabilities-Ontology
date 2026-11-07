@@ -26,3 +26,8 @@ every proposed link of PCF 9.0's subtree as specialization, component or incorre
 (`docs/catalog/tranche-2-review.yaml`). Its standard is proposed
 (`docs/proposals/2026-11-07-stage-03-taxonomy-standard.md`); until it is approved the
 links are classified, not validated.
+
+*Since 2026-11-07, later:* the standard's rules were approved
+(`docs/decisions/2026-11-07-tranche-2-accepted-g1t-preparation-authorized.md`, A2), and its
+text, aligned with them, is submitted for ratification. The review record now uses its
+terms: `kind-of`, `part-of`, and the dispositions retained, incorrect and unresolved.

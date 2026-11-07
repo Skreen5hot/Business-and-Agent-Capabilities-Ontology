@@ -1,12 +1,12 @@
 # Tranche 2 structured review record: every candidate's disposition and every
-# proposed link's classification (docs/decisions/2026-11-07-curation-tranche-2-approved.md). Hand-authored;
+# link's disposition and kind (docs/decisions/2026-11-07-curation-tranche-2-approved.md). Hand-authored;
 # docs/catalog/tranche-2.md summarizes it, and tests/test_catalog.py holds it to
 # the catalog and the vocabulary.
-format: 1
+format: 2
 tranche: 2
 decision: docs/decisions/2026-11-07-curation-tranche-2-approved.md
-standard: 'docs/proposals/2026-11-07-stage-03-taxonomy-standard.md (proposed: links here are
-  classified, not validated)'
+standard: 'docs/proposals/2026-11-07-stage-03-taxonomy-standard.md (submitted for ratification:
+  links here are classified, not validated)'
 scope:
   root: BCC-4fda51aa
   candidates_beneath: 72
@@ -336,11 +336,14 @@ candidates:
   disposition: accepted
   concept: bcoc:InternalControl
   classification: capability type
-  g1t: 'not ready: every act type in its evidence is typed under a capability class (Q-12);
-    an index waits for BPO'
+  g1t: 'not ready: no designating act type, since BPO''s InternalControlCapability is a capability
+    class (Q-12); BPO''s enablesProcess names three act types (P10762, P21574, P10764), each
+    the designating act of one of its three components, so an index would be the union of
+    theirs; whether it is a capability area (CD16, E4) is open, and its link to the root is
+    unresolved'
   act_types:
     in_evidence: 3
-    usable: 0
+    usable: 3
   flags_answered:
   - qualified object
 - id: BCC-b55668bc
@@ -608,11 +611,13 @@ candidates:
   disposition: accepted
   concept: bcoc:DefaultAccountManagement
   classification: capability type
-  g1t: 'not ready: every act type in its evidence is typed under a capability class (Q-12);
-    an index waits for BPO'
+  g1t: 'not ready: no designating act type, since BPO''s DefaultAccountManagementCapability
+    is a capability class (Q-12); BPO''s enablesProcess names only P14007 (recovery workout,
+    PCF 9.2.4.6), which Collections Management''s index also takes; whether that one act suffices
+    is the reviewer''s question'
   act_types:
     in_evidence: 1
-    usable: 0
+    usable: 1
   flags_answered: []
 - id: BCC-b7ff0eac
   name: Customer Credit Processing Capability
@@ -642,11 +647,12 @@ candidates:
   disposition: accepted
   concept: bcoc:TaxManagement
   classification: capability type
-  g1t: 'not ready: every act type in its evidence is typed under a capability class (Q-12);
-    an index waits for BPO'
+  g1t: 'not ready: no designating act type, since BPO''s TaxManagementCapability is a capability
+    class (Q-12); BPO''s enablesProcess names only P10866 (payroll taxes), Payroll Tax Processing''s
+    act, which does not cover the definition'
   act_types:
     in_evidence: 1
-    usable: 0
+    usable: 1
   flags_answered: []
 - id: BCC-ce052840
   name: Tax Strategy and Plan Development Capability
@@ -676,11 +682,12 @@ candidates:
   disposition: accepted
   concept: bcoc:TreasuryManagement
   classification: capability type
-  g1t: 'not ready: every act type in its evidence is typed under a capability class (Q-12);
-    an index waits for BPO'
+  g1t: 'not ready: its designating class P10734 is typed under a capability class (Q-12);
+    BPO''s enablesProcess names four act types (P10885, P10893, P12974, P14079), one from
+    each of four components; its definition is preserved pending its recorded revision (R26)'
   act_types:
     in_evidence: 5
-    usable: 0
+    usable: 4
   flags_answered:
   - act type typed under a capability class
 - id: BCC-a1c5454d
@@ -917,7 +924,7 @@ links:
   broader: BCC-4fda51aa
   basis:
   - hierarchy:INV-PCF74-17059<INV-PCF74-17058
-  kind: component
+  disposition: unresolved
   action: held
   reason: 'PCF placement only: export control, screening and classification are not financial
     resource work, so the coverage test fails; held pending a trade-compliance or supply-chain
@@ -926,7 +933,8 @@ links:
   broader: BCC-132e1b29
   basis:
   - hierarchy:INV-PCF74-11209<INV-PCF74-11208
-  kind: specialization
+  disposition: retained
+  kind: kind-of
   action: kept
   reason: 'interest rate risk is one kind of financial risk: the object restricted. Reclassified
     from the PCF reading'
@@ -934,7 +942,8 @@ links:
   broader: BCC-44f37d0e
   basis:
   - object-containment:risk
-  kind: specialization
+  disposition: retained
+  kind: kind-of
   action: redundant
   reason: true, but covered through Financial Risk Management, which is linked to the target
     instead
@@ -942,49 +951,56 @@ links:
   broader: BCC-4fda51aa
   basis:
   - hierarchy:INV-PCF74-10734<INV-PCF74-17058
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-0c80b752
   broader: BCC-05445216
   basis:
   - hierarchy:INV-PCF74-14096<INV-PCF74-17059
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-0fe1f7f0
   broader: BCC-4fda51aa
   basis:
   - hierarchy:INV-PCF74-10733<INV-PCF74-17058
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-132e1b29
   broader: BCC-0ba10d44
   basis:
   - hierarchy:INV-PCF74-11208<INV-PCF74-10734
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-13b94120
   broader: BCC-ec93ca56
   basis:
   - hierarchy:INV-PCF74-10910<INV-PCF74-10761
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-15e92684
   broader: BCC-9305456f
   basis:
   - hierarchy:INV-PCF74-10751<INV-PCF74-10731
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-18ef14d6
   broader: BCC-17c72571
   basis:
   - hierarchy:INV-PCF74-11042<INV-PCF74-11012
-  kind: component
+  disposition: retained
+  kind: part-of
   action: merged
   reason: the candidate was merged into Financial Reporting; reporting results to the board
     is part of board relations, outside the tranche
@@ -992,35 +1008,40 @@ links:
   broader: BCC-5caed753
   basis:
   - object-containment:result
-  kind: specialization
+  disposition: retained
+  kind: kind-of
   action: merged
   reason: both candidates were merged into Financial Reporting
 - narrower: BCC-1cccc689
   broader: BCC-4fda51aa
   basis:
   - hierarchy:INV-PCF74-10729<INV-PCF74-17058
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-302a390a
   broader: BCC-ca61edb4
   basis:
   - hierarchy:INV-PCF74-10739<INV-PCF74-10728
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-314dba7d
   broader: BCC-a1c5454d
   basis:
   - hierarchy:INV-PCF74-10894<INV-PCF74-10759
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-3421f274
   broader: BCC-cedf0899
   basis:
   - hierarchy:INV-PCF74-10788<INV-PCF74-10741
-  kind: specialization
+  disposition: retained
+  kind: kind-of
   action: retargeted
   reason: continuous cost improvement is cost management done as a standing practice (manner
     restricted); PCF places it under financial performance
@@ -1029,14 +1050,16 @@ links:
   broader: BCC-0fe1f7f0
   basis:
   - hierarchy:INV-PCF74-10757<INV-PCF74-10733
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-38b3c836
   broader: BCC-c4904759
   basis:
   - hierarchy:INV-PCF74-14008<INV-PCF74-10745
-  kind: specialization
+  disposition: retained
+  kind: kind-of
   action: kept
   reason: 'default accounts are overdue accounts in a further state, and Collections Management''s
     definition covers pursuing, settling and writing off (PCF 9.2.4.5): collections with its
@@ -1045,7 +1068,8 @@ links:
   broader: BCC-c64ca466
   basis:
   - object-containment:tax
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: the organization's tax work covers payroll taxes; component, not specialization,
     so that payroll tax operations stay distinct from tax planning and from general tax processing
@@ -1054,14 +1078,16 @@ links:
   broader: BCC-d95f68fd
   basis:
   - hierarchy:INV-PCF74-10755<INV-PCF74-10732
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: 'tranche 1 §5: a component (CD16), not a subtype'
 - narrower: BCC-3e668a26
   broader: BCC-132e1b29
   basis:
   - hierarchy:INV-PCF74-11211<INV-PCF74-11208
-  kind: specialization
+  disposition: retained
+  kind: kind-of
   action: kept
   reason: 'counterparty credit exposure is one kind of financial risk: the object restricted.
     Reclassified from the PCF reading'
@@ -1069,7 +1095,8 @@ links:
   broader: BCC-44f37d0e
   basis:
   - object-containment:risk
-  kind: specialization
+  disposition: retained
+  kind: kind-of
   action: redundant
   reason: true, but covered through Financial Risk Management, which is linked to the target
     instead
@@ -1077,7 +1104,8 @@ links:
   broader: BCC-ec93ca56
   basis:
   - hierarchy:INV-PCF74-10909<INV-PCF74-10761
-  kind: component
+  disposition: retained
+  kind: part-of
   action: retargeted
   reason: liquidity concerns the whole treasury position, cash and funding, not debt and investment
     only; the treasury definition already names it
@@ -1086,21 +1114,24 @@ links:
   broader: BCC-05445216
   basis:
   - hierarchy:INV-PCF74-14093<INV-PCF74-17059
-  kind: incorrect
+  disposition: incorrect
+  incorrect_reason: rejected candidate
   action: dropped
   reason: the candidate was rejected; its act stays as realization evidence
 - narrower: BCC-4f5c2f36
   broader: BCC-05445216
   basis:
   - hierarchy:INV-PCF74-14098<INV-PCF74-17059
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-4fda51aa
   broader: BCC-94513b9b
   basis:
   - object-containment:resource
-  kind: specialization
+  disposition: retained
+  kind: kind-of
   action: kept-outside
   reason: financial resource management is resource management with its object restricted;
     to be confirmed when the target, outside the tranche, has a normalized definition
@@ -1108,14 +1139,15 @@ links:
   broader: BCC-c64ca466
   basis:
   - hierarchy:INV-PCF74-10766<INV-PCF74-10736
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-5a4bc396
   broader: BCC-4fda51aa
   basis:
   - hierarchy:INV-PCF74-10735<INV-PCF74-17058
-  kind: component
+  disposition: unresolved
   action: held
   reason: 'PCF placement only: internal control, as defined, covers operations and compliance
     as well as financial reporting, so the coverage test against Financial Resource Management
@@ -1124,7 +1156,8 @@ links:
   broader: BCC-ded8ed18
   basis:
   - object-containment:control
-  kind: incorrect
+  disposition: incorrect
+  incorrect_reason: reversed
   action: rejected
   reason: 'reversed: operating controls (PCF 9.8.2) is a component of internal control, not
     its parent; a containment artifact of the word ''control'''
@@ -1132,35 +1165,40 @@ links:
   broader: BCC-199a5fdd
   basis:
   - hierarchy:INV-PCF74-17489<INV-PCF74-17482
-  kind: incorrect
+  disposition: incorrect
+  incorrect_reason: homonym
   action: rejected
   reason: 'homonym: PCF 13.3.2.2.2 summarizes evaluation results, unrelated to financial reporting'
 - narrower: BCC-5caed753
   broader: BCC-87e3a26b
   basis:
   - hierarchy:INV-PCF74-10770<INV-PCF74-10737
-  kind: component
+  disposition: retained
+  kind: part-of
   action: merged
   reason: the candidate was merged into Financial Reporting
 - narrower: BCC-5dfa2101
   broader: BCC-87e3a26b
   basis:
   - hierarchy:INV-PCF74-10767<INV-PCF74-10737
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-60d672db
   broader: BCC-4fda51aa
   basis:
   - hierarchy:INV-PCF74-10730<INV-PCF74-17058
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-62e789bf
   broader: BCC-0fe1f7f0
   basis:
   - hierarchy:INV-PCF74-10756<INV-PCF74-10733
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it; tranche
     1 §5 kept it
@@ -1168,49 +1206,56 @@ links:
   broader: BCC-1cccc689
   basis:
   - hierarchy:INV-PCF74-10744<INV-PCF74-10729
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-6ae95cc4
   broader: BCC-05445216
   basis:
   - hierarchy:INV-PCF74-14097<INV-PCF74-17059
-  kind: component
+  disposition: unresolved
   action: held
-  reason: the candidate is deferred; the link is classified, not written
+  reason: 'the candidate is deferred as a likely homonym: no relationship can be assessed
+    until the source''s sense is settled'
 - narrower: BCC-6daa0467
   broader: BCC-05445216
   basis:
   - hierarchy:INV-PCF74-14094<INV-PCF74-17059
-  kind: component
+  disposition: retained
+  kind: part-of
   action: merged
   reason: the candidate was merged into Trade and Customs Documentation, which keeps the link
 - narrower: BCC-749adb52
   broader: BCC-0ba10d44
   basis:
   - hierarchy:INV-PCF74-10760<INV-PCF74-10734
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-7757c12b
   broader: BCC-0ba10d44
   basis:
   - hierarchy:INV-PCF74-10758<INV-PCF74-10734
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-792537f9
   broader: BCC-60d672db
   basis:
   - hierarchy:INV-PCF74-10750<INV-PCF74-10730
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-7c04ea8a
   broader: BCC-132e1b29
   basis:
   - hierarchy:INV-PCF74-11210<INV-PCF74-11208
-  kind: specialization
+  disposition: retained
+  kind: kind-of
   action: kept
   reason: 'foreign exchange risk is one kind of financial risk: the object restricted. Reclassified
     from the PCF reading'
@@ -1218,7 +1263,8 @@ links:
   broader: BCC-44f37d0e
   basis:
   - object-containment:risk
-  kind: specialization
+  disposition: retained
+  kind: kind-of
   action: redundant
   reason: true, but covered through Financial Risk Management, which is linked to the target
     instead
@@ -1226,7 +1272,8 @@ links:
   broader: BCC-41f11e7f
   basis:
   - object-containment:procedure
-  kind: incorrect
+  disposition: incorrect
+  incorrect_reason: containment artifact
   action: rejected
   reason: 'containment artifact on ''procedure'': designing internal controls defines controls
     such as segregation of duties, not only procedures, so substitution fails'
@@ -1234,14 +1281,16 @@ links:
   broader: BCC-5a4bc396
   basis:
   - hierarchy:INV-PCF74-10762<INV-PCF74-10735
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-85fbcb90
   broader: BCC-d95f68fd
   basis:
   - hierarchy:INV-PCF74-10753<INV-PCF74-10732
-  kind: incorrect
+  disposition: incorrect
+  incorrect_reason: dependency
   action: rejected
   reason: 'dependency: payroll uses recorded time, but time reporting is a separate capability
     (tranche 1 §5; BRM separates them)'
@@ -1249,49 +1298,56 @@ links:
   broader: BCC-ca61edb4
   basis:
   - hierarchy:INV-PCF74-10738<INV-PCF74-10728
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-87e3a26b
   broader: BCC-4fda51aa
   basis:
   - hierarchy:INV-PCF74-10737<INV-PCF74-17058
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-8a70a337
   broader: BCC-1cccc689
   basis:
   - hierarchy:INV-PCF74-10743<INV-PCF74-10729
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-8b431985
   broader: BCC-60d672db
   basis:
   - hierarchy:INV-PCF74-10748<INV-PCF74-10730
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-8b431985
   broader: BCC-81d8f125
   basis:
   - object-containment:accounting
-  kind: specialization
+  disposition: retained
+  kind: kind-of
   action: redundant
   reason: true, but covered through Financial Accounting, which is linked to the target instead
 - narrower: BCC-8fc1f306
   broader: BCC-87e3a26b
   basis:
   - hierarchy:INV-PCF74-10769<INV-PCF74-10737
-  kind: component
+  disposition: retained
+  kind: part-of
   action: merged
   reason: the candidate was merged into Foreign Exchange Risk Management
 - narrower: BCC-8fdf31c6
   broader: BCC-132e1b29
   basis:
   - hierarchy:INV-PCF74-20137<INV-PCF74-11208
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: executing hedges is one means by which financial risk is limited, not a kind of
     risk management
@@ -1299,42 +1355,48 @@ links:
   broader: BCC-4fda51aa
   basis:
   - hierarchy:INV-PCF74-10731<INV-PCF74-17058
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-9511900a
   broader: BCC-62e789bf
   basis:
   - hierarchy:INV-PCF74-10876<INV-PCF74-10756
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: 'tranche 1 §5: a component of T1-03, not a subtype'
 - narrower: BCC-9511900a
   broader: BCC-d105ff07
   basis:
   - hierarchy:INV-PCF74-10862<INV-PCF74-10754
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: 'tranche 1 §5: a component of T1-02''s pay management, not a subtype'
 - narrower: BCC-95b092a2
   broader: BCC-9305456f
   basis:
   - hierarchy:INV-PCF74-10752<INV-PCF74-10731
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-9b5ec2fd
   broader: BCC-0ba10d44
   basis:
   - hierarchy:INV-PCF74-16958<INV-PCF74-10734
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-9b5ec2fd
   broader: BCC-d977a25e
   basis:
   - object-containment:case
-  kind: specialization
+  disposition: retained
+  kind: kind-of
   action: kept-outside
   reason: 'financial fraud and dispute cases are cases: case management with the object restricted;
     the target is outside the tranche'
@@ -1342,56 +1404,64 @@ links:
   broader: BCC-62e789bf
   basis:
   - hierarchy:INV-PCF74-10872<INV-PCF74-10756
-  kind: incorrect
+  disposition: incorrect
+  incorrect_reason: rejected candidate
   action: dropped
   reason: the candidate was rejected and left the taxonomy (tranche 1 §5)
 - narrower: BCC-9ecf360b
   broader: BCC-fba2a35c
   basis:
   - hierarchy:INV-PCF74-20104<INV-PCF74-12669
-  kind: incorrect
+  disposition: incorrect
+  incorrect_reason: rejected candidate
   action: dropped
   reason: the candidate was rejected (tranche 1 §5)
 - narrower: BCC-a1c5454d
   broader: BCC-0ba10d44
   basis:
   - hierarchy:INV-PCF74-10759<INV-PCF74-10734
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-a750d13a
   broader: BCC-a1c5454d
   basis:
   - hierarchy:INV-PCF74-10899<INV-PCF74-10759
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-aebe5ec1
   broader: BCC-749adb52
   basis:
   - hierarchy:INV-PCF74-10901<INV-PCF74-10760
-  kind: specialization
+  disposition: retained
+  kind: kind-of
   action: merged
   reason: the candidate was merged into In-House Bank Account Management
 - narrower: BCC-b47b8fed
   broader: BCC-ca61edb4
   basis:
   - hierarchy:INV-PCF74-10740<INV-PCF74-10728
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-b55668bc
   broader: BCC-5a4bc396
   basis:
   - hierarchy:INV-PCF74-10764<INV-PCF74-10735
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-b7928257
   broader: BCC-05445216
   basis:
   - hierarchy:INV-PCF74-19593<INV-PCF74-17059
-  kind: incorrect
+  disposition: incorrect
+  incorrect_reason: rejected candidate
   action: dropped
   reason: the candidate was rejected; its act stays as realization evidence for Trade and
     Customs Documentation
@@ -1399,70 +1469,80 @@ links:
   broader: BCC-1cccc689
   basis:
   - hierarchy:INV-PCF74-10742<INV-PCF74-10729
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-bf62316a
   broader: BCC-87e3a26b
   basis:
   - hierarchy:INV-PCF74-10768<INV-PCF74-10737
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-c4904759
   broader: BCC-1cccc689
   basis:
   - hierarchy:INV-PCF74-10745<INV-PCF74-10729
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-c5e7dca0
   broader: BCC-05445216
   basis:
   - hierarchy:INV-PCF74-14095<INV-PCF74-17059
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-c64ca466
   broader: BCC-4fda51aa
   basis:
   - hierarchy:INV-PCF74-10736<INV-PCF74-17058
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-ca61edb4
   broader: BCC-4fda51aa
   basis:
   - hierarchy:INV-PCF74-10728<INV-PCF74-17058
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-cd7f1007
   broader: BCC-05445216
   basis:
   - hierarchy:INV-PCF74-14091<INV-PCF74-17059
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-ce052840
   broader: BCC-c64ca466
   basis:
   - hierarchy:INV-PCF74-10765<INV-PCF74-10736
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-cebf0da8
   broader: BCC-1cccc689
   basis:
   - hierarchy:INV-PCF74-10746<INV-PCF74-10729
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-cedf0899
   broader: BCC-4b2ce5d3
   basis:
   - object-containment:performance
-  kind: incorrect
+  disposition: incorrect
+  incorrect_reason: containment artifact
   action: rejected
   reason: 'containment artifact: the shared word ''performance''; benchmarking is not broader
     than financial performance management'
@@ -1470,49 +1550,56 @@ links:
   broader: BCC-ca61edb4
   basis:
   - hierarchy:INV-PCF74-10741<INV-PCF74-10728
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-d105ff07
   broader: BCC-d95f68fd
   basis:
   - hierarchy:INV-PCF74-10754<INV-PCF74-10732
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: 'tranche 1 §5: a component (CD16), not a subtype'
 - narrower: BCC-d6966c88
   broader: BCC-ec93ca56
   basis:
   - hierarchy:INV-PCF74-10908<INV-PCF74-10761
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-d71abe9a
   broader: BCC-a1c5454d
   basis:
   - hierarchy:INV-PCF74-10897<INV-PCF74-10759
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-d95f68fd
   broader: BCC-12db59b1
   basis:
   - hierarchy:INV-PCF74-10497<INV-PCF74-10412
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept-outside
   reason: 'tranche 1 §5: the second placement; the target is outside the tranche'
 - narrower: BCC-d95f68fd
   broader: BCC-4fda51aa
   basis:
   - hierarchy:INV-PCF74-10732<INV-PCF74-17058
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: 'tranche 1 §5: one type with two catalog placements'
 - narrower: BCC-e1fa4843
   broader: BCC-05445216
   basis:
   - hierarchy:INV-PCF74-14092<INV-PCF74-17059
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it; the
     trade sense of the candidate (PCF 9.11.3)
@@ -1520,7 +1607,8 @@ links:
   broader: BCC-a975ebc6
   basis:
   - hierarchy:INV-PCF74-10112<INV-PCF74-10106
-  kind: incorrect
+  disposition: incorrect
+  incorrect_reason: homonym
   action: rejected
   reason: 'homonym: PCF 3.1.1.5 evaluates products for marketing, a different ability the
     key merged'
@@ -1528,7 +1616,8 @@ links:
   broader: BCC-cedf0899
   basis:
   - hierarchy:INV-PCF74-10783<INV-PCF74-10741
-  kind: incorrect
+  disposition: incorrect
+  incorrect_reason: homonym
   action: rejected
   reason: 'homonym: PCF 9.1.4.2 evaluates new products financially, a different ability the
     key merged'
@@ -1536,77 +1625,103 @@ links:
   broader: BCC-60d672db
   basis:
   - hierarchy:INV-PCF74-10749<INV-PCF74-10730
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-e8acc1f8
   broader: BCC-60d672db
   basis:
   - hierarchy:INV-PCF74-10747<INV-PCF74-10730
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-ea6d1c4a
   broader: BCC-0fe1f7f0
   basis:
   - hierarchy:INV-PCF74-20929<INV-PCF74-10733
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-ec93ca56
   broader: BCC-0ba10d44
   basis:
   - hierarchy:INV-PCF74-10761<INV-PCF74-10734
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 - narrower: BCC-f6799472
   broader: BCC-05445216
   basis:
   - hierarchy:INV-PCF74-14090<INV-PCF74-17059
-  kind: component
+  disposition: retained
+  kind: part-of
   action: kept
   reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
 added_links:
 - narrower: BCC-a750d13a
   broader: BCC-d6966c88
-  kind: specialization
+  basis:
+  - 'review: docs/catalog/tranche-2.md, section 4'
+  disposition: retained
+  kind: kind-of
   action: added
   reason: 'banks are financial intermediaries: banking relationship management is the broader
     with its object restricted'
 - narrower: BCC-13b94120
   broader: BCC-3e668a26
-  kind: specialization
+  basis:
+  - 'review: docs/catalog/tranche-2.md, section 4'
+  disposition: retained
+  kind: kind-of
   action: added
   reason: 'an issuer whose obligations it holds is a counterparty: issuer credit exposure
     is counterparty credit exposure with its object restricted'
 - narrower: BCC-87e3a26b
   broader: BCC-0ba10d44
-  kind: component
+  basis:
+  - 'review: docs/catalog/tranche-2.md, section 4'
+  disposition: retained
+  kind: part-of
   action: added
   reason: concentrating units' funds into treasury-managed accounts is treasury work, which
     Treasury Management's definition covers; alongside the PCF placement under the root
 - narrower: BCC-ded8ed18
   broader: BCC-5a4bc396
-  kind: component
+  basis:
+  - 'review: docs/catalog/tranche-2.md, section 4'
+  disposition: retained
+  kind: part-of
   action: added
   reason: 'PCF 9.8.2 under 9.8: operating and monitoring controls is part of internal control''s
     work, by its definition'
 - narrower: BCC-132e1b29
   broader: BCC-44f37d0e
-  kind: specialization
+  basis:
+  - 'review: docs/catalog/tranche-2.md, section 4'
+  disposition: retained
+  kind: kind-of
   action: added
   reason: financial risk management is risk management with its object restricted; the target
     is outside the tranche
 - narrower: BCC-60d672db
   broader: BCC-81d8f125
-  kind: specialization
+  basis:
+  - 'review: docs/catalog/tranche-2.md, section 4'
+  disposition: retained
+  kind: kind-of
   action: added
   reason: financial accounting is accounting with its object restricted; the target is outside
     the tranche
 - narrower: BCC-ca61edb4
   broader: BCC-81d8f125
-  kind: specialization
+  basis:
+  - 'review: docs/catalog/tranche-2.md, section 4'
+  disposition: retained
+  kind: kind-of
   action: added
   reason: management accounting is accounting with its object restricted; the target is outside
     the tranche

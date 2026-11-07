@@ -25,7 +25,8 @@ TOOL = "tools/catalog/synthesize.py"
 DISPOSITIONS = "docs/catalog/dispositions.yaml"
 #: Where reviewers cite candidates by identifier: each one cited is pinned.
 REVIEW_RECORDS = ("docs/catalog/tranche-1.md", "docs/catalog/admission", "docs/decisions",
-                  "docs/catalog/tranche-2.md", "docs/catalog/tranche-2-review.yaml")
+                  "docs/catalog/tranche-2.md", "docs/catalog/tranche-2-review.yaml",
+                  "docs/catalog/tranche-2-q12.md")
 TRANCHE_2 = "docs/catalog/tranche-2-review.yaml"
 VOCAB_CATALOG = "src/01_controlled_vocabulary/catalog.yaml"
 CATALOG = "docs/catalog/candidates.yaml"
@@ -462,12 +463,29 @@ def test_every_proposed_link_is_classified_and_the_vocabulary_follows(committed,
     proposed = {(x, b["id"]) for x in rows for b in by[x]["broader"]}
     links = {(l["narrower"], l["broader"]): l for l in review["links"]}
     assert set(links) == proposed
-    kinds = {"specialization", "component", "incorrect"}
+    # The Stage 03 standard's terms (sections 3 and 4): a kind only on a retained link,
+    # incorrect a disposition with its reason, unresolved left without a kind.
+    actions = {"retained": {"kept", "kept-outside", "retargeted", "merged", "redundant",
+                            "added"},
+               "incorrect": {"rejected", "dropped"},
+               "unresolved": {"held"}}
+    reasons = {"homonym", "containment artifact", "reversed", "dependency",
+               "rejected candidate"}
     for l in list(links.values()) + review["added_links"]:
-        assert l["kind"] in kinds and l["reason"]
-        assert l["action"] in ("kept", "kept-outside", "retargeted", "merged", "dropped",
-                               "held", "rejected", "redundant", "added")
-        assert (l["kind"] == "incorrect") == (l["action"] in ("dropped", "rejected"))
+        assert l["action"] in actions[l["disposition"]] and l["reason"] and l["basis"]
+        assert ("kind" in l) == (l["disposition"] == "retained")
+        if "kind" in l:
+            assert l["kind"] in ("kind-of", "part-of")
+        assert ("incorrect_reason" in l) == (l["disposition"] == "incorrect")
+        if l["disposition"] == "incorrect":
+            assert l["incorrect_reason"] in reasons
+            assert (l["incorrect_reason"] == "rejected candidate") == (l["action"] == "dropped")
+    assert all(l["action"] == "added" for l in review["added_links"])
+    # Internal Control and Global Trade Management stay unresolved under the root
+    # (decision of 2026-11-07, B).
+    root = review["scope"]["root"]
+    for held in ("BCC-5a4bc396", "BCC-05445216"):
+        assert links[(held, root)]["disposition"] == "unresolved"
     concept_of = {r["id"]: r["concept"] for r in rows.values() if "concept" in r}
     want = set()
     for l in list(links.values()) + review["added_links"]:
@@ -480,3 +498,52 @@ def test_every_proposed_link_is_classified_and_the_vocabulary_follows(committed,
     assert got == want
     # No generated broader link becomes a subclass axiom (decision A4).
     assert "subClassOf" not in (ROOT / VOCAB_CATALOG).read_text(encoding="utf-8")
+
+
+def test_the_reconciled_tranche_2_figures_follow_the_records(tranche2):
+    # Decision of 2026-11-07 (tranche 2 accepted), A4: the counts come from the records.
+    review, concepts = tranche2
+    catalog = [c for c in concepts if c.startswith("bcoc:")]
+    accepted = [r for r in review["candidates"] if r["disposition"] == "accepted"]
+    status = {r["concept"]: r["g1t"].split(":")[0].split(";")[0] for r in accepted}
+    outside = set(catalog) - set(status)
+    counts = {k: sum(1 for v in status.values() if v == k)
+              for k in ("admitted", "ready", "not ready", "not proposed")}
+    assert counts == {"admitted": 2, "ready": 43, "not ready": 15, "not proposed": 5}
+    assert len(outside) == 4 and len(catalog) == 69
+    links = review["links"] + review["added_links"]
+    written = [l for l in links if l["action"] in ("kept", "retargeted", "added")
+               and all(x in {r["id"] for r in accepted}
+                       for x in (l["narrower"], l.get("retargeted_to", l["broader"])))]
+    assert len(written) == 66
+    assert sum(1 for l in links if l.get("kind") == "kind-of") == 18
+    report = (ROOT / "docs/catalog/tranche-2.md").read_text(encoding="utf-8")
+    for figure in ("| Admitted | 2 |", "| Ready | 43 |", "| Not ready | 15 |",
+                   "| Outside G1-T review scope | 9 |", "| **Total** | **69** |",
+                   "| **Total** | **89** | **7** | **66** | **30** |"):
+        assert figure in report
+
+
+def test_the_g1t_batch_covers_the_ready_candidates_and_signs_nothing(tranche2):
+    review, _ = tranche2
+    ready = [r["id"] for r in review["candidates"]
+             if r["disposition"] == "accepted" and r["g1t"].startswith("ready")]
+    text = (ROOT / "docs/catalog/admission/G1T-T2-batch.md").read_text(encoding="utf-8")
+    sections = re.findall(r"^### (T2-\d\d) — ", text, re.M)
+    assert sections == ["T2-%02d" % i for i in range(1, len(ready) + 1)] and len(ready) == 43
+    for i, cid in enumerate(ready, 1):
+        assert "| T2-%02d | %s |" % (i, cid) in text
+    # Preparation, not admission (A3): every confirmation row is empty.
+    assert text.count("|  |  |  |  |") == 43
+    assert "Not signed" in text
+
+
+def test_the_q12_list_names_the_thirteen_blocked_concepts(tranche2):
+    review, _ = tranche2
+    blocked = {r["id"] for r in review["candidates"]
+               if r["disposition"] == "accepted" and "Q-12" in r["g1t"]
+               and r["g1t"].startswith("not ready")}
+    assert len(blocked) == 13
+    text = (ROOT / "docs/catalog/tranche-2-q12.md").read_text(encoding="utf-8")
+    cited = set(re.findall(r"BCC-[0-9a-f]{8}", text.split("## 3.")[0]))
+    assert cited == blocked

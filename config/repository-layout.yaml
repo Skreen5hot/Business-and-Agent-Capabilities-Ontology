@@ -647,9 +647,19 @@ components:
     description: >-
       Hand-authored structured review record for tranche 2: each candidate's
       disposition, concept, classification and G1-T readiness, and each
-      proposed broader link's kind (specialization, component, incorrect),
-      action and reason, with the links reviewers added. The tests hold it
-      to the catalog and the vocabulary.
+      proposed broader link's disposition (retained, incorrect, unresolved),
+      kind if retained (kind-of, part-of), action, reason and provenance, in
+      the Stage 03 standard's terms (format 2), with the links reviewers
+      added. The tests hold it to the catalog and the vocabulary.
+
+  - id: catalog.tranche-2-q12
+    path: docs/catalog/tranche-2-q12.md
+    role: documentation
+    description: >-
+      The 13 tranche-2 concepts blocked by Q-12, with each BPO class they
+      depend on, its typing, and its module and line at the I-1 pin, for the
+      architect's separate decision (decision of 2026-11-07, tranche 2
+      accepted, B). Read from the generated records; proposes no act type.
 
   - id: catalog.admission
     path: docs/catalog/admission
@@ -661,7 +671,8 @@ components:
       the reviewer completes its confirmation; a draft is not a signature.
       G1T-T1-review-2026-11-05.md is an independent AI-authored review of the
       three drafts, filed verbatim as received; it is not a signature.
-      Nothing here asserts OWL.
+      G1T-T2-batch.md prepares tranche 2's 43 ready classes for one batch
+      review (decision of 2026-11-07, A3), unsigned. Nothing here asserts OWL.
 
   - id: catalog.dispositions
     path: docs/catalog/dispositions.yaml

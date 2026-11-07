@@ -94,7 +94,11 @@ for the architect's review (`docs/decisions/2026-11-07-cp0-closeout-and-integrat
 accepted ADR-002, approved the record and declared **CP-0 complete** (`docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md`). CP-0 does not
 by itself authorize Stage 05; OWL waits for D5. Semantic-curation tranche 2 was approved the
 same day (`docs/decisions/2026-11-07-curation-tranche-2-approved.md`) and curated: 64 new catalog concepts from PCF 9.0's
-subtree, its links classified under a proposed Stage 03 standard (`docs/catalog/tranche-2.md`).
+subtree, its links classified under a proposed Stage 03 standard (`docs/catalog/tranche-2.md`). The architect then accepted
+it as the working terminology baseline (`docs/decisions/2026-11-07-tranche-2-accepted-g1t-preparation-authorized.md`): the standard's
+rules are approved and its text is submitted for ratification; the 43 ready candidates are prepared for one
+G1-T batch review (`docs/catalog/admission/G1T-T2-batch.md`, unsigned); the 13 Q-12 concepts stay blocked
+(`docs/catalog/tranche-2-q12.md`).
 
 R5 records further blockers: material basis policy, maturity-value encoding, instance
 evidence, and migration of BPO existential restrictions. R6 (section 5.13) adds wording
