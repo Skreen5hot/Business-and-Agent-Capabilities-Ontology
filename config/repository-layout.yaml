@@ -643,6 +643,16 @@ components:
       three drafts, filed verbatim as received; it is not a signature.
       Nothing here asserts OWL.
 
+  - id: catalog.dispositions
+    path: docs/catalog/dispositions.yaml
+    role: documentation
+    description: >-
+      Hand-authored, read by the catalog generator and never written by it
+      (I-4 stabilization, decision of 2026-11-07, act 3): the pinned
+      identifiers of reviewed or admitted candidates, and the reviewers'
+      recorded dispositions (rejected, or retired into another candidate),
+      each citing the decision or review record that made it.
+
   - id: catalog.bpo-act-types
     path: docs/catalog/bpo-act-types.yaml
     role: generated-artifact

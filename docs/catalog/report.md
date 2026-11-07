@@ -14,12 +14,15 @@ Derived in part from the APQC Process Classification Framework® 7.4 (APQC's not
 | Candidate capabilities generated (designating records) | 1706 |
 | Unique candidates after deduplication | 1046 |
 | Duplicates merged | 660 |
-| Candidates supported by two or more sources | 102 |
+| Candidates supported by two or more sources | 103 |
 | Classified as likely BFO/CCO-compatible capabilities | 526 |
-| Rejected or deferred | 248 |
+| Rejected or deferred | 249 |
 | Source records lacking a proposed interpretation | 1603 |
-| Broader links proposed | 1024 |
-| Overlap links | 773 |
+| Broader links proposed | 1027 |
+| Overlap links | 737 |
+| Candidates whose overlap list is cut at 6 (`overlaps_truncated` gives the number found) | 22 |
+| Recorded reviewer dispositions in effect (`docs/catalog/dispositions.yaml`) | 2 |
+| Pinned identifiers of reviewed candidates | 14 |
 | Realization evidence rows (act types per candidate) | 2195 |
 | Distinct BPO act types cited | 1825 |
 | Requirement-evidence links (FIBF business capabilities) | 1140 |
@@ -60,9 +63,10 @@ Derived in part from the APQC Process Classification Framework® 7.4 (APQC's not
 | Review status | Candidates |
 | --- | --- |
 | deferred | 135 |
-| generated-draft | 371 |
-| needs-review | 427 |
-| rejected | 113 |
+| generated-draft | 365 |
+| needs-review | 431 |
+| rejected | 114 |
+| retired | 1 |
 
 ## Rejected or deferred, by reason
 
@@ -73,6 +77,7 @@ Derived in part from the APQC Process Classification Framework® 7.4 (APQC's not
 | function: a top-level area of a catalog (PCF category or BRM mission sector or business function) or a coordination of several abilities: a standing function whose whole-function type is defined only where one is (CD16, conditional designation R9); E4 is open | 35 |
 | process: names one act episode with a definite end, with no process of its own beneath it: realization evidence for a broader capability, not a type | 13 |
 | unresolved: its labels name an artifact (a plan, document, record or notice), not an ability; the ability is inferred and needs a reader | 7 |
+| capability: rejected as an ability candidate (Payments Approval); its source evidence is kept for possible standing-related modeling (CM-01, Authorization Record) | 1 |
 
 ## Source records lacking a proposed interpretation
 
@@ -104,13 +109,15 @@ Flags raised on candidates (a candidate may carry several):
 | Flag | Candidates |
 | --- | --- |
 | no BPO act type: realization index to be drawn | 365 |
-| realization evidence only through narrower candidates | 47 |
+| realization evidence only through narrower candidates | 46 |
 | generic object: named with its broader candidate | 46 |
 | act type typed under a capability class (Q-12) | 42 |
 | development-act-genus (CAP-06: needs a recorded reason) | 41 |
+| qualified object: the label is an adjective and an ability noun; a reader writes the object | 37 |
 | circular differentia: the label names only the ability; a reader writes it | 25 |
 | deontic index member (G1-T question 4: re-index to the non-deontic act) | 10 |
 | BPO index member is not an act (Q-12) | 5 |
+| residual category: the source's 'Other ...' heading names no distinct ability | 3 |
 
 Exceptions found by the consistency checks (13):
 
@@ -122,10 +129,10 @@ Exceptions found by the consistency checks (13):
 - cycle broken in the broader graph: management|portfolio program and project broader management|program and project (object-containment:program and project)
 - cycle broken in the broader graph: formulation|acquisition strategy broader formulation|strategy (object-containment:strategy)
 - cycle broken in the broader graph: design|solution broader development|solution (hierarchy:INV-FIBF-ITS-2-ITS.320.010-fibf-activity<INV-FIBF-ITS-2-ITS.320-fibf-function)
-- cycle broken in the broader graph: service|humanitarian broader service|international development and humanitarian (hierarchy:INV-FEAF-BRM-TAX-B02.151.368-brm-service<INV-FEAF-BRM-TAX-B02.151-brm-business-function)
+- cycle broken in the broader graph: compliance|compliance broader compliance|legal and compliance (hierarchy:INV-BPO-P11047-capability-class<INV-BPO-LegalAndComplianceCapability-capability-class)
+- cycle broken in the broader graph: compliance|compliance broader management|legal and ethical issue (hierarchy:INV-PCF74-11047<INV-PCF74-11013)
 - cycle broken in the broader graph: management|control broader management|internal control (hierarchy:INV-PCF74-21574<INV-PCF74-10735)
 - cycle broken in the broader graph: management|logistics and warehousing broader management|warehousing (object-containment:warehousing)
-- cycle broken in the broader graph: protection|defense and national broader protection|national (object-containment:national)
 - cycle broken in the broader graph: provision|environmental and natural resource broader provision|natural resource (object-containment:natural resource)
 
 ## The catalog's top level
@@ -140,7 +147,7 @@ Candidates classified `function` (deferred: whole-function types are defined onl
 | BCC-d3d393bd | Business Capabilities Development and Management Capability | 9 |
 | BCC-fed45f4d | Federal Litigative and Judicial Activities Capability | 7 |
 | BCC-1eb6fb26 | Human Capital Development and Management Capability | 7 |
-| BCC-de84b78e | National Defense Capability | 7 |
+| BCC-3c30ed94 | National Defense Capability | 7 |
 | BCC-e6d1ef25 | Health Services Capability | 6 |
 | BCC-7f602c54 | Atomic Energy Defense Capability | 5 |
 | BCC-2f433e00 | External Relationship Management Capability | 5 |
@@ -148,24 +155,24 @@ Candidates classified `function` (deferred: whole-function types are defined onl
 | BCC-e12d8a9d | Assets Acquisition, Construction and Management Capability | 4 |
 | BCC-230d43c6 | Enterprise Risk Compliance Remediation and Resiliency Management Capability | 4 |
 | BCC-ee636364 | Other Advancement of Commerce Capability | 4 |
+| BCC-89a29da5 | Services Delivery Capability | 4 |
 | BCC-0784e083 | Supply Chain for Physical Products Management Capability | 4 |
 | BCC-86cffc27 | Vision and Strategy Development Capability | 4 |
-| BCC-02c5912d | Defense and National Security Capability | 3 |
+| BCC-cf593747 | Defense and National Security Capability | 3 |
 | BCC-6cbd5ee6 | Education and Workforce Capability | 3 |
-| BCC-4cc72405 | General Purpose Fiscal Assistance Capability | 3 |
+| BCC-f2d5944a | General Purpose Fiscal Assistance Capability | 3 |
 | BCC-f08ad134 | Health and Well-being Capability | 3 |
 | BCC-3be6883b | Health Research and Training Capability | 3 |
 | BCC-2fbefb13 | Law and Justice Capability | 3 |
 | BCC-e27288e3 | Pollution Control Capability | 3 |
-| BCC-89a29da5 | Services Delivery Capability | 3 |
 | BCC-a39b5686 | Diplomacy and Trade Capability | 2 |
 | BCC-0d60d0e4 | Environmental and Natural Resources Capability | 2 |
 | BCC-a4bfbc0f | Federal Correctional Activities Capability | 2 |
 | BCC-01b122f5 | General Education Aids Research Capability | 2 |
+| BCC-683bdf54 | International Development and Humanitarian Assistance Capability | 2 |
 | BCC-a5b26ba1 | Other Natural Resources Capability | 2 |
 | BCC-1c993d14 | Space Flight Research and Supporting Activities Capability | 2 |
 | BCC-11d7b323 | Economic and Financial Capability | 1 |
-| BCC-282db3ec | International Development and Humanitarian Assistance Capability | 1 |
 | BCC-03521310 | Transport and Space Capability | 1 |
 | BCC-490ff6eb | Defense-related Activities Capability | 0 |
 | BCC-4ac5ffe3 | Energy Science and Technology Capability | 0 |

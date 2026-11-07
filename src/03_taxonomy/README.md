@@ -14,6 +14,9 @@ its source. It is **source evidence, not taxonomy**: the inventory's scope appro
 formalization" separate (`docs/decisions/2026-10-27-capability-inventory-scope-approved.md`),
 and no inventory entry is a term of this stage until a later decision admits it.
 
-The inventory's later phases, I-3 (restricted catalogs), I-4 (crosswalk and triage) and
-I-5 (a first-tranche recommendation, for the architect's separate approval), are not
-authorized. Taxonomy development here waits for its own authorization and its standard.
+Of the inventory's later phases, I-3 (restricted catalogs) is not authorized. I-4
+(crosswalk and triage, expanded to candidate derivation) was authorized on 2026-11-03 and
+closed on 2026-11-07 (`docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md`, act 3); its catalog is `docs/catalog/`. I-5's first
+tranche was directed on 2026-11-03 and its three G1-T records signed PASS on 2026-11-05
+(`docs/catalog/tranche-1.md`). The catalog's broader links are proposals, not taxonomy.
+Taxonomy development here waits for its own authorization and its standard.

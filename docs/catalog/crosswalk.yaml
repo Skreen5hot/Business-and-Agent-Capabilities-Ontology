@@ -51,6 +51,8 @@ inputs:
   sha256: 0dcc107f3b4cfaf8236e6e757a4be27fa0efb1c2ee66a10cb86ff8db7d082b1a
 - path: docs/catalog/bpo-act-types.yaml
   sha256: 25be29e5d4df6b7d8671128a7fae4cafa20aec2a6ac53cb2dbae2f8f76b800eb
+- path: docs/catalog/dispositions.yaml
+  sha256: dae4aaed2b454235bf0b5b4d4f5b27c4c0b72e6278ed5c0dbb0a46eb9444cd14
 counts:
   source_records_processed:
     total: 5565
@@ -2793,10 +2795,11 @@ records:
     form: label
     verbs: []
     family: analysis
-    object: financial
-    key: analysis|financial
+    object: financial review
+    key: analysis|financial review
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
   - candidate: BCC-478827bd
     relation: realization-evidence
@@ -19031,10 +19034,12 @@ records:
     form: label
     verbs: []
     family: service
-    object: information technology compliance control auditing of internal and external
+    object: information technology compliance control auditing of internal and external services
     key: service|information technology compliance control auditing of internal and external
+      service
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
   - candidate: BCC-2b94600e
     relation: realization-evidence
@@ -23513,12 +23518,13 @@ records:
     form: label
     verbs: []
     family: accounting
-    object: general
-    key: accounting|general
+    object: general accounting and reporting
+    key: accounting|general accounting and reporting
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-289d6cf6
+  - candidate: BCC-60d672db
     relation: designates
 - inventory_id: INV-PCF74-10747
   source: APQC PCF 7.4
@@ -23639,12 +23645,13 @@ records:
     form: label
     verbs: []
     family: accounting
-    object: general
-    key: accounting|general
+    object: general accounting
+    key: accounting|general accounting
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-289d6cf6
+  - candidate: BCC-8b431985
     relation: designates
 - inventory_id: INV-PCF74-10819
   source: APQC PCF 7.4
@@ -23662,7 +23669,7 @@ records:
     action_inferred: false
     bounded: false
   interpretations:
-  - candidate: BCC-289d6cf6
+  - candidate: BCC-8b431985
     relation: realization-evidence
 - inventory_id: INV-PCF74-10820
   source: APQC PCF 7.4
@@ -23680,7 +23687,7 @@ records:
     action_inferred: false
     bounded: false
   interpretations:
-  - candidate: BCC-289d6cf6
+  - candidate: BCC-8b431985
     relation: realization-evidence
 - inventory_id: INV-PCF74-10821
   source: APQC PCF 7.4
@@ -23698,7 +23705,7 @@ records:
     action_inferred: false
     bounded: false
   interpretations:
-  - candidate: BCC-289d6cf6
+  - candidate: BCC-8b431985
     relation: realization-evidence
 - inventory_id: INV-PCF74-10822
   source: APQC PCF 7.4
@@ -23716,7 +23723,7 @@ records:
     action_inferred: false
     bounded: false
   interpretations:
-  - candidate: BCC-289d6cf6
+  - candidate: BCC-8b431985
     relation: realization-evidence
 - inventory_id: INV-PCF74-10823
   source: APQC PCF 7.4
@@ -23735,7 +23742,7 @@ records:
     action_inferred: false
     bounded: false
   interpretations:
-  - candidate: BCC-289d6cf6
+  - candidate: BCC-8b431985
     relation: realization-evidence
 - inventory_id: INV-PCF74-10824
   source: APQC PCF 7.4
@@ -23753,7 +23760,7 @@ records:
     action_inferred: false
     bounded: false
   interpretations:
-  - candidate: BCC-289d6cf6
+  - candidate: BCC-8b431985
     relation: realization-evidence
 - inventory_id: INV-PCF74-10825
   source: APQC PCF 7.4
@@ -23770,7 +23777,7 @@ records:
     action_inferred: true
     bounded: false
   interpretations:
-  - candidate: BCC-289d6cf6
+  - candidate: BCC-8b431985
     relation: realization-evidence
 - inventory_id: INV-PCF74-10826
   source: APQC PCF 7.4
@@ -23788,7 +23795,7 @@ records:
     action_inferred: false
     bounded: false
   interpretations:
-  - candidate: BCC-289d6cf6
+  - candidate: BCC-8b431985
     relation: realization-evidence
 - inventory_id: INV-PCF74-10827
   source: APQC PCF 7.4
@@ -23807,7 +23814,7 @@ records:
     action_inferred: false
     bounded: false
   interpretations:
-  - candidate: BCC-289d6cf6
+  - candidate: BCC-8b431985
     relation: realization-evidence
 - inventory_id: INV-PCF74-10749
   source: APQC PCF 7.4
@@ -24001,12 +24008,13 @@ records:
     form: label
     verbs: []
     family: reporting
-    object: financial
-    key: reporting|financial
+    object: financial reporting
+    key: reporting|financial reporting
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-4a1b98ef
+  - candidate: BCC-792537f9
     relation: designates
 - inventory_id: INV-PCF74-10837
   source: APQC PCF 7.4
@@ -24024,7 +24032,7 @@ records:
     action_inferred: false
     bounded: false
   interpretations:
-  - candidate: BCC-4a1b98ef
+  - candidate: BCC-792537f9
     relation: realization-evidence
 - inventory_id: INV-PCF74-10838
   source: APQC PCF 7.4
@@ -24042,7 +24050,7 @@ records:
     action_inferred: false
     bounded: false
   interpretations:
-  - candidate: BCC-4a1b98ef
+  - candidate: BCC-792537f9
     relation: realization-evidence
 - inventory_id: INV-PCF74-10839
   source: APQC PCF 7.4
@@ -24059,7 +24067,7 @@ records:
     action_inferred: false
     bounded: false
   interpretations:
-  - candidate: BCC-4a1b98ef
+  - candidate: BCC-792537f9
     relation: realization-evidence
 - inventory_id: INV-PCF74-10840
   source: APQC PCF 7.4
@@ -24076,7 +24084,7 @@ records:
     action_inferred: false
     bounded: false
   interpretations:
-  - candidate: BCC-4a1b98ef
+  - candidate: BCC-792537f9
     relation: realization-evidence
 - inventory_id: INV-PCF74-10841
   source: APQC PCF 7.4
@@ -24094,7 +24102,7 @@ records:
     action_inferred: false
     bounded: false
   interpretations:
-  - candidate: BCC-4a1b98ef
+  - candidate: BCC-792537f9
     relation: realization-evidence
 - inventory_id: INV-PCF74-10842
   source: APQC PCF 7.4
@@ -24112,7 +24120,7 @@ records:
     action_inferred: false
     bounded: false
   interpretations:
-  - candidate: BCC-4a1b98ef
+  - candidate: BCC-792537f9
     relation: realization-evidence
 - inventory_id: INV-PCF74-10843
   source: APQC PCF 7.4
@@ -24130,7 +24138,7 @@ records:
     action_inferred: false
     bounded: false
   interpretations:
-  - candidate: BCC-4a1b98ef
+  - candidate: BCC-792537f9
     relation: realization-evidence
 - inventory_id: INV-PCF74-14074
   source: APQC PCF 7.4
@@ -24142,12 +24150,13 @@ records:
     form: label
     verbs: []
     family: management
-    object: legal
-    key: management|legal
+    object: legal and management
+    key: management|legal and management
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-4a1b98ef
+  - candidate: BCC-792537f9
     relation: realization-evidence
 - inventory_id: INV-PCF74-10731
   source: APQC PCF 7.4
@@ -31284,10 +31293,11 @@ records:
     form: label
     verbs: []
     family: improvement
-    object: continuous
-    key: improvement|continuous
+    object: continuous improvement
+    key: improvement|continuous improvement
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
   - candidate: BCC-6a4e9804
     relation: realization-evidence
@@ -33964,10 +33974,11 @@ records:
     form: label
     verbs: []
     family: analysis
-    object: internal and external
-    key: analysis|internal and external
+    object: internal and external benchmarking
+    key: analysis|internal and external benchmarking
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
   - candidate: BCC-4b2ce5d3
     relation: realization-evidence
@@ -34451,10 +34462,11 @@ records:
     form: label
     verbs: []
     family: verification
-    object: health and safety and environmental
-    key: verification|health and safety and environmental
+    object: health and safety and environmental audits
+    key: verification|health and safety and environmental audit
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
   - candidate: BCC-c9cec592
     relation: realization-evidence
@@ -35712,12 +35724,13 @@ records:
     form: label
     verbs: []
     family: management
-    object: financial
-    key: management|financial
+    object: financial management
+    key: management|financial management
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-92df6ce1
+  - candidate: BCC-b99cd775
     relation: designates
 - inventory_id: INV-BPO-FinancialManagementCapability-scope-entry
   source: BPO
@@ -35727,12 +35740,13 @@ records:
     form: class-name
     verbs: []
     family: management
-    object: financial
-    key: management|financial
+    object: financial management
+    key: management|financial management
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-92df6ce1
+  - candidate: BCC-b99cd775
     relation: designates
 - inventory_id: INV-BPO-FinancialPolicyManagementCapability-capability-class
   source: BPO
@@ -35967,12 +35981,13 @@ records:
     form: label
     verbs: []
     family: analysis
-    object: information technology strategic
-    key: analysis|information technology strategic
+    object: information technology strategic intelligence
+    key: analysis|information technology strategic intelligence
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-545ed5fd
+  - candidate: BCC-4beb13af
     relation: designates
 - inventory_id: INV-BPO-ITSupportCapability-capability-class
   source: BPO
@@ -36102,12 +36117,13 @@ records:
     form: label
     verbs: []
     family: management
-    object: internal
-    key: management|internal
+    object: internal control
+    key: management|internal control
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-4bff0a0c
+  - candidate: BCC-5a4bc396
     relation: designates
 - inventory_id: INV-BPO-InternationalFundsManagementCapability-capability-class
   source: BPO
@@ -36225,12 +36241,13 @@ records:
     form: label
     verbs: []
     family: compliance
-    object: legal
-    key: compliance|legal
+    object: legal and compliance
+    key: compliance|legal and compliance
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-bb90f750
+  - candidate: BCC-19e4e2b7
     relation: designates
 - inventory_id: INV-BPO-LegalAndComplianceCapability-scope-entry
   source: BPO
@@ -36240,12 +36257,13 @@ records:
     form: class-name
     verbs: []
     family: compliance
-    object: legal
-    key: compliance|legal
+    object: legal and compliance
+    key: compliance|legal and compliance
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-bb90f750
+  - candidate: BCC-19e4e2b7
     relation: designates
 - inventory_id: INV-BPO-LenderRelationsManagementCapability-capability-class
   source: BPO
@@ -37541,12 +37559,13 @@ records:
     form: label
     verbs: []
     family: planning
-    object: strategic
-    key: planning|strategic
+    object: strategic planning
+    key: planning|strategic planning
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-5507a863
+  - candidate: BCC-f25413fa
     relation: designates
 - inventory_id: INV-BPO-StrategicPlanningCapability-scope-entry
   source: BPO
@@ -37556,12 +37575,13 @@ records:
     form: class-name
     verbs: []
     family: planning
-    object: strategic
-    key: planning|strategic
+    object: strategic planning
+    key: planning|strategic planning
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-5507a863
+  - candidate: BCC-f25413fa
     relation: designates
 - inventory_id: INV-BPO-SupplyChainManagementCapability-capability-class
   source: BPO
@@ -37857,12 +37877,13 @@ records:
     form: label
     verbs: []
     family: development
-    object: community and regional
-    key: development|community and regional
+    object: community and regional development
+    key: development|community and regional development
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-13c9809d
+  - candidate: BCC-4e467f8c
     relation: designates
 - inventory_id: INV-FEAF-BRM-SCD-004-brm-service
   source: FEAF-II BRM 3.1
@@ -37872,12 +37893,13 @@ records:
     form: label
     verbs: []
     family: service
-    object: postal
-    key: service|postal
+    object: postal services
+    key: service|postal service
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-c744f132
+  - candidate: BCC-44f68d37
     relation: designates
 - inventory_id: INV-FEAF-BRM-SCD-005-brm-service
   source: FEAF-II BRM 3.1
@@ -37887,12 +37909,13 @@ records:
     form: label
     verbs: []
     family: protection
-    object: criminal
-    key: protection|criminal
+    object: criminal incarceration
+    key: protection|criminal incarceration
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-cb543c03
+  - candidate: BCC-523926cc
     relation: designates
 - inventory_id: INV-FEAF-BRM-SCD-006-brm-service
   source: FEAF-II BRM 3.1
@@ -38022,12 +38045,13 @@ records:
     form: label
     verbs: []
     family: training
-    object: elementary secondary and vocational
-    key: training|elementary secondary and vocational
+    object: elementary secondary and vocational education
+    key: training|elementary secondary and vocational education
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-4e92749d
+  - candidate: BCC-486c10c5
     relation: designates
 - inventory_id: INV-FEAF-BRM-SCD-016-brm-service
   source: FEAF-II BRM 3.1
@@ -38052,12 +38076,13 @@ records:
     form: label
     verbs: []
     family: protection
-    object: cultural and historic
-    key: protection|cultural and historic
+    object: cultural and historic preservation
+    key: protection|cultural and historic preservation
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-6cc584a1
+  - candidate: BCC-36ddfbef
     relation: designates
 - inventory_id: INV-FEAF-BRM-SCD-018-brm-service
   source: FEAF-II BRM 3.1
@@ -38067,12 +38092,13 @@ records:
     form: label
     verbs: []
     family: service
-    object: cultural and historic
-    key: service|cultural and historic
+    object: cultural and historic exhibition
+    key: service|cultural and historic exhibition
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-ba40e5f0
+  - candidate: BCC-e922568f
     relation: designates
 - inventory_id: INV-FEAF-BRM-SCD-019-brm-service
   source: FEAF-II BRM 3.1
@@ -38112,12 +38138,13 @@ records:
     form: label
     verbs: []
     family: monitoring
-    object: environmental
-    key: monitoring|environmental
+    object: environmental monitoring and forecasting
+    key: monitoring|environmental monitoring and forecasting
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-24386def
+  - candidate: BCC-94fd7feb
     relation: designates
 - inventory_id: INV-FEAF-BRM-SCD-024-brm-service
   source: FEAF-II BRM 3.1
@@ -38127,12 +38154,13 @@ records:
     form: label
     verbs: []
     family: resolution
-    object: environmental
-    key: resolution|environmental
+    object: environmental remediation
+    key: resolution|environmental remediation
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-18b6e1e4
+  - candidate: BCC-93ed66ae
     relation: designates
 - inventory_id: INV-FEAF-BRM-SCD-025-brm-service
   source: FEAF-II BRM 3.1
@@ -38157,12 +38185,13 @@ records:
     form: label
     verbs: []
     family: research
-    object: scientific and technological
-    key: research|scientific and technological
+    object: scientific and technological research and innovation
+    key: research|scientific and technological research and innovation
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-5701ad04
+  - candidate: BCC-fd0f8319
     relation: designates
 - inventory_id: INV-FEAF-BRM-SCD-027-brm-service
   source: FEAF-II BRM 3.1
@@ -38337,12 +38366,13 @@ records:
     form: label
     verbs: []
     family: resolution
-    object: criminal
-    key: resolution|criminal
+    object: criminal investigation and surveillance
+    key: resolution|criminal investigation and surveillance
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-13ce33ed
+  - candidate: BCC-99a52e73
     relation: designates
 - inventory_id: INV-FEAF-BRM-SCD-047-brm-service
   source: FEAF-II BRM 3.1
@@ -38412,12 +38442,13 @@ records:
     form: label
     verbs: []
     family: protection
-    object: legal
-    key: protection|legal
+    object: legal defense
+    key: protection|legal defense
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-6ce3fe60
+  - candidate: BCC-b0544f01
     relation: designates
 - inventory_id: INV-FEAF-BRM-SCD-053-brm-service
   source: FEAF-II BRM 3.1
@@ -38427,12 +38458,13 @@ records:
     form: label
     verbs: []
     family: resolution
-    object: legal
-    key: resolution|legal
+    object: legal investigation
+    key: resolution|legal investigation
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-e3a2cb00
+  - candidate: BCC-2ba4e64b
     relation: designates
 - inventory_id: INV-FEAF-BRM-SCD-054-brm-service
   source: FEAF-II BRM 3.1
@@ -38698,12 +38730,13 @@ records:
     form: label
     verbs: []
     family: planning
-    object: strategic
-    key: planning|strategic
+    object: strategic planning
+    key: planning|strategic planning
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-5507a863
+  - candidate: BCC-f25413fa
     relation: designates
 - inventory_id: INV-FEAF-BRM-SCD-105-brm-service
   source: FEAF-II BRM 3.1
@@ -39529,12 +39562,13 @@ records:
     form: label
     verbs: []
     family: monitoring
-    object: continuous
-    key: monitoring|continuous
+    object: continuous monitoring
+    key: monitoring|continuous monitoring
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-780b1ee2
+  - candidate: BCC-c14427bb
     relation: designates
 - inventory_id: INV-FEAF-BRM-SCD-317-brm-service
   source: FEAF-II BRM 3.1
@@ -39619,12 +39653,13 @@ records:
     form: label
     verbs: []
     family: communication
-    object: public
-    key: communication|public
+    object: public communications
+    key: communication|public communication
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-122fab23
+  - candidate: BCC-ab575c2f
     relation: designates
 - inventory_id: INV-FEAF-BRM-SCD-324-brm-service
   source: FEAF-II BRM 3.1
@@ -39756,12 +39791,13 @@ records:
     form: label
     verbs: []
     family: service
-    object: hospital and medical
-    key: service|hospital and medical
+    object: hospital and medical care
+    key: service|hospital and medical care
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-9dc68db1
+  - candidate: BCC-c44d1b66
     relation: designates
 - inventory_id: INV-FEAF-BRM-SCD-333-brm-service
   source: FEAF-II BRM 3.1
@@ -39936,12 +39972,13 @@ records:
     form: label
     verbs: []
     family: management
-    object: criminal
-    key: management|criminal
+    object: criminal management
+    key: management|criminal management
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-9889ab3c
+  - candidate: BCC-44c7fb07
     relation: designates
 - inventory_id: INV-FEAF-BRM-SCD-348-brm-service
   source: FEAF-II BRM 3.1
@@ -40148,12 +40185,13 @@ records:
     form: label
     verbs: []
     family: service
-    object: federal financial
-    key: service|federal financial
+    object: federal financial assistance
+    key: service|federal financial assistance
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-7a9775d8
+  - candidate: BCC-f0dc80fb
     relation: designates
 - inventory_id: INV-FEAF-BRM-SCD-363-brm-service
   source: FEAF-II BRM 3.1
@@ -40193,12 +40231,13 @@ records:
     form: label
     verbs: []
     family: research
-    object: biomedical
-    key: research|biomedical
+    object: biomedical research
+    key: research|biomedical research
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-32d5d96a
+  - candidate: BCC-cad6e1e2
     relation: designates
 - inventory_id: INV-FEAF-BRM-SCD-367-brm-service
   source: FEAF-II BRM 3.1
@@ -40208,12 +40247,13 @@ records:
     form: label
     verbs: []
     family: development
-    object: international
-    key: development|international
+    object: international development
+    key: development|international development
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-fa16311c
+  - candidate: BCC-89275bd9
     relation: designates
 - inventory_id: INV-FEAF-BRM-SCD-368-brm-service
   source: FEAF-II BRM 3.1
@@ -40223,12 +40263,13 @@ records:
     form: label
     verbs: []
     family: service
-    object: humanitarian
-    key: service|humanitarian
+    object: humanitarian aid
+    key: service|humanitarian aid
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-068910bf
+  - candidate: BCC-efc2920f
     relation: designates
 - inventory_id: INV-FEAF-BRM-SCD-369-brm-service
   source: FEAF-II BRM 3.1
@@ -40388,12 +40429,13 @@ records:
     form: label
     verbs: []
     family: analysis
-    object: special
-    key: analysis|special
+    object: special intelligence
+    key: analysis|special intelligence
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-453b48ba
+  - candidate: BCC-5402ac7d
     relation: designates
 - inventory_id: INV-FEAF-BRM-SCD-381-brm-service
   source: FEAF-II BRM 3.1
@@ -40964,12 +41006,13 @@ records:
     form: label
     verbs: []
     family: protection
-    object: defense and national
-    key: protection|defense and national
+    object: defense and national security
+    key: protection|defense and national security
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-02c5912d
+  - candidate: BCC-cf593747
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B01.050-brm-business-function
   source: FEAF-II BRM 3.1
@@ -40980,12 +41023,13 @@ records:
     form: label
     verbs: []
     family: protection
-    object: national
-    key: protection|national
+    object: national defense
+    key: protection|national defense
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-de84b78e
+  - candidate: BCC-3c30ed94
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B01.050.279-brm-service
   source: FEAF-II BRM 3.1
@@ -41354,12 +41398,13 @@ records:
     form: label
     verbs: []
     family: analysis
-    object: special
-    key: analysis|special
+    object: special intelligence
+    key: analysis|special intelligence
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-453b48ba
+  - candidate: BCC-5402ac7d
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B01.152.331-brm-service
   source: FEAF-II BRM 3.1
@@ -41400,12 +41445,13 @@ records:
     form: label
     verbs: []
     family: service
-    object: international development and humanitarian
-    key: service|international development and humanitarian
+    object: international development and humanitarian assistance
+    key: service|international development and humanitarian assistance
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-282db3ec
+  - candidate: BCC-683bdf54
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B02.151.367-brm-service
   source: FEAF-II BRM 3.1
@@ -41416,12 +41462,13 @@ records:
     form: label
     verbs: []
     family: development
-    object: international
-    key: development|international
+    object: international development
+    key: development|international development
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-fa16311c
+  - candidate: BCC-89275bd9
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B02.151.368-brm-service
   source: FEAF-II BRM 3.1
@@ -41432,12 +41479,13 @@ records:
     form: label
     verbs: []
     family: service
-    object: humanitarian
-    key: service|humanitarian
+    object: humanitarian aid
+    key: service|humanitarian aid
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-068910bf
+  - candidate: BCC-efc2920f
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B02.153-brm-business-function
   source: FEAF-II BRM 3.1
@@ -41542,12 +41590,13 @@ records:
     form: label
     verbs: []
     family: service
-    object: postal
-    key: service|postal
+    object: postal services
+    key: service|postal service
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-c744f132
+  - candidate: BCC-44f68d37
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B03.376-brm-business-function
   source: FEAF-II BRM 3.1
@@ -41652,12 +41701,13 @@ records:
     form: label
     verbs: []
     family: development
-    object: community and regional
-    key: development|community and regional
+    object: community and regional development
+    key: development|community and regional development
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-13c9809d
+  - candidate: BCC-4e467f8c
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B03.604.038-brm-service
   source: FEAF-II BRM 3.1
@@ -41698,12 +41748,13 @@ records:
     form: label
     verbs: []
     family: training
-    object: elementary secondary and vocational
-    key: training|elementary secondary and vocational
+    object: elementary secondary and vocational education
+    key: training|elementary secondary and vocational education
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-4e92749d
+  - candidate: BCC-486c10c5
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B04.501.015-brm-service
   source: FEAF-II BRM 3.1
@@ -41714,12 +41765,13 @@ records:
     form: label
     verbs: []
     family: training
-    object: elementary secondary and vocational
-    key: training|elementary secondary and vocational
+    object: elementary secondary and vocational education
+    key: training|elementary secondary and vocational education
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-4e92749d
+  - candidate: BCC-486c10c5
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B04.501.271-brm-service
   source: FEAF-II BRM 3.1
@@ -41778,12 +41830,13 @@ records:
     form: label
     verbs: []
     family: protection
-    object: cultural and historic
-    key: protection|cultural and historic
+    object: cultural and historic preservation
+    key: protection|cultural and historic preservation
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-6cc584a1
+  - candidate: BCC-36ddfbef
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B04.503.018-brm-service
   source: FEAF-II BRM 3.1
@@ -41794,12 +41847,13 @@ records:
     form: label
     verbs: []
     family: service
-    object: cultural and historic
-    key: service|cultural and historic
+    object: cultural and historic exhibition
+    key: service|cultural and historic exhibition
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-ba40e5f0
+  - candidate: BCC-e922568f
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B04.504-brm-business-function
   source: FEAF-II BRM 3.1
@@ -41919,12 +41973,13 @@ records:
     form: label
     verbs: []
     family: research
-    object: scientific and technological
-    key: research|scientific and technological
+    object: scientific and technological research and innovation
+    key: research|scientific and technological research and innovation
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-5701ad04
+  - candidate: BCC-fd0f8319
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B05.271.019-brm-service
   source: FEAF-II BRM 3.1
@@ -42120,12 +42175,13 @@ records:
     form: label
     verbs: []
     family: monitoring
-    object: environmental
-    key: monitoring|environmental
+    object: environmental monitoring and forecasting
+    key: monitoring|environmental monitoring and forecasting
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-24386def
+  - candidate: BCC-94fd7feb
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B06.306.024-brm-service
   source: FEAF-II BRM 3.1
@@ -42136,12 +42192,13 @@ records:
     form: label
     verbs: []
     family: resolution
-    object: environmental
-    key: resolution|environmental
+    object: environmental remediation
+    key: resolution|environmental remediation
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-18b6e1e4
+  - candidate: BCC-93ed66ae
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B07-brm-mission-sector
   source: FEAF-II BRM 3.1
@@ -42329,12 +42386,13 @@ records:
     form: label
     verbs: []
     family: research
-    object: biomedical
-    key: research|biomedical
+    object: biomedical research
+    key: research|biomedical research
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-32d5d96a
+  - candidate: BCC-cad6e1e2
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B07.554.310-brm-service
   source: FEAF-II BRM 3.1
@@ -42575,12 +42633,13 @@ records:
     form: label
     verbs: []
     family: service
-    object: hospital and medical
-    key: service|hospital and medical
+    object: hospital and medical care
+    key: service|hospital and medical care
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-9dc68db1
+  - candidate: BCC-c44d1b66
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B07.705.333-brm-service
   source: FEAF-II BRM 3.1
@@ -42669,12 +42728,13 @@ records:
     form: label
     verbs: []
     family: resolution
-    object: criminal
-    key: resolution|criminal
+    object: criminal investigation and surveillance
+    key: resolution|criminal investigation and surveillance
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-13ce33ed
+  - candidate: BCC-99a52e73
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B08.751.047-brm-service
   source: FEAF-II BRM 3.1
@@ -42765,12 +42825,13 @@ records:
     form: label
     verbs: []
     family: management
-    object: criminal
-    key: management|criminal
+    object: criminal management
+    key: management|criminal management
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-9889ab3c
+  - candidate: BCC-44c7fb07
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B08.751.348-brm-service
   source: FEAF-II BRM 3.1
@@ -42846,12 +42907,13 @@ records:
     form: label
     verbs: []
     family: protection
-    object: legal
-    key: protection|legal
+    object: legal defense
+    key: protection|legal defense
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-6ce3fe60
+  - candidate: BCC-b0544f01
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B08.752.053-brm-service
   source: FEAF-II BRM 3.1
@@ -42862,12 +42924,13 @@ records:
     form: label
     verbs: []
     family: resolution
-    object: legal
-    key: resolution|legal
+    object: legal investigation
+    key: resolution|legal investigation
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-e3a2cb00
+  - candidate: BCC-2ba4e64b
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B08.752.054-brm-service
   source: FEAF-II BRM 3.1
@@ -42958,12 +43021,13 @@ records:
     form: label
     verbs: []
     family: protection
-    object: criminal
-    key: protection|criminal
+    object: criminal incarceration
+    key: protection|criminal incarceration
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-cb543c03
+  - candidate: BCC-523926cc
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B08.753.006-brm-service
   source: FEAF-II BRM 3.1
@@ -43142,12 +43206,13 @@ records:
     form: label
     verbs: []
     family: planning
-    object: strategic
-    key: planning|strategic
+    object: strategic planning
+    key: planning|strategic planning
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-5507a863
+  - candidate: BCC-f25413fa
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B10.802.354-brm-service
   source: FEAF-II BRM 3.1
@@ -43612,12 +43677,13 @@ records:
     form: label
     verbs: []
     family: service
-    object: general purpose fiscal
-    key: service|general purpose fiscal
+    object: general purpose fiscal assistance
+    key: service|general purpose fiscal assistance
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-4cc72405
+  - candidate: BCC-f2d5944a
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B10.806.320-brm-service
   source: FEAF-II BRM 3.1
@@ -43644,12 +43710,13 @@ records:
     form: label
     verbs: []
     family: service
-    object: federal financial
-    key: service|federal financial
+    object: federal financial assistance
+    key: service|federal financial assistance
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-7a9775d8
+  - candidate: BCC-f0dc80fb
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B10.806.363-brm-service
   source: FEAF-II BRM 3.1
@@ -43900,12 +43967,13 @@ records:
     form: label
     verbs: []
     family: communication
-    object: public
-    key: communication|public
+    object: public communications
+    key: communication|public communication
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-122fab23
+  - candidate: BCC-ab575c2f
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B10.808.329-brm-service
   source: FEAF-II BRM 3.1
@@ -43965,12 +44033,13 @@ records:
     form: label
     verbs: []
     family: management
-    object: community functional
-    key: management|community functional
+    object: community functional management
+    key: management|community functional management
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-72135104
+  - candidate: BCC-c97d05be
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B10.808.381-brm-service
   source: FEAF-II BRM 3.1
@@ -44042,12 +44111,13 @@ records:
     form: label
     verbs: []
     family: monitoring
-    object: continuous
-    key: monitoring|continuous
+    object: continuous monitoring
+    key: monitoring|continuous monitoring
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-780b1ee2
+  - candidate: BCC-c14427bb
     relation: designates
 - inventory_id: INV-FEAF-BRM-TAX-B10.810.317-brm-service
   source: FEAF-II BRM 3.1
@@ -46253,12 +46323,13 @@ records:
     form: label
     verbs: []
     family: monitoring
-    object: supply chain continuous
-    key: monitoring|supply chain continuous
+    object: supply chain continuous monitoring
+    key: monitoring|supply chain continuous monitoring
     action_inferred: false
     bounded: false
+    qualified: true
   interpretations:
-  - candidate: BCC-91812fee
+  - candidate: BCC-7d6e8887
     relation: designates
 - inventory_id: INV-FIBF-ITS-1-CYB.230.030-fibf-activity
   source: FIBF
@@ -68650,7 +68721,7 @@ records:
     action_inferred: false
     bounded: false
   interpretations:
-  - candidate: BCC-91812fee
+  - candidate: BCC-7d6e8887
     relation: requirement-evidence
 - inventory_id: INV-FIBF-ITS-1-CYB.230.020.021-fibf-business-capability
   source: FIBF
@@ -68659,7 +68730,7 @@ records:
   parent: INV-FIBF-ITS-1-CYB.230.020-fibf-activity
   frame: null
   interpretations:
-  - candidate: BCC-91812fee
+  - candidate: BCC-7d6e8887
     relation: requirement-evidence
 - inventory_id: INV-FIBF-ITS-1-CYB.230.020.022-fibf-business-capability
   source: FIBF
@@ -68679,7 +68750,7 @@ records:
   interpretations:
   - candidate: BCC-48aaa812
     relation: designates
-  - candidate: BCC-91812fee
+  - candidate: BCC-7d6e8887
     relation: requirement-evidence
 - inventory_id: INV-FIBF-ITS-1-CYB.230.020.031-fibf-business-capability
   source: FIBF
@@ -68699,7 +68770,7 @@ records:
   interpretations:
   - candidate: BCC-1fe1f43f
     relation: designates
-  - candidate: BCC-91812fee
+  - candidate: BCC-7d6e8887
     relation: requirement-evidence
 - inventory_id: INV-FIBF-ITS-1-CYB.310.010.011-fibf-business-capability
   source: FIBF

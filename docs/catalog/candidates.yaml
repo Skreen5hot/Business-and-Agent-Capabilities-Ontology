@@ -51,6 +51,8 @@ inputs:
   sha256: 0dcc107f3b4cfaf8236e6e757a4be27fa0efb1c2ee66a10cb86ff8db7d082b1a
 - path: docs/catalog/bpo-act-types.yaml
   sha256: 25be29e5d4df6b7d8671128a7fae4cafa20aec2a6ac53cb2dbae2f8f76b800eb
+- path: docs/catalog/dispositions.yaml
+  sha256: dae4aaed2b454235bf0b5b4d4f5b27c4c0b72e6278ed5c0dbb0a46eb9444cd14
 counts:
   source_records_processed:
     total: 5565
@@ -67,7 +69,7 @@ counts:
   candidates_generated: 1706
   unique_candidates: 1046
   duplicates_merged: 660
-  candidates_from_two_or_more_sources: 102
+  candidates_from_two_or_more_sources: 103
   designating_records_per_candidate:
     '1': 556
     '2': 421
@@ -89,10 +91,11 @@ counts:
   likely_bfo_cco_capabilities: 526
   review_status:
     deferred: 135
-    generated-draft: 371
-    needs-review: 427
-    rejected: 113
-  rejected_or_deferred: 248
+    generated-draft: 365
+    needs-review: 431
+    rejected: 114
+    retired: 1
+  rejected_or_deferred: 249
   rejected_or_deferred_by_reason:
     ? 'requirement: supported only by FIBF business capabilities, which are outcome-based
       requirement records (E5 homonym), with no process or function behind it'
@@ -108,6 +111,9 @@ counts:
     ? 'unresolved: its labels name an artifact (a plan, document, record or notice), not an
       ability; the ability is inferred and needs a reader'
     : 7
+    ? 'capability: rejected as an ability candidate (Payments Approval); its source evidence
+      is kept for possible standing-related modeling (CM-01, Authorization Record)'
+    : 1
   records_lacking_interpretation: 1603
   records_lacking_interpretation_by_source:
     FIBF: 1603
@@ -122,8 +128,11 @@ counts:
     designates: 1706
     realization-evidence: 1468
     requirement-evidence: 1140
-  broader_links: 1024
-  overlap_links: 773
+  broader_links: 1027
+  overlap_links: 737
+  overlap_lists_truncated: 22
+  recorded_dispositions: 2
+  pinned_identifiers: 14
   synonym_labels: 1078
   realization_evidence_rows: 2195
   distinct_act_types_cited: 1825
@@ -336,7 +345,9 @@ candidates:
     requirement_records: []
     absorbed_process_candidates: []
   broader: []
-  narrower: []
+  narrower:
+  - id: BCC-8b431985
+    name: General Accounting Capability
   duplicates_merged: 2
   synonyms:
   - Accounting
@@ -4233,6 +4244,9 @@ candidates:
   - relation: same object, other ability
     id: BCC-7c899dd5
     name: Assets Dismantling Capability
+  overlaps_truncated:
+    shown: 6
+    found: 7
 - id: BCC-891ff8e7
   name: Assistive Technology Services Capability
   key: service|assistive technology
@@ -4330,7 +4344,7 @@ candidates:
     requirement_records: []
     absorbed_process_candidates: []
   broader:
-  - id: BCC-02c5912d
+  - id: BCC-cf593747
     name: Defense and National Security Capability
     basis:
     - hierarchy:INV-FEAF-BRM-TAX-B01.053-brm-business-function<INV-FEAF-BRM-TAX-B01-brm-mission-sector
@@ -4756,7 +4770,7 @@ candidates:
     requirement_records: []
     absorbed_process_candidates: []
   broader:
-  - id: BCC-de84b78e
+  - id: BCC-3c30ed94
     name: National Defense Capability
     basis:
     - hierarchy:INV-FEAF-BRM-TAX-B01.050.279-brm-service<INV-FEAF-BRM-TAX-B01.050-brm-business-function
@@ -4956,23 +4970,23 @@ candidates:
   synonyms:
   - Manage and administer benefits
   overlaps: []
-- id: BCC-32d5d96a
+- id: BCC-cad6e1e2
   name: Biomedical Research Capability
-  key: research|biomedical
+  key: research|biomedical research
   definition:
-    text: A business capability of an organization to research and investigate biomedical,
-      grounded in the organization's members as organized, exercised as part of health research
-      and training.
+    text: A business capability of an organization to carry out biomedical research, grounded
+      in the organization's members as organized, exercised as part of health research and
+      training.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to research and investigate biomedical
+    differentia: the ability to carry out biomedical research
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: research
-    ability: research and investigate biomedical
-    object: biomedical
+    ability: carry out biomedical research
+    object: biomedical research
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
@@ -4980,9 +4994,12 @@ candidates:
   review:
     status: needs-review
     justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+      to be drawn; qualified object: the label is an adjective and an ability noun; a reader
+      writes the object'
     flags:
     - 'no BPO act type: realization index to be drawn'
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-366-brm-service
     source: FEAF-II BRM 3.1
@@ -8670,7 +8687,7 @@ candidates:
     name: Service Delivery Initiation Capability
     basis:
     - hierarchy:INV-PCF74-20073<INV-PCF74-20069
-  - id: BCC-91812fee
+  - id: BCC-7d6e8887
     name: Supply Chain Continuous Monitoring Capability
     basis:
     - hierarchy:INV-FIBF-ITS-1-CYB.230.020.022-fibf-business-capability<INV-FIBF-ITS-1-CYB.230.020-fibf-activity
@@ -9483,7 +9500,7 @@ candidates:
     requirement_records: []
     absorbed_process_candidates: []
   broader:
-  - id: BCC-de84b78e
+  - id: BCC-3c30ed94
     name: National Defense Capability
     basis:
     - hierarchy:INV-FEAF-BRM-TAX-B01.050.280-brm-service<INV-FEAF-BRM-TAX-B01.050-brm-business-function
@@ -9542,29 +9559,30 @@ candidates:
     basis:
     - hierarchy:INV-FIBF-ITS-2-ITS.430.020-fibf-activity<INV-FIBF-ITS-2-ITS.430-fibf-function
   narrower:
+  - id: BCC-ab575c2f
+    name: Public Communications Capability
   - id: BCC-fe459a5d
     name: Solution Design and Development Capability (in Capacity Management)
   duplicates_merged: 0
   synonyms:
   - Communication
   overlaps: []
-- id: BCC-13c9809d
+- id: BCC-4e467f8c
   name: Community and Regional Development Capability
-  key: development|community and regional
+  key: development|community and regional development
   definition:
-    text: A business capability of an organization to bring new community and regional into
-      being and make it ready for use, grounded in the organization's members as organized.
+    text: A business capability of an organization to carry out community and regional development,
+      grounded in the organization's members as organized.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to bring new community and regional into being and make it ready
-      for use
+    differentia: the ability to carry out community and regional development
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: development
-    ability: bring new community and regional into being and make it ready for use
-    object: community and regional
+    ability: carry out community and regional development
+    object: community and regional development
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
@@ -9572,9 +9590,12 @@ candidates:
   review:
     status: needs-review
     justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+      to be drawn; qualified object: the label is an adjective and an ability noun; a reader
+      writes the object'
     flags:
     - 'no BPO act type: realization index to be drawn'
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-002-brm-service
     source: FEAF-II BRM 3.1
@@ -9657,23 +9678,22 @@ candidates:
   synonyms:
   - Community Deployed Resources
   overlaps: []
-- id: BCC-72135104
+- id: BCC-c97d05be
   name: Community Functional Management Capability
-  key: management|community functional
+  key: management|community functional management
   definition:
-    text: A business capability of an organization to direct and control community functional
-      on a continuing basis, grounded in the organization's members as organized, exercised
-      as part of general government.
+    text: A business capability of an organization to carry out community functional management,
+      grounded in the organization's members as organized, exercised as part of general government.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to direct and control community functional on a continuing basis
+    differentia: the ability to carry out community functional management
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: management
-    ability: direct and control community functional on a continuing basis
-    object: community functional
+    ability: carry out community functional management
+    object: community functional management
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
@@ -9684,6 +9704,8 @@ candidates:
       yet supported'
     flags:
     - 'no BPO act type: realization index to be drawn'
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-TAX-B10.808.380-brm-service
     source: FEAF-II BRM 3.1
@@ -9708,10 +9730,7 @@ candidates:
   duplicates_merged: 0
   synonyms:
   - Community Functional Management
-  overlaps:
-  - relation: similar object (Jaccard 0.50)
-    id: BCC-d9d356be
-    name: Community Management Capability
+  overlaps: []
 - id: BCC-d9d356be
   name: Community Management Capability
   key: management|community
@@ -9767,9 +9786,6 @@ candidates:
   - relation: same object, other ability
     id: BCC-4f58f845
     name: Community Relationship Management Capability
-  - relation: similar object (Jaccard 0.50)
-    id: BCC-72135104
-    name: Community Functional Management Capability
 - id: BCC-4f58f845
   name: Community Relationship Management Capability
   key: relationship|community
@@ -10134,8 +10150,8 @@ candidates:
   key: compliance|compliance
   definition:
     text: A business capability of an organization to carry out compliance, grounded in the
-      organization's members as organized, exercised as part of legal and ethical issues management,
-      and shown in acts of the kinds act of formulation or planned act.
+      organization's members as organized, and shown in acts of the kinds act of formulation
+      or planned act.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
     differentia: the ability to carry out compliance
@@ -10200,16 +10216,10 @@ candidates:
     processes_beneath: 2
     requirement_records: []
     absorbed_process_candidates: []
-  broader:
-  - id: BCC-070bb7b8
-    name: Legal and Ethical Issues Management Capability
-    basis:
-    - hierarchy:INV-PCF74-11047<INV-PCF74-11013
-  - id: BCC-bb90f750
-    name: Legal Compliance Capability
-    basis:
-    - hierarchy:INV-BPO-P11047-capability-class<INV-BPO-LegalAndComplianceCapability-capability-class
-  narrower: []
+  broader: []
+  narrower:
+  - id: BCC-19e4e2b7
+    name: Legal and Compliance Capability
   duplicates_merged: 1
   synonyms:
   - Ensure compliance
@@ -11171,22 +11181,22 @@ candidates:
   - Manage continuous cost improvement
   - Manage continuous cost improvement (capability)
   overlaps: []
-- id: BCC-780b1ee2
+- id: BCC-c14427bb
   name: Continuous Monitoring Capability
-  key: monitoring|continuous
+  key: monitoring|continuous monitoring
   definition:
-    text: A business capability of an organization to observe and measure continuous over
-      time against expectations, grounded in the organization's members as organized.
+    text: A business capability of an organization to carry out continuous monitoring, grounded
+      in the organization's members as organized.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to observe and measure continuous over time against expectations
+    differentia: the ability to carry out continuous monitoring
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: monitoring
-    ability: observe and measure continuous over time against expectations
-    object: continuous
+    ability: carry out continuous monitoring
+    object: continuous monitoring
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
@@ -11194,9 +11204,12 @@ candidates:
   review:
     status: needs-review
     justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+      to be drawn; qualified object: the label is an adjective and an ability noun; a reader
+      writes the object'
     flags:
     - 'no BPO act type: realization index to be drawn'
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-316-brm-service
     source: FEAF-II BRM 3.1
@@ -11219,7 +11232,7 @@ candidates:
     absorbed_process_candidates: []
   broader: []
   narrower:
-  - id: BCC-91812fee
+  - id: BCC-7d6e8887
     name: Supply Chain Continuous Monitoring Capability
   duplicates_merged: 1
   synonyms:
@@ -11905,7 +11918,7 @@ candidates:
   - id: BCC-4a7ee077
     name: Change Deployment Control Management Capability
   - id: BCC-5a4bc396
-    name: Internal Controls Management Capability
+    name: Internal Control Capability
   duplicates_merged: 0
   synonyms:
   - Operate controls and monitor compliance with internal controls policies and procedures
@@ -12194,7 +12207,7 @@ candidates:
   definition:
     text: A business capability of an organization to direct and control corporate governance
       policies on a continuing basis, grounded in the organization's members as organized,
-      exercised as part of legal and ethical issues management.
+      exercised as part of legal and compliance.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
     differentia: the ability to direct and control corporate governance policies on a continuing
@@ -12247,14 +12260,14 @@ candidates:
     requirement_records: []
     absorbed_process_candidates: []
   broader:
+  - id: BCC-19e4e2b7
+    name: Legal and Compliance Capability
+    basis:
+    - hierarchy:INV-BPO-P11045-capability-class<INV-BPO-LegalAndComplianceCapability-capability-class
   - id: BCC-070bb7b8
     name: Legal and Ethical Issues Management Capability
     basis:
     - hierarchy:INV-PCF74-11045<INV-PCF74-11013
-  - id: BCC-bb90f750
-    name: Legal Compliance Capability
-    basis:
-    - hierarchy:INV-BPO-P11045-capability-class<INV-BPO-LegalAndComplianceCapability-capability-class
   narrower: []
   duplicates_merged: 1
   synonyms:
@@ -12986,7 +12999,7 @@ candidates:
     requirement_records: []
     absorbed_process_candidates: []
   broader:
-  - id: BCC-4cc72405
+  - id: BCC-f2d5944a
     name: General Purpose Fiscal Assistance Capability
     basis:
     - hierarchy:INV-FEAF-BRM-TAX-B10.806.320-brm-service<INV-FEAF-BRM-TAX-B10.806-brm-business-function
@@ -13110,23 +13123,23 @@ candidates:
   synonyms:
   - Criminal and Terrorist Threat Mitigation
   overlaps: []
-- id: BCC-cb543c03
+- id: BCC-523926cc
   name: Criminal Incarceration Capability
-  key: protection|criminal
+  key: protection|criminal incarceration
   definition:
-    text: A business capability of an organization to protect criminal against harm, loss
-      or misuse, grounded in the organization's members as organized, exercised as part of
-      federal correctional activities.
+    text: A business capability of an organization to carry out criminal incarceration, grounded
+      in the organization's members as organized, exercised as part of federal correctional
+      activities.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to protect criminal against harm, loss or misuse
+    differentia: the ability to carry out criminal incarceration
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: protection
-    ability: protect criminal against harm, loss or misuse
-    object: criminal
+    ability: carry out criminal incarceration
+    object: criminal incarceration
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
@@ -13134,9 +13147,12 @@ candidates:
   review:
     status: needs-review
     justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+      to be drawn; qualified object: the label is an adjective and an ability noun; a reader
+      writes the object'
     flags:
     - 'no BPO act type: realization index to be drawn'
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-005-brm-service
     source: FEAF-II BRM 3.1
@@ -13166,29 +13182,24 @@ candidates:
   duplicates_merged: 1
   synonyms:
   - Criminal Incarceration
-  overlaps:
-  - relation: same object, other ability
-    id: BCC-13ce33ed
-    name: Criminal Investigation and Surveillance Capability
-  - relation: same object, other ability
-    id: BCC-9889ab3c
-    name: Criminal Management Capability
-- id: BCC-13ce33ed
+  overlaps: []
+- id: BCC-99a52e73
   name: Criminal Investigation and Surveillance Capability
-  key: resolution|criminal
+  key: resolution|criminal investigation and surveillance
   definition:
-    text: A business capability of an organization to investigate and resolve criminal, grounded
-      in the organization's members as organized, exercised as part of federal law enforcement.
+    text: A business capability of an organization to carry out criminal investigation and
+      surveillance, grounded in the organization's members as organized, exercised as part
+      of federal law enforcement.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to investigate and resolve criminal
+    differentia: the ability to carry out criminal investigation and surveillance
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: resolution
-    ability: investigate and resolve criminal
-    object: criminal
+    ability: carry out criminal investigation and surveillance
+    object: criminal investigation and surveillance
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
@@ -13196,9 +13207,12 @@ candidates:
   review:
     status: needs-review
     justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+      to be drawn; qualified object: the label is an adjective and an ability noun; a reader
+      writes the object'
     flags:
     - 'no BPO act type: realization index to be drawn'
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-045-brm-service
     source: FEAF-II BRM 3.1
@@ -13228,30 +13242,23 @@ candidates:
   duplicates_merged: 1
   synonyms:
   - Criminal Investigation and Surveillance
-  overlaps:
-  - relation: same object, other ability
-    id: BCC-cb543c03
-    name: Criminal Incarceration Capability
-  - relation: same object, other ability
-    id: BCC-9889ab3c
-    name: Criminal Management Capability
-- id: BCC-9889ab3c
+  overlaps: []
+- id: BCC-44c7fb07
   name: Criminal Management Capability
-  key: management|criminal
+  key: management|criminal management
   definition:
-    text: A business capability of an organization to direct and control criminal on a continuing
-      basis, grounded in the organization's members as organized, exercised as part of federal
-      law enforcement.
+    text: A business capability of an organization to carry out criminal management, grounded
+      in the organization's members as organized, exercised as part of federal law enforcement.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to direct and control criminal on a continuing basis
+    differentia: the ability to carry out criminal management
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: management
-    ability: direct and control criminal on a continuing basis
-    object: criminal
+    ability: carry out criminal management
+    object: criminal management
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
@@ -13259,9 +13266,12 @@ candidates:
   review:
     status: needs-review
     justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+      to be drawn; qualified object: the label is an adjective and an ability noun; a reader
+      writes the object'
     flags:
     - 'no BPO act type: realization index to be drawn'
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-347-brm-service
     source: FEAF-II BRM 3.1
@@ -13291,13 +13301,7 @@ candidates:
   duplicates_merged: 1
   synonyms:
   - Criminal Management
-  overlaps:
-  - relation: same object, other ability
-    id: BCC-cb543c03
-    name: Criminal Incarceration Capability
-  - relation: same object, other ability
-    id: BCC-13ce33ed
-    name: Criminal Investigation and Surveillance Capability
+  overlaps: []
 - id: BCC-d2c91daf
   name: Criminal Rehabilitation Capability
   key: provision|criminal rehabilitation
@@ -13609,23 +13613,23 @@ candidates:
   synonyms:
   - Cryptography
   overlaps: []
-- id: BCC-ba40e5f0
+- id: BCC-e922568f
   name: Cultural and Historic Exhibition Capability
-  key: service|cultural and historic
+  key: service|cultural and historic exhibition
   definition:
-    text: A business capability of an organization to provide cultural and historic to those
-      it serves, grounded in the organization's members as organized, exercised as part of
-      general education aids research.
+    text: A business capability of an organization to carry out cultural and historic exhibition,
+      grounded in the organization's members as organized, exercised as part of general education
+      aids research.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to provide cultural and historic to those it serves
+    differentia: the ability to carry out cultural and historic exhibition
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: service
-    ability: provide cultural and historic to those it serves
-    object: cultural and historic
+    ability: carry out cultural and historic exhibition
+    object: cultural and historic exhibition
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
@@ -13633,9 +13637,12 @@ candidates:
   review:
     status: needs-review
     justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+      to be drawn; qualified object: the label is an adjective and an ability noun; a reader
+      writes the object'
     flags:
     - 'no BPO act type: realization index to be drawn'
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-018-brm-service
     source: FEAF-II BRM 3.1
@@ -13665,27 +13672,24 @@ candidates:
   duplicates_merged: 1
   synonyms:
   - Cultural and Historic Exhibition
-  overlaps:
-  - relation: same object, other ability
-    id: BCC-6cc584a1
-    name: Cultural and Historic Preservation Capability
-- id: BCC-6cc584a1
+  overlaps: []
+- id: BCC-36ddfbef
   name: Cultural and Historic Preservation Capability
-  key: protection|cultural and historic
+  key: protection|cultural and historic preservation
   definition:
-    text: A business capability of an organization to protect cultural and historic against
-      harm, loss or misuse, grounded in the organization's members as organized, exercised
-      as part of general education aids research.
+    text: A business capability of an organization to carry out cultural and historic preservation,
+      grounded in the organization's members as organized, exercised as part of general education
+      aids research.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to protect cultural and historic against harm, loss or misuse
+    differentia: the ability to carry out cultural and historic preservation
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: protection
-    ability: protect cultural and historic against harm, loss or misuse
-    object: cultural and historic
+    ability: carry out cultural and historic preservation
+    object: cultural and historic preservation
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
@@ -13693,9 +13697,12 @@ candidates:
   review:
     status: needs-review
     justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+      to be drawn; qualified object: the label is an adjective and an ability noun; a reader
+      writes the object'
     flags:
     - 'no BPO act type: realization index to be drawn'
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-017-brm-service
     source: FEAF-II BRM 3.1
@@ -13725,10 +13732,7 @@ candidates:
   duplicates_merged: 1
   synonyms:
   - Cultural and Historic Preservation
-  overlaps:
-  - relation: same object, other ability
-    id: BCC-ba40e5f0
-    name: Cultural and Historic Exhibition Capability
+  overlaps: []
 - id: BCC-b7928257
   name: Currency Conversion Capability
   key: provision|currency conversion
@@ -18715,22 +18719,22 @@ candidates:
   - Default Account Management
   - Manage default accounts
   overlaps: []
-- id: BCC-02c5912d
+- id: BCC-cf593747
   name: Defense and National Security Capability
-  key: protection|defense and national
+  key: protection|defense and national security
   definition:
-    text: A business capability of an organization to protect defense and national against
-      harm, loss or misuse, grounded in the organization's members as organized.
+    text: A business capability of an organization to carry out defense and national security,
+      grounded in the organization's members as organized.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to protect defense and national against harm, loss or misuse
+    differentia: the ability to carry out defense and national security
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: protection
-    ability: protect defense and national against harm, loss or misuse
-    object: defense and national
+    ability: carry out defense and national security
+    object: defense and national security
   classification: function
   classification_reason: 'a top-level area of a catalog (PCF category or BRM mission sector
     or business function) or a coordination of several abilities: a standing function whose
@@ -18742,7 +18746,9 @@ candidates:
     justification: 'a top-level area of a catalog (PCF category or BRM mission sector or business
       function) or a coordination of several abilities: a standing function whose whole-function
       type is defined only where one is (CD16, conditional designation R9); E4 is open'
-    flags: []
+    flags:
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-TAX-B01-brm-mission-sector
     source: FEAF-II BRM 3.1
@@ -18764,7 +18770,7 @@ candidates:
     name: Atomic Energy Defense Capability
   - id: BCC-490ff6eb
     name: Defense-related Activities Capability
-  - id: BCC-de84b78e
+  - id: BCC-3c30ed94
     name: National Defense Capability
   duplicates_merged: 0
   synonyms:
@@ -18872,7 +18878,7 @@ candidates:
     requirement_records: []
     absorbed_process_candidates: []
   broader:
-  - id: BCC-02c5912d
+  - id: BCC-cf593747
     name: Defense and National Security Capability
     basis:
     - hierarchy:INV-FEAF-BRM-TAX-B01.054-brm-business-function<INV-FEAF-BRM-TAX-B01-brm-mission-sector
@@ -19901,7 +19907,7 @@ candidates:
   narrower:
   - id: BCC-cb300c21
     name: Foreign Affairs Capability
-  - id: BCC-282db3ec
+  - id: BCC-683bdf54
     name: International Development and Humanitarian Assistance Capability
   duplicates_merged: 0
   synonyms:
@@ -20953,17 +20959,17 @@ candidates:
   name: Economic and Financial Capability
   key: provision|economic and financial
   definition:
-    text: A business capability of an organization to carry out economic and financial, grounded
-      in the organization's members as organized.
+    text: A business capability of an organization to carry out economic and financial work,
+      grounded in the organization's members as organized.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to carry out economic and financial
+    differentia: the ability to carry out economic and financial work
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: provision
-    ability: carry out economic and financial
+    ability: carry out economic and financial work
     object: economic and financial
   classification: function
   classification_reason: 'a top-level area of a catalog (PCF category or BRM mission sector
@@ -20976,7 +20982,9 @@ candidates:
     justification: 'a top-level area of a catalog (PCF category or BRM mission sector or business
       function) or a coordination of several abilities: a standing function whose whole-function
       type is defined only where one is (CD16, conditional designation R9); E4 is open'
-    flags: []
+    flags:
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-TAX-B03-brm-mission-sector
     source: FEAF-II BRM 3.1
@@ -21045,7 +21053,7 @@ candidates:
     absorbed_process_candidates: []
   broader: []
   narrower:
-  - id: BCC-4e92749d
+  - id: BCC-486c10c5
     name: Elementary Secondary and Vocational Education Capability
   - id: BCC-01b122f5
     name: General Education Aids Research Capability
@@ -21103,7 +21111,7 @@ candidates:
     requirement_records: []
     absorbed_process_candidates: []
   broader:
-  - id: BCC-4e92749d
+  - id: BCC-486c10c5
     name: Elementary Secondary and Vocational Education Capability
     basis:
     - hierarchy:INV-FEAF-BRM-TAX-B04.501.271-brm-service<INV-FEAF-BRM-TAX-B04.501-brm-business-function
@@ -21172,23 +21180,23 @@ candidates:
   duplicates_merged: 1
   synonyms: []
   overlaps: []
-- id: BCC-4e92749d
+- id: BCC-486c10c5
   name: Elementary Secondary and Vocational Education Capability
-  key: training|elementary secondary and vocational
+  key: training|elementary secondary and vocational education
   definition:
-    text: A business capability of an organization to train and develop elementary secondary
-      and vocational, grounded in the organization's members as organized, exercised as part
-      of education and workforce.
+    text: A business capability of an organization to carry out elementary secondary and vocational
+      education, grounded in the organization's members as organized, exercised as part of
+      education and workforce.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to train and develop elementary secondary and vocational
+    differentia: the ability to carry out elementary secondary and vocational education
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: training
-    ability: train and develop elementary secondary and vocational
-    object: elementary secondary and vocational
+    ability: carry out elementary secondary and vocational education
+    object: elementary secondary and vocational education
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
@@ -21196,9 +21204,12 @@ candidates:
   review:
     status: needs-review
     justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+      to be drawn; qualified object: the label is an adjective and an ability noun; a reader
+      writes the object'
     flags:
     - 'no BPO act type: realization index to be drawn'
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-015-brm-service
     source: FEAF-II BRM 3.1
@@ -21491,6 +21502,9 @@ candidates:
   - relation: same object, other ability
     id: BCC-e22554ba
     name: Employee Communication Capability
+  overlaps_truncated:
+    shown: 6
+    found: 8
 - id: BCC-a30afcd4
   name: Employee Career Development Capability
   key: development|employee career
@@ -21700,6 +21714,9 @@ candidates:
   - relation: same object, other ability
     id: BCC-9e60731d
     name: Employee Training Capability
+  overlaps_truncated:
+    shown: 6
+    found: 7
 - id: BCC-b9f8532d
   name: Employee Communication Management Capability
   key: management|employee communication
@@ -22154,6 +22171,9 @@ candidates:
   - relation: same object, other ability
     id: BCC-9e60731d
     name: Employee Training Capability
+  overlaps_truncated:
+    shown: 6
+    found: 9
 - id: BCC-7c5288a8
   name: Employee Grievances Management Capability
   key: management|employee grievance
@@ -22966,6 +22986,9 @@ candidates:
   - relation: same object, other ability
     id: BCC-9e60731d
     name: Employee Training Capability
+  overlaps_truncated:
+    shown: 6
+    found: 7
 - id: BCC-43c76f07
   name: Employee Requisitions Management Capability
   key: management|employee requisition
@@ -23223,6 +23246,9 @@ candidates:
   - relation: same object, other ability
     id: BCC-e22554ba
     name: Employee Communication Capability
+  overlaps_truncated:
+    shown: 6
+    found: 7
 - id: BCC-3d284779
   name: Employees Recruitment, Sourcing and Selection Capability
   key: staffing|employee
@@ -23337,6 +23363,9 @@ candidates:
   - relation: same object, other ability
     id: BCC-9e60731d
     name: Employee Training Capability
+  overlaps_truncated:
+    shown: 6
+    found: 7
 - id: BCC-7c20d7f8
   name: Employees Relocation Capability
   key: transportation|employee
@@ -23419,6 +23448,9 @@ candidates:
   - relation: same object, other ability
     id: BCC-9e60731d
     name: Employee Training Capability
+  overlaps_truncated:
+    shown: 6
+    found: 7
 - id: BCC-12db59b1
   name: Employees Reward and Retention Capability
   key: remuneration|employee
@@ -23499,6 +23531,9 @@ candidates:
   - relation: same object, other ability
     id: BCC-9e60731d
     name: Employee Training Capability
+  overlaps_truncated:
+    shown: 6
+    found: 7
 - id: BCC-651e7309
   name: Employer Branding Capability
   key: promotion|employer
@@ -25186,23 +25221,23 @@ candidates:
   - relation: same object, other ability
     id: BCC-9959134c
     name: Environmental Health and Safety Program Development Capability
-- id: BCC-24386def
+- id: BCC-94fd7feb
   name: Environmental Monitoring and Forecasting Capability
-  key: monitoring|environmental
+  key: monitoring|environmental monitoring and forecasting
   definition:
-    text: A business capability of an organization to observe and measure environmental over
-      time against expectations, grounded in the organization's members as organized, exercised
-      as part of other natural resources.
+    text: A business capability of an organization to carry out environmental monitoring and
+      forecasting, grounded in the organization's members as organized, exercised as part
+      of other natural resources.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to observe and measure environmental over time against expectations
+    differentia: the ability to carry out environmental monitoring and forecasting
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: monitoring
-    ability: observe and measure environmental over time against expectations
-    object: environmental
+    ability: carry out environmental monitoring and forecasting
+    object: environmental monitoring and forecasting
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
@@ -25210,9 +25245,12 @@ candidates:
   review:
     status: needs-review
     justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+      to be drawn; qualified object: the label is an adjective and an ability noun; a reader
+      writes the object'
     flags:
     - 'no BPO act type: realization index to be drawn'
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-023-brm-service
     source: FEAF-II BRM 3.1
@@ -25242,27 +25280,24 @@ candidates:
   duplicates_merged: 1
   synonyms:
   - Environmental Monitoring and Forecasting
-  overlaps:
-  - relation: same object, other ability
-    id: BCC-18b6e1e4
-    name: Environmental Remediation Capability
-- id: BCC-18b6e1e4
+  overlaps: []
+- id: BCC-93ed66ae
   name: Environmental Remediation Capability
-  key: resolution|environmental
+  key: resolution|environmental remediation
   definition:
-    text: A business capability of an organization to investigate and resolve environmental,
+    text: A business capability of an organization to carry out environmental remediation,
       grounded in the organization's members as organized, exercised as part of other natural
       resources.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to investigate and resolve environmental
+    differentia: the ability to carry out environmental remediation
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: resolution
-    ability: investigate and resolve environmental
-    object: environmental
+    ability: carry out environmental remediation
+    object: environmental remediation
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
@@ -25270,9 +25305,12 @@ candidates:
   review:
     status: needs-review
     justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+      to be drawn; qualified object: the label is an adjective and an ability noun; a reader
+      writes the object'
     flags:
     - 'no BPO act type: realization index to be drawn'
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-024-brm-service
     source: FEAF-II BRM 3.1
@@ -25302,10 +25340,7 @@ candidates:
   duplicates_merged: 1
   synonyms:
   - Environmental Remediation
-  overlaps:
-  - relation: same object, other ability
-    id: BCC-24386def
-    name: Environmental Monitoring and Forecasting Capability
+  overlaps: []
 - id: BCC-060fc192
   name: Environmental Site Stewardship Capability
   key: management|environmental site
@@ -26551,17 +26586,17 @@ candidates:
   name: External Relationship Management Capability
   key: relationship|external
   definition:
-    text: A business capability of an organization to build and sustain relationships with
-      external, grounded in the organization's members as organized.
+    text: A business capability of an organization to build and sustain external relationships,
+      grounded in the organization's members as organized.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to build and sustain relationships with external
+    differentia: the ability to build and sustain external relationships
   bearer:
     proposed: cco:ont00001180 Organization
     context: cross-industry organizations (PCF/BPO)
   distinctive_ability:
     family: relationship
-    ability: build and sustain relationships with external
+    ability: build and sustain external relationships
     object: external
   classification: function
   classification_reason: 'a top-level area of a catalog (PCF category or BRM mission sector
@@ -26989,7 +27024,7 @@ candidates:
     basis:
     - hierarchy:INV-FEAF-BRM-TAX-B08.753-brm-business-function<INV-FEAF-BRM-TAX-B08-brm-mission-sector
   narrower:
-  - id: BCC-cb543c03
+  - id: BCC-523926cc
     name: Criminal Incarceration Capability
   - id: BCC-d2c91daf
     name: Criminal Rehabilitation Capability
@@ -26997,23 +27032,23 @@ candidates:
   synonyms:
   - Federal correctional activities
   overlaps: []
-- id: BCC-7a9775d8
+- id: BCC-f0dc80fb
   name: Federal Financial Assistance Capability
-  key: service|federal financial
+  key: service|federal financial assistance
   definition:
-    text: A business capability of an organization to provide federal financial to those it
-      serves, grounded in the organization's members as organized, exercised as part of general
-      purpose fiscal assistance.
+    text: A business capability of an organization to carry out federal financial assistance,
+      grounded in the organization's members as organized, exercised as part of general purpose
+      fiscal assistance.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to provide federal financial to those it serves
+    differentia: the ability to carry out federal financial assistance
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: service
-    ability: provide federal financial to those it serves
-    object: federal financial
+    ability: carry out federal financial assistance
+    object: federal financial assistance
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
@@ -27021,9 +27056,12 @@ candidates:
   review:
     status: needs-review
     justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+      to be drawn; qualified object: the label is an adjective and an ability noun; a reader
+      writes the object'
     flags:
     - 'no BPO act type: realization index to be drawn'
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-362-brm-service
     source: FEAF-II BRM 3.1
@@ -27045,7 +27083,7 @@ candidates:
     requirement_records: []
     absorbed_process_candidates: []
   broader:
-  - id: BCC-4cc72405
+  - id: BCC-f2d5944a
     name: General Purpose Fiscal Assistance Capability
     basis:
     - hierarchy:INV-FEAF-BRM-TAX-B10.806.362-brm-service<INV-FEAF-BRM-TAX-B10.806-brm-business-function
@@ -27102,7 +27140,7 @@ candidates:
     requirement_records: []
     absorbed_process_candidates: []
   broader:
-  - id: BCC-4cc72405
+  - id: BCC-f2d5944a
     name: General Purpose Fiscal Assistance Capability
     basis:
     - hierarchy:INV-FEAF-BRM-TAX-B10.806.363-brm-service<INV-FEAF-BRM-TAX-B10.806-brm-business-function
@@ -27169,9 +27207,9 @@ candidates:
     name: Crime Prevention Capability
   - id: BCC-21de6218
     name: Criminal and Terrorist Threat Mitigation Capability
-  - id: BCC-13ce33ed
+  - id: BCC-99a52e73
     name: Criminal Investigation and Surveillance Capability
-  - id: BCC-9889ab3c
+  - id: BCC-44c7fb07
     name: Criminal Management Capability
   - id: BCC-e58bcb83
     name: Fugitive and Criminal Apprehension Capability
@@ -27242,9 +27280,9 @@ candidates:
     name: Adjudicate Non-judicial Requests Capability
   - id: BCC-ce006a86
     name: Judicial Hearings Capability
-  - id: BCC-6ce3fe60
+  - id: BCC-b0544f01
     name: Legal Defense Capability
-  - id: BCC-e3a2cb00
+  - id: BCC-2ba4e64b
     name: Legal Investigation Capability
   - id: BCC-b7baaf8c
     name: Legal Prosecution Litigation Capability
@@ -28280,30 +28318,33 @@ candidates:
   synonyms:
   - Manage financial intermediary relationships
   overlaps: []
-- id: BCC-92df6ce1
+- id: BCC-b99cd775
   name: Financial Management Capability
-  key: management|financial
+  key: management|financial management
   definition:
-    text: A business capability of an organization to direct and control financial on a continuing
-      basis, grounded in the organization's members as organized.
+    text: A business capability of an organization to carry out financial management, grounded
+      in the organization's members as organized.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to direct and control financial on a continuing basis
+    differentia: the ability to carry out financial management
   bearer:
     proposed: cco:ont00001180 Organization
     context: cross-industry organizations (PCF/BPO)
   distinctive_ability:
     family: management
-    ability: direct and control financial on a continuing basis
-    object: financial
+    ability: carry out financial management
+    object: financial management
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: generated-draft
-    justification: generated; passed every automated check
-    flags: []
+    status: needs-review
+    justification: 'generated; quality flags to clear: qualified object: the label is an adjective
+      and an ability noun; a reader writes the object'
+    flags:
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-BPO-FinancialManagementCapability-capability-class
     source: BPO
@@ -28345,16 +28386,7 @@ candidates:
   duplicates_merged: 1
   synonyms:
   - Financial Management
-  overlaps:
-  - relation: same object, other ability
-    id: BCC-4a1b98ef
-    name: Financial Reporting Capability
-  - relation: similar object (Jaccard 0.50)
-    id: BCC-93d835ff
-    name: Financial Policy Management Capability
-  - relation: similar object (Jaccard 0.50)
-    id: BCC-4fda51aa
-    name: Financial Resources Management Capability
+  overlaps: []
 - id: BCC-cedf0899
   name: Financial Performance Evaluation and Management Capability
   key: analysis|financial performance
@@ -28544,7 +28576,7 @@ candidates:
     requirement_records: []
     absorbed_process_candidates: []
   broader:
-  - id: BCC-289d6cf6
+  - id: BCC-60d672db
     name: General Accounting and Reporting Capability
     basis:
     - hierarchy:INV-PCF74-10747<INV-PCF74-10730
@@ -28623,35 +28655,34 @@ candidates:
   - relation: similar object (Jaccard 0.67)
     id: BCC-e8acc1f8
     name: Financial Policies and Procedures Management Capability
-  - relation: similar object (Jaccard 0.50)
-    id: BCC-92df6ce1
-    name: Financial Management Capability
-- id: BCC-4a1b98ef
+- id: BCC-792537f9
   name: Financial Reporting Capability
-  key: reporting|financial
+  key: reporting|financial reporting
   definition:
-    text: A business capability of an organization to compile and report on financial to those
-      who need it, grounded in the organization's members as organized, exercised as part
-      of general accounting and reporting, and shown in acts of the kinds act of accounting
-      or act of reporting.
+    text: A business capability of an organization to carry out financial reporting, grounded
+      in the organization's members as organized, exercised as part of general accounting
+      and reporting, and shown in acts of the kinds act of accounting or act of reporting.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to compile and report on financial to those who need it
+    differentia: the ability to carry out financial reporting
   bearer:
     proposed: cco:ont00001180 Organization
     context: cross-industry organizations (PCF/BPO)
   distinctive_ability:
     family: reporting
-    ability: compile and report on financial to those who need it
-    object: financial
+    ability: carry out financial reporting
+    object: financial reporting
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: generated-draft
-    justification: generated; passed every automated check
-    flags: []
+    status: needs-review
+    justification: 'generated; quality flags to clear: qualified object: the label is an adjective
+      and an ability noun; a reader writes the object'
+    flags:
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-PCF74-10750
     source: APQC PCF 7.4
@@ -28721,7 +28752,7 @@ candidates:
     requirement_records: []
     absorbed_process_candidates: []
   broader:
-  - id: BCC-289d6cf6
+  - id: BCC-60d672db
     name: General Accounting and Reporting Capability
     basis:
     - hierarchy:INV-PCF74-10750<INV-PCF74-10730
@@ -28729,13 +28760,7 @@ candidates:
   duplicates_merged: 0
   synonyms:
   - Perform financial reporting
-  overlaps:
-  - relation: same object, other ability
-    id: BCC-92df6ce1
-    name: Financial Management Capability
-  - relation: similar object (Jaccard 0.50)
-    id: BCC-18ef14d6
-    name: Financial Results Reporting Capability
+  overlaps: []
 - id: BCC-4fda51aa
   name: Financial Resources Management Capability
   key: management|financial resource
@@ -28793,12 +28818,12 @@ candidates:
     name: Accounts Payable and Expense Reimbursements Processing Capability
   - id: BCC-9305456f
     name: Fixed-asset Project Accounting Management Capability
-  - id: BCC-289d6cf6
+  - id: BCC-60d672db
     name: General Accounting and Reporting Capability
   - id: BCC-05445216
     name: Global Trade Services Capability
   - id: BCC-5a4bc396
-    name: Internal Controls Management Capability
+    name: Internal Control Capability
   - id: BCC-87e3a26b
     name: International Funds and Consolidation Management Capability
   - id: BCC-d95f68fd
@@ -28814,10 +28839,7 @@ candidates:
   duplicates_merged: 0
   synonyms:
   - Manage Financial Resources
-  overlaps:
-  - relation: similar object (Jaccard 0.50)
-    id: BCC-92df6ce1
-    name: Financial Management Capability
+  overlaps: []
 - id: BCC-18ef14d6
   name: Financial Results Reporting Capability
   key: reporting|financial result
@@ -28882,10 +28904,7 @@ candidates:
   duplicates_merged: 0
   synonyms:
   - Report financial results
-  overlaps:
-  - relation: similar object (Jaccard 0.50)
-    id: BCC-4a1b98ef
-    name: Financial Reporting Capability
+  overlaps: []
 - id: BCC-69680631
   name: Financial Sector Oversight Capability
   key: governance|financial sector
@@ -29094,7 +29113,7 @@ candidates:
     requirement_records: []
     absorbed_process_candidates: []
   broader:
-  - id: BCC-289d6cf6
+  - id: BCC-60d672db
     name: General Accounting and Reporting Capability
     basis:
     - hierarchy:INV-PCF74-10749<INV-PCF74-10730
@@ -29421,7 +29440,7 @@ candidates:
     requirement_records: []
     absorbed_process_candidates: []
   broader:
-  - id: BCC-de84b78e
+  - id: BCC-3c30ed94
     name: National Defense Capability
     basis:
     - hierarchy:INV-FEAF-BRM-TAX-B01.050.301-brm-service<INV-FEAF-BRM-TAX-B01.050-brm-business-function
@@ -29477,7 +29496,7 @@ candidates:
     requirement_records: []
     absorbed_process_candidates: []
   broader:
-  - id: BCC-de84b78e
+  - id: BCC-3c30ed94
     name: National Defense Capability
     basis:
     - hierarchy:INV-FEAF-BRM-TAX-B01.050.281-brm-service<INV-FEAF-BRM-TAX-B01.050-brm-business-function
@@ -29534,7 +29553,7 @@ candidates:
     requirement_records: []
     absorbed_process_candidates: []
   broader:
-  - id: BCC-de84b78e
+  - id: BCC-3c30ed94
     name: National Defense Capability
     basis:
     - hierarchy:INV-FEAF-BRM-TAX-B01.050.283-brm-service<INV-FEAF-BRM-TAX-B01.050-brm-business-function
@@ -29593,7 +29612,7 @@ candidates:
     requirement_records: []
     absorbed_process_candidates: []
   broader:
-  - id: BCC-de84b78e
+  - id: BCC-3c30ed94
     name: National Defense Capability
     basis:
     - hierarchy:INV-FEAF-BRM-TAX-B01.050.284-brm-service<INV-FEAF-BRM-TAX-B01.050-brm-business-function
@@ -30109,31 +30128,34 @@ candidates:
   duplicates_merged: 1
   synonyms: []
   overlaps: []
-- id: BCC-289d6cf6
+- id: BCC-60d672db
   name: General Accounting and Reporting Capability
-  key: accounting|general
+  key: accounting|general accounting and reporting
   definition:
-    text: A business capability of an organization to account for general, grounded in the
-      organization's members as organized, exercised as part of financial resources management,
-      and shown in acts of the kinds act of accounting.
+    text: A business capability of an organization to carry out general accounting and reporting,
+      grounded in the organization's members as organized, exercised as part of financial
+      resources management, and shown in acts of the kinds act of accounting.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to account for general
+    differentia: the ability to carry out general accounting and reporting
   bearer:
     proposed: cco:ont00001180 Organization
     context: cross-industry organizations (PCF/BPO)
   distinctive_ability:
     family: accounting
-    ability: account for general
-    object: general
+    ability: carry out general accounting and reporting
+    object: general accounting and reporting
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: generated-draft
-    justification: generated; passed every automated check
-    flags: []
+    status: needs-review
+    justification: 'generated; quality flags to clear: qualified object: the label is an adjective
+      and an ability noun; a reader writes the object'
+    flags:
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-PCF74-10730
     source: APQC PCF 7.4
@@ -30142,6 +30164,69 @@ candidates:
     pcf_element_id: '10730'
     level: 2
     label: Perform general accounting and reporting
+  source_count:
+    pcf: 1
+  realization_evidence:
+    act_types:
+    - act_type: https://fandaws.com/ontology/bpo#P10730
+      genus:
+      - https://fandaws.com/ontology/bpo#ActOfAccounting
+      via: INV-PCF74-10730
+      evidence: designating record
+    act_genera:
+    - Act of Accounting
+    outputs:
+    - https://fandaws.com/ontology/bpo#FinancialStatement
+    processes_beneath: 0
+    requirement_records: []
+    absorbed_process_candidates: []
+  broader:
+  - id: BCC-4fda51aa
+    name: Financial Resources Management Capability
+    basis:
+    - hierarchy:INV-PCF74-10730<INV-PCF74-17058
+  narrower:
+  - id: BCC-e8acc1f8
+    name: Financial Policies and Procedures Management Capability
+  - id: BCC-792537f9
+    name: Financial Reporting Capability
+  - id: BCC-e3c8bd37
+    name: Fixed-asset Accounting Capability
+  - id: BCC-8b431985
+    name: General Accounting Capability
+  duplicates_merged: 0
+  synonyms:
+  - Perform general accounting and reporting
+  overlaps: []
+- id: BCC-8b431985
+  name: General Accounting Capability
+  key: accounting|general accounting
+  definition:
+    text: A business capability of an organization to carry out general accounting, grounded
+      in the organization's members as organized, exercised as part of accounting, and shown
+      in acts of the kinds act of accounting.
+    genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
+      Capability)
+    differentia: the ability to carry out general accounting
+  bearer:
+    proposed: cco:ont00001180 Organization
+    context: cross-industry organizations (PCF/BPO)
+  distinctive_ability:
+    family: accounting
+    ability: carry out general accounting
+    object: general accounting
+  classification: capability
+  classification_reason: an ability of an organization to act on a stated object, with an
+    ability family and source support
+  bfo_cco_compatibility: likely
+  review:
+    status: needs-review
+    justification: 'generated; quality flags to clear: qualified object: the label is an adjective
+      and an ability noun; a reader writes the object'
+    flags:
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
+  sources:
   - inventory_id: INV-PCF74-10748
     source: APQC PCF 7.4
     kind: pcf-element
@@ -30150,14 +30235,9 @@ candidates:
     level: 3
     label: Perform general accounting
   source_count:
-    pcf: 2
+    pcf: 1
   realization_evidence:
     act_types:
-    - act_type: https://fandaws.com/ontology/bpo#P10730
-      genus:
-      - https://fandaws.com/ontology/bpo#ActOfAccounting
-      via: INV-PCF74-10730
-      evidence: designating record
     - act_type: https://fandaws.com/ontology/bpo#P10748
       genus:
       - https://fandaws.com/ontology/bpo#ActOfAccounting
@@ -30212,7 +30292,6 @@ candidates:
     - Act of Accounting
     outputs:
     - https://fandaws.com/ontology/bpo#GeneralLedger
-    - https://fandaws.com/ontology/bpo#FinancialStatement
     - https://fandaws.com/ontology/bpo#ChartOfAccounts
     - https://fandaws.com/ontology/bpo#TransactionRecord
     - https://fandaws.com/ontology/bpo#TrialBalance
@@ -30220,21 +30299,18 @@ candidates:
     requirement_records: []
     absorbed_process_candidates: []
   broader:
-  - id: BCC-4fda51aa
-    name: Financial Resources Management Capability
+  - id: BCC-81d8f125
+    name: Accounting Capability
     basis:
-    - hierarchy:INV-PCF74-10730<INV-PCF74-17058
-  narrower:
-  - id: BCC-e8acc1f8
-    name: Financial Policies and Procedures Management Capability
-  - id: BCC-4a1b98ef
-    name: Financial Reporting Capability
-  - id: BCC-e3c8bd37
-    name: Fixed-asset Accounting Capability
-  duplicates_merged: 1
+    - object-containment:accounting
+  - id: BCC-60d672db
+    name: General Accounting and Reporting Capability
+    basis:
+    - hierarchy:INV-PCF74-10748<INV-PCF74-10730
+  narrower: []
+  duplicates_merged: 0
   synonyms:
   - Perform general accounting
-  - Perform general accounting and reporting
   overlaps: []
 - id: BCC-01b122f5
   name: General Education Aids Research Capability
@@ -30286,9 +30362,9 @@ candidates:
     basis:
     - hierarchy:INV-FEAF-BRM-TAX-B04.503-brm-business-function<INV-FEAF-BRM-TAX-B04-brm-mission-sector
   narrower:
-  - id: BCC-ba40e5f0
+  - id: BCC-e922568f
     name: Cultural and Historic Exhibition Capability
-  - id: BCC-6cc584a1
+  - id: BCC-36ddfbef
     name: Cultural and Historic Preservation Capability
   duplicates_merged: 0
   synonyms:
@@ -30346,7 +30422,7 @@ candidates:
   narrower:
   - id: BCC-23f7f16e
     name: Community Deployed Resources Capability
-  - id: BCC-72135104
+  - id: BCC-c97d05be
     name: Community Functional Management Capability
   - id: BCC-a43742b8
     name: Continuity Operations Capability
@@ -30360,7 +30436,7 @@ candidates:
     name: Emergency Response Capability
   - id: BCC-d6ea4ee7
     name: General Purpose Data and Statistics Capability
-  - id: BCC-4cc72405
+  - id: BCC-f2d5944a
     name: General Purpose Fiscal Assistance Capability
   - id: BCC-7f664ac0
     name: Inspection and Auditing Capability
@@ -30376,7 +30452,7 @@ candidates:
     name: Permits Licensing Capability
   - id: BCC-211daeb5
     name: Public Comment Tracking Capability
-  - id: BCC-122fab23
+  - id: BCC-ab575c2f
     name: Public Communications Capability
   - id: BCC-d7f1122e
     name: Regulatory Compliance Capability
@@ -30445,23 +30521,22 @@ candidates:
   synonyms:
   - General Purpose Data and Statistics
   overlaps: []
-- id: BCC-4cc72405
+- id: BCC-f2d5944a
   name: General Purpose Fiscal Assistance Capability
-  key: service|general purpose fiscal
+  key: service|general purpose fiscal assistance
   definition:
-    text: A business capability of an organization to provide general purpose fiscal to those
-      it serves, grounded in the organization's members as organized, exercised as part of
-      general government.
+    text: A business capability of an organization to carry out general purpose fiscal assistance,
+      grounded in the organization's members as organized, exercised as part of general government.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to provide general purpose fiscal to those it serves
+    differentia: the ability to carry out general purpose fiscal assistance
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: service
-    ability: provide general purpose fiscal to those it serves
-    object: general purpose fiscal
+    ability: carry out general purpose fiscal assistance
+    object: general purpose fiscal assistance
   classification: function
   classification_reason: 'a top-level area of a catalog (PCF category or BRM mission sector
     or business function) or a coordination of several abilities: a standing function whose
@@ -30473,7 +30548,9 @@ candidates:
     justification: 'a top-level area of a catalog (PCF category or BRM mission sector or business
       function) or a coordination of several abilities: a standing function whose whole-function
       type is defined only where one is (CD16, conditional designation R9); E4 is open'
-    flags: []
+    flags:
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-TAX-B10.806-brm-business-function
     source: FEAF-II BRM 3.1
@@ -30497,7 +30574,7 @@ candidates:
   narrower:
   - id: BCC-b077da5d
     name: Credit Insurance Capability
-  - id: BCC-7a9775d8
+  - id: BCC-f0dc80fb
     name: Federal Financial Assistance Capability
   - id: BCC-398a9f28
     name: Federal Funds to States and Local Governments Capability
@@ -31620,7 +31697,7 @@ candidates:
     basis:
     - hierarchy:INV-FEAF-BRM-TAX-B07.552-brm-business-function<INV-FEAF-BRM-TAX-B07-brm-mission-sector
   narrower:
-  - id: BCC-32d5d96a
+  - id: BCC-cad6e1e2
     name: Biomedical Research Capability
   - id: BCC-cd9a8050
     name: Health Care Research and Practitioner Education Capability
@@ -32163,22 +32240,22 @@ candidates:
   synonyms:
   - Homeownership Promotion
   overlaps: []
-- id: BCC-9dc68db1
+- id: BCC-c44d1b66
   name: Hospital and Medical Care Capability
-  key: service|hospital and medical
+  key: service|hospital and medical care
   definition:
-    text: A business capability of an organization to provide hospital and medical to those
-      it serves, grounded in the organization's members as organized.
+    text: A business capability of an organization to carry out hospital and medical care,
+      grounded in the organization's members as organized.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to provide hospital and medical to those it serves
+    differentia: the ability to carry out hospital and medical care
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: service
-    ability: provide hospital and medical to those it serves
-    object: hospital and medical
+    ability: carry out hospital and medical care
+    object: hospital and medical care
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
@@ -32186,9 +32263,12 @@ candidates:
   review:
     status: needs-review
     justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+      to be drawn; qualified object: the label is an adjective and an ability noun; a reader
+      writes the object'
     flags:
     - 'no BPO act type: realization index to be drawn'
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-332-brm-service
     source: FEAF-II BRM 3.1
@@ -32772,22 +32852,23 @@ candidates:
   synonyms:
   - Develop human resources strategy
   overlaps: []
-- id: BCC-068910bf
+- id: BCC-efc2920f
   name: Humanitarian Aid Capability
-  key: service|humanitarian
+  key: service|humanitarian aid
   definition:
-    text: A business capability of an organization to provide humanitarian to those it serves,
-      grounded in the organization's members as organized.
+    text: A business capability of an organization to carry out humanitarian aid, grounded
+      in the organization's members as organized, exercised as part of international development
+      and humanitarian assistance.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to provide humanitarian to those it serves
+    differentia: the ability to carry out humanitarian aid
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: service
-    ability: provide humanitarian to those it serves
-    object: humanitarian
+    ability: carry out humanitarian aid
+    object: humanitarian aid
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
@@ -32795,9 +32876,12 @@ candidates:
   review:
     status: needs-review
     justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+      to be drawn; qualified object: the label is an adjective and an ability noun; a reader
+      writes the object'
     flags:
     - 'no BPO act type: realization index to be drawn'
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-368-brm-service
     source: FEAF-II BRM 3.1
@@ -32818,10 +32902,12 @@ candidates:
     processes_beneath: 0
     requirement_records: []
     absorbed_process_candidates: []
-  broader: []
-  narrower:
-  - id: BCC-282db3ec
+  broader:
+  - id: BCC-683bdf54
     name: International Development and Humanitarian Assistance Capability
+    basis:
+    - hierarchy:INV-FEAF-BRM-TAX-B02.151.368-brm-service<INV-FEAF-BRM-TAX-B02.151-brm-business-function
+  narrower: []
   duplicates_merged: 1
   synonyms:
   - Humanitarian Aid
@@ -35495,6 +35581,9 @@ candidates:
   - relation: similar object (Jaccard 0.50)
     id: BCC-092cd749
     name: Information Technology Roll-back Management Capability
+  overlaps_truncated:
+    shown: 6
+    found: 7
 - id: BCC-bdcf2c98
   name: Information Technology Business Strategy Development and Management Capability
   key: formulation|information technology business strategy
@@ -36395,6 +36484,9 @@ candidates:
   - relation: similar object (Jaccard 0.50)
     id: BCC-092cd749
     name: Information Technology Roll-back Management Capability
+  overlaps_truncated:
+    shown: 6
+    found: 7
 - id: BCC-496ec500
   name: Information Technology Infrastructure Service Capability
   key: service|information technology infrastructure
@@ -36574,6 +36666,9 @@ candidates:
   - relation: similar object (Jaccard 0.50)
     id: BCC-8c8f378f
     name: Information Technology Customer Relationship Management Capability (management)
+  overlaps_truncated:
+    shown: 6
+    found: 16
 - id: BCC-2a1fd373
   name: Information Technology Management System Control Capability
   key: management|information technology management system
@@ -37656,6 +37751,9 @@ candidates:
   - relation: similar object (Jaccard 0.50)
     id: BCC-092cd749
     name: Information Technology Roll-back Management Capability
+  overlaps_truncated:
+    shown: 6
+    found: 7
 - id: BCC-092cd749
   name: Information Technology Roll-back Management Capability
   key: management|information technology roll-back
@@ -38192,6 +38290,9 @@ candidates:
   - relation: similar object (Jaccard 0.50)
     id: BCC-c026a339
     name: Information Technology Product Management Capability
+  overlaps_truncated:
+    shown: 6
+    found: 8
 - id: BCC-095f4550
   name: Information Technology Service Management Strategy Definition Capability
   key: formulation|information technology service management strategy
@@ -38546,31 +38647,33 @@ candidates:
   - IT Strategic Alignment Maintenance
   - Maintain IT strategic alignment
   overlaps: []
-- id: BCC-545ed5fd
+- id: BCC-4beb13af
   name: Information Technology Strategic Intelligence Capability
-  key: analysis|information technology strategic
+  key: analysis|information technology strategic intelligence
   definition:
-    text: A business capability of an organization to examine and assess information technology
-      strategic so as to inform decisions, grounded in the organization's members as organized.
+    text: A business capability of an organization to carry out information technology strategic
+      intelligence, grounded in the organization's members as organized.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to examine and assess information technology strategic so as
-      to inform decisions
+    differentia: the ability to carry out information technology strategic intelligence
   bearer:
     proposed: cco:ont00001180 Organization
     context: cross-industry organizations (PCF/BPO)
   distinctive_ability:
     family: analysis
-    ability: examine and assess information technology strategic so as to inform decisions
-    object: information technology strategic
+    ability: carry out information technology strategic intelligence
+    object: information technology strategic intelligence
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: generated-draft
-    justification: generated; passed every automated check
-    flags: []
+    status: needs-review
+    justification: 'generated; quality flags to clear: qualified object: the label is an adjective
+      and an ability noun; a reader writes the object'
+    flags:
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-BPO-ITStrategicIntelligenceCapability-capability-class
     source: BPO
@@ -40949,42 +41052,50 @@ candidates:
   synonyms:
   - Internal Audit Management
   - Manage internal audits
-  overlaps:
-  - relation: similar object (Jaccard 0.50)
-    id: BCC-4bff0a0c
-    name: Internal Control Capability
-- id: BCC-4bff0a0c
+  overlaps: []
+- id: BCC-5a4bc396
   name: Internal Control Capability
-  key: management|internal
+  key: management|internal control
   definition:
-    text: A business capability of an organization to direct and control internal on a continuing
-      basis, grounded in the organization's members as organized.
+    text: A business capability of an organization to carry out internal control, grounded
+      in the organization's members as organized, exercised as part of controls operation.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to direct and control internal on a continuing basis
+    differentia: the ability to carry out internal control
   bearer:
     proposed: cco:ont00001180 Organization
     context: cross-industry organizations (PCF/BPO)
   distinctive_ability:
     family: management
-    ability: direct and control internal on a continuing basis
-    object: internal
+    ability: carry out internal control
+    object: internal control
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: generated-draft
-    justification: generated; passed every automated check
-    flags: []
+    status: needs-review
+    justification: 'generated; quality flags to clear: qualified object: the label is an adjective
+      and an ability noun; a reader writes the object'
+    flags:
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-BPO-InternalControlCapability-capability-class
     source: BPO
     kind: bpo-capability-class
     code: InternalControlCapability
     label: Internal Control
+  - inventory_id: INV-PCF74-10735
+    source: APQC PCF 7.4
+    kind: pcf-element
+    code: '9.8'
+    pcf_element_id: '10735'
+    level: 2
+    label: Manage internal controls
   source_count:
     bpo: 1
+    pcf: 1
   realization_evidence:
     act_types:
     - act_type: https://fandaws.com/ontology/bpo#P10762
@@ -41004,26 +41115,33 @@ candidates:
     processes_beneath: 0
     requirement_records: []
     absorbed_process_candidates: []
-  broader: []
-  narrower: []
-  duplicates_merged: 0
+  broader:
+  - id: BCC-ded8ed18
+    name: Controls Operation Capability
+    basis:
+    - object-containment:control
+  - id: BCC-4fda51aa
+    name: Financial Resources Management Capability
+    basis:
+    - hierarchy:INV-PCF74-10735<INV-PCF74-17058
+  narrower:
+  - id: BCC-b55668bc
+    name: Internal Controls Compliance Reporting Capability
+  - id: BCC-80a63f8e
+    name: Internal Controls Policies and Procedures Establishment Capability
+  duplicates_merged: 1
   synonyms:
   - Internal Control
-  overlaps:
-  - relation: similar object (Jaccard 0.50)
-    id: BCC-42b0be90
-    name: Internal Audit Management Capability
-  - relation: similar object (Jaccard 0.50)
-    id: BCC-5a4bc396
-    name: Internal Controls Management Capability
+  - Manage internal controls
+  overlaps: []
 - id: BCC-b55668bc
   name: Internal Controls Compliance Reporting Capability
   key: reporting|internal control compliance
   definition:
     text: A business capability of an organization to compile and report on internal controls
       compliance to those who need it, grounded in the organization's members as organized,
-      exercised as part of internal controls management, and shown in acts of the kinds act
-      of communication or act of reporting.
+      exercised as part of internal control, and shown in acts of the kinds act of communication
+      or act of reporting.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
     differentia: the ability to compile and report on internal controls compliance to those
@@ -41091,7 +41209,7 @@ candidates:
     absorbed_process_candidates: []
   broader:
   - id: BCC-5a4bc396
-    name: Internal Controls Management Capability
+    name: Internal Control Capability
     basis:
     - hierarchy:INV-PCF74-10764<INV-PCF74-10735
   narrower: []
@@ -41099,79 +41217,14 @@ candidates:
   synonyms:
   - Report on internal controls compliance
   overlaps: []
-- id: BCC-5a4bc396
-  name: Internal Controls Management Capability
-  key: management|internal control
-  definition:
-    text: A business capability of an organization to direct and control internal controls
-      on a continuing basis, grounded in the organization's members as organized, exercised
-      as part of controls operation.
-    genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
-      Capability)
-    differentia: the ability to direct and control internal controls on a continuing basis
-  bearer:
-    proposed: cco:ont00001180 Organization
-    context: cross-industry organizations (PCF/BPO)
-  distinctive_ability:
-    family: management
-    ability: direct and control internal controls on a continuing basis
-    object: internal controls
-  classification: capability
-  classification_reason: an ability of an organization to act on a stated object, with an
-    ability family and source support
-  bfo_cco_compatibility: likely
-  review:
-    status: needs-review
-    justification: 'generated; quality flags to clear: realization evidence only through narrower
-      candidates'
-    flags:
-    - realization evidence only through narrower candidates
-  sources:
-  - inventory_id: INV-PCF74-10735
-    source: APQC PCF 7.4
-    kind: pcf-element
-    code: '9.8'
-    pcf_element_id: '10735'
-    level: 2
-    label: Manage internal controls
-  source_count:
-    pcf: 1
-  realization_evidence:
-    act_types: []
-    act_genera: []
-    outputs: []
-    processes_beneath: 0
-    requirement_records: []
-    absorbed_process_candidates: []
-  broader:
-  - id: BCC-ded8ed18
-    name: Controls Operation Capability
-    basis:
-    - object-containment:control
-  - id: BCC-4fda51aa
-    name: Financial Resources Management Capability
-    basis:
-    - hierarchy:INV-PCF74-10735<INV-PCF74-17058
-  narrower:
-  - id: BCC-b55668bc
-    name: Internal Controls Compliance Reporting Capability
-  - id: BCC-80a63f8e
-    name: Internal Controls Policies and Procedures Establishment Capability
-  duplicates_merged: 0
-  synonyms:
-  - Manage internal controls
-  overlaps:
-  - relation: similar object (Jaccard 0.50)
-    id: BCC-4bff0a0c
-    name: Internal Control Capability
 - id: BCC-80a63f8e
   name: Internal Controls Policies and Procedures Establishment Capability
   key: formulation|internal control policy and procedure
   definition:
     text: A business capability of an organization to formulate, set out and keep current
       internal controls policies and procedures, grounded in the organization's members as
-      organized, exercised as part of internal controls management, and shown in acts of the
-      kinds act of formulation or act of organizational establishment.
+      organized, exercised as part of internal control, and shown in acts of the kinds act
+      of formulation or act of organizational establishment.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
     differentia: the ability to formulate, set out and keep current internal controls policies
@@ -41249,7 +41302,7 @@ candidates:
     absorbed_process_candidates: []
   broader:
   - id: BCC-5a4bc396
-    name: Internal Controls Management Capability
+    name: Internal Control Capability
     basis:
     - hierarchy:INV-PCF74-10762<INV-PCF74-10735
   - id: BCC-41f11e7f
@@ -41357,24 +41410,23 @@ candidates:
   synonyms:
   - Assess the internal environment
   overlaps: []
-- id: BCC-282db3ec
+- id: BCC-683bdf54
   name: International Development and Humanitarian Assistance Capability
-  key: service|international development and humanitarian
+  key: service|international development and humanitarian assistance
   definition:
-    text: A business capability of an organization to provide international development and
-      humanitarian to those it serves, grounded in the organization's members as organized,
-      exercised as part of diplomacy and trade.
+    text: A business capability of an organization to carry out international development
+      and humanitarian assistance, grounded in the organization's members as organized, exercised
+      as part of diplomacy and trade.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to provide international development and humanitarian to those
-      it serves
+    differentia: the ability to carry out international development and humanitarian assistance
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: service
-    ability: provide international development and humanitarian to those it serves
-    object: international development and humanitarian
+    ability: carry out international development and humanitarian assistance
+    object: international development and humanitarian assistance
   classification: function
   classification_reason: 'a top-level area of a catalog (PCF category or BRM mission sector
     or business function) or a coordination of several abilities: a standing function whose
@@ -41386,7 +41438,9 @@ candidates:
     justification: 'a top-level area of a catalog (PCF category or BRM mission sector or business
       function) or a coordination of several abilities: a standing function whose whole-function
       type is defined only where one is (CD16, conditional designation R9); E4 is open'
-    flags: []
+    flags:
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-TAX-B02.151-brm-business-function
     source: FEAF-II BRM 3.1
@@ -41407,34 +41461,32 @@ candidates:
     name: Diplomacy and Trade Capability
     basis:
     - hierarchy:INV-FEAF-BRM-TAX-B02.151-brm-business-function<INV-FEAF-BRM-TAX-B02-brm-mission-sector
-  - id: BCC-068910bf
-    name: Humanitarian Aid Capability
-    basis:
-    - object-containment:humanitarian
   narrower:
-  - id: BCC-fa16311c
+  - id: BCC-efc2920f
+    name: Humanitarian Aid Capability
+  - id: BCC-89275bd9
     name: International Development Capability
   duplicates_merged: 0
   synonyms:
   - International development and humanitarian assistance
   overlaps: []
-- id: BCC-fa16311c
+- id: BCC-89275bd9
   name: International Development Capability
-  key: development|international
+  key: development|international development
   definition:
-    text: A business capability of an organization to bring new international into being and
-      make it ready for use, grounded in the organization's members as organized, exercised
-      as part of international development and humanitarian assistance.
+    text: A business capability of an organization to carry out international development,
+      grounded in the organization's members as organized, exercised as part of international
+      development and humanitarian assistance.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to bring new international into being and make it ready for use
+    differentia: the ability to carry out international development
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: development
-    ability: bring new international into being and make it ready for use
-    object: international
+    ability: carry out international development
+    object: international development
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
@@ -41442,9 +41494,12 @@ candidates:
   review:
     status: needs-review
     justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+      to be drawn; qualified object: the label is an adjective and an ability noun; a reader
+      writes the object'
     flags:
     - 'no BPO act type: realization index to be drawn'
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-367-brm-service
     source: FEAF-II BRM 3.1
@@ -41466,7 +41521,7 @@ candidates:
     requirement_records: []
     absorbed_process_candidates: []
   broader:
-  - id: BCC-282db3ec
+  - id: BCC-683bdf54
     name: International Development and Humanitarian Assistance Capability
     basis:
     - hierarchy:INV-FEAF-BRM-TAX-B02.151.367-brm-service<INV-FEAF-BRM-TAX-B02.151-brm-business-function
@@ -43616,6 +43671,92 @@ candidates:
   synonyms:
   - Provide legal advice/counseling
   overlaps: []
+- id: BCC-19e4e2b7
+  name: Legal and Compliance Capability
+  key: compliance|legal and compliance
+  definition:
+    text: A business capability of an organization to carry out legal and compliance, grounded
+      in the organization's members as organized, exercised as part of compliance assurance.
+    genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
+      Capability)
+    differentia: the ability to carry out legal and compliance
+  bearer:
+    proposed: cco:ont00001180 Organization
+    context: cross-industry organizations (PCF/BPO)
+  distinctive_ability:
+    family: compliance
+    ability: carry out legal and compliance
+    object: legal and compliance
+  classification: capability
+  classification_reason: an ability of an organization to act on a stated object, with an
+    ability family and source support
+  bfo_cco_compatibility: likely
+  review:
+    status: needs-review
+    justification: 'generated; quality flags to clear: BPO index member is not an act (Q-12);
+      qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
+    flags:
+    - BPO index member is not an act (Q-12)
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
+  sources:
+  - inventory_id: INV-BPO-LegalAndComplianceCapability-capability-class
+    source: BPO
+    kind: bpo-capability-class
+    code: LegalAndComplianceCapability
+    label: Legal and Compliance
+  - inventory_id: INV-BPO-LegalAndComplianceCapability-scope-entry
+    source: BPO
+    kind: bpo-scope-entry
+    code: LegalAndComplianceCapability
+    label: Legal And Compliance
+  source_count:
+    bpo: 2
+  realization_evidence:
+    act_types:
+    - act_type: https://fandaws.com/ontology/bpo#P11013
+      genus: null
+      via: INV-BPO-LegalAndComplianceCapability-capability-class
+      evidence: BPO enablesProcess (capability)
+    - act_type: https://fandaws.com/ontology/bpo#P11045
+      genus: null
+      via: INV-BPO-LegalAndComplianceCapability-capability-class
+      evidence: BPO enablesProcess (capability)
+    - act_type: https://fandaws.com/ontology/bpo#P11047
+      genus: null
+      via: INV-BPO-LegalAndComplianceCapability-capability-class
+      evidence: BPO enablesProcess (capability)
+    - act_type: https://fandaws.com/ontology/bpo#P11048
+      genus: null
+      via: INV-BPO-LegalAndComplianceCapability-capability-class
+      evidence: BPO enablesProcess (capability)
+    - act_type: https://fandaws.com/ontology/bpo#P11049
+      genus: null
+      via: INV-BPO-LegalAndComplianceCapability-capability-class
+      evidence: BPO enablesProcess (capability)
+    act_genera: []
+    outputs: []
+    processes_beneath: 0
+    requirement_records: []
+    absorbed_process_candidates: []
+  broader:
+  - id: BCC-3a745850
+    name: Compliance Assurance Capability
+    basis:
+    - object-containment:compliance
+  narrower:
+  - id: BCC-75a325a4
+    name: Corporate Governance Policies Management Capability
+  - id: BCC-070bb7b8
+    name: Legal and Ethical Issues Management Capability
+  - id: BCC-ad1ec9eb
+    name: Outside Counsel Management Capability
+  duplicates_merged: 1
+  synonyms:
+  - Legal And Compliance
+  - Legal and Compliance
+  overlaps: []
 - id: BCC-070bb7b8
   name: Legal and Ethical Issues Management Capability
   key: management|legal and ethical issue
@@ -43679,15 +43820,13 @@ candidates:
     name: External Relationship Management Capability
     basis:
     - hierarchy:INV-PCF74-11013<INV-PCF74-10012
-  - id: BCC-bb90f750
-    name: Legal Compliance Capability
+  - id: BCC-19e4e2b7
+    name: Legal and Compliance Capability
     basis:
     - hierarchy:INV-BPO-P11013-capability-class<INV-BPO-LegalAndComplianceCapability-capability-class
   narrower:
   - id: BCC-79bd004b
     name: Agreements and Contracts Negotiation and Documentation Capability
-  - id: BCC-3a745850
-    name: Compliance Assurance Capability
   - id: BCC-75a325a4
     name: Corporate Governance Policies Management Capability
   - id: BCC-4fe69396
@@ -43825,113 +43964,24 @@ candidates:
   duplicates_merged: 0
   synonyms:
   - Investigate legal aspects
-  overlaps:
-  - relation: similar object (Jaccard 0.50)
-    id: BCC-e3a2cb00
-    name: Legal Investigation Capability
-- id: BCC-bb90f750
-  name: Legal Compliance Capability
-  key: compliance|legal
-  definition:
-    text: A business capability of an organization to keep legal in conformance with applicable
-      obligations, grounded in the organization's members as organized.
-    genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
-      Capability)
-    differentia: the ability to keep legal in conformance with applicable obligations
-  bearer:
-    proposed: cco:ont00001180 Organization
-    context: cross-industry organizations (PCF/BPO)
-  distinctive_ability:
-    family: compliance
-    ability: keep legal in conformance with applicable obligations
-    object: legal
-  classification: capability
-  classification_reason: an ability of an organization to act on a stated object, with an
-    ability family and source support
-  bfo_cco_compatibility: likely
-  review:
-    status: needs-review
-    justification: 'generated; quality flags to clear: BPO index member is not an act (Q-12)'
-    flags:
-    - BPO index member is not an act (Q-12)
-  sources:
-  - inventory_id: INV-BPO-LegalAndComplianceCapability-capability-class
-    source: BPO
-    kind: bpo-capability-class
-    code: LegalAndComplianceCapability
-    label: Legal and Compliance
-  - inventory_id: INV-BPO-LegalAndComplianceCapability-scope-entry
-    source: BPO
-    kind: bpo-scope-entry
-    code: LegalAndComplianceCapability
-    label: Legal And Compliance
-  source_count:
-    bpo: 2
-  realization_evidence:
-    act_types:
-    - act_type: https://fandaws.com/ontology/bpo#P11013
-      genus: null
-      via: INV-BPO-LegalAndComplianceCapability-capability-class
-      evidence: BPO enablesProcess (capability)
-    - act_type: https://fandaws.com/ontology/bpo#P11045
-      genus: null
-      via: INV-BPO-LegalAndComplianceCapability-capability-class
-      evidence: BPO enablesProcess (capability)
-    - act_type: https://fandaws.com/ontology/bpo#P11047
-      genus: null
-      via: INV-BPO-LegalAndComplianceCapability-capability-class
-      evidence: BPO enablesProcess (capability)
-    - act_type: https://fandaws.com/ontology/bpo#P11048
-      genus: null
-      via: INV-BPO-LegalAndComplianceCapability-capability-class
-      evidence: BPO enablesProcess (capability)
-    - act_type: https://fandaws.com/ontology/bpo#P11049
-      genus: null
-      via: INV-BPO-LegalAndComplianceCapability-capability-class
-      evidence: BPO enablesProcess (capability)
-    act_genera: []
-    outputs: []
-    processes_beneath: 0
-    requirement_records: []
-    absorbed_process_candidates: []
-  broader: []
-  narrower:
-  - id: BCC-3a745850
-    name: Compliance Assurance Capability
-  - id: BCC-75a325a4
-    name: Corporate Governance Policies Management Capability
-  - id: BCC-070bb7b8
-    name: Legal and Ethical Issues Management Capability
-  - id: BCC-ad1ec9eb
-    name: Outside Counsel Management Capability
-  duplicates_merged: 1
-  synonyms:
-  - Legal And Compliance
-  - Legal and Compliance
-  overlaps:
-  - relation: same object, other ability
-    id: BCC-6ce3fe60
-    name: Legal Defense Capability
-  - relation: same object, other ability
-    id: BCC-e3a2cb00
-    name: Legal Investigation Capability
-- id: BCC-6ce3fe60
+  overlaps: []
+- id: BCC-b0544f01
   name: Legal Defense Capability
-  key: protection|legal
+  key: protection|legal defense
   definition:
-    text: A business capability of an organization to protect legal against harm, loss or
-      misuse, grounded in the organization's members as organized, exercised as part of federal
-      litigative and judicial activities.
+    text: A business capability of an organization to carry out legal defense, grounded in
+      the organization's members as organized, exercised as part of federal litigative and
+      judicial activities.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to protect legal against harm, loss or misuse
+    differentia: the ability to carry out legal defense
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: protection
-    ability: protect legal against harm, loss or misuse
-    object: legal
+    ability: carry out legal defense
+    object: legal defense
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
@@ -43939,9 +43989,12 @@ candidates:
   review:
     status: needs-review
     justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+      to be drawn; qualified object: the label is an adjective and an ability noun; a reader
+      writes the object'
     flags:
     - 'no BPO act type: realization index to be drawn'
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-052-brm-service
     source: FEAF-II BRM 3.1
@@ -43971,30 +44024,24 @@ candidates:
   duplicates_merged: 1
   synonyms:
   - Legal Defense
-  overlaps:
-  - relation: same object, other ability
-    id: BCC-bb90f750
-    name: Legal Compliance Capability
-  - relation: same object, other ability
-    id: BCC-e3a2cb00
-    name: Legal Investigation Capability
-- id: BCC-e3a2cb00
+  overlaps: []
+- id: BCC-2ba4e64b
   name: Legal Investigation Capability
-  key: resolution|legal
+  key: resolution|legal investigation
   definition:
-    text: A business capability of an organization to investigate and resolve legal, grounded
+    text: A business capability of an organization to carry out legal investigation, grounded
       in the organization's members as organized, exercised as part of federal litigative
       and judicial activities.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to investigate and resolve legal
+    differentia: the ability to carry out legal investigation
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: resolution
-    ability: investigate and resolve legal
-    object: legal
+    ability: carry out legal investigation
+    object: legal investigation
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
@@ -44002,9 +44049,12 @@ candidates:
   review:
     status: needs-review
     justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+      to be drawn; qualified object: the label is an adjective and an ability noun; a reader
+      writes the object'
     flags:
     - 'no BPO act type: realization index to be drawn'
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-053-brm-service
     source: FEAF-II BRM 3.1
@@ -44034,19 +44084,7 @@ candidates:
   duplicates_merged: 1
   synonyms:
   - Legal Investigation
-  overlaps:
-  - relation: same object, other ability
-    id: BCC-bb90f750
-    name: Legal Compliance Capability
-  - relation: same object, other ability
-    id: BCC-6ce3fe60
-    name: Legal Defense Capability
-  - relation: similar object (Jaccard 0.50)
-    id: BCC-c17902aa
-    name: Legal Aspects Investigation Capability
-  - relation: similar object (Jaccard 0.50)
-    id: BCC-b7baaf8c
-    name: Legal Prosecution Litigation Capability
+  overlaps: []
 - id: BCC-b7baaf8c
   name: Legal Prosecution Litigation Capability
   key: resolution|legal prosecution
@@ -44103,10 +44141,7 @@ candidates:
   duplicates_merged: 1
   synonyms:
   - Legal Prosecution and Litigation
-  overlaps:
-  - relation: similar object (Jaccard 0.50)
-    id: BCC-e3a2cb00
-    name: Legal Investigation Capability
+  overlaps: []
 - id: BCC-575f3473
   name: Legislative Functions Capability
   key: provision|legislative
@@ -44170,18 +44205,17 @@ candidates:
   name: Legislative Relationship Management Capability
   key: relationship|legislative
   definition:
-    text: A business capability of an organization to build and sustain relationships with
-      legislative, grounded in the organization's members as organized, exercised as part
-      of general government.
+    text: A business capability of an organization to build and sustain legislative relationships,
+      grounded in the organization's members as organized, exercised as part of general government.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to build and sustain relationships with legislative
+    differentia: the ability to build and sustain legislative relationships
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: relationship
-    ability: build and sustain relationships with legislative
+    ability: build and sustain legislative relationships
     object: legislative
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
@@ -45669,17 +45703,17 @@ candidates:
   name: Mapping and Geospatial Capability
   key: provision|mapping and geospatial
   definition:
-    text: A business capability of an organization to carry out mapping and geospatial, grounded
-      in the organization's members as organized, exercised as part of general government.
+    text: A business capability of an organization to carry out mapping and geospatial work,
+      grounded in the organization's members as organized, exercised as part of general government.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to carry out mapping and geospatial
+    differentia: the ability to carry out mapping and geospatial work
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: provision
-    ability: carry out mapping and geospatial
+    ability: carry out mapping and geospatial work
     object: mapping and geospatial
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
@@ -45688,9 +45722,12 @@ candidates:
   review:
     status: needs-review
     justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+      to be drawn; qualified object: the label is an adjective and an ability noun; a reader
+      writes the object'
     flags:
     - 'no BPO act type: realization index to be drawn'
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-590-brm-service
     source: FEAF-II BRM 3.1
@@ -46950,7 +46987,7 @@ candidates:
     name: Knowledge Management Design and Implementation Capability
     basis:
     - hierarchy:INV-PCF74-20968<INV-PCF74-20965
-  - id: BCC-91812fee
+  - id: BCC-7d6e8887
     name: Supply Chain Continuous Monitoring Capability
     basis:
     - hierarchy:INV-FIBF-ITS-1-CYB.230.020.031-fibf-business-capability<INV-FIBF-ITS-1-CYB.230.020-fibf-activity
@@ -47478,23 +47515,23 @@ candidates:
   duplicates_merged: 1
   synonyms: []
   overlaps: []
-- id: BCC-de84b78e
+- id: BCC-3c30ed94
   name: National Defense Capability
-  key: protection|national
+  key: protection|national defense
   definition:
-    text: A business capability of an organization to protect national against harm, loss
-      or misuse, grounded in the organization's members as organized, exercised as part of
-      defense and national security.
+    text: A business capability of an organization to carry out national defense, grounded
+      in the organization's members as organized, exercised as part of defense and national
+      security.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to protect national against harm, loss or misuse
+    differentia: the ability to carry out national defense
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: protection
-    ability: protect national against harm, loss or misuse
-    object: national
+    ability: carry out national defense
+    object: national defense
   classification: function
   classification_reason: 'a top-level area of a catalog (PCF category or BRM mission sector
     or business function) or a coordination of several abilities: a standing function whose
@@ -47506,7 +47543,9 @@ candidates:
     justification: 'a top-level area of a catalog (PCF category or BRM mission sector or business
       function) or a coordination of several abilities: a standing function whose whole-function
       type is defined only where one is (CD16, conditional designation R9); E4 is open'
-    flags: []
+    flags:
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-TAX-B01.050-brm-business-function
     source: FEAF-II BRM 3.1
@@ -47523,7 +47562,7 @@ candidates:
     requirement_records: []
     absorbed_process_candidates: []
   broader:
-  - id: BCC-02c5912d
+  - id: BCC-cf593747
     name: Defense and National Security Capability
     basis:
     - hierarchy:INV-FEAF-BRM-TAX-B01.050-brm-business-function<INV-FEAF-BRM-TAX-B01-brm-mission-sector
@@ -49453,18 +49492,19 @@ candidates:
   name: Other Advancement of Commerce Capability
   key: provision|advancement of commerce
   definition:
-    text: A business capability of an organization to carry out other advancement of commerce,
-      grounded in the organization's members as organized, exercised as part of economic and
-      financial.
+    text: A business capability of an organization to carry out the advancement of commerce
+      work its source does not classify elsewhere, grounded in the organization's members
+      as organized, exercised as part of economic and financial.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to carry out other advancement of commerce
+    differentia: the ability to carry out the advancement of commerce work its source does
+      not classify elsewhere
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: provision
-    ability: carry out other advancement of commerce
+    ability: carry out the advancement of commerce work its source does not classify elsewhere
     object: other advancement of commerce
   classification: function
   classification_reason: 'a top-level area of a catalog (PCF category or BRM mission sector
@@ -49479,6 +49519,7 @@ candidates:
       type is defined only where one is (CD16, conditional designation R9); E4 is open'
     flags:
     - realization evidence only through narrower candidates
+    - 'residual category: the source''s ''Other ...'' heading names no distinct ability'
   sources:
   - inventory_id: INV-FEAF-BRM-TAX-B03.376-brm-business-function
     source: FEAF-II BRM 3.1
@@ -49516,17 +49557,19 @@ candidates:
   name: Other Data Center Capability
   key: provision|data center
   definition:
-    text: A business capability of an organization to carry out other data center, grounded
-      in the organization's members as organized, exercised as part of infrastructure.
+    text: A business capability of an organization to carry out the data center work its source
+      does not classify elsewhere, grounded in the organization's members as organized, exercised
+      as part of infrastructure.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to carry out other data center
+    differentia: the ability to carry out the data center work its source does not classify
+      elsewhere
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: provision
-    ability: carry out other data center
+    ability: carry out the data center work its source does not classify elsewhere
     object: other data center
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
@@ -49538,6 +49581,7 @@ candidates:
       yet supported'
     flags:
     - 'no BPO act type: realization index to be drawn'
+    - 'residual category: the source''s ''Other ...'' heading names no distinct ability'
   sources:
   - inventory_id: INV-FIBF-ITS-2-ITS.110.020-fibf-activity
     source: FIBF
@@ -49568,18 +49612,19 @@ candidates:
   name: Other Natural Resources Capability
   key: provision|natural resource
   definition:
-    text: A business capability of an organization to carry out other natural resources, grounded
-      in the organization's members as organized, exercised as part of environmental and natural
-      resources.
+    text: A business capability of an organization to carry out the natural resources work
+      its source does not classify elsewhere, grounded in the organization's members as organized,
+      exercised as part of environmental and natural resources.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to carry out other natural resources
+    differentia: the ability to carry out the natural resources work its source does not classify
+      elsewhere
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: provision
-    ability: carry out other natural resources
+    ability: carry out the natural resources work its source does not classify elsewhere
     object: other natural resources
   classification: function
   classification_reason: 'a top-level area of a catalog (PCF category or BRM mission sector
@@ -49592,7 +49637,8 @@ candidates:
     justification: 'a top-level area of a catalog (PCF category or BRM mission sector or business
       function) or a coordination of several abilities: a standing function whose whole-function
       type is defined only where one is (CD16, conditional designation R9); E4 is open'
-    flags: []
+    flags:
+    - 'residual category: the source''s ''Other ...'' heading names no distinct ability'
   sources:
   - inventory_id: INV-FEAF-BRM-TAX-B06.306-brm-business-function
     source: FEAF-II BRM 3.1
@@ -49614,9 +49660,9 @@ candidates:
     basis:
     - hierarchy:INV-FEAF-BRM-TAX-B06.306-brm-business-function<INV-FEAF-BRM-TAX-B06-brm-mission-sector
   narrower:
-  - id: BCC-24386def
+  - id: BCC-94fd7feb
     name: Environmental Monitoring and Forecasting Capability
-  - id: BCC-18b6e1e4
+  - id: BCC-93ed66ae
     name: Environmental Remediation Capability
   duplicates_merged: 0
   synonyms:
@@ -49708,8 +49754,8 @@ candidates:
   definition:
     text: A business capability of an organization to direct and control outside counsel on
       a continuing basis, grounded in the organization's members as organized, exercised as
-      part of legal and ethical issues management, and shown in acts of the kinds act of acquisition,
-      act of appraisal, act of information processing or act of monitoring.
+      part of legal and compliance, and shown in acts of the kinds act of acquisition, act
+      of appraisal, act of information processing or act of monitoring.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
     differentia: the ability to direct and control outside counsel on a continuing basis
@@ -49801,14 +49847,14 @@ candidates:
     requirement_records: []
     absorbed_process_candidates: []
   broader:
+  - id: BCC-19e4e2b7
+    name: Legal and Compliance Capability
+    basis:
+    - hierarchy:INV-BPO-P11048-capability-class<INV-BPO-LegalAndComplianceCapability-capability-class
   - id: BCC-070bb7b8
     name: Legal and Ethical Issues Management Capability
     basis:
     - hierarchy:INV-PCF74-11048<INV-PCF74-11013
-  - id: BCC-bb90f750
-    name: Legal Compliance Capability
-    basis:
-    - hierarchy:INV-BPO-P11048-capability-class<INV-BPO-LegalAndComplianceCapability-capability-class
   narrower: []
   duplicates_merged: 1
   synonyms:
@@ -50493,11 +50539,19 @@ candidates:
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: needs-review
-    justification: 'generated; quality flags to clear: deontic index member (G1-T question
-      4: re-index to the non-deontic act)'
+    status: rejected
+    justification: rejected as an ability candidate (Payments Approval); its source evidence
+      is kept for possible standing-related modeling (CM-01, Authorization Record)
     flags:
     - 'deontic index member (G1-T question 4: re-index to the non-deontic act)'
+    disposition:
+      status: rejected
+      date: '2026-11-04'
+      record: docs/decisions/2026-11-04-i5-tranche-1-approved-for-evaluation.md, act 5
+    generated:
+      status: needs-review
+      justification: 'generated; quality flags to clear: deontic index member (G1-T question
+        4: re-index to the non-deontic act)'
   sources:
   - inventory_id: INV-PCF74-10872
     source: APQC PCF 7.4
@@ -50715,11 +50769,21 @@ candidates:
     ability family and source support
   bfo_cco_compatibility: possible
   review:
-    status: needs-review
-    justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+    status: retired
+    justification: retired as a separate active candidate (BRM Payroll); an alternative designation
+      of Payroll Processing, both BRM source records keeping their provenance
     flags:
     - 'no BPO act type: realization index to be drawn'
+    disposition:
+      status: retired
+      date: '2026-11-04'
+      record: docs/decisions/2026-11-04-i5-proceed-payroll-synonym-ap-hold-lifted.md, act
+        2
+      into: BCC-d95f68fd
+    generated:
+      status: needs-review
+      justification: 'generated; quality flags to clear: no BPO act type: realization index
+        to be drawn'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-624-brm-service
     source: FEAF-II BRM 3.1
@@ -50775,6 +50839,8 @@ candidates:
     status: generated-draft
     justification: generated; passed every automated check
     flags: []
+    retired_into_it:
+    - BCC-b7c46718
   sources:
   - inventory_id: INV-PCF74-10497
     source: APQC PCF 7.4
@@ -52793,22 +52859,22 @@ candidates:
   - relation: similar object (Jaccard 0.67)
     id: BCC-a60a5469
     name: Program and Project Management Capability
-- id: BCC-c744f132
+- id: BCC-44f68d37
   name: Postal Services Capability
-  key: service|postal
+  key: service|postal service
   definition:
-    text: A business capability of an organization to provide postal to those it serves, grounded
-      in the organization's members as organized.
+    text: A business capability of an organization to carry out postal services, grounded
+      in the organization's members as organized, exercised as part of services delivery.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to provide postal to those it serves
+    differentia: the ability to carry out postal services
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: service
-    ability: provide postal to those it serves
-    object: postal
+    ability: carry out postal services
+    object: postal services
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
@@ -52816,9 +52882,12 @@ candidates:
   review:
     status: needs-review
     justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+      to be drawn; qualified object: the label is an adjective and an ability noun; a reader
+      writes the object'
     flags:
     - 'no BPO act type: realization index to be drawn'
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-004-brm-service
     source: FEAF-II BRM 3.1
@@ -52839,7 +52908,11 @@ candidates:
     processes_beneath: 0
     requirement_records: []
     absorbed_process_candidates: []
-  broader: []
+  broader:
+  - id: BCC-89a29da5
+    name: Services Delivery Capability
+    basis:
+    - object-containment:service
   narrower: []
   duplicates_merged: 1
   synonyms:
@@ -57571,7 +57644,7 @@ candidates:
     requirement_records: []
     absorbed_process_candidates: []
   broader:
-  - id: BCC-de84b78e
+  - id: BCC-3c30ed94
     name: National Defense Capability
     basis:
     - hierarchy:INV-FEAF-BRM-TAX-B01.050.282-brm-service<INV-FEAF-BRM-TAX-B01.050-brm-business-function
@@ -57880,22 +57953,22 @@ candidates:
   synonyms:
   - Public Comment Tracking
   overlaps: []
-- id: BCC-122fab23
+- id: BCC-ab575c2f
   name: Public Communications Capability
-  key: communication|public
+  key: communication|public communication
   definition:
-    text: A business capability of an organization to convey public to the intended audiences,
-      grounded in the organization's members as organized, exercised as part of general government.
+    text: A business capability of an organization to carry out public communications, grounded
+      in the organization's members as organized, exercised as part of communication.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to convey public to the intended audiences
+    differentia: the ability to carry out public communications
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: communication
-    ability: convey public to the intended audiences
-    object: public
+    ability: carry out public communications
+    object: public communications
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
@@ -57903,9 +57976,12 @@ candidates:
   review:
     status: needs-review
     justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+      to be drawn; qualified object: the label is an adjective and an ability noun; a reader
+      writes the object'
     flags:
     - 'no BPO act type: realization index to be drawn'
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-322-brm-service
     source: FEAF-II BRM 3.1
@@ -57927,6 +58003,10 @@ candidates:
     requirement_records: []
     absorbed_process_candidates: []
   broader:
+  - id: BCC-95500613
+    name: Communication Capability
+    basis:
+    - object-containment:communication
   - id: BCC-1c2ba324
     name: General Government Capability
     basis:
@@ -57935,10 +58015,7 @@ candidates:
   duplicates_merged: 1
   synonyms:
   - Public Communications Infrastructure
-  overlaps:
-  - relation: same object, other ability
-    id: BCC-1c430ace
-    name: Public Relationship Management Capability
+  overlaps: []
 - id: BCC-bc140dd4
   name: Public Relations Program Management Capability
   key: management|public relation program
@@ -58018,17 +58095,17 @@ candidates:
   name: Public Relationship Management Capability
   key: relationship|public
   definition:
-    text: A business capability of an organization to build and sustain relationships with
-      public, grounded in the organization's members as organized.
+    text: A business capability of an organization to build and sustain public relationships,
+      grounded in the organization's members as organized.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to build and sustain relationships with public
+    differentia: the ability to build and sustain public relationships
   bearer:
     proposed: cco:ont00001180 Organization
     context: cross-industry organizations (PCF/BPO)
   distinctive_ability:
     family: relationship
-    ability: build and sustain relationships with public
+    ability: build and sustain public relationships
     object: public
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
@@ -58078,10 +58155,7 @@ candidates:
   duplicates_merged: 0
   synonyms:
   - Public Relations
-  overlaps:
-  - relation: same object, other ability
-    id: BCC-122fab23
-    name: Public Communications Capability
+  overlaps: []
 - id: BCC-2b2eef5d
   name: Quality Requirements Establishment Capability
   key: formulation|quality requirement
@@ -64007,22 +64081,22 @@ candidates:
   synonyms:
   - Scheduling
   overlaps: []
-- id: BCC-5701ad04
+- id: BCC-fd0f8319
   name: Scientific and Technological Research and Innovation Capability
-  key: research|scientific and technological
+  key: research|scientific and technological research and innovation
   definition:
-    text: A business capability of an organization to research and investigate scientific
-      and technological, grounded in the organization's members as organized.
+    text: A business capability of an organization to carry out scientific and technological
+      research and innovation, grounded in the organization's members as organized.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to research and investigate scientific and technological
+    differentia: the ability to carry out scientific and technological research and innovation
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: research
-    ability: research and investigate scientific and technological
-    object: scientific and technological
+    ability: carry out scientific and technological research and innovation
+    object: scientific and technological research and innovation
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
@@ -64030,9 +64104,12 @@ candidates:
   review:
     status: needs-review
     justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+      to be drawn; qualified object: the label is an adjective and an ability noun; a reader
+      writes the object'
     flags:
     - 'no BPO act type: realization index to be drawn'
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-026-brm-service
     source: FEAF-II BRM 3.1
@@ -66795,6 +66872,8 @@ candidates:
     absorbed_process_candidates: []
   broader: []
   narrower:
+  - id: BCC-44f68d37
+    name: Postal Services Capability
   - id: BCC-7aa08d1f
     name: Service Delivery Governance and Strategies Establishment Capability
   - id: BCC-aa5dd02b
@@ -67453,6 +67532,9 @@ candidates:
   - relation: same object, other ability
     id: BCC-5e14c1b4
     name: Solution Evaluation and Documentation Capability (in Platform)
+  overlaps_truncated:
+    shown: 6
+    found: 7
 - id: BCC-ed1d16a7
   name: Solution Development Capability (in Solution Design and Development)
   key: development|solution
@@ -67537,6 +67619,9 @@ candidates:
   - relation: same object, other ability
     id: BCC-5e14c1b4
     name: Solution Evaluation and Documentation Capability (in Platform)
+  overlaps_truncated:
+    shown: 6
+    found: 7
 - id: BCC-5e14c1b4
   name: Solution Evaluation and Documentation Capability (in Platform)
   key: analysis|solution
@@ -67617,6 +67702,9 @@ candidates:
     id: BCC-a892b162
     name: Solution Implementation and Documentation Capability (in Information Technology
       Recovery)
+  overlaps_truncated:
+    shown: 6
+    found: 7
 - id: BCC-a892b162
   name: Solution Implementation and Documentation Capability (in Information Technology Recovery)
   key: implementation|solution
@@ -67710,6 +67798,9 @@ candidates:
   - relation: same object, other ability
     id: BCC-5e14c1b4
     name: Solution Evaluation and Documentation Capability (in Platform)
+  overlaps_truncated:
+    shown: 6
+    found: 7
 - id: BCC-284811a8
   name: Solution Integration Capability (in Solution Development)
   key: coordination|solution
@@ -67793,6 +67884,9 @@ candidates:
   - relation: same object, other ability
     id: BCC-5e14c1b4
     name: Solution Evaluation and Documentation Capability (in Platform)
+  overlaps_truncated:
+    shown: 6
+    found: 7
 - id: BCC-9434babb
   name: Solution Modernization Migration Capability
   key: data|solution modernization
@@ -67933,6 +68027,9 @@ candidates:
     id: BCC-a892b162
     name: Solution Implementation and Documentation Capability (in Information Technology
       Recovery)
+  overlaps_truncated:
+    shown: 6
+    found: 7
 - id: BCC-173492f1
   name: Solution Support Capability
   key: service|solution
@@ -68006,6 +68103,9 @@ candidates:
   - relation: same object, other ability
     id: BCC-5e14c1b4
     name: Solution Evaluation and Documentation Capability (in Platform)
+  overlaps_truncated:
+    shown: 6
+    found: 7
 - id: BCC-498c3ff0
   name: Solution Validation Capability (in Service Delivery Initiation)
   key: verification|solution
@@ -68104,6 +68204,9 @@ candidates:
   - relation: same object, other ability
     id: BCC-5e14c1b4
     name: Solution Evaluation and Documentation Capability (in Platform)
+  overlaps_truncated:
+    shown: 6
+    found: 7
 - id: BCC-8cd102ed
   name: Source List Validation Capability
   key: verification|source list
@@ -68499,22 +68602,22 @@ candidates:
   - relation: same object, other ability
     id: BCC-26ff2954
     name: Space Exploration and Innovation Capability
-- id: BCC-453b48ba
+- id: BCC-5402ac7d
   name: Special Intelligence Capability
-  key: analysis|special
+  key: analysis|special intelligence
   definition:
-    text: A business capability of an organization to examine and assess special so as to
-      inform decisions, grounded in the organization's members as organized.
+    text: A business capability of an organization to carry out special intelligence, grounded
+      in the organization's members as organized.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to examine and assess special so as to inform decisions
+    differentia: the ability to carry out special intelligence
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: analysis
-    ability: examine and assess special so as to inform decisions
-    object: special
+    ability: carry out special intelligence
+    object: special intelligence
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
@@ -68522,9 +68625,12 @@ candidates:
   review:
     status: needs-review
     justification: 'generated; quality flags to clear: no BPO act type: realization index
-      to be drawn'
+      to be drawn; qualified object: the label is an adjective and an ability noun; a reader
+      writes the object'
     flags:
     - 'no BPO act type: realization index to be drawn'
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-FEAF-BRM-SCD-379-brm-service
     source: FEAF-II BRM 3.1
@@ -69389,30 +69495,33 @@ candidates:
   synonyms:
   - Define and evaluate strategic options to achieve the mission
   overlaps: []
-- id: BCC-5507a863
+- id: BCC-f25413fa
   name: Strategic Planning Capability
-  key: planning|strategic
+  key: planning|strategic planning
   definition:
-    text: A business capability of an organization to plan strategic ahead of need, grounded
+    text: A business capability of an organization to carry out strategic planning, grounded
       in the organization's members as organized.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to plan strategic ahead of need
+    differentia: the ability to carry out strategic planning
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'cross-sector: commercial (PCF/BPO) and U.S. federal sources'
   distinctive_ability:
     family: planning
-    ability: plan strategic ahead of need
-    object: strategic
+    ability: carry out strategic planning
+    object: strategic planning
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: generated-draft
-    justification: generated; passed every automated check
-    flags: []
+    status: needs-review
+    justification: 'generated; quality flags to clear: qualified object: the label is an adjective
+      and an ability noun; a reader writes the object'
+    flags:
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
   sources:
   - inventory_id: INV-BPO-StrategicPlanningCapability-capability-class
     source: BPO
@@ -70223,33 +70332,35 @@ candidates:
   - relation: same object, other ability
     id: BCC-a24a8cd3
     name: Vendor Relationship Management Capability
-- id: BCC-91812fee
+- id: BCC-7d6e8887
   name: Supply Chain Continuous Monitoring Capability
-  key: monitoring|supply chain continuous
+  key: monitoring|supply chain continuous monitoring
   definition:
-    text: A business capability of an organization to observe and measure supply chain continuous
-      over time against expectations, grounded in the organization's members as organized,
-      exercised as part of continuous monitoring.
+    text: A business capability of an organization to carry out supply chain continuous monitoring,
+      grounded in the organization's members as organized, exercised as part of continuous
+      monitoring.
     genus: Business Capability (CM-01; preliminary alignment cco:ont00000568 Organization
       Capability)
-    differentia: the ability to observe and measure supply chain continuous over time against
-      expectations
+    differentia: the ability to carry out supply chain continuous monitoring
   bearer:
     proposed: cco:ont00001180 Organization
     context: 'sources are U.S. federal reference models: a government agency as bearer'
   distinctive_ability:
     family: monitoring
-    ability: observe and measure supply chain continuous over time against expectations
-    object: supply chain continuous
+    ability: carry out supply chain continuous monitoring
+    object: supply chain continuous monitoring
   classification: capability
   classification_reason: an ability of an organization to act on a stated object, with an
     ability family and source support
   bfo_cco_compatibility: likely
   review:
     status: needs-review
-    justification: 'generated; quality flags to clear: realization evidence only through narrower
+    justification: 'generated; quality flags to clear: qualified object: the label is an adjective
+      and an ability noun; a reader writes the object; realization evidence only through narrower
       candidates'
     flags:
+    - 'qualified object: the label is an adjective and an ability noun; a reader writes the
+      object'
     - realization evidence only through narrower candidates
   sources:
   - inventory_id: INV-FIBF-ITS-1-CYB.230.020-fibf-activity
@@ -70272,10 +70383,10 @@ candidates:
     - INV-FIBF-ITS-1-CYB.230.020.031-fibf-business-capability
     absorbed_process_candidates: []
   broader:
-  - id: BCC-780b1ee2
+  - id: BCC-c14427bb
     name: Continuous Monitoring Capability
     basis:
-    - object-containment:continuous
+    - object-containment:continuous monitoring
   - id: BCC-e4417902
     name: Supply Chain Risk Management Capability
     basis:
@@ -70642,7 +70753,7 @@ candidates:
     name: Delivery and Provenance Management Capability
   - id: BCC-4416c263
     name: Disposal Management Capability
-  - id: BCC-91812fee
+  - id: BCC-7d6e8887
     name: Supply Chain Continuous Monitoring Capability
   duplicates_merged: 0
   synonyms:
