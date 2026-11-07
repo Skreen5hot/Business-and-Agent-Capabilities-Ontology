@@ -22,7 +22,8 @@
 #   skos:Concept   https://fandaws.com/ontology/bco-metamodel#  metamodel
 #   skos:Concept   https://fandaws.com/ontology/bco-catalog#    catalog
 #
-# All provisional until RP-5 mints permanent ones. The source records
+# All permanent since RP-5 (docs/decisions/2026-11-07-rp5-ratified.md).
+# The source records
 # (bco-sources#) and declared agents (bco-agents#) are deliberately NOT
 # here: they are not SKOS concepts (D8) and vocabulary_shapes.ttl checks
 # them. The vendored BPO, CCO and BFO extracts are in the same data

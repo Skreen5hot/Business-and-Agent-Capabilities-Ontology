@@ -2,7 +2,7 @@
 
 | Field | Value |
 |---|---|
-| Status | **Proposed.** For the architect. It decides nothing; ratifying RP-5 is the architect's act |
+| Status | **Decided 2026-11-07**: RP-5 ratified as Option A (`docs/decisions/2026-11-07-rp5-ratified.md`). The text decided on is this brief at `8521ea2`; this status line is the only change since |
 | Date | 2026-11-06 |
 | Prepared by | Claude Code (`claude-opus-5-5`), for the BCO team |
 | Closes, if decided | CP-0 closure matrix item 9, decision 6 (`docs/proposals/2026-11-05-cp0-closure-matrix.md`); the release check of spec §10, "The permanent namespace is decided (RP-5)" |

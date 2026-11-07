@@ -15,10 +15,11 @@
 # commit; ADR-002 ratification is pending, and no term is minted before
 # it.
 #
-# Namespace: https://fandaws.com/ontology/bco# is PROVISIONAL pending
-# RP-5 (architect's choice of 2026-10-23, docs/decisions).
+# Namespace: https://fandaws.com/ontology/bco#, permanent since RP-5
+# (docs/decisions/2026-11-07-rp5-ratified.md). No term is minted under
+# this document's slash path.
 
 <https://fandaws.com/ontology/bco/apqc-cap-desc> a owl:Ontology ;
     dct:title "Business Capability Ontology: description module" ;
     owl:versionInfo "0.0.0 -- empty; specified by BCO v0.4.0-draft.1 section 2, not yet written" ;
-    rdfs:comment "Will hold the description-layer classes and the Authorization Record. Empty until ADR-002 is ratified. Namespace provisional pending RP-5." .
+    rdfs:comment "Will hold the description-layer classes and the Authorization Record. Empty until ADR-002 is ratified. Namespace permanent since RP-5." .

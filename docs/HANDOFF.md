@@ -88,7 +88,8 @@ ratified the same day, closing OI-6's lookup; BPO modules asserting `requiresCap
 out of BCO's graph (`docs/decisions/2026-11-06-rp3-ratified.md`). RP-4 followed: BPO's agent
 manifest is routing description only, and OI-10 is closed for CP-0, its release check kept
 (`docs/decisions/2026-11-06-rp4-ratified.md`). RP-6 to RP-9 were ratified together the same day
-(`docs/decisions/2026-11-06-rp6-rp9-ratified.md`), so every register item but RP-5 is ratified.
+(`docs/decisions/2026-11-06-rp6-rp9-ratified.md`), so every register item but RP-5 was ratified. RP-5 followed on 2026-11-07 (`docs/decisions/2026-11-07-rp5-ratified.md`): the five
+namespaces are permanent as they stood.
 
 R5 records further blockers: material basis policy, maturity-value encoding, instance
 evidence, and migration of BPO existential restrictions. R6 (section 5.13) adds wording
@@ -97,19 +98,19 @@ finding to RP-10.
 
 ## 5. What not to trust, and what is not done
 
-### 5.1 The namespace is provisional
+### 5.1 The namespace is permanent
 
 BCO terms are to be authored in `https://fandaws.com/ontology/bco#`, the architect's
-choice of 2026-10-23 pending **RP-5**; ADR-003 D1 adds four sibling namespaces for the
+choice of 2026-10-23, made permanent by **RP-5** on 2026-11-07 (`docs/decisions/2026-11-07-rp5-ratified.md`); ADR-003 D1 adds four sibling namespaces for the
 vocabulary (`bco-metamodel#`, `bco-catalog#`, `bco-sources#`, `bco-agents#`). The spec
 writes `ex:` both for BPO's terms and for terms the BCO will mint; spec v0.5 corrects that.
 Since the 2026-10-28 re-pin, `ex:` is bound to BPO's `https://fandaws.com/ontology/bpo#` as a
 temporary prefix for BPO's genera only (R3); it becomes `bpo:` with spec v0.5 and CM-01's
-next reviewed version. When RP-5 is decided, change
-`AUTHORED_NAMESPACES` in `tools/ontology/validate.py`, `NAMESPACES` in
+next reviewed version. No namespace migration is authorized. Were one ever made, it
+would change `AUTHORED_NAMESPACES` in `tools/ontology/validate.py`, `NAMESPACES` in
 `tools/vocab/build.py`, and every SPARQL filter in `shapes/wellformedness_shapes.ttl` and
 `shapes/vocabulary_shapes.ttl` in one commit; `tests/test_namespace.py` fails until all
-agree. The module headers and the site's IRI notice name the provisional namespace in prose
+agree. The module headers and the site's IRI notice name the namespace in prose
 too.
 
 ### 5.2 BPO is vendored from one file

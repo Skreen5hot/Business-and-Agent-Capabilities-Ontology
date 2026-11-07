@@ -99,10 +99,10 @@ The two modules spec v0.4 §2 names exist as `owl:Ontology` headers only:
 Before the first term is minted:
 
 1. **ADR-002 is ratified.** The spec is a draft; nothing in it is normative until the
-   architect ratifies it (RP-1, RP-2 and RP-10 ratified 2026-11-04, CD6 to CD11 on 2026-11-05, RP-3, RP-4 and RP-6 to RP-9 on 2026-11-06; RP-5 pending;
+   architect ratifies it (RP-1, RP-2 and RP-10 ratified 2026-11-04, CD6 to CD11 on 2026-11-05, RP-3, RP-4 and RP-6 to RP-9 on 2026-11-06, RP-5 on 2026-11-07;
    `docs/proposals/2026-11-05-cp0-closure-matrix.md`). Record the act in
    `docs/decisions/`, and land the ADR itself under `docs/adr/` (spec §2).
-2. **The namespace is the provisional one.** Author in `https://fandaws.com/ontology/bco#`,
+2. **The namespace is permanent (RP-5).** Author in `https://fandaws.com/ontology/bco#`,
    not the spec's `ex:`. It is the first of `AUTHORED_NAMESPACES` in
    `tools/ontology/validate.py`, ADR-003 D1's five (the other four are the vocabulary's,
    minted only by `tools/vocab/build.py`). The shapes' SPARQL filters name the same strings
@@ -110,7 +110,7 @@ Before the first term is minted:
    `bco-catalog#`; `shapes/vocabulary_shapes.ttl` names all five -- and
    `tests/test_namespace.py` requires the list, the shapes and `tools/vocab/build.py`'s
    `NAMESPACES` to agree, and shows, filter by filter, that a stale string selects nothing.
-   When RP-5 mints permanent namespaces, change all of them in one commit.
+   RP-5 made all five permanent (`docs/decisions/2026-11-07-rp5-ratified.md`); no namespace migration is authorized.
 3. **BPO terms are referenced, not redeclared.** A realizing act type is an `ex:` IRI
    from the vendored BPO extract. If the term you need is not in
    `vendor/bpo/bpo-ext-bco-extract.ttl`, re-vendor (below); if it lives in a BPO file

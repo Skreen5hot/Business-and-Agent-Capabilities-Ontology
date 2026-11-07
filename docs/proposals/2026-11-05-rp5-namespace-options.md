@@ -2,7 +2,7 @@
 
 | Field | Value |
 |---|---|
-| Status | **Proposed.** For the architect. It decides nothing; RP-5 is the architect's act |
+| Status | **Decided 2026-11-07**: Option A ratified, through `docs/proposals/2026-11-06-rp5-ratification-brief.md` (`docs/decisions/2026-11-07-rp5-ratified.md`). The text built on is this note at `718c8e7`; this status line is the only change since |
 | Closes | CP-0 closure matrix item 9 (`docs/proposals/2026-11-05-cp0-closure-matrix.md`, decision 6) |
 | Read from | Specification v0.5.0-draft.3 §1 prefixes and §10 RP-5 (SHA-256 `2224f869…c574`); ADR-003 D1 and "Out of scope, locked"; `tools/ontology/validate.py` `AUTHORED_NAMESPACES`; `tools/ontology/vendor_upstream.py` `EXTRACT_BASE`; the vendored extracts; `site/content/site.json` |
 | Prepared by | Claude Code (`claude-opus-5-5`), 2026-11-05 |

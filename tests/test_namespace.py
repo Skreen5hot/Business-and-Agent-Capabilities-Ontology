@@ -2,8 +2,8 @@
 """The authored namespaces, and the trap inside the shapes.
 
 The BCO mints IRIs in exactly the five namespaces ADR-003 D1 names, all
-provisional pending RP-5 (the ontology's own since the architect's choice
-of 2026-10-23 in docs/decisions): bco# for the ontology, bco-metamodel#
+permanent since RP-5 (docs/decisions/2026-11-07-rp5-ratified.md; the
+ontology's own chosen by the architect on 2026-10-23): bco# for the ontology, bco-metamodel#
 and bco-catalog# for the vocabulary's two concept schemes, bco-sources#
 for source records and bco-agents# for declared agents.
 tools/ontology/validate.py lists them as AUTHORED_NAMESPACES. The spec

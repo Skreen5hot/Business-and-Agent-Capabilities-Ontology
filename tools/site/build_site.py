@@ -1313,8 +1313,7 @@ def build(out: Path) -> list[tuple[str, str]]:
                     # The ontology's own namespace: the first of
                     # AUTHORED_NAMESPACES, as ADR-003 D1 orders them
                     # (tests/test_namespace.py pins the order).
-                    ("Namespace", code(data["authored_namespaces"][0])
-                     + " (provisional)"),
+                    ("Namespace", code(data["authored_namespaces"][0])),
                     ("Source", source_link(ctx, source["path"])),
                     ("Download", '<a href="../downloads/%s">%s</a>' % (
                         esc(source["file"].name, quote=True),
