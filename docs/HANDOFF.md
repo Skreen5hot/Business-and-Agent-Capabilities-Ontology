@@ -87,7 +87,8 @@ closed by reading DM2 (`docs/decisions/2026-11-06-se1-approved-se2-closed.md`). 
 ratified the same day, closing OI-6's lookup; BPO modules asserting `requiresCapability` stay
 out of BCO's graph (`docs/decisions/2026-11-06-rp3-ratified.md`). RP-4 followed: BPO's agent
 manifest is routing description only, and OI-10 is closed for CP-0, its release check kept
-(`docs/decisions/2026-11-06-rp4-ratified.md`).
+(`docs/decisions/2026-11-06-rp4-ratified.md`). RP-6 to RP-9 were ratified together the same day
+(`docs/decisions/2026-11-06-rp6-rp9-ratified.md`), so every register item but RP-5 is ratified.
 
 R5 records further blockers: material basis policy, maturity-value encoding, instance
 evidence, and migration of BPO existential restrictions. R6 (section 5.13) adds wording

@@ -16,6 +16,17 @@ RP-1 and RP-10 decided through CM-01.
 A later substantive change to an approved model is a new version, reviewed and approved
 again; it is never made silently.
 
+## Candidates for CM-01's next reviewed version
+
+Recorded by the architect's decisions as candidates. None of them opens a new version, which
+only the architect can do, and CM-01's approved text is unchanged.
+
+| Candidate | Recorded by |
+| --- | --- |
+| Rename the temporary `ex:` prefix for BPO's terms to `bpo:`, coordinated with the specification | `docs/decisions/2026-10-28-i2-and-bpo-repin-decided.md`, R3 |
+| R11 P-10: CM-01 §4's example | `docs/decisions/2026-11-03-r11-disposition-accepted.md` |
+| Assessment Criteria says criteria are "Required for a partial finding and for a sourcing assessment", narrower than Capability Assessment's definition, which cites criteria for every finding. The specification follows the definition (CD14, CAP-27) | `docs/decisions/2026-11-06-rp6-rp9-ratified.md` |
+
 ## Planned models
 
 | Model | Status | Why it is needed |
