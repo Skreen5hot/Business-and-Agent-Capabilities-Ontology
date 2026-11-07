@@ -13,6 +13,13 @@ files to docs/catalog/:
   crosswalk.yaml      one row per source record, with its interpretation
   report.md           the counts and the quality findings
 
+and reads one hand-authored input beside them, never writing it:
+
+  dispositions.yaml   reviewers' recorded dispositions and the pinned
+                      identifiers of reviewed candidates, each citing the
+                      record that decided it (I-4 stabilization, decision
+                      of 2026-11-07)
+
 The method, in order (docs/catalog/README.md states it with its limits):
 
   1. extract    every entry of the five inventories, as a uniform record
@@ -28,10 +35,13 @@ The method, in order (docs/catalog/README.md states it with its limits):
   5. relate     broader/narrower from the source hierarchies and from object
                 containment; overlaps and synonyms
   6. classify   by stated rules, each with its reason
-  7. check      consistency and originality; a hard failure refuses to write
+  7. review     apply the recorded dispositions over the generated status,
+                keeping the generated one beside it
+  8. check      consistency and originality; a hard failure refuses to write
 
 Nothing here is ontology. Candidate ids are inventory identifiers
-("BCC-" and eight hex digits of the key's SHA-256), never IRIs; the tool
+("BCC-" and eight hex digits of the key's SHA-256, or the identifier
+pinned for a reviewed candidate), never IRIs; the tool
 emits no class, property, subclass axiom or ratification, and the inventory
 admission guard runs over every output (scope approval, amendment 4).
 
@@ -68,6 +78,15 @@ ACTS = OUT_DIR + "/bpo-act-types.yaml"
 CANDIDATES = OUT_DIR + "/candidates.yaml"
 CROSSWALK = OUT_DIR + "/crosswalk.yaml"
 REPORT = OUT_DIR + "/report.md"
+DISPOSITIONS = OUT_DIR + "/dispositions.yaml"
+#: The I-4 stabilization: dispositions, pins, the qualified-object rule and
+#: the overlap count (act 3).
+STABILIZATION = "docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md"
+#: Statuses a recorded disposition may set. "retired" names the candidate
+#: it was retired into.
+DISPOSITION_STATUSES = ("rejected", "retired")
+#: Overlaps kept per candidate; the number found is reported when larger.
+OVERLAP_LIMIT = 6
 
 BPO = "https://fandaws.com/ontology/bpo#"
 CCO = "https://www.commoncoreontologies.org/"
@@ -371,6 +390,17 @@ STOP = {"the", "a", "an", "its", "their", "all", "any", "new", "existing", "over
         "organization", "company's", "enterprise's", "own", "various", "related",
         "applicable", "required", "specific", "key", "other", "current"}
 TAIL_GENERIC = {"operation", "activity", "effort", "capability", "function", "area"}
+#: Adjectives catalogs put before an ability noun ("National Defense",
+#: "Strategic Planning"). Left alone once the noun is read as the ability,
+#: one is no object ("protect national"), so the frame keeps the whole
+#: phrase as its object instead. A closed list, read off the catalog.
+ADJECTIVES = {
+    "biomedical", "continuous", "criminal", "cultural", "economic", "elementary",
+    "environmental", "external", "federal", "financial", "fiscal", "functional",
+    "general", "geospatial", "historic", "humanitarian", "internal", "international",
+    "legal", "legislative", "medical", "national", "postal", "public", "regional",
+    "scientific", "secondary", "special", "strategic", "technological", "vocational",
+}
 ACRONYMS = {
     "IT": "information technology", "HR": "human resources",
     "EHS": "environmental health and safety", "HRIS": "human resources information system",
@@ -553,9 +583,10 @@ class Frame:
     """What a label says an organization does: verbs, a family, an object."""
 
     __slots__ = ("verbs", "family", "nominal", "object", "key", "inferred",
-                 "bounded", "form")
+                 "bounded", "form", "qualified")
 
-    def __init__(self, verbs, family, nominal, obj, inferred, bounded, form):
+    def __init__(self, verbs, family, nominal, obj, inferred, bounded, form,
+                 qualified=False):
         self.verbs = verbs
         self.family = family
         self.nominal = nominal
@@ -563,12 +594,16 @@ class Frame:
         self.inferred = inferred
         self.bounded = bounded
         self.form = form
+        self.qualified = qualified
         self.key = "%s|%s" % (family, object_key(obj)) if obj else None
 
     def as_dict(self) -> dict:
-        return {"form": self.form, "verbs": list(self.verbs), "family": self.family,
-                "object": self.object, "key": self.key,
-                "action_inferred": self.inferred, "bounded": self.bounded}
+        d = {"form": self.form, "verbs": list(self.verbs), "family": self.family,
+             "object": self.object, "key": self.key,
+             "action_inferred": self.inferred, "bounded": self.bounded}
+        if self.qualified:
+            d["qualified"] = True
+        return d
 
 
 def object_key(obj: str) -> str:
@@ -705,6 +740,10 @@ def nominal_frame(words: list[str], form: str):
             family = "formulation"
         if not obj:
             return None
+        if obj.split()[-1] in ADJECTIVES:
+            # "National Defense": the adjective qualifies the ability noun.
+            return Frame((), family, None, clean_object(words[:j + 1]), False,
+                         sing[j] in BOUNDED_NOMINALS, form, qualified=True)
         return Frame((), family, nominal, obj, False, sing[j] in BOUNDED_NOMINALS, form)
     last = sing[-1]
     if last in ARTIFACT and len(words) > 1:
@@ -919,6 +958,7 @@ def synthesize(base: Path, docs: dict, acts_doc: dict) -> dict:
     # The PCF act type behind each element, from BPO at the I-1 pin.
     act_by_element = {a["pcf_element_id"]: a for a in acts_doc["act_types"]}
     genera = {g["iri"]: g for g in acts_doc["genera"]}
+    review = load_dispositions(base)
 
     # --- 3. generate: which records designate a key
     coarse_keys = set()
@@ -1030,7 +1070,24 @@ def synthesize(base: Path, docs: dict, acts_doc: dict) -> dict:
 
     return {"recs": recs, "by_id": by_id, "cands": cands, "designates": designates,
             "links": links, "no_interp": no_interp, "cycles": cycles,
-            "act_by_element": act_by_element, "genera": genera}
+            "act_by_element": act_by_element, "genera": genera,
+            "pins": review["pins"], "dispositions": review["dispositions"]}
+
+
+def load_dispositions(base: Path) -> dict:
+    """The pins (key -> id) and dispositions (id -> record) reviewers made."""
+    path = base / DISPOSITIONS
+    doc = yaml.load(path.read_text(encoding="utf-8"), Loader=LOADER) if path.is_file() else {}
+    doc = doc or {}
+    pins = {p["key"]: p["id"] for p in doc.get("pins") or []}
+    if len(pins) != len(doc.get("pins") or []) or len(set(pins.values())) != len(pins):
+        raise Refused("%s pins one key or one identifier twice" % DISPOSITIONS)
+    disp = {}
+    for d in doc.get("dispositions") or []:
+        if d["id"] in disp:
+            raise Refused("%s records %s twice" % (DISPOSITIONS, d["id"]))
+        disp[d["id"]] = d
+    return {"pins": pins, "dispositions": disp}
 
 
 def no_interpretation_reason(r: dict, by_id: dict) -> str:
@@ -1248,7 +1305,10 @@ def status(c: dict) -> None:
 # ------------------------------------------------------------ render
 
 
-def candidate_id(key: str) -> str:
+def candidate_id(key: str, pins: dict | None = None) -> str:
+    """The pinned identifier of a reviewed candidate, else the key's hash."""
+    if pins and key in pins:
+        return pins[key]
     return "BCC-" + sha256(key.encode())[:8]
 
 
@@ -1261,6 +1321,9 @@ def title(words: str) -> str:
 
 
 CIRCULAR = "circular differentia: the label names only the ability; a reader writes it"
+QUALIFIED = ("qualified object: the label is an adjective and an ability noun; "
+             "a reader writes the object")
+RESIDUAL = "residual category: the source's 'Other ...' heading names no distinct ability"
 
 
 def circular(obj: str, family: str) -> bool:
@@ -1286,6 +1349,7 @@ def display_object(c: dict, by_id: dict) -> tuple[str, str | None]:
     for rid in sorted(c["designated_by"], key=rank):
         f = by_id[rid].get("frame")
         if f and f.object:
+            c["qualified"] = f.qualified
             if len(f.verbs) > 1:
                 noms = list(dict.fromkeys(V[v][0] for v in f.verbs))
                 nominal = noms[0] if len(noms) == 1 else (
@@ -1295,9 +1359,32 @@ def display_object(c: dict, by_id: dict) -> tuple[str, str | None]:
     return c["key"].split("|", 1)[1], None
 
 
+def ability_template(c: dict, fam: str) -> str:
+    """The differentia's ability phrase over the object, as a format string.
+
+    An object that is only an adjective, or an adjective with the ability
+    noun it qualifies, takes a neutral phrase that stays grammatical, as a
+    circular one does; a residual heading says it is one.
+    """
+    obj = c["display_object"]
+    last = obj.split()[-1] if obj else ""
+    if fam == "relationship" and last in ADJECTIVES:
+        return "build and sustain {o} relationships"
+    if obj.startswith("other "):
+        c["flags"].add(RESIDUAL)
+        return "carry out the %s work its source does not classify elsewhere" % obj[6:]
+    if last in ADJECTIVES:
+        c["flags"].add(QUALIFIED)
+        return "carry out {o} work"
+    if c.get("qualified"):
+        c["flags"].add(QUALIFIED)
+        return "carry out {o}"
+    return "carry out {o}" if CIRCULAR in c["flags"] else FAMILY.get(fam, "carry out {o}")
+
+
 def describe(s: dict) -> list[dict]:
     cands, by_id, genera = s["cands"], s["by_id"], s["genera"]
-    ids = {k: candidate_id(k) for k in cands}
+    ids = {k: candidate_id(k, s["pins"]) for k in cands}
     if len(set(ids.values())) != len(ids):
         raise Refused("two candidate keys share an identifier; lengthen the hash")
     names = {}
@@ -1322,18 +1409,25 @@ def describe(s: dict) -> list[dict]:
         if dup[names[key].lower()] > 1:
             fam = key.split("|", 1)[0]
             names[key] = "%s (%s)" % (names[key], fam)
-    for c in cands.values():
-        if circular(c["display_object"], c["key"].split("|", 1)[0]):
+    templates = {}
+    for key, c in cands.items():
+        fam = key.split("|", 1)[0]
+        if circular(c["display_object"], fam):
             c["flags"].add(CIRCULAR)
+        templates[key] = ability_template(c, fam)
         status(c)
+    # --- 7. review: a recorded disposition governs; the generated status stays
+    key_of = {i: k for k, i in ids.items()}
+    retired_into = defaultdict(list)
+    for did, d in sorted(s["dispositions"].items()):
+        if d.get("into") in key_of:
+            retired_into[key_of[d["into"]]].append(did)
     out = []
     for key in sorted(cands, key=lambda k: (names[k].lower(), k)):
         c = cands[key]
         fam, objkey = key.split("|", 1)
         broader = sorted(c["broader"], key=lambda k: names[k].lower())
-        template = "carry out {o}" if CIRCULAR in c["flags"] else FAMILY.get(
-            fam, "carry out {o}")
-        ability = template.format(o=c["display_object"])
+        ability = templates[key].format(o=c["display_object"])
         gl = sorted({genera[g]["label"] for row in c["realization"]
                      for g in (row["genus"] or []) if g in genera
                      and genera[g]["kind"] in ("bpo-act-genus", "cco-class")})
@@ -1348,7 +1442,19 @@ def describe(s: dict) -> list[dict]:
         recs = [by_id[i] for i in c["designated_by"]]
         synonyms = sorted({r["label"] for r in recs if r.get("label")
                            and r["label"].lower() != names[key].lower()})
-        out.append({
+        review = {"status": c["review_status"], "justification": c["status_reason"],
+                  "flags": sorted(c["flags"])}
+        d = s["dispositions"].get(ids[key])
+        if d:
+            review = {"status": d["status"], "justification": d["reason"],
+                      "flags": review["flags"],
+                      "disposition": {k: d[k] for k in ("status", "date", "record", "into")
+                                      if d.get(k)},
+                      "generated": {"status": review["status"],
+                                    "justification": review["justification"]}}
+        if retired_into.get(key):
+            review["retired_into_it"] = retired_into[key]
+        row = {
             "id": ids[key],
             "name": names[key],
             "key": key,
@@ -1367,8 +1473,7 @@ def describe(s: dict) -> list[dict]:
             "classification": c["classification"],
             "classification_reason": c["classification_reason"],
             "bfo_cco_compatibility": c["compatibility"],
-            "review": {"status": c["review_status"], "justification": c["status_reason"],
-                       "flags": sorted(c["flags"])},
+            "review": review,
             "sources": [source_row(by_id[i], s) for i in sorted(c["designated_by"])],
             "source_count": dict(sorted(Counter(r["source"] for r in recs).items())),
             "realization_evidence": {
@@ -1386,7 +1491,11 @@ def describe(s: dict) -> list[dict]:
             "duplicates_merged": len(c["designated_by"]) - 1,
             "synonyms": synonyms,
             "overlaps": c.get("overlaps", []),
-        })
+        }
+        if c.get("overlaps_found", 0) > len(row["overlaps"]):
+            row["overlaps_truncated"] = {"shown": len(row["overlaps"]),
+                                         "found": c["overlaps_found"]}
+        out.append(row)
     for row in out:
         for o in row["overlaps"]:
             o["id"] = ids[o.pop("key")]
@@ -1451,7 +1560,8 @@ def overlaps(s: dict) -> None:
             j = n / len(ws | ow)
             if j >= 0.5 and other not in c["broader"] and other not in c["narrower"]:
                 found.append({"key": other, "relation": "similar object (Jaccard %.2f)" % j})
-        c["overlaps"] = found[:6]
+        c["overlaps"] = found[:OVERLAP_LIMIT]
+        c["overlaps_found"] = len(found)
 
 
 # ------------------------------------------------------------ checks
@@ -1506,6 +1616,32 @@ def checks(s: dict, catalog: list[dict], xwalk: list[dict], docs: dict) -> tuple
                 soft.append("%s: definition shares eight words with a source description"
                             % c["id"])
                 break
+    by_id = {c["id"]: c for c in catalog}
+    keys = {c["key"]: c["id"] for c in catalog}
+    for key, pid in sorted(s["pins"].items()):
+        if keys.get(key) != pid:
+            hard.append("pinned candidate %s (%s) is no longer generated; pin the key "
+                        "that now carries it in %s" % (pid, key, DISPOSITIONS))
+    pinned = set(s["pins"].values())
+    for did, d in sorted(s["dispositions"].items()):
+        if did not in pinned:
+            hard.append("%s has a disposition but no pinned identifier" % did)
+        if d.get("status") not in DISPOSITION_STATUSES:
+            hard.append("%s: disposition status %r is not one of %s"
+                        % (did, d.get("status"), ", ".join(DISPOSITION_STATUSES)))
+        if not d.get("record") or not d.get("reason") or not d.get("date"):
+            hard.append("%s: a disposition cites its record, reason and date" % did)
+        if d.get("status") == "retired":
+            into = by_id.get(d.get("into"))
+            if into is None or into["id"] == did or into["review"].get("disposition"):
+                hard.append("%s is retired into %s, which is not an active candidate"
+                            % (did, d.get("into")))
+        elif d.get("into"):
+            hard.append("%s: only a retired candidate names one it was retired into" % did)
+    for c in catalog:
+        d = c["review"].get("disposition")
+        if c["id"] in s["dispositions"] and (d is None or c["review"]["status"] != d["status"]):
+            hard.append("%s: its recorded disposition is not in effect" % c["id"])
     names = Counter(c["name"].lower() for c in catalog)
     soft.extend("name used by %d candidates: %s" % (n, k) for k, n in names.items() if n > 1)
     for line in s["cycles"]:
@@ -1558,7 +1694,7 @@ def head_block(docs: dict, base: Path, what: str) -> dict:
                    "docs/sources/inventory/NOTICE-federal.md). Not covered by this "
                    "repository's MIT licence as to the PCF material.",
         "inputs": [{"path": p, "sha256": sha256((base / p).read_bytes())}
-                   for p in list(INPUTS.values()) + [ACTS]],
+                   for p in list(INPUTS.values()) + [ACTS, DISPOSITIONS]],
     }
 
 
@@ -1637,6 +1773,9 @@ def counts(s: dict, catalog: list[dict], xwalk: list[dict], docs: dict) -> dict:
         "crosswalk_links_by_relation": dict(sorted(rel.items())),
         "broader_links": sum(len(c["broader"]) for c in catalog),
         "overlap_links": sum(len(c["overlaps"]) for c in catalog),
+        "overlap_lists_truncated": sum(1 for c in catalog if "overlaps_truncated" in c),
+        "recorded_dispositions": sum(1 for c in catalog if "disposition" in c["review"]),
+        "pinned_identifiers": sum(1 for c in catalog if c["id"] in s["pins"].values()),
         "synonym_labels": sum(len(c["synonyms"]) for c in catalog),
         "realization_evidence_rows": act_rows,
         "distinct_act_types_cited": len(acts),
@@ -1670,6 +1809,11 @@ def report(cnt: dict, catalog: list[dict], soft: list[str]) -> str:
              % cnt["records_lacking_interpretation"])
     L.append("| Broader links proposed | %d |" % cnt["broader_links"])
     L.append("| Overlap links | %d |" % cnt["overlap_links"])
+    L.append("| Candidates whose overlap list is cut at %d (`overlaps_truncated` gives the "
+             "number found) | %d |" % (OVERLAP_LIMIT, cnt["overlap_lists_truncated"]))
+    L.append("| Recorded reviewer dispositions in effect (`%s`) | %d |"
+             % (DISPOSITIONS, cnt["recorded_dispositions"]))
+    L.append("| Pinned identifiers of reviewed candidates | %d |" % cnt["pinned_identifiers"])
     L.append("| Realization evidence rows (act types per candidate) | %d |"
              % cnt["realization_evidence_rows"])
     L.append("| Distinct BPO act types cited | %d |" % cnt["distinct_act_types_cited"])

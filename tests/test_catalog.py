@@ -22,6 +22,9 @@ import yaml
 from conftest import ROOT, load_tool
 
 TOOL = "tools/catalog/synthesize.py"
+DISPOSITIONS = "docs/catalog/dispositions.yaml"
+#: Where reviewers cite candidates by identifier: each one cited is pinned.
+REVIEW_RECORDS = ("docs/catalog/tranche-1.md", "docs/catalog/admission", "docs/decisions")
 CATALOG = "docs/catalog/candidates.yaml"
 CROSSWALK = "docs/catalog/crosswalk.yaml"
 REPORT = "docs/catalog/report.md"
@@ -130,6 +133,31 @@ def test_a_label_naming_only_its_ability_is_circular(tool):
     assert not tool.circular("payments", "governance")   # approving payments
 
 
+def test_an_adjective_left_alone_keeps_its_ability_noun(tool):
+    # "National Defense" read "protect national" (I-4 assessment, defect 3).
+    f = tool.frame_label("Synthetic National Defense", "label")
+    assert f.qualified and f.object == "synthetic national defense"
+    assert f.as_dict()["qualified"] is True
+    control = tool.frame_label("Synthetic Widget Defense", "label")
+    assert not control.qualified and control.object == "synthetic widget"
+    assert "qualified" not in control.as_dict()
+
+
+def test_a_pinned_key_keeps_its_identifier(tool):
+    key = "development|synthetic widget"
+    assert tool.candidate_id(key) == "BCC-" + tool.sha256(key.encode())[:8]
+    assert tool.candidate_id(key, {key: "BCC-00000001"}) == "BCC-00000001"
+    assert tool.candidate_id("development|other", {key: "BCC-00000001"}) != "BCC-00000001"
+
+
+def test_overlaps_beyond_the_limit_are_counted(tool):
+    n = tool.OVERLAP_LIMIT + 2
+    cands = {"f%d|synthetic widget" % i: {"broader": {}, "narrower": {}} for i in range(n)}
+    tool.overlaps({"cands": cands})
+    c = cands["f0|synthetic widget"]
+    assert len(c["overlaps"]) == tool.OVERLAP_LIMIT and c["overlaps_found"] == n - 1
+
+
 def test_no_unflagged_candidate_has_a_circular_differentia(committed):
     cat, _ = committed
     for x in cat["candidates"]:
@@ -145,9 +173,75 @@ def test_an_approval_in_the_evidence_is_flagged_deontic(committed):
     by = {x["id"]: x for x in cat["candidates"]}
     # Payments Approval: both its acts approve or authorize (G1-T q4).
     assert any("deontic" in f for f in by["BCC-9ecf360b"]["review"]["flags"])
-    assert by["BCC-9ecf360b"]["review"]["status"] == "needs-review"
+    assert by["BCC-9ecf360b"]["review"]["generated"]["status"] == "needs-review"
     # Positive control: complaint handling has no approval act.
     assert not any("deontic" in f for f in by["BCC-373b146e"]["review"]["flags"])
+
+
+def test_recorded_dispositions_govern_and_keep_the_generated_status(committed):
+    cat, _ = committed
+    by = {x["id"]: x for x in cat["candidates"]}
+    rejected = by["BCC-9ecf360b"]["review"]          # Payments Approval
+    assert rejected["status"] == rejected["disposition"]["status"] == "rejected"
+    assert rejected["disposition"]["record"].startswith(
+        "docs/decisions/2026-11-04-i5-tranche-1-approved-for-evaluation.md")
+    assert rejected["generated"]["status"] == "needs-review"
+    retired = by["BCC-b7c46718"]["review"]           # BRM Payroll
+    assert retired["status"] == "retired" and retired["disposition"]["into"] == "BCC-d95f68fd"
+    assert by["BCC-d95f68fd"]["review"]["retired_into_it"] == ["BCC-b7c46718"]
+    # Provenance: the retired candidate keeps both its BRM source records.
+    assert len(by["BCC-b7c46718"]["sources"]) == 2
+    # Positive control: an undisposed candidate has no disposition.
+    assert "disposition" not in by["BCC-373b146e"]["review"]
+    assert cat["counts"]["recorded_dispositions"] == 2
+
+
+def test_every_reviewed_candidate_is_pinned(committed):
+    cat, _ = committed
+    doc = yaml.safe_load((ROOT / DISPOSITIONS).read_text(encoding="utf-8"))
+    pins = {p["id"]: p["key"] for p in doc["pins"]}
+    cited = set()
+    for rel in REVIEW_RECORDS:
+        path = ROOT / rel
+        for f in ([path] if path.is_file() else sorted(path.glob("*.md"))):
+            cited |= set(re.findall(r"BCC-[0-9a-f]{8}", f.read_text(encoding="utf-8")))
+    assert {"BCC-373b146e", "BCC-d95f68fd", "BCC-62e789bf"} <= cited
+    assert cited <= set(pins), sorted(cited - set(pins))
+    by = {x["id"]: x for x in cat["candidates"]}
+    for pid, key in pins.items():
+        assert by[pid]["key"] == key
+    assert {d["id"] for d in doc["dispositions"]} <= set(pins)
+
+
+def test_no_ability_phrase_ends_in_a_bare_adjective(tool, committed):
+    cat, _ = committed
+    flagged = 0
+    for x in cat["candidates"]:
+        ability = x["distinctive_ability"]["ability"]
+        assert not ability.startswith("carry out other ")
+        assert ability.split()[-1] not in tool.ADJECTIVES, (x["id"], ability)
+        if tool.QUALIFIED in x["review"]["flags"]:
+            flagged += 1
+            assert ability.startswith("carry out ")
+            assert x["review"]["status"] != "generated-draft"
+    assert flagged
+    by = {x["name"]: x for x in cat["candidates"]}
+    assert by["National Defense Capability"]["distinctive_ability"]["ability"] == \
+        "carry out national defense"
+    assert by["Public Relationship Management Capability"]["distinctive_ability"][
+        "ability"] == "build and sustain public relationships"
+
+
+def test_a_truncated_overlap_list_says_so(committed):
+    cat, _ = committed
+    cut = [x for x in cat["candidates"] if "overlaps_truncated" in x]
+    assert cut and cat["counts"]["overlap_lists_truncated"] == len(cut)
+    for x in cat["candidates"]:
+        t = x.get("overlaps_truncated")
+        if t:
+            assert t["shown"] == len(x["overlaps"]) and t["found"] > t["shown"]
+    report = (ROOT / REPORT).read_text(encoding="utf-8")
+    assert "overlap list is cut at 6" in report and "| %d |" % len(cut) in report
 
 
 def test_fibf_codes_are_padded_for_matching(tool):
@@ -266,3 +360,45 @@ def test_a_row_without_interpretation_or_reason_is_refused(tool, built):
     del row["no_interpretation"]
     assert any("neither an interpretation nor a reason" in f
                for f in hard(tool, built, xwalk=xw))
+
+
+def with_review(built, pins=None, dispositions=None):
+    s = dict(built["s"])
+    if pins is not None:
+        s["pins"] = pins
+    if dispositions is not None:
+        s["dispositions"] = dispositions
+    return dict(built, s=s)
+
+
+def test_a_pinned_candidate_that_vanishes_is_refused(tool, built):
+    pins = dict(built["s"]["pins"])
+    pins["development|no such synthetic widget"] = "BCC-0000000f"
+    found = hard(tool, with_review(built, pins=pins))
+    assert any("BCC-0000000f" in f and "no longer generated" in f for f in found)
+
+
+def test_a_disposition_not_in_effect_is_refused(tool, built):
+    cat = copy.deepcopy(built["catalog"])
+    victim = next(c for c in cat if c["id"] == "BCC-9ecf360b")
+    victim["review"] = victim["review"]["generated"]
+    found = hard(tool, built, catalog=cat)
+    assert any("BCC-9ecf360b: its recorded disposition is not in effect" in f for f in found)
+
+
+def test_a_disposition_without_a_pin_is_refused(tool, built):
+    disp = dict(built["s"]["dispositions"])
+    some = next(c for c in built["catalog"] if c["id"] not in built["s"]["pins"].values())
+    disp[some["id"]] = {"id": some["id"], "status": "rejected", "date": "2026-11-07",
+                        "record": "x", "reason": "x"}
+    found = hard(tool, with_review(built, dispositions=disp))
+    assert any("%s has a disposition but no pinned identifier" % some["id"] in f
+               for f in found)
+
+
+def test_retirement_into_a_non_candidate_is_refused(tool, built):
+    disp = copy.deepcopy(built["s"]["dispositions"])
+    disp["BCC-b7c46718"]["into"] = "BCC-00000000"
+    found = hard(tool, with_review(built, dispositions=disp))
+    assert any("retired into BCC-00000000, which is not an active candidate" in f
+               for f in found)

@@ -1,0 +1,73 @@
+# Reviewers' recorded dispositions and the pinned identifiers of reviewed
+# candidates, for the Candidate Capability Catalog. HAND-AUTHORED: the
+# generator (tools/catalog/synthesize.py) reads this file and never writes it.
+#
+# I-4 stabilization, docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md,
+# act 3. An entry is added only from a recorded decision or review, which it
+# cites; nothing here is decided by this file.
+#
+# pins: a reviewed or admitted candidate keeps its identifier when a lexicon
+#   change re-keys it. If a pinned key stops being generated, the offline check
+#   fails; the fix is to pin the key that now carries the candidate, under the
+#   same identifier, never to drop the pin.
+# dispositions: a status that governs the generated one (rejected, or retired
+#   into another candidate). The generated status stays beside it in the
+#   catalog, and every source record keeps its provenance.
+format: 1
+pins:
+- id: BCC-373b146e
+  key: management|customer complaint
+  basis: T1-01; G1-T PASS, docs/catalog/admission/G1T-T1-01-customer-complaint-management.md
+- id: BCC-d95f68fd
+  key: administration|payroll
+  basis: T1-02; G1-T PASS, docs/catalog/admission/G1T-T1-02-payroll-processing.md
+- id: BCC-62e789bf
+  key: administration|account payable
+  basis: T1-03; G1-T PASS, docs/catalog/admission/G1T-T1-03-accounts-payable-processing.md
+- id: BCC-9ecf360b
+  key: governance|payment
+  basis: rejected; docs/catalog/tranche-1.md and its decision of 2026-11-04
+- id: BCC-b7c46718
+  key: provision|payroll
+  basis: retired into T1-02; docs/catalog/tranche-1.md section 8 and its decision of 2026-11-04
+- id: BCC-cc2de1a5
+  key: acquisition|procurement
+  basis: reviewed and kept out of tranche 1; docs/catalog/tranche-1.md
+- id: BCC-d105ff07
+  key: management|pay
+  basis: component of T1-02; docs/catalog/tranche-1.md and docs/catalog/admission/G1T-T1-02-payroll-processing.md
+- id: BCC-85fbcb90
+  key: reporting|time
+  basis: component of T1-02; docs/catalog/tranche-1.md
+- id: BCC-394909c1
+  key: management|payroll tax
+  basis: component of T1-02; docs/catalog/tranche-1.md and docs/catalog/admission/G1T-T1-02-payroll-processing.md
+- id: BCC-9511900a
+  key: administration|payment
+  basis: component of T1-02 and T1-03; docs/catalog/tranche-1.md section 7
+- id: BCC-0fe1f7f0
+  key: administration|account payable and expense reimbursement
+  basis: broader of T1-03; docs/catalog/tranche-1.md section 7
+- id: BCC-12db59b1
+  key: remuneration|employee
+  basis: broader of T1-02; docs/catalog/tranche-1.md section 7
+- id: BCC-4fda51aa
+  key: management|financial resource
+  basis: broader of T1-02; docs/catalog/tranche-1.md section 7
+- id: BCC-af1062de
+  key: planning|customer service contact
+  basis: broader of T1-01; docs/catalog/tranche-1.md section 7
+dispositions:
+- id: BCC-9ecf360b
+  status: rejected
+  date: '2026-11-04'
+  record: docs/decisions/2026-11-04-i5-tranche-1-approved-for-evaluation.md, act 5
+  reason: rejected as an ability candidate (Payments Approval); its source evidence is
+    kept for possible standing-related modeling (CM-01, Authorization Record)
+- id: BCC-b7c46718
+  status: retired
+  into: BCC-d95f68fd
+  date: '2026-11-04'
+  record: docs/decisions/2026-11-04-i5-proceed-payroll-synonym-ap-hold-lifted.md, act 2
+  reason: retired as a separate active candidate (BRM Payroll); an alternative
+    designation of Payroll Processing, both BRM source records keeping their provenance
