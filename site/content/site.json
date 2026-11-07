@@ -27,7 +27,7 @@
       "why": "A validator reading a requirement on a public site will reasonably take it as settled. Every page says otherwise, because the one page that does not is the one somebody links to."
     },
     "iri_resolution": {
-      "text": "BCO IRIs identify terms but do not resolve over HTTP, and the namespace https://fandaws.com/ontology/bco# is provisional until RP-5 mints a permanent one. Use the explorer or the downloads to inspect a term.",
+      "text": "BCO IRIs identify terms but do not resolve over HTTP yet. The namespace https://fandaws.com/ontology/bco# is permanent; serving it is a release obligation. Use the explorer or the downloads to inspect a term.",
       "why": "An IRI rendered as a link would send a reader to a 404 and imply the ontology is broken. IRIs are copyable text, never anchors."
     },
     "license": {

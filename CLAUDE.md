@@ -12,10 +12,11 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
   `docs/decisions/2026-11-04-rp2-ratified.md`), **CD6 to CD11** with them
   (`docs/decisions/2026-11-05-cd6-cd11-ratified.md`), **RP-3** (CD12;
   `docs/decisions/2026-11-06-rp3-ratified.md`), **RP-4** (CD13;
-  `docs/decisions/2026-11-06-rp4-ratified.md`) and **RP-6 to RP-9** (CD14 to CD17;
-  `docs/decisions/2026-11-06-rp6-rp9-ratified.md`); the first record is also the architectural
+  `docs/decisions/2026-11-06-rp4-ratified.md`), **RP-6 to RP-9** (CD14 to CD17;
+  `docs/decisions/2026-11-06-rp6-rp9-ratified.md`) and **RP-5** (the namespace;
+  `docs/decisions/2026-11-07-rp5-ratified.md`); the first record is also the architectural
   admission of the parent `bco:BusinessCapability`, which is not minted. Everything else in
-  it, RP-5 (the namespace) included, is a draft until ratified. Do not implement an unratified CD or
+  it is a draft until ratified. Do not implement an unratified CD or
   CAP item as if it were decided. Under Option B, G1-T review may now record PASS or
   FAIL, signed by the named reviewer; OWL waits for all of CP-0 and D5. v0.4.0-draft.1 is kept as the prior
   version.
@@ -41,7 +42,7 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
 ## Rules that are easy to break
 
 - **Namespaces.** This repository mints IRIs only in the five namespaces of ADR-003 D1, listed
-  as `AUTHORED_NAMESPACES` in `tools/ontology/validate.py` (all provisional, pending RP-5):
+  as `AUTHORED_NAMESPACES` in `tools/ontology/validate.py` (permanent since RP-5, `docs/decisions/2026-11-07-rp5-ratified.md`):
   `https://fandaws.com/ontology/bco#` for ontology terms; `bco-metamodel#` and `bco-catalog#`
   for vocabulary concepts; `bco-sources#` and `bco-agents#` for source records and agents.
   Vocabulary IRIs are minted by `tools/vocab/build.py`, never by hand. The spec writes `ex:`

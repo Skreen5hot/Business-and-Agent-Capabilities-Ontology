@@ -133,7 +133,8 @@ PINS = "config/upstream-sources.yaml"
 
 #: The namespaces this repository mints IRIs in: exactly ADR-003 D1's
 #: table, in its order. The first is the ontology's own (TBox) namespace,
-#: the architect's provisional choice of 2026-10-23 pending RP-5; the other
+#: the architect's choice of 2026-10-23, permanent since RP-5
+#: (docs/decisions/2026-11-07-rp5-ratified.md); the other
 #: four hold the controlled vocabulary -- metamodel and catalog concepts,
 #: source records and declared agents. Siblings, not nested: none is a
 #: prefix of another, so a STRSTARTS filter on one can never select
