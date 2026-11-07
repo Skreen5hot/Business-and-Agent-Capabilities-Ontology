@@ -340,9 +340,9 @@ components:
     description: >-
       Architecture decision records: the BCO's design decisions, each
       PROPOSED until a ratification act in docs/decisions/ cites it by
-      path, full commit and SHA-256. ADR-001 is BPO's; ADR-002 is reserved
-      for specification v0.4; ADR-003 (controlled vocabulary) is the first
-      written here.
+      path, full commit and SHA-256. ADR-001 is BPO's; ADR-002 consolidates
+      the ratified decisions of specification v0.5.0-draft.3; ADR-003
+      (controlled vocabulary) was the first written here.
 
   - id: docs.standards
     path: docs/standards

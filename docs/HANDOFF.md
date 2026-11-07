@@ -89,7 +89,10 @@ out of BCO's graph (`docs/decisions/2026-11-06-rp3-ratified.md`). RP-4 followed:
 manifest is routing description only, and OI-10 is closed for CP-0, its release check kept
 (`docs/decisions/2026-11-06-rp4-ratified.md`). RP-6 to RP-9 were ratified together the same day
 (`docs/decisions/2026-11-06-rp6-rp9-ratified.md`), so every register item but RP-5 was ratified. RP-5 followed on 2026-11-07 (`docs/decisions/2026-11-07-rp5-ratified.md`): the five
-namespaces are permanent as they stood.
+namespaces are permanent as they stood. ADR-002 and the CP-0 stage-completion record were drafted
+for the architect's review (`docs/decisions/2026-11-07-cp0-closeout-and-integration-authorized.md`). The same day the architect
+accepted ADR-002, approved the record and declared **CP-0 complete** (`docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md`). CP-0 does not
+by itself authorize Stage 05; OWL waits for D5.
 
 R5 records further blockers: material basis policy, maturity-value encoding, instance
 evidence, and migration of BPO existential restrictions. R6 (section 5.13) adds wording

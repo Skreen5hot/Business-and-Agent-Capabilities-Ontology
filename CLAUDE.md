@@ -15,10 +15,11 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
   `docs/decisions/2026-11-06-rp4-ratified.md`), **RP-6 to RP-9** (CD14 to CD17;
   `docs/decisions/2026-11-06-rp6-rp9-ratified.md`) and **RP-5** (the namespace;
   `docs/decisions/2026-11-07-rp5-ratified.md`); the first record is also the architectural
-  admission of the parent `bco:BusinessCapability`, which is not minted. Everything else in
-  it is a draft until ratified. Do not implement an unratified CD or
+  admission of the parent `bco:BusinessCapability`, which is not minted. **ADR-002 is
+  accepted and CP-0 is complete** (2026-11-07, `docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md`); the ratified commitments
+  are binding, and draft.3 is kept as the historical ratification baseline. Do not implement an unratified
   CAP item as if it were decided. Under Option B, G1-T review may now record PASS or
-  FAIL, signed by the named reviewer; OWL waits for all of CP-0 and D5. v0.4.0-draft.1 is kept as the prior
+  FAIL, signed by the named reviewer; OWL waits for D5, which CP-0 does not authorize. v0.4.0-draft.1 is kept as the prior
   version.
 - The repository follows six stages, `src/01_controlled_vocabulary/` to
   `src/06_knowledge_graph/` (`docs/decisions/2026-10-25-stage-02-choices.md`); each stage
