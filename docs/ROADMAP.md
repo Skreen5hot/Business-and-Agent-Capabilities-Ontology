@@ -26,6 +26,7 @@ property, subclass axiom or vocabulary ratification is authorized by it.
 | 2, amended | 2026-11-07 | I-4 closed after its four corrections (`docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md`, act 3). The inventory state row and T5 say so |
 | 2, amended | 2026-11-07 | Semantic-curation tranche 2 approved and curated (`docs/decisions/2026-11-07-curation-tranche-2-approved.md`); the Stage 03 standard proposed (`docs/proposals/2026-11-07-stage-03-taxonomy-standard.md`). The Stage 01 row says so |
 | 2, amended | 2026-11-07 | Tranche 2 accepted as the working terminology baseline (`docs/decisions/2026-11-07-tranche-2-accepted-g1t-preparation-authorized.md`); the Stage 03 standard's rules approved and its text submitted for ratification; G1-T preparation for the 43 ready candidates (`docs/catalog/admission/G1T-T2-batch.md`), unsigned; Q-12 deferred (`docs/catalog/tranche-2-q12.md`) |
+| 2, amended | 2026-11-07 | Stage 03 standard ratified with two clarifications (`docs/decisions/2026-11-07-stage-03-ratified-g1t-review-authorized.md`), published as `docs/standards/stage-03-taxonomy.md`; tranche 2's taxonomy validated under its gate; independent G1-T review of the 43 authorized. The Stage 03 rows say so |
 
 It replaces HANDOFF §7, which dated from the repository's setup.
 
@@ -92,7 +93,7 @@ unfinished.
 | Stage 01, controlled vocabulary | 78 concepts (9 metamodel, 69 catalog), all Draft; 64 of the catalog concepts from semantic-curation tranche 2 (`docs/decisions/2026-11-07-curation-tranche-2-approved.md`, `docs/catalog/tranche-2.md`); no Stage 01 standard (ADR-003 stands in) |
 | Stage 02, conceptual models | CM-01 approved 2026-10-26 (stakeholder-review erratum of 2026-10-30); CM-02's scope approved 2026-10-31 (D2, `docs/decisions/2026-10-31-d2-cm02-scope-approved.md`), the model not started |
 | Capability Term Inventory (Stage 01 source evidence) | I-1, I-2a, I-2b, I-2c and E7 done; closure set complete; E4 method decided, nothing judged; I-4 authorized 2026-11-03 and closed 2026-11-07 (`docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md`, act 3); I-5's first tranche directed 2026-11-03, its G1-T records signed PASS 2026-11-05; I-3 not authorized |
-| Stage 03, taxonomy | not started; no standard |
+| Stage 03, taxonomy | standard ratified 2026-11-07 (`docs/standards/stage-03-taxonomy.md`); tranche 2 (PCF 9.0) validated: 60 `broader` links, 15 `kind-of` proposals, 10 unresolved (`docs/catalog/tranche-2-review.yaml`) |
 | Stage 04, thesaurus | not started; no standard |
 | Stage 05, ontology | specified, not written; no standard beyond the specification's gates |
 | Stage 06, knowledge graph | not started; no standard |
@@ -235,7 +236,7 @@ These run beside the decision path. None writes an OWL axiom.
 | Stage 01, controlled vocabulary | Stage 01 standard (T1) | not supplied; ADR-003 stands in | further vocabulary ratification |
 | Stage 02, conceptual models | `docs/standards/stage-02-conceptual-modeling.md` | in force | — |
 | Source evidence (inventory) | the scope approval of 2026-10-27 and its amendments; the rights review | in force | — |
-| Stage 03, taxonomy | Stage 03 standard | not supplied | Stage 03 (T8) |
+| Stage 03, taxonomy | Stage 03 standard | ratified 2026-11-07 (`docs/standards/stage-03-taxonomy.md`) | Stage 03 (T8) |
 | Stage 04, thesaurus | Stage 04 standard | not supplied | Stage 04 (T8) |
 | Stage 05, ontology | Stage 05 standard, with the validation architecture | not supplied; the specification's gates exist | D6 |
 | Stage 06, knowledge graph | Stage 06 standard | not supplied | D7 |

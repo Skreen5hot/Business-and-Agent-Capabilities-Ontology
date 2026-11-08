@@ -348,10 +348,14 @@ components:
     path: docs/standards
     role: documentation
     description: >-
-      The ontology development standards the architect supplies, one per
-      stage of the src/ layout, filed verbatim and never edited here.
-      Stage 02 (Conceptual Modeling) is the first, supplied 2026-10-25
-      (docs/decisions/2026-10-25-stage-02-choices.md).
+      The ontology development standards, one per stage of the src/
+      layout. Stage 02 (Conceptual Modeling) was supplied by the architect
+      on 2026-10-25 (docs/decisions/2026-10-25-stage-02-choices.md) and is
+      filed verbatim, never edited here. Stage 03 (Taxonomy) was drafted by
+      the team and ratified by the architect, with two binding
+      clarifications, on 2026-11-07
+      (docs/decisions/2026-11-07-stage-03-ratified-g1t-review-authorized.md);
+      a substantive change to either is a new, reviewed version.
 
   - id: docs.sources
     path: docs/sources

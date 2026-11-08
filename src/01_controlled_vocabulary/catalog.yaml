@@ -3,8 +3,8 @@
 #
 # Tranche 2 (2026-11-07, docs/decisions/2026-11-07-curation-tranche-2-approved.md) adds the 63
 # concepts normalized from PCF 9.0's candidates, after the pilots; its review
-# record is docs/catalog/tranche-2-review.yaml, and its links are classified under the
-# proposed Stage 03 standard (docs/proposals/2026-11-07-stage-03-taxonomy-standard.md).
+# record is docs/catalog/tranche-2-review.yaml, and its links are validated under the
+# Stage 03 standard (docs/standards/stage-03-taxonomy.md, ratified 2026-11-07).
 #
 # P5 holds the 5 pilot capabilities the specification's worked examples
 # and migration table name, all Draft. Their definitions were revised on
@@ -435,7 +435,7 @@ concepts:
       as organized.
     genus: bco:BusinessCapability
     foundational_ancestor: cco:ont00000568
-    broader: [bcoc:CashManagement, bcoc:FinancialIntermediaryRelationshipManagement]
+    broader: [bcoc:FinancialIntermediaryRelationshipManagement]
     catalog_candidates: [BCC-a750d13a]
     sources:
       - source: SRC-IND-01
@@ -495,7 +495,6 @@ concepts:
       members as organized.
     genus: bco:BusinessCapability
     foundational_ancestor: cco:ont00000568
-    broader: [bcoc:CashManagement]
     catalog_candidates: [BCC-d71abe9a]
     sources:
       - source: SRC-IND-01
@@ -585,7 +584,7 @@ concepts:
       obligations it holds, grounded in the organization's members as organized.
     genus: bco:BusinessCapability
     foundational_ancestor: cco:ont00000568
-    broader: [bcoc:DebtAndInvestmentManagement, bcoc:CounterpartyCreditExposureManagement]
+    broader: [bcoc:DebtAndInvestmentManagement]
     catalog_candidates: [BCC-13b94120]
     sources:
       - source: SRC-IND-01
@@ -644,7 +643,6 @@ concepts:
       organized.
     genus: bco:BusinessCapability
     foundational_ancestor: cco:ont00000568
-    broader: [bcoc:TreasuryManagement]
     catalog_candidates: [BCC-9b5ec2fd]
     sources:
       - source: SRC-IND-01
@@ -936,7 +934,6 @@ concepts:
       organized.
     genus: bco:BusinessCapability
     foundational_ancestor: cco:ont00000568
-    broader: [bcoc:InternationalFundsManagement]
     catalog_candidates: [BCC-5dfa2101]
     sources:
       - source: SRC-IND-01
@@ -965,7 +962,6 @@ concepts:
       means of payment, grounded in the organization's members as organized.
     genus: bco:BusinessCapability
     foundational_ancestor: cco:ont00000568
-    broader: [bcoc:InternationalFundsManagement]
     catalog_candidates: [BCC-bf62316a]
     sources:
       - source: SRC-IND-01

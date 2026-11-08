@@ -1,9 +1,13 @@
 # Stage 03 — Taxonomy
 
-**Status:** not started. Nothing is here yet.
+**Status:** standard ratified 2026-11-07 (`docs/standards/stage-03-taxonomy.md`, with two binding
+clarifications, `docs/decisions/2026-11-07-stage-03-ratified-g1t-review-authorized.md`).
+One tranche validated: PCF 9.0's links, in `docs/catalog/tranche-2-review.yaml`. No file is
+here yet: the links live in the vocabulary as `skos:broader`, and their kinds in the review
+record.
 
 The architect's layout describes this stage as a comprehensive collection of terms
-(`docs/decisions/2026-10-25-stage-02-choices.md`). Standard: not yet supplied.
+(`docs/decisions/2026-10-25-stage-02-choices.md`). Standard: `docs/standards/stage-03-taxonomy.md`.
 
 ## Where the evidence for it is
 
@@ -31,3 +35,10 @@ links are classified, not validated.
 (`docs/decisions/2026-11-07-tranche-2-accepted-g1t-preparation-authorized.md`, A2), and its
 text, aligned with them, is submitted for ratification. The review record now uses its
 terms: `kind-of`, `part-of`, and the dispositions retained, incorrect and unresolved.
+
+*Since the ratification, 2026-11-07:* the standard is ratified with two clarifications (C1:
+`kind-of` needs every instance of the narrower to be one of the broader; C2: a source
+hierarchy supports `part-of` but does not prove it). Its gate, applied to tranche 2, recorded
+the coverage test for every `part-of` link and re-tested every `kind-of`. Five `part-of` and
+two `kind-of` links became unresolved and one `kind-of` became `part-of`, leaving 60
+`broader` links written and 15 `kind-of` proposals. None is a subclass axiom.

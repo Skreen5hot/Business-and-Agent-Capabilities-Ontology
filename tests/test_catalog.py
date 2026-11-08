@@ -480,7 +480,14 @@ def test_every_proposed_link_is_classified_and_the_vocabulary_follows(committed,
         if l["disposition"] == "incorrect":
             assert l["incorrect_reason"] in reasons
             assert (l["incorrect_reason"] == "rejected candidate") == (l["action"] == "dropped")
-    assert all(l["action"] == "added" for l in review["added_links"])
+    assert all(l["action"] in ("added", "held") for l in review["added_links"])
+    # C2: a source hierarchy supports a part-of link but never proves it alone; C1 and
+    # C2 were applied by the gate the record names.
+    assert review["validation"]["result"] == "validated"
+    assert review["validation"]["standard"] == "docs/standards/stage-03-taxonomy.md"
+    for l in list(links.values()) + review["added_links"]:
+        if l.get("kind") == "part-of" and l["reason"].startswith("PCF hierarchy"):
+            assert "coverage: " in l["reason"], l
     # Internal Control and Global Trade Management stay unresolved under the root
     # (decision of 2026-11-07, B).
     root = review["scope"]["root"]
@@ -515,12 +522,13 @@ def test_the_reconciled_tranche_2_figures_follow_the_records(tranche2):
     written = [l for l in links if l["action"] in ("kept", "retargeted", "added")
                and all(x in {r["id"] for r in accepted}
                        for x in (l["narrower"], l.get("retargeted_to", l["broader"])))]
-    assert len(written) == 66
-    assert sum(1 for l in links if l.get("kind") == "kind-of") == 18
+    # After the ratified Stage 03 gate (decision of 2026-11-07, A1): 66 before it.
+    assert len(written) == 60
+    assert sum(1 for l in links if l.get("kind") == "kind-of") == 15
     report = (ROOT / "docs/catalog/tranche-2.md").read_text(encoding="utf-8")
     for figure in ("| Admitted | 2 |", "| Ready | 43 |", "| Not ready | 15 |",
                    "| Outside G1-T review scope | 9 |", "| **Total** | **69** |",
-                   "| **Total** | **89** | **7** | **66** | **30** |"):
+                   "| **Total** | **89** | **7** | **60** | **36** |"):
         assert figure in report
 
 

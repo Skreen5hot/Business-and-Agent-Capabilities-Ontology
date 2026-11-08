@@ -1,12 +1,19 @@
 # Tranche 2 structured review record: every candidate's disposition and every
-# link's disposition and kind (docs/decisions/2026-11-07-curation-tranche-2-approved.md). Hand-authored;
+# link's disposition and kind, validated under the Stage 03 standard (docs/decisions/2026-11-07-curation-tranche-2-approved.md). Hand-authored;
 # docs/catalog/tranche-2.md summarizes it, and tests/test_catalog.py holds it to
 # the catalog and the vocabulary.
-format: 2
+format: 3
 tranche: 2
 decision: docs/decisions/2026-11-07-curation-tranche-2-approved.md
-standard: 'docs/proposals/2026-11-07-stage-03-taxonomy-standard.md (submitted for ratification:
-  links here are classified, not validated)'
+standard: docs/standards/stage-03-taxonomy.md (ratified 2026-11-07; links here validated under
+  its gate)
+validation:
+  standard: docs/standards/stage-03-taxonomy.md
+  decision: docs/decisions/2026-11-07-stage-03-ratified-g1t-review-authorized.md
+  result: validated
+  applied: 'C2: the coverage test recorded for every retained part-of link; 5 failed and are
+    unresolved. C1: every retained kind-of link re-tested; 1 reclassified to part-of, 2 unresolved,
+    3 holding on a stated reading of the broader''s definition'
 scope:
   root: BCC-4fda51aa
   candidates_beneath: 72
@@ -937,7 +944,9 @@ links:
   kind: kind-of
   action: kept
   reason: 'interest rate risk is one kind of financial risk: the object restricted. Reclassified
-    from the PCF reading'
+    from the PCF reading; C1 holds on the reading that the broader''s ''movements in financial
+    markets and in the standing of its counterparties'' lists sources of loss, not a conjunction
+    every instance must meet'
 - narrower: BCC-0564598d
   broader: BCC-44f37d0e
   basis:
@@ -954,7 +963,9 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: managing cash positions, liquidity, funding
+    and exposures is maintaining and safeguarding the money it holds and the obligations it
+    owes'
 - narrower: BCC-0c80b752
   broader: BCC-05445216
   basis:
@@ -962,7 +973,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: claiming reduced duty is handling the
+    duties its trade requires'
 - narrower: BCC-0fe1f7f0
   broader: BCC-4fda51aa
   basis:
@@ -970,7 +982,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: paying what it owes suppliers and members
+    is managing the obligations it owes'
 - narrower: BCC-132e1b29
   broader: BCC-0ba10d44
   basis:
@@ -978,7 +991,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names managing financial
+    exposures'
 - narrower: BCC-13b94120
   broader: BCC-ec93ca56
   basis:
@@ -986,7 +1000,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: limiting exposure to one issuer is keeping
+    the risk of its investments at a level it judges acceptable'
 - narrower: BCC-15e92684
   broader: BCC-9305456f
   basis:
@@ -994,7 +1009,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: planning and evaluating proposals is
+    the proposal stage of the capital spending the broader covers'
 - narrower: BCC-18ef14d6
   broader: BCC-17c72571
   basis:
@@ -1019,7 +1035,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: revenue and what customers owe are money
+    and financial assets it holds, accounted for and collected'
 - narrower: BCC-302a390a
   broader: BCC-ca61edb4
   basis:
@@ -1027,7 +1044,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names measuring and analyzing
+    costs'
 - narrower: BCC-314dba7d
   broader: BCC-a1c5454d
   basis:
@@ -1035,16 +1053,19 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: cash equivalents are part of the cash
+    position the broader tracks and moves'
 - narrower: BCC-3421f274
   broader: BCC-cedf0899
   basis:
   - hierarchy:INV-PCF74-10788<INV-PCF74-10741
   disposition: retained
-  kind: kind-of
+  kind: part-of
   action: retargeted
-  reason: continuous cost improvement is cost management done as a standing practice (manner
-    restricted); PCF places it under financial performance
+  reason: 'C1 not met: an organization able to find and carry out cost reductions is not thereby
+    able to plan and control its spending, so this is not a subtype; it is a component, since
+    finding reductions is part of deciding which costs to avoid or reduce (retargeted from
+    Financial Performance Management, where PCF places it)'
   retargeted_to: BCC-b47b8fed
 - narrower: BCC-35c8111b
   broader: BCC-0fe1f7f0
@@ -1053,7 +1074,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names what it owes members
+    for expenses incurred on its behalf'
 - narrower: BCC-38b3c836
   broader: BCC-c4904759
   basis:
@@ -1090,7 +1112,9 @@ links:
   kind: kind-of
   action: kept
   reason: 'counterparty credit exposure is one kind of financial risk: the object restricted.
-    Reclassified from the PCF reading'
+    Reclassified from the PCF reading; C1 holds on the reading that the broader''s ''movements
+    in financial markets and in the standing of its counterparties'' lists sources of loss,
+    not a conjunction every instance must meet'
 - narrower: BCC-3e668a26
   broader: BCC-44f37d0e
   basis:
@@ -1125,7 +1149,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: arranging assured payment is handling
+    the payments its trade requires'
 - narrower: BCC-4fda51aa
   broader: BCC-94513b9b
   basis:
@@ -1142,7 +1167,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: declaring, paying and accounting for
+    taxes is meeting and accounting for its tax obligations'
 - narrower: BCC-5a4bc396
   broader: BCC-4fda51aa
   basis:
@@ -1181,10 +1207,12 @@ links:
   broader: BCC-87e3a26b
   basis:
   - hierarchy:INV-PCF74-10767<INV-PCF74-10737
-  disposition: retained
-  kind: part-of
-  action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  disposition: unresolved
+  action: held
+  reason: 'C2: International Funds Management''s definition (concentrating units'' funds and
+    managing transfers among them) does not name monitoring rates, and the narrower serves
+    it as an input; whether it is a component or a dependency, as time reporting is for payroll,
+    is open'
 - narrower: BCC-60d672db
   broader: BCC-4fda51aa
   basis:
@@ -1192,7 +1220,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names accounting for and
+    reporting on its money, assets and obligations'
 - narrower: BCC-62e789bf
   broader: BCC-0fe1f7f0
   basis:
@@ -1200,8 +1229,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it; tranche
-    1 §5 kept it
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names what it owes its suppliers;
+    tranche 1 §5 kept it'
 - narrower: BCC-6587dedf
   broader: BCC-1cccc689
   basis:
@@ -1209,7 +1238,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names recording and collecting
+    what customers owe'
 - narrower: BCC-6ae95cc4
   broader: BCC-05445216
   basis:
@@ -1233,7 +1263,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: settling, lending and paying among its
+    units manages their cash positions and funding'
 - narrower: BCC-7757c12b
   broader: BCC-0ba10d44
   basis:
@@ -1241,7 +1272,9 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: setting the rules under which treasury
+    invests, borrows, hedges and handles cash is part of the treasury function''s work, in
+    the functional-component sense (CD16)'
 - narrower: BCC-792537f9
   broader: BCC-60d672db
   basis:
@@ -1249,7 +1282,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names preparing the financial
+    statements it reports'
 - narrower: BCC-7c04ea8a
   broader: BCC-132e1b29
   basis:
@@ -1258,7 +1292,9 @@ links:
   kind: kind-of
   action: kept
   reason: 'foreign exchange risk is one kind of financial risk: the object restricted. Reclassified
-    from the PCF reading'
+    from the PCF reading; C1 holds on the reading that the broader''s ''movements in financial
+    markets and in the standing of its counterparties'' lists sources of loss, not a conjunction
+    every instance must meet'
 - narrower: BCC-7c04ea8a
   broader: BCC-44f37d0e
   basis:
@@ -1284,7 +1320,7 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names designing controls'
 - narrower: BCC-85fbcb90
   broader: BCC-d95f68fd
   basis:
@@ -1301,7 +1337,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names planning its finances
+    and budgets'
 - narrower: BCC-87e3a26b
   broader: BCC-4fda51aa
   basis:
@@ -1309,7 +1346,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: concentrating its units'' funds is maintaining
+    the money it holds'
 - narrower: BCC-8a70a337
   broader: BCC-1cccc689
   basis:
@@ -1317,7 +1355,7 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names invoicing'
 - narrower: BCC-8b431985
   broader: BCC-60d672db
   basis:
@@ -1325,7 +1363,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names keeping its financial
+    records by accepted principles'
 - narrower: BCC-8b431985
   broader: BCC-81d8f125
   basis:
@@ -1358,7 +1397,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: spending on and accounting for capital
+    investments is spending and accounting for money it holds'
 - narrower: BCC-9511900a
   broader: BCC-62e789bf
   basis:
@@ -1382,15 +1422,17 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names accounting for capital
+    projects'
 - narrower: BCC-9b5ec2fd
   broader: BCC-0ba10d44
   basis:
   - hierarchy:INV-PCF74-16958<INV-PCF74-10734
-  disposition: retained
-  kind: part-of
-  action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  disposition: unresolved
+  action: held
+  reason: 'C2: Treasury Management''s definition (cash positions, liquidity, funding, exposures)
+    does not cover fraud and dispute cases; Financial Resource Management''s ''safeguard''
+    may, for a later review'
 - narrower: BCC-9b5ec2fd
   broader: BCC-d977a25e
   basis:
@@ -1423,15 +1465,16 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names managing cash positions'
 - narrower: BCC-a750d13a
   broader: BCC-a1c5454d
   basis:
   - hierarchy:INV-PCF74-10899<INV-PCF74-10759
-  disposition: retained
-  kind: part-of
-  action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  disposition: unresolved
+  action: held
+  reason: 'C2: Cash Management''s definition (tracking and moving cash among accounts) does
+    not cover choosing banks and sustaining dealings with them; the concept keeps its kind-of
+    link to Financial Intermediary Relationship Management'
 - narrower: BCC-aebe5ec1
   broader: BCC-749adb52
   basis:
@@ -1447,7 +1490,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: planning and controlling spending is
+    planning its finances and acting on its cost results'
 - narrower: BCC-b55668bc
   broader: BCC-5a4bc396
   basis:
@@ -1455,7 +1499,7 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names reporting on controls'
 - narrower: BCC-b7928257
   broader: BCC-05445216
   basis:
@@ -1472,15 +1516,16 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names extending credit'
 - narrower: BCC-bf62316a
   broader: BCC-87e3a26b
   basis:
   - hierarchy:INV-PCF74-10768<INV-PCF74-10737
-  disposition: retained
-  kind: part-of
-  action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  disposition: unresolved
+  action: held
+  reason: 'C2: cross-border transfers for trade and investment go beyond the transfers among
+    its own units that International Funds Management covers; the right broader (international
+    funds, trade payments, or payment processing) is open'
 - narrower: BCC-c4904759
   broader: BCC-1cccc689
   basis:
@@ -1488,7 +1533,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names collecting what customers
+    owe'
 - narrower: BCC-c5e7dca0
   broader: BCC-05445216
   basis:
@@ -1496,7 +1542,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names handling the documents
+    its trade requires'
 - narrower: BCC-c64ca466
   broader: BCC-4fda51aa
   basis:
@@ -1504,7 +1551,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: taxes are among the obligations it owes
+    and accounts for'
 - narrower: BCC-ca61edb4
   broader: BCC-4fda51aa
   basis:
@@ -1512,7 +1560,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: planning, measuring and reporting on
+    its finances is managing, accounting for and reporting on its money'
 - narrower: BCC-cd7f1007
   broader: BCC-05445216
   basis:
@@ -1520,7 +1569,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names conducting trade in
+    conformity with the trade rules, which export and import controls are'
 - narrower: BCC-ce052840
   broader: BCC-c64ca466
   basis:
@@ -1528,7 +1578,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names planning for its tax
+    obligations'
 - narrower: BCC-cebf0da8
   broader: BCC-1cccc689
   basis:
@@ -1536,7 +1587,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: resolving deductions settles what customers
+    owe, which the broader records and collects'
 - narrower: BCC-cedf0899
   broader: BCC-4b2ce5d3
   basis:
@@ -1553,7 +1605,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names analyzing financial
+    performance and acting on the results'
 - narrower: BCC-d105ff07
   broader: BCC-d95f68fd
   basis:
@@ -1569,15 +1622,17 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: the intermediaries are those it borrows
+    from and invests through, which the broader''s borrowing and investing require'
 - narrower: BCC-d71abe9a
   broader: BCC-a1c5454d
   basis:
   - hierarchy:INV-PCF74-10897<INV-PCF74-10759
-  disposition: retained
-  kind: part-of
-  action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  disposition: unresolved
+  action: held
+  reason: 'C2: Cash Management''s definition does not cover forecasting and influencing the
+    timing of inflows and outflows; Treasury Management''s ''liquidity'' may, when that pilot''s
+    definition is revised (R26)'
 - narrower: BCC-d95f68fd
   broader: BCC-12db59b1
   basis:
@@ -1601,8 +1656,9 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it; the
-    trade sense of the candidate (PCF 9.11.3)
+  reason: 'PCF hierarchy (supporting, C2); coverage: classifying goods under tariff and control
+    lists is conforming to the trade rules and handling duties; the trade sense of the candidate
+    (PCF 9.11.3)'
 - narrower: BCC-e1fa4843
   broader: BCC-a975ebc6
   basis:
@@ -1628,7 +1684,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: fixed-asset records are financial records
+    kept by accepted principles'
 - narrower: BCC-e8acc1f8
   broader: BCC-60d672db
   basis:
@@ -1636,7 +1693,9 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: setting the accounting policies by which
+    the records are kept is part of the financial-accounting function''s work, in the functional-component
+    sense (CD16)'
 - narrower: BCC-ea6d1c4a
   broader: BCC-0fe1f7f0
   basis:
@@ -1644,7 +1703,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: settling card accounts pays what it owes
+    for its members'' business expenses'
 - narrower: BCC-ec93ca56
   broader: BCC-0ba10d44
   basis:
@@ -1652,7 +1712,7 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names managing funding'
 - narrower: BCC-f6799472
   broader: BCC-05445216
   basis:
@@ -1660,7 +1720,8 @@ links:
   disposition: retained
   kind: part-of
   action: kept
-  reason: PCF hierarchy; the narrower's work is part of the broader's, not a kind of it
+  reason: 'PCF hierarchy (supporting, C2); coverage: screening against sanctions lists is
+    conducting trade in conformity with the trade rules'
 added_links:
 - narrower: BCC-a750d13a
   broader: BCC-d6966c88
@@ -1675,11 +1736,12 @@ added_links:
   broader: BCC-3e668a26
   basis:
   - 'review: docs/catalog/tranche-2.md, section 4'
-  disposition: retained
-  kind: kind-of
-  action: added
-  reason: 'an issuer whose obligations it holds is a counterparty: issuer credit exposure
-    is counterparty credit exposure with its object restricted'
+  disposition: unresolved
+  action: held
+  reason: 'C1 not met: Counterparty Credit Exposure Management''s definition includes securing
+    exposure with collateral, which exposure to the issuers of held obligations does not involve,
+    so not every instance of the narrower is an instance of the broader; a component reading
+    is not shown either'
 - narrower: BCC-87e3a26b
   broader: BCC-0ba10d44
   basis:
@@ -1720,8 +1782,7 @@ added_links:
   broader: BCC-81d8f125
   basis:
   - 'review: docs/catalog/tranche-2.md, section 4'
-  disposition: retained
-  kind: kind-of
-  action: added
-  reason: management accounting is accounting with its object restricted; the target is outside
-    the tranche
+  disposition: unresolved
+  action: held
+  reason: 'C1 not met: the concept plans and budgets as well as accounting, so it is not accounting
+    with its object restricted; the target is outside the tranche'

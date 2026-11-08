@@ -2,11 +2,11 @@
 
 | Field | Value |
 |---|---|
-| Status | **Accepted** as the working terminology baseline, subject to final artifact verification (`docs/decisions/2026-11-07-tranche-2-accepted-g1t-preparation-authorized.md`). Revision 2: the counts reconciled from the records (section 1a), the links in the Stage 03 standard's terms, and four readiness reasons corrected (section 5). Admits no class: G1-T admission, the Stage 03 standard's ratification and Stage 05 stay the architect's |
+| Status | **Accepted**, and its taxonomy **validated** under the ratified Stage 03 standard (`docs/decisions/2026-11-07-stage-03-ratified-g1t-review-authorized.md`). Revision 3: the gate's results (section 1a). Revision 2 reconciled the counts from the records and corrected four readiness reasons (`docs/decisions/2026-11-07-tranche-2-accepted-g1t-preparation-authorized.md`). Admits no class: G1-T admission and Stage 05 stay the architect's |
 | Date | 2026-11-07 |
 | Scope | `BCC-4fda51aa` and the 72 candidates beneath it, plus `BCC-ded8ed18` (PCF 9.8.2), which the generator's cycle-breaking left outside the walk |
-| Records | `docs/catalog/tranche-2-review.yaml` (every disposition and link, format 2); `docs/catalog/admission/G1T-T2-batch.md` (G1-T preparation for the 43 ready candidates); `docs/catalog/tranche-2-q12.md` (the Q-12 dependencies); `src/01_controlled_vocabulary/catalog.yaml` (the concepts); `docs/catalog/dispositions.yaml` (merges, rejections, pins) |
-| Standard | `docs/proposals/2026-11-07-stage-03-taxonomy-standard.md`, its rules approved and its text **submitted for ratification**: the links below are *classified*, not validated, until it is ratified |
+| Records | `docs/catalog/tranche-2-review.yaml` (every disposition and link, format 3); `docs/catalog/admission/G1T-T2-batch.md` (G1-T preparation for the 43 ready candidates); `docs/catalog/tranche-2-q12.md` (the Q-12 dependencies); `src/01_controlled_vocabulary/catalog.yaml` (the concepts); `docs/catalog/dispositions.yaml` (merges, rejections, pins) |
+| Standard | `docs/standards/stage-03-taxonomy.md`, **ratified** 2026-11-07 with two clarifications (C1, C2). The links below are *validated* under its gate (section 1a) |
 
 ## 1. The figures
 
@@ -15,9 +15,9 @@
 | Candidates dispositioned, of 72 | **72**: 63 accepted, 5 merged, 3 rejected, 1 deferred. The root and the 9.8.2 addition are accepted too |
 | Distinct normalized concepts | **65**: 64 new, and the pilot `bcoc:TreasuryManagement` revised (alternative label, broader, candidate). The vocabulary now holds 69 catalog concepts |
 | Definitions reviewed and accepted | **64 of 65**, after the synthetic domain review (section 4). The pilot Treasury Management keeps its definition, pending its next revision (R26). Payroll Processing and Accounts Payable Processing carry their signed tranche-1 definitions unchanged |
-| Proposed links | **89**, each with a disposition: 75 retained (60 kept, 4 of them reclassified from the PCF reading to `kind-of`; 2 retargeted; 3 with an end outside the tranche; 4 redundant; 6 carried by a merge), 11 incorrect, 3 unresolved |
-| Links added by review | **7**, all retained: 4 between tranche concepts, 3 to candidates outside the tranche |
-| `broader` written to the vocabulary | **66** = 60 kept + 2 retargeted + 4 added between tranche concepts; 59 `part-of` and 7 `kind-of` (section 1a) |
+| Proposed links | **89**, each with a disposition: 70 retained, 11 incorrect, 8 unresolved (section 1a, after the gate) |
+| Links added by review | **7**: 5 retained, 2 unresolved under C1 |
+| `broader` written to the vocabulary | **60**: 55 `part-of` and 5 `kind-of` (section 1a). 66 before the gate |
 | Ready for G1-T admission | **43** (section 5); 2 already admitted (T1-02, T1-03); 15 not ready; 5 capability areas not proposed |
 
 ## 1a. Reconciliation (revision 2)
@@ -39,14 +39,54 @@ Every figure here is counted from `docs/catalog/tranche-2-review.yaml` and
 
 | | Proposed | Added | Written as `broader` | Not written |
 |---|---|---|---|---|
-| Retained, `part-of` | 62 | 2 | 59 | 5: 1 outside, 4 carried by a merge |
-| Retained, `kind-of` | 13 | 5 | 7 | 11: 2 + 3 outside, 4 redundant, 2 carried by a merge |
+| Retained, `part-of` | 58 | 2 | 55 | 5: 1 outside, 4 carried by a merge |
+| Retained, `kind-of` | 12 | 3 | 5 | 10: 2 + 2 outside, 4 redundant, 2 carried by a merge |
 | Incorrect | 11 | — | — | 11: 3 homonyms, 2 containment artifacts, 1 reversed, 1 dependency, 4 rejected candidates |
-| Unresolved | 3 | — | — | 3: Internal Control and Global Trade Management under the root, and the deferred restitution candidate |
-| **Total** | **89** | **7** | **66** | **30** |
+| Unresolved | 8 | 2 | — | 10: Internal Control and Global Trade Management under the root, and the deferred restitution candidate; 5 `part-of` links that fail the coverage test (C2) and 2 `kind-of` links that fail C1 (below) |
+| **Total** | **89** | **7** | **60** | **36** |
 
-The proposed subclass relations are the 18 retained `kind-of` links, and only those
+The proposed subclass relations are the 15 retained `kind-of` links, and only those
 (standard, section 5). None is an axiom.
+
+**The Stage 03 gate (revision 3).** Applied on ratification, with its two clarifications:
+
+- **C2, the coverage test.** Every retained `part-of` link now records, in its reason, the
+  work in the broader's definition that the narrower does. The PCF hierarchy is cited as
+  supporting evidence only. Five links fail and are **unresolved**, their `broader` removed
+  from the vocabulary:
+  - International Rate Monitoring → International Funds Management (an input to it; a
+    component or a dependency is open);
+  - Cross-Border Funds Transfer Management → International Funds Management (transfers for
+    trade and investment go beyond transfers among its own units);
+  - Banking Relationship Management → Cash Management (it keeps its `kind-of` link to
+    Financial Intermediary Relationship Management);
+  - Cash Flow Management → Cash Management (timing of flows is not named; Treasury
+    Management's "liquidity" may cover it after R26);
+  - Financial Fraud and Dispute Case Management → Treasury Management (not named;
+    Financial Resource Management's "safeguard" may cover it).
+- **C1, genuine specialization.** Every retained `kind-of` link was re-tested for "every
+  instance of the narrower is an instance of the broader":
+  - Continuous Cost Improvement → Cost Management is **reclassified to `part-of`**: finding
+    cost reductions is part of cost management, not a kind of it;
+  - Issuer Credit Exposure → Counterparty Credit Exposure Management is **unresolved**: the
+    broader's definition includes securing exposure with collateral, which issuer exposure
+    does not involve;
+  - Financial Planning and Management Accounting → Accounting (outside the tranche) is
+    **unresolved**: it plans and budgets as well as accounts;
+  - the three Financial Risk Management children hold on the reading that its definition
+    lists sources of loss rather than a conjunction every instance must meet. The reason
+    of each link says so;
+  - the others hold, or are not written (redundant, merged, or outside the tranche, to be
+    confirmed when the target is curated).
+
+The other gate conditions hold: every link has a disposition; every retained link has a
+kind, a reason and a basis; the synthetic review left no unresolved substantive finding;
+the vocabulary's `broader` links equal the retained links section 4 of the standard writes;
+the validation gate passes. No definition was changed to make a link fit, and Internal
+Control and Global Trade Management stay unresolved under the root.
+
+The G1-T batch (`docs/catalog/admission/G1T-T2-batch.md`) was prepared before the gate. Its
+taxonomy sections show the links as they stood at `72401ef`.
 
 **What changed from revision 1.** Revision 1's figures stand, but four statements were
 inexact:
@@ -84,18 +124,18 @@ By batch. *Area* marks a broad or conjunctive capability area, not proposed for 
 |---|---|---|---|---|
 | `bcoc:FinancialResourceManagement` | Financial Resource Management *(area)* | BCC-4fda51aa | — | not proposed: a capability area |
 | `bcoc:InternationalFundsManagement` | International Funds Management | BCC-87e3a26b | Financial Resource Management, Treasury Management | not ready: no act type in its evidence |
-| `bcoc:InternationalRateMonitoring` | International Rate Monitoring | BCC-5dfa2101 | International Funds Management | ready |
-| `bcoc:CrossBorderFundsTransferManagement` | Cross-Border Funds Transfer Management | BCC-bf62316a | International Funds Management | ready |
+| `bcoc:InternationalRateMonitoring` | International Rate Monitoring | BCC-5dfa2101 | — (unresolved, C2) | ready |
+| `bcoc:CrossBorderFundsTransferManagement` | Cross-Border Funds Transfer Management | BCC-bf62316a | — (unresolved, C2) | ready |
 | `bcoc:TreasuryManagement` | Treasury Management | BCC-0ba10d44 | Financial Resource Management | not ready: Q-12 designating class; act types only through its components (section 5) |
 | `bcoc:CashManagement` | Cash Management | BCC-a1c5454d | Treasury Management | ready |
-| `bcoc:BankingRelationshipManagement` | Banking Relationship Management | BCC-a750d13a | Cash Management, Financial Intermediary Relationship Management | not ready: every act type in its evidence is typed under a capability class (Q-12) |
+| `bcoc:BankingRelationshipManagement` | Banking Relationship Management | BCC-a750d13a | Financial Intermediary Relationship Management | not ready: every act type in its evidence is typed under a capability class (Q-12) |
 | `bcoc:CashEquivalentManagement` | Cash Equivalent Management | BCC-314dba7d | Cash Management | not ready: every act type in its evidence is typed under a capability class (Q-12) |
-| `bcoc:CashFlowManagement` | Cash Flow Management | BCC-d71abe9a | Cash Management | not ready: every act type in its evidence is typed under a capability class (Q-12) |
+| `bcoc:CashFlowManagement` | Cash Flow Management | BCC-d71abe9a | — (unresolved, C2) | not ready: every act type in its evidence is typed under a capability class (Q-12) |
 | `bcoc:DebtAndInvestmentManagement` | Debt and Investment Management *(area)* | BCC-ec93ca56 | Treasury Management | not proposed: a capability area |
 | `bcoc:FinancialIntermediaryRelationshipManagement` | Financial Intermediary Relationship Management | BCC-d6966c88 | Debt and Investment Management | not ready: every act type in its evidence is typed under a capability class (Q-12) |
-| `bcoc:IssuerCreditExposureManagement` | Issuer Credit Exposure Management | BCC-13b94120 | Debt and Investment Management, Counterparty Credit Exposure Management | not ready: every act type in its evidence is typed under a capability class (Q-12) |
+| `bcoc:IssuerCreditExposureManagement` | Issuer Credit Exposure Management | BCC-13b94120 | Debt and Investment Management | not ready: every act type in its evidence is typed under a capability class (Q-12) |
 | `bcoc:LiquidityManagement` | Liquidity Management | BCC-4464d04f | Treasury Management | not ready: every act type in its evidence is typed under a capability class (Q-12) |
-| `bcoc:FinancialFraudAndDisputeCaseManagement` | Financial Fraud and Dispute Case Management | BCC-9b5ec2fd | Treasury Management | not ready: every act type in its evidence is typed under a capability class (Q-12) |
+| `bcoc:FinancialFraudAndDisputeCaseManagement` | Financial Fraud and Dispute Case Management | BCC-9b5ec2fd | — (unresolved, C2) | not ready: every act type in its evidence is typed under a capability class (Q-12) |
 | `bcoc:InHouseBankAccountManagement` | In-House Bank Account Management | BCC-749adb52, BCC-aebe5ec1 | Treasury Management | ready |
 | `bcoc:FinancialRiskManagement` | Financial Risk Management | BCC-132e1b29 | Treasury Management | ready |
 | `bcoc:CounterpartyCreditExposureManagement` | Counterparty Credit Exposure Management | BCC-3e668a26 | Financial Risk Management | ready |

@@ -1,9 +1,9 @@
 # Ontology Development Standard
-## Stage 03 — Taxonomy (submitted for ratification)
+## Stage 03 — Taxonomy
 
 | Field | Value |
 |---|---|
-| Status | **Submitted for ratification**. Its rules were approved on 2026-11-07 (`docs/decisions/2026-11-07-tranche-2-accepted-g1t-preparation-authorized.md`, A2), and this text is aligned with them. Until the text is ratified, no taxonomy relationship is *validated*: a link reviewed under it is *classified*. On ratification, this text moves unchanged to `docs/standards/stage-03-taxonomy.md` |
+| Status | **Ratified** on 2026-11-07, with two binding clarifications (`docs/decisions/2026-11-07-stage-03-ratified-g1t-review-authorized.md`, A1), which section 2 records and sections 3 and 6 apply. The text submitted for ratification was `docs/proposals/2026-11-07-stage-03-taxonomy-standard.md` at `72401ef`; its rules were approved earlier the same day (`docs/decisions/2026-11-07-tranche-2-accepted-g1t-preparation-authorized.md`, A2). A substantive change is a new, reviewed version |
 | Date | 2026-11-07 (first proposed under `docs/decisions/2026-11-07-curation-tranche-2-approved.md`, A3; aligned the same day) |
 | Drafted by | Claude Code (`claude-opus-5-5`), for the BCO team |
 | Applies to | The `broader` links of the controlled vocabulary's catalog concepts (`src/01_controlled_vocabulary/catalog.yaml`), and the structured review records that classify them (`docs/catalog/tranche-<n>-review.yaml`) |
@@ -32,14 +32,24 @@ These are the architect's rules of 2026-11-07, as approved. The sections below a
 5. Every retained relationship requires provenance and a recorded justification.
 6. Unresolved relationships remain unresolved rather than being forced into the taxonomy.
 
+**Binding clarifications** (ratification, 2026-11-07). They add no relationship kind:
+
+- **C1.** A `kind-of` relationship requires genuine specialization of the capability
+  disposition: every instance of the narrower capability type must also be an instance of
+  the broader type. Shared terminology, bearer similarities and realization-index overlap
+  alone do not establish subclasshood.
+- **C2.** A source hierarchy is supporting evidence for a proposed functional-component
+  (`part-of`) relationship, not sufficient proof by itself. The relationship must also
+  satisfy the conceptual coverage test.
+
 ## 3. Relationship kinds
 
 A retained link has exactly one of two kinds. There are no others.
 
 | Kind | Meaning | Test | What it may become at Stage 05 |
 |---|---|---|---|
-| **`kind-of`** | Proposed specialization: every exercise of the narrower capability is an exercise of the broader. The narrower is the broader with its object or manner restricted ("foreign exchange risk management" under "financial risk management") | Substitution: "an organization able to do N is, by that ability, able to do B" holds for any bearer. The narrower's differentia adds a restriction and removes nothing | A *proposal* for `rdfs:subClassOf`, considered only after G1-T for both classes and the formalization review (CD9). A `kind-of` link asserts no subclass axiom |
-| **`part-of`** | Reviewed partitive or functional component: the narrower is one of the abilities the broader's work comprises, and not a kind of it ("cash management" within "treasury management"). Catalog hierarchies such as PCF's are mostly built this way | Coverage: exercising N is doing part of B's work, but having N alone is not having B | Never a subclass axiom, and not by itself BFO continuant parthood between the dispositions. Any formal reading is a Stage 05 decision of its own; where CD16 applies, the link is recorded in the functional-coverage register |
+| **`kind-of`** | Proposed specialization: every exercise of the narrower capability is an exercise of the broader. The narrower is the broader with its object or manner restricted ("foreign exchange risk management" under "financial risk management") | Substitution: "an organization able to do N is, by that ability, able to do B" holds for any bearer, so that every instance of the narrower disposition is an instance of the broader (C1). The narrower's differentia adds a restriction and removes nothing; where the broader's definition is a conjunction, the narrower must meet every conjunct. Shared words, a shared bearer kind or overlapping indexes are not enough | A *proposal* for `rdfs:subClassOf`, considered only after G1-T for both classes and the formalization review (CD9). A `kind-of` link asserts no subclass axiom |
+| **`part-of`** | Reviewed partitive or functional component: the narrower is one of the abilities the broader's work comprises, and not a kind of it ("cash management" within "treasury management"). Catalog hierarchies such as PCF's are mostly built this way | Coverage: exercising N is doing part of B's work, as B's definition states that work, but having N alone is not having B. A source hierarchy supports the link and does not prove it (C2) | Never a subclass axiom, and not by itself BFO continuant parthood between the dispositions. Any formal reading is a Stage 05 decision of its own; where CD16 applies, the link is recorded in the functional-coverage register |
 
 ## 4. Review dispositions
 
@@ -82,12 +92,12 @@ Every retained link has a recorded justification (`reason`) and provenance (rule
 
 | Disposition and kind | Evidence required |
 |---|---|
-| retained, `kind-of` | The two definitions, showing the restriction. Where the classes have realization indexes, the narrower's admissible acts fall under the broader's |
-| retained, `part-of` | A source hierarchy (record and locator), or the broader's definition naming the work, and the coverage test |
+| retained, `kind-of` | The two definitions, showing the restriction and that every instance of the narrower is an instance of the broader (C1). Overlapping realization indexes may support this, never establish it |
+| retained, `part-of` | The coverage test, recorded in the link's reason by naming the work in the broader's definition that the narrower does (C2). A source hierarchy (record and locator) supports it, and is never enough alone |
 | incorrect | The reason, with the definitions or source records that show it |
 | unresolved | What is missing, and what would resolve it |
 
-A source hierarchy alone is evidence for `part-of`, never for `kind-of`. A link proposed
+A source hierarchy is supporting evidence for `part-of`, never proof of it, and no evidence for `kind-of`. A link proposed
 only by object containment (shared label words) needs one of the definition tests before it
 is retained.
 

@@ -67,7 +67,7 @@ bcoc:AccountsReceivableProcessing skos:inScheme bcoc:CapabilityCatalogScheme .
 bcoc:AccountsReceivableProcessing skos:prefLabel "Accounts Receivable Processing"@en .
 
 bcoc:BankingRelationshipManagement bco:catalogCandidate "BCC-a750d13a" .
-bcoc:BankingRelationshipManagement bco:currentRecord bcoc:record-43eeabc339a0122c6181b2635b2c5a4bf88b6181b64472e20eaa115cdc0403c8 .
+bcoc:BankingRelationshipManagement bco:currentRecord bcoc:record-9cc83c6f22004200c4fde0affe1d1e9a56dc1aa475158ae9be40e1cc0a26967d .
 bcoc:BankingRelationshipManagement bco:definitionGenus bco:BusinessCapability .
 bcoc:BankingRelationshipManagement bco:foundationalAncestor cco:ont00000568 .
 bcoc:BankingRelationshipManagement bco:lifecycleStatus "Draft" .
@@ -76,7 +76,6 @@ bcoc:BankingRelationshipManagement bco:sourceReference bcoc:source-494614b2688ef
 bcoc:BankingRelationshipManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
 bcoc:BankingRelationshipManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
 bcoc:BankingRelationshipManagement rdf:type skos:Concept .
-bcoc:BankingRelationshipManagement skos:broader bcoc:CashManagement .
 bcoc:BankingRelationshipManagement skos:broader bcoc:FinancialIntermediaryRelationshipManagement .
 bcoc:BankingRelationshipManagement skos:definition "A business capability of an organization to choose the banks it works with and sustain its dealings with each over time, including the accounts, services and terms it has with them, grounded in the organization's members as organized."@en .
 bcoc:BankingRelationshipManagement skos:inScheme bcoc:CapabilityCatalogScheme .
@@ -164,7 +163,7 @@ bcoc:CashEquivalentManagement skos:inScheme bcoc:CapabilityCatalogScheme .
 bcoc:CashEquivalentManagement skos:prefLabel "Cash Equivalent Management"@en .
 
 bcoc:CashFlowManagement bco:catalogCandidate "BCC-d71abe9a" .
-bcoc:CashFlowManagement bco:currentRecord bcoc:record-ef91297b9a1dd928f5f187d6939e2b9d2b563c86d8ea58fbef7172170dbdacb8 .
+bcoc:CashFlowManagement bco:currentRecord bcoc:record-f2ec5680a35493b0a11f561144c0ded122d542ab48f4404ca83de44562db6933 .
 bcoc:CashFlowManagement bco:definitionGenus bco:BusinessCapability .
 bcoc:CashFlowManagement bco:foundationalAncestor cco:ont00000568 .
 bcoc:CashFlowManagement bco:lifecycleStatus "Draft" .
@@ -173,7 +172,6 @@ bcoc:CashFlowManagement bco:sourceReference bcoc:source-b91d0abbfea77733b4416ba5
 bcoc:CashFlowManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
 bcoc:CashFlowManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
 bcoc:CashFlowManagement rdf:type skos:Concept .
-bcoc:CashFlowManagement skos:broader bcoc:CashManagement .
 bcoc:CashFlowManagement skos:definition "A business capability of an organization to forecast and influence the timing of the money coming into and going out of it, so that its inflows and outflows fit the obligations it has to meet, grounded in the organization's members as organized."@en .
 bcoc:CashFlowManagement skos:inScheme bcoc:CapabilityCatalogScheme .
 bcoc:CashFlowManagement skos:prefLabel "Cash Flow Management"@en .
@@ -302,7 +300,7 @@ bcoc:CounterpartyCreditExposureManagement skos:inScheme bcoc:CapabilityCatalogSc
 bcoc:CounterpartyCreditExposureManagement skos:prefLabel "Counterparty Credit Exposure Management"@en .
 
 bcoc:CrossBorderFundsTransferManagement bco:catalogCandidate "BCC-bf62316a" .
-bcoc:CrossBorderFundsTransferManagement bco:currentRecord bcoc:record-fef7d37d55d9a3f1a3c34a23a5d4fa787e16e438f72166f0ca14647b2024ed6a .
+bcoc:CrossBorderFundsTransferManagement bco:currentRecord bcoc:record-7d28476b319f61682d966ad8a1bf88f42a9315974526ca489a43460ee8e03b27 .
 bcoc:CrossBorderFundsTransferManagement bco:definitionGenus bco:BusinessCapability .
 bcoc:CrossBorderFundsTransferManagement bco:foundationalAncestor cco:ont00000568 .
 bcoc:CrossBorderFundsTransferManagement bco:lifecycleStatus "Draft" .
@@ -311,7 +309,6 @@ bcoc:CrossBorderFundsTransferManagement bco:sourceReference bcoc:source-3c7c642f
 bcoc:CrossBorderFundsTransferManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
 bcoc:CrossBorderFundsTransferManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
 bcoc:CrossBorderFundsTransferManagement rdf:type skos:Concept .
-bcoc:CrossBorderFundsTransferManagement skos:broader bcoc:InternationalFundsManagement .
 bcoc:CrossBorderFundsTransferManagement skos:definition "A business capability of an organization to move money across borders for its trade and investments, converting between currencies and choosing the means of payment, grounded in the organization's members as organized."@en .
 bcoc:CrossBorderFundsTransferManagement skos:inScheme bcoc:CapabilityCatalogScheme .
 bcoc:CrossBorderFundsTransferManagement skos:prefLabel "Cross-Border Funds Transfer Management"@en .
@@ -455,7 +452,7 @@ bcoc:FinancialAccounting skos:inScheme bcoc:CapabilityCatalogScheme .
 bcoc:FinancialAccounting skos:prefLabel "Financial Accounting"@en .
 
 bcoc:FinancialFraudAndDisputeCaseManagement bco:catalogCandidate "BCC-9b5ec2fd" .
-bcoc:FinancialFraudAndDisputeCaseManagement bco:currentRecord bcoc:record-f2f128c763438550548293873cd156a2eefebda5532ea32064a8e50711905f79 .
+bcoc:FinancialFraudAndDisputeCaseManagement bco:currentRecord bcoc:record-ec0e83b4ae59f57aafd2771941e936aaeb6e4e03649c427c90fba19f3be69a81 .
 bcoc:FinancialFraudAndDisputeCaseManagement bco:definitionGenus bco:BusinessCapability .
 bcoc:FinancialFraudAndDisputeCaseManagement bco:foundationalAncestor cco:ont00000568 .
 bcoc:FinancialFraudAndDisputeCaseManagement bco:lifecycleStatus "Draft" .
@@ -464,7 +461,6 @@ bcoc:FinancialFraudAndDisputeCaseManagement bco:sourceReference bcoc:source-5a1e
 bcoc:FinancialFraudAndDisputeCaseManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
 bcoc:FinancialFraudAndDisputeCaseManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
 bcoc:FinancialFraudAndDisputeCaseManagement rdf:type skos:Concept .
-bcoc:FinancialFraudAndDisputeCaseManagement skos:broader bcoc:TreasuryManagement .
 bcoc:FinancialFraudAndDisputeCaseManagement skos:definition "A business capability of an organization to take in cases of suspected financial fraud and of disputed financial transactions, investigate each, and resolve or refer it, grounded in the organization's members as organized."@en .
 bcoc:FinancialFraudAndDisputeCaseManagement skos:inScheme bcoc:CapabilityCatalogScheme .
 bcoc:FinancialFraudAndDisputeCaseManagement skos:prefLabel "Financial Fraud and Dispute Case Management"@en .
@@ -774,7 +770,7 @@ bcoc:InternationalFundsManagement skos:inScheme bcoc:CapabilityCatalogScheme .
 bcoc:InternationalFundsManagement skos:prefLabel "International Funds Management"@en .
 
 bcoc:InternationalRateMonitoring bco:catalogCandidate "BCC-5dfa2101" .
-bcoc:InternationalRateMonitoring bco:currentRecord bcoc:record-e5e9bc6fcfdd5701be72dd36d9e901b3e8b144463b2dfa2f51eded3d50e91a40 .
+bcoc:InternationalRateMonitoring bco:currentRecord bcoc:record-768596eaf4e876ad90684fc805c2ea1e07731df3a528e6b1fb15a8fea9619808 .
 bcoc:InternationalRateMonitoring bco:definitionGenus bco:BusinessCapability .
 bcoc:InternationalRateMonitoring bco:foundationalAncestor cco:ont00000568 .
 bcoc:InternationalRateMonitoring bco:lifecycleStatus "Draft" .
@@ -783,13 +779,12 @@ bcoc:InternationalRateMonitoring bco:sourceReference bcoc:source-d0090f941768179
 bcoc:InternationalRateMonitoring dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
 bcoc:InternationalRateMonitoring prov:wasAttributedTo bcoa:claude-opus-5-5 .
 bcoc:InternationalRateMonitoring rdf:type skos:Concept .
-bcoc:InternationalRateMonitoring skos:broader bcoc:InternationalFundsManagement .
 bcoc:InternationalRateMonitoring skos:definition "A business capability of an organization to follow the exchange and interest rates in the markets where it operates and bring them to those who manage its international funds, grounded in the organization's members as organized."@en .
 bcoc:InternationalRateMonitoring skos:inScheme bcoc:CapabilityCatalogScheme .
 bcoc:InternationalRateMonitoring skos:prefLabel "International Rate Monitoring"@en .
 
 bcoc:IssuerCreditExposureManagement bco:catalogCandidate "BCC-13b94120" .
-bcoc:IssuerCreditExposureManagement bco:currentRecord bcoc:record-89dbb92ce5f04e51d5c08c76246778810824429017e2e71c8a03615a15148ba7 .
+bcoc:IssuerCreditExposureManagement bco:currentRecord bcoc:record-c049ba1c6f5de7b094b054daabcec0d55b44fef08e6656ce691a042b102b1fa7 .
 bcoc:IssuerCreditExposureManagement bco:definitionGenus bco:BusinessCapability .
 bcoc:IssuerCreditExposureManagement bco:foundationalAncestor cco:ont00000568 .
 bcoc:IssuerCreditExposureManagement bco:lifecycleStatus "Draft" .
@@ -799,7 +794,6 @@ bcoc:IssuerCreditExposureManagement dcterms:created "2026-11-07T18:00:00+00:00"^
 bcoc:IssuerCreditExposureManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
 bcoc:IssuerCreditExposureManagement rdf:type skos:Concept .
 bcoc:IssuerCreditExposureManagement skos:altLabel "Issuer Exposure Management"@en .
-bcoc:IssuerCreditExposureManagement skos:broader bcoc:CounterpartyCreditExposureManagement .
 bcoc:IssuerCreditExposureManagement skos:broader bcoc:DebtAndInvestmentManagement .
 bcoc:IssuerCreditExposureManagement skos:definition "A business capability of an organization to measure and limit how much of its funds is exposed to the failure of any one issuer or borrower whose obligations it holds, grounded in the organization's members as organized."@en .
 bcoc:IssuerCreditExposureManagement skos:inScheme bcoc:CapabilityCatalogScheme .
@@ -1190,9 +1184,6 @@ bcoc:record-4032a5e7c5ec955323f98b47908641331e3fa6db6ad7bc3776248cf56db47927 rdf
 bcoc:record-42d2633177a34ed2a3f0972f4c255bcc56fcf1517202e479a322da8da32f539f bco:recordSha256 "42d2633177a34ed2a3f0972f4c255bcc56fcf1517202e479a322da8da32f539f" .
 bcoc:record-42d2633177a34ed2a3f0972f4c255bcc56fcf1517202e479a322da8da32f539f rdf:type prov:Entity .
 
-bcoc:record-43eeabc339a0122c6181b2635b2c5a4bf88b6181b64472e20eaa115cdc0403c8 bco:recordSha256 "43eeabc339a0122c6181b2635b2c5a4bf88b6181b64472e20eaa115cdc0403c8" .
-bcoc:record-43eeabc339a0122c6181b2635b2c5a4bf88b6181b64472e20eaa115cdc0403c8 rdf:type prov:Entity .
-
 bcoc:record-46affa6ede38f32abc36f824c9ad4398ac22f71200775ee55c6c1728085736c5 bco:recordSha256 "46affa6ede38f32abc36f824c9ad4398ac22f71200775ee55c6c1728085736c5" .
 bcoc:record-46affa6ede38f32abc36f824c9ad4398ac22f71200775ee55c6c1728085736c5 rdf:type prov:Entity .
 
@@ -1242,11 +1233,17 @@ bcoc:record-6819bb4df5c99a0fb3d7f18ab6b3134c15874d21b70797594a621eee9103c6f0 rdf
 bcoc:record-747b4d9def9e2415162dfef27525be4a74349a044e345a7af11ddad8fc70f162 bco:recordSha256 "747b4d9def9e2415162dfef27525be4a74349a044e345a7af11ddad8fc70f162" .
 bcoc:record-747b4d9def9e2415162dfef27525be4a74349a044e345a7af11ddad8fc70f162 rdf:type prov:Entity .
 
+bcoc:record-768596eaf4e876ad90684fc805c2ea1e07731df3a528e6b1fb15a8fea9619808 bco:recordSha256 "768596eaf4e876ad90684fc805c2ea1e07731df3a528e6b1fb15a8fea9619808" .
+bcoc:record-768596eaf4e876ad90684fc805c2ea1e07731df3a528e6b1fb15a8fea9619808 rdf:type prov:Entity .
+
 bcoc:record-76db9f3f639ca399378c9ef2bfe195f8ba42aaccc63961d9b4f7df71c865ad09 bco:recordSha256 "76db9f3f639ca399378c9ef2bfe195f8ba42aaccc63961d9b4f7df71c865ad09" .
 bcoc:record-76db9f3f639ca399378c9ef2bfe195f8ba42aaccc63961d9b4f7df71c865ad09 rdf:type prov:Entity .
 
 bcoc:record-789c5f6928c7be633ff21b156b7aa2092a166c864b0a7917a612bc23afba4de0 bco:recordSha256 "789c5f6928c7be633ff21b156b7aa2092a166c864b0a7917a612bc23afba4de0" .
 bcoc:record-789c5f6928c7be633ff21b156b7aa2092a166c864b0a7917a612bc23afba4de0 rdf:type prov:Entity .
+
+bcoc:record-7d28476b319f61682d966ad8a1bf88f42a9315974526ca489a43460ee8e03b27 bco:recordSha256 "7d28476b319f61682d966ad8a1bf88f42a9315974526ca489a43460ee8e03b27" .
+bcoc:record-7d28476b319f61682d966ad8a1bf88f42a9315974526ca489a43460ee8e03b27 rdf:type prov:Entity .
 
 bcoc:record-7d60551d087070a4383f53e766124ce3ffa64328a5a0dd08654e1b590bba9e91 bco:recordSha256 "7d60551d087070a4383f53e766124ce3ffa64328a5a0dd08654e1b590bba9e91" .
 bcoc:record-7d60551d087070a4383f53e766124ce3ffa64328a5a0dd08654e1b590bba9e91 rdf:type prov:Entity .
@@ -1257,9 +1254,6 @@ bcoc:record-848bcd712735b60d46cf54564456c9c8ee00dde855881c3497fd3ad6d6a74d88 rdf
 
 bcoc:record-84e3c1a7ea9b2743db2f7ed54ce1d2d835be92c3551dbc6e439496d307abe718 bco:recordSha256 "84e3c1a7ea9b2743db2f7ed54ce1d2d835be92c3551dbc6e439496d307abe718" .
 bcoc:record-84e3c1a7ea9b2743db2f7ed54ce1d2d835be92c3551dbc6e439496d307abe718 rdf:type prov:Entity .
-
-bcoc:record-89dbb92ce5f04e51d5c08c76246778810824429017e2e71c8a03615a15148ba7 bco:recordSha256 "89dbb92ce5f04e51d5c08c76246778810824429017e2e71c8a03615a15148ba7" .
-bcoc:record-89dbb92ce5f04e51d5c08c76246778810824429017e2e71c8a03615a15148ba7 rdf:type prov:Entity .
 
 bcoc:record-8d0150daec3fbcfadd89848b6d9c62f329f7ff77dde1e94b925def26be4d219a bco:recordSha256 "8d0150daec3fbcfadd89848b6d9c62f329f7ff77dde1e94b925def26be4d219a" .
 bcoc:record-8d0150daec3fbcfadd89848b6d9c62f329f7ff77dde1e94b925def26be4d219a rdf:type prov:Entity .
@@ -1287,6 +1281,9 @@ bcoc:record-9c3c13a1645216148bb897e961e8cf19779331e8f7bcfa55b10c26967668e45d bco
 bcoc:record-9c3c13a1645216148bb897e961e8cf19779331e8f7bcfa55b10c26967668e45d prov:wasRevisionOf bcoc:record-4c2d61cc457cb92bbcb61d38ae06c2d901cf4245d0333149209c4046813e1dd2 .
 bcoc:record-9c3c13a1645216148bb897e961e8cf19779331e8f7bcfa55b10c26967668e45d rdf:type prov:Entity .
 
+bcoc:record-9cc83c6f22004200c4fde0affe1d1e9a56dc1aa475158ae9be40e1cc0a26967d bco:recordSha256 "9cc83c6f22004200c4fde0affe1d1e9a56dc1aa475158ae9be40e1cc0a26967d" .
+bcoc:record-9cc83c6f22004200c4fde0affe1d1e9a56dc1aa475158ae9be40e1cc0a26967d rdf:type prov:Entity .
+
 bcoc:record-9f549c0085afe1da676f3305cafe920f7a26f0e67b448a559cd6b00e424f1b1b bco:recordSha256 "9f549c0085afe1da676f3305cafe920f7a26f0e67b448a559cd6b00e424f1b1b" .
 bcoc:record-9f549c0085afe1da676f3305cafe920f7a26f0e67b448a559cd6b00e424f1b1b rdf:type prov:Entity .
 
@@ -1308,6 +1305,9 @@ bcoc:record-be402280b2f3b07028701f2587b48052a6eba818267a49ef2346cec616044b96 rdf
 
 bcoc:record-c005bde58329c3929abf16a3874b14e076ced6c2983464e2ecd00ab4ed505474 bco:recordSha256 "c005bde58329c3929abf16a3874b14e076ced6c2983464e2ecd00ab4ed505474" .
 bcoc:record-c005bde58329c3929abf16a3874b14e076ced6c2983464e2ecd00ab4ed505474 rdf:type prov:Entity .
+
+bcoc:record-c049ba1c6f5de7b094b054daabcec0d55b44fef08e6656ce691a042b102b1fa7 bco:recordSha256 "c049ba1c6f5de7b094b054daabcec0d55b44fef08e6656ce691a042b102b1fa7" .
+bcoc:record-c049ba1c6f5de7b094b054daabcec0d55b44fef08e6656ce691a042b102b1fa7 rdf:type prov:Entity .
 
 bcoc:record-cc7fd93b2e0270c694689188f4904cc035dfbb2f5010ab54d718db87d51ad58b bco:recordSha256 "cc7fd93b2e0270c694689188f4904cc035dfbb2f5010ab54d718db87d51ad58b" .
 bcoc:record-cc7fd93b2e0270c694689188f4904cc035dfbb2f5010ab54d718db87d51ad58b rdf:type prov:Entity .
@@ -1349,20 +1349,17 @@ bcoc:record-e0a97e6d54331a46a3808b6bc3afd7fce9b9773421efa185653149f16d40bd79 rdf
 bcoc:record-e4faf22c021be840fdd2a1cd442eac0ab0c976f70697d255f5740f7994919c85 bco:recordSha256 "e4faf22c021be840fdd2a1cd442eac0ab0c976f70697d255f5740f7994919c85" .
 bcoc:record-e4faf22c021be840fdd2a1cd442eac0ab0c976f70697d255f5740f7994919c85 rdf:type prov:Entity .
 
-bcoc:record-e5e9bc6fcfdd5701be72dd36d9e901b3e8b144463b2dfa2f51eded3d50e91a40 bco:recordSha256 "e5e9bc6fcfdd5701be72dd36d9e901b3e8b144463b2dfa2f51eded3d50e91a40" .
-bcoc:record-e5e9bc6fcfdd5701be72dd36d9e901b3e8b144463b2dfa2f51eded3d50e91a40 rdf:type prov:Entity .
-
 bcoc:record-e888f151ffbc72dc72ad6c2574edf94b23c719393771a513c188460d7bc1f5c3 bco:recordSha256 "e888f151ffbc72dc72ad6c2574edf94b23c719393771a513c188460d7bc1f5c3" .
 bcoc:record-e888f151ffbc72dc72ad6c2574edf94b23c719393771a513c188460d7bc1f5c3 rdf:type prov:Entity .
+
+bcoc:record-ec0e83b4ae59f57aafd2771941e936aaeb6e4e03649c427c90fba19f3be69a81 bco:recordSha256 "ec0e83b4ae59f57aafd2771941e936aaeb6e4e03649c427c90fba19f3be69a81" .
+bcoc:record-ec0e83b4ae59f57aafd2771941e936aaeb6e4e03649c427c90fba19f3be69a81 rdf:type prov:Entity .
 
 bcoc:record-eee8ad6a36343a04a02b477f265e47c5de80e7ad18ace551435cb74b686c5141 bco:recordSha256 "eee8ad6a36343a04a02b477f265e47c5de80e7ad18ace551435cb74b686c5141" .
 bcoc:record-eee8ad6a36343a04a02b477f265e47c5de80e7ad18ace551435cb74b686c5141 rdf:type prov:Entity .
 
-bcoc:record-ef91297b9a1dd928f5f187d6939e2b9d2b563c86d8ea58fbef7172170dbdacb8 bco:recordSha256 "ef91297b9a1dd928f5f187d6939e2b9d2b563c86d8ea58fbef7172170dbdacb8" .
-bcoc:record-ef91297b9a1dd928f5f187d6939e2b9d2b563c86d8ea58fbef7172170dbdacb8 rdf:type prov:Entity .
-
-bcoc:record-f2f128c763438550548293873cd156a2eefebda5532ea32064a8e50711905f79 bco:recordSha256 "f2f128c763438550548293873cd156a2eefebda5532ea32064a8e50711905f79" .
-bcoc:record-f2f128c763438550548293873cd156a2eefebda5532ea32064a8e50711905f79 rdf:type prov:Entity .
+bcoc:record-f2ec5680a35493b0a11f561144c0ded122d542ab48f4404ca83de44562db6933 bco:recordSha256 "f2ec5680a35493b0a11f561144c0ded122d542ab48f4404ca83de44562db6933" .
+bcoc:record-f2ec5680a35493b0a11f561144c0ded122d542ab48f4404ca83de44562db6933 rdf:type prov:Entity .
 
 bcoc:record-f32f3c25461cb2b3adf8eb70dcc8bd02a746e2eed40c9d53a14866e9bab9897d bco:recordCommit "137ce619fec7e7073c5a2dc53d0aadf561453555" .
 bcoc:record-f32f3c25461cb2b3adf8eb70dcc8bd02a746e2eed40c9d53a14866e9bab9897d bco:recordSha256 "f32f3c25461cb2b3adf8eb70dcc8bd02a746e2eed40c9d53a14866e9bab9897d" .
@@ -1385,9 +1382,6 @@ bcoc:record-f9f7c4274d6728aeb4315418d2752b36a707df953547272bd2bd8a3bf911e9a5 rdf
 
 bcoc:record-fb5d4e1f8541402b1de97d78b9d07fa512dc65f96210a8fb9bd1f147fcf68dbd bco:recordSha256 "fb5d4e1f8541402b1de97d78b9d07fa512dc65f96210a8fb9bd1f147fcf68dbd" .
 bcoc:record-fb5d4e1f8541402b1de97d78b9d07fa512dc65f96210a8fb9bd1f147fcf68dbd rdf:type prov:Entity .
-
-bcoc:record-fef7d37d55d9a3f1a3c34a23a5d4fa787e16e438f72166f0ca14647b2024ed6a bco:recordSha256 "fef7d37d55d9a3f1a3c34a23a5d4fa787e16e438f72166f0ca14647b2024ed6a" .
-bcoc:record-fef7d37d55d9a3f1a3c34a23a5d4fa787e16e438f72166f0ca14647b2024ed6a rdf:type prov:Entity .
 
 bcoc:source-07166bbaa316f93fbf41f0b3b2a80f27e5373b2c57e06a4865f800281f1c9a05 bco:citesSource bcos:SRC-IND-01 .
 bcoc:source-07166bbaa316f93fbf41f0b3b2a80f27e5373b2c57e06a4865f800281f1c9a05 bco:locator "PCF 7.4 element 11209 (hierarchy 9.7.5.2), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-11209; catalog candidate BCC-0564598d" .
