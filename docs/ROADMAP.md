@@ -27,6 +27,7 @@ property, subclass axiom or vocabulary ratification is authorized by it.
 | 2, amended | 2026-11-07 | Semantic-curation tranche 2 approved and curated (`docs/decisions/2026-11-07-curation-tranche-2-approved.md`); the Stage 03 standard proposed (`docs/proposals/2026-11-07-stage-03-taxonomy-standard.md`). The Stage 01 row says so |
 | 2, amended | 2026-11-07 | Tranche 2 accepted as the working terminology baseline (`docs/decisions/2026-11-07-tranche-2-accepted-g1t-preparation-authorized.md`); the Stage 03 standard's rules approved and its text submitted for ratification; G1-T preparation for the 43 ready candidates (`docs/catalog/admission/G1T-T2-batch.md`), unsigned; Q-12 deferred (`docs/catalog/tranche-2-q12.md`) |
 | 2, amended | 2026-11-07 | Stage 03 standard ratified with two clarifications (`docs/decisions/2026-11-07-stage-03-ratified-g1t-review-authorized.md`), published as `docs/standards/stage-03-taxonomy.md`; tranche 2's taxonomy validated under its gate; independent G1-T review of the 43 authorized. The Stage 03 rows say so |
+| 2, amended | 2026-11-07 | Independent G1-T review of tranche 2's 43 (`docs/decisions/2026-11-07-stage-03-ratified-g1t-review-authorized.md`, B): 33 PASS, 10 pending, 0 FAIL; records corrected (revision 2) and one batch admission recommendation (`docs/catalog/admission/G1T-T2-recommendation.md`); the Q-12 upstream issue recommended (`docs/proposals/2026-11-07-bpo-q12-issue-recommendation.md`). Nothing admitted |
 
 It replaces HANDOFF §7, which dated from the repository's setup.
 

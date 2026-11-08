@@ -676,7 +676,12 @@ components:
       G1T-T1-review-2026-11-05.md is an independent AI-authored review of the
       three drafts, filed verbatim as received; it is not a signature.
       G1T-T2-batch.md prepares tranche 2's 43 ready classes for one batch
-      review (decision of 2026-11-07, A3), unsigned. Nothing here asserts OWL.
+      review (decision of 2026-11-07, A3), unsigned; its revision 2 applies
+      the independent review's record corrections.
+      G1T-T2-review-2026-11-07.md is that independent AI-authored review,
+      filed verbatim as received; it is not a signature.
+      G1T-T2-recommendation.md consolidates it into one batch admission
+      recommendation for the architect. Nothing here asserts OWL.
 
   - id: catalog.dispositions
     path: docs/catalog/dispositions.yaml

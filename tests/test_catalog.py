@@ -555,3 +555,18 @@ def test_the_q12_list_names_the_thirteen_blocked_concepts(tranche2):
     text = (ROOT / "docs/catalog/tranche-2-q12.md").read_text(encoding="utf-8")
     cited = set(re.findall(r"BCC-[0-9a-f]{8}", text.split("## 3.")[0]))
     assert cited == blocked
+
+
+def test_the_batch_shows_the_independent_review_and_the_worked_cases():
+    # Decision of 2026-11-07 (Stage 03 ratified), B: the independent review's findings are
+    # carried into the records, and every record has the worked cases CAP-04 requires.
+    text = (ROOT / "docs/catalog/admission/G1T-T2-batch.md").read_text(encoding="utf-8")
+    review = (ROOT / "docs/catalog/admission/G1T-T2-review-2026-11-07.md").read_text(
+        encoding="utf-8")
+    findings = re.findall(r"^\*\*Independent review:\*\* (PASS|PENDING REVIEW|FAIL)\.", text, re.M)
+    assert len(findings) == 43
+    counts = {k: findings.count(k) for k in ("PASS", "PENDING REVIEW", "FAIL")}
+    assert counts == {"PASS": 33, "PENDING REVIEW": 10, "FAIL": 0}
+    assert "| PASS | 33 |" in review and "| PENDING REVIEW | 10 |" in review
+    assert text.count("| Worked cases | Family F") == 43
+    assert "| SUMMARY |" in text and text.count("| SUMMARY | summary act over") == 25
