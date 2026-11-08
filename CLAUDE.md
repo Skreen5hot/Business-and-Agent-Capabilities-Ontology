@@ -34,7 +34,8 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
   No BCO ontology term exists. The only `bco:` IRIs with triples are the controlled
   vocabulary's annotation properties and the `bco:PCFCode` datatype, declared in the generated
   `src/01_controlled_vocabulary/generated/bco-vocabulary.ttl` (accepted 2026-10-24, `docs/decisions/2026-10-24-p3-accepted.md`).
-  Since P5 the vocabulary holds 14 concepts (9 metamodel, 5 catalog), all Draft and none
+  The vocabulary holds 78 concepts (9 metamodel, 69 catalog: 5 pilots and 64 from
+  semantic-curation tranche 2, `docs/decisions/2026-11-07-curation-tranche-2-approved.md`), all Draft and none
   ratified; its generated Turtle is in the validation data graph
   (layout `vocabulary: true`) under `shapes/vocabulary_shapes.ttl`, and not in the corpus digest.
 - `drafts/BusinessCapabilityOntology_draft_v0.1.0/` is preserved byte-for-byte and checked

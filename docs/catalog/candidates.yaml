@@ -52,7 +52,7 @@ inputs:
 - path: docs/catalog/bpo-act-types.yaml
   sha256: 25be29e5d4df6b7d8671128a7fae4cafa20aec2a6ac53cb2dbae2f8f76b800eb
 - path: docs/catalog/dispositions.yaml
-  sha256: dae4aaed2b454235bf0b5b4d4f5b27c4c0b72e6278ed5c0dbb0a46eb9444cd14
+  sha256: 73174ae3483767157bb239ad544d8e97ee63026045cb4ba336ba63a02b5ee1e2
 counts:
   source_records_processed:
     total: 5565
@@ -91,11 +91,11 @@ counts:
   likely_bfo_cco_capabilities: 526
   review_status:
     deferred: 135
-    generated-draft: 365
-    needs-review: 431
-    rejected: 114
-    retired: 1
-  rejected_or_deferred: 249
+    generated-draft: 361
+    needs-review: 429
+    rejected: 115
+    retired: 6
+  rejected_or_deferred: 250
   rejected_or_deferred_by_reason:
     ? 'requirement: supported only by FIBF business capabilities, which are outcome-based
       requirement records (E5 homonym), with no process or function behind it'
@@ -111,6 +111,10 @@ counts:
     ? 'unresolved: its labels name an artifact (a plan, document, record or notice), not an
       ability; the ability is inferred and needs a reader'
     : 7
+    ? 'capability: rejected (tranche 2): one act episode (converting a foreign-currency value
+      to local currency, for customs valuation under PCF 9.11): realization evidence for Trade
+      and Customs Documentation, as duty calculation is; not a capability type'
+    : 1
     ? 'capability: rejected as an ability candidate (Payments Approval); its source evidence
       is kept for possible standing-related modeling (CM-01, Authorization Record)'
     : 1
@@ -131,8 +135,8 @@ counts:
   broader_links: 1027
   overlap_links: 737
   overlap_lists_truncated: 22
-  recorded_dispositions: 2
-  pinned_identifiers: 14
+  recorded_dispositions: 9
+  pinned_identifiers: 104
   synonym_labels: 1078
   realization_evidence_rows: 2195
   distinct_act_types_cited: 1825
@@ -13755,9 +13759,18 @@ candidates:
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: generated-draft
-    justification: generated; passed every automated check
+    status: rejected
+    justification: 'rejected (tranche 2): one act episode (converting a foreign-currency value
+      to local currency, for customs valuation under PCF 9.11): realization evidence for Trade
+      and Customs Documentation, as duty calculation is; not a capability type'
     flags: []
+    disposition:
+      status: rejected
+      date: '2026-11-07'
+      record: docs/catalog/tranche-2-review.yaml, under docs/decisions/2026-11-07-curation-tranche-2-approved.md
+    generated:
+      status: generated-draft
+      justification: generated; passed every automated check
   sources:
   - inventory_id: INV-PCF74-19593
     source: APQC PCF 7.4
@@ -13815,9 +13828,19 @@ candidates:
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: generated-draft
-    justification: generated; passed every automated check
+    status: retired
+    justification: 'merged into Foreign Exchange Risk Management Capability (tranche 2): PCF
+      9.10.3 (currency exposure and hedging) and 9.7.5.3 (foreign exchange risk) describe
+      one ability under two branches; the generator''s keys differ only in wording'
     flags: []
+    disposition:
+      status: retired
+      date: '2026-11-07'
+      record: docs/catalog/tranche-2-review.yaml, under docs/decisions/2026-11-07-curation-tranche-2-approved.md
+      into: BCC-7c04ea8a
+    generated:
+      status: generated-draft
+      justification: generated; passed every automated check
   sources:
   - inventory_id: INV-PCF74-10769
     source: APQC PCF 7.4
@@ -16391,9 +16414,19 @@ candidates:
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: generated-draft
-    justification: generated; passed every automated check
+    status: retired
+    justification: 'merged into Trade Documentation Capability (tranche 2): communicating
+      with customs is giving customs authorities the information the law requires, which trade
+      documentation records; one ability'
     flags: []
+    disposition:
+      status: retired
+      date: '2026-11-07'
+      record: docs/catalog/tranche-2-review.yaml, under docs/decisions/2026-11-07-curation-tranche-2-approved.md
+      into: BCC-c5e7dca0
+    generated:
+      status: generated-draft
+      justification: generated; passed every automated check
   sources:
   - inventory_id: INV-PCF74-14094
     source: APQC PCF 7.4
@@ -20861,10 +20894,19 @@ candidates:
   bfo_cco_compatibility: not-a-capability
   review:
     status: rejected
-    justification: 'not a capability type: names one act episode with a definite end, with
-      no process of its own beneath it: realization evidence for a broader capability, not
-      a type; its records are kept as evidence'
+    justification: 'rejected (tranche 2): one act episode with no process beneath it (calculating
+      a duty for customs valuation): realization evidence for Trade and Customs Documentation,
+      not a capability type. The generator''s classification is confirmed'
     flags: []
+    disposition:
+      status: rejected
+      date: '2026-11-07'
+      record: docs/catalog/tranche-2-review.yaml, under docs/decisions/2026-11-07-curation-tranche-2-approved.md
+    generated:
+      status: rejected
+      justification: 'not a capability type: names one act episode with a definite end, with
+        no process of its own beneath it: realization evidence for a broader capability, not
+        a type; its records are kept as evidence'
   sources:
   - inventory_id: INV-PCF74-14093
     source: APQC PCF 7.4
@@ -28683,6 +28725,9 @@ candidates:
     flags:
     - 'qualified object: the label is an adjective and an ability noun; a reader writes the
       object'
+    retired_into_it:
+    - BCC-18ef14d6
+    - BCC-5caed753
   sources:
   - inventory_id: INV-PCF74-10750
     source: APQC PCF 7.4
@@ -28864,9 +28909,18 @@ candidates:
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: generated-draft
-    justification: generated; passed every automated check
+    status: retired
+    justification: 'merged into Financial Reporting Capability (tranche 2): reporting financial
+      results to the board (PCF 12.3.1) is financial reporting to one audience'
     flags: []
+    disposition:
+      status: retired
+      date: '2026-11-07'
+      record: docs/catalog/tranche-2-review.yaml, under docs/decisions/2026-11-07-curation-tranche-2-approved.md
+      into: BCC-792537f9
+    generated:
+      status: generated-draft
+      justification: generated; passed every automated check
   sources:
   - inventory_id: INV-PCF74-11042
     source: APQC PCF 7.4
@@ -29719,6 +29773,8 @@ candidates:
       (Q-12)'
     flags:
     - act type typed under a capability class (Q-12)
+    retired_into_it:
+    - BCC-8fc1f306
   sources:
   - inventory_id: INV-BPO-P11210-capability-class
     source: BPO
@@ -33490,11 +33546,21 @@ candidates:
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: needs-review
-    justification: 'generated; quality flags to clear: act type typed under a capability class
-      (Q-12)'
+    status: retired
+    justification: 'merged into In-house Bank Accounts Management Capability (tranche 2):
+      the in-house bank''s accounts for subsidiaries are the main scope of in-house banking,
+      not a separate ability; named in the concept''s definition'
     flags:
     - act type typed under a capability class (Q-12)
+    disposition:
+      status: retired
+      date: '2026-11-07'
+      record: docs/catalog/tranche-2-review.yaml, under docs/decisions/2026-11-07-curation-tranche-2-approved.md
+      into: BCC-749adb52
+    generated:
+      status: needs-review
+      justification: 'generated; quality flags to clear: act type typed under a capability
+        class (Q-12)'
   sources:
   - inventory_id: INV-BPO-P10901-capability-class
     source: BPO
@@ -33563,6 +33629,8 @@ candidates:
       (Q-12)'
     flags:
     - act type typed under a capability class (Q-12)
+    retired_into_it:
+    - BCC-aebe5ec1
   sources:
   - inventory_id: INV-BPO-P10760-capability-class
     source: BPO
@@ -61821,11 +61889,22 @@ candidates:
     ability family and source support
   bfo_cco_compatibility: likely
   review:
-    status: needs-review
-    justification: 'generated; quality flags to clear: generic object: named with its broader
-      candidate'
+    status: retired
+    justification: 'merged into Financial Reporting Capability (tranche 2): PCF 9.10.4 reports
+      foreign exchange gains and losses: financial reporting restricted to one source of results
+      (its recording of the entries is General Ledger Accounting''s work). Its second record,
+      PCF 13.3.2.2.2, is a homonym the key merged; it stays in the crosswalk as evidence'
     flags:
     - 'generic object: named with its broader candidate'
+    disposition:
+      status: retired
+      date: '2026-11-07'
+      record: docs/catalog/tranche-2-review.yaml, under docs/decisions/2026-11-07-curation-tranche-2-approved.md
+      into: BCC-792537f9
+    generated:
+      status: needs-review
+      justification: 'generated; quality flags to clear: generic object: named with its broader
+        candidate'
   sources:
   - inventory_id: INV-PCF74-10770
     source: APQC PCF 7.4
@@ -73517,6 +73596,8 @@ candidates:
     status: generated-draft
     justification: generated; passed every automated check
     flags: []
+    retired_into_it:
+    - BCC-6daa0467
   sources:
   - inventory_id: INV-PCF74-14095
     source: APQC PCF 7.4

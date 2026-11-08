@@ -37,7 +37,7 @@ evidence the checks work.
 | `config/` | layout contract, pins, manifests, baseline, digest | see `docs/DEVELOPMENT.md` |
 | `tools/`, `tests/` | ARO's generic tooling, adapted | the suite and CI |
 | `docs/decisions/` | the architect's acts and choices, verbatim | one entry: setup choices |
-| `docs/standards/` | the ontology development standards the architect supplies, verbatim | one: Stage 02, Conceptual Modeling (2026-10-25) |
+| `docs/standards/` | the ontology development standards the architect supplies, verbatim | two: Stage 02, Conceptual Modeling (supplied 2026-10-25); Stage 03, Taxonomy (drafted here, ratified 2026-11-07) |
 | `docs/sources/` | citation register of 63 sources on business capability, with the research notes behind it. The entries are data (`register.yaml`), the analysis prose is `register-companion.md`, and the Markdown register is generated from both by `tools/sources/build_register.py` | research input, not evidence; entries marked S, K or L are unverified against their primary text. The register's rules (claim status, quote length and keys, SRC ids, entry count, freshness) are hard failures (`tests/test_sources_register.py`) |
 | `src/01_controlled_vocabulary/`, `tools/vocab/`, `config/vocab-schema.*`, `requirements-vocab.txt` | the controlled-vocabulary build (ADR-003, P3): authored YAML, generated Turtle in `src/01_controlled_vocabulary/generated/`, the LinkML schema and its JSON Schema | the tool and its checks; since P5, 9 metamodel and 5 catalog concepts, all **Draft**. See sections 5.10 to 5.12 |
 | `communications/` | messages to and from BPO, ARO and the Ontology Template (EXAMPLE), under the communications protocol 1.1 (`Skreen5hot/communications`), adopted 2026-11-05 and pinned in `communications/README.md`; messages are announced on that repository's Discussions board | checked by `tools/communications.py`; the vendoring-pin request to BPO was acknowledged (BPO `8f6622c`), BPO announced a namespace move to `https://fandaws.com/ontology/bpo#`, and BPO's notice that PCF 7.4 is to be sourced from `2e55edd` (BPO `e3ee6ad`) is filed and acknowledged now that the pin is on `main` |
@@ -92,7 +92,16 @@ manifest is routing description only, and OI-10 is closed for CP-0, its release 
 namespaces are permanent as they stood. ADR-002 and the CP-0 stage-completion record were drafted
 for the architect's review (`docs/decisions/2026-11-07-cp0-closeout-and-integration-authorized.md`). The same day the architect
 accepted ADR-002, approved the record and declared **CP-0 complete** (`docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md`). CP-0 does not
-by itself authorize Stage 05; OWL waits for D5.
+by itself authorize Stage 05; OWL waits for D5. Semantic-curation tranche 2 was approved the
+same day (`docs/decisions/2026-11-07-curation-tranche-2-approved.md`) and curated: 64 new catalog concepts from PCF 9.0's
+subtree, its links classified under a proposed Stage 03 standard (`docs/catalog/tranche-2.md`). The architect then accepted
+it as the working terminology baseline (`docs/decisions/2026-11-07-tranche-2-accepted-g1t-preparation-authorized.md`): the standard's
+rules are approved and its text is submitted for ratification; the 43 ready candidates are prepared for one
+G1-T batch review (`docs/catalog/admission/G1T-T2-batch.md`, unsigned); the 13 Q-12 concepts stay blocked
+(`docs/catalog/tranche-2-q12.md`). The architect then ratified the Stage 03 standard with two clarifications
+(`docs/decisions/2026-11-07-stage-03-ratified-g1t-review-authorized.md`), published as `docs/standards/stage-03-taxonomy.md`;
+its gate validated tranche 2's taxonomy (60 `broader` links written, 15 `kind-of` proposals, 10 links
+unresolved) and authorized an independent G1-T review of the 43, with admission still pending.
 
 R5 records further blockers: material basis policy, maturity-value encoding, instance
 evidence, and migration of BPO existential restrictions. R6 (section 5.13) adds wording

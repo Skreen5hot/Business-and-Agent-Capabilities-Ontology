@@ -19,6 +19,68 @@
 @prefix bcos:    <https://fandaws.com/ontology/bco-sources#> .
 @prefix bcoa:    <https://fandaws.com/ontology/bco-agents#> .
 
+bcoc:AccountingPolicyManagement bco:catalogCandidate "BCC-e8acc1f8" .
+bcoc:AccountingPolicyManagement bco:currentRecord bcoc:record-622d9748b04b30fd61775cf341ced3e151baef61f2824e99e342464605349f1f .
+bcoc:AccountingPolicyManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:AccountingPolicyManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:AccountingPolicyManagement bco:lifecycleStatus "Draft" .
+bcoc:AccountingPolicyManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:AccountingPolicyManagement bco:sourceReference bcoc:source-ce575eabf2cfa8cb53d217c837f59b7bf80a7ac35c551660aa5cee0009721e47 .
+bcoc:AccountingPolicyManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:AccountingPolicyManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:AccountingPolicyManagement rdf:type skos:Concept .
+bcoc:AccountingPolicyManagement skos:altLabel "Financial Policies and Procedures Management"@en .
+bcoc:AccountingPolicyManagement skos:broader bcoc:FinancialAccounting .
+bcoc:AccountingPolicyManagement skos:definition "A business capability of an organization to set, publish and maintain the accounting and financial-reporting policies and procedures its members follow, grounded in the organization's members as organized."@en .
+bcoc:AccountingPolicyManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:AccountingPolicyManagement skos:prefLabel "Accounting Policy Management"@en .
+
+bcoc:AccountsPayableProcessing bco:catalogCandidate "BCC-62e789bf" .
+bcoc:AccountsPayableProcessing bco:currentRecord bcoc:record-7d60551d087070a4383f53e766124ce3ffa64328a5a0dd08654e1b590bba9e91 .
+bcoc:AccountsPayableProcessing bco:definitionGenus bco:BusinessCapability .
+bcoc:AccountsPayableProcessing bco:foundationalAncestor cco:ont00000568 .
+bcoc:AccountsPayableProcessing bco:lifecycleStatus "Draft" .
+bcoc:AccountsPayableProcessing bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:AccountsPayableProcessing bco:sourceReference bcoc:source-83b3e131e1786afde0c4d02272fa46848c981ab5fde7ba42385e51c176702f64 .
+bcoc:AccountsPayableProcessing dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:AccountsPayableProcessing prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:AccountsPayableProcessing rdf:type skos:Concept .
+bcoc:AccountsPayableProcessing skos:broader bcoc:PayablesAndReimbursementManagement .
+bcoc:AccountsPayableProcessing skos:changeNote "2026-11-07, tranche 2: the definition is the one tranche 1 checked and its G1-T record signed (docs/catalog/admission/), carried over unchanged."@en .
+bcoc:AccountsPayableProcessing skos:definition "A business capability of an organization to verify the amounts it owes its suppliers against what was invoiced and, where a purchase order applies, what was ordered, resolve the exceptions, settle them by payment, account for them, and answer inquiries about them, grounded in the organization's members as organized."@en .
+bcoc:AccountsPayableProcessing skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:AccountsPayableProcessing skos:prefLabel "Accounts Payable Processing"@en .
+
+bcoc:AccountsReceivableProcessing bco:catalogCandidate "BCC-6587dedf" .
+bcoc:AccountsReceivableProcessing bco:currentRecord bcoc:record-fb5d4e1f8541402b1de97d78b9d07fa512dc65f96210a8fb9bd1f147fcf68dbd .
+bcoc:AccountsReceivableProcessing bco:definitionGenus bco:BusinessCapability .
+bcoc:AccountsReceivableProcessing bco:foundationalAncestor cco:ont00000568 .
+bcoc:AccountsReceivableProcessing bco:lifecycleStatus "Draft" .
+bcoc:AccountsReceivableProcessing bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:AccountsReceivableProcessing bco:sourceReference bcoc:source-fd2266cfb8ec42672e0014f08dc667e95e339893c17715a4f96b62fd8539f225 .
+bcoc:AccountsReceivableProcessing dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:AccountsReceivableProcessing prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:AccountsReceivableProcessing rdf:type skos:Concept .
+bcoc:AccountsReceivableProcessing skos:broader bcoc:RevenueAndReceivablesManagement .
+bcoc:AccountsReceivableProcessing skos:definition "A business capability of an organization to record what its customers owe it, apply the payments they make, and keep each customer's account correct and current, grounded in the organization's members as organized."@en .
+bcoc:AccountsReceivableProcessing skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:AccountsReceivableProcessing skos:prefLabel "Accounts Receivable Processing"@en .
+
+bcoc:BankingRelationshipManagement bco:catalogCandidate "BCC-a750d13a" .
+bcoc:BankingRelationshipManagement bco:currentRecord bcoc:record-9cc83c6f22004200c4fde0affe1d1e9a56dc1aa475158ae9be40e1cc0a26967d .
+bcoc:BankingRelationshipManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:BankingRelationshipManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:BankingRelationshipManagement bco:lifecycleStatus "Draft" .
+bcoc:BankingRelationshipManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:BankingRelationshipManagement bco:sourceReference bcoc:source-494614b2688ef08677400984b7b186848064c978e5429e90acaddce3df0ee466 .
+bcoc:BankingRelationshipManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:BankingRelationshipManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:BankingRelationshipManagement rdf:type skos:Concept .
+bcoc:BankingRelationshipManagement skos:broader bcoc:FinancialIntermediaryRelationshipManagement .
+bcoc:BankingRelationshipManagement skos:definition "A business capability of an organization to choose the banks it works with and sustain its dealings with each over time, including the accounts, services and terms it has with them, grounded in the organization's members as organized."@en .
+bcoc:BankingRelationshipManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:BankingRelationshipManagement skos:prefLabel "Banking Relationship Management"@en .
+
 bcoc:BusinessModelGovernance bco:currentRecord bcoc:record-f8620a7e33a23e5f5dca2173b16e796303e172ec0cb3487e47c615fa20f0c037 .
 bcoc:BusinessModelGovernance bco:definitionGenus bco:BusinessCapability .
 bcoc:BusinessModelGovernance bco:foundationalAncestor cco:ont00000568 .
@@ -39,6 +101,111 @@ bcoc:CapabilityCatalogScheme rdf:type skos:ConceptScheme .
 bcoc:CapabilityCatalogScheme skos:definition "The business capabilities the BCO catalogues."@en .
 bcoc:CapabilityCatalogScheme skos:prefLabel "BCO capability catalog scheme"@en .
 
+bcoc:CapitalExpenditureManagement bco:catalogCandidate "BCC-9305456f" .
+bcoc:CapitalExpenditureManagement bco:currentRecord bcoc:record-3904efea2beaefae693ce3ba7ece8e4fdfce3154238ab3561da8b670fe611749 .
+bcoc:CapitalExpenditureManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:CapitalExpenditureManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:CapitalExpenditureManagement bco:lifecycleStatus "Draft" .
+bcoc:CapitalExpenditureManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:CapitalExpenditureManagement bco:sourceReference bcoc:source-df0dd970dc791f04604909a7ae15ab0386df874143136610ddcaa931b07161db .
+bcoc:CapitalExpenditureManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:CapitalExpenditureManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:CapitalExpenditureManagement rdf:type skos:Concept .
+bcoc:CapitalExpenditureManagement skos:altLabel "Fixed-Asset Project Accounting Management"@en .
+bcoc:CapitalExpenditureManagement skos:broader bcoc:FinancialResourceManagement .
+bcoc:CapitalExpenditureManagement skos:definition "A business capability of an organization to plan, fund and account for the long-lived assets and capital projects it invests in, from proposal to completion, grounded in the organization's members as organized."@en .
+bcoc:CapitalExpenditureManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:CapitalExpenditureManagement skos:prefLabel "Capital Expenditure Management"@en .
+
+bcoc:CapitalPlanning bco:catalogCandidate "BCC-15e92684" .
+bcoc:CapitalPlanning bco:currentRecord bcoc:record-52854edecea3c74b11e5cc349af5d52f3c3b15044d6bca38d3680929c6e1e3bb .
+bcoc:CapitalPlanning bco:definitionGenus bco:BusinessCapability .
+bcoc:CapitalPlanning bco:foundationalAncestor cco:ont00000568 .
+bcoc:CapitalPlanning bco:lifecycleStatus "Draft" .
+bcoc:CapitalPlanning bco:sourceReference bcoc:source-0e8e823d7ce41e9ce0a58d892d38c7d70613067b242848efa5eebef5e4385554 .
+bcoc:CapitalPlanning bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:CapitalPlanning dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:CapitalPlanning prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:CapitalPlanning rdf:type skos:Concept .
+bcoc:CapitalPlanning skos:broader bcoc:CapitalExpenditureManagement .
+bcoc:CapitalPlanning skos:definition "A business capability of an organization to identify and evaluate proposed capital investments, budget for them, and prepare the financial case on which a decision to proceed is made, grounded in the organization's members as organized."@en .
+bcoc:CapitalPlanning skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:CapitalPlanning skos:prefLabel "Capital Planning"@en .
+
+bcoc:CapitalProjectAccounting bco:catalogCandidate "BCC-95b092a2" .
+bcoc:CapitalProjectAccounting bco:currentRecord bcoc:record-9a41381d4c1fbfc86412753f330602b139644ea4b8d5263cdea61200469db915 .
+bcoc:CapitalProjectAccounting bco:definitionGenus bco:BusinessCapability .
+bcoc:CapitalProjectAccounting bco:foundationalAncestor cco:ont00000568 .
+bcoc:CapitalProjectAccounting bco:lifecycleStatus "Draft" .
+bcoc:CapitalProjectAccounting bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:CapitalProjectAccounting bco:sourceReference bcoc:source-b4803979fe5e6bc8428b170503ad8c5824ea2c73f50f5927e94970ce92ba6ff2 .
+bcoc:CapitalProjectAccounting dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:CapitalProjectAccounting prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:CapitalProjectAccounting rdf:type skos:Concept .
+bcoc:CapitalProjectAccounting skos:broader bcoc:CapitalExpenditureManagement .
+bcoc:CapitalProjectAccounting skos:definition "A business capability of an organization to account for the costs of capital projects while they are under way, and transfer them to fixed assets when the projects are complete, grounded in the organization's members as organized."@en .
+bcoc:CapitalProjectAccounting skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:CapitalProjectAccounting skos:prefLabel "Capital Project Accounting"@en .
+
+bcoc:CashEquivalentManagement bco:catalogCandidate "BCC-314dba7d" .
+bcoc:CashEquivalentManagement bco:currentRecord bcoc:record-de37d47278b6bbbcb57f1df8713231fb7115ff5997d99d8add7ec0568c1b3b5d .
+bcoc:CashEquivalentManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:CashEquivalentManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:CashEquivalentManagement bco:lifecycleStatus "Draft" .
+bcoc:CashEquivalentManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:CashEquivalentManagement bco:sourceReference bcoc:source-eee066bfd584e2f271f08b2fc476ebe042c342aa5a8fd41c60f20b156ba3ed59 .
+bcoc:CashEquivalentManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:CashEquivalentManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:CashEquivalentManagement rdf:type skos:Concept .
+bcoc:CashEquivalentManagement skos:broader bcoc:CashManagement .
+bcoc:CashEquivalentManagement skos:definition "A business capability of an organization to place cash it does not need at once in short-term, readily convertible instruments and manage those holdings so that they can be turned back into cash when needed, grounded in the organization's members as organized."@en .
+bcoc:CashEquivalentManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:CashEquivalentManagement skos:prefLabel "Cash Equivalent Management"@en .
+
+bcoc:CashFlowManagement bco:catalogCandidate "BCC-d71abe9a" .
+bcoc:CashFlowManagement bco:currentRecord bcoc:record-f2ec5680a35493b0a11f561144c0ded122d542ab48f4404ca83de44562db6933 .
+bcoc:CashFlowManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:CashFlowManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:CashFlowManagement bco:lifecycleStatus "Draft" .
+bcoc:CashFlowManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:CashFlowManagement bco:sourceReference bcoc:source-b91d0abbfea77733b4416ba507a4513f194cf011858a7ac90ef05c2bdca3b744 .
+bcoc:CashFlowManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:CashFlowManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:CashFlowManagement rdf:type skos:Concept .
+bcoc:CashFlowManagement skos:definition "A business capability of an organization to forecast and influence the timing of the money coming into and going out of it, so that its inflows and outflows fit the obligations it has to meet, grounded in the organization's members as organized."@en .
+bcoc:CashFlowManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:CashFlowManagement skos:prefLabel "Cash Flow Management"@en .
+
+bcoc:CashManagement bco:catalogCandidate "BCC-a1c5454d" .
+bcoc:CashManagement bco:currentRecord bcoc:record-cc7fd93b2e0270c694689188f4904cc035dfbb2f5010ab54d718db87d51ad58b .
+bcoc:CashManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:CashManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:CashManagement bco:lifecycleStatus "Draft" .
+bcoc:CashManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:CashManagement bco:sourceReference bcoc:source-8666c9f195a24e9c6f954a3a4f248c5bc8062d5e615b826fc95cf6dfb5197526 .
+bcoc:CashManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:CashManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:CashManagement rdf:type skos:Concept .
+bcoc:CashManagement skos:broader bcoc:TreasuryManagement .
+bcoc:CashManagement skos:definition "A business capability of an organization to track its cash positions across its accounts and move cash among them, so that it is positioned where it is used, grounded in the organization's members as organized."@en .
+bcoc:CashManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:CashManagement skos:prefLabel "Cash Management"@en .
+
+bcoc:CollectionsManagement bco:catalogCandidate "BCC-c4904759" .
+bcoc:CollectionsManagement bco:currentRecord bcoc:record-f88b4eacc76eecd8d544fd8b51d53ae596f7fd1974b620bec5303cb6abe1725b .
+bcoc:CollectionsManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:CollectionsManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:CollectionsManagement bco:lifecycleStatus "Draft" .
+bcoc:CollectionsManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:CollectionsManagement bco:sourceReference bcoc:source-90dc56d49005505e8ef6c346355fec649703cb1e680e0110bee23838306da443 .
+bcoc:CollectionsManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:CollectionsManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:CollectionsManagement rdf:type skos:Concept .
+bcoc:CollectionsManagement skos:broader bcoc:RevenueAndReceivablesManagement .
+bcoc:CollectionsManagement skos:definition "A business capability of an organization to pursue, settle or write off the amounts its customers owe and have not paid when due, grounded in the organization's members as organized."@en .
+bcoc:CollectionsManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:CollectionsManagement skos:prefLabel "Collections Management"@en .
+
 bcoc:CompetitiveAnalysis bco:currentRecord bcoc:record-657667441ade80f7950cc6bd8f8d55e4dfe07aef0cd41ac7427ae48a9ce02413 .
 bcoc:CompetitiveAnalysis bco:definitionGenus bco:BusinessCapability .
 bcoc:CompetitiveAnalysis bco:foundationalAncestor cco:ont00000568 .
@@ -55,6 +222,128 @@ bcoc:CompetitiveAnalysis skos:definition "A business capability, inhering in an 
 bcoc:CompetitiveAnalysis skos:inScheme bcoc:CapabilityCatalogScheme .
 bcoc:CompetitiveAnalysis skos:prefLabel "Competitive Analysis"@en .
 
+bcoc:ContinuousCostImprovement bco:catalogCandidate "BCC-3421f274" .
+bcoc:ContinuousCostImprovement bco:currentRecord bcoc:record-967623b9c8cef9daf642f08987380bf620b4836babdbe06603ec7d355f95f05c .
+bcoc:ContinuousCostImprovement bco:definitionGenus bco:BusinessCapability .
+bcoc:ContinuousCostImprovement bco:foundationalAncestor cco:ont00000568 .
+bcoc:ContinuousCostImprovement bco:lifecycleStatus "Draft" .
+bcoc:ContinuousCostImprovement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:ContinuousCostImprovement bco:sourceReference bcoc:source-fd751aa4a669a52887a99eaa903f8c8c8b71c5f6786083240e8ba0e6bc519875 .
+bcoc:ContinuousCostImprovement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:ContinuousCostImprovement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:ContinuousCostImprovement rdf:type skos:Concept .
+bcoc:ContinuousCostImprovement skos:broader bcoc:CostManagement .
+bcoc:ContinuousCostImprovement skos:definition "A business capability of an organization to find and carry out, as a standing practice, changes that lower its costs or spread them better, grounded in the organization's members as organized."@en .
+bcoc:ContinuousCostImprovement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:ContinuousCostImprovement skos:prefLabel "Continuous Cost Improvement"@en .
+
+bcoc:CorporateCardManagement bco:catalogCandidate "BCC-ea6d1c4a" .
+bcoc:CorporateCardManagement bco:currentRecord bcoc:record-a148bf923a22250f216da2fa2cc20e935874c96f8e87991aacddbdcfdaf1b255 .
+bcoc:CorporateCardManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:CorporateCardManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:CorporateCardManagement bco:lifecycleStatus "Draft" .
+bcoc:CorporateCardManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:CorporateCardManagement bco:sourceReference bcoc:source-5a0f5b559706ce679028375cd21aceb6aae2cf9089e32cbfe17d6006ed4ddd6a .
+bcoc:CorporateCardManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:CorporateCardManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:CorporateCardManagement rdf:type skos:Concept .
+bcoc:CorporateCardManagement skos:altLabel "Corporate Credit Card Management"@en .
+bcoc:CorporateCardManagement skos:broader bcoc:PayablesAndReimbursementManagement .
+bcoc:CorporateCardManagement skos:definition "A business capability of an organization to provide payment cards to its members for business spending, set their terms, reconcile what is spent with them and settle the card accounts, grounded in the organization's members as organized."@en .
+bcoc:CorporateCardManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:CorporateCardManagement skos:prefLabel "Corporate Card Management"@en .
+
+bcoc:CostAccounting bco:catalogCandidate "BCC-302a390a" .
+bcoc:CostAccounting bco:currentRecord bcoc:record-3675f36e660957fa2a8dba61af0b15a11fbb42324b6fdc3d8a7613a6b8df684c .
+bcoc:CostAccounting bco:definitionGenus bco:BusinessCapability .
+bcoc:CostAccounting bco:foundationalAncestor cco:ont00000568 .
+bcoc:CostAccounting bco:lifecycleStatus "Draft" .
+bcoc:CostAccounting bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:CostAccounting bco:sourceReference bcoc:source-94547e0ea330f57cf99c6ba19d3078c7439e57d5a0944d0fa55722481b782110 .
+bcoc:CostAccounting dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:CostAccounting prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:CostAccounting rdf:type skos:Concept .
+bcoc:CostAccounting skos:broader bcoc:FinancialPlanningAndManagementAccounting .
+bcoc:CostAccounting skos:definition "A business capability of an organization to determine what its products, services, processes and projects cost, by recording, allocating and analyzing their costs, grounded in the organization's members as organized."@en .
+bcoc:CostAccounting skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:CostAccounting skos:prefLabel "Cost Accounting"@en .
+
+bcoc:CostManagement bco:catalogCandidate "BCC-b47b8fed" .
+bcoc:CostManagement bco:currentRecord bcoc:record-6819bb4df5c99a0fb3d7f18ab6b3134c15874d21b70797594a621eee9103c6f0 .
+bcoc:CostManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:CostManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:CostManagement bco:lifecycleStatus "Draft" .
+bcoc:CostManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:CostManagement bco:sourceReference bcoc:source-aa77772f54c0c015f108f8d11f3dbd360608d3a82d6b1425b5d69ece9ecf6e10 .
+bcoc:CostManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:CostManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:CostManagement rdf:type skos:Concept .
+bcoc:CostManagement skos:broader bcoc:FinancialPlanningAndManagementAccounting .
+bcoc:CostManagement skos:definition "A business capability of an organization to plan and control what it spends, deciding which costs to avoid or reduce in view of what it earns, grounded in the organization's members as organized."@en .
+bcoc:CostManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:CostManagement skos:prefLabel "Cost Management"@en .
+
+bcoc:CounterpartyCreditExposureManagement bco:catalogCandidate "BCC-3e668a26" .
+bcoc:CounterpartyCreditExposureManagement bco:currentRecord bcoc:record-b81c83909c4540c8916b6e02e1085aad76ba876528583d40cab90dd2f3233d22 .
+bcoc:CounterpartyCreditExposureManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:CounterpartyCreditExposureManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:CounterpartyCreditExposureManagement bco:lifecycleStatus "Draft" .
+bcoc:CounterpartyCreditExposureManagement bco:sourceReference bcoc:source-0a800c0964a6654cfc0c192bcb05a9e8f2f572a83ea702064463490493f9fddd .
+bcoc:CounterpartyCreditExposureManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:CounterpartyCreditExposureManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:CounterpartyCreditExposureManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:CounterpartyCreditExposureManagement rdf:type skos:Concept .
+bcoc:CounterpartyCreditExposureManagement skos:altLabel "Exposure Risk Management"@en .
+bcoc:CounterpartyCreditExposureManagement skos:broader bcoc:FinancialRiskManagement .
+bcoc:CounterpartyCreditExposureManagement skos:definition "A business capability of an organization to measure the credit exposure it has to its customers and other counterparties, keep it within limits, secure it with collateral, and review it periodically, grounded in the organization's members as organized."@en .
+bcoc:CounterpartyCreditExposureManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:CounterpartyCreditExposureManagement skos:prefLabel "Counterparty Credit Exposure Management"@en .
+
+bcoc:CrossBorderFundsTransferManagement bco:catalogCandidate "BCC-bf62316a" .
+bcoc:CrossBorderFundsTransferManagement bco:currentRecord bcoc:record-7d28476b319f61682d966ad8a1bf88f42a9315974526ca489a43460ee8e03b27 .
+bcoc:CrossBorderFundsTransferManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:CrossBorderFundsTransferManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:CrossBorderFundsTransferManagement bco:lifecycleStatus "Draft" .
+bcoc:CrossBorderFundsTransferManagement bco:sourceReference bcoc:source-0dc4f8312dfa3b2cad50c098880fd5ef6dccefa3ff41f0b3a9f9289730289e37 .
+bcoc:CrossBorderFundsTransferManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:CrossBorderFundsTransferManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:CrossBorderFundsTransferManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:CrossBorderFundsTransferManagement rdf:type skos:Concept .
+bcoc:CrossBorderFundsTransferManagement skos:definition "A business capability of an organization to move money across borders for its trade and investments, converting between currencies and choosing the means of payment, grounded in the organization's members as organized."@en .
+bcoc:CrossBorderFundsTransferManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:CrossBorderFundsTransferManagement skos:prefLabel "Cross-Border Funds Transfer Management"@en .
+
+bcoc:CustomerCreditManagement bco:catalogCandidate "BCC-b7ff0eac" .
+bcoc:CustomerCreditManagement bco:currentRecord bcoc:record-5e73d7f9783ab43109019267e3b8b280fcde823631ae0534e2989c20314f0bd3 .
+bcoc:CustomerCreditManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:CustomerCreditManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:CustomerCreditManagement bco:lifecycleStatus "Draft" .
+bcoc:CustomerCreditManagement bco:sourceReference bcoc:source-26779ee82b8ae71d197349d9fcf84f5c5852143dc4c88be5fed6e31750314717 .
+bcoc:CustomerCreditManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:CustomerCreditManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:CustomerCreditManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:CustomerCreditManagement rdf:type skos:Concept .
+bcoc:CustomerCreditManagement skos:altLabel "Customer Credit Processing"@en .
+bcoc:CustomerCreditManagement skos:broader bcoc:RevenueAndReceivablesManagement .
+bcoc:CustomerCreditManagement skos:definition "A business capability of an organization to evaluate requests from customers to buy on credit, set and review the credit it extends to each, and monitor how that credit is used, grounded in the organization's members as organized."@en .
+bcoc:CustomerCreditManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:CustomerCreditManagement skos:prefLabel "Customer Credit Management"@en .
+
+bcoc:CustomerDeductionManagement bco:catalogCandidate "BCC-cebf0da8" .
+bcoc:CustomerDeductionManagement bco:currentRecord bcoc:record-955724f77555d30bc5e3998574348f3a9d80f95922c4bdf0cc1f942c543219a3 .
+bcoc:CustomerDeductionManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:CustomerDeductionManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:CustomerDeductionManagement bco:lifecycleStatus "Draft" .
+bcoc:CustomerDeductionManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:CustomerDeductionManagement bco:sourceReference bcoc:source-7b31bcd5c49bec44c00bbd9dba46deeb2bf7542424f0de4a25ed2368ac3945b7 .
+bcoc:CustomerDeductionManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:CustomerDeductionManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:CustomerDeductionManagement rdf:type skos:Concept .
+bcoc:CustomerDeductionManagement skos:broader bcoc:RevenueAndReceivablesManagement .
+bcoc:CustomerDeductionManagement skos:definition "A business capability of an organization to investigate, resolve and record the deductions its customers take from their payments and the adjustments made to their accounts, grounded in the organization's members as organized."@en .
+bcoc:CustomerDeductionManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:CustomerDeductionManagement skos:prefLabel "Customer Deduction and Adjustment Management"@en .
+
 bcoc:CustomerExperienceManagement bco:currentRecord bcoc:record-1f8db5fa47c5c09802d00dc51673e0c8edbd0be187c025471205634d8ad7fc73 .
 bcoc:CustomerExperienceManagement bco:definitionGenus bco:BusinessCapability .
 bcoc:CustomerExperienceManagement bco:foundationalAncestor cco:ont00000568 .
@@ -70,6 +359,599 @@ bcoc:CustomerExperienceManagement skos:changeNote "2026-10-25, review R7 section
 bcoc:CustomerExperienceManagement skos:definition "A business capability, inhering in an organization, that is realizable in planned acts by which that organization understands or shapes the experience its customers have in their dealings with it."@en .
 bcoc:CustomerExperienceManagement skos:inScheme bcoc:CapabilityCatalogScheme .
 bcoc:CustomerExperienceManagement skos:prefLabel "Customer Experience Management"@en .
+
+bcoc:CustomerInvoicing bco:catalogCandidate "BCC-8a70a337" .
+bcoc:CustomerInvoicing bco:currentRecord bcoc:record-9f549c0085afe1da676f3305cafe920f7a26f0e67b448a559cd6b00e424f1b1b .
+bcoc:CustomerInvoicing bco:definitionGenus bco:BusinessCapability .
+bcoc:CustomerInvoicing bco:foundationalAncestor cco:ont00000568 .
+bcoc:CustomerInvoicing bco:lifecycleStatus "Draft" .
+bcoc:CustomerInvoicing bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:CustomerInvoicing bco:sourceReference bcoc:source-ae3f8cdf07d1a69d68f71f1375acc73f68d983bc0b5fe9ed619f724d6b94b60f .
+bcoc:CustomerInvoicing dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:CustomerInvoicing prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:CustomerInvoicing rdf:type skos:Concept .
+bcoc:CustomerInvoicing skos:broader bcoc:RevenueAndReceivablesManagement .
+bcoc:CustomerInvoicing skos:definition "A business capability of an organization to prepare and send its customers accurate invoices for what it has sold them, and correct those invoices when needed, grounded in the organization's members as organized."@en .
+bcoc:CustomerInvoicing skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:CustomerInvoicing skos:prefLabel "Customer Invoicing"@en .
+
+bcoc:DebtAndInvestmentManagement bco:catalogCandidate "BCC-ec93ca56" .
+bcoc:DebtAndInvestmentManagement bco:currentRecord bcoc:record-9bca158b989b6e89a666a2b1f562069e3adb8cc86e6f210d2c867ccfd262d8b0 .
+bcoc:DebtAndInvestmentManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:DebtAndInvestmentManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:DebtAndInvestmentManagement bco:lifecycleStatus "Draft" .
+bcoc:DebtAndInvestmentManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:DebtAndInvestmentManagement bco:sourceReference bcoc:source-6d6f59fd79f0ec4c867c1c22eb87e73959db142e95de1ed994380bbc69bb576a .
+bcoc:DebtAndInvestmentManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:DebtAndInvestmentManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:DebtAndInvestmentManagement rdf:type skos:Concept .
+bcoc:DebtAndInvestmentManagement skos:broader bcoc:TreasuryManagement .
+bcoc:DebtAndInvestmentManagement skos:definition "A business capability of an organization to fund itself by borrowing and invest its surplus funds, at a cost, return and risk it judges acceptable, grounded in the organization's members as organized."@en .
+bcoc:DebtAndInvestmentManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:DebtAndInvestmentManagement skos:prefLabel "Debt and Investment Management"@en .
+
+bcoc:DefaultAccountManagement bco:catalogCandidate "BCC-38b3c836" .
+bcoc:DefaultAccountManagement bco:currentRecord bcoc:record-3ae7c04d35bdbcb869929d3b0d7d5215b0a217daae3e54d0581ccb714c922865 .
+bcoc:DefaultAccountManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:DefaultAccountManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:DefaultAccountManagement bco:lifecycleStatus "Draft" .
+bcoc:DefaultAccountManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:DefaultAccountManagement bco:sourceReference bcoc:source-d6fa39aa500a5ee50ef0252842554ca23b647ef9d4495074e96c63ac07986049 .
+bcoc:DefaultAccountManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:DefaultAccountManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:DefaultAccountManagement rdf:type skos:Concept .
+bcoc:DefaultAccountManagement skos:broader bcoc:CollectionsManagement .
+bcoc:DefaultAccountManagement skos:definition "A business capability of an organization to handle customer accounts that have gone into default, deciding how each is to be pursued, settled or written off, grounded in the organization's members as organized."@en .
+bcoc:DefaultAccountManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:DefaultAccountManagement skos:prefLabel "Default Account Management"@en .
+
+bcoc:ExpenseReimbursementProcessing bco:catalogCandidate "BCC-35c8111b" .
+bcoc:ExpenseReimbursementProcessing bco:currentRecord bcoc:record-1e02ffd51890e57d30054567c3e44c41cf93666aa7f641f646c4248d80614366 .
+bcoc:ExpenseReimbursementProcessing bco:definitionGenus bco:BusinessCapability .
+bcoc:ExpenseReimbursementProcessing bco:foundationalAncestor cco:ont00000568 .
+bcoc:ExpenseReimbursementProcessing bco:lifecycleStatus "Draft" .
+bcoc:ExpenseReimbursementProcessing bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:ExpenseReimbursementProcessing bco:sourceReference bcoc:source-73f403a3fceb6085a1e5f00b87fb089fcf7767ae2f8b7a2f5dbb0e3ffc7b309d .
+bcoc:ExpenseReimbursementProcessing dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:ExpenseReimbursementProcessing prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:ExpenseReimbursementProcessing rdf:type skos:Concept .
+bcoc:ExpenseReimbursementProcessing skos:broader bcoc:PayablesAndReimbursementManagement .
+bcoc:ExpenseReimbursementProcessing skos:definition "A business capability of an organization to check the expenses its members claim for work done on its behalf against its rules and their receipts, and repay those that qualify, grounded in the organization's members as organized."@en .
+bcoc:ExpenseReimbursementProcessing skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:ExpenseReimbursementProcessing skos:prefLabel "Expense Reimbursement Processing"@en .
+
+bcoc:ExportAndImportControl bco:catalogCandidate "BCC-cd7f1007" .
+bcoc:ExportAndImportControl bco:currentRecord bcoc:record-980b64380faa1082fdacf705ffa1032e57eaae0c14ebadf12f291ec876a5bac2 .
+bcoc:ExportAndImportControl bco:definitionGenus bco:BusinessCapability .
+bcoc:ExportAndImportControl bco:foundationalAncestor cco:ont00000568 .
+bcoc:ExportAndImportControl bco:lifecycleStatus "Draft" .
+bcoc:ExportAndImportControl bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:ExportAndImportControl bco:sourceReference bcoc:source-8bb2ea1effe760a4259aa487c30fb7492417d0973b59a66685efbfc765399eb7 .
+bcoc:ExportAndImportControl dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:ExportAndImportControl prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:ExportAndImportControl rdf:type skos:Concept .
+bcoc:ExportAndImportControl skos:broader bcoc:GlobalTradeManagement .
+bcoc:ExportAndImportControl skos:definition "A business capability of an organization to determine which of its goods, technologies and transactions are subject to export and import controls, and conduct its trade within those controls, grounded in the organization's members as organized."@en .
+bcoc:ExportAndImportControl skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:ExportAndImportControl skos:prefLabel "Export and Import Control"@en .
+
+bcoc:FinancialAccounting bco:catalogCandidate "BCC-60d672db" .
+bcoc:FinancialAccounting bco:currentRecord bcoc:record-252449693fb2f0fea5cf5c34771ec33fbcc939e45a778dd3f42166a5d38843ce .
+bcoc:FinancialAccounting bco:definitionGenus bco:BusinessCapability .
+bcoc:FinancialAccounting bco:foundationalAncestor cco:ont00000568 .
+bcoc:FinancialAccounting bco:lifecycleStatus "Draft" .
+bcoc:FinancialAccounting bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:FinancialAccounting bco:sourceReference bcoc:source-92f3c0990370e27f1400df52cd6ff9ad75d800b17009e51742d3b753c48d4a53 .
+bcoc:FinancialAccounting dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:FinancialAccounting prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:FinancialAccounting rdf:type skos:Concept .
+bcoc:FinancialAccounting skos:altLabel "General Accounting and Reporting"@en .
+bcoc:FinancialAccounting skos:broader bcoc:FinancialResourceManagement .
+bcoc:FinancialAccounting skos:definition "A business capability of an organization to keep its financial records by accepted accounting principles and prepare from them the financial statements it reports, grounded in the organization's members as organized."@en .
+bcoc:FinancialAccounting skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:FinancialAccounting skos:prefLabel "Financial Accounting"@en .
+
+bcoc:FinancialFraudAndDisputeCaseManagement bco:catalogCandidate "BCC-9b5ec2fd" .
+bcoc:FinancialFraudAndDisputeCaseManagement bco:currentRecord bcoc:record-ec0e83b4ae59f57aafd2771941e936aaeb6e4e03649c427c90fba19f3be69a81 .
+bcoc:FinancialFraudAndDisputeCaseManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:FinancialFraudAndDisputeCaseManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:FinancialFraudAndDisputeCaseManagement bco:lifecycleStatus "Draft" .
+bcoc:FinancialFraudAndDisputeCaseManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:FinancialFraudAndDisputeCaseManagement bco:sourceReference bcoc:source-5a1e5ab9aae0b482eb98710be96d0457e8ebd42e755e2ac8c3a7cf8b0cfdffbe .
+bcoc:FinancialFraudAndDisputeCaseManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:FinancialFraudAndDisputeCaseManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:FinancialFraudAndDisputeCaseManagement rdf:type skos:Concept .
+bcoc:FinancialFraudAndDisputeCaseManagement skos:definition "A business capability of an organization to take in cases of suspected financial fraud and of disputed financial transactions, investigate each, and resolve or refer it, grounded in the organization's members as organized."@en .
+bcoc:FinancialFraudAndDisputeCaseManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:FinancialFraudAndDisputeCaseManagement skos:prefLabel "Financial Fraud and Dispute Case Management"@en .
+
+bcoc:FinancialIntermediaryRelationshipManagement bco:catalogCandidate "BCC-d6966c88" .
+bcoc:FinancialIntermediaryRelationshipManagement bco:currentRecord bcoc:record-d467eee1c7c3c0fe8202ac41a409eaac64211881a2ef43d709c16667b5e201a4 .
+bcoc:FinancialIntermediaryRelationshipManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:FinancialIntermediaryRelationshipManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:FinancialIntermediaryRelationshipManagement bco:lifecycleStatus "Draft" .
+bcoc:FinancialIntermediaryRelationshipManagement bco:sourceReference bcoc:source-2e6918bc5831c1876cf91f61b371fafbccda07c89520a4904f48051eaac4dcdb .
+bcoc:FinancialIntermediaryRelationshipManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:FinancialIntermediaryRelationshipManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:FinancialIntermediaryRelationshipManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:FinancialIntermediaryRelationshipManagement rdf:type skos:Concept .
+bcoc:FinancialIntermediaryRelationshipManagement skos:broader bcoc:DebtAndInvestmentManagement .
+bcoc:FinancialIntermediaryRelationshipManagement skos:definition "A business capability of an organization to choose and sustain its dealings with the banks and other financial intermediaries through which it borrows, invests and obtains financial services, grounded in the organization's members as organized."@en .
+bcoc:FinancialIntermediaryRelationshipManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:FinancialIntermediaryRelationshipManagement skos:prefLabel "Financial Intermediary Relationship Management"@en .
+
+bcoc:FinancialPerformanceManagement bco:catalogCandidate "BCC-cedf0899" .
+bcoc:FinancialPerformanceManagement bco:currentRecord bcoc:record-e888f151ffbc72dc72ad6c2574edf94b23c719393771a513c188460d7bc1f5c3 .
+bcoc:FinancialPerformanceManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:FinancialPerformanceManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:FinancialPerformanceManagement bco:lifecycleStatus "Draft" .
+bcoc:FinancialPerformanceManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:FinancialPerformanceManagement bco:sourceReference bcoc:source-7d4dc9cb2a1c3a73cc2e4fd3f27b47ec6fe2608829269443f715ed3f196d13a9 .
+bcoc:FinancialPerformanceManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:FinancialPerformanceManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:FinancialPerformanceManagement rdf:type skos:Concept .
+bcoc:FinancialPerformanceManagement skos:altLabel "Financial Performance Evaluation"@en .
+bcoc:FinancialPerformanceManagement skos:broader bcoc:FinancialPlanningAndManagementAccounting .
+bcoc:FinancialPerformanceManagement skos:definition "A business capability of an organization to assess the profitability and financial performance of the organization and of its units, products, customers and projects against its targets, and act on the results, grounded in the organization's members as organized."@en .
+bcoc:FinancialPerformanceManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:FinancialPerformanceManagement skos:prefLabel "Financial Performance Management"@en .
+
+bcoc:FinancialPlanningAndManagementAccounting bco:catalogCandidate "BCC-ca61edb4" .
+bcoc:FinancialPlanningAndManagementAccounting bco:currentRecord bcoc:record-e4faf22c021be840fdd2a1cd442eac0ab0c976f70697d255f5740f7994919c85 .
+bcoc:FinancialPlanningAndManagementAccounting bco:definitionGenus bco:BusinessCapability .
+bcoc:FinancialPlanningAndManagementAccounting bco:foundationalAncestor cco:ont00000568 .
+bcoc:FinancialPlanningAndManagementAccounting bco:lifecycleStatus "Draft" .
+bcoc:FinancialPlanningAndManagementAccounting bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:FinancialPlanningAndManagementAccounting bco:sourceReference bcoc:source-6a433a607a692a1c6a0140183385726f5bab23d3d924076c734ac6020f338d08 .
+bcoc:FinancialPlanningAndManagementAccounting dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:FinancialPlanningAndManagementAccounting prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:FinancialPlanningAndManagementAccounting rdf:type skos:Concept .
+bcoc:FinancialPlanningAndManagementAccounting skos:altLabel "Planning and Management Accounting"@en .
+bcoc:FinancialPlanningAndManagementAccounting skos:broader bcoc:FinancialResourceManagement .
+bcoc:FinancialPlanningAndManagementAccounting skos:definition "A business capability of an organization to plan its finances and budgets, measure and analyze the costs and financial performance of its operations, and report and act on the results for those who plan and manage them, grounded in the organization's members as organized."@en .
+bcoc:FinancialPlanningAndManagementAccounting skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:FinancialPlanningAndManagementAccounting skos:prefLabel "Financial Planning and Management Accounting"@en .
+
+bcoc:FinancialPlanningBudgetingAndForecasting bco:catalogCandidate "BCC-87e1811c" .
+bcoc:FinancialPlanningBudgetingAndForecasting bco:currentRecord bcoc:record-e0a97e6d54331a46a3808b6bc3afd7fce9b9773421efa185653149f16d40bd79 .
+bcoc:FinancialPlanningBudgetingAndForecasting bco:definitionGenus bco:BusinessCapability .
+bcoc:FinancialPlanningBudgetingAndForecasting bco:foundationalAncestor cco:ont00000568 .
+bcoc:FinancialPlanningBudgetingAndForecasting bco:lifecycleStatus "Draft" .
+bcoc:FinancialPlanningBudgetingAndForecasting bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:FinancialPlanningBudgetingAndForecasting bco:sourceReference bcoc:source-e46d2e55a4d71914fef86569be22745e121b6e1736e900fedd2e9755ae786dc5 .
+bcoc:FinancialPlanningBudgetingAndForecasting dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:FinancialPlanningBudgetingAndForecasting prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:FinancialPlanningBudgetingAndForecasting rdf:type skos:Concept .
+bcoc:FinancialPlanningBudgetingAndForecasting skos:altLabel "Budgeting and Forecasting"@en .
+bcoc:FinancialPlanningBudgetingAndForecasting skos:broader bcoc:FinancialPlanningAndManagementAccounting .
+bcoc:FinancialPlanningBudgetingAndForecasting skos:definition "A business capability of an organization to set its financial goals for future periods, allocate resources to its parts and periods through budgets, and forecast its financial results and position as conditions change, grounded in the organization's members as organized."@en .
+bcoc:FinancialPlanningBudgetingAndForecasting skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:FinancialPlanningBudgetingAndForecasting skos:prefLabel "Financial Planning, Budgeting and Forecasting"@en .
+
+bcoc:FinancialReporting bco:catalogCandidate "BCC-18ef14d6" .
+bcoc:FinancialReporting bco:catalogCandidate "BCC-5caed753" .
+bcoc:FinancialReporting bco:catalogCandidate "BCC-792537f9" .
+bcoc:FinancialReporting bco:currentRecord bcoc:record-84e3c1a7ea9b2743db2f7ed54ce1d2d835be92c3551dbc6e439496d307abe718 .
+bcoc:FinancialReporting bco:definitionGenus bco:BusinessCapability .
+bcoc:FinancialReporting bco:foundationalAncestor cco:ont00000568 .
+bcoc:FinancialReporting bco:lifecycleStatus "Draft" .
+bcoc:FinancialReporting bco:sourceReference bcoc:source-360b91044667af28223556126391c727b9dd215e650249e5bdb472b4377066f7 .
+bcoc:FinancialReporting bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:FinancialReporting bco:sourceReference bcoc:source-b2146d550390067e6054112b5f607e327625d6c22c874bd275db6008bb577734 .
+bcoc:FinancialReporting bco:sourceReference bcoc:source-b21a65d8f0d5f3bc4d9d010d6fc261af9dbe2b0277b66b1cbd2c796106ecf9c5 .
+bcoc:FinancialReporting bco:sourceReference bcoc:source-f6ac826bfc7c4e59a015732b8300e6fba2717b72b903c10b833901731b2b181c .
+bcoc:FinancialReporting dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:FinancialReporting prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:FinancialReporting rdf:type skos:Concept .
+bcoc:FinancialReporting skos:broader bcoc:FinancialAccounting .
+bcoc:FinancialReporting skos:definition "A business capability of an organization to prepare its financial statements, and the reports drawn from them, and present them to its management, its board and outside parties, grounded in the organization's members as organized."@en .
+bcoc:FinancialReporting skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:FinancialReporting skos:prefLabel "Financial Reporting"@en .
+
+bcoc:FinancialResourceManagement bco:catalogCandidate "BCC-4fda51aa" .
+bcoc:FinancialResourceManagement bco:currentRecord bcoc:record-dc6a6618a4c16822e42697284bc9a5a075d7d5be3b3feef5a979f36a3e5bd5da .
+bcoc:FinancialResourceManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:FinancialResourceManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:FinancialResourceManagement bco:lifecycleStatus "Draft" .
+bcoc:FinancialResourceManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:FinancialResourceManagement bco:sourceReference bcoc:source-da295e497e1b07a327e3abd63a45c0290c2a923b927449e5f2b01c041bba78c9 .
+bcoc:FinancialResourceManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:FinancialResourceManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:FinancialResourceManagement rdf:type skos:Concept .
+bcoc:FinancialResourceManagement skos:altLabel "Financial Management"@en .
+bcoc:FinancialResourceManagement skos:definition "A business capability of an organization to plan, obtain, account for, safeguard and report on the money and financial assets it holds and the obligations it owes, grounded in the organization's members as organized."@en .
+bcoc:FinancialResourceManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:FinancialResourceManagement skos:prefLabel "Financial Resource Management"@en .
+
+bcoc:FinancialRiskManagement bco:catalogCandidate "BCC-132e1b29" .
+bcoc:FinancialRiskManagement bco:currentRecord bcoc:record-42d2633177a34ed2a3f0972f4c255bcc56fcf1517202e479a322da8da32f539f .
+bcoc:FinancialRiskManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:FinancialRiskManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:FinancialRiskManagement bco:lifecycleStatus "Draft" .
+bcoc:FinancialRiskManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:FinancialRiskManagement bco:sourceReference bcoc:source-679b10128c6f778643ccfde50b3f1ea069dd2c6628ee652af11bc5989f73f8e3 .
+bcoc:FinancialRiskManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:FinancialRiskManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:FinancialRiskManagement rdf:type skos:Concept .
+bcoc:FinancialRiskManagement skos:altLabel "Treasury Risk Management"@en .
+bcoc:FinancialRiskManagement skos:broader bcoc:TreasuryManagement .
+bcoc:FinancialRiskManagement skos:definition "A business capability of an organization to identify and measure its exposure to losses from movements in financial markets and in the standing of its counterparties, and limit that exposure, hedging it where it chooses to, grounded in the organization's members as organized."@en .
+bcoc:FinancialRiskManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:FinancialRiskManagement skos:prefLabel "Financial Risk Management"@en .
+
+bcoc:FixedAssetAccounting bco:catalogCandidate "BCC-e3c8bd37" .
+bcoc:FixedAssetAccounting bco:currentRecord bcoc:record-d7432dbd92113a3f0b4169b5819967a60285e518b8163f69973db30947e50757 .
+bcoc:FixedAssetAccounting bco:definitionGenus bco:BusinessCapability .
+bcoc:FixedAssetAccounting bco:foundationalAncestor cco:ont00000568 .
+bcoc:FixedAssetAccounting bco:lifecycleStatus "Draft" .
+bcoc:FixedAssetAccounting bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:FixedAssetAccounting bco:sourceReference bcoc:source-e0e0d9a367d98e57991e1352ca50f0336b377cd0b994cfc31d06a4515c8d0943 .
+bcoc:FixedAssetAccounting dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:FixedAssetAccounting prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:FixedAssetAccounting rdf:type skos:Concept .
+bcoc:FixedAssetAccounting skos:broader bcoc:FinancialAccounting .
+bcoc:FixedAssetAccounting skos:definition "A business capability of an organization to record its fixed assets and account for their cost and its consumption over their useful lives, from acquisition to disposal, keeping the asset register consistent with the ledger, grounded in the organization's members as organized."@en .
+bcoc:FixedAssetAccounting skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:FixedAssetAccounting skos:prefLabel "Fixed-Asset Accounting"@en .
+
+bcoc:ForeignExchangeRiskManagement bco:catalogCandidate "BCC-7c04ea8a" .
+bcoc:ForeignExchangeRiskManagement bco:catalogCandidate "BCC-8fc1f306" .
+bcoc:ForeignExchangeRiskManagement bco:currentRecord bcoc:record-d89a321f2a826f1c91953c3ce2f0e3a9a493d2ddeb4ada105faf3033893ca198 .
+bcoc:ForeignExchangeRiskManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:ForeignExchangeRiskManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:ForeignExchangeRiskManagement bco:lifecycleStatus "Draft" .
+bcoc:ForeignExchangeRiskManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:ForeignExchangeRiskManagement bco:sourceReference bcoc:source-6150f82230e758f57af33eeca15dd5dd5e3931ee6d327c120f552fe7f51a25c3 .
+bcoc:ForeignExchangeRiskManagement bco:sourceReference bcoc:source-9d00a925d4471714f46298b905086bbf10ab667df7cc85517ce7875d36623999 .
+bcoc:ForeignExchangeRiskManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:ForeignExchangeRiskManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:ForeignExchangeRiskManagement rdf:type skos:Concept .
+bcoc:ForeignExchangeRiskManagement skos:altLabel "Currency Exposure Management"@en .
+bcoc:ForeignExchangeRiskManagement skos:broader bcoc:FinancialRiskManagement .
+bcoc:ForeignExchangeRiskManagement skos:definition "A business capability of an organization to measure its exposure to losses from changes in exchange rates, forecast their effect on it, and hedge that exposure where it chooses to, grounded in the organization's members as organized."@en .
+bcoc:ForeignExchangeRiskManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:ForeignExchangeRiskManagement skos:prefLabel "Foreign Exchange Risk Management"@en .
+
+bcoc:GeneralLedgerAccounting bco:catalogCandidate "BCC-8b431985" .
+bcoc:GeneralLedgerAccounting bco:currentRecord bcoc:record-d7c19172b362dd43d1c1f2fc0276619b4a7903ed533d932c6656903aecb799b8 .
+bcoc:GeneralLedgerAccounting bco:definitionGenus bco:BusinessCapability .
+bcoc:GeneralLedgerAccounting bco:foundationalAncestor cco:ont00000568 .
+bcoc:GeneralLedgerAccounting bco:lifecycleStatus "Draft" .
+bcoc:GeneralLedgerAccounting bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:GeneralLedgerAccounting bco:sourceReference bcoc:source-82ad796e4abbb5bbe488f5b7e501e59ff314bf4beea3593c50bf71ffac4bbbf7 .
+bcoc:GeneralLedgerAccounting dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:GeneralLedgerAccounting prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:GeneralLedgerAccounting rdf:type skos:Concept .
+bcoc:GeneralLedgerAccounting skos:altLabel "General Accounting"@en .
+bcoc:GeneralLedgerAccounting skos:broader bcoc:FinancialAccounting .
+bcoc:GeneralLedgerAccounting skos:definition "A business capability of an organization to record its financial transactions in its ledgers by accepted accounting principles, close its books for each period, and keep its accounts reconciled, grounded in the organization's members as organized."@en .
+bcoc:GeneralLedgerAccounting skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:GeneralLedgerAccounting skos:prefLabel "General Ledger Accounting"@en .
+
+bcoc:GlobalTradeManagement bco:catalogCandidate "BCC-05445216" .
+bcoc:GlobalTradeManagement bco:currentRecord bcoc:record-abc69830c9510a76437ba6a5d6e4e54737e83ba46fcad8a446b4d73fea2eea10 .
+bcoc:GlobalTradeManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:GlobalTradeManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:GlobalTradeManagement bco:lifecycleStatus "Draft" .
+bcoc:GlobalTradeManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:GlobalTradeManagement bco:sourceReference bcoc:source-bd5b9fca8c56b816f3691f62a79cacf8bb4818b8c9d58390a14d5d8746421071 .
+bcoc:GlobalTradeManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:GlobalTradeManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:GlobalTradeManagement rdf:type skos:Concept .
+bcoc:GlobalTradeManagement skos:altLabel "Global Trade Services"@en .
+bcoc:GlobalTradeManagement skos:definition "A business capability of an organization to carry on its cross-border trade in conformity with the trade rules of the countries involved, and handle the documents, duties and payments that trade requires, grounded in the organization's members as organized."@en .
+bcoc:GlobalTradeManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:GlobalTradeManagement skos:prefLabel "Global Trade Management"@en .
+
+bcoc:HedgingTransactionExecution bco:catalogCandidate "BCC-8fdf31c6" .
+bcoc:HedgingTransactionExecution bco:currentRecord bcoc:record-8d0150daec3fbcfadd89848b6d9c62f329f7ff77dde1e94b925def26be4d219a .
+bcoc:HedgingTransactionExecution bco:definitionGenus bco:BusinessCapability .
+bcoc:HedgingTransactionExecution bco:foundationalAncestor cco:ont00000568 .
+bcoc:HedgingTransactionExecution bco:lifecycleStatus "Draft" .
+bcoc:HedgingTransactionExecution bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:HedgingTransactionExecution bco:sourceReference bcoc:source-b361c5f4ad9d19ea539e60cb083249efcfcbb5623e9efcb6a47ad0183f6e9753 .
+bcoc:HedgingTransactionExecution dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:HedgingTransactionExecution prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:HedgingTransactionExecution rdf:type skos:Concept .
+bcoc:HedgingTransactionExecution skos:broader bcoc:FinancialRiskManagement .
+bcoc:HedgingTransactionExecution skos:definition "A business capability of an organization to enter into, carry out and later adjust the derivative and other transactions that offset the financial exposures it has decided to hedge, grounded in the organization's members as organized."@en .
+bcoc:HedgingTransactionExecution skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:HedgingTransactionExecution skos:prefLabel "Hedging Transaction Execution"@en .
+
+bcoc:InHouseBankAccountManagement bco:catalogCandidate "BCC-749adb52" .
+bcoc:InHouseBankAccountManagement bco:catalogCandidate "BCC-aebe5ec1" .
+bcoc:InHouseBankAccountManagement bco:currentRecord bcoc:record-76db9f3f639ca399378c9ef2bfe195f8ba42aaccc63961d9b4f7df71c865ad09 .
+bcoc:InHouseBankAccountManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:InHouseBankAccountManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:InHouseBankAccountManagement bco:lifecycleStatus "Draft" .
+bcoc:InHouseBankAccountManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:InHouseBankAccountManagement bco:sourceReference bcoc:source-90e149539cc14e65a36fc758f84f6bb807ca4fa7ef3bfe6b18a05812f838b762 .
+bcoc:InHouseBankAccountManagement bco:sourceReference bcoc:source-e5160987babeb97147d54f2eee966af5a2f6564fde6ccf36fac53d8f3932b485 .
+bcoc:InHouseBankAccountManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:InHouseBankAccountManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:InHouseBankAccountManagement rdf:type skos:Concept .
+bcoc:InHouseBankAccountManagement skos:altLabel "In-House Banking"@en .
+bcoc:InHouseBankAccountManagement skos:broader bcoc:TreasuryManagement .
+bcoc:InHouseBankAccountManagement skos:definition "A business capability of an organization to run accounts that its own units, subsidiaries among them, hold with a central treasury of the organization, and settle, lend and pay through those accounts as a bank would, grounded in the organization's members as organized."@en .
+bcoc:InHouseBankAccountManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:InHouseBankAccountManagement skos:prefLabel "In-House Bank Account Management"@en .
+
+bcoc:InterestRateRiskManagement bco:catalogCandidate "BCC-0564598d" .
+bcoc:InterestRateRiskManagement bco:currentRecord bcoc:record-274a45072c919794f6bf8c82d851ab94955a303db777afdbb5fa89864c3e40c9 .
+bcoc:InterestRateRiskManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:InterestRateRiskManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:InterestRateRiskManagement bco:lifecycleStatus "Draft" .
+bcoc:InterestRateRiskManagement bco:sourceReference bcoc:source-07166bbaa316f93fbf41f0b3b2a80f27e5373b2c57e06a4865f800281f1c9a05 .
+bcoc:InterestRateRiskManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:InterestRateRiskManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:InterestRateRiskManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:InterestRateRiskManagement rdf:type skos:Concept .
+bcoc:InterestRateRiskManagement skos:broader bcoc:FinancialRiskManagement .
+bcoc:InterestRateRiskManagement skos:definition "A business capability of an organization to measure its exposure to losses from changes in interest rates on what it borrows and what it holds, and limit that exposure, grounded in the organization's members as organized."@en .
+bcoc:InterestRateRiskManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:InterestRateRiskManagement skos:prefLabel "Interest Rate Risk Management"@en .
+
+bcoc:InternalControl bco:catalogCandidate "BCC-5a4bc396" .
+bcoc:InternalControl bco:currentRecord bcoc:record-46affa6ede38f32abc36f824c9ad4398ac22f71200775ee55c6c1728085736c5 .
+bcoc:InternalControl bco:definitionGenus bco:BusinessCapability .
+bcoc:InternalControl bco:foundationalAncestor cco:ont00000568 .
+bcoc:InternalControl bco:lifecycleStatus "Draft" .
+bcoc:InternalControl bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:InternalControl bco:sourceReference bcoc:source-89bb61c60bc99a588f84154e41ecdaf6c9d432aedaf73d38e7c9ae76c0ffd948 .
+bcoc:InternalControl dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:InternalControl prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:InternalControl rdf:type skos:Concept .
+bcoc:InternalControl skos:altLabel "Internal Control Management"@en .
+bcoc:InternalControl skos:definition "A business capability of an organization to design, operate, monitor and report on controls intended to give reasonable assurance that its operations are effective, its financial reporting reliable and its conduct compliant, grounded in the organization's members as organized."@en .
+bcoc:InternalControl skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:InternalControl skos:prefLabel "Internal Control"@en .
+
+bcoc:InternalControlDesign bco:catalogCandidate "BCC-80a63f8e" .
+bcoc:InternalControlDesign bco:currentRecord bcoc:record-519ef36d357e5b518f1b8f8a72485459c031d578c0d3d739bd3931cd9472fa04 .
+bcoc:InternalControlDesign bco:definitionGenus bco:BusinessCapability .
+bcoc:InternalControlDesign bco:foundationalAncestor cco:ont00000568 .
+bcoc:InternalControlDesign bco:lifecycleStatus "Draft" .
+bcoc:InternalControlDesign bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:InternalControlDesign bco:sourceReference bcoc:source-5ab2b8ac787db41c2ffc18a07d2fee9111e9e035e6bfa4113b7925fc474dcfef .
+bcoc:InternalControlDesign dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:InternalControlDesign prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:InternalControlDesign rdf:type skos:Concept .
+bcoc:InternalControlDesign skos:altLabel "Internal Control Policy and Procedure Establishment"@en .
+bcoc:InternalControlDesign skos:broader bcoc:InternalControl .
+bcoc:InternalControlDesign skos:definition "A business capability of an organization to define the controls, policies and procedures intended to give reasonable assurance that its operations are effective, its financial reporting reliable and its conduct compliant, grounded in the organization's members as organized."@en .
+bcoc:InternalControlDesign skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:InternalControlDesign skos:prefLabel "Internal Control Design"@en .
+
+bcoc:InternalControlOperation bco:catalogCandidate "BCC-ded8ed18" .
+bcoc:InternalControlOperation bco:currentRecord bcoc:record-93159556c1a9f3031eb6bcd6f1291ce7d54bce8281d1c9ebfd7d6360a7593961 .
+bcoc:InternalControlOperation bco:definitionGenus bco:BusinessCapability .
+bcoc:InternalControlOperation bco:foundationalAncestor cco:ont00000568 .
+bcoc:InternalControlOperation bco:lifecycleStatus "Draft" .
+bcoc:InternalControlOperation bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:InternalControlOperation bco:sourceReference bcoc:source-d354ed24b338bc27cfbc6ee0674e30816b681abaf0b3a3294267189eed181a54 .
+bcoc:InternalControlOperation dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:InternalControlOperation prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:InternalControlOperation rdf:type skos:Concept .
+bcoc:InternalControlOperation skos:broader bcoc:InternalControl .
+bcoc:InternalControlOperation skos:definition "A business capability of an organization to carry out the controls it has defined and monitor whether they operate as designed and are complied with, grounded in the organization's members as organized."@en .
+bcoc:InternalControlOperation skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:InternalControlOperation skos:prefLabel "Internal Control Operation and Monitoring"@en .
+
+bcoc:InternalControlReporting bco:catalogCandidate "BCC-b55668bc" .
+bcoc:InternalControlReporting bco:currentRecord bcoc:record-f92d825518267ec8653d0103db63e5b90deabb11a8a3c6a4ff7bdc4f5a427f3a .
+bcoc:InternalControlReporting bco:definitionGenus bco:BusinessCapability .
+bcoc:InternalControlReporting bco:foundationalAncestor cco:ont00000568 .
+bcoc:InternalControlReporting bco:lifecycleStatus "Draft" .
+bcoc:InternalControlReporting bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:InternalControlReporting bco:sourceReference bcoc:source-47255e2d99c4539bc5c9165272dce1a01e1a1c3b3bab021ea8c8bb8902e032c4 .
+bcoc:InternalControlReporting dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:InternalControlReporting prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:InternalControlReporting rdf:type skos:Concept .
+bcoc:InternalControlReporting skos:altLabel "Internal Controls Compliance Reporting"@en .
+bcoc:InternalControlReporting skos:broader bcoc:InternalControl .
+bcoc:InternalControlReporting skos:definition "A business capability of an organization to report on the state of its internal controls, and on compliance with them, to those inside and outside it who need to know, grounded in the organization's members as organized."@en .
+bcoc:InternalControlReporting skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:InternalControlReporting skos:prefLabel "Internal Control Reporting"@en .
+
+bcoc:InternationalFundsManagement bco:catalogCandidate "BCC-87e3a26b" .
+bcoc:InternationalFundsManagement bco:currentRecord bcoc:record-747b4d9def9e2415162dfef27525be4a74349a044e345a7af11ddad8fc70f162 .
+bcoc:InternationalFundsManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:InternationalFundsManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:InternationalFundsManagement bco:lifecycleStatus "Draft" .
+bcoc:InternationalFundsManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:InternationalFundsManagement bco:sourceReference bcoc:source-6a1a93491186687426d05272e1f86a3ce24ae59b14d5db8c17a80f06b1d54f6d .
+bcoc:InternationalFundsManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:InternationalFundsManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:InternationalFundsManagement rdf:type skos:Concept .
+bcoc:InternationalFundsManagement skos:broader bcoc:FinancialResourceManagement .
+bcoc:InternationalFundsManagement skos:broader bcoc:TreasuryManagement .
+bcoc:InternationalFundsManagement skos:definition "A business capability of an organization to collect and concentrate the funds of its units in different countries into accounts its treasury manages, and manage the transfers among them, grounded in the organization's members as organized."@en .
+bcoc:InternationalFundsManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:InternationalFundsManagement skos:prefLabel "International Funds Management"@en .
+
+bcoc:InternationalRateMonitoring bco:catalogCandidate "BCC-5dfa2101" .
+bcoc:InternationalRateMonitoring bco:currentRecord bcoc:record-768596eaf4e876ad90684fc805c2ea1e07731df3a528e6b1fb15a8fea9619808 .
+bcoc:InternationalRateMonitoring bco:definitionGenus bco:BusinessCapability .
+bcoc:InternationalRateMonitoring bco:foundationalAncestor cco:ont00000568 .
+bcoc:InternationalRateMonitoring bco:lifecycleStatus "Draft" .
+bcoc:InternationalRateMonitoring bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:InternationalRateMonitoring bco:sourceReference bcoc:source-d0090f941768179babed684571d45a4eeb729a1ab20651b43cfb5391cfe74bad .
+bcoc:InternationalRateMonitoring dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:InternationalRateMonitoring prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:InternationalRateMonitoring rdf:type skos:Concept .
+bcoc:InternationalRateMonitoring skos:definition "A business capability of an organization to follow the exchange and interest rates in the markets where it operates and bring them to those who manage its international funds, grounded in the organization's members as organized."@en .
+bcoc:InternationalRateMonitoring skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:InternationalRateMonitoring skos:prefLabel "International Rate Monitoring"@en .
+
+bcoc:IssuerCreditExposureManagement bco:catalogCandidate "BCC-13b94120" .
+bcoc:IssuerCreditExposureManagement bco:currentRecord bcoc:record-c049ba1c6f5de7b094b054daabcec0d55b44fef08e6656ce691a042b102b1fa7 .
+bcoc:IssuerCreditExposureManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:IssuerCreditExposureManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:IssuerCreditExposureManagement bco:lifecycleStatus "Draft" .
+bcoc:IssuerCreditExposureManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:IssuerCreditExposureManagement bco:sourceReference bcoc:source-de38968c2d8aa0c55ac9ec14c78fcd1fc5320a4018904ba3118a99c2fb00bebf .
+bcoc:IssuerCreditExposureManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:IssuerCreditExposureManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:IssuerCreditExposureManagement rdf:type skos:Concept .
+bcoc:IssuerCreditExposureManagement skos:altLabel "Issuer Exposure Management"@en .
+bcoc:IssuerCreditExposureManagement skos:broader bcoc:DebtAndInvestmentManagement .
+bcoc:IssuerCreditExposureManagement skos:definition "A business capability of an organization to measure and limit how much of its funds is exposed to the failure of any one issuer or borrower whose obligations it holds, grounded in the organization's members as organized."@en .
+bcoc:IssuerCreditExposureManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:IssuerCreditExposureManagement skos:prefLabel "Issuer Credit Exposure Management"@en .
+
+bcoc:LetterOfCreditManagement bco:catalogCandidate "BCC-4f5c2f36" .
+bcoc:LetterOfCreditManagement bco:currentRecord bcoc:record-0784f0ee15e567c93e33bb98cea1486c58da01c3007f9fc5d8af2589a1216996 .
+bcoc:LetterOfCreditManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:LetterOfCreditManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:LetterOfCreditManagement bco:lifecycleStatus "Draft" .
+bcoc:LetterOfCreditManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:LetterOfCreditManagement bco:sourceReference bcoc:source-96ae35085286b454472f093d6fefa02acdca1b218fc7d29f5317e15cf171a73a .
+bcoc:LetterOfCreditManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:LetterOfCreditManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:LetterOfCreditManagement rdf:type skos:Concept .
+bcoc:LetterOfCreditManagement skos:altLabel "Documentary Credit Management"@en .
+bcoc:LetterOfCreditManagement skos:altLabel "Letter of Credit Preparation"@en .
+bcoc:LetterOfCreditManagement skos:broader bcoc:GlobalTradeManagement .
+bcoc:LetterOfCreditManagement skos:definition "A business capability of an organization to arrange letters of credit for its trade, by which a bank assures payment to a seller once agreed conditions are met, and present the documents they call for, grounded in the organization's members as organized."@en .
+bcoc:LetterOfCreditManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:LetterOfCreditManagement skos:prefLabel "Letter of Credit Management"@en .
+
+bcoc:LiquidityManagement bco:catalogCandidate "BCC-4464d04f" .
+bcoc:LiquidityManagement bco:currentRecord bcoc:record-23f91456492e21ea8ab39376f15b495ebfdc682f39b23cbf8e5eda1d63febb7e .
+bcoc:LiquidityManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:LiquidityManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:LiquidityManagement bco:lifecycleStatus "Draft" .
+bcoc:LiquidityManagement bco:sourceReference bcoc:source-0a6ac101ee4e3646719ace804d5bcf3b9e474637c52d08832e86ce8bf7f61d76 .
+bcoc:LiquidityManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:LiquidityManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:LiquidityManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:LiquidityManagement rdf:type skos:Concept .
+bcoc:LiquidityManagement skos:broader bcoc:TreasuryManagement .
+bcoc:LiquidityManagement skos:definition "A business capability of an organization to keep enough cash, readily convertible assets or access to funding to meet its obligations as they fall due, grounded in the organization's members as organized."@en .
+bcoc:LiquidityManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:LiquidityManagement skos:prefLabel "Liquidity Management"@en .
+
+bcoc:PayManagement bco:catalogCandidate "BCC-d105ff07" .
+bcoc:PayManagement bco:currentRecord bcoc:record-4b4fe8ab5297da7a7513cb5379fc1342521646b26197ea56d93a1acceed1526c .
+bcoc:PayManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:PayManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:PayManagement bco:lifecycleStatus "Draft" .
+bcoc:PayManagement bco:sourceReference bcoc:source-37120fb5a8e56bbaf9bfe9f3f2f8316efbb7ddd6ba9d5a9f38e5b692c1910873 .
+bcoc:PayManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:PayManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:PayManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:PayManagement rdf:type skos:Concept .
+bcoc:PayManagement skos:altLabel "Compensation Payment Management"@en .
+bcoc:PayManagement skos:broader bcoc:PayrollProcessing .
+bcoc:PayManagement skos:definition "A business capability of an organization to determine the gross pay each employee is owed for a period, bonuses and other compensation included, and carry it through to payment, grounded in the organization's members as organized."@en .
+bcoc:PayManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:PayManagement skos:prefLabel "Pay Management"@en .
+
+bcoc:PayablesAndReimbursementManagement bco:catalogCandidate "BCC-0fe1f7f0" .
+bcoc:PayablesAndReimbursementManagement bco:currentRecord bcoc:record-516667181aae466530eea7d0287a6daee0d4d6c02db02cd9faa31ab8603bac91 .
+bcoc:PayablesAndReimbursementManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:PayablesAndReimbursementManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:PayablesAndReimbursementManagement bco:lifecycleStatus "Draft" .
+bcoc:PayablesAndReimbursementManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:PayablesAndReimbursementManagement bco:sourceReference bcoc:source-a04bccaac29926acb98c1805ec3057f87157397bbf1f37e70fe579e2e0509902 .
+bcoc:PayablesAndReimbursementManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:PayablesAndReimbursementManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:PayablesAndReimbursementManagement rdf:type skos:Concept .
+bcoc:PayablesAndReimbursementManagement skos:altLabel "Payables Management"@en .
+bcoc:PayablesAndReimbursementManagement skos:broader bcoc:FinancialResourceManagement .
+bcoc:PayablesAndReimbursementManagement skos:definition "A business capability of an organization to settle what it owes its suppliers and what it owes its own members for expenses they incurred on its behalf, grounded in the organization's members as organized."@en .
+bcoc:PayablesAndReimbursementManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:PayablesAndReimbursementManagement skos:prefLabel "Accounts Payable and Expense Reimbursement Management"@en .
+
+bcoc:PaymentProcessing bco:catalogCandidate "BCC-9511900a" .
+bcoc:PaymentProcessing bco:currentRecord bcoc:record-daea7d6c004030621483dd05fd2e3e7e817ddd225cac55a1b5d4a5fd4731a081 .
+bcoc:PaymentProcessing bco:definitionGenus bco:BusinessCapability .
+bcoc:PaymentProcessing bco:foundationalAncestor cco:ont00000568 .
+bcoc:PaymentProcessing bco:lifecycleStatus "Draft" .
+bcoc:PaymentProcessing bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:PaymentProcessing bco:sourceReference bcoc:source-8ed52377b4c43961072f95d6fbca429eadd91c859ca4620740699ff3318956ef .
+bcoc:PaymentProcessing bco:sourceReference bcoc:source-fcc0db72475ab507b21424ef5378237ec22dbf4d9cca9bcf8f639c2adcd4a17d .
+bcoc:PaymentProcessing dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:PaymentProcessing prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:PaymentProcessing rdf:type skos:Concept .
+bcoc:PaymentProcessing skos:altLabel "Payment Disbursement"@en .
+bcoc:PaymentProcessing skos:altLabel "Payment Processing and Distribution"@en .
+bcoc:PaymentProcessing skos:broader bcoc:AccountsPayableProcessing .
+bcoc:PaymentProcessing skos:broader bcoc:PayManagement .
+bcoc:PaymentProcessing skos:definition "A business capability of an organization to make the payments it has decided to make, by the means and on the dates due, and record each payment made, grounded in the organization's members as organized."@en .
+bcoc:PaymentProcessing skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:PaymentProcessing skos:prefLabel "Payment Processing"@en .
+
+bcoc:PayrollProcessing bco:catalogCandidate "BCC-b7c46718" .
+bcoc:PayrollProcessing bco:catalogCandidate "BCC-d95f68fd" .
+bcoc:PayrollProcessing bco:currentRecord bcoc:record-defbd4f3400fa08d79627af675a91ad68f17d874a0ad9d3ab792136ffbd2d643 .
+bcoc:PayrollProcessing bco:definitionGenus bco:BusinessCapability .
+bcoc:PayrollProcessing bco:foundationalAncestor cco:ont00000568 .
+bcoc:PayrollProcessing bco:lifecycleStatus "Draft" .
+bcoc:PayrollProcessing bco:sourceReference bcoc:source-086028a2908381e7dd379444a862a717991cfe00a65081cbf6c51416f0d1a6b1 .
+bcoc:PayrollProcessing bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:PayrollProcessing bco:sourceReference bcoc:source-67baa820212c668746a2c2eebb480dca3d3af8f4eb76e1749331c5ee169d1845 .
+bcoc:PayrollProcessing bco:sourceReference bcoc:source-94c00382c3a4248eb06201518114257ddef43b1d9aea6459bc7734cce313448f .
+bcoc:PayrollProcessing bco:sourceReference bcoc:source-eb182ba5756564f358f1be0f15dafa091faeffacc3d452e6b4b924bc10b0c10a .
+bcoc:PayrollProcessing dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:PayrollProcessing prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:PayrollProcessing rdf:type skos:Concept .
+bcoc:PayrollProcessing skos:altLabel "Payroll"@en .
+bcoc:PayrollProcessing skos:broader bcoc:FinancialResourceManagement .
+bcoc:PayrollProcessing skos:changeNote "2026-11-07, tranche 2: the definition is the one tranche 1 checked and its G1-T record signed (docs/catalog/admission/), carried over unchanged."@en .
+bcoc:PayrollProcessing skos:definition "A business capability of an organization to determine, for each pay period, what each of its employees is owed and what must be withheld, from recorded time and earnings, to pay it and remit what is withheld, to account and report for it, and to answer its employees about it, grounded in the organization's members as organized."@en .
+bcoc:PayrollProcessing skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:PayrollProcessing skos:prefLabel "Payroll Processing"@en .
+
+bcoc:PayrollTaxProcessing bco:catalogCandidate "BCC-394909c1" .
+bcoc:PayrollTaxProcessing bco:currentRecord bcoc:record-2c668d7b53ecf8d623c0cbc4595a6984baa1afd0931ba8f250ba3a1f97b59247 .
+bcoc:PayrollTaxProcessing bco:definitionGenus bco:BusinessCapability .
+bcoc:PayrollTaxProcessing bco:foundationalAncestor cco:ont00000568 .
+bcoc:PayrollTaxProcessing bco:lifecycleStatus "Draft" .
+bcoc:PayrollTaxProcessing bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:PayrollTaxProcessing bco:sourceReference bcoc:source-42e3955256a259c8caae629c8d5de1b2c72980210c145cad9049c376b0113785 .
+bcoc:PayrollTaxProcessing dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:PayrollTaxProcessing prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:PayrollTaxProcessing rdf:type skos:Concept .
+bcoc:PayrollTaxProcessing skos:altLabel "Payroll Tax Management"@en .
+bcoc:PayrollTaxProcessing skos:broader bcoc:PayrollProcessing .
+bcoc:PayrollTaxProcessing skos:broader bcoc:TaxManagement .
+bcoc:PayrollTaxProcessing skos:definition "A business capability of an organization to calculate, withhold, remit and report the taxes due on its employees' pay, and reconcile what it remitted with what was due, grounded in the organization's members as organized."@en .
+bcoc:PayrollTaxProcessing skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:PayrollTaxProcessing skos:prefLabel "Payroll Tax Processing"@en .
+
+bcoc:RestrictedPartyScreening bco:catalogCandidate "BCC-f6799472" .
+bcoc:RestrictedPartyScreening bco:currentRecord bcoc:record-1e5990ec6e5bc10934c92a209bdf9cb167c29623dc9a2408396ab10f8f7900f8 .
+bcoc:RestrictedPartyScreening bco:definitionGenus bco:BusinessCapability .
+bcoc:RestrictedPartyScreening bco:foundationalAncestor cco:ont00000568 .
+bcoc:RestrictedPartyScreening bco:lifecycleStatus "Draft" .
+bcoc:RestrictedPartyScreening bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:RestrictedPartyScreening bco:sourceReference bcoc:source-e6b9340e7dbe1226523869233b1f1669932e3b304ec2ef4f5d8525130852a019 .
+bcoc:RestrictedPartyScreening dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:RestrictedPartyScreening prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:RestrictedPartyScreening rdf:type skos:Concept .
+bcoc:RestrictedPartyScreening skos:altLabel "Denied Party Screening"@en .
+bcoc:RestrictedPartyScreening skos:altLabel "Sanctioned Party Screening"@en .
+bcoc:RestrictedPartyScreening skos:broader bcoc:GlobalTradeManagement .
+bcoc:RestrictedPartyScreening skos:definition "A business capability of an organization to check the parties it would trade with against the lists of sanctioned and restricted parties that apply, before and during its dealings with them, grounded in the organization's members as organized."@en .
+bcoc:RestrictedPartyScreening skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:RestrictedPartyScreening skos:prefLabel "Restricted Party Screening"@en .
+
+bcoc:RevenueAndReceivablesManagement bco:catalogCandidate "BCC-1cccc689" .
+bcoc:RevenueAndReceivablesManagement bco:currentRecord bcoc:record-d779e5019775ce994ba708739aa7b0edc4e1993e0740c3acfa3ecbe72c3148e8 .
+bcoc:RevenueAndReceivablesManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:RevenueAndReceivablesManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:RevenueAndReceivablesManagement bco:lifecycleStatus "Draft" .
+bcoc:RevenueAndReceivablesManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:RevenueAndReceivablesManagement bco:sourceReference bcoc:source-93b0968a64ccd2b5975e408fbfb42319c9090e53420a058d550dc1dd8adbff46 .
+bcoc:RevenueAndReceivablesManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:RevenueAndReceivablesManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:RevenueAndReceivablesManagement rdf:type skos:Concept .
+bcoc:RevenueAndReceivablesManagement skos:altLabel "Revenue Accounting"@en .
+bcoc:RevenueAndReceivablesManagement skos:broader bcoc:FinancialResourceManagement .
+bcoc:RevenueAndReceivablesManagement skos:definition "A business capability of an organization to recognize the revenue it earns, and extend credit to, invoice, record and collect what its customers owe it, grounded in the organization's members as organized."@en .
+bcoc:RevenueAndReceivablesManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:RevenueAndReceivablesManagement skos:prefLabel "Revenue and Receivables Management"@en .
 
 bcoc:StrategicPlanning bco:currentRecord bcoc:record-be402280b2f3b07028701f2587b48052a6eba818267a49ef2346cec616044b96 .
 bcoc:StrategicPlanning bco:definitionGenus bco:BusinessCapability .
@@ -88,7 +970,123 @@ bcoc:StrategicPlanning skos:definition "A business capability, inhering in an or
 bcoc:StrategicPlanning skos:inScheme bcoc:CapabilityCatalogScheme .
 bcoc:StrategicPlanning skos:prefLabel "Strategic Planning"@en .
 
-bcoc:TreasuryManagement bco:currentRecord bcoc:record-1670739b1e9d40900ef0f391c304b9dbd25adeb081314959bf2b3674f811e3ae .
+bcoc:TaxManagement bco:catalogCandidate "BCC-c64ca466" .
+bcoc:TaxManagement bco:currentRecord bcoc:record-789c5f6928c7be633ff21b156b7aa2092a166c864b0a7917a612bc23afba4de0 .
+bcoc:TaxManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:TaxManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:TaxManagement bco:lifecycleStatus "Draft" .
+bcoc:TaxManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:TaxManagement bco:sourceReference bcoc:source-c4d2e0090c2a915af0f6afcc213f06a6c0c328acb446335be336f69c19c1c168 .
+bcoc:TaxManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:TaxManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:TaxManagement rdf:type skos:Concept .
+bcoc:TaxManagement skos:broader bcoc:FinancialResourceManagement .
+bcoc:TaxManagement skos:definition "A business capability of an organization to plan for, meet and account for its tax obligations in every jurisdiction where it has them, grounded in the organization's members as organized."@en .
+bcoc:TaxManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:TaxManagement skos:prefLabel "Tax Management"@en .
+
+bcoc:TaxPlanning bco:catalogCandidate "BCC-ce052840" .
+bcoc:TaxPlanning bco:currentRecord bcoc:record-2916c5bd9c8ac05fdefb698ed8335587f89cd3d61a5e57497873e0e10206f293 .
+bcoc:TaxPlanning bco:definitionGenus bco:BusinessCapability .
+bcoc:TaxPlanning bco:foundationalAncestor cco:ont00000568 .
+bcoc:TaxPlanning bco:lifecycleStatus "Draft" .
+bcoc:TaxPlanning bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:TaxPlanning bco:sourceReference bcoc:source-e5c95f061e9f0d65df1fb997c85deb34b21dfb94dbd20f3d13121f0baf455531 .
+bcoc:TaxPlanning dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:TaxPlanning prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:TaxPlanning rdf:type skos:Concept .
+bcoc:TaxPlanning skos:altLabel "Tax Strategy Development"@en .
+bcoc:TaxPlanning skos:broader bcoc:TaxManagement .
+bcoc:TaxPlanning skos:definition "A business capability of an organization to forecast its tax liabilities, assess the tax effects of what it intends to do, and set its tax strategy accordingly, grounded in the organization's members as organized."@en .
+bcoc:TaxPlanning skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:TaxPlanning skos:prefLabel "Tax Planning"@en .
+
+bcoc:TaxProcessing bco:catalogCandidate "BCC-52f0795a" .
+bcoc:TaxProcessing bco:currentRecord bcoc:record-66fa1dc7eb2e5eebdf796e0db9a4393cd272b9e9c3ea4d43843e50b5cde987ac .
+bcoc:TaxProcessing bco:definitionGenus bco:BusinessCapability .
+bcoc:TaxProcessing bco:foundationalAncestor cco:ont00000568 .
+bcoc:TaxProcessing bco:lifecycleStatus "Draft" .
+bcoc:TaxProcessing bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:TaxProcessing bco:sourceReference bcoc:source-4a636642964bcce5c82261e867dd8f41ec98fc54886a5e307dcb8c01437d55aa .
+bcoc:TaxProcessing dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:TaxProcessing prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:TaxProcessing rdf:type skos:Concept .
+bcoc:TaxProcessing skos:altLabel "Tax Return Preparation and Payment"@en .
+bcoc:TaxProcessing skos:broader bcoc:TaxManagement .
+bcoc:TaxProcessing skos:definition "A business capability of an organization to determine, declare, pay and account for the taxes it owes on its income, property, transactions and services, and keep the records that support them, grounded in the organization's members as organized."@en .
+bcoc:TaxProcessing skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:TaxProcessing skos:prefLabel "Tax Processing"@en .
+
+bcoc:TimeReporting bco:catalogCandidate "BCC-85fbcb90" .
+bcoc:TimeReporting bco:currentRecord bcoc:record-eee8ad6a36343a04a02b477f265e47c5de80e7ad18ace551435cb74b686c5141 .
+bcoc:TimeReporting bco:definitionGenus bco:BusinessCapability .
+bcoc:TimeReporting bco:foundationalAncestor cco:ont00000568 .
+bcoc:TimeReporting bco:lifecycleStatus "Draft" .
+bcoc:TimeReporting bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:TimeReporting bco:sourceReference bcoc:source-66083a0304a5533f01f32e420d265ba729f27a779cdfe031003014f8f7dab327 .
+bcoc:TimeReporting bco:sourceReference bcoc:source-778d747809a7cee8879935a940511c95012453ac48be56f4c1789b4e550001c3 .
+bcoc:TimeReporting bco:sourceReference bcoc:source-b870c496f27c0d1cf64d2dc4ff54ebf3ac027e402e60b60724413b028f2ce90b .
+bcoc:TimeReporting dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:TimeReporting prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:TimeReporting rdf:type skos:Concept .
+bcoc:TimeReporting skos:definition "A business capability of an organization to record, by period, the time its members work, are absent or bill, and make that record available to those who pay, bill or plan with it, grounded in the organization's members as organized."@en .
+bcoc:TimeReporting skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:TimeReporting skos:prefLabel "Time Reporting"@en .
+
+bcoc:TradeDocumentation bco:catalogCandidate "BCC-6daa0467" .
+bcoc:TradeDocumentation bco:catalogCandidate "BCC-c5e7dca0" .
+bcoc:TradeDocumentation bco:currentRecord bcoc:record-67aabdbaf7e0df818b7e0e71a4b203a207ac6cd7de7b49c9b4f6a2aa176550d3 .
+bcoc:TradeDocumentation bco:definitionGenus bco:BusinessCapability .
+bcoc:TradeDocumentation bco:foundationalAncestor cco:ont00000568 .
+bcoc:TradeDocumentation bco:lifecycleStatus "Draft" .
+bcoc:TradeDocumentation bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:TradeDocumentation bco:sourceReference bcoc:source-7616621e09fea7b17e76f50bbcdc73ac4aa5c319ceadaeb74e56dd9d674950d6 .
+bcoc:TradeDocumentation bco:sourceReference bcoc:source-c159c85658fe5a62798f805147b3181784ba4b4d2cf399d91bac59087e190447 .
+bcoc:TradeDocumentation dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:TradeDocumentation prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:TradeDocumentation rdf:type skos:Concept .
+bcoc:TradeDocumentation skos:altLabel "Trade Documentation"@en .
+bcoc:TradeDocumentation skos:broader bcoc:GlobalTradeManagement .
+bcoc:TradeDocumentation skos:definition "A business capability of an organization to prepare and keep the records of its cross-border shipments, and give customs authorities the information the law requires of it, grounded in the organization's members as organized."@en .
+bcoc:TradeDocumentation skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:TradeDocumentation skos:prefLabel "Trade and Customs Documentation"@en .
+
+bcoc:TradePreferenceManagement bco:catalogCandidate "BCC-0c80b752" .
+bcoc:TradePreferenceManagement bco:currentRecord bcoc:record-c005bde58329c3929abf16a3874b14e076ced6c2983464e2ecd00ab4ed505474 .
+bcoc:TradePreferenceManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:TradePreferenceManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:TradePreferenceManagement bco:lifecycleStatus "Draft" .
+bcoc:TradePreferenceManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:TradePreferenceManagement bco:sourceReference bcoc:source-89b4e7fdeff7487605f6b5f905736a21a6206354b8ad81ebffb42f476af3f16d .
+bcoc:TradePreferenceManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:TradePreferenceManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:TradePreferenceManagement rdf:type skos:Concept .
+bcoc:TradePreferenceManagement skos:altLabel "Trade Preferences Processing"@en .
+bcoc:TradePreferenceManagement skos:broader bcoc:GlobalTradeManagement .
+bcoc:TradePreferenceManagement skos:definition "A business capability of an organization to establish that its goods qualify for reduced or zero duty under trade agreements and programs, and claim and document that treatment, grounded in the organization's members as organized."@en .
+bcoc:TradePreferenceManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:TradePreferenceManagement skos:prefLabel "Trade Preference Management"@en .
+
+bcoc:TradeProductClassification bco:catalogCandidate "BCC-e1fa4843" .
+bcoc:TradeProductClassification bco:currentRecord bcoc:record-578838efeef4dd0a6e188832eb8ace1048e5a80e5ec5bfce3321e177d9a6e298 .
+bcoc:TradeProductClassification bco:definitionGenus bco:BusinessCapability .
+bcoc:TradeProductClassification bco:foundationalAncestor cco:ont00000568 .
+bcoc:TradeProductClassification bco:lifecycleStatus "Draft" .
+bcoc:TradeProductClassification bco:sourceReference bcoc:source-0ef23e1250df3c8f847a74ba7b294e50f030bb041b7854e766c37aa9246e72e8 .
+bcoc:TradeProductClassification bco:sourceReference bcoc:source-1a52c27b7429c4483fac5fdbcd81c390eecd615032b0becb33e7ace8b4e6af20 .
+bcoc:TradeProductClassification bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:TradeProductClassification bco:sourceReference bcoc:source-6978b239314bc21f15756453deee66f74209e87f7e826fa09bc63d35236cf7c9 .
+bcoc:TradeProductClassification dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:TradeProductClassification prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:TradeProductClassification rdf:type skos:Concept .
+bcoc:TradeProductClassification skos:altLabel "Tariff Classification"@en .
+bcoc:TradeProductClassification skos:broader bcoc:GlobalTradeManagement .
+bcoc:TradeProductClassification skos:definition "A business capability of an organization to classify the goods and services it trades under the tariff and control classifications that apply to them, grounded in the organization's members as organized."@en .
+bcoc:TradeProductClassification skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:TradeProductClassification skos:prefLabel "Trade Product Classification"@en .
+
+bcoc:TreasuryManagement bco:catalogCandidate "BCC-0ba10d44" .
+bcoc:TreasuryManagement bco:currentRecord bcoc:record-848bcd712735b60d46cf54564456c9c8ee00dde855881c3497fd3ad6d6a74d88 .
 bcoc:TreasuryManagement bco:definitionGenus bco:BusinessCapability .
 bcoc:TreasuryManagement bco:foundationalAncestor cco:ont00000568 .
 bcoc:TreasuryManagement bco:lifecycleStatus "Draft" .
@@ -98,19 +1096,48 @@ bcoc:TreasuryManagement bco:sourceReference bcoc:source-aa18f2be9785bc5958d0fc79
 bcoc:TreasuryManagement dcterms:created "2026-10-24T12:14:15+00:00"^^xsd:dateTime .
 bcoc:TreasuryManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
 bcoc:TreasuryManagement rdf:type skos:Concept .
+bcoc:TreasuryManagement skos:altLabel "Treasury Operations Management"@en .
+bcoc:TreasuryManagement skos:broader bcoc:FinancialResourceManagement .
 bcoc:TreasuryManagement skos:changeNote "2026-10-24, review R6 section 3.5: generalized. The definition required treasury oversight, cash tracking and reconciliation, an investment policy and a hedging strategy, all four. A small business that manages its liquidity without hedging would have been excluded. It now says what the capability is for: having the means to pay when payment falls due. \"Realized in\" became \"realizable in\" (CD8). Every source is now marked contextual (R6 section 6.1)."@en .
 bcoc:TreasuryManagement skos:changeNote "2026-10-25, review R7 section 4: \"ensures\" removed. It made a successful outcome, always having the cash to pay, a condition of having the capability, so an organization that manages its liquidity and still meets a funding shortfall would not have it. The capability is an ability to undertake the management; the definition now says what that management is directed toward. The wording follows the reviewer's suggested refinement in substance. The genus field now names the immediate genus, bco:BusinessCapability: the class the definition's text names and bcom:BusinessCapability designates. cco:ont00000568 (Organization Capability) moved to foundational_ancestor (review R7 Finding E; docs/decisions/2026-10-25-r7-genus-decision.md). Nothing is minted."@en .
+bcoc:TreasuryManagement skos:changeNote "2026-11-07, tranche 2 (docs/decisions/2026-11-07-curation-tranche-2-approved.md): normalized from catalog candidate BCC-0ba10d44, with the alternative label its sources give and its broader concept, Financial Resource Management, as a component. The definition is unchanged."@en .
 bcoc:TreasuryManagement skos:definition "A business capability, inhering in an organization, that is realizable in planned acts by which that organization manages its cash positions, liquidity, funding and financial exposures toward meeting its financial obligations."@en .
 bcoc:TreasuryManagement skos:inScheme bcoc:CapabilityCatalogScheme .
 bcoc:TreasuryManagement skos:prefLabel "Treasury Management"@en .
+
+bcoc:TreasuryPolicyManagement bco:catalogCandidate "BCC-7757c12b" .
+bcoc:TreasuryPolicyManagement bco:currentRecord bcoc:record-a76bec6e331ec3159074c54b5db60390b741f20bc6edbf4778aa9eb773109483 .
+bcoc:TreasuryPolicyManagement bco:definitionGenus bco:BusinessCapability .
+bcoc:TreasuryPolicyManagement bco:foundationalAncestor cco:ont00000568 .
+bcoc:TreasuryPolicyManagement bco:lifecycleStatus "Draft" .
+bcoc:TreasuryPolicyManagement bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
+bcoc:TreasuryPolicyManagement bco:sourceReference bcoc:source-90bed95019d4b4e9064f0218dde186e88e28c19872c8bdde1c4fa4f764d56b54 .
+bcoc:TreasuryPolicyManagement dcterms:created "2026-11-07T18:00:00+00:00"^^xsd:dateTime .
+bcoc:TreasuryPolicyManagement prov:wasAttributedTo bcoa:claude-opus-5-5 .
+bcoc:TreasuryPolicyManagement rdf:type skos:Concept .
+bcoc:TreasuryPolicyManagement skos:altLabel "Treasury Policies and Procedures Management"@en .
+bcoc:TreasuryPolicyManagement skos:broader bcoc:TreasuryManagement .
+bcoc:TreasuryPolicyManagement skos:definition "A business capability of an organization to set, publish and keep current the rules and procedures under which its treasury invests, borrows, hedges and handles cash, grounded in the organization's members as organized."@en .
+bcoc:TreasuryPolicyManagement skos:inScheme bcoc:CapabilityCatalogScheme .
+bcoc:TreasuryPolicyManagement skos:prefLabel "Treasury Policy Management"@en .
+
+bcoc:record-0784f0ee15e567c93e33bb98cea1486c58da01c3007f9fc5d8af2589a1216996 bco:recordSha256 "0784f0ee15e567c93e33bb98cea1486c58da01c3007f9fc5d8af2589a1216996" .
+bcoc:record-0784f0ee15e567c93e33bb98cea1486c58da01c3007f9fc5d8af2589a1216996 rdf:type prov:Entity .
 
 bcoc:record-131ebf7f96c2ab3bebe5086b95a58284585261f845125e092bc6a8c4551cb317 bco:recordCommit "76b47fce225021b2ce3692e88725cca2656312ff" .
 bcoc:record-131ebf7f96c2ab3bebe5086b95a58284585261f845125e092bc6a8c4551cb317 bco:recordSha256 "131ebf7f96c2ab3bebe5086b95a58284585261f845125e092bc6a8c4551cb317" .
 bcoc:record-131ebf7f96c2ab3bebe5086b95a58284585261f845125e092bc6a8c4551cb317 rdf:type prov:Entity .
 
+bcoc:record-1670739b1e9d40900ef0f391c304b9dbd25adeb081314959bf2b3674f811e3ae bco:recordCommit "5902883ea5d228eacecd42862c842927ee77e79d" .
 bcoc:record-1670739b1e9d40900ef0f391c304b9dbd25adeb081314959bf2b3674f811e3ae bco:recordSha256 "1670739b1e9d40900ef0f391c304b9dbd25adeb081314959bf2b3674f811e3ae" .
 bcoc:record-1670739b1e9d40900ef0f391c304b9dbd25adeb081314959bf2b3674f811e3ae prov:wasRevisionOf bcoc:record-4032a5e7c5ec955323f98b47908641331e3fa6db6ad7bc3776248cf56db47927 .
 bcoc:record-1670739b1e9d40900ef0f391c304b9dbd25adeb081314959bf2b3674f811e3ae rdf:type prov:Entity .
+
+bcoc:record-1e02ffd51890e57d30054567c3e44c41cf93666aa7f641f646c4248d80614366 bco:recordSha256 "1e02ffd51890e57d30054567c3e44c41cf93666aa7f641f646c4248d80614366" .
+bcoc:record-1e02ffd51890e57d30054567c3e44c41cf93666aa7f641f646c4248d80614366 rdf:type prov:Entity .
+
+bcoc:record-1e5990ec6e5bc10934c92a209bdf9cb167c29623dc9a2408396ab10f8f7900f8 bco:recordSha256 "1e5990ec6e5bc10934c92a209bdf9cb167c29623dc9a2408396ab10f8f7900f8" .
+bcoc:record-1e5990ec6e5bc10934c92a209bdf9cb167c29623dc9a2408396ab10f8f7900f8 rdf:type prov:Entity .
 
 bcoc:record-1f8db5fa47c5c09802d00dc51673e0c8edbd0be187c025471205634d8ad7fc73 bco:recordSha256 "1f8db5fa47c5c09802d00dc51673e0c8edbd0be187c025471205634d8ad7fc73" .
 bcoc:record-1f8db5fa47c5c09802d00dc51673e0c8edbd0be187c025471205634d8ad7fc73 prov:wasRevisionOf bcoc:record-22e11eb83461eb43ba3573ab14c1528dbfb0cd0f74f6cbd441ca275c4e310072 .
@@ -121,14 +1148,47 @@ bcoc:record-22e11eb83461eb43ba3573ab14c1528dbfb0cd0f74f6cbd441ca275c4e310072 bco
 bcoc:record-22e11eb83461eb43ba3573ab14c1528dbfb0cd0f74f6cbd441ca275c4e310072 prov:wasRevisionOf bcoc:record-29e5c822bf21c0cb42ab9eb7ea3a4798e017cf48f97fb8a76f678f8f12d6baf3 .
 bcoc:record-22e11eb83461eb43ba3573ab14c1528dbfb0cd0f74f6cbd441ca275c4e310072 rdf:type prov:Entity .
 
+bcoc:record-23f91456492e21ea8ab39376f15b495ebfdc682f39b23cbf8e5eda1d63febb7e bco:recordSha256 "23f91456492e21ea8ab39376f15b495ebfdc682f39b23cbf8e5eda1d63febb7e" .
+bcoc:record-23f91456492e21ea8ab39376f15b495ebfdc682f39b23cbf8e5eda1d63febb7e rdf:type prov:Entity .
+
+bcoc:record-252449693fb2f0fea5cf5c34771ec33fbcc939e45a778dd3f42166a5d38843ce bco:recordSha256 "252449693fb2f0fea5cf5c34771ec33fbcc939e45a778dd3f42166a5d38843ce" .
+bcoc:record-252449693fb2f0fea5cf5c34771ec33fbcc939e45a778dd3f42166a5d38843ce rdf:type prov:Entity .
+
+bcoc:record-274a45072c919794f6bf8c82d851ab94955a303db777afdbb5fa89864c3e40c9 bco:recordSha256 "274a45072c919794f6bf8c82d851ab94955a303db777afdbb5fa89864c3e40c9" .
+bcoc:record-274a45072c919794f6bf8c82d851ab94955a303db777afdbb5fa89864c3e40c9 rdf:type prov:Entity .
+
+bcoc:record-2916c5bd9c8ac05fdefb698ed8335587f89cd3d61a5e57497873e0e10206f293 bco:recordSha256 "2916c5bd9c8ac05fdefb698ed8335587f89cd3d61a5e57497873e0e10206f293" .
+bcoc:record-2916c5bd9c8ac05fdefb698ed8335587f89cd3d61a5e57497873e0e10206f293 rdf:type prov:Entity .
+
 bcoc:record-29e5c822bf21c0cb42ab9eb7ea3a4798e017cf48f97fb8a76f678f8f12d6baf3 bco:recordCommit "76b47fce225021b2ce3692e88725cca2656312ff" .
 bcoc:record-29e5c822bf21c0cb42ab9eb7ea3a4798e017cf48f97fb8a76f678f8f12d6baf3 bco:recordSha256 "29e5c822bf21c0cb42ab9eb7ea3a4798e017cf48f97fb8a76f678f8f12d6baf3" .
 bcoc:record-29e5c822bf21c0cb42ab9eb7ea3a4798e017cf48f97fb8a76f678f8f12d6baf3 rdf:type prov:Entity .
+
+bcoc:record-2c668d7b53ecf8d623c0cbc4595a6984baa1afd0931ba8f250ba3a1f97b59247 bco:recordSha256 "2c668d7b53ecf8d623c0cbc4595a6984baa1afd0931ba8f250ba3a1f97b59247" .
+bcoc:record-2c668d7b53ecf8d623c0cbc4595a6984baa1afd0931ba8f250ba3a1f97b59247 rdf:type prov:Entity .
+
+bcoc:record-3675f36e660957fa2a8dba61af0b15a11fbb42324b6fdc3d8a7613a6b8df684c bco:recordSha256 "3675f36e660957fa2a8dba61af0b15a11fbb42324b6fdc3d8a7613a6b8df684c" .
+bcoc:record-3675f36e660957fa2a8dba61af0b15a11fbb42324b6fdc3d8a7613a6b8df684c rdf:type prov:Entity .
+
+bcoc:record-3904efea2beaefae693ce3ba7ece8e4fdfce3154238ab3561da8b670fe611749 bco:recordSha256 "3904efea2beaefae693ce3ba7ece8e4fdfce3154238ab3561da8b670fe611749" .
+bcoc:record-3904efea2beaefae693ce3ba7ece8e4fdfce3154238ab3561da8b670fe611749 rdf:type prov:Entity .
+
+bcoc:record-3ae7c04d35bdbcb869929d3b0d7d5215b0a217daae3e54d0581ccb714c922865 bco:recordSha256 "3ae7c04d35bdbcb869929d3b0d7d5215b0a217daae3e54d0581ccb714c922865" .
+bcoc:record-3ae7c04d35bdbcb869929d3b0d7d5215b0a217daae3e54d0581ccb714c922865 rdf:type prov:Entity .
 
 bcoc:record-4032a5e7c5ec955323f98b47908641331e3fa6db6ad7bc3776248cf56db47927 bco:recordCommit "137ce619fec7e7073c5a2dc53d0aadf561453555" .
 bcoc:record-4032a5e7c5ec955323f98b47908641331e3fa6db6ad7bc3776248cf56db47927 bco:recordSha256 "4032a5e7c5ec955323f98b47908641331e3fa6db6ad7bc3776248cf56db47927" .
 bcoc:record-4032a5e7c5ec955323f98b47908641331e3fa6db6ad7bc3776248cf56db47927 prov:wasRevisionOf bcoc:record-131ebf7f96c2ab3bebe5086b95a58284585261f845125e092bc6a8c4551cb317 .
 bcoc:record-4032a5e7c5ec955323f98b47908641331e3fa6db6ad7bc3776248cf56db47927 rdf:type prov:Entity .
+
+bcoc:record-42d2633177a34ed2a3f0972f4c255bcc56fcf1517202e479a322da8da32f539f bco:recordSha256 "42d2633177a34ed2a3f0972f4c255bcc56fcf1517202e479a322da8da32f539f" .
+bcoc:record-42d2633177a34ed2a3f0972f4c255bcc56fcf1517202e479a322da8da32f539f rdf:type prov:Entity .
+
+bcoc:record-46affa6ede38f32abc36f824c9ad4398ac22f71200775ee55c6c1728085736c5 bco:recordSha256 "46affa6ede38f32abc36f824c9ad4398ac22f71200775ee55c6c1728085736c5" .
+bcoc:record-46affa6ede38f32abc36f824c9ad4398ac22f71200775ee55c6c1728085736c5 rdf:type prov:Entity .
+
+bcoc:record-4b4fe8ab5297da7a7513cb5379fc1342521646b26197ea56d93a1acceed1526c bco:recordSha256 "4b4fe8ab5297da7a7513cb5379fc1342521646b26197ea56d93a1acceed1526c" .
+bcoc:record-4b4fe8ab5297da7a7513cb5379fc1342521646b26197ea56d93a1acceed1526c rdf:type prov:Entity .
 
 bcoc:record-4c2d61cc457cb92bbcb61d38ae06c2d901cf4245d0333149209c4046813e1dd2 bco:recordCommit "76b47fce225021b2ce3692e88725cca2656312ff" .
 bcoc:record-4c2d61cc457cb92bbcb61d38ae06c2d901cf4245d0333149209c4046813e1dd2 bco:recordSha256 "4c2d61cc457cb92bbcb61d38ae06c2d901cf4245d0333149209c4046813e1dd2" .
@@ -139,22 +1199,167 @@ bcoc:record-4f9e151dad91e19385f2bcbe430606e63e576f0464e598107905ad369fc6e020 bco
 bcoc:record-4f9e151dad91e19385f2bcbe430606e63e576f0464e598107905ad369fc6e020 prov:wasRevisionOf bcoc:record-cd88f07a188f6c775301c38b837633efd009229049250ecafea1ff5b8ed6b2bb .
 bcoc:record-4f9e151dad91e19385f2bcbe430606e63e576f0464e598107905ad369fc6e020 rdf:type prov:Entity .
 
+bcoc:record-516667181aae466530eea7d0287a6daee0d4d6c02db02cd9faa31ab8603bac91 bco:recordSha256 "516667181aae466530eea7d0287a6daee0d4d6c02db02cd9faa31ab8603bac91" .
+bcoc:record-516667181aae466530eea7d0287a6daee0d4d6c02db02cd9faa31ab8603bac91 rdf:type prov:Entity .
+
+bcoc:record-519ef36d357e5b518f1b8f8a72485459c031d578c0d3d739bd3931cd9472fa04 bco:recordSha256 "519ef36d357e5b518f1b8f8a72485459c031d578c0d3d739bd3931cd9472fa04" .
+bcoc:record-519ef36d357e5b518f1b8f8a72485459c031d578c0d3d739bd3931cd9472fa04 rdf:type prov:Entity .
+
+bcoc:record-52854edecea3c74b11e5cc349af5d52f3c3b15044d6bca38d3680929c6e1e3bb bco:recordSha256 "52854edecea3c74b11e5cc349af5d52f3c3b15044d6bca38d3680929c6e1e3bb" .
+bcoc:record-52854edecea3c74b11e5cc349af5d52f3c3b15044d6bca38d3680929c6e1e3bb rdf:type prov:Entity .
+
+bcoc:record-578838efeef4dd0a6e188832eb8ace1048e5a80e5ec5bfce3321e177d9a6e298 bco:recordSha256 "578838efeef4dd0a6e188832eb8ace1048e5a80e5ec5bfce3321e177d9a6e298" .
+bcoc:record-578838efeef4dd0a6e188832eb8ace1048e5a80e5ec5bfce3321e177d9a6e298 rdf:type prov:Entity .
+
+bcoc:record-5e73d7f9783ab43109019267e3b8b280fcde823631ae0534e2989c20314f0bd3 bco:recordSha256 "5e73d7f9783ab43109019267e3b8b280fcde823631ae0534e2989c20314f0bd3" .
+bcoc:record-5e73d7f9783ab43109019267e3b8b280fcde823631ae0534e2989c20314f0bd3 rdf:type prov:Entity .
+
+bcoc:record-622d9748b04b30fd61775cf341ced3e151baef61f2824e99e342464605349f1f bco:recordSha256 "622d9748b04b30fd61775cf341ced3e151baef61f2824e99e342464605349f1f" .
+bcoc:record-622d9748b04b30fd61775cf341ced3e151baef61f2824e99e342464605349f1f rdf:type prov:Entity .
+
 bcoc:record-657667441ade80f7950cc6bd8f8d55e4dfe07aef0cd41ac7427ae48a9ce02413 bco:recordSha256 "657667441ade80f7950cc6bd8f8d55e4dfe07aef0cd41ac7427ae48a9ce02413" .
 bcoc:record-657667441ade80f7950cc6bd8f8d55e4dfe07aef0cd41ac7427ae48a9ce02413 prov:wasRevisionOf bcoc:record-4f9e151dad91e19385f2bcbe430606e63e576f0464e598107905ad369fc6e020 .
 bcoc:record-657667441ade80f7950cc6bd8f8d55e4dfe07aef0cd41ac7427ae48a9ce02413 rdf:type prov:Entity .
+
+bcoc:record-66fa1dc7eb2e5eebdf796e0db9a4393cd272b9e9c3ea4d43843e50b5cde987ac bco:recordSha256 "66fa1dc7eb2e5eebdf796e0db9a4393cd272b9e9c3ea4d43843e50b5cde987ac" .
+bcoc:record-66fa1dc7eb2e5eebdf796e0db9a4393cd272b9e9c3ea4d43843e50b5cde987ac rdf:type prov:Entity .
+
+bcoc:record-67aabdbaf7e0df818b7e0e71a4b203a207ac6cd7de7b49c9b4f6a2aa176550d3 bco:recordSha256 "67aabdbaf7e0df818b7e0e71a4b203a207ac6cd7de7b49c9b4f6a2aa176550d3" .
+bcoc:record-67aabdbaf7e0df818b7e0e71a4b203a207ac6cd7de7b49c9b4f6a2aa176550d3 rdf:type prov:Entity .
+
+bcoc:record-6819bb4df5c99a0fb3d7f18ab6b3134c15874d21b70797594a621eee9103c6f0 bco:recordSha256 "6819bb4df5c99a0fb3d7f18ab6b3134c15874d21b70797594a621eee9103c6f0" .
+bcoc:record-6819bb4df5c99a0fb3d7f18ab6b3134c15874d21b70797594a621eee9103c6f0 rdf:type prov:Entity .
+
+bcoc:record-747b4d9def9e2415162dfef27525be4a74349a044e345a7af11ddad8fc70f162 bco:recordSha256 "747b4d9def9e2415162dfef27525be4a74349a044e345a7af11ddad8fc70f162" .
+bcoc:record-747b4d9def9e2415162dfef27525be4a74349a044e345a7af11ddad8fc70f162 rdf:type prov:Entity .
+
+bcoc:record-768596eaf4e876ad90684fc805c2ea1e07731df3a528e6b1fb15a8fea9619808 bco:recordSha256 "768596eaf4e876ad90684fc805c2ea1e07731df3a528e6b1fb15a8fea9619808" .
+bcoc:record-768596eaf4e876ad90684fc805c2ea1e07731df3a528e6b1fb15a8fea9619808 rdf:type prov:Entity .
+
+bcoc:record-76db9f3f639ca399378c9ef2bfe195f8ba42aaccc63961d9b4f7df71c865ad09 bco:recordSha256 "76db9f3f639ca399378c9ef2bfe195f8ba42aaccc63961d9b4f7df71c865ad09" .
+bcoc:record-76db9f3f639ca399378c9ef2bfe195f8ba42aaccc63961d9b4f7df71c865ad09 rdf:type prov:Entity .
+
+bcoc:record-789c5f6928c7be633ff21b156b7aa2092a166c864b0a7917a612bc23afba4de0 bco:recordSha256 "789c5f6928c7be633ff21b156b7aa2092a166c864b0a7917a612bc23afba4de0" .
+bcoc:record-789c5f6928c7be633ff21b156b7aa2092a166c864b0a7917a612bc23afba4de0 rdf:type prov:Entity .
+
+bcoc:record-7d28476b319f61682d966ad8a1bf88f42a9315974526ca489a43460ee8e03b27 bco:recordSha256 "7d28476b319f61682d966ad8a1bf88f42a9315974526ca489a43460ee8e03b27" .
+bcoc:record-7d28476b319f61682d966ad8a1bf88f42a9315974526ca489a43460ee8e03b27 rdf:type prov:Entity .
+
+bcoc:record-7d60551d087070a4383f53e766124ce3ffa64328a5a0dd08654e1b590bba9e91 bco:recordSha256 "7d60551d087070a4383f53e766124ce3ffa64328a5a0dd08654e1b590bba9e91" .
+bcoc:record-7d60551d087070a4383f53e766124ce3ffa64328a5a0dd08654e1b590bba9e91 rdf:type prov:Entity .
+
+bcoc:record-848bcd712735b60d46cf54564456c9c8ee00dde855881c3497fd3ad6d6a74d88 bco:recordSha256 "848bcd712735b60d46cf54564456c9c8ee00dde855881c3497fd3ad6d6a74d88" .
+bcoc:record-848bcd712735b60d46cf54564456c9c8ee00dde855881c3497fd3ad6d6a74d88 prov:wasRevisionOf bcoc:record-1670739b1e9d40900ef0f391c304b9dbd25adeb081314959bf2b3674f811e3ae .
+bcoc:record-848bcd712735b60d46cf54564456c9c8ee00dde855881c3497fd3ad6d6a74d88 rdf:type prov:Entity .
+
+bcoc:record-84e3c1a7ea9b2743db2f7ed54ce1d2d835be92c3551dbc6e439496d307abe718 bco:recordSha256 "84e3c1a7ea9b2743db2f7ed54ce1d2d835be92c3551dbc6e439496d307abe718" .
+bcoc:record-84e3c1a7ea9b2743db2f7ed54ce1d2d835be92c3551dbc6e439496d307abe718 rdf:type prov:Entity .
+
+bcoc:record-8d0150daec3fbcfadd89848b6d9c62f329f7ff77dde1e94b925def26be4d219a bco:recordSha256 "8d0150daec3fbcfadd89848b6d9c62f329f7ff77dde1e94b925def26be4d219a" .
+bcoc:record-8d0150daec3fbcfadd89848b6d9c62f329f7ff77dde1e94b925def26be4d219a rdf:type prov:Entity .
+
+bcoc:record-93159556c1a9f3031eb6bcd6f1291ce7d54bce8281d1c9ebfd7d6360a7593961 bco:recordSha256 "93159556c1a9f3031eb6bcd6f1291ce7d54bce8281d1c9ebfd7d6360a7593961" .
+bcoc:record-93159556c1a9f3031eb6bcd6f1291ce7d54bce8281d1c9ebfd7d6360a7593961 rdf:type prov:Entity .
+
+bcoc:record-955724f77555d30bc5e3998574348f3a9d80f95922c4bdf0cc1f942c543219a3 bco:recordSha256 "955724f77555d30bc5e3998574348f3a9d80f95922c4bdf0cc1f942c543219a3" .
+bcoc:record-955724f77555d30bc5e3998574348f3a9d80f95922c4bdf0cc1f942c543219a3 rdf:type prov:Entity .
+
+bcoc:record-967623b9c8cef9daf642f08987380bf620b4836babdbe06603ec7d355f95f05c bco:recordSha256 "967623b9c8cef9daf642f08987380bf620b4836babdbe06603ec7d355f95f05c" .
+bcoc:record-967623b9c8cef9daf642f08987380bf620b4836babdbe06603ec7d355f95f05c rdf:type prov:Entity .
+
+bcoc:record-980b64380faa1082fdacf705ffa1032e57eaae0c14ebadf12f291ec876a5bac2 bco:recordSha256 "980b64380faa1082fdacf705ffa1032e57eaae0c14ebadf12f291ec876a5bac2" .
+bcoc:record-980b64380faa1082fdacf705ffa1032e57eaae0c14ebadf12f291ec876a5bac2 rdf:type prov:Entity .
+
+bcoc:record-9a41381d4c1fbfc86412753f330602b139644ea4b8d5263cdea61200469db915 bco:recordSha256 "9a41381d4c1fbfc86412753f330602b139644ea4b8d5263cdea61200469db915" .
+bcoc:record-9a41381d4c1fbfc86412753f330602b139644ea4b8d5263cdea61200469db915 rdf:type prov:Entity .
+
+bcoc:record-9bca158b989b6e89a666a2b1f562069e3adb8cc86e6f210d2c867ccfd262d8b0 bco:recordSha256 "9bca158b989b6e89a666a2b1f562069e3adb8cc86e6f210d2c867ccfd262d8b0" .
+bcoc:record-9bca158b989b6e89a666a2b1f562069e3adb8cc86e6f210d2c867ccfd262d8b0 rdf:type prov:Entity .
 
 bcoc:record-9c3c13a1645216148bb897e961e8cf19779331e8f7bcfa55b10c26967668e45d bco:recordCommit "137ce619fec7e7073c5a2dc53d0aadf561453555" .
 bcoc:record-9c3c13a1645216148bb897e961e8cf19779331e8f7bcfa55b10c26967668e45d bco:recordSha256 "9c3c13a1645216148bb897e961e8cf19779331e8f7bcfa55b10c26967668e45d" .
 bcoc:record-9c3c13a1645216148bb897e961e8cf19779331e8f7bcfa55b10c26967668e45d prov:wasRevisionOf bcoc:record-4c2d61cc457cb92bbcb61d38ae06c2d901cf4245d0333149209c4046813e1dd2 .
 bcoc:record-9c3c13a1645216148bb897e961e8cf19779331e8f7bcfa55b10c26967668e45d rdf:type prov:Entity .
 
+bcoc:record-9cc83c6f22004200c4fde0affe1d1e9a56dc1aa475158ae9be40e1cc0a26967d bco:recordSha256 "9cc83c6f22004200c4fde0affe1d1e9a56dc1aa475158ae9be40e1cc0a26967d" .
+bcoc:record-9cc83c6f22004200c4fde0affe1d1e9a56dc1aa475158ae9be40e1cc0a26967d rdf:type prov:Entity .
+
+bcoc:record-9f549c0085afe1da676f3305cafe920f7a26f0e67b448a559cd6b00e424f1b1b bco:recordSha256 "9f549c0085afe1da676f3305cafe920f7a26f0e67b448a559cd6b00e424f1b1b" .
+bcoc:record-9f549c0085afe1da676f3305cafe920f7a26f0e67b448a559cd6b00e424f1b1b rdf:type prov:Entity .
+
+bcoc:record-a148bf923a22250f216da2fa2cc20e935874c96f8e87991aacddbdcfdaf1b255 bco:recordSha256 "a148bf923a22250f216da2fa2cc20e935874c96f8e87991aacddbdcfdaf1b255" .
+bcoc:record-a148bf923a22250f216da2fa2cc20e935874c96f8e87991aacddbdcfdaf1b255 rdf:type prov:Entity .
+
+bcoc:record-a76bec6e331ec3159074c54b5db60390b741f20bc6edbf4778aa9eb773109483 bco:recordSha256 "a76bec6e331ec3159074c54b5db60390b741f20bc6edbf4778aa9eb773109483" .
+bcoc:record-a76bec6e331ec3159074c54b5db60390b741f20bc6edbf4778aa9eb773109483 rdf:type prov:Entity .
+
+bcoc:record-abc69830c9510a76437ba6a5d6e4e54737e83ba46fcad8a446b4d73fea2eea10 bco:recordSha256 "abc69830c9510a76437ba6a5d6e4e54737e83ba46fcad8a446b4d73fea2eea10" .
+bcoc:record-abc69830c9510a76437ba6a5d6e4e54737e83ba46fcad8a446b4d73fea2eea10 rdf:type prov:Entity .
+
+bcoc:record-b81c83909c4540c8916b6e02e1085aad76ba876528583d40cab90dd2f3233d22 bco:recordSha256 "b81c83909c4540c8916b6e02e1085aad76ba876528583d40cab90dd2f3233d22" .
+bcoc:record-b81c83909c4540c8916b6e02e1085aad76ba876528583d40cab90dd2f3233d22 rdf:type prov:Entity .
+
 bcoc:record-be402280b2f3b07028701f2587b48052a6eba818267a49ef2346cec616044b96 bco:recordSha256 "be402280b2f3b07028701f2587b48052a6eba818267a49ef2346cec616044b96" .
 bcoc:record-be402280b2f3b07028701f2587b48052a6eba818267a49ef2346cec616044b96 prov:wasRevisionOf bcoc:record-9c3c13a1645216148bb897e961e8cf19779331e8f7bcfa55b10c26967668e45d .
 bcoc:record-be402280b2f3b07028701f2587b48052a6eba818267a49ef2346cec616044b96 rdf:type prov:Entity .
 
+bcoc:record-c005bde58329c3929abf16a3874b14e076ced6c2983464e2ecd00ab4ed505474 bco:recordSha256 "c005bde58329c3929abf16a3874b14e076ced6c2983464e2ecd00ab4ed505474" .
+bcoc:record-c005bde58329c3929abf16a3874b14e076ced6c2983464e2ecd00ab4ed505474 rdf:type prov:Entity .
+
+bcoc:record-c049ba1c6f5de7b094b054daabcec0d55b44fef08e6656ce691a042b102b1fa7 bco:recordSha256 "c049ba1c6f5de7b094b054daabcec0d55b44fef08e6656ce691a042b102b1fa7" .
+bcoc:record-c049ba1c6f5de7b094b054daabcec0d55b44fef08e6656ce691a042b102b1fa7 rdf:type prov:Entity .
+
+bcoc:record-cc7fd93b2e0270c694689188f4904cc035dfbb2f5010ab54d718db87d51ad58b bco:recordSha256 "cc7fd93b2e0270c694689188f4904cc035dfbb2f5010ab54d718db87d51ad58b" .
+bcoc:record-cc7fd93b2e0270c694689188f4904cc035dfbb2f5010ab54d718db87d51ad58b rdf:type prov:Entity .
+
 bcoc:record-cd88f07a188f6c775301c38b837633efd009229049250ecafea1ff5b8ed6b2bb bco:recordCommit "76b47fce225021b2ce3692e88725cca2656312ff" .
 bcoc:record-cd88f07a188f6c775301c38b837633efd009229049250ecafea1ff5b8ed6b2bb bco:recordSha256 "cd88f07a188f6c775301c38b837633efd009229049250ecafea1ff5b8ed6b2bb" .
 bcoc:record-cd88f07a188f6c775301c38b837633efd009229049250ecafea1ff5b8ed6b2bb rdf:type prov:Entity .
+
+bcoc:record-d467eee1c7c3c0fe8202ac41a409eaac64211881a2ef43d709c16667b5e201a4 bco:recordSha256 "d467eee1c7c3c0fe8202ac41a409eaac64211881a2ef43d709c16667b5e201a4" .
+bcoc:record-d467eee1c7c3c0fe8202ac41a409eaac64211881a2ef43d709c16667b5e201a4 rdf:type prov:Entity .
+
+bcoc:record-d7432dbd92113a3f0b4169b5819967a60285e518b8163f69973db30947e50757 bco:recordSha256 "d7432dbd92113a3f0b4169b5819967a60285e518b8163f69973db30947e50757" .
+bcoc:record-d7432dbd92113a3f0b4169b5819967a60285e518b8163f69973db30947e50757 rdf:type prov:Entity .
+
+bcoc:record-d779e5019775ce994ba708739aa7b0edc4e1993e0740c3acfa3ecbe72c3148e8 bco:recordSha256 "d779e5019775ce994ba708739aa7b0edc4e1993e0740c3acfa3ecbe72c3148e8" .
+bcoc:record-d779e5019775ce994ba708739aa7b0edc4e1993e0740c3acfa3ecbe72c3148e8 rdf:type prov:Entity .
+
+bcoc:record-d7c19172b362dd43d1c1f2fc0276619b4a7903ed533d932c6656903aecb799b8 bco:recordSha256 "d7c19172b362dd43d1c1f2fc0276619b4a7903ed533d932c6656903aecb799b8" .
+bcoc:record-d7c19172b362dd43d1c1f2fc0276619b4a7903ed533d932c6656903aecb799b8 rdf:type prov:Entity .
+
+bcoc:record-d89a321f2a826f1c91953c3ce2f0e3a9a493d2ddeb4ada105faf3033893ca198 bco:recordSha256 "d89a321f2a826f1c91953c3ce2f0e3a9a493d2ddeb4ada105faf3033893ca198" .
+bcoc:record-d89a321f2a826f1c91953c3ce2f0e3a9a493d2ddeb4ada105faf3033893ca198 rdf:type prov:Entity .
+
+bcoc:record-daea7d6c004030621483dd05fd2e3e7e817ddd225cac55a1b5d4a5fd4731a081 bco:recordSha256 "daea7d6c004030621483dd05fd2e3e7e817ddd225cac55a1b5d4a5fd4731a081" .
+bcoc:record-daea7d6c004030621483dd05fd2e3e7e817ddd225cac55a1b5d4a5fd4731a081 rdf:type prov:Entity .
+
+bcoc:record-dc6a6618a4c16822e42697284bc9a5a075d7d5be3b3feef5a979f36a3e5bd5da bco:recordSha256 "dc6a6618a4c16822e42697284bc9a5a075d7d5be3b3feef5a979f36a3e5bd5da" .
+bcoc:record-dc6a6618a4c16822e42697284bc9a5a075d7d5be3b3feef5a979f36a3e5bd5da rdf:type prov:Entity .
+
+bcoc:record-de37d47278b6bbbcb57f1df8713231fb7115ff5997d99d8add7ec0568c1b3b5d bco:recordSha256 "de37d47278b6bbbcb57f1df8713231fb7115ff5997d99d8add7ec0568c1b3b5d" .
+bcoc:record-de37d47278b6bbbcb57f1df8713231fb7115ff5997d99d8add7ec0568c1b3b5d rdf:type prov:Entity .
+
+bcoc:record-defbd4f3400fa08d79627af675a91ad68f17d874a0ad9d3ab792136ffbd2d643 bco:recordSha256 "defbd4f3400fa08d79627af675a91ad68f17d874a0ad9d3ab792136ffbd2d643" .
+bcoc:record-defbd4f3400fa08d79627af675a91ad68f17d874a0ad9d3ab792136ffbd2d643 rdf:type prov:Entity .
+
+bcoc:record-e0a97e6d54331a46a3808b6bc3afd7fce9b9773421efa185653149f16d40bd79 bco:recordSha256 "e0a97e6d54331a46a3808b6bc3afd7fce9b9773421efa185653149f16d40bd79" .
+bcoc:record-e0a97e6d54331a46a3808b6bc3afd7fce9b9773421efa185653149f16d40bd79 rdf:type prov:Entity .
+
+bcoc:record-e4faf22c021be840fdd2a1cd442eac0ab0c976f70697d255f5740f7994919c85 bco:recordSha256 "e4faf22c021be840fdd2a1cd442eac0ab0c976f70697d255f5740f7994919c85" .
+bcoc:record-e4faf22c021be840fdd2a1cd442eac0ab0c976f70697d255f5740f7994919c85 rdf:type prov:Entity .
+
+bcoc:record-e888f151ffbc72dc72ad6c2574edf94b23c719393771a513c188460d7bc1f5c3 bco:recordSha256 "e888f151ffbc72dc72ad6c2574edf94b23c719393771a513c188460d7bc1f5c3" .
+bcoc:record-e888f151ffbc72dc72ad6c2574edf94b23c719393771a513c188460d7bc1f5c3 rdf:type prov:Entity .
+
+bcoc:record-ec0e83b4ae59f57aafd2771941e936aaeb6e4e03649c427c90fba19f3be69a81 bco:recordSha256 "ec0e83b4ae59f57aafd2771941e936aaeb6e4e03649c427c90fba19f3be69a81" .
+bcoc:record-ec0e83b4ae59f57aafd2771941e936aaeb6e4e03649c427c90fba19f3be69a81 rdf:type prov:Entity .
+
+bcoc:record-eee8ad6a36343a04a02b477f265e47c5de80e7ad18ace551435cb74b686c5141 bco:recordSha256 "eee8ad6a36343a04a02b477f265e47c5de80e7ad18ace551435cb74b686c5141" .
+bcoc:record-eee8ad6a36343a04a02b477f265e47c5de80e7ad18ace551435cb74b686c5141 rdf:type prov:Entity .
+
+bcoc:record-f2ec5680a35493b0a11f561144c0ded122d542ab48f4404ca83de44562db6933 bco:recordSha256 "f2ec5680a35493b0a11f561144c0ded122d542ab48f4404ca83de44562db6933" .
+bcoc:record-f2ec5680a35493b0a11f561144c0ded122d542ab48f4404ca83de44562db6933 rdf:type prov:Entity .
 
 bcoc:record-f32f3c25461cb2b3adf8eb70dcc8bd02a746e2eed40c9d53a14866e9bab9897d bco:recordCommit "137ce619fec7e7073c5a2dc53d0aadf561453555" .
 bcoc:record-f32f3c25461cb2b3adf8eb70dcc8bd02a746e2eed40c9d53a14866e9bab9897d bco:recordSha256 "f32f3c25461cb2b3adf8eb70dcc8bd02a746e2eed40c9d53a14866e9bab9897d" .
@@ -165,31 +1370,430 @@ bcoc:record-f8620a7e33a23e5f5dca2173b16e796303e172ec0cb3487e47c615fa20f0c037 bco
 bcoc:record-f8620a7e33a23e5f5dca2173b16e796303e172ec0cb3487e47c615fa20f0c037 prov:wasRevisionOf bcoc:record-f32f3c25461cb2b3adf8eb70dcc8bd02a746e2eed40c9d53a14866e9bab9897d .
 bcoc:record-f8620a7e33a23e5f5dca2173b16e796303e172ec0cb3487e47c615fa20f0c037 rdf:type prov:Entity .
 
+bcoc:record-f88b4eacc76eecd8d544fd8b51d53ae596f7fd1974b620bec5303cb6abe1725b bco:recordSha256 "f88b4eacc76eecd8d544fd8b51d53ae596f7fd1974b620bec5303cb6abe1725b" .
+bcoc:record-f88b4eacc76eecd8d544fd8b51d53ae596f7fd1974b620bec5303cb6abe1725b rdf:type prov:Entity .
+
+bcoc:record-f92d825518267ec8653d0103db63e5b90deabb11a8a3c6a4ff7bdc4f5a427f3a bco:recordSha256 "f92d825518267ec8653d0103db63e5b90deabb11a8a3c6a4ff7bdc4f5a427f3a" .
+bcoc:record-f92d825518267ec8653d0103db63e5b90deabb11a8a3c6a4ff7bdc4f5a427f3a rdf:type prov:Entity .
+
 bcoc:record-f9f7c4274d6728aeb4315418d2752b36a707df953547272bd2bd8a3bf911e9a5 bco:recordCommit "76b47fce225021b2ce3692e88725cca2656312ff" .
 bcoc:record-f9f7c4274d6728aeb4315418d2752b36a707df953547272bd2bd8a3bf911e9a5 bco:recordSha256 "f9f7c4274d6728aeb4315418d2752b36a707df953547272bd2bd8a3bf911e9a5" .
 bcoc:record-f9f7c4274d6728aeb4315418d2752b36a707df953547272bd2bd8a3bf911e9a5 rdf:type prov:Entity .
+
+bcoc:record-fb5d4e1f8541402b1de97d78b9d07fa512dc65f96210a8fb9bd1f147fcf68dbd bco:recordSha256 "fb5d4e1f8541402b1de97d78b9d07fa512dc65f96210a8fb9bd1f147fcf68dbd" .
+bcoc:record-fb5d4e1f8541402b1de97d78b9d07fa512dc65f96210a8fb9bd1f147fcf68dbd rdf:type prov:Entity .
+
+bcoc:source-07166bbaa316f93fbf41f0b3b2a80f27e5373b2c57e06a4865f800281f1c9a05 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-07166bbaa316f93fbf41f0b3b2a80f27e5373b2c57e06a4865f800281f1c9a05 bco:locator "PCF 7.4 element 11209 (hierarchy 9.7.5.2), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-11209; catalog candidate BCC-0564598d" .
+bcoc:source-07166bbaa316f93fbf41f0b3b2a80f27e5373b2c57e06a4865f800281f1c9a05 bco:relation "consistent-with" .
+bcoc:source-07166bbaa316f93fbf41f0b3b2a80f27e5373b2c57e06a4865f800281f1c9a05 bco:support "definitional" .
+
+bcoc:source-086028a2908381e7dd379444a862a717991cfe00a65081cbf6c51416f0d1a6b1 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-086028a2908381e7dd379444a862a717991cfe00a65081cbf6c51416f0d1a6b1 bco:locator "PCF 7.4 element 10732 (hierarchy 9.5), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10732; catalog candidate BCC-d95f68fd" .
+bcoc:source-086028a2908381e7dd379444a862a717991cfe00a65081cbf6c51416f0d1a6b1 bco:relation "consistent-with" .
+bcoc:source-086028a2908381e7dd379444a862a717991cfe00a65081cbf6c51416f0d1a6b1 bco:support "definitional" .
+
+bcoc:source-0a6ac101ee4e3646719ace804d5bcf3b9e474637c52d08832e86ce8bf7f61d76 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-0a6ac101ee4e3646719ace804d5bcf3b9e474637c52d08832e86ce8bf7f61d76 bco:locator "PCF 7.4 element 10909 (hierarchy 9.7.4.3), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10909; catalog candidate BCC-4464d04f" .
+bcoc:source-0a6ac101ee4e3646719ace804d5bcf3b9e474637c52d08832e86ce8bf7f61d76 bco:relation "consistent-with" .
+bcoc:source-0a6ac101ee4e3646719ace804d5bcf3b9e474637c52d08832e86ce8bf7f61d76 bco:support "definitional" .
+
+bcoc:source-0a800c0964a6654cfc0c192bcb05a9e8f2f572a83ea702064463490493f9fddd bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-0a800c0964a6654cfc0c192bcb05a9e8f2f572a83ea702064463490493f9fddd bco:locator "PCF 7.4 element 11211 (hierarchy 9.7.5.4), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-11211; catalog candidate BCC-3e668a26" .
+bcoc:source-0a800c0964a6654cfc0c192bcb05a9e8f2f572a83ea702064463490493f9fddd bco:relation "consistent-with" .
+bcoc:source-0a800c0964a6654cfc0c192bcb05a9e8f2f572a83ea702064463490493f9fddd bco:support "definitional" .
+
+bcoc:source-0dc4f8312dfa3b2cad50c098880fd5ef6dccefa3ff41f0b3a9f9289730289e37 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-0dc4f8312dfa3b2cad50c098880fd5ef6dccefa3ff41f0b3a9f9289730289e37 bco:locator "PCF 7.4 element 10768 (hierarchy 9.10.2), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10768; catalog candidate BCC-bf62316a" .
+bcoc:source-0dc4f8312dfa3b2cad50c098880fd5ef6dccefa3ff41f0b3a9f9289730289e37 bco:relation "consistent-with" .
+bcoc:source-0dc4f8312dfa3b2cad50c098880fd5ef6dccefa3ff41f0b3a9f9289730289e37 bco:support "definitional" .
+
+bcoc:source-0e8e823d7ce41e9ce0a58d892d38c7d70613067b242848efa5eebef5e4385554 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-0e8e823d7ce41e9ce0a58d892d38c7d70613067b242848efa5eebef5e4385554 bco:locator "PCF 7.4 element 10751 (hierarchy 9.4.1), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10751; catalog candidate BCC-15e92684" .
+bcoc:source-0e8e823d7ce41e9ce0a58d892d38c7d70613067b242848efa5eebef5e4385554 bco:relation "consistent-with" .
+bcoc:source-0e8e823d7ce41e9ce0a58d892d38c7d70613067b242848efa5eebef5e4385554 bco:support "definitional" .
+
+bcoc:source-0ef23e1250df3c8f847a74ba7b294e50f030bb041b7854e766c37aa9246e72e8 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-0ef23e1250df3c8f847a74ba7b294e50f030bb041b7854e766c37aa9246e72e8 bco:locator "PCF 7.4 element 10112 (hierarchy 3.1.1.5), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10112; catalog candidate BCC-e1fa4843" .
+bcoc:source-0ef23e1250df3c8f847a74ba7b294e50f030bb041b7854e766c37aa9246e72e8 bco:relation "consistent-with" .
+bcoc:source-0ef23e1250df3c8f847a74ba7b294e50f030bb041b7854e766c37aa9246e72e8 bco:support "definitional" .
 
 bcoc:source-12523d5f190ddcc954ccbf335a2ff64ec7e1e12da0c3a15007e1b923cb04bdba bco:citesSource bcos:SRC-FO-01 .
 bcoc:source-12523d5f190ddcc954ccbf335a2ff64ec7e1e12da0c3a15007e1b923cb04bdba bco:locator "CCO v2.0 merged file at commit 510dad7 and develop versionIRI 2026-08-13: Organization Capability (ont00000568) definition, and Skill (ont00000089) as the person-borne sibling under Agent Capability" .
 bcoc:source-12523d5f190ddcc954ccbf335a2ff64ec7e1e12da0c3a15007e1b923cb04bdba bco:relation "consistent-with" .
 bcoc:source-12523d5f190ddcc954ccbf335a2ff64ec7e1e12da0c3a15007e1b923cb04bdba bco:support "contextual" .
 
+bcoc:source-1a52c27b7429c4483fac5fdbcd81c390eecd615032b0becb33e7ace8b4e6af20 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-1a52c27b7429c4483fac5fdbcd81c390eecd615032b0becb33e7ace8b4e6af20 bco:locator "PCF 7.4 element 14092 (hierarchy 9.11.3), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-14092; catalog candidate BCC-e1fa4843" .
+bcoc:source-1a52c27b7429c4483fac5fdbcd81c390eecd615032b0becb33e7ace8b4e6af20 bco:relation "consistent-with" .
+bcoc:source-1a52c27b7429c4483fac5fdbcd81c390eecd615032b0becb33e7ace8b4e6af20 bco:support "definitional" .
+
+bcoc:source-26779ee82b8ae71d197349d9fcf84f5c5852143dc4c88be5fed6e31750314717 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-26779ee82b8ae71d197349d9fcf84f5c5852143dc4c88be5fed6e31750314717 bco:locator "PCF 7.4 element 10742 (hierarchy 9.2.1), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10742; catalog candidate BCC-b7ff0eac" .
+bcoc:source-26779ee82b8ae71d197349d9fcf84f5c5852143dc4c88be5fed6e31750314717 bco:relation "consistent-with" .
+bcoc:source-26779ee82b8ae71d197349d9fcf84f5c5852143dc4c88be5fed6e31750314717 bco:support "definitional" .
+
+bcoc:source-2e6918bc5831c1876cf91f61b371fafbccda07c89520a4904f48051eaac4dcdb bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-2e6918bc5831c1876cf91f61b371fafbccda07c89520a4904f48051eaac4dcdb bco:locator "PCF 7.4 element 10908 (hierarchy 9.7.4.2), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10908; catalog candidate BCC-d6966c88" .
+bcoc:source-2e6918bc5831c1876cf91f61b371fafbccda07c89520a4904f48051eaac4dcdb bco:relation "consistent-with" .
+bcoc:source-2e6918bc5831c1876cf91f61b371fafbccda07c89520a4904f48051eaac4dcdb bco:support "definitional" .
+
 bcoc:source-31186a3c539c44bac2327592126f17c6e1915d4c03329d94684e77516cd1e6e1 bco:citesSource bcos:SRC-OMG-02 .
 bcoc:source-31186a3c539c44bac2327592126f17c6e1915d4c03329d94684e77516cd1e6e1 bco:locator "BMM 1.3, section 8.3.3 (Strategies and Tactics are the categories of Course of Action, and Business Processes realize Courses of Action)" .
 bcoc:source-31186a3c539c44bac2327592126f17c6e1915d4c03329d94684e77516cd1e6e1 bco:relation "consistent-with" .
 bcoc:source-31186a3c539c44bac2327592126f17c6e1915d4c03329d94684e77516cd1e6e1 bco:support "contextual" .
+
+bcoc:source-360b91044667af28223556126391c727b9dd215e650249e5bdb472b4377066f7 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-360b91044667af28223556126391c727b9dd215e650249e5bdb472b4377066f7 bco:locator "PCF 7.4 element 11042 (hierarchy 12.3.1), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-11042; catalog candidate BCC-18ef14d6" .
+bcoc:source-360b91044667af28223556126391c727b9dd215e650249e5bdb472b4377066f7 bco:relation "consistent-with" .
+bcoc:source-360b91044667af28223556126391c727b9dd215e650249e5bdb472b4377066f7 bco:support "definitional" .
+
+bcoc:source-37120fb5a8e56bbaf9bfe9f3f2f8316efbb7ddd6ba9d5a9f38e5b692c1910873 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-37120fb5a8e56bbaf9bfe9f3f2f8316efbb7ddd6ba9d5a9f38e5b692c1910873 bco:locator "PCF 7.4 element 10754 (hierarchy 9.5.2), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10754; catalog candidate BCC-d105ff07" .
+bcoc:source-37120fb5a8e56bbaf9bfe9f3f2f8316efbb7ddd6ba9d5a9f38e5b692c1910873 bco:relation "consistent-with" .
+bcoc:source-37120fb5a8e56bbaf9bfe9f3f2f8316efbb7ddd6ba9d5a9f38e5b692c1910873 bco:support "definitional" .
 
 bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc bco:citesSource bcos:SRC-FO-01 .
 bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc bco:locator "CCO v2.0 merged file at commit 510dad7 and develop versionIRI 2026-08-13: Organization Capability (ont00000568) definition" .
 bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc bco:relation "consistent-with" .
 bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc bco:support "contextual" .
 
+bcoc:source-42e3955256a259c8caae629c8d5de1b2c72980210c145cad9049c376b0113785 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-42e3955256a259c8caae629c8d5de1b2c72980210c145cad9049c376b0113785 bco:locator "PCF 7.4 element 10755 (hierarchy 9.5.3), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10755; catalog candidate BCC-394909c1" .
+bcoc:source-42e3955256a259c8caae629c8d5de1b2c72980210c145cad9049c376b0113785 bco:relation "consistent-with" .
+bcoc:source-42e3955256a259c8caae629c8d5de1b2c72980210c145cad9049c376b0113785 bco:support "definitional" .
+
+bcoc:source-47255e2d99c4539bc5c9165272dce1a01e1a1c3b3bab021ea8c8bb8902e032c4 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-47255e2d99c4539bc5c9165272dce1a01e1a1c3b3bab021ea8c8bb8902e032c4 bco:locator "PCF 7.4 element 10764 (hierarchy 9.8.3), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10764; catalog candidate BCC-b55668bc" .
+bcoc:source-47255e2d99c4539bc5c9165272dce1a01e1a1c3b3bab021ea8c8bb8902e032c4 bco:relation "consistent-with" .
+bcoc:source-47255e2d99c4539bc5c9165272dce1a01e1a1c3b3bab021ea8c8bb8902e032c4 bco:support "definitional" .
+
+bcoc:source-494614b2688ef08677400984b7b186848064c978e5429e90acaddce3df0ee466 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-494614b2688ef08677400984b7b186848064c978e5429e90acaddce3df0ee466 bco:locator "PCF 7.4 element 10899 (hierarchy 9.7.2.7), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10899; catalog candidate BCC-a750d13a" .
+bcoc:source-494614b2688ef08677400984b7b186848064c978e5429e90acaddce3df0ee466 bco:relation "consistent-with" .
+bcoc:source-494614b2688ef08677400984b7b186848064c978e5429e90acaddce3df0ee466 bco:support "definitional" .
+
+bcoc:source-4a636642964bcce5c82261e867dd8f41ec98fc54886a5e307dcb8c01437d55aa bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-4a636642964bcce5c82261e867dd8f41ec98fc54886a5e307dcb8c01437d55aa bco:locator "PCF 7.4 element 10766 (hierarchy 9.9.2), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10766; catalog candidate BCC-52f0795a" .
+bcoc:source-4a636642964bcce5c82261e867dd8f41ec98fc54886a5e307dcb8c01437d55aa bco:relation "consistent-with" .
+bcoc:source-4a636642964bcce5c82261e867dd8f41ec98fc54886a5e307dcb8c01437d55aa bco:support "definitional" .
+
+bcoc:source-5a0f5b559706ce679028375cd21aceb6aae2cf9089e32cbfe17d6006ed4ddd6a bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-5a0f5b559706ce679028375cd21aceb6aae2cf9089e32cbfe17d6006ed4ddd6a bco:locator "PCF 7.4 element 20929 (hierarchy 9.6.3), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-20929; catalog candidate BCC-ea6d1c4a" .
+bcoc:source-5a0f5b559706ce679028375cd21aceb6aae2cf9089e32cbfe17d6006ed4ddd6a bco:relation "consistent-with" .
+bcoc:source-5a0f5b559706ce679028375cd21aceb6aae2cf9089e32cbfe17d6006ed4ddd6a bco:support "definitional" .
+
+bcoc:source-5a1e5ab9aae0b482eb98710be96d0457e8ebd42e755e2ac8c3a7cf8b0cfdffbe bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-5a1e5ab9aae0b482eb98710be96d0457e8ebd42e755e2ac8c3a7cf8b0cfdffbe bco:locator "PCF 7.4 element 16958 (hierarchy 9.7.6), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-16958; catalog candidate BCC-9b5ec2fd" .
+bcoc:source-5a1e5ab9aae0b482eb98710be96d0457e8ebd42e755e2ac8c3a7cf8b0cfdffbe bco:relation "consistent-with" .
+bcoc:source-5a1e5ab9aae0b482eb98710be96d0457e8ebd42e755e2ac8c3a7cf8b0cfdffbe bco:support "definitional" .
+
+bcoc:source-5ab2b8ac787db41c2ffc18a07d2fee9111e9e035e6bfa4113b7925fc474dcfef bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-5ab2b8ac787db41c2ffc18a07d2fee9111e9e035e6bfa4113b7925fc474dcfef bco:locator "PCF 7.4 element 10762 (hierarchy 9.8.1), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10762; catalog candidate BCC-80a63f8e" .
+bcoc:source-5ab2b8ac787db41c2ffc18a07d2fee9111e9e035e6bfa4113b7925fc474dcfef bco:relation "consistent-with" .
+bcoc:source-5ab2b8ac787db41c2ffc18a07d2fee9111e9e035e6bfa4113b7925fc474dcfef bco:support "definitional" .
+
+bcoc:source-6150f82230e758f57af33eeca15dd5dd5e3931ee6d327c120f552fe7f51a25c3 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-6150f82230e758f57af33eeca15dd5dd5e3931ee6d327c120f552fe7f51a25c3 bco:locator "PCF 7.4 element 10769 (hierarchy 9.10.3), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10769; catalog candidate BCC-8fc1f306" .
+bcoc:source-6150f82230e758f57af33eeca15dd5dd5e3931ee6d327c120f552fe7f51a25c3 bco:relation "consistent-with" .
+bcoc:source-6150f82230e758f57af33eeca15dd5dd5e3931ee6d327c120f552fe7f51a25c3 bco:support "definitional" .
+
+bcoc:source-66083a0304a5533f01f32e420d265ba729f27a779cdfe031003014f8f7dab327 bco:citesSource bcos:SRC-GOV-06 .
+bcoc:source-66083a0304a5533f01f32e420d265ba729f27a779cdfe031003014f8f7dab327 bco:locator "BRM 3.1 613, as harvested in docs/sources/inventory/feaf-brm-entries.yaml, INV-FEAF-BRM-SCD-613-brm-service; catalog candidate BCC-85fbcb90" .
+bcoc:source-66083a0304a5533f01f32e420d265ba729f27a779cdfe031003014f8f7dab327 bco:relation "consistent-with" .
+bcoc:source-66083a0304a5533f01f32e420d265ba729f27a779cdfe031003014f8f7dab327 bco:support "definitional" .
+
+bcoc:source-679b10128c6f778643ccfde50b3f1ea069dd2c6628ee652af11bc5989f73f8e3 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-679b10128c6f778643ccfde50b3f1ea069dd2c6628ee652af11bc5989f73f8e3 bco:locator "PCF 7.4 element 11208 (hierarchy 9.7.5), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-11208; catalog candidate BCC-132e1b29" .
+bcoc:source-679b10128c6f778643ccfde50b3f1ea069dd2c6628ee652af11bc5989f73f8e3 bco:relation "consistent-with" .
+bcoc:source-679b10128c6f778643ccfde50b3f1ea069dd2c6628ee652af11bc5989f73f8e3 bco:support "definitional" .
+
+bcoc:source-67baa820212c668746a2c2eebb480dca3d3af8f4eb76e1749331c5ee169d1845 bco:citesSource bcos:SRC-GOV-06 .
+bcoc:source-67baa820212c668746a2c2eebb480dca3d3af8f4eb76e1749331c5ee169d1845 bco:locator "BRM 3.1 B10.805.624, as harvested in docs/sources/inventory/feaf-brm-entries.yaml, INV-FEAF-BRM-TAX-B10.805.624-brm-service; catalog candidate BCC-b7c46718" .
+bcoc:source-67baa820212c668746a2c2eebb480dca3d3af8f4eb76e1749331c5ee169d1845 bco:relation "consistent-with" .
+bcoc:source-67baa820212c668746a2c2eebb480dca3d3af8f4eb76e1749331c5ee169d1845 bco:support "definitional" .
+
+bcoc:source-6978b239314bc21f15756453deee66f74209e87f7e826fa09bc63d35236cf7c9 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-6978b239314bc21f15756453deee66f74209e87f7e826fa09bc63d35236cf7c9 bco:locator "PCF 7.4 element 10783 (hierarchy 9.1.4.2), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10783; catalog candidate BCC-e1fa4843" .
+bcoc:source-6978b239314bc21f15756453deee66f74209e87f7e826fa09bc63d35236cf7c9 bco:relation "consistent-with" .
+bcoc:source-6978b239314bc21f15756453deee66f74209e87f7e826fa09bc63d35236cf7c9 bco:support "definitional" .
+
+bcoc:source-6a1a93491186687426d05272e1f86a3ce24ae59b14d5db8c17a80f06b1d54f6d bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-6a1a93491186687426d05272e1f86a3ce24ae59b14d5db8c17a80f06b1d54f6d bco:locator "PCF 7.4 element 10737 (hierarchy 9.10), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10737; catalog candidate BCC-87e3a26b" .
+bcoc:source-6a1a93491186687426d05272e1f86a3ce24ae59b14d5db8c17a80f06b1d54f6d bco:relation "consistent-with" .
+bcoc:source-6a1a93491186687426d05272e1f86a3ce24ae59b14d5db8c17a80f06b1d54f6d bco:support "definitional" .
+
+bcoc:source-6a433a607a692a1c6a0140183385726f5bab23d3d924076c734ac6020f338d08 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-6a433a607a692a1c6a0140183385726f5bab23d3d924076c734ac6020f338d08 bco:locator "PCF 7.4 element 10728 (hierarchy 9.1), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10728; catalog candidate BCC-ca61edb4" .
+bcoc:source-6a433a607a692a1c6a0140183385726f5bab23d3d924076c734ac6020f338d08 bco:relation "consistent-with" .
+bcoc:source-6a433a607a692a1c6a0140183385726f5bab23d3d924076c734ac6020f338d08 bco:support "definitional" .
+
+bcoc:source-6d6f59fd79f0ec4c867c1c22eb87e73959db142e95de1ed994380bbc69bb576a bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-6d6f59fd79f0ec4c867c1c22eb87e73959db142e95de1ed994380bbc69bb576a bco:locator "PCF 7.4 element 10761 (hierarchy 9.7.4), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10761; catalog candidate BCC-ec93ca56" .
+bcoc:source-6d6f59fd79f0ec4c867c1c22eb87e73959db142e95de1ed994380bbc69bb576a bco:relation "consistent-with" .
+bcoc:source-6d6f59fd79f0ec4c867c1c22eb87e73959db142e95de1ed994380bbc69bb576a bco:support "definitional" .
+
+bcoc:source-73f403a3fceb6085a1e5f00b87fb089fcf7767ae2f8b7a2f5dbb0e3ffc7b309d bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-73f403a3fceb6085a1e5f00b87fb089fcf7767ae2f8b7a2f5dbb0e3ffc7b309d bco:locator "PCF 7.4 element 10757 (hierarchy 9.6.2), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10757; catalog candidate BCC-35c8111b" .
+bcoc:source-73f403a3fceb6085a1e5f00b87fb089fcf7767ae2f8b7a2f5dbb0e3ffc7b309d bco:relation "consistent-with" .
+bcoc:source-73f403a3fceb6085a1e5f00b87fb089fcf7767ae2f8b7a2f5dbb0e3ffc7b309d bco:support "definitional" .
+
+bcoc:source-7616621e09fea7b17e76f50bbcdc73ac4aa5c319ceadaeb74e56dd9d674950d6 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-7616621e09fea7b17e76f50bbcdc73ac4aa5c319ceadaeb74e56dd9d674950d6 bco:locator "PCF 7.4 element 14094 (hierarchy 9.11.6), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-14094; catalog candidate BCC-6daa0467" .
+bcoc:source-7616621e09fea7b17e76f50bbcdc73ac4aa5c319ceadaeb74e56dd9d674950d6 bco:relation "consistent-with" .
+bcoc:source-7616621e09fea7b17e76f50bbcdc73ac4aa5c319ceadaeb74e56dd9d674950d6 bco:support "definitional" .
+
+bcoc:source-778d747809a7cee8879935a940511c95012453ac48be56f4c1789b4e550001c3 bco:citesSource bcos:SRC-GOV-06 .
+bcoc:source-778d747809a7cee8879935a940511c95012453ac48be56f4c1789b4e550001c3 bco:locator "BRM 3.1 B10.805.613, as harvested in docs/sources/inventory/feaf-brm-entries.yaml, INV-FEAF-BRM-TAX-B10.805.613-brm-service; catalog candidate BCC-85fbcb90" .
+bcoc:source-778d747809a7cee8879935a940511c95012453ac48be56f4c1789b4e550001c3 bco:relation "consistent-with" .
+bcoc:source-778d747809a7cee8879935a940511c95012453ac48be56f4c1789b4e550001c3 bco:support "definitional" .
+
+bcoc:source-7b31bcd5c49bec44c00bbd9dba46deeb2bf7542424f0de4a25ed2368ac3945b7 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-7b31bcd5c49bec44c00bbd9dba46deeb2bf7542424f0de4a25ed2368ac3945b7 bco:locator "PCF 7.4 element 10746 (hierarchy 9.2.5), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10746; catalog candidate BCC-cebf0da8" .
+bcoc:source-7b31bcd5c49bec44c00bbd9dba46deeb2bf7542424f0de4a25ed2368ac3945b7 bco:relation "consistent-with" .
+bcoc:source-7b31bcd5c49bec44c00bbd9dba46deeb2bf7542424f0de4a25ed2368ac3945b7 bco:support "definitional" .
+
+bcoc:source-7d4dc9cb2a1c3a73cc2e4fd3f27b47ec6fe2608829269443f715ed3f196d13a9 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-7d4dc9cb2a1c3a73cc2e4fd3f27b47ec6fe2608829269443f715ed3f196d13a9 bco:locator "PCF 7.4 element 10741 (hierarchy 9.1.4), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10741; catalog candidate BCC-cedf0899" .
+bcoc:source-7d4dc9cb2a1c3a73cc2e4fd3f27b47ec6fe2608829269443f715ed3f196d13a9 bco:relation "consistent-with" .
+bcoc:source-7d4dc9cb2a1c3a73cc2e4fd3f27b47ec6fe2608829269443f715ed3f196d13a9 bco:support "definitional" .
+
 bcoc:source-7fbc3e395fbf7b5de65a40d2ae8efb38bd86a1bbd43695fb0d7bf146cb9ae03a bco:citesSource bcos:SRC-OMG-03 .
 bcoc:source-7fbc3e395fbf7b5de65a40d2ae8efb38bd86a1bbd43695fb0d7bf146cb9ae03a bco:locator "BACM 1.1, section 7.3.2.7 (Capability is identified by the Outcome a business can produce, not by how it is produced)" .
 bcoc:source-7fbc3e395fbf7b5de65a40d2ae8efb38bd86a1bbd43695fb0d7bf146cb9ae03a bco:relation "consistent-with" .
 bcoc:source-7fbc3e395fbf7b5de65a40d2ae8efb38bd86a1bbd43695fb0d7bf146cb9ae03a bco:support "contextual" .
 
+bcoc:source-82ad796e4abbb5bbe488f5b7e501e59ff314bf4beea3593c50bf71ffac4bbbf7 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-82ad796e4abbb5bbe488f5b7e501e59ff314bf4beea3593c50bf71ffac4bbbf7 bco:locator "PCF 7.4 element 10748 (hierarchy 9.3.2), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10748; catalog candidate BCC-8b431985" .
+bcoc:source-82ad796e4abbb5bbe488f5b7e501e59ff314bf4beea3593c50bf71ffac4bbbf7 bco:relation "consistent-with" .
+bcoc:source-82ad796e4abbb5bbe488f5b7e501e59ff314bf4beea3593c50bf71ffac4bbbf7 bco:support "definitional" .
+
+bcoc:source-83b3e131e1786afde0c4d02272fa46848c981ab5fde7ba42385e51c176702f64 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-83b3e131e1786afde0c4d02272fa46848c981ab5fde7ba42385e51c176702f64 bco:locator "PCF 7.4 element 10756 (hierarchy 9.6.1), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10756; catalog candidate BCC-62e789bf" .
+bcoc:source-83b3e131e1786afde0c4d02272fa46848c981ab5fde7ba42385e51c176702f64 bco:relation "consistent-with" .
+bcoc:source-83b3e131e1786afde0c4d02272fa46848c981ab5fde7ba42385e51c176702f64 bco:support "definitional" .
+
+bcoc:source-8666c9f195a24e9c6f954a3a4f248c5bc8062d5e615b826fc95cf6dfb5197526 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-8666c9f195a24e9c6f954a3a4f248c5bc8062d5e615b826fc95cf6dfb5197526 bco:locator "PCF 7.4 element 10759 (hierarchy 9.7.2), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10759; catalog candidate BCC-a1c5454d" .
+bcoc:source-8666c9f195a24e9c6f954a3a4f248c5bc8062d5e615b826fc95cf6dfb5197526 bco:relation "consistent-with" .
+bcoc:source-8666c9f195a24e9c6f954a3a4f248c5bc8062d5e615b826fc95cf6dfb5197526 bco:support "definitional" .
+
+bcoc:source-89b4e7fdeff7487605f6b5f905736a21a6206354b8ad81ebffb42f476af3f16d bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-89b4e7fdeff7487605f6b5f905736a21a6206354b8ad81ebffb42f476af3f16d bco:locator "PCF 7.4 element 14096 (hierarchy 9.11.8), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-14096; catalog candidate BCC-0c80b752" .
+bcoc:source-89b4e7fdeff7487605f6b5f905736a21a6206354b8ad81ebffb42f476af3f16d bco:relation "consistent-with" .
+bcoc:source-89b4e7fdeff7487605f6b5f905736a21a6206354b8ad81ebffb42f476af3f16d bco:support "definitional" .
+
+bcoc:source-89bb61c60bc99a588f84154e41ecdaf6c9d432aedaf73d38e7c9ae76c0ffd948 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-89bb61c60bc99a588f84154e41ecdaf6c9d432aedaf73d38e7c9ae76c0ffd948 bco:locator "PCF 7.4 element 10735 (hierarchy 9.8), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10735; catalog candidate BCC-5a4bc396" .
+bcoc:source-89bb61c60bc99a588f84154e41ecdaf6c9d432aedaf73d38e7c9ae76c0ffd948 bco:relation "consistent-with" .
+bcoc:source-89bb61c60bc99a588f84154e41ecdaf6c9d432aedaf73d38e7c9ae76c0ffd948 bco:support "definitional" .
+
+bcoc:source-8bb2ea1effe760a4259aa487c30fb7492417d0973b59a66685efbfc765399eb7 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-8bb2ea1effe760a4259aa487c30fb7492417d0973b59a66685efbfc765399eb7 bco:locator "PCF 7.4 element 14091 (hierarchy 9.11.2), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-14091; catalog candidate BCC-cd7f1007" .
+bcoc:source-8bb2ea1effe760a4259aa487c30fb7492417d0973b59a66685efbfc765399eb7 bco:relation "consistent-with" .
+bcoc:source-8bb2ea1effe760a4259aa487c30fb7492417d0973b59a66685efbfc765399eb7 bco:support "definitional" .
+
+bcoc:source-8ed52377b4c43961072f95d6fbca429eadd91c859ca4620740699ff3318956ef bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-8ed52377b4c43961072f95d6fbca429eadd91c859ca4620740699ff3318956ef bco:locator "PCF 7.4 element 10862 (hierarchy 9.5.2.5), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10862; catalog candidate BCC-9511900a" .
+bcoc:source-8ed52377b4c43961072f95d6fbca429eadd91c859ca4620740699ff3318956ef bco:relation "consistent-with" .
+bcoc:source-8ed52377b4c43961072f95d6fbca429eadd91c859ca4620740699ff3318956ef bco:support "definitional" .
+
+bcoc:source-90bed95019d4b4e9064f0218dde186e88e28c19872c8bdde1c4fa4f764d56b54 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-90bed95019d4b4e9064f0218dde186e88e28c19872c8bdde1c4fa4f764d56b54 bco:locator "PCF 7.4 element 10758 (hierarchy 9.7.1), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10758; catalog candidate BCC-7757c12b" .
+bcoc:source-90bed95019d4b4e9064f0218dde186e88e28c19872c8bdde1c4fa4f764d56b54 bco:relation "consistent-with" .
+bcoc:source-90bed95019d4b4e9064f0218dde186e88e28c19872c8bdde1c4fa4f764d56b54 bco:support "definitional" .
+
+bcoc:source-90dc56d49005505e8ef6c346355fec649703cb1e680e0110bee23838306da443 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-90dc56d49005505e8ef6c346355fec649703cb1e680e0110bee23838306da443 bco:locator "PCF 7.4 element 10745 (hierarchy 9.2.4), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10745; catalog candidate BCC-c4904759" .
+bcoc:source-90dc56d49005505e8ef6c346355fec649703cb1e680e0110bee23838306da443 bco:relation "consistent-with" .
+bcoc:source-90dc56d49005505e8ef6c346355fec649703cb1e680e0110bee23838306da443 bco:support "definitional" .
+
+bcoc:source-90e149539cc14e65a36fc758f84f6bb807ca4fa7ef3bfe6b18a05812f838b762 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-90e149539cc14e65a36fc758f84f6bb807ca4fa7ef3bfe6b18a05812f838b762 bco:locator "PCF 7.4 element 10760 (hierarchy 9.7.3), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10760; catalog candidate BCC-749adb52" .
+bcoc:source-90e149539cc14e65a36fc758f84f6bb807ca4fa7ef3bfe6b18a05812f838b762 bco:relation "consistent-with" .
+bcoc:source-90e149539cc14e65a36fc758f84f6bb807ca4fa7ef3bfe6b18a05812f838b762 bco:support "definitional" .
+
+bcoc:source-92f3c0990370e27f1400df52cd6ff9ad75d800b17009e51742d3b753c48d4a53 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-92f3c0990370e27f1400df52cd6ff9ad75d800b17009e51742d3b753c48d4a53 bco:locator "PCF 7.4 element 10730 (hierarchy 9.3), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10730; catalog candidate BCC-60d672db" .
+bcoc:source-92f3c0990370e27f1400df52cd6ff9ad75d800b17009e51742d3b753c48d4a53 bco:relation "consistent-with" .
+bcoc:source-92f3c0990370e27f1400df52cd6ff9ad75d800b17009e51742d3b753c48d4a53 bco:support "definitional" .
+
+bcoc:source-93b0968a64ccd2b5975e408fbfb42319c9090e53420a058d550dc1dd8adbff46 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-93b0968a64ccd2b5975e408fbfb42319c9090e53420a058d550dc1dd8adbff46 bco:locator "PCF 7.4 element 10729 (hierarchy 9.2), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10729; catalog candidate BCC-1cccc689" .
+bcoc:source-93b0968a64ccd2b5975e408fbfb42319c9090e53420a058d550dc1dd8adbff46 bco:relation "consistent-with" .
+bcoc:source-93b0968a64ccd2b5975e408fbfb42319c9090e53420a058d550dc1dd8adbff46 bco:support "definitional" .
+
+bcoc:source-94547e0ea330f57cf99c6ba19d3078c7439e57d5a0944d0fa55722481b782110 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-94547e0ea330f57cf99c6ba19d3078c7439e57d5a0944d0fa55722481b782110 bco:locator "PCF 7.4 element 10739 (hierarchy 9.1.2), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10739; catalog candidate BCC-302a390a" .
+bcoc:source-94547e0ea330f57cf99c6ba19d3078c7439e57d5a0944d0fa55722481b782110 bco:relation "consistent-with" .
+bcoc:source-94547e0ea330f57cf99c6ba19d3078c7439e57d5a0944d0fa55722481b782110 bco:support "definitional" .
+
+bcoc:source-94c00382c3a4248eb06201518114257ddef43b1d9aea6459bc7734cce313448f bco:citesSource bcos:SRC-GOV-06 .
+bcoc:source-94c00382c3a4248eb06201518114257ddef43b1d9aea6459bc7734cce313448f bco:locator "BRM 3.1 624, as harvested in docs/sources/inventory/feaf-brm-entries.yaml, INV-FEAF-BRM-SCD-624-brm-service; catalog candidate BCC-b7c46718" .
+bcoc:source-94c00382c3a4248eb06201518114257ddef43b1d9aea6459bc7734cce313448f bco:relation "consistent-with" .
+bcoc:source-94c00382c3a4248eb06201518114257ddef43b1d9aea6459bc7734cce313448f bco:support "definitional" .
+
+bcoc:source-96ae35085286b454472f093d6fefa02acdca1b218fc7d29f5317e15cf171a73a bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-96ae35085286b454472f093d6fefa02acdca1b218fc7d29f5317e15cf171a73a bco:locator "PCF 7.4 element 14098 (hierarchy 9.11.10), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-14098; catalog candidate BCC-4f5c2f36" .
+bcoc:source-96ae35085286b454472f093d6fefa02acdca1b218fc7d29f5317e15cf171a73a bco:relation "consistent-with" .
+bcoc:source-96ae35085286b454472f093d6fefa02acdca1b218fc7d29f5317e15cf171a73a bco:support "definitional" .
+
+bcoc:source-9d00a925d4471714f46298b905086bbf10ab667df7cc85517ce7875d36623999 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-9d00a925d4471714f46298b905086bbf10ab667df7cc85517ce7875d36623999 bco:locator "PCF 7.4 element 11210 (hierarchy 9.7.5.3), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-11210; catalog candidate BCC-7c04ea8a" .
+bcoc:source-9d00a925d4471714f46298b905086bbf10ab667df7cc85517ce7875d36623999 bco:relation "consistent-with" .
+bcoc:source-9d00a925d4471714f46298b905086bbf10ab667df7cc85517ce7875d36623999 bco:support "definitional" .
+
+bcoc:source-a04bccaac29926acb98c1805ec3057f87157397bbf1f37e70fe579e2e0509902 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-a04bccaac29926acb98c1805ec3057f87157397bbf1f37e70fe579e2e0509902 bco:locator "PCF 7.4 element 10733 (hierarchy 9.6), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10733; catalog candidate BCC-0fe1f7f0" .
+bcoc:source-a04bccaac29926acb98c1805ec3057f87157397bbf1f37e70fe579e2e0509902 bco:relation "consistent-with" .
+bcoc:source-a04bccaac29926acb98c1805ec3057f87157397bbf1f37e70fe579e2e0509902 bco:support "definitional" .
+
 bcoc:source-aa18f2be9785bc5958d0fc79b9b3d3c15742ece3e290f43d0435a829edd67a81 bco:citesSource bcos:SRC-IND-02 .
 bcoc:source-aa18f2be9785bc5958d0fc79b9b3d3c15742ece3e290f43d0435a829edd67a81 bco:locator "APQC article summary (capabilities are what is needed to do the work, processes are the work); the full text is members-only and was not read" .
 bcoc:source-aa18f2be9785bc5958d0fc79b9b3d3c15742ece3e290f43d0435a829edd67a81 bco:relation "consistent-with" .
 bcoc:source-aa18f2be9785bc5958d0fc79b9b3d3c15742ece3e290f43d0435a829edd67a81 bco:support "contextual" .
+
+bcoc:source-aa77772f54c0c015f108f8d11f3dbd360608d3a82d6b1425b5d69ece9ecf6e10 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-aa77772f54c0c015f108f8d11f3dbd360608d3a82d6b1425b5d69ece9ecf6e10 bco:locator "PCF 7.4 element 10740 (hierarchy 9.1.3), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10740; catalog candidate BCC-b47b8fed" .
+bcoc:source-aa77772f54c0c015f108f8d11f3dbd360608d3a82d6b1425b5d69ece9ecf6e10 bco:relation "consistent-with" .
+bcoc:source-aa77772f54c0c015f108f8d11f3dbd360608d3a82d6b1425b5d69ece9ecf6e10 bco:support "definitional" .
+
+bcoc:source-ae3f8cdf07d1a69d68f71f1375acc73f68d983bc0b5fe9ed619f724d6b94b60f bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-ae3f8cdf07d1a69d68f71f1375acc73f68d983bc0b5fe9ed619f724d6b94b60f bco:locator "PCF 7.4 element 10743 (hierarchy 9.2.2), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10743; catalog candidate BCC-8a70a337" .
+bcoc:source-ae3f8cdf07d1a69d68f71f1375acc73f68d983bc0b5fe9ed619f724d6b94b60f bco:relation "consistent-with" .
+bcoc:source-ae3f8cdf07d1a69d68f71f1375acc73f68d983bc0b5fe9ed619f724d6b94b60f bco:support "definitional" .
+
+bcoc:source-b2146d550390067e6054112b5f607e327625d6c22c874bd275db6008bb577734 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-b2146d550390067e6054112b5f607e327625d6c22c874bd275db6008bb577734 bco:locator "PCF 7.4 element 17489 (hierarchy 13.3.2.2.2), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-17489; catalog candidate BCC-5caed753" .
+bcoc:source-b2146d550390067e6054112b5f607e327625d6c22c874bd275db6008bb577734 bco:relation "consistent-with" .
+bcoc:source-b2146d550390067e6054112b5f607e327625d6c22c874bd275db6008bb577734 bco:support "definitional" .
+
+bcoc:source-b21a65d8f0d5f3bc4d9d010d6fc261af9dbe2b0277b66b1cbd2c796106ecf9c5 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-b21a65d8f0d5f3bc4d9d010d6fc261af9dbe2b0277b66b1cbd2c796106ecf9c5 bco:locator "PCF 7.4 element 10770 (hierarchy 9.10.4), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10770; catalog candidate BCC-5caed753" .
+bcoc:source-b21a65d8f0d5f3bc4d9d010d6fc261af9dbe2b0277b66b1cbd2c796106ecf9c5 bco:relation "consistent-with" .
+bcoc:source-b21a65d8f0d5f3bc4d9d010d6fc261af9dbe2b0277b66b1cbd2c796106ecf9c5 bco:support "definitional" .
+
+bcoc:source-b361c5f4ad9d19ea539e60cb083249efcfcbb5623e9efcb6a47ad0183f6e9753 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-b361c5f4ad9d19ea539e60cb083249efcfcbb5623e9efcb6a47ad0183f6e9753 bco:locator "PCF 7.4 element 20137 (hierarchy 9.7.5.5), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-20137; catalog candidate BCC-8fdf31c6" .
+bcoc:source-b361c5f4ad9d19ea539e60cb083249efcfcbb5623e9efcb6a47ad0183f6e9753 bco:relation "consistent-with" .
+bcoc:source-b361c5f4ad9d19ea539e60cb083249efcfcbb5623e9efcb6a47ad0183f6e9753 bco:support "definitional" .
+
+bcoc:source-b4803979fe5e6bc8428b170503ad8c5824ea2c73f50f5927e94970ce92ba6ff2 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-b4803979fe5e6bc8428b170503ad8c5824ea2c73f50f5927e94970ce92ba6ff2 bco:locator "PCF 7.4 element 10752 (hierarchy 9.4.2), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10752; catalog candidate BCC-95b092a2" .
+bcoc:source-b4803979fe5e6bc8428b170503ad8c5824ea2c73f50f5927e94970ce92ba6ff2 bco:relation "consistent-with" .
+bcoc:source-b4803979fe5e6bc8428b170503ad8c5824ea2c73f50f5927e94970ce92ba6ff2 bco:support "definitional" .
+
+bcoc:source-b870c496f27c0d1cf64d2dc4ff54ebf3ac027e402e60b60724413b028f2ce90b bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-b870c496f27c0d1cf64d2dc4ff54ebf3ac027e402e60b60724413b028f2ce90b bco:locator "PCF 7.4 element 10753 (hierarchy 9.5.1), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10753; catalog candidate BCC-85fbcb90" .
+bcoc:source-b870c496f27c0d1cf64d2dc4ff54ebf3ac027e402e60b60724413b028f2ce90b bco:relation "consistent-with" .
+bcoc:source-b870c496f27c0d1cf64d2dc4ff54ebf3ac027e402e60b60724413b028f2ce90b bco:support "definitional" .
+
+bcoc:source-b91d0abbfea77733b4416ba507a4513f194cf011858a7ac90ef05c2bdca3b744 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-b91d0abbfea77733b4416ba507a4513f194cf011858a7ac90ef05c2bdca3b744 bco:locator "PCF 7.4 element 10897 (hierarchy 9.7.2.5), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10897; catalog candidate BCC-d71abe9a" .
+bcoc:source-b91d0abbfea77733b4416ba507a4513f194cf011858a7ac90ef05c2bdca3b744 bco:relation "consistent-with" .
+bcoc:source-b91d0abbfea77733b4416ba507a4513f194cf011858a7ac90ef05c2bdca3b744 bco:support "definitional" .
+
+bcoc:source-bd5b9fca8c56b816f3691f62a79cacf8bb4818b8c9d58390a14d5d8746421071 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-bd5b9fca8c56b816f3691f62a79cacf8bb4818b8c9d58390a14d5d8746421071 bco:locator "PCF 7.4 element 17059 (hierarchy 9.11), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-17059; catalog candidate BCC-05445216" .
+bcoc:source-bd5b9fca8c56b816f3691f62a79cacf8bb4818b8c9d58390a14d5d8746421071 bco:relation "consistent-with" .
+bcoc:source-bd5b9fca8c56b816f3691f62a79cacf8bb4818b8c9d58390a14d5d8746421071 bco:support "definitional" .
+
+bcoc:source-c159c85658fe5a62798f805147b3181784ba4b4d2cf399d91bac59087e190447 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-c159c85658fe5a62798f805147b3181784ba4b4d2cf399d91bac59087e190447 bco:locator "PCF 7.4 element 14095 (hierarchy 9.11.7), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-14095; catalog candidate BCC-c5e7dca0" .
+bcoc:source-c159c85658fe5a62798f805147b3181784ba4b4d2cf399d91bac59087e190447 bco:relation "consistent-with" .
+bcoc:source-c159c85658fe5a62798f805147b3181784ba4b4d2cf399d91bac59087e190447 bco:support "definitional" .
+
+bcoc:source-c4d2e0090c2a915af0f6afcc213f06a6c0c328acb446335be336f69c19c1c168 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-c4d2e0090c2a915af0f6afcc213f06a6c0c328acb446335be336f69c19c1c168 bco:locator "PCF 7.4 element 10736 (hierarchy 9.9), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10736; catalog candidate BCC-c64ca466" .
+bcoc:source-c4d2e0090c2a915af0f6afcc213f06a6c0c328acb446335be336f69c19c1c168 bco:relation "consistent-with" .
+bcoc:source-c4d2e0090c2a915af0f6afcc213f06a6c0c328acb446335be336f69c19c1c168 bco:support "definitional" .
+
+bcoc:source-ce575eabf2cfa8cb53d217c837f59b7bf80a7ac35c551660aa5cee0009721e47 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-ce575eabf2cfa8cb53d217c837f59b7bf80a7ac35c551660aa5cee0009721e47 bco:locator "PCF 7.4 element 10747 (hierarchy 9.3.1), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10747; catalog candidate BCC-e8acc1f8" .
+bcoc:source-ce575eabf2cfa8cb53d217c837f59b7bf80a7ac35c551660aa5cee0009721e47 bco:relation "consistent-with" .
+bcoc:source-ce575eabf2cfa8cb53d217c837f59b7bf80a7ac35c551660aa5cee0009721e47 bco:support "definitional" .
+
+bcoc:source-d0090f941768179babed684571d45a4eeb729a1ab20651b43cfb5391cfe74bad bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-d0090f941768179babed684571d45a4eeb729a1ab20651b43cfb5391cfe74bad bco:locator "PCF 7.4 element 10767 (hierarchy 9.10.1), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10767; catalog candidate BCC-5dfa2101" .
+bcoc:source-d0090f941768179babed684571d45a4eeb729a1ab20651b43cfb5391cfe74bad bco:relation "consistent-with" .
+bcoc:source-d0090f941768179babed684571d45a4eeb729a1ab20651b43cfb5391cfe74bad bco:support "definitional" .
+
+bcoc:source-d354ed24b338bc27cfbc6ee0674e30816b681abaf0b3a3294267189eed181a54 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-d354ed24b338bc27cfbc6ee0674e30816b681abaf0b3a3294267189eed181a54 bco:locator "PCF 7.4 element 21574 (hierarchy 9.8.2), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-21574; catalog candidate BCC-ded8ed18" .
+bcoc:source-d354ed24b338bc27cfbc6ee0674e30816b681abaf0b3a3294267189eed181a54 bco:relation "consistent-with" .
+bcoc:source-d354ed24b338bc27cfbc6ee0674e30816b681abaf0b3a3294267189eed181a54 bco:support "definitional" .
+
+bcoc:source-d6fa39aa500a5ee50ef0252842554ca23b647ef9d4495074e96c63ac07986049 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-d6fa39aa500a5ee50ef0252842554ca23b647ef9d4495074e96c63ac07986049 bco:locator "PCF 7.4 element 14008 (hierarchy 9.2.4.7), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-14008; catalog candidate BCC-38b3c836" .
+bcoc:source-d6fa39aa500a5ee50ef0252842554ca23b647ef9d4495074e96c63ac07986049 bco:relation "consistent-with" .
+bcoc:source-d6fa39aa500a5ee50ef0252842554ca23b647ef9d4495074e96c63ac07986049 bco:support "definitional" .
+
+bcoc:source-da295e497e1b07a327e3abd63a45c0290c2a923b927449e5f2b01c041bba78c9 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-da295e497e1b07a327e3abd63a45c0290c2a923b927449e5f2b01c041bba78c9 bco:locator "PCF 7.4 element 17058 (hierarchy 9.0), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-17058; catalog candidate BCC-4fda51aa" .
+bcoc:source-da295e497e1b07a327e3abd63a45c0290c2a923b927449e5f2b01c041bba78c9 bco:relation "consistent-with" .
+bcoc:source-da295e497e1b07a327e3abd63a45c0290c2a923b927449e5f2b01c041bba78c9 bco:support "definitional" .
+
+bcoc:source-de38968c2d8aa0c55ac9ec14c78fcd1fc5320a4018904ba3118a99c2fb00bebf bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-de38968c2d8aa0c55ac9ec14c78fcd1fc5320a4018904ba3118a99c2fb00bebf bco:locator "PCF 7.4 element 10910 (hierarchy 9.7.4.4), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10910; catalog candidate BCC-13b94120" .
+bcoc:source-de38968c2d8aa0c55ac9ec14c78fcd1fc5320a4018904ba3118a99c2fb00bebf bco:relation "consistent-with" .
+bcoc:source-de38968c2d8aa0c55ac9ec14c78fcd1fc5320a4018904ba3118a99c2fb00bebf bco:support "definitional" .
+
+bcoc:source-df0dd970dc791f04604909a7ae15ab0386df874143136610ddcaa931b07161db bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-df0dd970dc791f04604909a7ae15ab0386df874143136610ddcaa931b07161db bco:locator "PCF 7.4 element 10731 (hierarchy 9.4), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10731; catalog candidate BCC-9305456f" .
+bcoc:source-df0dd970dc791f04604909a7ae15ab0386df874143136610ddcaa931b07161db bco:relation "consistent-with" .
+bcoc:source-df0dd970dc791f04604909a7ae15ab0386df874143136610ddcaa931b07161db bco:support "definitional" .
+
+bcoc:source-e0e0d9a367d98e57991e1352ca50f0336b377cd0b994cfc31d06a4515c8d0943 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-e0e0d9a367d98e57991e1352ca50f0336b377cd0b994cfc31d06a4515c8d0943 bco:locator "PCF 7.4 element 10749 (hierarchy 9.3.3), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10749; catalog candidate BCC-e3c8bd37" .
+bcoc:source-e0e0d9a367d98e57991e1352ca50f0336b377cd0b994cfc31d06a4515c8d0943 bco:relation "consistent-with" .
+bcoc:source-e0e0d9a367d98e57991e1352ca50f0336b377cd0b994cfc31d06a4515c8d0943 bco:support "definitional" .
+
+bcoc:source-e46d2e55a4d71914fef86569be22745e121b6e1736e900fedd2e9755ae786dc5 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-e46d2e55a4d71914fef86569be22745e121b6e1736e900fedd2e9755ae786dc5 bco:locator "PCF 7.4 element 10738 (hierarchy 9.1.1), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10738; catalog candidate BCC-87e1811c" .
+bcoc:source-e46d2e55a4d71914fef86569be22745e121b6e1736e900fedd2e9755ae786dc5 bco:relation "consistent-with" .
+bcoc:source-e46d2e55a4d71914fef86569be22745e121b6e1736e900fedd2e9755ae786dc5 bco:support "definitional" .
+
+bcoc:source-e5160987babeb97147d54f2eee966af5a2f6564fde6ccf36fac53d8f3932b485 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-e5160987babeb97147d54f2eee966af5a2f6564fde6ccf36fac53d8f3932b485 bco:locator "PCF 7.4 element 10901 (hierarchy 9.7.3.1), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10901; catalog candidate BCC-aebe5ec1" .
+bcoc:source-e5160987babeb97147d54f2eee966af5a2f6564fde6ccf36fac53d8f3932b485 bco:relation "consistent-with" .
+bcoc:source-e5160987babeb97147d54f2eee966af5a2f6564fde6ccf36fac53d8f3932b485 bco:support "definitional" .
+
+bcoc:source-e5c95f061e9f0d65df1fb997c85deb34b21dfb94dbd20f3d13121f0baf455531 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-e5c95f061e9f0d65df1fb997c85deb34b21dfb94dbd20f3d13121f0baf455531 bco:locator "PCF 7.4 element 10765 (hierarchy 9.9.1), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10765; catalog candidate BCC-ce052840" .
+bcoc:source-e5c95f061e9f0d65df1fb997c85deb34b21dfb94dbd20f3d13121f0baf455531 bco:relation "consistent-with" .
+bcoc:source-e5c95f061e9f0d65df1fb997c85deb34b21dfb94dbd20f3d13121f0baf455531 bco:support "definitional" .
+
+bcoc:source-e6b9340e7dbe1226523869233b1f1669932e3b304ec2ef4f5d8525130852a019 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-e6b9340e7dbe1226523869233b1f1669932e3b304ec2ef4f5d8525130852a019 bco:locator "PCF 7.4 element 14090 (hierarchy 9.11.1), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-14090; catalog candidate BCC-f6799472" .
+bcoc:source-e6b9340e7dbe1226523869233b1f1669932e3b304ec2ef4f5d8525130852a019 bco:relation "consistent-with" .
+bcoc:source-e6b9340e7dbe1226523869233b1f1669932e3b304ec2ef4f5d8525130852a019 bco:support "definitional" .
+
+bcoc:source-eb182ba5756564f358f1be0f15dafa091faeffacc3d452e6b4b924bc10b0c10a bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-eb182ba5756564f358f1be0f15dafa091faeffacc3d452e6b4b924bc10b0c10a bco:locator "PCF 7.4 element 10497 (hierarchy 7.5.4), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10497; catalog candidate BCC-d95f68fd" .
+bcoc:source-eb182ba5756564f358f1be0f15dafa091faeffacc3d452e6b4b924bc10b0c10a bco:relation "consistent-with" .
+bcoc:source-eb182ba5756564f358f1be0f15dafa091faeffacc3d452e6b4b924bc10b0c10a bco:support "definitional" .
+
+bcoc:source-eee066bfd584e2f271f08b2fc476ebe042c342aa5a8fd41c60f20b156ba3ed59 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-eee066bfd584e2f271f08b2fc476ebe042c342aa5a8fd41c60f20b156ba3ed59 bco:locator "PCF 7.4 element 10894 (hierarchy 9.7.2.2), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10894; catalog candidate BCC-314dba7d" .
+bcoc:source-eee066bfd584e2f271f08b2fc476ebe042c342aa5a8fd41c60f20b156ba3ed59 bco:relation "consistent-with" .
+bcoc:source-eee066bfd584e2f271f08b2fc476ebe042c342aa5a8fd41c60f20b156ba3ed59 bco:support "definitional" .
+
+bcoc:source-f6ac826bfc7c4e59a015732b8300e6fba2717b72b903c10b833901731b2b181c bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-f6ac826bfc7c4e59a015732b8300e6fba2717b72b903c10b833901731b2b181c bco:locator "PCF 7.4 element 10750 (hierarchy 9.3.4), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10750; catalog candidate BCC-792537f9" .
+bcoc:source-f6ac826bfc7c4e59a015732b8300e6fba2717b72b903c10b833901731b2b181c bco:relation "consistent-with" .
+bcoc:source-f6ac826bfc7c4e59a015732b8300e6fba2717b72b903c10b833901731b2b181c bco:support "definitional" .
+
+bcoc:source-fcc0db72475ab507b21424ef5378237ec22dbf4d9cca9bcf8f639c2adcd4a17d bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-fcc0db72475ab507b21424ef5378237ec22dbf4d9cca9bcf8f639c2adcd4a17d bco:locator "PCF 7.4 element 10876 (hierarchy 9.6.1.8), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10876; catalog candidate BCC-9511900a" .
+bcoc:source-fcc0db72475ab507b21424ef5378237ec22dbf4d9cca9bcf8f639c2adcd4a17d bco:relation "consistent-with" .
+bcoc:source-fcc0db72475ab507b21424ef5378237ec22dbf4d9cca9bcf8f639c2adcd4a17d bco:support "definitional" .
+
+bcoc:source-fd2266cfb8ec42672e0014f08dc667e95e339893c17715a4f96b62fd8539f225 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-fd2266cfb8ec42672e0014f08dc667e95e339893c17715a4f96b62fd8539f225 bco:locator "PCF 7.4 element 10744 (hierarchy 9.2.3), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10744; catalog candidate BCC-6587dedf" .
+bcoc:source-fd2266cfb8ec42672e0014f08dc667e95e339893c17715a4f96b62fd8539f225 bco:relation "consistent-with" .
+bcoc:source-fd2266cfb8ec42672e0014f08dc667e95e339893c17715a4f96b62fd8539f225 bco:support "definitional" .
+
+bcoc:source-fd751aa4a669a52887a99eaa903f8c8c8b71c5f6786083240e8ba0e6bc519875 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-fd751aa4a669a52887a99eaa903f8c8c8b71c5f6786083240e8ba0e6bc519875 bco:locator "PCF 7.4 element 10788 (hierarchy 9.1.4.7), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10788; catalog candidate BCC-3421f274" .
+bcoc:source-fd751aa4a669a52887a99eaa903f8c8c8b71c5f6786083240e8ba0e6bc519875 bco:relation "consistent-with" .
+bcoc:source-fd751aa4a669a52887a99eaa903f8c8c8b71c5f6786083240e8ba0e6bc519875 bco:support "definitional" .

@@ -950,7 +950,8 @@ def test_a_designated_genus_and_its_ancestor_build(vb, layout, spec_path,
 
 
 def test_the_real_catalog_records_the_genus_and_the_ancestor(vb):
-    """The five real catalog concepts, as the decision record has it."""
+    """Every real catalog concept: the five pilots and tranche 2's, as the
+    decision records have it."""
     result = built(vb, vb.default_inputs())
     graph = graph_of(result, "bco-catalog.ttl")
     import rdflib
@@ -958,7 +959,9 @@ def test_the_real_catalog_records_the_genus_and_the_ancestor(vb):
     genus = rdflib.URIRef(vb.BCO + "definitionGenus")
     ancestor = rdflib.URIRef(vb.BCO + "foundationalAncestor")
     concepts = set(graph.subjects(genus, None))
-    assert len(concepts) == 5
+    assert len(concepts) == len(yaml.safe_load((ROOT / "src/01_controlled_vocabulary/"
+                                                "catalog.yaml").read_text(
+        encoding="utf-8"))["concepts"]) > 5
     for concept in concepts:
         assert list(graph.objects(concept, genus)) == [
             rdflib.URIRef(vb.BCO + "BusinessCapability")]
@@ -1177,7 +1180,7 @@ def test_the_real_prior_records_resolve_and_verify(vb, repo):
     commit_p = rdflib.URIRef(vb.BCO + "recordCommit")
     revision = rdflib.URIRef(vb.PROV + "wasRevisionOf")
     targets = set(graph.objects(None, revision))
-    assert len(targets) == 19, len(targets)
+    assert len(targets) == 20, len(targets)   # tranche 2 revised TreasuryManagement
     verified = 0
     for target in targets:
         digest = str(graph.value(target, sha))
@@ -1209,7 +1212,7 @@ def test_the_real_prior_records_resolve_and_verify(vb, repo):
         if at_parent and before.returncode == 0:
             assert digest[:16] not in before.stdout.decode("utf-8")
         verified += 1
-    assert verified == 19
+    assert verified == 20
 
 
 # ================================================================ record digest
@@ -1510,3 +1513,41 @@ def test_ci_runs_the_build_and_keeps_linkml_in_its_own_job(repo):
                            for step in jobs["vocab-schema"]["steps"])
     assert "pip install -r requirements-vocab.txt" in vocab_runs
     assert "python tools/vocab/schema_check.py" in vocab_runs
+
+
+# ================================================== tranche 2: alt_label, candidates
+
+
+def test_alt_labels_and_candidates_are_emitted(vb, layout, spec_path, tmp_path):
+    # docs/decisions/2026-11-07-curation-tranche-2-approved.md, A2: skos:altLabel,
+    # and several BCC- identifiers where candidates were merged into one concept.
+    result = built(vb, make(tmp_path, vb, layout, spec_path, catalog=[cat(
+        alt_label=[{"value": "Treasury Operations", "language": "en"},
+                   {"value": "Cash and Liquidity", "language": "en"}],
+        catalog_candidates=["BCC-0ba10d44", "BCC-00000001"])]))
+    text = result.files["bco-catalog.ttl"].decode("utf-8")
+    assert 'skos:altLabel "Treasury Operations"@en' in text
+    assert 'bco:catalogCandidate "BCC-0ba10d44"' in text
+    assert 'bco:catalogCandidate "BCC-00000001"' in text
+    assert "catalogCandidate" in result.files["bco-vocabulary.ttl"].decode("utf-8")
+    # Positive control: a record without either field emits neither.
+    plain = built(vb, make(tmp_path / "b", vb, layout, spec_path, catalog=[cat()]))
+    assert "altLabel" not in plain.files["bco-catalog.ttl"].decode("utf-8")
+
+
+@pytest.mark.parametrize("field", [
+    {"alt_label": [{"value": "Treasury Management", "language": "en"}]},
+    {"alt_label": [{"value": "X", "language": "en"}, {"value": "x", "language": "en"}]},
+    {"alt_label": [{"value": "X"}]},
+], ids=["repeats-pref", "repeats-alt", "no-language"])
+def test_a_bad_alt_label_is_refused(vb, layout, spec_path, tmp_path, field):
+    refused(vb, make(tmp_path, vb, layout, spec_path, catalog=[cat(**field)]),
+            "catalog-label")
+
+
+@pytest.mark.parametrize("cands", [
+    ["https://fandaws.com/ontology/bco#X"], ["BCC-0ba10d44", "BCC-0ba10d44"], "BCC-0ba10d44",
+], ids=["iri", "repeated", "not-a-list"])
+def test_a_bad_candidate_reference_is_refused(vb, layout, spec_path, tmp_path, cands):
+    refused(vb, make(tmp_path, vb, layout, spec_path,
+                     catalog=[cat(catalog_candidates=cands)]), "catalog-candidate")

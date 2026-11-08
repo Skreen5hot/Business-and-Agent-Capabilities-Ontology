@@ -1,0 +1,1788 @@
+# Tranche 2 structured review record: every candidate's disposition and every
+# link's disposition and kind, validated under the Stage 03 standard (docs/decisions/2026-11-07-curation-tranche-2-approved.md). Hand-authored;
+# docs/catalog/tranche-2.md summarizes it, and tests/test_catalog.py holds it to
+# the catalog and the vocabulary.
+format: 3
+tranche: 2
+decision: docs/decisions/2026-11-07-curation-tranche-2-approved.md
+standard: docs/standards/stage-03-taxonomy.md (ratified 2026-11-07; links here validated under
+  its gate)
+validation:
+  standard: docs/standards/stage-03-taxonomy.md
+  decision: docs/decisions/2026-11-07-stage-03-ratified-g1t-review-authorized.md
+  result: validated
+  applied: 'C2: the coverage test recorded for every retained part-of link; 5 failed and are
+    unresolved. C1: every retained kind-of link re-tested; 1 reclassified to part-of, 2 unresolved,
+    3 holding on a stated reading of the broader''s definition'
+scope:
+  root: BCC-4fda51aa
+  candidates_beneath: 72
+  additions:
+  - BCC-ded8ed18
+  catalog: docs/catalog/candidates.yaml
+  batches:
+    1: treasury and international funds
+    2: accounting areas
+    3: payables, payroll, tax, trade and internal control
+reviewers:
+- role: Ontologist
+  agent: bcoa:claude-opus-5-5
+  capacity: 'drafting: dispositions, terminology, definitions, link classification'
+- role: Synthetic domain reviewer
+  agent: Synthetic domain practitioner (finance, treasury, controllership), claude-opus-5-5,
+    an independent agent instance given the files only
+  capacity: product-owner-authorized synthetic practitioner (docs/decisions/2026-11-02-r11-practitioner-validation-decided.md);
+    30 findings, 19 substantive, all applied (docs/catalog/tranche-2.md)
+- role: Proxy Domain Expert
+  agent: Aaron Damiano, architect
+  capacity: material disagreements and G1-T admission, consolidated in docs/catalog/tranche-2.md
+candidates:
+- id: BCC-4fda51aa
+  name: Financial Resources Management Capability
+  batch: 1
+  disposition: accepted
+  concept: bcoc:FinancialResourceManagement
+  classification: 'capability area: broad or conjunctive; not proposed for G1-T (CD16, E4)'
+  g1t: 'not proposed: a capability area'
+  act_types:
+    in_evidence: 0
+    usable: 0
+  flags_answered:
+  - realization evidence only through narrower candidates
+- id: BCC-0fe1f7f0
+  name: Accounts Payable and Expense Reimbursements Processing Capability
+  batch: 3
+  disposition: accepted
+  concept: bcoc:PayablesAndReimbursementManagement
+  classification: 'capability area: broad or conjunctive; not proposed for G1-T (CD16, E4)'
+  g1t: 'not proposed: a capability area'
+  act_types:
+    in_evidence: 1
+    usable: 1
+  flags_answered: []
+- id: BCC-62e789bf
+  name: Accounts Payable Processing Capability
+  batch: 3
+  disposition: accepted
+  concept: bcoc:AccountsPayableProcessing
+  classification: capability type
+  g1t: 'admitted: T1-03, signed PASS 2026-11-05'
+  act_types:
+    in_evidence: 12
+    usable: 12
+  flags_answered:
+  - deontic index member
+- id: BCC-9ecf360b
+  name: Payments Approval Capability
+  batch: 3
+  disposition: rejected
+  reason: rejected 2026-11-04 (tranche 1, act 5); unchanged
+  act_types:
+    in_evidence: 2
+    usable: 2
+  flags_answered:
+  - deontic index member
+- id: BCC-9511900a
+  name: Payments Processing and Distribution Capability
+  batch: 3
+  disposition: accepted
+  concept: bcoc:PaymentProcessing
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 2
+    usable: 2
+  flags_answered: []
+- id: BCC-ea6d1c4a
+  name: Corporate Credit Cards Management Capability
+  batch: 3
+  disposition: accepted
+  concept: bcoc:CorporateCardManagement
+  classification: capability type
+  g1t: ready; the index excludes its deontic acts (G1-T question 4); a development act needs
+    a recorded reason (CAP-06)
+  act_types:
+    in_evidence: 7
+    usable: 7
+  flags_answered:
+  - deontic index member
+  - development-act-genus
+- id: BCC-35c8111b
+  name: Expense Reimbursements Processing Capability
+  batch: 3
+  disposition: accepted
+  concept: bcoc:ExpenseReimbursementProcessing
+  classification: capability type
+  g1t: ready; the index excludes its deontic acts (G1-T question 4)
+  act_types:
+    in_evidence: 6
+    usable: 6
+  flags_answered:
+  - deontic index member
+- id: BCC-9305456f
+  name: Fixed-asset Project Accounting Management Capability
+  batch: 2
+  disposition: accepted
+  concept: bcoc:CapitalExpenditureManagement
+  classification: 'capability area: broad or conjunctive; not proposed for G1-T (CD16, E4)'
+  g1t: 'not proposed: a capability area'
+  act_types:
+    in_evidence: 0
+    usable: 0
+  flags_answered:
+  - realization evidence only through narrower candidates
+- id: BCC-15e92684
+  name: Capital Planning and Project Approval Capability
+  batch: 2
+  disposition: accepted
+  concept: bcoc:CapitalPlanning
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 5
+    usable: 5
+  flags_answered: []
+- id: BCC-95b092a2
+  name: Capital Project Accounting Capability
+  batch: 2
+  disposition: accepted
+  concept: bcoc:CapitalProjectAccounting
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 6
+    usable: 6
+  flags_answered: []
+- id: BCC-60d672db
+  name: General Accounting and Reporting Capability
+  batch: 2
+  disposition: accepted
+  concept: bcoc:FinancialAccounting
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 1
+    usable: 1
+  flags_answered:
+  - qualified object
+- id: BCC-e8acc1f8
+  name: Financial Policies and Procedures Management Capability
+  batch: 2
+  disposition: accepted
+  concept: bcoc:AccountingPolicyManagement
+  classification: capability type
+  g1t: 'ready; the index excludes P10817 (setting approval limits: deontic) and P10815 (service-level
+    agreements: not policy work); P10818 (common financial systems) needs a CAP-06 record
+    or is out'
+  act_types:
+    in_evidence: 5
+    usable: 5
+  flags_answered: []
+- id: BCC-792537f9
+  name: Financial Reporting Capability
+  batch: 2
+  disposition: accepted
+  concept: bcoc:FinancialReporting
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 9
+    usable: 9
+  flags_answered:
+  - qualified object
+- id: BCC-e3c8bd37
+  name: Fixed-asset Accounting Capability
+  batch: 2
+  disposition: accepted
+  concept: bcoc:FixedAssetAccounting
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 10
+    usable: 10
+  flags_answered: []
+- id: BCC-8b431985
+  name: General Accounting Capability
+  batch: 2
+  disposition: accepted
+  concept: bcoc:GeneralLedgerAccounting
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 10
+    usable: 10
+  flags_answered:
+  - qualified object
+- id: BCC-05445216
+  name: Global Trade Services Capability
+  batch: 3
+  disposition: accepted
+  concept: bcoc:GlobalTradeManagement
+  classification: 'capability area: broad or conjunctive; not proposed for G1-T (CD16, E4)'
+  g1t: 'not proposed: a capability area'
+  act_types:
+    in_evidence: 2
+    usable: 2
+  flags_answered: []
+- id: BCC-b7928257
+  name: Currency Conversion Capability
+  batch: 3
+  disposition: rejected
+  reason: 'one act episode (converting a foreign-currency value to local currency, for customs
+    valuation under PCF 9.11): realization evidence for Trade and Customs Documentation, as
+    duty calculation is; not a capability type'
+  act_types:
+    in_evidence: 1
+    usable: 1
+  flags_answered: []
+- id: BCC-6daa0467
+  name: Customs Communication Capability
+  batch: 3
+  disposition: merged
+  into: BCC-c5e7dca0
+  concept: bcoc:TradeDocumentation
+  reason: communicating with customs is giving customs authorities the information the law
+    requires, which trade documentation records; one ability
+  act_types:
+    in_evidence: 1
+    usable: 1
+  flags_answered: []
+- id: BCC-46cbe926
+  name: Duty Calculation Capability
+  batch: 3
+  disposition: rejected
+  reason: 'one act episode with no process beneath it (calculating a duty for customs valuation):
+    realization evidence for Trade and Customs Documentation, not a capability type. The generator''s
+    classification is confirmed'
+  act_types:
+    in_evidence: 1
+    usable: 1
+  flags_answered: []
+- id: BCC-cd7f1007
+  name: Exports and Imports Control Capability
+  batch: 3
+  disposition: accepted
+  concept: bcoc:ExportAndImportControl
+  classification: capability type
+  g1t: 'not ready: no act type in its evidence'
+  act_types:
+    in_evidence: 0
+    usable: 0
+  flags_answered:
+  - no BPO act type
+- id: BCC-4f5c2f36
+  name: Letter of Credit Preparation Capability
+  batch: 3
+  disposition: accepted
+  concept: bcoc:LetterOfCreditManagement
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 1
+    usable: 1
+  flags_answered: []
+- id: BCC-e1fa4843
+  name: Products Classification Capability
+  batch: 3
+  disposition: accepted
+  concept: bcoc:TradeProductClassification
+  classification: capability type
+  g1t: ready; the index takes only PCF 9.11.3's acts; the homonym records' are out
+  act_types:
+    in_evidence: 3
+    usable: 3
+  flags_answered: []
+- id: BCC-6ae95cc4
+  name: Restitution Handling Capability
+  batch: 3
+  disposition: deferred
+  reason: 'a likely homonym: the source describes restitution and fines owed to authorities,
+    while in trade-compliance practice ''restitution'' usually names export refunds owed to
+    the organization. No concept is written until the source''s sense is settled'
+  act_types:
+    in_evidence: 0
+    usable: 0
+  flags_answered:
+  - no BPO act type
+- id: BCC-f6799472
+  name: Sanctioned Party List Screening Capability
+  batch: 3
+  disposition: accepted
+  concept: bcoc:RestrictedPartyScreening
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 1
+    usable: 1
+  flags_answered: []
+- id: BCC-c5e7dca0
+  name: Trade Documentation Capability
+  batch: 3
+  disposition: accepted
+  concept: bcoc:TradeDocumentation
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 1
+    usable: 1
+  flags_answered: []
+- id: BCC-0c80b752
+  name: Trade Preferences Processing Capability
+  batch: 3
+  disposition: accepted
+  concept: bcoc:TradePreferenceManagement
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 1
+    usable: 1
+  flags_answered: []
+- id: BCC-5a4bc396
+  name: Internal Control Capability
+  batch: 3
+  disposition: accepted
+  concept: bcoc:InternalControl
+  classification: capability type
+  g1t: 'not ready: no designating act type, since BPO''s InternalControlCapability is a capability
+    class (Q-12); BPO''s enablesProcess names three act types (P10762, P21574, P10764), each
+    the designating act of one of its three components, so an index would be the union of
+    theirs; whether it is a capability area (CD16, E4) is open, and its link to the root is
+    unresolved'
+  act_types:
+    in_evidence: 3
+    usable: 3
+  flags_answered:
+  - qualified object
+- id: BCC-b55668bc
+  name: Internal Controls Compliance Reporting Capability
+  batch: 3
+  disposition: accepted
+  concept: bcoc:InternalControlReporting
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 5
+    usable: 5
+  flags_answered: []
+- id: BCC-80a63f8e
+  name: Internal Controls Policies and Procedures Establishment Capability
+  batch: 3
+  disposition: accepted
+  concept: bcoc:InternalControlDesign
+  classification: capability type
+  g1t: ready; a development act needs a recorded reason (CAP-06)
+  act_types:
+    in_evidence: 6
+    usable: 6
+  flags_answered:
+  - development-act-genus
+- id: BCC-87e3a26b
+  name: International Funds and Consolidation Management Capability
+  batch: 1
+  disposition: accepted
+  concept: bcoc:InternationalFundsManagement
+  classification: capability type
+  g1t: 'not ready: no act type in its evidence'
+  act_types:
+    in_evidence: 0
+    usable: 0
+  flags_answered:
+  - realization evidence only through narrower candidates
+- id: BCC-8fc1f306
+  name: Currency Exposure Monitoring Capability
+  batch: 1
+  disposition: merged
+  into: BCC-7c04ea8a
+  concept: bcoc:ForeignExchangeRiskManagement
+  reason: PCF 9.10.3 (currency exposure and hedging) and 9.7.5.3 (foreign exchange risk) describe
+    one ability under two branches; the generator's keys differ only in wording
+  act_types:
+    in_evidence: 1
+    usable: 1
+  flags_answered: []
+- id: BCC-5dfa2101
+  name: International Rates Monitoring Capability
+  batch: 1
+  disposition: accepted
+  concept: bcoc:InternationalRateMonitoring
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 1
+    usable: 1
+  flags_answered: []
+- id: BCC-5caed753
+  name: Results Reporting Capability (in International Funds and Consolidation Management)
+  batch: 1
+  disposition: merged
+  into: BCC-792537f9
+  concept: bcoc:FinancialReporting
+  reason: 'PCF 9.10.4 reports foreign exchange gains and losses: financial reporting restricted
+    to one source of results (its recording of the entries is General Ledger Accounting''s
+    work). Its second record, PCF 13.3.2.2.2, is a homonym the key merged; it stays in the
+    crosswalk as evidence'
+  act_types:
+    in_evidence: 2
+    usable: 2
+  flags_answered:
+  - generic object
+- id: BCC-18ef14d6
+  name: Financial Results Reporting Capability
+  batch: 1
+  disposition: merged
+  into: BCC-792537f9
+  concept: bcoc:FinancialReporting
+  reason: reporting financial results to the board (PCF 12.3.1) is financial reporting to
+    one audience
+  act_types:
+    in_evidence: 1
+    usable: 1
+  flags_answered: []
+- id: BCC-bf62316a
+  name: Transactions Management Capability (in International Funds and Consolidation Management)
+  batch: 1
+  disposition: accepted
+  concept: bcoc:CrossBorderFundsTransferManagement
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 1
+    usable: 1
+  flags_answered:
+  - generic object
+- id: BCC-d95f68fd
+  name: Payroll Processing Capability
+  batch: 3
+  disposition: accepted
+  concept: bcoc:PayrollProcessing
+  classification: capability type
+  g1t: 'admitted: T1-02, signed PASS 2026-11-05'
+  act_types:
+    in_evidence: 2
+    usable: 2
+  flags_answered: []
+- id: BCC-d105ff07
+  name: Pay Management Capability
+  batch: 3
+  disposition: accepted
+  concept: bcoc:PayManagement
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 9
+    usable: 9
+  flags_answered: []
+- id: BCC-394909c1
+  name: Payroll Taxes Management and Processing Capability
+  batch: 3
+  disposition: accepted
+  concept: bcoc:PayrollTaxProcessing
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 5
+    usable: 5
+  flags_answered: []
+- id: BCC-85fbcb90
+  name: Time Reporting Capability
+  batch: 3
+  disposition: accepted
+  concept: bcoc:TimeReporting
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 6
+    usable: 6
+  flags_answered: []
+- id: BCC-ca61edb4
+  name: Planning and Management Accounting Capability
+  batch: 2
+  disposition: accepted
+  concept: bcoc:FinancialPlanningAndManagementAccounting
+  classification: capability type
+  g1t: 'not ready: every act type in its evidence is typed under a capability class (Q-12);
+    an index waits for BPO'
+  act_types:
+    in_evidence: 1
+    usable: 0
+  flags_answered:
+  - act type typed under a capability class
+- id: BCC-302a390a
+  name: Cost Accounting and Control Capability (in Planning and Management Accounting)
+  batch: 2
+  disposition: accepted
+  concept: bcoc:CostAccounting
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 7
+    usable: 7
+  flags_answered:
+  - generic object
+- id: BCC-b47b8fed
+  name: Cost Management Capability (in Planning and Management Accounting)
+  batch: 2
+  disposition: accepted
+  concept: bcoc:CostManagement
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 5
+    usable: 5
+  flags_answered:
+  - generic object
+- id: BCC-cedf0899
+  name: Financial Performance Evaluation and Management Capability
+  batch: 2
+  disposition: accepted
+  concept: bcoc:FinancialPerformanceManagement
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 8
+    usable: 7
+  flags_answered:
+  - act type typed under a capability class
+- id: BCC-3421f274
+  name: Continuous Cost Improvement Management Capability
+  batch: 2
+  disposition: accepted
+  concept: bcoc:ContinuousCostImprovement
+  classification: capability type
+  g1t: 'not ready: every act type in its evidence is typed under a capability class (Q-12);
+    an index waits for BPO'
+  act_types:
+    in_evidence: 1
+    usable: 0
+  flags_answered:
+  - act type typed under a capability class
+- id: BCC-87e1811c
+  name: Planning, Budgeting and Forecasting Capability
+  batch: 2
+  disposition: accepted
+  concept: bcoc:FinancialPlanningBudgetingAndForecasting
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 6
+    usable: 6
+  flags_answered:
+  - circular differentia
+- id: BCC-1cccc689
+  name: Revenue Accounting Capability
+  batch: 2
+  disposition: accepted
+  concept: bcoc:RevenueAndReceivablesManagement
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 1
+    usable: 1
+  flags_answered: []
+- id: BCC-6587dedf
+  name: Accounts Receivable Processing Capability
+  batch: 2
+  disposition: accepted
+  concept: bcoc:AccountsReceivableProcessing
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 6
+    usable: 6
+  flags_answered: []
+- id: BCC-cebf0da8
+  name: Adjustments and Deductions Management and Processing Capability
+  batch: 2
+  disposition: accepted
+  concept: bcoc:CustomerDeductionManagement
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 7
+    usable: 7
+  flags_answered: []
+- id: BCC-c4904759
+  name: Collections Management and Processing Capability
+  batch: 2
+  disposition: accepted
+  concept: bcoc:CollectionsManagement
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 7
+    usable: 7
+  flags_answered: []
+- id: BCC-38b3c836
+  name: Default Account Management Capability
+  batch: 2
+  disposition: accepted
+  concept: bcoc:DefaultAccountManagement
+  classification: capability type
+  g1t: 'not ready: no designating act type, since BPO''s DefaultAccountManagementCapability
+    is a capability class (Q-12); BPO''s enablesProcess names only P14007 (recovery workout,
+    PCF 9.2.4.6), which Collections Management''s index also takes; whether that one act suffices
+    is the reviewer''s question'
+  act_types:
+    in_evidence: 1
+    usable: 1
+  flags_answered: []
+- id: BCC-b7ff0eac
+  name: Customer Credit Processing Capability
+  batch: 2
+  disposition: accepted
+  concept: bcoc:CustomerCreditManagement
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 8
+    usable: 8
+  flags_answered: []
+- id: BCC-8a70a337
+  name: Customer Invoicing Capability
+  batch: 2
+  disposition: accepted
+  concept: bcoc:CustomerInvoicing
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 6
+    usable: 6
+  flags_answered: []
+- id: BCC-c64ca466
+  name: Tax Management Capability
+  batch: 3
+  disposition: accepted
+  concept: bcoc:TaxManagement
+  classification: capability type
+  g1t: 'not ready: no designating act type, since BPO''s TaxManagementCapability is a capability
+    class (Q-12); BPO''s enablesProcess names only P10866 (payroll taxes), Payroll Tax Processing''s
+    act, which does not cover the definition'
+  act_types:
+    in_evidence: 1
+    usable: 1
+  flags_answered: []
+- id: BCC-ce052840
+  name: Tax Strategy and Plan Development Capability
+  batch: 3
+  disposition: accepted
+  concept: bcoc:TaxPlanning
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 4
+    usable: 4
+  flags_answered: []
+- id: BCC-52f0795a
+  name: Taxes Processing Capability
+  batch: 3
+  disposition: accepted
+  concept: bcoc:TaxProcessing
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 8
+    usable: 8
+  flags_answered: []
+- id: BCC-0ba10d44
+  name: Treasury Operations Management Capability
+  batch: 1
+  disposition: accepted
+  concept: bcoc:TreasuryManagement
+  classification: capability type
+  g1t: 'not ready: its designating class P10734 is typed under a capability class (Q-12);
+    BPO''s enablesProcess names four act types (P10885, P10893, P12974, P14079), one from
+    each of four components; its definition is preserved pending its recorded revision (R26)'
+  act_types:
+    in_evidence: 5
+    usable: 4
+  flags_answered:
+  - act type typed under a capability class
+- id: BCC-a1c5454d
+  name: Cash Management Capability
+  batch: 1
+  disposition: accepted
+  concept: bcoc:CashManagement
+  classification: capability type
+  g1t: 'ready; P10896 (cash flow forecasts: Cash Flow Management''s) and P10900 (bank fees:
+    Banking Relationship Management''s) are out'
+  act_types:
+    in_evidence: 9
+    usable: 5
+  flags_answered:
+  - act type typed under a capability class
+- id: BCC-a750d13a
+  name: Banking Relationship Management Capability
+  batch: 1
+  disposition: accepted
+  concept: bcoc:BankingRelationshipManagement
+  classification: capability type
+  g1t: 'not ready: every act type in its evidence is typed under a capability class (Q-12);
+    an index waits for BPO'
+  act_types:
+    in_evidence: 1
+    usable: 0
+  flags_answered:
+  - act type typed under a capability class
+- id: BCC-314dba7d
+  name: Cash Equivalents Management Capability
+  batch: 1
+  disposition: accepted
+  concept: bcoc:CashEquivalentManagement
+  classification: capability type
+  g1t: 'not ready: every act type in its evidence is typed under a capability class (Q-12);
+    an index waits for BPO'
+  act_types:
+    in_evidence: 1
+    usable: 0
+  flags_answered:
+  - act type typed under a capability class
+- id: BCC-d71abe9a
+  name: Cash Flows Management Capability
+  batch: 1
+  disposition: accepted
+  concept: bcoc:CashFlowManagement
+  classification: capability type
+  g1t: 'not ready: every act type in its evidence is typed under a capability class (Q-12);
+    an index waits for BPO'
+  act_types:
+    in_evidence: 1
+    usable: 0
+  flags_answered:
+  - act type typed under a capability class
+- id: BCC-ec93ca56
+  name: Debt and Investment Management Capability
+  batch: 1
+  disposition: accepted
+  concept: bcoc:DebtAndInvestmentManagement
+  classification: 'capability area: broad or conjunctive; not proposed for G1-T (CD16, E4)'
+  g1t: 'not proposed: a capability area'
+  act_types:
+    in_evidence: 9
+    usable: 5
+  flags_answered:
+  - act type typed under a capability class
+- id: BCC-d6966c88
+  name: Financial Intermediary Relationship Management Capability
+  batch: 1
+  disposition: accepted
+  concept: bcoc:FinancialIntermediaryRelationshipManagement
+  classification: capability type
+  g1t: 'not ready: every act type in its evidence is typed under a capability class (Q-12);
+    an index waits for BPO'
+  act_types:
+    in_evidence: 1
+    usable: 0
+  flags_answered:
+  - act type typed under a capability class
+- id: BCC-13b94120
+  name: Issuer Exposure Management Capability
+  batch: 1
+  disposition: accepted
+  concept: bcoc:IssuerCreditExposureManagement
+  classification: capability type
+  g1t: 'not ready: every act type in its evidence is typed under a capability class (Q-12);
+    an index waits for BPO'
+  act_types:
+    in_evidence: 1
+    usable: 0
+  flags_answered:
+  - act type typed under a capability class
+- id: BCC-4464d04f
+  name: Liquidity Management Capability
+  batch: 1
+  disposition: accepted
+  concept: bcoc:LiquidityManagement
+  classification: capability type
+  g1t: 'not ready: every act type in its evidence is typed under a capability class (Q-12);
+    an index waits for BPO'
+  act_types:
+    in_evidence: 1
+    usable: 0
+  flags_answered:
+  - act type typed under a capability class
+- id: BCC-9b5ec2fd
+  name: Financial Fraud and Dispute Cases Management Capability
+  batch: 1
+  disposition: accepted
+  concept: bcoc:FinancialFraudAndDisputeCaseManagement
+  classification: capability type
+  g1t: 'not ready: every act type in its evidence is typed under a capability class (Q-12);
+    an index waits for BPO'
+  act_types:
+    in_evidence: 1
+    usable: 0
+  flags_answered:
+  - act type typed under a capability class
+- id: BCC-749adb52
+  name: In-house Bank Accounts Management Capability
+  batch: 1
+  disposition: accepted
+  concept: bcoc:InHouseBankAccountManagement
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 8
+    usable: 6
+  flags_answered:
+  - act type typed under a capability class
+- id: BCC-aebe5ec1
+  name: In-house Bank Accounts for Subsidiaries Management Capability
+  batch: 1
+  disposition: merged
+  into: BCC-749adb52
+  concept: bcoc:InHouseBankAccountManagement
+  reason: the in-house bank's accounts for subsidiaries are the main scope of in-house banking,
+    not a separate ability; named in the concept's definition
+  act_types:
+    in_evidence: 1
+    usable: 0
+  flags_answered:
+  - act type typed under a capability class
+- id: BCC-132e1b29
+  name: Risk and Hedging Transactions Monitoring and Execution Capability
+  batch: 1
+  disposition: accepted
+  concept: bcoc:FinancialRiskManagement
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 7
+    usable: 2
+  flags_answered:
+  - act type typed under a capability class
+- id: BCC-3e668a26
+  name: Exposure Risk Management Capability
+  batch: 1
+  disposition: accepted
+  concept: bcoc:CounterpartyCreditExposureManagement
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 5
+    usable: 4
+  flags_answered:
+  - act type typed under a capability class
+- id: BCC-7c04ea8a
+  name: Foreign Exchange Risk Management Capability
+  batch: 1
+  disposition: accepted
+  concept: bcoc:ForeignExchangeRiskManagement
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 6
+    usable: 5
+  flags_answered:
+  - act type typed under a capability class
+- id: BCC-8fdf31c6
+  name: Hedging Transactions Execution Capability
+  batch: 1
+  disposition: accepted
+  concept: bcoc:HedgingTransactionExecution
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 6
+    usable: 5
+  flags_answered:
+  - act type typed under a capability class
+- id: BCC-0564598d
+  name: Interest Rate Risk Management Capability
+  batch: 1
+  disposition: accepted
+  concept: bcoc:InterestRateRiskManagement
+  classification: capability type
+  g1t: ready
+  act_types:
+    in_evidence: 5
+    usable: 4
+  flags_answered:
+  - act type typed under a capability class
+- id: BCC-7757c12b
+  name: Treasury Policies and Procedures Management Capability
+  batch: 1
+  disposition: accepted
+  concept: bcoc:TreasuryPolicyManagement
+  classification: capability type
+  g1t: 'ready; P10885 (establishing treasury governance) needs a CAP-06 record; P10891 (treasury
+    internal controls: Internal Control Design''s) and P10892 (system security requirements)
+    are out'
+  act_types:
+    in_evidence: 9
+    usable: 8
+  flags_answered:
+  - act type typed under a capability class
+- id: BCC-ded8ed18
+  name: Controls Operation Capability
+  batch: 3
+  disposition: accepted
+  concept: bcoc:InternalControlOperation
+  classification: capability type
+  g1t: ready
+  scope_addition: PCF 9.8.2, a level-3 element of 9.0; the generator broke a cycle and left
+    it with no broader, so the walk from the root missed it
+  act_types:
+    in_evidence: 3
+    usable: 3
+  flags_answered:
+  - circular differentia
+links:
+- narrower: BCC-05445216
+  broader: BCC-4fda51aa
+  basis:
+  - hierarchy:INV-PCF74-17059<INV-PCF74-17058
+  disposition: unresolved
+  action: held
+  reason: 'PCF placement only: export control, screening and classification are not financial
+    resource work, so the coverage test fails; held pending a trade-compliance or supply-chain
+    parent outside the tranche'
+- narrower: BCC-0564598d
+  broader: BCC-132e1b29
+  basis:
+  - hierarchy:INV-PCF74-11209<INV-PCF74-11208
+  disposition: retained
+  kind: kind-of
+  action: kept
+  reason: 'interest rate risk is one kind of financial risk: the object restricted. Reclassified
+    from the PCF reading; C1 holds on the reading that the broader''s ''movements in financial
+    markets and in the standing of its counterparties'' lists sources of loss, not a conjunction
+    every instance must meet'
+- narrower: BCC-0564598d
+  broader: BCC-44f37d0e
+  basis:
+  - object-containment:risk
+  disposition: retained
+  kind: kind-of
+  action: redundant
+  reason: true, but covered through Financial Risk Management, which is linked to the target
+    instead
+- narrower: BCC-0ba10d44
+  broader: BCC-4fda51aa
+  basis:
+  - hierarchy:INV-PCF74-10734<INV-PCF74-17058
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: managing cash positions, liquidity, funding
+    and exposures is maintaining and safeguarding the money it holds and the obligations it
+    owes'
+- narrower: BCC-0c80b752
+  broader: BCC-05445216
+  basis:
+  - hierarchy:INV-PCF74-14096<INV-PCF74-17059
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: claiming reduced duty is handling the
+    duties its trade requires'
+- narrower: BCC-0fe1f7f0
+  broader: BCC-4fda51aa
+  basis:
+  - hierarchy:INV-PCF74-10733<INV-PCF74-17058
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: paying what it owes suppliers and members
+    is managing the obligations it owes'
+- narrower: BCC-132e1b29
+  broader: BCC-0ba10d44
+  basis:
+  - hierarchy:INV-PCF74-11208<INV-PCF74-10734
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names managing financial
+    exposures'
+- narrower: BCC-13b94120
+  broader: BCC-ec93ca56
+  basis:
+  - hierarchy:INV-PCF74-10910<INV-PCF74-10761
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: limiting exposure to one issuer is keeping
+    the risk of its investments at a level it judges acceptable'
+- narrower: BCC-15e92684
+  broader: BCC-9305456f
+  basis:
+  - hierarchy:INV-PCF74-10751<INV-PCF74-10731
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: planning and evaluating proposals is
+    the proposal stage of the capital spending the broader covers'
+- narrower: BCC-18ef14d6
+  broader: BCC-17c72571
+  basis:
+  - hierarchy:INV-PCF74-11042<INV-PCF74-11012
+  disposition: retained
+  kind: part-of
+  action: merged
+  reason: the candidate was merged into Financial Reporting; reporting results to the board
+    is part of board relations, outside the tranche
+- narrower: BCC-18ef14d6
+  broader: BCC-5caed753
+  basis:
+  - object-containment:result
+  disposition: retained
+  kind: kind-of
+  action: merged
+  reason: both candidates were merged into Financial Reporting
+- narrower: BCC-1cccc689
+  broader: BCC-4fda51aa
+  basis:
+  - hierarchy:INV-PCF74-10729<INV-PCF74-17058
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: revenue and what customers owe are money
+    and financial assets it holds, accounted for and collected'
+- narrower: BCC-302a390a
+  broader: BCC-ca61edb4
+  basis:
+  - hierarchy:INV-PCF74-10739<INV-PCF74-10728
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names measuring and analyzing
+    costs'
+- narrower: BCC-314dba7d
+  broader: BCC-a1c5454d
+  basis:
+  - hierarchy:INV-PCF74-10894<INV-PCF74-10759
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: cash equivalents are part of the cash
+    position the broader tracks and moves'
+- narrower: BCC-3421f274
+  broader: BCC-cedf0899
+  basis:
+  - hierarchy:INV-PCF74-10788<INV-PCF74-10741
+  disposition: retained
+  kind: part-of
+  action: retargeted
+  reason: 'C1 not met: an organization able to find and carry out cost reductions is not thereby
+    able to plan and control its spending, so this is not a subtype; it is a component, since
+    finding reductions is part of deciding which costs to avoid or reduce (retargeted from
+    Financial Performance Management, where PCF places it)'
+  retargeted_to: BCC-b47b8fed
+- narrower: BCC-35c8111b
+  broader: BCC-0fe1f7f0
+  basis:
+  - hierarchy:INV-PCF74-10757<INV-PCF74-10733
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names what it owes members
+    for expenses incurred on its behalf'
+- narrower: BCC-38b3c836
+  broader: BCC-c4904759
+  basis:
+  - hierarchy:INV-PCF74-14008<INV-PCF74-10745
+  disposition: retained
+  kind: kind-of
+  action: kept
+  reason: 'default accounts are overdue accounts in a further state, and Collections Management''s
+    definition covers pursuing, settling and writing off (PCF 9.2.4.5): collections with its
+    object restricted. Reclassified from the PCF reading'
+- narrower: BCC-394909c1
+  broader: BCC-c64ca466
+  basis:
+  - object-containment:tax
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: the organization's tax work covers payroll taxes; component, not specialization,
+    so that payroll tax operations stay distinct from tax planning and from general tax processing
+    (decision of 2026-11-04, act 3)
+- narrower: BCC-394909c1
+  broader: BCC-d95f68fd
+  basis:
+  - hierarchy:INV-PCF74-10755<INV-PCF74-10732
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'tranche 1 §5: a component (CD16), not a subtype'
+- narrower: BCC-3e668a26
+  broader: BCC-132e1b29
+  basis:
+  - hierarchy:INV-PCF74-11211<INV-PCF74-11208
+  disposition: retained
+  kind: kind-of
+  action: kept
+  reason: 'counterparty credit exposure is one kind of financial risk: the object restricted.
+    Reclassified from the PCF reading; C1 holds on the reading that the broader''s ''movements
+    in financial markets and in the standing of its counterparties'' lists sources of loss,
+    not a conjunction every instance must meet'
+- narrower: BCC-3e668a26
+  broader: BCC-44f37d0e
+  basis:
+  - object-containment:risk
+  disposition: retained
+  kind: kind-of
+  action: redundant
+  reason: true, but covered through Financial Risk Management, which is linked to the target
+    instead
+- narrower: BCC-4464d04f
+  broader: BCC-ec93ca56
+  basis:
+  - hierarchy:INV-PCF74-10909<INV-PCF74-10761
+  disposition: retained
+  kind: part-of
+  action: retargeted
+  reason: liquidity concerns the whole treasury position, cash and funding, not debt and investment
+    only; the treasury definition already names it
+  retargeted_to: BCC-0ba10d44
+- narrower: BCC-46cbe926
+  broader: BCC-05445216
+  basis:
+  - hierarchy:INV-PCF74-14093<INV-PCF74-17059
+  disposition: incorrect
+  incorrect_reason: rejected candidate
+  action: dropped
+  reason: the candidate was rejected; its act stays as realization evidence
+- narrower: BCC-4f5c2f36
+  broader: BCC-05445216
+  basis:
+  - hierarchy:INV-PCF74-14098<INV-PCF74-17059
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: arranging assured payment is handling
+    the payments its trade requires'
+- narrower: BCC-4fda51aa
+  broader: BCC-94513b9b
+  basis:
+  - object-containment:resource
+  disposition: retained
+  kind: kind-of
+  action: kept-outside
+  reason: financial resource management is resource management with its object restricted;
+    to be confirmed when the target, outside the tranche, has a normalized definition
+- narrower: BCC-52f0795a
+  broader: BCC-c64ca466
+  basis:
+  - hierarchy:INV-PCF74-10766<INV-PCF74-10736
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: declaring, paying and accounting for
+    taxes is meeting and accounting for its tax obligations'
+- narrower: BCC-5a4bc396
+  broader: BCC-4fda51aa
+  basis:
+  - hierarchy:INV-PCF74-10735<INV-PCF74-17058
+  disposition: unresolved
+  action: held
+  reason: 'PCF placement only: internal control, as defined, covers operations and compliance
+    as well as financial reporting, so the coverage test against Financial Resource Management
+    fails; held pending a governance, risk and compliance parent'
+- narrower: BCC-5a4bc396
+  broader: BCC-ded8ed18
+  basis:
+  - object-containment:control
+  disposition: incorrect
+  incorrect_reason: reversed
+  action: rejected
+  reason: 'reversed: operating controls (PCF 9.8.2) is a component of internal control, not
+    its parent; a containment artifact of the word ''control'''
+- narrower: BCC-5caed753
+  broader: BCC-199a5fdd
+  basis:
+  - hierarchy:INV-PCF74-17489<INV-PCF74-17482
+  disposition: incorrect
+  incorrect_reason: homonym
+  action: rejected
+  reason: 'homonym: PCF 13.3.2.2.2 summarizes evaluation results, unrelated to financial reporting'
+- narrower: BCC-5caed753
+  broader: BCC-87e3a26b
+  basis:
+  - hierarchy:INV-PCF74-10770<INV-PCF74-10737
+  disposition: retained
+  kind: part-of
+  action: merged
+  reason: the candidate was merged into Financial Reporting
+- narrower: BCC-5dfa2101
+  broader: BCC-87e3a26b
+  basis:
+  - hierarchy:INV-PCF74-10767<INV-PCF74-10737
+  disposition: unresolved
+  action: held
+  reason: 'C2: International Funds Management''s definition (concentrating units'' funds and
+    managing transfers among them) does not name monitoring rates, and the narrower serves
+    it as an input; whether it is a component or a dependency, as time reporting is for payroll,
+    is open'
+- narrower: BCC-60d672db
+  broader: BCC-4fda51aa
+  basis:
+  - hierarchy:INV-PCF74-10730<INV-PCF74-17058
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names accounting for and
+    reporting on its money, assets and obligations'
+- narrower: BCC-62e789bf
+  broader: BCC-0fe1f7f0
+  basis:
+  - hierarchy:INV-PCF74-10756<INV-PCF74-10733
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names what it owes its suppliers;
+    tranche 1 §5 kept it'
+- narrower: BCC-6587dedf
+  broader: BCC-1cccc689
+  basis:
+  - hierarchy:INV-PCF74-10744<INV-PCF74-10729
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names recording and collecting
+    what customers owe'
+- narrower: BCC-6ae95cc4
+  broader: BCC-05445216
+  basis:
+  - hierarchy:INV-PCF74-14097<INV-PCF74-17059
+  disposition: unresolved
+  action: held
+  reason: 'the candidate is deferred as a likely homonym: no relationship can be assessed
+    until the source''s sense is settled'
+- narrower: BCC-6daa0467
+  broader: BCC-05445216
+  basis:
+  - hierarchy:INV-PCF74-14094<INV-PCF74-17059
+  disposition: retained
+  kind: part-of
+  action: merged
+  reason: the candidate was merged into Trade and Customs Documentation, which keeps the link
+- narrower: BCC-749adb52
+  broader: BCC-0ba10d44
+  basis:
+  - hierarchy:INV-PCF74-10760<INV-PCF74-10734
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: settling, lending and paying among its
+    units manages their cash positions and funding'
+- narrower: BCC-7757c12b
+  broader: BCC-0ba10d44
+  basis:
+  - hierarchy:INV-PCF74-10758<INV-PCF74-10734
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: setting the rules under which treasury
+    invests, borrows, hedges and handles cash is part of the treasury function''s work, in
+    the functional-component sense (CD16)'
+- narrower: BCC-792537f9
+  broader: BCC-60d672db
+  basis:
+  - hierarchy:INV-PCF74-10750<INV-PCF74-10730
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names preparing the financial
+    statements it reports'
+- narrower: BCC-7c04ea8a
+  broader: BCC-132e1b29
+  basis:
+  - hierarchy:INV-PCF74-11210<INV-PCF74-11208
+  disposition: retained
+  kind: kind-of
+  action: kept
+  reason: 'foreign exchange risk is one kind of financial risk: the object restricted. Reclassified
+    from the PCF reading; C1 holds on the reading that the broader''s ''movements in financial
+    markets and in the standing of its counterparties'' lists sources of loss, not a conjunction
+    every instance must meet'
+- narrower: BCC-7c04ea8a
+  broader: BCC-44f37d0e
+  basis:
+  - object-containment:risk
+  disposition: retained
+  kind: kind-of
+  action: redundant
+  reason: true, but covered through Financial Risk Management, which is linked to the target
+    instead
+- narrower: BCC-80a63f8e
+  broader: BCC-41f11e7f
+  basis:
+  - object-containment:procedure
+  disposition: incorrect
+  incorrect_reason: containment artifact
+  action: rejected
+  reason: 'containment artifact on ''procedure'': designing internal controls defines controls
+    such as segregation of duties, not only procedures, so substitution fails'
+- narrower: BCC-80a63f8e
+  broader: BCC-5a4bc396
+  basis:
+  - hierarchy:INV-PCF74-10762<INV-PCF74-10735
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names designing controls'
+- narrower: BCC-85fbcb90
+  broader: BCC-d95f68fd
+  basis:
+  - hierarchy:INV-PCF74-10753<INV-PCF74-10732
+  disposition: incorrect
+  incorrect_reason: dependency
+  action: rejected
+  reason: 'dependency: payroll uses recorded time, but time reporting is a separate capability
+    (tranche 1 §5; BRM separates them)'
+- narrower: BCC-87e1811c
+  broader: BCC-ca61edb4
+  basis:
+  - hierarchy:INV-PCF74-10738<INV-PCF74-10728
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names planning its finances
+    and budgets'
+- narrower: BCC-87e3a26b
+  broader: BCC-4fda51aa
+  basis:
+  - hierarchy:INV-PCF74-10737<INV-PCF74-17058
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: concentrating its units'' funds is maintaining
+    the money it holds'
+- narrower: BCC-8a70a337
+  broader: BCC-1cccc689
+  basis:
+  - hierarchy:INV-PCF74-10743<INV-PCF74-10729
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names invoicing'
+- narrower: BCC-8b431985
+  broader: BCC-60d672db
+  basis:
+  - hierarchy:INV-PCF74-10748<INV-PCF74-10730
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names keeping its financial
+    records by accepted principles'
+- narrower: BCC-8b431985
+  broader: BCC-81d8f125
+  basis:
+  - object-containment:accounting
+  disposition: retained
+  kind: kind-of
+  action: redundant
+  reason: true, but covered through Financial Accounting, which is linked to the target instead
+- narrower: BCC-8fc1f306
+  broader: BCC-87e3a26b
+  basis:
+  - hierarchy:INV-PCF74-10769<INV-PCF74-10737
+  disposition: retained
+  kind: part-of
+  action: merged
+  reason: the candidate was merged into Foreign Exchange Risk Management
+- narrower: BCC-8fdf31c6
+  broader: BCC-132e1b29
+  basis:
+  - hierarchy:INV-PCF74-20137<INV-PCF74-11208
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: executing hedges is one means by which financial risk is limited, not a kind of
+    risk management
+- narrower: BCC-9305456f
+  broader: BCC-4fda51aa
+  basis:
+  - hierarchy:INV-PCF74-10731<INV-PCF74-17058
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: spending on and accounting for capital
+    investments is spending and accounting for money it holds'
+- narrower: BCC-9511900a
+  broader: BCC-62e789bf
+  basis:
+  - hierarchy:INV-PCF74-10876<INV-PCF74-10756
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'tranche 1 §5: a component of T1-03, not a subtype'
+- narrower: BCC-9511900a
+  broader: BCC-d105ff07
+  basis:
+  - hierarchy:INV-PCF74-10862<INV-PCF74-10754
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'tranche 1 §5: a component of T1-02''s pay management, not a subtype'
+- narrower: BCC-95b092a2
+  broader: BCC-9305456f
+  basis:
+  - hierarchy:INV-PCF74-10752<INV-PCF74-10731
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names accounting for capital
+    projects'
+- narrower: BCC-9b5ec2fd
+  broader: BCC-0ba10d44
+  basis:
+  - hierarchy:INV-PCF74-16958<INV-PCF74-10734
+  disposition: unresolved
+  action: held
+  reason: 'C2: Treasury Management''s definition (cash positions, liquidity, funding, exposures)
+    does not cover fraud and dispute cases; Financial Resource Management''s ''safeguard''
+    may, for a later review'
+- narrower: BCC-9b5ec2fd
+  broader: BCC-d977a25e
+  basis:
+  - object-containment:case
+  disposition: retained
+  kind: kind-of
+  action: kept-outside
+  reason: 'financial fraud and dispute cases are cases: case management with the object restricted;
+    the target is outside the tranche'
+- narrower: BCC-9ecf360b
+  broader: BCC-62e789bf
+  basis:
+  - hierarchy:INV-PCF74-10872<INV-PCF74-10756
+  disposition: incorrect
+  incorrect_reason: rejected candidate
+  action: dropped
+  reason: the candidate was rejected and left the taxonomy (tranche 1 §5)
+- narrower: BCC-9ecf360b
+  broader: BCC-fba2a35c
+  basis:
+  - hierarchy:INV-PCF74-20104<INV-PCF74-12669
+  disposition: incorrect
+  incorrect_reason: rejected candidate
+  action: dropped
+  reason: the candidate was rejected (tranche 1 §5)
+- narrower: BCC-a1c5454d
+  broader: BCC-0ba10d44
+  basis:
+  - hierarchy:INV-PCF74-10759<INV-PCF74-10734
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names managing cash positions'
+- narrower: BCC-a750d13a
+  broader: BCC-a1c5454d
+  basis:
+  - hierarchy:INV-PCF74-10899<INV-PCF74-10759
+  disposition: unresolved
+  action: held
+  reason: 'C2: Cash Management''s definition (tracking and moving cash among accounts) does
+    not cover choosing banks and sustaining dealings with them; the concept keeps its kind-of
+    link to Financial Intermediary Relationship Management'
+- narrower: BCC-aebe5ec1
+  broader: BCC-749adb52
+  basis:
+  - hierarchy:INV-PCF74-10901<INV-PCF74-10760
+  disposition: retained
+  kind: kind-of
+  action: merged
+  reason: the candidate was merged into In-House Bank Account Management
+- narrower: BCC-b47b8fed
+  broader: BCC-ca61edb4
+  basis:
+  - hierarchy:INV-PCF74-10740<INV-PCF74-10728
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: planning and controlling spending is
+    planning its finances and acting on its cost results'
+- narrower: BCC-b55668bc
+  broader: BCC-5a4bc396
+  basis:
+  - hierarchy:INV-PCF74-10764<INV-PCF74-10735
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names reporting on controls'
+- narrower: BCC-b7928257
+  broader: BCC-05445216
+  basis:
+  - hierarchy:INV-PCF74-19593<INV-PCF74-17059
+  disposition: incorrect
+  incorrect_reason: rejected candidate
+  action: dropped
+  reason: the candidate was rejected; its act stays as realization evidence for Trade and
+    Customs Documentation
+- narrower: BCC-b7ff0eac
+  broader: BCC-1cccc689
+  basis:
+  - hierarchy:INV-PCF74-10742<INV-PCF74-10729
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names extending credit'
+- narrower: BCC-bf62316a
+  broader: BCC-87e3a26b
+  basis:
+  - hierarchy:INV-PCF74-10768<INV-PCF74-10737
+  disposition: unresolved
+  action: held
+  reason: 'C2: cross-border transfers for trade and investment go beyond the transfers among
+    its own units that International Funds Management covers; the right broader (international
+    funds, trade payments, or payment processing) is open'
+- narrower: BCC-c4904759
+  broader: BCC-1cccc689
+  basis:
+  - hierarchy:INV-PCF74-10745<INV-PCF74-10729
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names collecting what customers
+    owe'
+- narrower: BCC-c5e7dca0
+  broader: BCC-05445216
+  basis:
+  - hierarchy:INV-PCF74-14095<INV-PCF74-17059
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names handling the documents
+    its trade requires'
+- narrower: BCC-c64ca466
+  broader: BCC-4fda51aa
+  basis:
+  - hierarchy:INV-PCF74-10736<INV-PCF74-17058
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: taxes are among the obligations it owes
+    and accounts for'
+- narrower: BCC-ca61edb4
+  broader: BCC-4fda51aa
+  basis:
+  - hierarchy:INV-PCF74-10728<INV-PCF74-17058
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: planning, measuring and reporting on
+    its finances is managing, accounting for and reporting on its money'
+- narrower: BCC-cd7f1007
+  broader: BCC-05445216
+  basis:
+  - hierarchy:INV-PCF74-14091<INV-PCF74-17059
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names conducting trade in
+    conformity with the trade rules, which export and import controls are'
+- narrower: BCC-ce052840
+  broader: BCC-c64ca466
+  basis:
+  - hierarchy:INV-PCF74-10765<INV-PCF74-10736
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names planning for its tax
+    obligations'
+- narrower: BCC-cebf0da8
+  broader: BCC-1cccc689
+  basis:
+  - hierarchy:INV-PCF74-10746<INV-PCF74-10729
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: resolving deductions settles what customers
+    owe, which the broader records and collects'
+- narrower: BCC-cedf0899
+  broader: BCC-4b2ce5d3
+  basis:
+  - object-containment:performance
+  disposition: incorrect
+  incorrect_reason: containment artifact
+  action: rejected
+  reason: 'containment artifact: the shared word ''performance''; benchmarking is not broader
+    than financial performance management'
+- narrower: BCC-cedf0899
+  broader: BCC-ca61edb4
+  basis:
+  - hierarchy:INV-PCF74-10741<INV-PCF74-10728
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names analyzing financial
+    performance and acting on the results'
+- narrower: BCC-d105ff07
+  broader: BCC-d95f68fd
+  basis:
+  - hierarchy:INV-PCF74-10754<INV-PCF74-10732
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'tranche 1 §5: a component (CD16), not a subtype'
+- narrower: BCC-d6966c88
+  broader: BCC-ec93ca56
+  basis:
+  - hierarchy:INV-PCF74-10908<INV-PCF74-10761
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: the intermediaries are those it borrows
+    from and invests through, which the broader''s borrowing and investing require'
+- narrower: BCC-d71abe9a
+  broader: BCC-a1c5454d
+  basis:
+  - hierarchy:INV-PCF74-10897<INV-PCF74-10759
+  disposition: unresolved
+  action: held
+  reason: 'C2: Cash Management''s definition does not cover forecasting and influencing the
+    timing of inflows and outflows; Treasury Management''s ''liquidity'' may, when that pilot''s
+    definition is revised (R26)'
+- narrower: BCC-d95f68fd
+  broader: BCC-12db59b1
+  basis:
+  - hierarchy:INV-PCF74-10497<INV-PCF74-10412
+  disposition: retained
+  kind: part-of
+  action: kept-outside
+  reason: 'tranche 1 §5: the second placement; the target is outside the tranche'
+- narrower: BCC-d95f68fd
+  broader: BCC-4fda51aa
+  basis:
+  - hierarchy:INV-PCF74-10732<INV-PCF74-17058
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'tranche 1 §5: one type with two catalog placements'
+- narrower: BCC-e1fa4843
+  broader: BCC-05445216
+  basis:
+  - hierarchy:INV-PCF74-14092<INV-PCF74-17059
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: classifying goods under tariff and control
+    lists is conforming to the trade rules and handling duties; the trade sense of the candidate
+    (PCF 9.11.3)'
+- narrower: BCC-e1fa4843
+  broader: BCC-a975ebc6
+  basis:
+  - hierarchy:INV-PCF74-10112<INV-PCF74-10106
+  disposition: incorrect
+  incorrect_reason: homonym
+  action: rejected
+  reason: 'homonym: PCF 3.1.1.5 evaluates products for marketing, a different ability the
+    key merged'
+- narrower: BCC-e1fa4843
+  broader: BCC-cedf0899
+  basis:
+  - hierarchy:INV-PCF74-10783<INV-PCF74-10741
+  disposition: incorrect
+  incorrect_reason: homonym
+  action: rejected
+  reason: 'homonym: PCF 9.1.4.2 evaluates new products financially, a different ability the
+    key merged'
+- narrower: BCC-e3c8bd37
+  broader: BCC-60d672db
+  basis:
+  - hierarchy:INV-PCF74-10749<INV-PCF74-10730
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: fixed-asset records are financial records
+    kept by accepted principles'
+- narrower: BCC-e8acc1f8
+  broader: BCC-60d672db
+  basis:
+  - hierarchy:INV-PCF74-10747<INV-PCF74-10730
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: setting the accounting policies by which
+    the records are kept is part of the financial-accounting function''s work, in the functional-component
+    sense (CD16)'
+- narrower: BCC-ea6d1c4a
+  broader: BCC-0fe1f7f0
+  basis:
+  - hierarchy:INV-PCF74-20929<INV-PCF74-10733
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: settling card accounts pays what it owes
+    for its members'' business expenses'
+- narrower: BCC-ec93ca56
+  broader: BCC-0ba10d44
+  basis:
+  - hierarchy:INV-PCF74-10761<INV-PCF74-10734
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: the broader names managing funding'
+- narrower: BCC-f6799472
+  broader: BCC-05445216
+  basis:
+  - hierarchy:INV-PCF74-14090<INV-PCF74-17059
+  disposition: retained
+  kind: part-of
+  action: kept
+  reason: 'PCF hierarchy (supporting, C2); coverage: screening against sanctions lists is
+    conducting trade in conformity with the trade rules'
+added_links:
+- narrower: BCC-a750d13a
+  broader: BCC-d6966c88
+  basis:
+  - 'review: docs/catalog/tranche-2.md, section 4'
+  disposition: retained
+  kind: kind-of
+  action: added
+  reason: 'banks are financial intermediaries: banking relationship management is the broader
+    with its object restricted'
+- narrower: BCC-13b94120
+  broader: BCC-3e668a26
+  basis:
+  - 'review: docs/catalog/tranche-2.md, section 4'
+  disposition: unresolved
+  action: held
+  reason: 'C1 not met: Counterparty Credit Exposure Management''s definition includes securing
+    exposure with collateral, which exposure to the issuers of held obligations does not involve,
+    so not every instance of the narrower is an instance of the broader; a component reading
+    is not shown either'
+- narrower: BCC-87e3a26b
+  broader: BCC-0ba10d44
+  basis:
+  - 'review: docs/catalog/tranche-2.md, section 4'
+  disposition: retained
+  kind: part-of
+  action: added
+  reason: concentrating units' funds into treasury-managed accounts is treasury work, which
+    Treasury Management's definition covers; alongside the PCF placement under the root
+- narrower: BCC-ded8ed18
+  broader: BCC-5a4bc396
+  basis:
+  - 'review: docs/catalog/tranche-2.md, section 4'
+  disposition: retained
+  kind: part-of
+  action: added
+  reason: 'PCF 9.8.2 under 9.8: operating and monitoring controls is part of internal control''s
+    work, by its definition'
+- narrower: BCC-132e1b29
+  broader: BCC-44f37d0e
+  basis:
+  - 'review: docs/catalog/tranche-2.md, section 4'
+  disposition: retained
+  kind: kind-of
+  action: added
+  reason: financial risk management is risk management with its object restricted; the target
+    is outside the tranche
+- narrower: BCC-60d672db
+  broader: BCC-81d8f125
+  basis:
+  - 'review: docs/catalog/tranche-2.md, section 4'
+  disposition: retained
+  kind: kind-of
+  action: added
+  reason: financial accounting is accounting with its object restricted; the target is outside
+    the tranche
+- narrower: BCC-ca61edb4
+  broader: BCC-81d8f125
+  basis:
+  - 'review: docs/catalog/tranche-2.md, section 4'
+  disposition: unresolved
+  action: held
+  reason: 'C1 not met: the concept plans and budgets as well as accounting, so it is not accounting
+    with its object restricted; the target is outside the tranche'

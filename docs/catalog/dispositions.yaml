@@ -57,6 +57,276 @@ pins:
 - id: BCC-af1062de
   key: planning|customer service contact
   basis: broader of T1-01; docs/catalog/tranche-1.md section 7
+- id: BCC-ea6d1c4a
+  key: management|corporate credit card
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-35c8111b
+  key: administration|expense reimbursement
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-9305456f
+  key: management|fixed-asset project accounting
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-15e92684
+  key: governance|capital planning and project
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-95b092a2
+  key: accounting|capital project
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-60d672db
+  key: accounting|general accounting and reporting
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-e8acc1f8
+  key: management|financial policy and procedure
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-792537f9
+  key: reporting|financial reporting
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-e3c8bd37
+  key: accounting|fixed-asset
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-8b431985
+  key: accounting|general accounting
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-05445216
+  key: service|global trade
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-b7928257
+  key: provision|currency conversion
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-6daa0467
+  key: communication|custom
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-46cbe926
+  key: analysis|duty
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-cd7f1007
+  key: management|export and import
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-4f5c2f36
+  key: formulation|letter of credit
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-e1fa4843
+  key: analysis|product
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-6ae95cc4
+  key: administration|restitution
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-f6799472
+  key: verification|sanctioned party list
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-c5e7dca0
+  key: data|trade
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-0c80b752
+  key: administration|trade preference
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-5a4bc396
+  key: management|internal control
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-b55668bc
+  key: reporting|internal control compliance
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-80a63f8e
+  key: formulation|internal control policy and procedure
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-87e3a26b
+  key: management|international fund and consolidation
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-8fc1f306
+  key: monitoring|currency exposure
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-5dfa2101
+  key: monitoring|international rate
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-5caed753
+  key: reporting|result
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-18ef14d6
+  key: reporting|financial result
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-bf62316a
+  key: management|transaction
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-ca61edb4
+  key: accounting|planning and management
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-302a390a
+  key: accounting|cost
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-b47b8fed
+  key: management|cost
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-cedf0899
+  key: analysis|financial performance
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-3421f274
+  key: management|continuous cost improvement
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-87e1811c
+  key: planning|planning, budgeting and forecasting
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-1cccc689
+  key: accounting|revenue
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-6587dedf
+  key: administration|account receivable
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-cebf0da8
+  key: management|adjustment and deduction
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-c4904759
+  key: management|collection
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-38b3c836
+  key: management|default account
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-b7ff0eac
+  key: administration|customer credit
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-8a70a337
+  key: transaction|customer
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-c64ca466
+  key: management|tax
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-ce052840
+  key: formulation|tax strategy and plan
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-52f0795a
+  key: administration|tax
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-0ba10d44
+  key: management|treasury
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-a1c5454d
+  key: management|cash
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-a750d13a
+  key: relationship|banking
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-314dba7d
+  key: management|cash equivalent
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-d71abe9a
+  key: management|cash flows
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-ec93ca56
+  key: management|debt and investment
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-d6966c88
+  key: relationship|financial intermediary
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-13b94120
+  key: management|issuer exposure
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-4464d04f
+  key: management|liquidity
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-9b5ec2fd
+  key: management|financial fraud and dispute case
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-749adb52
+  key: management|in-house bank account
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-aebe5ec1
+  key: management|in-house bank account for subsidiary
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-132e1b29
+  key: monitoring|risk and hedging transaction
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-3e668a26
+  key: management|exposure risk
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-7c04ea8a
+  key: management|foreign exchange risk
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-8fdf31c6
+  key: implementation|hedging transaction
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-0564598d
+  key: management|interest rate risk
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-7757c12b
+  key: management|treasury policy and procedure
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-ded8ed18
+  key: management|control
+  basis: tranche 2 review, docs/catalog/tranche-2-review.yaml
+- id: BCC-17c72571
+  key: relationship|board of director
+  basis: link target outside the tranche, cited by docs/catalog/tranche-2-review.yaml
+- id: BCC-199a5fdd
+  key: analysis|performance to requirement
+  basis: link target outside the tranche, cited by docs/catalog/tranche-2-review.yaml
+- id: BCC-41f11e7f
+  key: formulation|procedure
+  basis: link target outside the tranche, cited by docs/catalog/tranche-2-review.yaml
+- id: BCC-44f37d0e
+  key: management|risk
+  basis: link target outside the tranche, cited by docs/catalog/tranche-2-review.yaml
+- id: BCC-4b2ce5d3
+  key: analysis|performance
+  basis: link target outside the tranche, cited by docs/catalog/tranche-2-review.yaml
+- id: BCC-81d8f125
+  key: accounting|accounting
+  basis: link target outside the tranche, cited by docs/catalog/tranche-2-review.yaml
+- id: BCC-94513b9b
+  key: management|resource
+  basis: link target outside the tranche, cited by docs/catalog/tranche-2-review.yaml
+- id: BCC-a975ebc6
+  key: analysis|customer and market intelligence
+  basis: link target outside the tranche, cited by docs/catalog/tranche-2-review.yaml
+- id: BCC-d977a25e
+  key: management|case
+  basis: link target outside the tranche, cited by docs/catalog/tranche-2-review.yaml
+- id: BCC-fba2a35c
+  key: administration|warranty claim
+  basis: link target outside the tranche, cited by docs/catalog/tranche-2-review.yaml
+- id: BCC-0784e083
+  key: management|supply chain for physical product
+  basis: cited by docs/catalog/tranche-2.md (a likely duplicate or a domain in the scaling order)
+- id: BCC-1eb6fb26
+  key: development|human resource
+  basis: cited by docs/catalog/tranche-2.md (a likely duplicate or a domain in the scaling order)
+- id: BCC-230d43c6
+  key: management|enterprise risk compliance remediation and resiliency
+  basis: cited by docs/catalog/tranche-2.md (a likely duplicate or a domain in the scaling order)
+- id: BCC-2f433e00
+  key: relationship|external
+  basis: cited by docs/catalog/tranche-2.md (a likely duplicate or a domain in the scaling order)
+- id: BCC-336f001a
+  key: provision|global trade
+  basis: cited by docs/catalog/tranche-2.md (a likely duplicate or a domain in the scaling order)
+- id: BCC-5ff7b78f
+  key: management|restitution
+  basis: cited by docs/catalog/tranche-2.md (a likely duplicate or a domain in the scaling order)
+- id: BCC-7ec6ff6b
+  key: transaction|payment
+  basis: cited by docs/catalog/tranche-2.md (a likely duplicate or a domain in the scaling order)
+- id: BCC-86cffc27
+  key: formulation|vision and strategy
+  basis: cited by docs/catalog/tranche-2.md (a likely duplicate or a domain in the scaling order)
+- id: BCC-89a29da5
+  key: service|service
+  basis: cited by docs/catalog/tranche-2.md (a likely duplicate or a domain in the scaling order)
+- id: BCC-93d835ff
+  key: management|financial policy
+  basis: cited by docs/catalog/tranche-2.md (a likely duplicate or a domain in the scaling order)
+- id: BCC-b26e4444
+  key: accounting|fixed-asset project
+  basis: cited by docs/catalog/tranche-2.md (a likely duplicate or a domain in the scaling order)
+- id: BCC-bd41c4ec
+  key: selling|product
+  basis: cited by docs/catalog/tranche-2.md (a likely duplicate or a domain in the scaling order)
+- id: BCC-d3d393bd
+  key: development|business
+  basis: cited by docs/catalog/tranche-2.md (a likely duplicate or a domain in the scaling order)
+- id: BCC-e12d8a9d
+  key: acquisition|asset
+  basis: cited by docs/catalog/tranche-2.md (a likely duplicate or a domain in the scaling order)
+- id: BCC-eb85d5ea
+  key: management|international fund
+  basis: cited by docs/catalog/tranche-2.md (a likely duplicate or a domain in the scaling order)
 dispositions:
 - id: BCC-9ecf360b
   status: rejected
@@ -71,3 +341,66 @@ dispositions:
   record: docs/decisions/2026-11-04-i5-proceed-payroll-synonym-ap-hold-lifted.md, act 2
   reason: retired as a separate active candidate (BRM Payroll); an alternative
     designation of Payroll Processing, both BRM source records keeping their provenance
+- id: BCC-aebe5ec1
+  status: retired
+  into: BCC-749adb52
+  date: '2026-11-07'
+  record: docs/catalog/tranche-2-review.yaml, under docs/decisions/2026-11-07-curation-tranche-2-approved.md
+  reason: >-
+    merged into In-house Bank Accounts Management Capability (tranche 2): the
+    in-house bank's accounts for subsidiaries are the main scope of in-house
+    banking, not a separate ability; named in the concept's definition
+- id: BCC-8fc1f306
+  status: retired
+  into: BCC-7c04ea8a
+  date: '2026-11-07'
+  record: docs/catalog/tranche-2-review.yaml, under docs/decisions/2026-11-07-curation-tranche-2-approved.md
+  reason: >-
+    merged into Foreign Exchange Risk Management Capability (tranche 2): PCF 9.10.3
+    (currency exposure and hedging) and 9.7.5.3 (foreign exchange risk) describe one
+    ability under two branches; the generator's keys differ only in wording
+- id: BCC-5caed753
+  status: retired
+  into: BCC-792537f9
+  date: '2026-11-07'
+  record: docs/catalog/tranche-2-review.yaml, under docs/decisions/2026-11-07-curation-tranche-2-approved.md
+  reason: >-
+    merged into Financial Reporting Capability (tranche 2): PCF 9.10.4 reports
+    foreign exchange gains and losses: financial reporting restricted to one source
+    of results (its recording of the entries is General Ledger Accounting's work).
+    Its second record, PCF 13.3.2.2.2, is a homonym the key merged; it stays in the
+    crosswalk as evidence
+- id: BCC-18ef14d6
+  status: retired
+  into: BCC-792537f9
+  date: '2026-11-07'
+  record: docs/catalog/tranche-2-review.yaml, under docs/decisions/2026-11-07-curation-tranche-2-approved.md
+  reason: >-
+    merged into Financial Reporting Capability (tranche 2): reporting financial
+    results to the board (PCF 12.3.1) is financial reporting to one audience
+- id: BCC-6daa0467
+  status: retired
+  into: BCC-c5e7dca0
+  date: '2026-11-07'
+  record: docs/catalog/tranche-2-review.yaml, under docs/decisions/2026-11-07-curation-tranche-2-approved.md
+  reason: >-
+    merged into Trade Documentation Capability (tranche 2): communicating with
+    customs is giving customs authorities the information the law requires, which
+    trade documentation records; one ability
+- id: BCC-46cbe926
+  status: rejected
+  date: '2026-11-07'
+  record: docs/catalog/tranche-2-review.yaml, under docs/decisions/2026-11-07-curation-tranche-2-approved.md
+  reason: >-
+    rejected (tranche 2): one act episode with no process beneath it (calculating a
+    duty for customs valuation): realization evidence for Trade and Customs
+    Documentation, not a capability type. The generator's classification is
+    confirmed
+- id: BCC-b7928257
+  status: rejected
+  date: '2026-11-07'
+  record: docs/catalog/tranche-2-review.yaml, under docs/decisions/2026-11-07-curation-tranche-2-approved.md
+  reason: >-
+    rejected (tranche 2): one act episode (converting a foreign-currency value to
+    local currency, for customs valuation under PCF 9.11): realization evidence for
+    Trade and Customs Documentation, as duty calculation is; not a capability type

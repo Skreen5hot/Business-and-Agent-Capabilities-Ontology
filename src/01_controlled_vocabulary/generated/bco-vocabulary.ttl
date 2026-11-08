@@ -36,6 +36,11 @@ bco:actSha256 rdf:type owl:AnnotationProperty .
 bco:actSha256 rdfs:label "act SHA-256"@en .
 bco:actSha256 skos:definition "The SHA-256 of the decision record at that commit."@en .
 
+bco:catalogCandidate rdf:type owl:AnnotationProperty .
+bco:catalogCandidate rdfs:comment "A literal inventory identifier, never an IRI. It asserts nothing about the candidate, and nothing about a class (docs/decisions/2026-11-07-curation-tranche-2-approved.md)."@en .
+bco:catalogCandidate rdfs:label "catalog candidate"@en .
+bco:catalogCandidate skos:definition "The identifier of a Candidate Capability Catalog record (docs/catalog/candidates.yaml) the concept was normalized from; one per record, several where generated candidates were merged into the concept."@en .
+
 bco:citesClaim rdf:type owl:AnnotationProperty .
 bco:citesClaim rdfs:label "cites claim"@en .
 bco:citesClaim skos:definition "Relates a departs-from source reference to the register claim the departure rests on: a claim of the cited source, at V or P (ADR-003 D6; review R7, Finding A)."@en .

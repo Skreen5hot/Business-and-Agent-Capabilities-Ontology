@@ -101,12 +101,33 @@
             "additionalProperties": false,
             "description": "A capability in the catalog (bcoc:).",
             "properties": {
+                "alt_label": {
+                    "description": "Other names for the concept, any number per language, none equal to its pref_label (docs/decisions/2026-11-07-curation-tranche-2-approved.md, A2).",
+                    "items": {
+                        "$ref": "#/$defs/LanguageTaggedString"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "authored_status": {
                     "$ref": "#/$defs/AuthoredStatus"
                 },
                 "broader": {
                     "items": {
                         "pattern": "^bcoc:[A-Z][A-Za-z0-9]*$",
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "catalog_candidates": {
+                    "description": "The Candidate Capability Catalog records (docs/catalog/) the concept was normalized from: several where generated candidates were merged into it. Inventory identifiers, never IRIs; the crosswalk keeps every source record (docs/decisions/2026-11-07-curation-tranche-2-approved.md, A2).",
+                    "items": {
+                        "pattern": "^BCC-[0-9a-f]{8}$",
                         "type": "string"
                     },
                     "type": [

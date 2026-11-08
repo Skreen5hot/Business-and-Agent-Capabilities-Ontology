@@ -348,10 +348,14 @@ components:
     path: docs/standards
     role: documentation
     description: >-
-      The ontology development standards the architect supplies, one per
-      stage of the src/ layout, filed verbatim and never edited here.
-      Stage 02 (Conceptual Modeling) is the first, supplied 2026-10-25
-      (docs/decisions/2026-10-25-stage-02-choices.md).
+      The ontology development standards, one per stage of the src/
+      layout. Stage 02 (Conceptual Modeling) was supplied by the architect
+      on 2026-10-25 (docs/decisions/2026-10-25-stage-02-choices.md) and is
+      filed verbatim, never edited here. Stage 03 (Taxonomy) was drafted by
+      the team and ratified by the architect, with two binding
+      clarifications, on 2026-11-07
+      (docs/decisions/2026-11-07-stage-03-ratified-g1t-review-authorized.md);
+      a substantive change to either is a new, reviewed version.
 
   - id: docs.sources
     path: docs/sources
@@ -631,6 +635,36 @@ components:
       indexes, drafted G1-T evidence and the decisions asked of the
       architect. A recommendation; it approves and admits nothing.
 
+  - id: catalog.tranche-2
+    path: docs/catalog/tranche-2.md
+    role: documentation
+    description: >-
+      Semantic-curation tranche 2 (decision of 2026-11-07): the report on
+      PCF 9.0 Financial Resources Management and the 72 candidates beneath
+      it -- dispositions, normalized concepts, definitions reviewed, links
+      classified, candidates ready for G1-T, the synthetic domain review,
+      and the issues for the architect. It admits no class.
+
+  - id: catalog.tranche-2-review
+    path: docs/catalog/tranche-2-review.yaml
+    role: documentation
+    description: >-
+      Hand-authored structured review record for tranche 2: each candidate's
+      disposition, concept, classification and G1-T readiness, and each
+      proposed broader link's disposition (retained, incorrect, unresolved),
+      kind if retained (kind-of, part-of), action, reason and provenance, in
+      the Stage 03 standard's terms (format 2), with the links reviewers
+      added. The tests hold it to the catalog and the vocabulary.
+
+  - id: catalog.tranche-2-q12
+    path: docs/catalog/tranche-2-q12.md
+    role: documentation
+    description: >-
+      The 13 tranche-2 concepts blocked by Q-12, with each BPO class they
+      depend on, its typing, and its module and line at the I-1 pin, for the
+      architect's separate decision (decision of 2026-11-07, tranche 2
+      accepted, B). Read from the generated records; proposes no act type.
+
   - id: catalog.admission
     path: docs/catalog/admission
     role: documentation
@@ -641,7 +675,8 @@ components:
       the reviewer completes its confirmation; a draft is not a signature.
       G1T-T1-review-2026-11-05.md is an independent AI-authored review of the
       three drafts, filed verbatim as received; it is not a signature.
-      Nothing here asserts OWL.
+      G1T-T2-batch.md prepares tranche 2's 43 ready classes for one batch
+      review (decision of 2026-11-07, A3), unsigned. Nothing here asserts OWL.
 
   - id: catalog.dispositions
     path: docs/catalog/dispositions.yaml
