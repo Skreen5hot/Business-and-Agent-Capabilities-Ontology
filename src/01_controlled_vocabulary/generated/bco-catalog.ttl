@@ -536,18 +536,20 @@ bcoc:FinancialIntermediaryRelationshipManagement skos:inScheme bcoc:CapabilityCa
 bcoc:FinancialIntermediaryRelationshipManagement skos:prefLabel "Financial Intermediary Relationship Management"@en .
 
 bcoc:FinancialPerformanceAnalysis bco:catalogCandidate "BCC-cedf0899" .
-bcoc:FinancialPerformanceAnalysis bco:currentRecord bcoc:record-7532dfe391021022d477e6b912fdbfac1bce3b69f664186ebd4ef6442e759beb .
+bcoc:FinancialPerformanceAnalysis bco:currentRecord bcoc:record-d72a4c76071b6c3fb585f287d5e4ba4f9f1ad290103d9f17ab17534878e3eab7 .
 bcoc:FinancialPerformanceAnalysis bco:definitionGenus bco:BusinessCapability .
 bcoc:FinancialPerformanceAnalysis bco:foundationalAncestor cco:ont00000568 .
 bcoc:FinancialPerformanceAnalysis bco:lifecycleStatus "Draft" .
 bcoc:FinancialPerformanceAnalysis bco:sourceReference bcoc:source-3c7c642f5a0179876a5d092352483f454291c7d88136fc6870216096fdac53bc .
-bcoc:FinancialPerformanceAnalysis bco:sourceReference bcoc:source-f574cbd3e34695ffe9d3fc8ac8e2d4b43366fdd42a59756c1ed88975845016d9 .
+bcoc:FinancialPerformanceAnalysis bco:sourceReference bcoc:source-bc266985e1d2ddfe7ab4ca7c3fb62cfe9716fd5acb16b495994b24c684a90875 .
 bcoc:FinancialPerformanceAnalysis dcterms:created "2026-11-14T12:00:00+00:00"^^xsd:dateTime .
 bcoc:FinancialPerformanceAnalysis prov:wasAttributedTo bcoa:claude-opus-5-5 .
 bcoc:FinancialPerformanceAnalysis rdf:type skos:Concept .
 bcoc:FinancialPerformanceAnalysis skos:broader bcoc:FinancialPerformanceManagement .
 bcoc:FinancialPerformanceAnalysis skos:changeNote "2026-11-14, G1-T tranche 2 (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, part 4; docs/catalog/admission/G1T-T2-batch.md, revision 3, T2-25): narrowed from bcoc:FinancialPerformanceManagement and renamed. A change of meaning, so a new IRI (ADR-003 D3). bcoc:FinancialPerformanceManagement is kept unchanged as a functional grouping, not replaced, and this concept is part-of it: assessing profitability and financial performance is the analysis part of managing financial performance; Financial Performance Management is retained as a functional grouping, and acting on the results is not part of the narrowed type. The prior definition is bcoc:FinancialPerformanceManagement's record e888f151ffbc72dc72ad6c2574edf94b23c719393771a513c188460d7bc1f5c3."@en .
-bcoc:FinancialPerformanceAnalysis skos:definition "A business capability of an organization to assess the profitability and financial performance of the organization and of its units, products, customers and projects against its targets, grounded in the organization's members as organized."@en .
+bcoc:FinancialPerformanceAnalysis skos:changeNote "2026-11-14, the architect's final direction on T2-25 (docs/decisions/2026-11-14-g1t-tranche-2-t2-25-final.md; docs/catalog/admission/G1T-T2-batch.md, revision 5): the definition is his, verbatim, and enumerates no BPO act; the distinctions are kept in the realization index. P10786 leaves the index under Q5 (CD5), since its source description also includes developing strategies to improve sales and profits, so the index holds P10782, P10783, P10784 and P10787, and the definitional source cites those four. The revision-4 record listed 10786 too, and revises the revision-3 record 7532dfe391021022d477e6b912fdbfac1bce3b69f664186ebd4ef6442e759beb. A correction to an unsigned type: the IRI and the grouping it is part-of do not change."@en .
+bcoc:FinancialPerformanceAnalysis skos:changeNote "2026-11-14, the supplementary G1-T review (docs/catalog/admission/G1T-T2-supplementary-review.md, section 3, T2-25) and the architect's direction on it (docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md; docs/catalog/admission/G1T-T2-batch.md, revision 4): bounded to what the realization index holds. \"The organization and of its units\", \"projects\" and \"against its targets\" rested only on the excluded summary act P10741; the definition now names the products, customers and activities whose performance the index assesses, and the evaluation, costing and tracking it holds. An editorial revision, as for the 13 of Batch B: the index and the grouping it is part-of do not change."@en .
+bcoc:FinancialPerformanceAnalysis skos:definition "A business capability that inheres in an organization and is realizable through its organized members' appraisal and analysis of the financial performance and profitability of its products, customers, or activities."@en .
 bcoc:FinancialPerformanceAnalysis skos:inScheme bcoc:CapabilityCatalogScheme .
 bcoc:FinancialPerformanceAnalysis skos:prefLabel "Financial Performance Analysis"@en .
 
@@ -1361,6 +1363,7 @@ bcoc:record-706f8aeaeba1a1663ae2c180f9c5925a70fd6bb84054b3047dc082bd3abb2156 rdf
 bcoc:record-747b4d9def9e2415162dfef27525be4a74349a044e345a7af11ddad8fc70f162 bco:recordSha256 "747b4d9def9e2415162dfef27525be4a74349a044e345a7af11ddad8fc70f162" .
 bcoc:record-747b4d9def9e2415162dfef27525be4a74349a044e345a7af11ddad8fc70f162 rdf:type prov:Entity .
 
+bcoc:record-7532dfe391021022d477e6b912fdbfac1bce3b69f664186ebd4ef6442e759beb bco:recordCommit "fce064cb856c96d3e4e76f8b6beb30b37a565529" .
 bcoc:record-7532dfe391021022d477e6b912fdbfac1bce3b69f664186ebd4ef6442e759beb bco:recordSha256 "7532dfe391021022d477e6b912fdbfac1bce3b69f664186ebd4ef6442e759beb" .
 bcoc:record-7532dfe391021022d477e6b912fdbfac1bce3b69f664186ebd4ef6442e759beb rdf:type prov:Entity .
 
@@ -1451,6 +1454,11 @@ bcoc:record-b81c83909c4540c8916b6e02e1085aad76ba876528583d40cab90dd2f3233d22 bco
 bcoc:record-b81c83909c4540c8916b6e02e1085aad76ba876528583d40cab90dd2f3233d22 bco:recordSha256 "b81c83909c4540c8916b6e02e1085aad76ba876528583d40cab90dd2f3233d22" .
 bcoc:record-b81c83909c4540c8916b6e02e1085aad76ba876528583d40cab90dd2f3233d22 rdf:type prov:Entity .
 
+bcoc:record-bb3270ca30bb0f4a438cd070be8de9e6f4c88ea47f92c6a9fc0cecfbb052296a bco:recordCommit "060e7b94a8b0f993aa9adaf78b288938a368f361" .
+bcoc:record-bb3270ca30bb0f4a438cd070be8de9e6f4c88ea47f92c6a9fc0cecfbb052296a bco:recordSha256 "bb3270ca30bb0f4a438cd070be8de9e6f4c88ea47f92c6a9fc0cecfbb052296a" .
+bcoc:record-bb3270ca30bb0f4a438cd070be8de9e6f4c88ea47f92c6a9fc0cecfbb052296a prov:wasRevisionOf bcoc:record-7532dfe391021022d477e6b912fdbfac1bce3b69f664186ebd4ef6442e759beb .
+bcoc:record-bb3270ca30bb0f4a438cd070be8de9e6f4c88ea47f92c6a9fc0cecfbb052296a rdf:type prov:Entity .
+
 bcoc:record-be402280b2f3b07028701f2587b48052a6eba818267a49ef2346cec616044b96 bco:recordSha256 "be402280b2f3b07028701f2587b48052a6eba818267a49ef2346cec616044b96" .
 bcoc:record-be402280b2f3b07028701f2587b48052a6eba818267a49ef2346cec616044b96 prov:wasRevisionOf bcoc:record-9c3c13a1645216148bb897e961e8cf19779331e8f7bcfa55b10c26967668e45d .
 bcoc:record-be402280b2f3b07028701f2587b48052a6eba818267a49ef2346cec616044b96 rdf:type prov:Entity .
@@ -1483,6 +1491,10 @@ bcoc:record-d467eee1c7c3c0fe8202ac41a409eaac64211881a2ef43d709c16667b5e201a4 rdf
 bcoc:record-d5db68e30409c5a92d66b67af64bccb3538970cbc392a929b87af1582b0a4b2e bco:recordSha256 "d5db68e30409c5a92d66b67af64bccb3538970cbc392a929b87af1582b0a4b2e" .
 bcoc:record-d5db68e30409c5a92d66b67af64bccb3538970cbc392a929b87af1582b0a4b2e prov:wasRevisionOf bcoc:record-67aabdbaf7e0df818b7e0e71a4b203a207ac6cd7de7b49c9b4f6a2aa176550d3 .
 bcoc:record-d5db68e30409c5a92d66b67af64bccb3538970cbc392a929b87af1582b0a4b2e rdf:type prov:Entity .
+
+bcoc:record-d72a4c76071b6c3fb585f287d5e4ba4f9f1ad290103d9f17ab17534878e3eab7 bco:recordSha256 "d72a4c76071b6c3fb585f287d5e4ba4f9f1ad290103d9f17ab17534878e3eab7" .
+bcoc:record-d72a4c76071b6c3fb585f287d5e4ba4f9f1ad290103d9f17ab17534878e3eab7 prov:wasRevisionOf bcoc:record-bb3270ca30bb0f4a438cd070be8de9e6f4c88ea47f92c6a9fc0cecfbb052296a .
+bcoc:record-d72a4c76071b6c3fb585f287d5e4ba4f9f1ad290103d9f17ab17534878e3eab7 rdf:type prov:Entity .
 
 bcoc:record-d7432dbd92113a3f0b4169b5819967a60285e518b8163f69973db30947e50757 bco:recordSha256 "d7432dbd92113a3f0b4169b5819967a60285e518b8163f69973db30947e50757" .
 bcoc:record-d7432dbd92113a3f0b4169b5819967a60285e518b8163f69973db30947e50757 rdf:type prov:Entity .
@@ -1893,6 +1905,11 @@ bcoc:source-b91d0abbfea77733b4416ba507a4513f194cf011858a7ac90ef05c2bdca3b744 bco
 bcoc:source-b91d0abbfea77733b4416ba507a4513f194cf011858a7ac90ef05c2bdca3b744 bco:relation "consistent-with" .
 bcoc:source-b91d0abbfea77733b4416ba507a4513f194cf011858a7ac90ef05c2bdca3b744 bco:support "definitional" .
 
+bcoc:source-bc266985e1d2ddfe7ab4ca7c3fb62cfe9716fd5acb16b495994b24c684a90875 bco:citesSource bcos:SRC-IND-01 .
+bcoc:source-bc266985e1d2ddfe7ab4ca7c3fb62cfe9716fd5acb16b495994b24c684a90875 bco:locator "PCF 7.4 elements 10782, 10783, 10784 and 10787 (hierarchy 9.1.4.1, 9.1.4.2, 9.1.4.3 and 9.1.4.6), the realization index of G1-T record T2-25, revision 5, as harvested in docs/sources/inventory/pcf-7.4-entries.yaml (INV-PCF74-10782, INV-PCF74-10783, INV-PCF74-10784, INV-PCF74-10787); catalog candidate BCC-cedf0899" .
+bcoc:source-bc266985e1d2ddfe7ab4ca7c3fb62cfe9716fd5acb16b495994b24c684a90875 bco:relation "consistent-with" .
+bcoc:source-bc266985e1d2ddfe7ab4ca7c3fb62cfe9716fd5acb16b495994b24c684a90875 bco:support "definitional" .
+
 bcoc:source-bd5b9fca8c56b816f3691f62a79cacf8bb4818b8c9d58390a14d5d8746421071 bco:citesSource bcos:SRC-IND-01 .
 bcoc:source-bd5b9fca8c56b816f3691f62a79cacf8bb4818b8c9d58390a14d5d8746421071 bco:locator "PCF 7.4 element 17059 (hierarchy 9.11), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-17059; catalog candidate BCC-05445216" .
 bcoc:source-bd5b9fca8c56b816f3691f62a79cacf8bb4818b8c9d58390a14d5d8746421071 bco:relation "consistent-with" .
@@ -1982,11 +1999,6 @@ bcoc:source-eee066bfd584e2f271f08b2fc476ebe042c342aa5a8fd41c60f20b156ba3ed59 bco
 bcoc:source-eee066bfd584e2f271f08b2fc476ebe042c342aa5a8fd41c60f20b156ba3ed59 bco:locator "PCF 7.4 element 10894 (hierarchy 9.7.2.2), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10894; catalog candidate BCC-314dba7d" .
 bcoc:source-eee066bfd584e2f271f08b2fc476ebe042c342aa5a8fd41c60f20b156ba3ed59 bco:relation "consistent-with" .
 bcoc:source-eee066bfd584e2f271f08b2fc476ebe042c342aa5a8fd41c60f20b156ba3ed59 bco:support "definitional" .
-
-bcoc:source-f574cbd3e34695ffe9d3fc8ac8e2d4b43366fdd42a59756c1ed88975845016d9 bco:citesSource bcos:SRC-IND-01 .
-bcoc:source-f574cbd3e34695ffe9d3fc8ac8e2d4b43366fdd42a59756c1ed88975845016d9 bco:locator "PCF 7.4 elements 10782, 10783, 10784, 10786 and 10787 (hierarchy 9.1.4.1, 9.1.4.2, 9.1.4.3, 9.1.4.5 and 9.1.4.6), the realization index of G1-T record T2-25, as harvested in docs/sources/inventory/pcf-7.4-entries.yaml (INV-PCF74-10782, INV-PCF74-10783, INV-PCF74-10784, INV-PCF74-10786, INV-PCF74-10787); catalog candidate BCC-cedf0899" .
-bcoc:source-f574cbd3e34695ffe9d3fc8ac8e2d4b43366fdd42a59756c1ed88975845016d9 bco:relation "consistent-with" .
-bcoc:source-f574cbd3e34695ffe9d3fc8ac8e2d4b43366fdd42a59756c1ed88975845016d9 bco:support "definitional" .
 
 bcoc:source-f6ac826bfc7c4e59a015732b8300e6fba2717b72b903c10b833901731b2b181c bco:citesSource bcos:SRC-IND-01 .
 bcoc:source-f6ac826bfc7c4e59a015732b8300e6fba2717b72b903c10b833901731b2b181c bco:locator "PCF 7.4 element 10750 (hierarchy 9.3.4), as harvested in docs/sources/inventory/pcf-7.4-entries.yaml, INV-PCF74-10750; catalog candidate BCC-792537f9" .

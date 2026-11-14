@@ -521,7 +521,9 @@ def test_the_reconciled_tranche_2_figures_follow_the_records(tranche2):
     outside = set(catalog) - set(status)
     counts = {k: sum(1 for v in status.values() if v == k)
               for k in ("admitted", "ready", "pending review", "not ready", "not proposed")}
-    assert counts == {"admitted": 2, "ready": 33, "pending review": 7, "not ready": 15,
+    # The direction on the supplementary review (2026-11-14): the six that passed join the 33;
+    # Financial Performance Analysis joins them under the final direction on T2-25.
+    assert counts == {"admitted": 2, "ready": 40, "pending review": 0, "not ready": 15,
                       "not proposed": 13}
     assert sum(counts.values()) == len(status)
     assert len(outside) == 4 and len(catalog) == 74
@@ -533,8 +535,8 @@ def test_the_reconciled_tranche_2_figures_follow_the_records(tranche2):
     assert len(written) == 60
     assert sum(1 for l in links if l.get("kind") == "kind-of") == 15
     report = (ROOT / "docs/catalog/tranche-2.md").read_text(encoding="utf-8")
-    for figure in ("| Admitted | 2 |", "| Ready, approved for admission on signature | 33 |",
-                   "| Pending the supplementary G1-T review | 7 |", "| Not ready | 15 |",
+    for figure in ("| Admitted | 2 |", "| Ready, approved for admission on signature | 40 |",
+                   "| Not ready | 15 |",
                    "| Outside G1-T review scope | 17 |", "| **Total** | **74** |",
                    "| **Total** | **89** | **7** | **60** | **36** |"):
         assert figure in report
@@ -548,24 +550,29 @@ def test_the_g1t_batch_covers_the_ready_candidates_and_signs_nothing(tranche2):
     assert sections == ["T2-%02d" % i for i in range(1, 44)] == [b for b, _ in batch]
     for rid, cid in batch:
         assert "| %s | %s |" % (rid, cid) in text
-    # The decision of 2026-11-14: 33 approved on signature, 7 pending, 3 withdrawn (part 3,
-    # no confirmation row). Nothing is signed here (part 6): every confirmation row is empty.
+    # The decision of 2026-11-14: 33 approved on signature, 7 to a supplementary review, 3
+    # withdrawn (part 3, no confirmation row); the direction on that review adds the 6 that
+    # passed, 2 of them reworded in place (the 5 narrowed rows carry their status in
+    # narrowed_to). Nothing is signed here (part 6): every confirmation row is empty.
     g1t = {b: next(r["g1t"] for r in review["candidates"] if r["id"] == c) for b, c in batch}
-    assert sum(1 for v in g1t.values() if v.startswith("ready")) == 33
-    assert sum(1 for v in g1t.values() if v.startswith("pending review")) == 2
+    assert sum(1 for v in g1t.values() if v.startswith("ready")) == 35
+    assert sum(1 for v in g1t.values() if v.startswith("pending review")) == 0
     assert sum(1 for v in g1t.values() if "narrowed_to" in v) == 5
     assert sum(1 for v in g1t.values() if "withdrawn from G1-T" in v) == 3
     assert text.count("|  |  |  |  |") == 40
     assert "not signed" in text and "Correction proposed" not in text
 
 
-def test_the_signature_record_lists_the_33_and_is_not_signed(tranche2):
+def test_the_signature_record_lists_the_40_and_is_not_signed(tranche2):
     # Decision of 2026-11-14, part 6: one consolidated record for the approved 33, citing the
     # batch record it signs by digest; the signature is the reviewer's own, never filled in here.
+    # The direction on the supplementary review adds the 6 that passed, and the final
+    # direction on T2-25 adds it.
     review, _ = tranche2
     approved = sorted(r["g1t_batch"] for r in review["candidates"]
-                      if r.get("g1t_batch") and r["g1t"].startswith("ready"))
-    assert len(approved) == 33
+                      if r.get("g1t_batch")
+                      and r.get("narrowed_to", r)["g1t"].startswith("ready"))
+    assert len(approved) == 40 and "T2-25" in approved
     sig = (ROOT / "docs/catalog/admission/G1T-T2-signature.md").read_text(encoding="utf-8")
     assert sorted(re.findall(r"^\| (T2-\d\d) \| BCC-", sig, re.M)) == approved
     batch = (ROOT / "docs/catalog/admission/G1T-T2-batch.md").read_bytes()
@@ -585,7 +592,9 @@ def test_the_narrowed_types_are_new_concepts_under_their_kept_groupings(tranche2
         new, old = concepts[r["narrowed_to"]["concept"]], concepts[r["concept"]]
         assert r["narrowed_to"]["kind"] == "part-of" and new["broader"] == [r["concept"]]
         assert new["catalog_candidates"] == [r["id"]] and r["id"] in old["catalog_candidates"]
-        assert "is_replaced_by" not in old and "revises" not in new
+        assert "is_replaced_by" not in old
+        # Only Financial Performance Analysis was revised since, by the supplementary review.
+        assert ("revises" in new) == (r["g1t_batch"] == "T2-25")
         assert r["g1t"].startswith("not proposed: a functional grouping")
         assert "concept `%s` (revision 3; narrowed from `%s`" % (new["id"], r["concept"]) in text
         assert " ".join(new["definition"].split()) in " ".join(text.split())
