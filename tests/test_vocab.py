@@ -1181,8 +1181,9 @@ def test_the_real_prior_records_resolve_and_verify(vb, repo):
     revision = rdflib.URIRef(vb.PROV + "wasRevisionOf")
     targets = set(graph.objects(None, revision))
     # tranche 2 revised TreasuryManagement; the G1-T batch decision of 2026-11-14
-    # revised 15 tranche-2 records (13 of Batch B, Corporate Card and Customer Credit).
-    assert len(targets) == 35, len(targets)
+    # revised 15 tranche-2 records (13 of Batch B, Corporate Card and Customer Credit), and
+    # the direction on the supplementary review revised Financial Performance Analysis.
+    assert len(targets) == 36, len(targets)
     verified = 0
     for target in targets:
         digest = str(graph.value(target, sha))
@@ -1214,7 +1215,7 @@ def test_the_real_prior_records_resolve_and_verify(vb, repo):
         if at_parent and before.returncode == 0:
             assert digest[:16] not in before.stdout.decode("utf-8")
         verified += 1
-    assert verified == 35
+    assert verified == 36
 
 
 # ================================================================ record digest

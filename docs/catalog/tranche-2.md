@@ -30,8 +30,8 @@ Every figure here is counted from `docs/catalog/tranche-2-review.yaml` and
 | Status | Concepts | Which |
 |---|---|---|
 | Admitted | 2 | Payroll Processing (T1-02), Accounts Payable Processing (T1-03), signed PASS 2026-11-05. T1-01 (customer complaint management) is admitted too, but has no vocabulary concept yet |
-| Ready, approved for admission on signature | 33 | Batch A (17) and Batch B (16) of `docs/catalog/admission/G1T-T2-batch.md`, revision 3; the signature record is `docs/catalog/admission/G1T-T2-signature.md`. None is admitted until signed |
-| Pending the supplementary G1-T review | 7 | Reviewed once on 2026-11-14 (`docs/catalog/admission/G1T-T2-supplementary-review.md`): 6 PASS, awaiting the architect's direction to sign; Financial Performance Analysis PENDING REVIEW, escalated. The seven: Corporate Card Management and Customer Credit Management, reworded; and the five narrowed types Capital Investment Appraisal, Control Environment and Risk Objective Formulation, Cost Driver and Critical Activity Analysis, Financial Performance Analysis and Internal Control Effectiveness Monitoring, new concepts (section 1b) |
+| Ready, approved for admission on signature | 39 | Batch A (17) and Batch B (16) of `docs/catalog/admission/G1T-T2-batch.md`, and the six the supplementary review found PASS (Corporate Card Management, Customer Credit Management, Capital Investment Appraisal, Control Environment and Risk Objective Formulation, Cost Driver and Critical Activity Analysis, Internal Control Effectiveness Monitoring; section 1c), revision 4; the signature record is `docs/catalog/admission/G1T-T2-signature.md`. None is admitted until signed |
+| Corrected after the supplementary G1-T review, awaiting direction | 1 | Financial Performance Analysis, a narrowed type (section 1b): the supplementary review (`docs/catalog/admission/G1T-T2-supplementary-review.md`) left it PENDING REVIEW; revision 4 applies the corrections it required, with which it states PASS. Not in the signature record (section 1c) |
 | Not ready | 15 | 9 whose only act evidence is a class BPO types as a capability (Q-12); 4 whose designating class is a BPO capability class but whose BPO wiring names act types, each a component's; 2 with no act type in their evidence (section 5; `docs/catalog/tranche-2-q12.md`) |
 | Outside G1-T review scope | 17 | 5 tranche-2 capability areas (Financial Resource Management, Payables and Reimbursement Management, Capital Expenditure Management, Global Trade Management, Debt and Investment Management), broad or conjunctive (CD16, E4); 3 more withdrawn from G1-T as capability areas on 2026-11-14 (Financial Accounting, Revenue and Receivables Management, Financial Risk Management); the 5 functional groupings the narrowed types came from (Capital Planning, Internal Control Design, Cost Management, Financial Performance Management, Internal Control Operation and Monitoring), kept unchanged; the 4 P5 pilots outside the tranche (Strategic Planning, Business Model Governance, Competitive Analysis, Customer Experience Management), which no tranche has curated |
 | **Total** | **74** | 70 from tranche 2 (65 normalized, 5 narrowed types added 2026-11-14), 4 P5 pilots |
@@ -57,6 +57,18 @@ Revision 3 of `docs/catalog/admission/G1T-T2-batch.md` applies it:
 - **Indexes:** `P14057` leaves Cost Accounting (OTHER), `P14188` leaves Customer Credit
   Management (Q5) and `P10785` leaves the narrowed Financial Performance Analysis (Q5). No
   concept's index holds `P14057` yet: a curation follow-up, with the eight acts of MD-6.
+
+## 1c. The direction on the supplementary review (2026-11-14)
+
+The supplementary review found PASS for six of the seven and left Financial Performance
+Analysis PENDING REVIEW. The architect directed (`docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md`):
+
+- **Financial Performance Analysis** is corrected as the review required: its definition is
+  bounded to what its index holds, and the reasons for keeping `P10786` and `P10787` are
+  recorded. The vocabulary entry revises its record (same IRI). It is not in the signature
+  record, and awaits the architect's direction.
+- **The six** are added to `docs/catalog/admission/G1T-T2-signature.md`, which covers 39
+  classes. None is admitted until signed.
 
 **Links by disposition.**
 

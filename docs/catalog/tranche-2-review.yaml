@@ -101,7 +101,7 @@ candidates:
   disposition: accepted
   concept: bcoc:CorporateCardManagement
   classification: capability type
-  g1t: 'pending review: corrected in revision 3; the supplementary G1-T review (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, part 4); supplementary review 2026-11-14: PASS, awaiting the architect''s direction to sign'
+  g1t: 'ready: approved for admission on signature (corrected in revision 3, docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, part 4; supplementary review 2026-11-14: PASS; entered in the signature record, docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md); not admitted until signed'
   g1t_batch: T2-02
   g1t_prepared: ready; the index excludes its deontic acts (G1-T question 4); a development act needs
     a recorded reason (CAP-06)
@@ -148,7 +148,7 @@ candidates:
   narrowed_to:
     concept: bcoc:CapitalInvestmentAppraisal
     kind: part-of
-    g1t: 'pending review: corrected in revision 3; the supplementary G1-T review (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, part 4); supplementary review 2026-11-14: PASS, awaiting the architect''s direction to sign'
+    g1t: 'ready: approved for admission on signature (corrected in revision 3, docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, part 4; supplementary review 2026-11-14: PASS; entered in the signature record, docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md); not admitted until signed'
     reason: "coverage: preparing and evaluating the financial justification for proposed investments is part of the broader's evaluation of them; Capital Planning is retained as a functional grouping, and the narrowed type is not equivalent to it"
   g1t_prepared: ready
   act_types:
@@ -412,7 +412,7 @@ candidates:
   narrowed_to:
     concept: bcoc:ControlEnvironmentAndRiskObjectiveFormulation
     kind: part-of
-    g1t: 'pending review: corrected in revision 3; the supplementary G1-T review (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, part 4); supplementary review 2026-11-14: PASS, awaiting the architect''s direction to sign'
+    g1t: 'ready: approved for admission on signature (corrected in revision 3, docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, part 4; supplementary review 2026-11-14: PASS; entered in the signature record, docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md); not admitted until signed'
     reason: "coverage: formulating the code of ethics, the process objectives and risks and the risk tolerances is part of designing the organization's internal controls; Internal Control Design is retained as a functional grouping, and the narrowed type does not establish the whole of it"
   g1t_prepared: ready; a development act needs a recorded reason (CAP-06)
   act_types:
@@ -586,7 +586,7 @@ candidates:
   narrowed_to:
     concept: bcoc:CostDriverAndCriticalActivityAnalysis
     kind: part-of
-    g1t: 'pending review: corrected in revision 3; the supplementary G1-T review (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, part 4); supplementary review 2026-11-14: PASS, awaiting the architect''s direction to sign'
+    g1t: 'ready: approved for admission on signature (corrected in revision 3, docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, part 4; supplementary review 2026-11-14: PASS; entered in the signature record, docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md); not admitted until signed'
     reason: "coverage: identifying and measuring cost drivers and critical activities is part of the analysis on which managing costs draws; Cost Management is retained as a functional grouping, and no ability to plan, control or reduce spending is inferred from the analysis"
   g1t_prepared: ready
   act_types:
@@ -605,7 +605,7 @@ candidates:
   narrowed_to:
     concept: bcoc:FinancialPerformanceAnalysis
     kind: part-of
-    g1t: 'pending review: corrected in revision 3; the supplementary G1-T review (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, part 4); supplementary review 2026-11-14: PENDING REVIEW, escalated to the architect'
+    g1t: 'pending review: corrected in revision 4 to the supplementary review''s required corrections (section 3), with which it states PASS; not in the signature record, awaiting the architect''s direction (docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md)'
     reason: "coverage: assessing profitability and financial performance is the analysis part of managing financial performance; Financial Performance Management is retained as a functional grouping, and acting on the results is not part of the narrowed type"
   g1t_prepared: ready
   act_types:
@@ -712,7 +712,7 @@ candidates:
   disposition: accepted
   concept: bcoc:CustomerCreditManagement
   classification: capability type
-  g1t: 'pending review: corrected in revision 3; the supplementary G1-T review (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, part 4); supplementary review 2026-11-14: PASS, awaiting the architect''s direction to sign'
+  g1t: 'ready: approved for admission on signature (corrected in revision 3, docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, part 4; supplementary review 2026-11-14: PASS; entered in the signature record, docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md); not admitted until signed'
   g1t_batch: T2-31
   g1t_prepared: ready
   act_types:
@@ -1027,7 +1027,7 @@ candidates:
   narrowed_to:
     concept: bcoc:InternalControlEffectivenessMonitoring
     kind: part-of
-    g1t: 'pending review: corrected in revision 3; the supplementary G1-T review (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, part 4); supplementary review 2026-11-14: PASS, awaiting the architect''s direction to sign'
+    g1t: 'ready: approved for admission on signature (corrected in revision 3, docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, part 4; supplementary review 2026-11-14: PASS; entered in the signature record, docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md); not admitted until signed'
     reason: "coverage: monitoring whether controls operate as intended is part of operating and monitoring them; the narrowed type does not establish the ability to operate every control"
   g1t_prepared: ready
   scope_addition: PCF 9.8.2, a level-3 element of 9.0; the generator broke a cycle and left

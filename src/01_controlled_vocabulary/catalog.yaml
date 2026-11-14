@@ -7,7 +7,8 @@
 # Stage 03 standard (docs/standards/stage-03-taxonomy.md, ratified 2026-11-07).
 # The G1-T batch decision of 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md) revises 15 of them
 # and adds 5 narrowed types, each part-of the concept it was narrowed from, which
-# is kept as a functional grouping.
+# is kept as a functional grouping. The direction of 2026-11-14 on the supplementary
+# review (docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md) revises one of the five, FinancialPerformanceAnalysis.
 #
 # P5 holds the 5 pilot capabilities the specification's worked examples
 # and migration table name, all Draft. Their definitions were revised on
@@ -1192,8 +1193,9 @@ concepts:
       - {value: "Financial Performance Analysis", language: en}
     definition: >-
       A business capability of an organization to assess the profitability and financial
-      performance of the organization and of its units, products, customers and projects
-      against its targets, grounded in the organization's members as organized.
+      performance of its products, customers and activities, including the evaluation of
+      new products, life-cycle costing and tracking the performance of its customer and
+      product strategies, grounded in the organization's members as organized.
     genus: bco:BusinessCapability
     foundational_ancestor: cco:ont00000568
     broader: [bcoc:FinancialPerformanceManagement]
@@ -1217,6 +1219,7 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-11-14T12:00:00Z"
     authored_status: Draft
+    revises: 7532dfe391021022d477e6b912fdbfac1bce3b69f664186ebd4ef6442e759beb
     change_note:
       - >-
         2026-11-14, G1-T tranche 2
@@ -1230,6 +1233,17 @@ concepts:
         grouping, and acting on the results is not part of the narrowed type. The prior
         definition is bcoc:FinancialPerformanceManagement's record
         e888f151ffbc72dc72ad6c2574edf94b23c719393771a513c188460d7bc1f5c3.
+      - >-
+        2026-11-14, the supplementary G1-T review
+        (docs/catalog/admission/G1T-T2-supplementary-review.md, section 3, T2-25) and the
+        architect's direction on it (docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md;
+        docs/catalog/admission/G1T-T2-batch.md, revision 4): bounded to what the
+        realization index holds. "The organization and of its units", "projects" and
+        "against its targets" rested only on the excluded summary act P10741; the
+        definition now names the products, customers and activities whose performance the
+        index assesses, and the evaluation, costing and tracking it holds. An editorial
+        revision, as for the 13 of Batch B: the index and the grouping it is part-of do not
+        change.
 
   - id: bcoc:ContinuousCostImprovement
     pref_label:

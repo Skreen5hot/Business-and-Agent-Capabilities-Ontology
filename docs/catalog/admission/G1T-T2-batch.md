@@ -2,12 +2,12 @@
 
 | Field | Value |
 |---|---|
-| Status | **Revision 3. Decided; not signed.** The architect's batch decision of 2026-11-14 (`docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md`) approves Batch A (17) and Batch B (16) for admission on the named reviewer's signature, prepared in `docs/catalog/admission/G1T-T2-signature.md`; withdraws three capability areas; and sends seven corrected records to one supplementary review (`docs/catalog/admission/G1T-T2-supplementary-review.md`). Revision 2 is at `c5b97f2`, revision 1 at `72401ef`. No class is admitted until its signature is recorded |
+| Status | **Revision 4. Decided; not signed.** The architect's batch decision of 2026-11-14 (`docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md`) approves Batch A (17) and Batch B (16) for admission on the named reviewer's signature, prepared in `docs/catalog/admission/G1T-T2-signature.md`; withdraws three capability areas; and sends seven corrected records to one supplementary review (`docs/catalog/admission/G1T-T2-supplementary-review.md`). Revision 4 (`docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md`) corrects T2-25 and enters the six that the supplementary review found PASS in the signature record. Revision 3 is at `c97ad24`, revision 2 at `c5b97f2`, revision 1 at `72401ef`. No class is admitted until its signature is recorded |
 | Reviewer | Aaron Damiano, Product Owner and Ontology Architect, the named signing reviewer (`docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md`, part 6), as for tranche 1 |
 | Candidates | The 43 that `docs/catalog/tranche-2.md` (section 5) reports ready, ids T2-01 to T2-43 |
 | Test | G1-T, specification v0.5.0-draft.3 §8 (`c3f1ba2`, SHA-256 `2224f869…c574`), ratified under RP-1, RP-2 (with CD5) and RP-10 on 2026-11-04 (`docs/decisions/2026-11-04-d4-rp1-rp10-ratified-option-b.md`, `docs/decisions/2026-11-04-rp2-ratified.md`), applied as in tranche 1's signed records |
 | Evidence | `docs/catalog/candidates.yaml` (SHA-256 `0eb60d5b703ac0f17063e9bc8317d5ecb381e41e4ef84ea7e48c43e6a0160d93`); `docs/catalog/bpo-act-types.yaml` (SHA-256 `25be29e5d4df6b7d8671128a7fae4cafa20aec2a6ac53cb2dbae2f8f76b800eb`), BPO act types at the I-1 pin `bc64e91`; `docs/catalog/tranche-2-review.yaml` (SHA-256 `da6867f5da363b3dc15c8af8631cfed9eeebd461fc7a1cad5671ed8853eb57d0`), validated under the Stage 03 standard (revision 2's input; revision 3 adds only the G1-T decision fields: `g1t`, `g1t_batch`, `narrowed_to`, `g1t_prepared`) |
-| Drafted by | Claude Code (`claude-opus-5-5`), 2026-11-07; revision 2 the same day; revision 3 on 2026-11-14, applying the architect's decision |
+| Drafted by | Claude Code (`claude-opus-5-5`), 2026-11-07; revision 2 the same day; revision 3 on 2026-11-14, applying the architect's decision; revision 4 the same day, applying his direction on the supplementary review |
 
 A PASS licenses asserting the class under `obo:BFO_0000016` (disposition), and so under
 `bco:BusinessCapability`, for that class only (CAP-04). It licenses no organization's claim
@@ -30,6 +30,10 @@ IDs, under APQC's notice in `NOTICE.md`). APQC does not endorse this work.
 - **The seven.** T2-02 and T2-31 are reworded in place. T2-04, T2-17, T2-24, T2-25 and T2-43 are narrowed and renamed: each is a new vocabulary concept with its own IRI (a change of meaning, ADR-003 D3), `part-of` the original concept, which is kept unchanged as a functional grouping. Candidate and record identifiers are unchanged.
 - **Summary acts.** The strict rule stands (part 5); no summary act returns.
 - **Indexes.** `P14057` (T2-23), `P14188` (T2-31) and `P10785` (T2-25) leave their indexes. The 40 records still under G1-T have 152 members, and 77 acts excluded.
+
+**What revision 4 changes**, under the architect's direction of 2026-11-14 on the supplementary review (`docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md`):
+- **T2-25.** The supplementary review's corrections (its section 3) are applied: the definition is bounded to what the index holds ("the organization and of its units", "projects" and "against its targets" rested only on the excluded summary act `P10741`), and the vocabulary entry revises its record; `P10787` keeps its place on the reading the review gives from its PCF description; `P10786` keeps its place with a CD5 justification. The index and the exclusions do not change. T2-25 is not in the signature record: the direction names the six.
+- **The six** that the supplementary review found PASS (T2-02, T2-04, T2-17, T2-24, T2-31, T2-43) are entered in `docs/catalog/admission/G1T-T2-signature.md`, which now covers 39 classes. Their records do not change.
 
 Revision 2's note, kept: definition corrections (the review's MD-7) were **not** applied in revision 2: they change accepted
 terminology, so they are put to the architect in the recommendation. Each record shows the
@@ -281,7 +285,7 @@ re-read every member and exclusion of revision 1 against the same files.
 
 **Supplementary review** (`docs/catalog/admission/G1T-T2-supplementary-review.md` (SHA-256 `1430f89ba10d29044ba10e5d21388798959bb21852c50391b9dc6f4d9a42b648`)): PASS. Correction applied; every clause has a non-deontic member; `P20931` handles applications and does not decide them. Eligible for the named reviewer's signature; it is not in the signature record of the 33, which the decision limits to Batches A and B.
 
-**For signature:** not yet. Corrected in revision 3 under `docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md`, part 4, and found PASS by the supplementary review; it awaits the architect's direction to enter a signature record. Not admitted automatically.
+**For signature:** corrected in revision 3 under `docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md`, part 4, and found PASS by the supplementary review; entered in `docs/catalog/admission/G1T-T2-signature.md` under `docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md` (revision 4). Not admitted until signed.
 
 **Notes for the reviewer** (from revision 1):
 - The definition's 'set their terms' and 'provide payment cards' sit close to delegated spending authority. The draft keeps the administrative acts and excludes every act that grants, alters or withdraws a holder's standing. The reviewer decides whether question 4 is met.
@@ -386,7 +390,7 @@ re-read every member and exclusion of revision 1 against the same files.
 
 **Supplementary review** (`docs/catalog/admission/G1T-T2-supplementary-review.md` (SHA-256 `1430f89ba10d29044ba10e5d21388798959bb21852c50391b9dc6f4d9a42b648`)): PASS. Correction applied; `P10847` prepares and evaluates the financial justification; the `part-of` link to Capital Planning holds and is not equivalence. Eligible for the named reviewer's signature; it is not in the signature record of the 33, which the decision limits to Batches A and B.
 
-**For signature:** not yet. Corrected in revision 3 under `docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md`, part 4, and found PASS by the supplementary review; it awaits the architect's direction to enter a signature record. Not admitted automatically.
+**For signature:** corrected in revision 3 under `docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md`, part 4, and found PASS by the supplementary review; entered in `docs/catalog/admission/G1T-T2-signature.md` under `docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md` (revision 4). Not admitted until signed.
 
 **Notes for the reviewer** (from revision 1):
 - Excluding the three acts that join planning with approval leaves a one-act index (P10847). The reviewer may accept a thin index, or hold the class until BPO separates planning from approval.
@@ -1016,7 +1020,7 @@ None remains once the summary act is excluded (MD-2), which is one reason the re
 
 **Supplementary review** (`docs/catalog/admission/G1T-T2-supplementary-review.md` (SHA-256 `1430f89ba10d29044ba10e5d21388798959bb21852c50391b9dc6f4d9a42b648`)): PASS. Correction applied; the three Formulation acts are non-deontic on the Formulation reading, which the review extends to them on its own terms. The decision approves that reading by name for T2-07 and T2-42 only, so its extension here is for the signer to confirm. Eligible for the named reviewer's signature; it is not in the signature record of the 33, which the decision limits to Batches A and B.
 
-**For signature:** not yet. Corrected in revision 3 under `docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md`, part 4, and found PASS by the supplementary review; it awaits the architect's direction to enter a signature record. Not admitted automatically.
+**For signature:** corrected in revision 3 under `docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md`, part 4, and found PASS by the supplementary review; entered in `docs/catalog/admission/G1T-T2-signature.md` under `docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md` (revision 4). Not admitted until signed.
 
 **Notes for the reviewer** (from revision 1):
 - Question 4, as for Accounting Policy Management: the draft holds that defining a control or a code of ethics is describable without standing, and that adopting it is separate. The reviewer decides.
@@ -1357,7 +1361,7 @@ None remains once the summary act is excluded (MD-2), which is one reason the re
 
 **Supplementary review** (`docs/catalog/admission/G1T-T2-supplementary-review.md` (SHA-256 `1430f89ba10d29044ba10e5d21388798959bb21852c50391b9dc6f4d9a42b648`)): PASS. Correction applied; the definition is exactly the three analysis acts; no ability to plan, control or reduce spending is claimed. Eligible for the named reviewer's signature; it is not in the signature record of the 33, which the decision limits to Batches A and B.
 
-**For signature:** not yet. Corrected in revision 3 under `docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md`, part 4, and found PASS by the supplementary review; it awaits the architect's direction to enter a signature record. Not admitted automatically.
+**For signature:** corrected in revision 3 under `docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md`, part 4, and found PASS by the supplementary review; entered in `docs/catalog/admission/G1T-T2-signature.md` under `docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md` (revision 4). Not admitted until signed.
 
 | Finding (PASS / FAIL) | Reviewer | Date | Notes |
 |---|---|---|---|
@@ -1368,11 +1372,11 @@ None remains once the summary act is excluded (MD-2), which is one reason the re
 | Field | Value |
 |---|---|
 | Candidate | BCC-cedf0899, catalog key `analysis\|financial performance`; concept `bcoc:FinancialPerformanceAnalysis` (revision 3; narrowed from `bcoc:FinancialPerformanceManagement`, which is retained as a functional grouping) |
-| Definition | A business capability of an organization to assess the profitability and financial performance of the organization and of its units, products, customers and projects against its targets, grounded in the organization's members as organized. (revision 3, as in the vocabulary; checked against CAP-07: no deontic terms) |
-| Prior definition | A business capability of an organization to assess the profitability and financial performance of the organization and of its units, products, customers and projects against its targets, and act on the results, grounded in the organization's members as organized. (revision 2; the concept `bcoc:FinancialPerformanceManagement`'s record `e888f151ffbc72dc72ad6c2574edf94b23c719393771a513c188460d7bc1f5c3`) |
-| Correction (review MD-7) | Remove `bpo:P10741`. Delete "and act on the results". Remove `bpo:P10785` under Q5 (CD5: optimizing the product mix improves the commercial capability, and does not exercise this one), or record a CD5 justification. **Revision 3** (`docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md`): renamed and narrowed; "and act on the results" deleted; `P10785` moved out under Q5 (CD5) |
+| Definition | A business capability of an organization to assess the profitability and financial performance of its products, customers and activities, including the evaluation of new products, life-cycle costing and tracking the performance of its customer and product strategies, grounded in the organization's members as organized. (revision 4, as in the vocabulary; checked against CAP-07: no deontic terms) |
+| Prior definition | A business capability of an organization to assess the profitability and financial performance of the organization and of its units, products, customers and projects against its targets, grounded in the organization's members as organized. (revision 3; the concept `bcoc:FinancialPerformanceAnalysis`'s record `7532dfe391021022d477e6b912fdbfac1bce3b69f664186ebd4ef6442e759beb`). Before it: A business capability of an organization to assess the profitability and financial performance of the organization and of its units, products, customers and projects against its targets, and act on the results, grounded in the organization's members as organized. (revision 2; the concept `bcoc:FinancialPerformanceManagement`'s record `e888f151ffbc72dc72ad6c2574edf94b23c719393771a513c188460d7bc1f5c3`) |
+| Correction (review MD-7) | Remove `bpo:P10741`. Delete "and act on the results". Remove `bpo:P10785` under Q5 (CD5: optimizing the product mix improves the commercial capability, and does not exercise this one), or record a CD5 justification. **Revision 3** (`docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md`): renamed and narrowed; "and act on the results" deleted; `P10785` moved out under Q5 (CD5). **Revision 4** (`docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md`): the supplementary review's corrections (its section 3; correction 1, first wording): the definition names the products, customers and activities whose performance the index assesses, and the evaluation of new products, life-cycle costing and strategy tracking it holds; "the organization and of its units", "projects" and "against its targets", which rested only on `P10741`, are removed. `P10787` and `P10786` are kept, with the reasons below |
 | Proposed classification | `bco:BusinessCapability` (CM-01), under `obo:BFO_0000016` (disposition) on a PASS; foundational ancestor `cco:ont00000568` (Organization Capability), as the vocabulary records; bearer `cco:ont00001180` (Organization) |
-| Grounding | **Basis:** the financial-analysis members who assess profitability and performance, as organized. **Enabling, not basis:** the management-reporting and analytics tools. **Arrangements:** the assessment is of the organization and its units, against its own targets |
+| Grounding | **Basis:** the financial-analysis members who assess profitability and performance, as organized. **Enabling, not basis:** the management-reporting and analytics tools. **Arrangements:** the assessment is of the organization's own products, customers and activities |
 | Worked cases | Family F3, policy, design and planning (section 2) |
 
 **Realization index** (5):
@@ -1405,19 +1409,19 @@ None remains once the summary act is excluded (MD-2), which is one reason the re
 
 | # | Question (§8) | Draft answer |
 |---|---|---|
-| 1 | Bearer kind: an Organization? | **Yes**. The work is the organization's: the assessment is of the organization and its units, against its own targets |
+| 1 | Bearer kind: an Organization? | **Yes**. The work is the organization's: the assessment is of the organization's own products, customers and activities |
 | 2 | Basis kind: member agents as organized, no artifact counted? | **Yes**. The financial-analysis members who assess profitability and performance, as organized. The management-reporting and analytics tools enable the work and are not its basis. For the type, an alternative such as spreadsheet or paper planning is feasible at least at small scale, so no artifact is constitutive of it. That is not claimed for every organization: where an irreversible loss leaves no feasible alternative, CD2 sends the question back here |
-| 3 | Through the organization's arrangements? | **Yes**. Realizations are acts performed on the organization's behalf through its arrangements: the assessment is of the organization and its units, against its own targets. The arrangements may consist of a single member (b1) |
+| 3 | Through the organization's arrangements? | **Yes**. Realizations are acts performed on the organization's behalf through its arrangements: the assessment is of the organization's own products, customers and activities. The arrangements may consist of a single member (b1) |
 | 4 | Non-deontic index? | **Yes**, on the index as drawn. No member grants, alters or withdraws standing or authorization |
-| 5 | Exercise, not development (CD5)? | **Yes**, on the index as drawn; excluded: `P10741`, `P10785` |
+| 5 | Exercise, not development (CD5)? | **Yes**, on the index as drawn; excluded: `P10741`, `P10785`. `P10786` is kept (revision 4): it is identified by its name, tracking the performance of the strategies, which exercises this capability; the preparation of strategies to improve sales and profits in its PCF description is not taken into the definition, and the index makes no exhaustiveness claim (CD4). `P10787` is kept: it evaluates performance by measures management has set, and does not set them |
 
-**Remaining acts reviewed against the narrower definition** (revision 3): `P10782` assesses customer and product profitability (appraisal); `P10783` evaluates new products financially (appraisal); `P10784` performs life-cycle costing (analysis); `P10786` tracks the performance of new-customer and product strategies (monitoring); `P10787` prepares activity-based performance measures (analysis: constructing the measures performance is assessed by). All five are kept; `P10787` is the one the supplementary review should test hardest.
+**Remaining acts reviewed against the narrower definition** (revision 3): `P10782` assesses customer and product profitability (appraisal); `P10783` evaluates new products financially (appraisal); `P10784` performs life-cycle costing (analysis); `P10786` tracks the performance of new-customer and product strategies (monitoring; revision 4: kept under CD5, on its name, since the strategy preparation its PCF description adds is not taken into the definition and the index makes no exhaustiveness claim, CD4; the signer may instead exclude it under Q5, as `P10785` was); `P10787` prepares activity-based performance measures (analysis; revision 4: it evaluates performance by activity-based measures management has set, and does not set them, on its PCF description, "Evaluating performance based on different sets of activities created by management to measure performance"; if the signer reads it as setting the measures, it is excluded under Q5, as `P14188` is). All five are kept.
 
 **Independent review:** PENDING REVIEW. "And act on the results" is unbounded. `P10785` (optimize the product mix) improves another capability rather than exercising this one (CD5).
 
-**Supplementary review** (`docs/catalog/admission/G1T-T2-supplementary-review.md` (SHA-256 `1430f89ba10d29044ba10e5d21388798959bb21852c50391b9dc6f4d9a42b648`)): PENDING REVIEW. "projects" and "against its targets" rest only on the excluded summary act `P10741`; `P10787`'s keep-reason argues for exclusion, and `P10786`'s CD5 question is not addressed. Escalated to the architect (review section 4); not corrected here, since the decision allows one supplementary review. Stays PENDING REVIEW; not admitted.
+**Supplementary review** (`docs/catalog/admission/G1T-T2-supplementary-review.md` (SHA-256 `1430f89ba10d29044ba10e5d21388798959bb21852c50391b9dc6f4d9a42b648`)): PENDING REVIEW. "projects" and "against its targets" rest only on the excluded summary act `P10741`; `P10787`'s keep-reason argues for exclusion, and `P10786`'s CD5 question is not addressed. Escalated to the architect (review section 4). **Revision 4** applies the corrections of the review's section 3 under `docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md`; the review states "With these applied, PASS". No further review was run (decision of 2026-11-14, part 7). Not admitted.
 
-**For signature:** not yet. PENDING REVIEW: corrected in revision 3 under `docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md`, part 4, for the supplementary G1-T review (`docs/catalog/admission/G1T-T2-supplementary-review.md`). Not admitted automatically.
+**For signature:** not yet. Corrected in revision 4 to the supplementary review's required corrections. Not in `docs/catalog/admission/G1T-T2-signature.md`: the direction of 2026-11-14 (`docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md`) adds the six only, and T2-25 awaits the architect's direction. Not admitted.
 
 **Notes for the reviewer** (from revision 1):
 - P10783 (evaluating new products) is in this index, where the review placed it. The same record is a homonym for Trade Product Classification and is excluded there.
@@ -1728,7 +1732,7 @@ None remains once the summary act is excluded (MD-2), which is one reason the re
 
 **Supplementary review** (`docs/catalog/admission/G1T-T2-supplementary-review.md` (SHA-256 `1430f89ba10d29044ba10e5d21388798959bb21852c50391b9dc6f4d9a42b648`)): PASS. Correction applied; `P14187` evaluates whether credit should be extended without deciding it; no clause grants, alters or withdraws standing. Eligible for the named reviewer's signature; it is not in the signature record of the 33, which the decision limits to Batches A and B.
 
-**For signature:** not yet. Corrected in revision 3 under `docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md`, part 4, and found PASS by the supplementary review; it awaits the architect's direction to enter a signature record. Not admitted automatically.
+**For signature:** corrected in revision 3 under `docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md`, part 4, and found PASS by the supplementary review; entered in `docs/catalog/admission/G1T-T2-signature.md` under `docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md` (revision 4). Not admitted until signed.
 
 **Notes for the reviewer** (from revision 1):
 - The definition's 'set and review the credit it extends' names a limit, an amount the organization decides, and the draft reads that as describable without standing. Granting and withdrawing a customer's standing are excluded. The reviewer decides question 4.
@@ -2357,7 +2361,7 @@ None remains once the summary act is excluded (MD-2), which is one reason the re
 
 **Supplementary review** (`docs/catalog/admission/G1T-T2-supplementary-review.md` (SHA-256 `1430f89ba10d29044ba10e5d21388798959bb21852c50391b9dc6f4d9a42b648`)): PASS. Correction applied; `P10918` monitors control effectiveness; no claim to operate controls remains. Eligible for the named reviewer's signature; it is not in the signature record of the 33, which the decision limits to Batches A and B.
 
-**For signature:** not yet. Corrected in revision 3 under `docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md`, part 4, and found PASS by the supplementary review; it awaits the architect's direction to enter a signature record. Not admitted automatically.
+**For signature:** corrected in revision 3 under `docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md`, part 4, and found PASS by the supplementary review; entered in `docs/catalog/admission/G1T-T2-signature.md` under `docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md` (revision 4). Not admitted until signed.
 
 | Finding (PASS / FAIL) | Reviewer | Date | Notes |
 |---|---|---|---|

@@ -802,12 +802,14 @@ def test_the_real_claims_and_records_are_selected(layout):
     records = current | set(graph.subjects(digest, None))
     revising = set(graph.subjects(rdflib.URIRef(prov + "wasRevisionOf"),
                                   None))
-    # 83 current records; 35 prior: 9 + 5 of the P5 pilot, 5 of R6, the
-    # Treasury Management record tranche 2 revised, and the 15 tranche-2 records
-    # the G1-T batch decision of 2026-11-14 revised. 35 records revise another:
-    # the 14 pilot-era current records, the 5 R6 catalog records, that one and
-    # the 15. The 5 narrowed types of 2026-11-14 are new records, revising none.
-    assert (len(current), len(records), len(revising)) == (83, 118, 35), (
+    # 83 current records; 36 prior: 9 + 5 of the P5 pilot, 5 of R6, the
+    # Treasury Management record tranche 2 revised, the 15 tranche-2 records
+    # the G1-T batch decision of 2026-11-14 revised, and the first record of
+    # Financial Performance Analysis, revised on the supplementary review. 36
+    # records revise another: the 14 pilot-era current records, the 5 R6 catalog
+    # records, that one, the 15 and Financial Performance Analysis. The other 4
+    # narrowed types of 2026-11-14 are new records, revising none.
+    assert (len(current), len(records), len(revising)) == (83, 119, 36), (
         len(current), len(records), len(revising))
     stripped = real_vocabulary(layout)
     stripped.remove((None, digest, None))
