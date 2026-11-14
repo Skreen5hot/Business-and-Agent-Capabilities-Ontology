@@ -2,7 +2,7 @@
 
 | Field | Value |
 |---|---|
-| Status | **For the architect's batch decision** (`docs/decisions/2026-11-07-stage-03-ratified-g1t-review-authorized.md`, B and E). One decision, not 43 approvals. Admits nothing: a class is admitted only by a signed PASS in its confirmation row |
+| Status | **Decided 2026-11-14** (`docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md`), as recommended, with the seven's corrections specified by the architect; applied in revision 3 of the batch. Below, as put to the architect: **For the architect's batch decision** (`docs/decisions/2026-11-07-stage-03-ratified-g1t-review-authorized.md`, B and E). One decision, not 43 approvals. Admits nothing: a class is admitted only by a signed PASS in its confirmation row |
 | Date | 2026-11-07 |
 | Records | `docs/catalog/admission/G1T-T2-batch.md`, revision 2 (the 43 records); `docs/catalog/admission/G1T-T2-review-2026-11-07.md` (the independent review, filed as received, SHA-256 `7c7efb831cf6a5276fe6e173cea34f4a3f40af7f4d5adae3e8e881c175671e08`) |
 | Drafting | Claude Code (`claude-opus-5-5`), Ontologist (drafting) |

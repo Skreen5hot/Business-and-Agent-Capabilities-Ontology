@@ -1,7 +1,8 @@
 # Stage 01 — Controlled Vocabulary
 
-**Status:** in place, under ADR-003. 78 concepts (9 metamodel, 69 catalog: the 5 P5 pilots
-and 64 from tranche 2, `docs/decisions/2026-11-07-curation-tranche-2-approved.md`), all **Draft**;
+**Status:** in place, under ADR-003. 83 concepts (9 metamodel, 74 catalog: the 5 P5 pilots,
+64 from tranche 2, `docs/decisions/2026-11-07-curation-tranche-2-approved.md`, and 5 narrowed
+types from the G1-T batch decision, `docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md`), all **Draft**;
 none ratified.
 
 | Path | What it is |

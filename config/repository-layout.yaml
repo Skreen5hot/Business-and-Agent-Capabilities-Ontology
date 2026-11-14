@@ -681,7 +681,12 @@ components:
       G1T-T2-review-2026-11-07.md is that independent AI-authored review,
       filed verbatim as received; it is not a signature.
       G1T-T2-recommendation.md consolidates it into one batch admission
-      recommendation for the architect. Nothing here asserts OWL.
+      recommendation for the architect, decided on 2026-11-14; the batch's
+      revision 3 applies that decision. G1T-T2-supplementary-review.md is the
+      one supplementary AI-authored review of the seven corrected records,
+      filed as received; it is not a signature. G1T-T2-signature.md is the
+      consolidated signature record for the 33 approved classes, prepared
+      unsigned for the named reviewer. Nothing here asserts OWL.
 
   - id: catalog.dispositions
     path: docs/catalog/dispositions.yaml
