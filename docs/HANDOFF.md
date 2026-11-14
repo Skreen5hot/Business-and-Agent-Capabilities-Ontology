@@ -101,7 +101,16 @@ G1-T batch review (`docs/catalog/admission/G1T-T2-batch.md`, unsigned); the 13 Q
 (`docs/catalog/tranche-2-q12.md`). The architect then ratified the Stage 03 standard with two clarifications
 (`docs/decisions/2026-11-07-stage-03-ratified-g1t-review-authorized.md`), published as `docs/standards/stage-03-taxonomy.md`;
 its gate validated tranche 2's taxonomy (60 `broader` links written, 15 `kind-of` proposals, 10 links
-unresolved) and authorized an independent G1-T review of the 43, with admission still pending.
+unresolved) and authorized an independent G1-T review of the 43, with admission still pending. That review found
+33 PASS, 10 pending and 0 FAIL, and the records needed correcting (worked cases, summary acts); revision 2 of
+the batch applies the corrections, and `docs/catalog/admission/G1T-T2-recommendation.md` puts one batch
+admission decision to the architect. The architect decided it on 2026-11-14
+(`docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md`): Batch A (17) and Batch B (16, with their
+definition corrections) approved for admission on the signature of Aaron Damiano, the named reviewer,
+prepared in `docs/catalog/admission/G1T-T2-signature.md`; three capability areas withdrawn; seven corrected
+records sent to one supplementary review (`docs/catalog/admission/G1T-T2-supplementary-review.md`), five of
+them narrowed into new concepts `part-of` the groupings they came from. Revision 3 of the batch applies it.
+Nothing is admitted until the signature is recorded.
 
 R5 records further blockers: material basis policy, maturity-value encoding, instance
 evidence, and migration of BPO existential restrictions. R6 (section 5.13) adds wording

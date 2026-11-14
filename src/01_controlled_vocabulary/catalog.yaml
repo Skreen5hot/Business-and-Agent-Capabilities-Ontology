@@ -5,6 +5,9 @@
 # concepts normalized from PCF 9.0's candidates, after the pilots; its review
 # record is docs/catalog/tranche-2-review.yaml, and its links are validated under the
 # Stage 03 standard (docs/standards/stage-03-taxonomy.md, ratified 2026-11-07).
+# The G1-T batch decision of 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md) revises 15 of them
+# and adds 5 narrowed types, each part-of the concept it was narrowed from, which
+# is kept as a functional grouping.
 #
 # P5 holds the 5 pilot capabilities the specification's worked examples
 # and migration table name, all Draft. Their definitions were revised on
@@ -400,9 +403,9 @@ concepts:
     pref_label:
       - {value: "Cash Management", language: en}
     definition: >-
-      A business capability of an organization to track its cash positions across
-      its accounts and move cash among them, so that it is positioned where it is
-      used, grounded in the organization's members as organized.
+      A business capability of an organization to track its cash positions across its
+      accounts and move cash among them, to position it where it is used, grounded in the
+      organization's members as organized.
     genus: bco:BusinessCapability
     foundational_ancestor: cco:ont00000568
     broader: [bcoc:TreasuryManagement]
@@ -424,6 +427,15 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-11-07T18:00:00Z"
     authored_status: Draft
+    revises: cc7fd93b2e0270c694689188f4904cc035dfbb2f5010ab54d718db87d51ad58b
+    change_note:
+      - >-
+        2026-11-14, G1-T tranche 2
+        (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md;
+        docs/catalog/admission/G1T-T2-batch.md, revision 3, T2-35): the MD-7 definition
+        correction approved (part 2, Batch B). "so that it is positioned" (a success
+        condition) becomes a purpose. Same IRI: the change narrows the wording to what the
+        realization index holds, an editorial revision as in R6 and R7.
 
   - id: bcoc:BankingRelationshipManagement
     pref_label:
@@ -739,9 +751,9 @@ concepts:
     alt_label:
       - {value: "Exposure Risk Management", language: en}
     definition: >-
-      A business capability of an organization to measure the credit exposure it
-      has to its customers and other counterparties, keep it within limits, secure
-      it with collateral, and review it periodically, grounded in the
+      A business capability of an organization to measure the credit exposure it has to
+      its customers and other counterparties, resolve breaches of the limits set on it,
+      manage the collateral held against it, and review it periodically, grounded in the
       organization's members as organized.
     genus: bco:BusinessCapability
     foundational_ancestor: cco:ont00000568
@@ -764,6 +776,16 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-11-07T18:00:00Z"
     authored_status: Draft
+    revises: b81c83909c4540c8916b6e02e1085aad76ba876528583d40cab90dd2f3233d22
+    change_note:
+      - >-
+        2026-11-14, G1-T tranche 2
+        (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md;
+        docs/catalog/admission/G1T-T2-batch.md, revision 3, T2-38): the MD-7 definition
+        correction approved (part 2, Batch B). Definition reworded as proposed: taking
+        security is contractual, and the index member manages collateral already held.
+        Same IRI: the change narrows the wording to what the realization index holds, an
+        editorial revision as in R6 and R7.
 
   - id: bcoc:ForeignExchangeRiskManagement
     pref_label:
@@ -808,10 +830,9 @@ concepts:
     pref_label:
       - {value: "Hedging Transaction Execution", language: en}
     definition: >-
-      A business capability of an organization to enter into, carry out and later
-      adjust the derivative and other transactions that offset the financial
-      exposures it has decided to hedge, grounded in the organization's members as
-      organized.
+      A business capability of an organization to measure the positions to be hedged,
+      select and establish hedges, and evaluate, refine and unwind them, grounded in the
+      organization's members as organized.
     genus: bco:BusinessCapability
     foundational_ancestor: cco:ont00000568
     broader: [bcoc:FinancialRiskManagement]
@@ -833,6 +854,16 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-11-07T18:00:00Z"
     authored_status: Draft
+    revises: 8d0150daec3fbcfadd89848b6d9c62f329f7ff77dde1e94b925def26be4d219a
+    change_note:
+      - >-
+        2026-11-14, G1-T tranche 2
+        (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md;
+        docs/catalog/admission/G1T-T2-batch.md, revision 3, T2-40): the MD-7 definition
+        correction approved (part 2, Batch B). Definition reworded as proposed; the only
+        execution act, `P20137`, is capability-typed and stays excluded. Same IRI: the
+        change narrows the wording to what the realization index holds, an editorial
+        revision as in R6 and R7.
 
   - id: bcoc:InterestRateRiskManagement
     pref_label:
@@ -869,9 +900,9 @@ concepts:
     alt_label:
       - {value: "Treasury Policies and Procedures Management", language: en}
     definition: >-
-      A business capability of an organization to set, publish and keep current
-      the rules and procedures under which its treasury invests, borrows, hedges
-      and handles cash, grounded in the organization's members as organized.
+      A business capability of an organization to formulate, publish and keep current the
+      rules and procedures under which its treasury invests, borrows, hedges and handles
+      cash, grounded in the organization's members as organized.
     genus: bco:BusinessCapability
     foundational_ancestor: cco:ont00000568
     broader: [bcoc:TreasuryManagement]
@@ -893,6 +924,16 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-11-07T18:00:00Z"
     authored_status: Draft
+    revises: a76bec6e331ec3159074c54b5db60390b741f20bc6edbf4778aa9eb773109483
+    change_note:
+      - >-
+        2026-11-14, G1-T tranche 2
+        (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md;
+        docs/catalog/admission/G1T-T2-batch.md, revision 3, T2-42): the MD-7 definition
+        correction approved (part 2, Batch B). "set" becomes "formulate"; `P10885` carries
+        both codes (MD-5); the Formulation reading recorded at question 4. Same IRI: the
+        change narrows the wording to what the realization index holds, an editorial
+        revision as in R6 and R7.
 
   - id: bcoc:InternationalFundsManagement
     pref_label:
@@ -1071,6 +1112,49 @@ concepts:
     created: "2026-11-07T18:00:00Z"
     authored_status: Draft
 
+  - id: bcoc:CostDriverAndCriticalActivityAnalysis
+    pref_label:
+      - {value: "Cost Driver and Critical Activity Analysis", language: en}
+    definition: >-
+      A business capability of an organization to identify and measure the drivers of its
+      costs and identify its critical activities, grounded in the organization's members
+      as organized.
+    genus: bco:BusinessCapability
+    foundational_ancestor: cco:ont00000568
+    broader: [bcoc:CostManagement]
+    catalog_candidates: [BCC-b47b8fed]
+    sources:
+      - source: SRC-IND-01
+        locator: >-
+          PCF 7.4 elements 10778, 10779 and 10780 (hierarchy 9.1.3.1, 9.1.3.2 and
+          9.1.3.3), the realization index of G1-T record T2-24, as harvested in
+          docs/sources/inventory/pcf-7.4-entries.yaml (INV-PCF74-10778, INV-PCF74-10779,
+          INV-PCF74-10780); catalog candidate BCC-b47b8fed
+        relation: consistent-with
+        support: definitional
+      - source: SRC-FO-01
+        locator: >-
+          CCO v2.0 merged file at commit 510dad7 and develop versionIRI
+          2026-08-13: Organization Capability (ont00000568) definition
+        relation: consistent-with
+        support: contextual
+    drafted_by: bcoa:claude-opus-5-5
+    created: "2026-11-14T12:00:00Z"
+    authored_status: Draft
+    change_note:
+      - >-
+        2026-11-14, G1-T tranche 2
+        (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, part 4;
+        docs/catalog/admission/G1T-T2-batch.md, revision 3, T2-24): narrowed from
+        bcoc:CostManagement and renamed. A change of meaning, so a new IRI (ADR-003 D3).
+        bcoc:CostManagement is kept unchanged as a functional grouping, not replaced, and
+        this concept is part-of it: identifying and measuring cost drivers and critical
+        activities is part of the analysis on which managing costs draws; Cost Management
+        is retained as a functional grouping, and no ability to plan, control or reduce
+        spending is inferred from the analysis. The prior definition is
+        bcoc:CostManagement's record
+        6819bb4df5c99a0fb3d7f18ab6b3134c15874d21b70797594a621eee9103c6f0.
+
   - id: bcoc:FinancialPerformanceManagement
     pref_label:
       - {value: "Financial Performance Management", language: en}
@@ -1102,6 +1186,50 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-11-07T18:00:00Z"
     authored_status: Draft
+
+  - id: bcoc:FinancialPerformanceAnalysis
+    pref_label:
+      - {value: "Financial Performance Analysis", language: en}
+    definition: >-
+      A business capability of an organization to assess the profitability and financial
+      performance of the organization and of its units, products, customers and projects
+      against its targets, grounded in the organization's members as organized.
+    genus: bco:BusinessCapability
+    foundational_ancestor: cco:ont00000568
+    broader: [bcoc:FinancialPerformanceManagement]
+    catalog_candidates: [BCC-cedf0899]
+    sources:
+      - source: SRC-IND-01
+        locator: >-
+          PCF 7.4 elements 10782, 10783, 10784, 10786 and 10787 (hierarchy 9.1.4.1,
+          9.1.4.2, 9.1.4.3, 9.1.4.5 and 9.1.4.6), the realization index of G1-T record
+          T2-25, as harvested in docs/sources/inventory/pcf-7.4-entries.yaml
+          (INV-PCF74-10782, INV-PCF74-10783, INV-PCF74-10784, INV-PCF74-10786,
+          INV-PCF74-10787); catalog candidate BCC-cedf0899
+        relation: consistent-with
+        support: definitional
+      - source: SRC-FO-01
+        locator: >-
+          CCO v2.0 merged file at commit 510dad7 and develop versionIRI
+          2026-08-13: Organization Capability (ont00000568) definition
+        relation: consistent-with
+        support: contextual
+    drafted_by: bcoa:claude-opus-5-5
+    created: "2026-11-14T12:00:00Z"
+    authored_status: Draft
+    change_note:
+      - >-
+        2026-11-14, G1-T tranche 2
+        (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, part 4;
+        docs/catalog/admission/G1T-T2-batch.md, revision 3, T2-25): narrowed from
+        bcoc:FinancialPerformanceManagement and renamed. A change of meaning, so a new IRI
+        (ADR-003 D3). bcoc:FinancialPerformanceManagement is kept unchanged as a
+        functional grouping, not replaced, and this concept is part-of it: assessing
+        profitability and financial performance is the analysis part of managing financial
+        performance; Financial Performance Management is retained as a functional
+        grouping, and acting on the results is not part of the narrowed type. The prior
+        definition is bcoc:FinancialPerformanceManagement's record
+        e888f151ffbc72dc72ad6c2574edf94b23c719393771a513c188460d7bc1f5c3.
 
   - id: bcoc:ContinuousCostImprovement
     pref_label:
@@ -1138,10 +1266,9 @@ concepts:
     alt_label:
       - {value: "Budgeting and Forecasting", language: en}
     definition: >-
-      A business capability of an organization to set its financial goals for
-      future periods, allocate resources to its parts and periods through budgets,
-      and forecast its financial results and position as conditions change,
-      grounded in the organization's members as organized.
+      A business capability of an organization to prepare budgets and plans for its parts
+      and future periods, forecast its financial results and position, and analyze actual
+      results against them, grounded in the organization's members as organized.
     genus: bco:BusinessCapability
     foundational_ancestor: cco:ont00000568
     broader: [bcoc:FinancialPlanningAndManagementAccounting]
@@ -1163,6 +1290,16 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-11-07T18:00:00Z"
     authored_status: Draft
+    revises: e0a97e6d54331a46a3808b6bc3afd7fce9b9773421efa185653149f16d40bd79
+    change_note:
+      - >-
+        2026-11-14, G1-T tranche 2
+        (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md;
+        docs/catalog/admission/G1T-T2-batch.md, revision 3, T2-26): the MD-7 definition
+        correction approved (part 2, Batch B). `P10738` was already excluded as SUMMARY in
+        revision 2. "Set its financial goals" (the excluded `P10771`) and "allocate
+        resources" (approval) are gone. Same IRI: the change narrows the wording to what
+        the realization index holds, an editorial revision as in R6 and R7.
 
   - id: bcoc:RevenueAndReceivablesManagement
     pref_label:
@@ -1317,10 +1454,9 @@ concepts:
     alt_label:
       - {value: "Customer Credit Processing", language: en}
     definition: >-
-      A business capability of an organization to evaluate requests from customers
-      to buy on credit, set and review the credit it extends to each, and monitor
-      how that credit is used, grounded in the organization's members as
-      organized.
+      A business capability of an organization to evaluate requests from customers to buy
+      on credit, analyze the credit evidence on those customers, review their accounts and
+      monitor their credit activity, grounded in the organization's members as organized.
     genus: bco:BusinessCapability
     foundational_ancestor: cco:ont00000568
     broader: [bcoc:RevenueAndReceivablesManagement]
@@ -1342,14 +1478,24 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-11-07T18:00:00Z"
     authored_status: Draft
+    revises: 5e73d7f9783ab43109019267e3b8b280fcde823631ae0534e2989c20314f0bd3
+    change_note:
+      - >-
+        2026-11-14, G1-T tranche 2
+        (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md;
+        docs/catalog/admission/G1T-T2-batch.md, revision 3, T2-31): the correction
+        directed in part 4, pending the supplementary G1-T review. Definition reworded to
+        evaluation, analysis, account review and monitoring; `P10742` stays excluded
+        (SUMMARY); `P14188` moved out under Q5. Same IRI: the change narrows the wording
+        to what the realization index holds, an editorial revision as in R6 and R7.
 
   - id: bcoc:CustomerInvoicing
     pref_label:
       - {value: "Customer Invoicing", language: en}
     definition: >-
-      A business capability of an organization to prepare and send its customers
-      accurate invoices for what it has sold them, and correct those invoices when
-      needed, grounded in the organization's members as organized.
+      A business capability of an organization to prepare and send its customers invoices
+      for what it has sold them, and correct those invoices when needed, grounded in the
+      organization's members as organized.
     genus: bco:BusinessCapability
     foundational_ancestor: cco:ont00000568
     broader: [bcoc:RevenueAndReceivablesManagement]
@@ -1371,6 +1517,16 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-11-07T18:00:00Z"
     authored_status: Draft
+    revises: 9f549c0085afe1da676f3305cafe920f7a26f0e67b448a559cd6b00e424f1b1b
+    change_note:
+      - >-
+        2026-11-14, G1-T tranche 2
+        (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md;
+        docs/catalog/admission/G1T-T2-batch.md, revision 3, T2-32): the MD-7 definition
+        correction approved (part 2, Batch B). "accurate", a success condition, deleted.
+        `P10743` was already excluded as SUMMARY in revision 2. Same IRI: the change
+        narrows the wording to what the realization index holds, an editorial revision as
+        in R6 and R7.
 
   - id: bcoc:FinancialAccounting
     pref_label:
@@ -1409,9 +1565,9 @@ concepts:
     alt_label:
       - {value: "Financial Policies and Procedures Management", language: en}
     definition: >-
-      A business capability of an organization to set, publish and maintain the
-      accounting and financial-reporting policies and procedures its members
-      follow, grounded in the organization's members as organized.
+      A business capability of an organization to formulate, publish and revise the
+      accounting and financial-reporting policies and procedures its members follow,
+      grounded in the organization's members as organized.
     genus: bco:BusinessCapability
     foundational_ancestor: cco:ont00000568
     broader: [bcoc:FinancialAccounting]
@@ -1433,6 +1589,16 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-11-07T18:00:00Z"
     authored_status: Draft
+    revises: 622d9748b04b30fd61775cf341ced3e151baef61f2824e99e342464605349f1f
+    change_note:
+      - >-
+        2026-11-14, G1-T tranche 2
+        (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md;
+        docs/catalog/admission/G1T-T2-batch.md, revision 3, T2-07): the MD-7 definition
+        correction approved (part 2, Batch B). Definition reworded as proposed; the
+        Formulation reading recorded at question 4. Same IRI: the change narrows the
+        wording to what the realization index holds, an editorial revision as in R6 and
+        R7.
 
   - id: bcoc:FinancialReporting
     pref_label:
@@ -1608,6 +1774,47 @@ concepts:
     created: "2026-11-07T18:00:00Z"
     authored_status: Draft
 
+  - id: bcoc:CapitalInvestmentAppraisal
+    pref_label:
+      - {value: "Capital Investment Appraisal", language: en}
+    definition: >-
+      A business capability of an organization to prepare and evaluate the financial
+      justification for its proposed capital investments, grounded in the organization's
+      members as organized.
+    genus: bco:BusinessCapability
+    foundational_ancestor: cco:ont00000568
+    broader: [bcoc:CapitalPlanning]
+    catalog_candidates: [BCC-15e92684]
+    sources:
+      - source: SRC-IND-01
+        locator: >-
+          PCF 7.4 element 10847 (hierarchy 9.4.1.4), the realization index of G1-T record
+          T2-04, as harvested in docs/sources/inventory/pcf-7.4-entries.yaml
+          (INV-PCF74-10847); catalog candidate BCC-15e92684
+        relation: consistent-with
+        support: definitional
+      - source: SRC-FO-01
+        locator: >-
+          CCO v2.0 merged file at commit 510dad7 and develop versionIRI
+          2026-08-13: Organization Capability (ont00000568) definition
+        relation: consistent-with
+        support: contextual
+    drafted_by: bcoa:claude-opus-5-5
+    created: "2026-11-14T12:00:00Z"
+    authored_status: Draft
+    change_note:
+      - >-
+        2026-11-14, G1-T tranche 2
+        (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, part 4;
+        docs/catalog/admission/G1T-T2-batch.md, revision 3, T2-04): narrowed from
+        bcoc:CapitalPlanning and renamed. A change of meaning, so a new IRI (ADR-003 D3).
+        bcoc:CapitalPlanning is kept unchanged as a functional grouping, not replaced, and
+        this concept is part-of it: preparing and evaluating the financial justification
+        for proposed investments is part of the broader's evaluation of them; Capital
+        Planning is retained as a functional grouping, and the narrowed type is not
+        equivalent to it. The prior definition is bcoc:CapitalPlanning's record
+        52854edecea3c74b11e5cc349af5d52f3c3b15044d6bca38d3680929c6e1e3bb.
+
   - id: bcoc:CapitalProjectAccounting
     pref_label:
       - {value: "Capital Project Accounting", language: en}
@@ -1750,10 +1957,10 @@ concepts:
     alt_label:
       - {value: "Corporate Credit Card Management", language: en}
     definition: >-
-      A business capability of an organization to provide payment cards to its
-      members for business spending, set their terms, reconcile what is spent with
-      them and settle the card accounts, grounded in the organization's members as
-      organized.
+      A business capability of an organization to administer the payment cards its members
+      use for business spending, by processing requests for cards, ordering them from the
+      issuer and managing the card accounts, including reconciling what is spent on them
+      and settling them, grounded in the organization's members as organized.
     genus: bco:BusinessCapability
     foundational_ancestor: cco:ont00000568
     broader: [bcoc:PayablesAndReimbursementManagement]
@@ -1775,15 +1982,24 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-11-07T18:00:00Z"
     authored_status: Draft
+    revises: a148bf923a22250f216da2fa2cc20e935874c96f8e87991aacddbdcfdaf1b255
+    change_note:
+      - >-
+        2026-11-14, G1-T tranche 2
+        (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md;
+        docs/catalog/admission/G1T-T2-batch.md, revision 3, T2-02): the correction
+        directed in part 4, pending the supplementary G1-T review. "set their terms"
+        deleted; the definition now names only the card-administration, reconciliation and
+        settlement work the index holds. Same IRI: the change narrows the wording to what
+        the realization index holds, an editorial revision as in R6 and R7.
 
   - id: bcoc:ExpenseReimbursementProcessing
     pref_label:
       - {value: "Expense Reimbursement Processing", language: en}
     definition: >-
-      A business capability of an organization to check the expenses its members
-      claim for work done on its behalf against its rules and their receipts, and
-      repay those that qualify, grounded in the organization's members as
-      organized.
+      A business capability of an organization to repay the expenses its members claim for
+      work done on its behalf, once accepted, and account and report for them, grounded in
+      the organization's members as organized.
     genus: bco:BusinessCapability
     foundational_ancestor: cco:ont00000568
     broader: [bcoc:PayablesAndReimbursementManagement]
@@ -1805,6 +2021,16 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-11-07T18:00:00Z"
     authored_status: Draft
+    revises: 1e02ffd51890e57d30054567c3e44c41cf93666aa7f641f646c4248d80614366
+    change_note:
+      - >-
+        2026-11-14, G1-T tranche 2
+        (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md;
+        docs/catalog/admission/G1T-T2-batch.md, revision 3, T2-03): the MD-7 definition
+        correction approved (part 2, Batch B). `P10757` was already excluded as SUMMARY in
+        revision 2; the definition and grounding are reworded as proposed. Same IRI: the
+        change narrows the wording to what the realization index holds, an editorial
+        revision as in R6 and R7.
 
   - id: bcoc:PayrollProcessing
     pref_label:
@@ -1872,9 +2098,9 @@ concepts:
     alt_label:
       - {value: "Compensation Payment Management", language: en}
     definition: >-
-      A business capability of an organization to determine the gross pay each
-      employee is owed for a period, bonuses and other compensation included, and
-      carry it through to payment, grounded in the organization's members as
+      A business capability of an organization to determine the pay each employee is owed
+      for a period, gross and after deductions, bonuses and other compensation included,
+      and carry it through to payment, grounded in the organization's members as
       organized.
     genus: bco:BusinessCapability
     foundational_ancestor: cco:ont00000568
@@ -1897,6 +2123,16 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-11-07T18:00:00Z"
     authored_status: Draft
+    revises: 4b4fe8ab5297da7a7513cb5379fc1342521646b26197ea56d93a1acceed1526c
+    change_note:
+      - >-
+        2026-11-14, G1-T tranche 2
+        (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md;
+        docs/catalog/admission/G1T-T2-batch.md, revision 3, T2-20): the MD-7 definition
+        correction approved (part 2, Batch B). Definition reworded as proposed. `P10754`
+        stays excluded: the strict summary-act rule stands (decision of 2026-11-14, part
+        5). Same IRI: the change narrows the wording to what the realization index holds,
+        an editorial revision as in R6 and R7.
 
   - id: bcoc:PayrollTaxProcessing
     pref_label:
@@ -1904,9 +2140,8 @@ concepts:
     alt_label:
       - {value: "Payroll Tax Management", language: en}
     definition: >-
-      A business capability of an organization to calculate, withhold, remit and
-      report the taxes due on its employees' pay, and reconcile what it remitted
-      with what was due, grounded in the organization's members as organized.
+      A business capability of an organization to calculate, remit and report the taxes
+      due on its employees' pay, grounded in the organization's members as organized.
     genus: bco:BusinessCapability
     foundational_ancestor: cco:ont00000568
     broader: [bcoc:PayrollProcessing, bcoc:TaxManagement]
@@ -1928,6 +2163,17 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-11-07T18:00:00Z"
     authored_status: Draft
+    revises: 2c668d7b53ecf8d623c0cbc4595a6984baa1afd0931ba8f250ba3a1f97b59247
+    change_note:
+      - >-
+        2026-11-14, G1-T tranche 2
+        (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md;
+        docs/catalog/admission/G1T-T2-batch.md, revision 3, T2-21): the MD-7 definition
+        correction approved (part 2, Batch B). `P10755` was already excluded as SUMMARY in
+        revision 2. "Withhold" and "and reconcile what it remitted with what was due" are
+        deleted; withholding is Pay Management's `P10860`. Same IRI: the change narrows
+        the wording to what the realization index holds, an editorial revision as in R6
+        and R7.
 
   - id: bcoc:TimeReporting
     pref_label:
@@ -2008,9 +2254,9 @@ concepts:
     alt_label:
       - {value: "Tax Strategy Development", language: en}
     definition: >-
-      A business capability of an organization to forecast its tax liabilities,
-      assess the tax effects of what it intends to do, and set its tax strategy
-      accordingly, grounded in the organization's members as organized.
+      A business capability of an organization to assess the tax effects of its financial
+      position and of what it intends to do, and formulate and consolidate its tax
+      strategy, grounded in the organization's members as organized.
     genus: bco:BusinessCapability
     foundational_ancestor: cco:ont00000568
     broader: [bcoc:TaxManagement]
@@ -2032,6 +2278,16 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-11-07T18:00:00Z"
     authored_status: Draft
+    revises: 2916c5bd9c8ac05fdefb698ed8335587f89cd3d61a5e57497873e0e10206f293
+    change_note:
+      - >-
+        2026-11-14, G1-T tranche 2
+        (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md;
+        docs/catalog/admission/G1T-T2-batch.md, revision 3, T2-33): the MD-7 definition
+        correction approved (part 2, Batch B). `P10765` was already excluded as SUMMARY in
+        revision 2; forecasting, which rested on it, is gone from the definition and
+        grounding. Same IRI: the change narrows the wording to what the realization index
+        holds, an editorial revision as in R6 and R7.
 
   - id: bcoc:TaxProcessing
     pref_label:
@@ -2102,9 +2358,10 @@ concepts:
     alt_label:
       - {value: "Trade Documentation", language: en}
     definition: >-
-      A business capability of an organization to prepare and keep the records of
-      its cross-border shipments, and give customs authorities the information the
-      law requires of it, grounded in the organization's members as organized.
+      A business capability of an organization to prepare and keep the records of its
+      cross-border shipments, value them and calculate the duty on them, and give customs
+      authorities the declarations they call for, grounded in the organization's members
+      as organized.
     genus: bco:BusinessCapability
     foundational_ancestor: cco:ont00000568
     broader: [bcoc:GlobalTradeManagement]
@@ -2133,6 +2390,16 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-11-07T18:00:00Z"
     authored_status: Draft
+    revises: 67aabdbaf7e0df818b7e0e71a4b203a207ac6cd7de7b49c9b4f6a2aa176550d3
+    change_note:
+      - >-
+        2026-11-14, G1-T tranche 2
+        (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md;
+        docs/catalog/admission/G1T-T2-batch.md, revision 3, T2-14): the MD-7 definition
+        correction approved (part 2, Batch B). Definition reworded as proposed; "the law
+        requires" (a mandate, CD7) is gone from the definition and grounding. Same IRI:
+        the change narrows the wording to what the realization index holds, an editorial
+        revision as in R6 and R7.
 
   - id: bcoc:ExportAndImportControl
     pref_label:
@@ -2171,10 +2438,9 @@ concepts:
       - {value: "Letter of Credit Preparation", language: en}
       - {value: "Documentary Credit Management", language: en}
     definition: >-
-      A business capability of an organization to arrange letters of credit for
-      its trade, by which a bank assures payment to a seller once agreed
-      conditions are met, and present the documents they call for, grounded in the
-      organization's members as organized.
+      A business capability of an organization to arrange letters of credit for its trade,
+      by which a bank assures payment to a seller once agreed conditions are met, grounded
+      in the organization's members as organized.
     genus: bco:BusinessCapability
     foundational_ancestor: cco:ont00000568
     broader: [bcoc:GlobalTradeManagement]
@@ -2196,6 +2462,16 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-11-07T18:00:00Z"
     authored_status: Draft
+    revises: 0784f0ee15e567c93e33bb98cea1486c58da01c3007f9fc5d8af2589a1216996
+    change_note:
+      - >-
+        2026-11-14, G1-T tranche 2
+        (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md;
+        docs/catalog/admission/G1T-T2-batch.md, revision 3, T2-11): the MD-7 definition
+        correction approved (part 2, Batch B). "and present the documents they call for"
+        deleted from the definition and grounding; the Q4 note is kept. Same IRI: the
+        change narrows the wording to what the realization index holds, an editorial
+        revision as in R6 and R7.
 
   - id: bcoc:TradeProductClassification
     pref_label:
@@ -2401,6 +2677,50 @@ concepts:
     created: "2026-11-07T18:00:00Z"
     authored_status: Draft
 
+  - id: bcoc:ControlEnvironmentAndRiskObjectiveFormulation
+    pref_label:
+      - {value: "Control Environment and Risk Objective Formulation", language: en}
+    definition: >-
+      A business capability of an organization to formulate and communicate its code of
+      ethics, define the objectives and risks of its business processes, and define the
+      risk tolerances of its entities and units, grounded in the organization's members as
+      organized.
+    genus: bco:BusinessCapability
+    foundational_ancestor: cco:ont00000568
+    broader: [bcoc:InternalControlDesign]
+    catalog_candidates: [BCC-80a63f8e]
+    sources:
+      - source: SRC-IND-01
+        locator: >-
+          PCF 7.4 elements 10915, 11250 and 11251 (hierarchy 9.8.1.2, 9.8.1.4 and
+          9.8.1.5), the realization index of G1-T record T2-17, as harvested in
+          docs/sources/inventory/pcf-7.4-entries.yaml (INV-PCF74-10915, INV-PCF74-11250,
+          INV-PCF74-11251); catalog candidate BCC-80a63f8e
+        relation: consistent-with
+        support: definitional
+      - source: SRC-FO-01
+        locator: >-
+          CCO v2.0 merged file at commit 510dad7 and develop versionIRI
+          2026-08-13: Organization Capability (ont00000568) definition
+        relation: consistent-with
+        support: contextual
+    drafted_by: bcoa:claude-opus-5-5
+    created: "2026-11-14T12:00:00Z"
+    authored_status: Draft
+    change_note:
+      - >-
+        2026-11-14, G1-T tranche 2
+        (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, part 4;
+        docs/catalog/admission/G1T-T2-batch.md, revision 3, T2-17): narrowed from
+        bcoc:InternalControlDesign and renamed. A change of meaning, so a new IRI (ADR-003
+        D3). bcoc:InternalControlDesign is kept unchanged as a functional grouping, not
+        replaced, and this concept is part-of it: formulating the code of ethics, the
+        process objectives and risks and the risk tolerances is part of designing the
+        organization's internal controls; Internal Control Design is retained as a
+        functional grouping, and the narrowed type does not establish the whole of it. The
+        prior definition is bcoc:InternalControlDesign's record
+        519ef36d357e5b518f1b8f8a72485459c031d578c0d3d739bd3931cd9472fa04.
+
   - id: bcoc:InternalControlOperation
     pref_label:
       - {value: "Internal Control Operation and Monitoring", language: en}
@@ -2429,3 +2749,45 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-11-07T18:00:00Z"
     authored_status: Draft
+
+  - id: bcoc:InternalControlEffectivenessMonitoring
+    pref_label:
+      - {value: "Internal Control Effectiveness Monitoring", language: en}
+    definition: >-
+      A business capability of an organization to monitor whether its controls operate as
+      intended and satisfy the criteria against which they are assessed, grounded in the
+      organization's members as organized.
+    genus: bco:BusinessCapability
+    foundational_ancestor: cco:ont00000568
+    broader: [bcoc:InternalControlOperation]
+    catalog_candidates: [BCC-ded8ed18]
+    sources:
+      - source: SRC-IND-01
+        locator: >-
+          PCF 7.4 element 10918 (hierarchy 9.8.2.1), the realization index of G1-T record
+          T2-43, as harvested in docs/sources/inventory/pcf-7.4-entries.yaml
+          (INV-PCF74-10918); catalog candidate BCC-ded8ed18
+        relation: consistent-with
+        support: definitional
+      - source: SRC-FO-01
+        locator: >-
+          CCO v2.0 merged file at commit 510dad7 and develop versionIRI
+          2026-08-13: Organization Capability (ont00000568) definition
+        relation: consistent-with
+        support: contextual
+    drafted_by: bcoa:claude-opus-5-5
+    created: "2026-11-14T12:00:00Z"
+    authored_status: Draft
+    change_note:
+      - >-
+        2026-11-14, G1-T tranche 2
+        (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, part 4;
+        docs/catalog/admission/G1T-T2-batch.md, revision 3, T2-43): narrowed from
+        bcoc:InternalControlOperation and renamed. A change of meaning, so a new IRI
+        (ADR-003 D3). bcoc:InternalControlOperation is kept unchanged as a functional
+        grouping, not replaced, and this concept is part-of it: monitoring whether
+        controls operate as intended is part of operating and monitoring them; the
+        narrowed type does not establish the ability to operate every control. The prior
+        definition is bcoc:InternalControlOperation's record
+        93159556c1a9f3031eb6bcd6f1291ce7d54bce8281d1c9ebfd7d6360a7593961.
+
