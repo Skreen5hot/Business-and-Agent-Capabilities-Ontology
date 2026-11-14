@@ -8,7 +8,8 @@
 # The G1-T batch decision of 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md) revises 15 of them
 # and adds 5 narrowed types, each part-of the concept it was narrowed from, which
 # is kept as a functional grouping. The direction of 2026-11-14 on the supplementary
-# review (docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md) revises one of the five, FinancialPerformanceAnalysis.
+# review (docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md) revises one of the five, FinancialPerformanceAnalysis,
+# and the final direction on it (docs/decisions/2026-11-14-g1t-tranche-2-t2-25-final.md) revises it again.
 #
 # P5 holds the 5 pilot capabilities the specification's worked examples
 # and migration table name, all Draft. Their definitions were revised on
@@ -1192,10 +1193,9 @@ concepts:
     pref_label:
       - {value: "Financial Performance Analysis", language: en}
     definition: >-
-      A business capability of an organization to assess the profitability and financial
-      performance of its products, customers and activities, including the evaluation of
-      new products, life-cycle costing and tracking the performance of its customer and
-      product strategies, grounded in the organization's members as organized.
+      A business capability that inheres in an organization and is realizable through its
+      organized members' appraisal and analysis of the financial performance and
+      profitability of its products, customers, or activities.
     genus: bco:BusinessCapability
     foundational_ancestor: cco:ont00000568
     broader: [bcoc:FinancialPerformanceManagement]
@@ -1203,11 +1203,11 @@ concepts:
     sources:
       - source: SRC-IND-01
         locator: >-
-          PCF 7.4 elements 10782, 10783, 10784, 10786 and 10787 (hierarchy 9.1.4.1,
-          9.1.4.2, 9.1.4.3, 9.1.4.5 and 9.1.4.6), the realization index of G1-T record
-          T2-25, as harvested in docs/sources/inventory/pcf-7.4-entries.yaml
-          (INV-PCF74-10782, INV-PCF74-10783, INV-PCF74-10784, INV-PCF74-10786,
-          INV-PCF74-10787); catalog candidate BCC-cedf0899
+          PCF 7.4 elements 10782, 10783, 10784 and 10787 (hierarchy 9.1.4.1, 9.1.4.2,
+          9.1.4.3 and 9.1.4.6), the realization index of G1-T record T2-25, revision 5,
+          as harvested in docs/sources/inventory/pcf-7.4-entries.yaml (INV-PCF74-10782,
+          INV-PCF74-10783, INV-PCF74-10784, INV-PCF74-10787); catalog candidate
+          BCC-cedf0899
         relation: consistent-with
         support: definitional
       - source: SRC-FO-01
@@ -1219,7 +1219,7 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-11-14T12:00:00Z"
     authored_status: Draft
-    revises: 7532dfe391021022d477e6b912fdbfac1bce3b69f664186ebd4ef6442e759beb
+    revises: bb3270ca30bb0f4a438cd070be8de9e6f4c88ea47f92c6a9fc0cecfbb052296a
     change_note:
       - >-
         2026-11-14, G1-T tranche 2
@@ -1244,6 +1244,16 @@ concepts:
         index assesses, and the evaluation, costing and tracking it holds. An editorial
         revision, as for the 13 of Batch B: the index and the grouping it is part-of do not
         change.
+      - >-
+        2026-11-14, the architect's final direction on T2-25 (docs/decisions/2026-11-14-g1t-tranche-2-t2-25-final.md;
+        docs/catalog/admission/G1T-T2-batch.md, revision 5): the definition is his,
+        verbatim, and enumerates no BPO act; the distinctions are kept in the realization
+        index. P10786 leaves the index under Q5 (CD5), since its source description also
+        includes developing strategies to improve sales and profits, so the index holds
+        P10782, P10783, P10784 and P10787, and the definitional source cites those four.
+        The revision-4 record listed 10786 too, and revises the revision-3 record
+        7532dfe391021022d477e6b912fdbfac1bce3b69f664186ebd4ef6442e759beb. A correction to an
+        unsigned type: the IRI and the grouping it is part-of do not change.
 
   - id: bcoc:ContinuousCostImprovement
     pref_label:

@@ -605,7 +605,7 @@ candidates:
   narrowed_to:
     concept: bcoc:FinancialPerformanceAnalysis
     kind: part-of
-    g1t: 'pending review: corrected in revision 4 to the supplementary review''s required corrections (section 3), with which it states PASS; not in the signature record, awaiting the architect''s direction (docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md)'
+    g1t: 'ready: eligible for admission on signature (corrected in revision 5 under the architect''s final direction, docs/decisions/2026-11-14-g1t-tranche-2-t2-25-final.md; entered in the signature record); not admitted until signed'
     reason: "coverage: assessing profitability and financial performance is the analysis part of managing financial performance; Financial Performance Management is retained as a functional grouping, and acting on the results is not part of the narrowed type"
   g1t_prepared: ready
   act_types:

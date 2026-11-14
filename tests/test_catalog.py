@@ -522,8 +522,8 @@ def test_the_reconciled_tranche_2_figures_follow_the_records(tranche2):
     counts = {k: sum(1 for v in status.values() if v == k)
               for k in ("admitted", "ready", "pending review", "not ready", "not proposed")}
     # The direction on the supplementary review (2026-11-14): the six that passed join the 33;
-    # Financial Performance Analysis is corrected and awaits direction.
-    assert counts == {"admitted": 2, "ready": 39, "pending review": 1, "not ready": 15,
+    # Financial Performance Analysis joins them under the final direction on T2-25.
+    assert counts == {"admitted": 2, "ready": 40, "pending review": 0, "not ready": 15,
                       "not proposed": 13}
     assert sum(counts.values()) == len(status)
     assert len(outside) == 4 and len(catalog) == 74
@@ -535,8 +535,7 @@ def test_the_reconciled_tranche_2_figures_follow_the_records(tranche2):
     assert len(written) == 60
     assert sum(1 for l in links if l.get("kind") == "kind-of") == 15
     report = (ROOT / "docs/catalog/tranche-2.md").read_text(encoding="utf-8")
-    for figure in ("| Admitted | 2 |", "| Ready, approved for admission on signature | 39 |",
-                   "| Corrected after the supplementary G1-T review, awaiting direction | 1 |",
+    for figure in ("| Admitted | 2 |", "| Ready, approved for admission on signature | 40 |",
                    "| Not ready | 15 |",
                    "| Outside G1-T review scope | 17 |", "| **Total** | **74** |",
                    "| **Total** | **89** | **7** | **60** | **36** |"):
@@ -564,15 +563,16 @@ def test_the_g1t_batch_covers_the_ready_candidates_and_signs_nothing(tranche2):
     assert "not signed" in text and "Correction proposed" not in text
 
 
-def test_the_signature_record_lists_the_39_and_is_not_signed(tranche2):
+def test_the_signature_record_lists_the_40_and_is_not_signed(tranche2):
     # Decision of 2026-11-14, part 6: one consolidated record for the approved 33, citing the
     # batch record it signs by digest; the signature is the reviewer's own, never filled in here.
-    # The direction on the supplementary review adds the 6 that passed; T2-25 is not in it.
+    # The direction on the supplementary review adds the 6 that passed, and the final
+    # direction on T2-25 adds it.
     review, _ = tranche2
     approved = sorted(r["g1t_batch"] for r in review["candidates"]
                       if r.get("g1t_batch")
                       and r.get("narrowed_to", r)["g1t"].startswith("ready"))
-    assert len(approved) == 39 and "T2-25" not in approved
+    assert len(approved) == 40 and "T2-25" in approved
     sig = (ROOT / "docs/catalog/admission/G1T-T2-signature.md").read_text(encoding="utf-8")
     assert sorted(re.findall(r"^\| (T2-\d\d) \| BCC-", sig, re.M)) == approved
     batch = (ROOT / "docs/catalog/admission/G1T-T2-batch.md").read_bytes()

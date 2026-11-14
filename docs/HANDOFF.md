@@ -113,8 +113,9 @@ them narrowed into new concepts `part-of` the groupings they came from. Revision
 The supplementary review found 6 PASS and left Financial Performance Analysis (T2-25) PENDING
 REVIEW; on the architect's direction (`docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md`), revision 4
 corrects T2-25 as the review required and adds the six to the signature record, which now covers
-39 classes. T2-25 is not in it and awaits his direction. Nothing is admitted until the signature is
-recorded.
+39 classes. His final direction on T2-25 (`docs/decisions/2026-11-14-g1t-tranche-2-t2-25-final.md`) gives its definition and
+excludes `P10786` (CD5); revision 5 applies it and adds T2-25, so the signature record covers 40
+classes. Nothing is admitted until the signature is recorded.
 
 R5 records further blockers: material basis policy, maturity-value encoding, instance
 evidence, and migration of BPO existential restrictions. R6 (section 5.13) adds wording

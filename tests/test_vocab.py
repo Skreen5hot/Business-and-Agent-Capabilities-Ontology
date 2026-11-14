@@ -1182,8 +1182,9 @@ def test_the_real_prior_records_resolve_and_verify(vb, repo):
     targets = set(graph.objects(None, revision))
     # tranche 2 revised TreasuryManagement; the G1-T batch decision of 2026-11-14
     # revised 15 tranche-2 records (13 of Batch B, Corporate Card and Customer Credit), and
-    # the direction on the supplementary review revised Financial Performance Analysis.
-    assert len(targets) == 36, len(targets)
+    # the directions on the supplementary review and on T2-25 revised Financial Performance
+    # Analysis twice, so both of its earlier records are prior.
+    assert len(targets) == 37, len(targets)
     verified = 0
     for target in targets:
         digest = str(graph.value(target, sha))
@@ -1215,7 +1216,7 @@ def test_the_real_prior_records_resolve_and_verify(vb, repo):
         if at_parent and before.returncode == 0:
             assert digest[:16] not in before.stdout.decode("utf-8")
         verified += 1
-    assert verified == 36
+    assert verified == 37
 
 
 # ================================================================ record digest

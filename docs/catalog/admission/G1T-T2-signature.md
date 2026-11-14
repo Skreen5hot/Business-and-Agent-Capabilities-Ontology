@@ -1,14 +1,14 @@
-# G1-T tranche 2 — consolidated signature record, 39 classes
+# G1-T tranche 2 — consolidated signature record, 40 classes
 
 | Field | Value |
 |---|---|
-| Status | **Prepared for signature. Not signed.** Prepared under `docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md`, part 6, for Batches A and B (33); the six that the supplementary review found PASS were added under `docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md`. No class below is admitted until the named reviewer's signature is recorded here, in his own words |
+| Status | **Prepared for signature. Not signed.** Prepared under `docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md`, part 6, for Batches A and B (33); the six that the supplementary review found PASS were added under `docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md`, and T2-25 as eligible for admission under `docs/decisions/2026-11-14-g1t-tranche-2-t2-25-final.md`. No class below is admitted until the named reviewer's signature is recorded here, in his own words |
 | Signing reviewer | Aaron Damiano, Product Owner and Ontology Architect (part 6) |
-| Records signed | `docs/catalog/admission/G1T-T2-batch.md`, revision 4, SHA-256 `64f6758032d62bc0d2ed8ecee85fe5dc3f8fe23df71b59ddb46a228eed2cf1fe`: the 39 sections listed below, each with its definition, grounding, realization index, exclusions, worked cases, taxonomy and five G1-T answers |
+| Records signed | `docs/catalog/admission/G1T-T2-batch.md`, revision 5, SHA-256 `b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef`: the 40 sections listed below, each with its definition, grounding, realization index, exclusions, worked cases, taxonomy and five G1-T answers |
 | Vocabulary | each concept's record digest below, as `tools/vocab/build.py --digest <concept>` prints it |
-| Independent evidence | `docs/catalog/admission/G1T-T2-review-2026-11-07.md` (SHA-256 `7c7efb831cf6a5276fe6e173cea34f4a3f40af7f4d5adae3e8e881c175671e08`): PASS for the 33 of Batches A and B; `docs/catalog/admission/G1T-T2-supplementary-review.md` (SHA-256 `1430f89ba10d29044ba10e5d21388798959bb21852c50391b9dc6f4d9a42b648`): PASS for the six, as corrected in revision 3. Both are analytical evidence, not the signature |
+| Independent evidence | `docs/catalog/admission/G1T-T2-review-2026-11-07.md` (SHA-256 `7c7efb831cf6a5276fe6e173cea34f4a3f40af7f4d5adae3e8e881c175671e08`): PASS for the 33 of Batches A and B; `docs/catalog/admission/G1T-T2-supplementary-review.md` (SHA-256 `1430f89ba10d29044ba10e5d21388798959bb21852c50391b9dc6f4d9a42b648`): PASS for the six, as corrected in revision 3. Both are analytical evidence, not the signature. T2-25 was left PENDING REVIEW by the supplementary review and is corrected under `docs/decisions/2026-11-14-g1t-tranche-2-t2-25-final.md`, which requires no further general synthetic review: its G1-T finding is the signing reviewer's |
 | To confirm on signing | T2-17 passes on the Formulation reading, which the decision approved by name for T2-07 and T2-42 only (part 2); the supplementary review extends it to T2-17 and asks the signer to confirm it (its section 4) |
-| Not here | T2-25 (Financial Performance Analysis), corrected in revision 4 to the supplementary review's required corrections and awaiting the architect's direction; and the 3 withdrawn capability areas (part 3) |
+| Not here | the 3 withdrawn capability areas (part 3) |
 | Prepared by | Claude Code (`claude-opus-5-5`), 2026-11-14. It records no finding and no signature |
 
 A signed PASS licenses asserting the class under `obo:BFO_0000016` (disposition), and so under `bco:BusinessCapability`, for that class only (CAP-04). It licenses no organization's claim to bear one (G1-I). No OWL is written before D5.
@@ -58,6 +58,7 @@ Derived in part from the APQC Process Classification Framework® 7.4 (element ID
 | T2-24 | BCC-b47b8fed | Cost Driver and Critical Activity Analysis | `bcoc:CostDriverAndCriticalActivityAnalysis` | Supplementary | 3 | PASS (supplementary) | `38250849e2b2a209b730b914b4375d78a66591c3af58a27660353133540feb5a` |
 | T2-31 | BCC-b7ff0eac | Customer Credit Management | `bcoc:CustomerCreditManagement` | Supplementary | 3 | PASS (supplementary) | `e909d335d1008c861f1f64f153cd5ff9d9cae0a0dc2be6ce818ba571af1cc7d6` |
 | T2-43 | BCC-ded8ed18 | Internal Control Effectiveness Monitoring | `bcoc:InternalControlEffectivenessMonitoring` | Supplementary | 1 | PASS (supplementary) | `706f8aeaeba1a1663ae2c180f9c5925a70fd6bb84054b3047dc082bd3abb2156` |
+| T2-25 | BCC-cedf0899 | Financial Performance Analysis | `bcoc:FinancialPerformanceAnalysis` | Direction | 4 | corrected under the architect's final direction | `d72a4c76071b6c3fb585f287d5e4ba4f9f1ad290103d9f17ab17534878e3eab7` |
 
 ## 2. Final definitions and realization indexes
 
@@ -216,6 +217,10 @@ Index: `bpo:P14187`, `bpo:P10791`, `bpo:P10792`.
 **T2-43 — Internal Control Effectiveness Monitoring** (supplementary review). A business capability of an organization to monitor whether its controls operate as intended and satisfy the criteria against which they are assessed, grounded in the organization's members as organized.
 
 Index: `bpo:P10918`.
+
+**T2-25 — Financial Performance Analysis** (architect's final direction). A business capability that inheres in an organization and is realizable through its organized members' appraisal and analysis of the financial performance and profitability of its products, customers, or activities.
+
+Index: `bpo:P10782`, `bpo:P10783`, `bpo:P10784`, `bpo:P10787`.
 
 ## 3. Signature
 
