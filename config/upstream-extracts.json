@@ -2,11 +2,11 @@
   "extracts": {
     "bfo": {
       "additional_files": [],
-      "axioms_dropped_anonymous_object": 22,
+      "axioms_dropped_anonymous_object": 26,
       "commit": "044490fc5100ffed6df7d4d15cbc167698b6fdee",
       "extract": "vendor/bfo/bfo-core-bco-extract.ttl",
       "extract_on_disk_matches": true,
-      "extract_sha256": "86c83303a4427f5939db0a3ce780d3b87ca4916262bae5a827b17cfd1a08783d",
+      "extract_sha256": "3249b5c51e1edad87082242a4499ec661ff9a2a0ffa1349fc2e356092263f54f",
       "licence_as_stated_by_source": "https://creativecommons.org/licenses/by/4.0/",
       "licence_spdx": "CC-BY-4.0",
       "licence_url": "https://creativecommons.org/licenses/by/4.0/",
@@ -18,17 +18,31 @@
         "http://purl.obolibrary.org/obo/BFO_0000034",
         "http://purl.obolibrary.org/obo/BFO_0000054",
         "http://purl.obolibrary.org/obo/BFO_0000055",
+        "http://purl.obolibrary.org/obo/BFO_0000057",
+        "http://purl.obolibrary.org/obo/BFO_0000115",
+        "http://purl.obolibrary.org/obo/BFO_0000129",
         "http://purl.obolibrary.org/obo/BFO_0000178",
+        "http://purl.obolibrary.org/obo/BFO_0000196",
+        "http://purl.obolibrary.org/obo/BFO_0000197",
         "http://purl.obolibrary.org/obo/BFO_0000218"
       ],
       "seed_terms_from_corpus_and_shapes": [
-        "http://purl.obolibrary.org/obo/BFO_0000016"
+        "http://purl.obolibrary.org/obo/BFO_0000016",
+        "http://purl.obolibrary.org/obo/BFO_0000034",
+        "http://purl.obolibrary.org/obo/BFO_0000054",
+        "http://purl.obolibrary.org/obo/BFO_0000055",
+        "http://purl.obolibrary.org/obo/BFO_0000057",
+        "http://purl.obolibrary.org/obo/BFO_0000115",
+        "http://purl.obolibrary.org/obo/BFO_0000129",
+        "http://purl.obolibrary.org/obo/BFO_0000196",
+        "http://purl.obolibrary.org/obo/BFO_0000197",
+        "http://purl.obolibrary.org/obo/BFO_0000218"
       ],
       "source_sha256": "6944e2c96a0d8709dc15ae5364792019e208061eda3f32311af4f3b8d8443a3b",
       "source_url": "https://raw.githubusercontent.com/BFO-ontology/BFO-2020/044490fc5100ffed6df7d4d15cbc167698b6fdee/src/owl/bfo-core.ttl",
       "terms_declared_as_stubs": 3,
-      "terms_described_in_full": 22,
-      "triples": 173
+      "terms_described_in_full": 27,
+      "triples": 210
     },
     "bpo": {
       "additional_files": [
@@ -390,7 +404,7 @@
       "commit": "510dad76be0ef710b65a421075af912af25342b7",
       "extract": "vendor/cco/cco-bco-extract.ttl",
       "extract_on_disk_matches": true,
-      "extract_sha256": "ba68e3259c1afa3c65ee5102299753ed101e3998b79ea3999786cd475ee46e65",
+      "extract_sha256": "ceb15871c2916a7d6f07d771159d86e6ae141c853366f20e64a988710740927c",
       "licence_as_stated_by_source": "BSD 3-Clause: https://github.com/CommonCoreOntology/CommonCoreOntologies/blob/master/LICENSE",
       "licence_spdx": "BSD-3-Clause",
       "licence_url": "https://github.com/CommonCoreOntology/CommonCoreOntologies/blob/510dad76be0ef710b65a421075af912af25342b7/LICENSE",
@@ -400,17 +414,24 @@
       "seed_terms": [
         "https://www.commoncoreontologies.org/ont00000089",
         "https://www.commoncoreontologies.org/ont00000228",
+        "https://www.commoncoreontologies.org/ont00000300",
         "https://www.commoncoreontologies.org/ont00000476",
         "https://www.commoncoreontologies.org/ont00000568",
         "https://www.commoncoreontologies.org/ont00000751",
         "https://www.commoncoreontologies.org/ont00000853",
+        "https://www.commoncoreontologies.org/ont00000958",
         "https://www.commoncoreontologies.org/ont00000974",
+        "https://www.commoncoreontologies.org/ont00000995",
         "https://www.commoncoreontologies.org/ont00001010",
+        "https://www.commoncoreontologies.org/ont00001017",
         "https://www.commoncoreontologies.org/ont00001180",
+        "https://www.commoncoreontologies.org/ont00001262",
         "https://www.commoncoreontologies.org/ont00001379",
         "https://www.commoncoreontologies.org/ont00001739",
+        "https://www.commoncoreontologies.org/ont00001787",
         "https://www.commoncoreontologies.org/ont00001808",
         "https://www.commoncoreontologies.org/ont00001811",
+        "https://www.commoncoreontologies.org/ont00001833",
         "https://www.commoncoreontologies.org/ont00001889",
         "https://www.commoncoreontologies.org/ont00001898",
         "https://www.commoncoreontologies.org/ont00001910",
@@ -419,17 +440,29 @@
         "https://www.commoncoreontologies.org/ont00001982"
       ],
       "seed_terms_from_corpus_and_shapes": [
+        "https://www.commoncoreontologies.org/ont00000228",
+        "https://www.commoncoreontologies.org/ont00000300",
         "https://www.commoncoreontologies.org/ont00000476",
         "https://www.commoncoreontologies.org/ont00000568",
         "https://www.commoncoreontologies.org/ont00000853",
+        "https://www.commoncoreontologies.org/ont00000958",
         "https://www.commoncoreontologies.org/ont00000974",
-        "https://www.commoncoreontologies.org/ont00001010"
+        "https://www.commoncoreontologies.org/ont00000995",
+        "https://www.commoncoreontologies.org/ont00001010",
+        "https://www.commoncoreontologies.org/ont00001017",
+        "https://www.commoncoreontologies.org/ont00001180",
+        "https://www.commoncoreontologies.org/ont00001262",
+        "https://www.commoncoreontologies.org/ont00001787",
+        "https://www.commoncoreontologies.org/ont00001833",
+        "https://www.commoncoreontologies.org/ont00001889",
+        "https://www.commoncoreontologies.org/ont00001898",
+        "https://www.commoncoreontologies.org/ont00001954"
       ],
       "source_sha256": "e609db27478a2c8b52b9bb5eb5ac979ac323510e851c368e4d9ec7d1c153fe5b",
       "source_url": "https://raw.githubusercontent.com/CommonCoreOntology/CommonCoreOntologies/510dad76be0ef710b65a421075af912af25342b7/src/cco-merged/CommonCoreOntologiesMerged.ttl",
       "terms_declared_as_stubs": 4,
-      "terms_described_in_full": 49,
-      "triples": 348
+      "terms_described_in_full": 55,
+      "triples": 386
     }
   },
   "format_version": 2,
@@ -468,10 +501,10 @@
     "ex:designatesProcessType"
   ],
   "totals": {
-    "dropped": 282,
-    "full": 232,
-    "seeds": 180,
-    "seeds_from_corpus_and_shapes": 154,
+    "dropped": 286,
+    "full": 243,
+    "seeds": 192,
+    "seeds_from_corpus_and_shapes": 175,
     "seeds_from_specification": 33,
     "spec_terms_unresolved": 22,
     "stubs": 7

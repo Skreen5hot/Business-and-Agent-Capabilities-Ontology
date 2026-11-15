@@ -3,6 +3,9 @@
   "generated_by": "tools/ontology/validate.py",
   "note": "Findings this repository is known to carry. The gate requires reality to match: more is a regression, fewer means re-record so the reduction appears in a diff. These are defects in the ontology or the generated vocabulary, not in the tools.",
   "rungs": {
+    "validation.instances": {
+      "authored_findings": 0
+    },
     "validation.stage05": {
       "authored_findings": 0
     },

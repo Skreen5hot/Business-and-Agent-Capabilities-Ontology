@@ -1,0 +1,171 @@
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+@prefix obo:  <http://purl.obolibrary.org/obo/> .
+@prefix cco:  <https://www.commoncoreontologies.org/> .
+@prefix ex:   <https://fandaws.com/ontology/bpo#> .
+@prefix bco:  <https://fandaws.com/ontology/bco#> .
+
+# Cases built to break instance_shapes.ttl, one per constraint, with
+# positive controls that must survive.
+#
+# TEST-ONLY INDIVIDUALS (docs/decisions/2026-11-15-d6-class-increment-
+# accepted.md, C). Nothing here is a capability claim about any real
+# organization, and none of it is Stage 06. The individuals live in bco#
+# with a fixture_ prefix, as the other fixtures' classes do, so that a
+# namespace filter would still have to select them.
+#
+# Loaded with the other fixtures and never with the extracts, so it states
+# its own small upstream ancestry and its own capability class. The upstream
+# IRIs are the real ones, verified at the CCO and BFO pins.
+
+# -- ancestry ----------------------------------------------------------
+
+cco:ont00000568 a owl:Class .
+cco:ont00000228 a owl:Class .
+cco:ont00001180 a owl:Class .
+cco:ont00001262 a owl:Class .
+cco:ont00000995 a owl:Class .
+cco:ont00000958 a owl:Class .
+cco:ont00000853 a owl:Class ; rdfs:subClassOf cco:ont00000958 .
+obo:BFO_0000034 a owl:Class .
+bco:BusinessCapability a owl:Class .
+
+ex:FixtureInstanceAct a owl:Class ; rdfs:subClassOf cco:ont00000228 .
+ex:FixtureOtherAct a owl:Class ; rdfs:subClassOf cco:ont00000228 .
+
+bco:FixtureInstanceCapability a owl:Class ;
+    rdfs:label "Fixture instance capability"@en ;
+    skos:definition "A business capability of an organization to perform the fixture's instance act, grounded in the organization's members as organized."@en ;
+    rdfs:subClassOf bco:BusinessCapability ;
+    ex:enablesProcess ex:FixtureInstanceAct .
+
+# A staged class: under Organization Capability, not under the parent. The
+# Stage 05 shapes report it too (S05-C1), as they should.
+bco:FixtureStagedInstanceClass a owl:Class ;
+    rdfs:label "Fixture staged instance class"@en ;
+    skos:definition "An Organization Capability class that has not passed G1-T."@en ;
+    rdfs:subClassOf cco:ont00000568 .
+
+# -- the fixture organization and its members ---------------------------
+
+bco:fixture_org a cco:ont00001180 ;
+    obo:BFO_0000115 bco:fixture_member , bco:fixture_treasurer ,
+                    bco:fixture_platform .
+bco:fixture_member a cco:ont00001262 .
+bco:fixture_treasurer a cco:ont00001262 .
+bco:fixture_platform a cco:ont00000995 .
+bco:fixture_outsider a cco:ont00001262 .
+bco:fixture_vendor a cco:ont00001180 ;
+    obo:BFO_0000115 bco:fixture_vendor_staff .
+bco:fixture_vendor_staff a cco:ont00001262 .
+
+# -- positive controls ---------------------------------------------------
+
+# A capability with its grounding witness, and a realization performed by a
+# member (CAP-34 passes).
+bco:fixture_good_cap a bco:FixtureInstanceCapability ;
+    obo:BFO_0000218 bco:fixture_member .
+bco:fixture_org cco:ont00001954 bco:fixture_good_cap .
+bco:fixture_good_act a ex:FixtureInstanceAct ;
+    obo:BFO_0000055 bco:fixture_good_cap ;
+    cco:ont00001833 bco:fixture_member .
+
+# Bearing asserted the other way round, a single-member basis (the sole
+# treasurer of a small firm), and an act performed jointly by a member and
+# vendor staff, written with the inverse relation (CAP-34 passes).
+bco:fixture_inverse_cap a bco:FixtureInstanceCapability ;
+    cco:ont00001889 bco:fixture_org ;
+    obo:BFO_0000218 bco:fixture_treasurer .
+bco:fixture_joint_act a ex:FixtureInstanceAct ;
+    obo:BFO_0000055 bco:fixture_inverse_cap .
+bco:fixture_treasurer cco:ont00001787 bco:fixture_joint_act .
+bco:fixture_vendor_staff cco:ont00001787 bco:fixture_joint_act .
+
+# An instance of a staged class with no basis: not a Business Capability
+# instance, so CAP-35 does not ask for one (a2).
+bco:fixture_staged_no_basis a bco:FixtureStagedInstanceClass .
+
+# A description with dct:creator: relations on ICEs other than CAP-11's are
+# unaffected.
+bco:fixture_good_map a cco:ont00000853 ;
+    dct:creator bco:fixture_member .
+
+# -- CAP-08: a person as bearer -----------------------------------------
+
+bco:fixture_cap_person_bearer a bco:FixtureInstanceCapability ;
+    obo:BFO_0000218 bco:fixture_member .
+bco:fixture_outsider cco:ont00001954 bco:fixture_cap_person_bearer .
+
+# -- CAP-12: aggregate has capability to a Business Capability -----------
+
+bco:fixture_cap_aggregate a bco:FixtureInstanceCapability ;
+    obo:BFO_0000218 bco:fixture_member .
+bco:fixture_org cco:ont00001954 bco:fixture_cap_aggregate ;
+    cco:ont00001898 bco:fixture_cap_aggregate .
+
+# -- CAP-35: no grounding witness -----------------------------------------
+
+bco:fixture_cap_no_basis a bco:FixtureInstanceCapability .
+bco:fixture_org cco:ont00001954 bco:fixture_cap_no_basis .
+
+# -- CAP-25: a basis that is not a member of the bearer --------------------
+
+bco:fixture_cap_outsider_basis a bco:FixtureInstanceCapability ;
+    obo:BFO_0000218 bco:fixture_outsider .
+bco:fixture_org cco:ont00001954 bco:fixture_cap_outsider_basis .
+
+# -- CAP-25: an artifact as basis (the platform is listed as a member part,
+#    so only the artifact rule and the agent rule fire) --------------------
+
+bco:fixture_cap_artifact_basis a bco:FixtureInstanceCapability ;
+    obo:BFO_0000218 bco:fixture_platform .
+bco:fixture_org cco:ont00001954 bco:fixture_cap_artifact_basis .
+
+# -- CAP-25: a basis on a staged class ------------------------------------
+
+bco:fixture_staged_with_basis a bco:FixtureStagedInstanceClass ;
+    obo:BFO_0000218 bco:fixture_member .
+
+# -- CAP-21: an act asserted outside the index (Gate C-A) -----------------
+
+bco:fixture_cap_misfiled a bco:FixtureInstanceCapability ;
+    obo:BFO_0000218 bco:fixture_member .
+bco:fixture_org cco:ont00001954 bco:fixture_cap_misfiled .
+bco:fixture_misfiled_act a ex:FixtureOtherAct ;
+    obo:BFO_0000055 bco:fixture_cap_misfiled ;
+    cco:ont00001833 bco:fixture_member .
+
+# -- CAP-34: the vendor case ----------------------------------------------
+# The vendor's staff perform the run; the member only takes part in it.
+
+bco:fixture_cap_vendor_run a bco:FixtureInstanceCapability ;
+    obo:BFO_0000218 bco:fixture_member .
+bco:fixture_org cco:ont00001954 bco:fixture_cap_vendor_run .
+bco:fixture_vendor_run a ex:FixtureInstanceAct ;
+    obo:BFO_0000055 bco:fixture_cap_vendor_run ;
+    cco:ont00001833 bco:fixture_vendor_staff ;
+    obo:BFO_0000057 bco:fixture_member .
+
+# -- CAP-34: only the organization named as performer ----------------------
+
+bco:fixture_cap_org_performer a bco:FixtureInstanceCapability ;
+    obo:BFO_0000218 bco:fixture_member .
+bco:fixture_org cco:ont00001954 bco:fixture_cap_org_performer .
+bco:fixture_org_performed_act a ex:FixtureInstanceAct ;
+    obo:BFO_0000055 bco:fixture_cap_org_performer ;
+    cco:ont00001833 bco:fixture_org .
+
+# -- CAP-11: a map that has a capability ----------------------------------
+
+bco:fixture_bad_map a cco:ont00000853 ;
+    cco:ont00001954 bco:fixture_cap_held_by_map .
+bco:fixture_cap_held_by_map a bco:FixtureInstanceCapability ;
+    obo:BFO_0000218 bco:fixture_member .
+
+# -- CAP-19: an ICE bearing a function --------------------------------------
+
+bco:fixture_software_ice a cco:ont00000958 ;
+    obo:BFO_0000196 bco:fixture_artifact_function .
+bco:fixture_artifact_function a obo:BFO_0000034 .

@@ -173,6 +173,16 @@ components:
       warning), C6 (Function) and C7 (only restrictions). Every message is
       listed in tests/test_formalization.py.
 
+  - id: validation.instances
+    path: shapes/instance_shapes.ttl
+    role: ontology-validation
+    description: >-
+      CP-1's instance-level checks that need no unminted term: CAP-08,
+      CAP-11, CAP-12, CAP-19, CAP-21 (Gate C-A: asserted graph, no
+      inference), CAP-25, CAP-34 (performance as cco:ont00001833 has agent,
+      the Stage 05 encoding) and CAP-35. Every message is listed in
+      tests/test_instances.py.
+
   # ---- Deliberately invalid ------------------------------------------
 
   - id: fixture.wellformedness-bad-examples
@@ -192,6 +202,16 @@ components:
       a specific class, a two-step class, a description-layer class) that
       must survive. Loaded alone, so it states the small upstream ancestry
       its cases walk.
+
+  - id: fixture.instance-bad-examples
+    path: shapes/instance_bad_examples.ttl
+    role: test-fixture
+    description: >-
+      Test-only individuals (D6 acceptance, C): one case per instance
+      constraint, with positive controls (a grounded capability realized by
+      a member, bearing asserted in the inverse direction, a single-member
+      basis, a joint act, a staged instance with no basis, a map with a
+      creator). No capability claim about any real organization.
 
   - id: fixture.vocabulary-bad-examples
     path: shapes/vocabulary_bad_examples.ttl

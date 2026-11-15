@@ -20,7 +20,7 @@ Basic Formal Ontology (BFO) 2020, ISO/IEC 21838-2. Copyright the BFO contributor
 - commit: `044490fc5100ffed6df7d4d15cbc167698b6fdee`
 - licence: CC-BY-4.0 -- https://creativecommons.org/licenses/by/4.0/
 - as stated by the source: https://creativecommons.org/licenses/by/4.0/
-- 22 terms in full, 3 stubs, 22 axioms dropped
+- 27 terms in full, 3 stubs, 26 axioms dropped
 
 ## Business Process Ontology v0.4.1 (main@bc64e91)
 
@@ -51,4 +51,4 @@ Common Core Ontologies v2.0. Copyright (c) 2017 CUBRC, Inc., licensed BSD-3-Clau
 - commit: `510dad76be0ef710b65a421075af912af25342b7`
 - licence: BSD-3-Clause -- https://github.com/CommonCoreOntology/CommonCoreOntologies/blob/510dad76be0ef710b65a421075af912af25342b7/LICENSE
 - as stated by the source: BSD 3-Clause: https://github.com/CommonCoreOntology/CommonCoreOntologies/blob/master/LICENSE
-- 49 terms in full, 4 stubs, 12 axioms dropped
+- 55 terms in full, 4 stubs, 12 axioms dropped

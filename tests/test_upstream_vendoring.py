@@ -587,3 +587,14 @@ def test_the_corpus_digest_does_not_measure_the_vendored_extracts():
     digest = load_tool("bco_digest_scope",
                        "tools/ontology/corpus_digest.py").measure()
     assert not [p for p in digest["scope"]["paths"] if p.startswith("vendor/")]
+
+
+def test_a_term_named_only_inside_a_constraint_is_a_seed(vendoring):
+    """SPARQL in a constraint writes prefix:local under the pins' prefixes.
+    cco:ont00001833 (has agent) is named that way by the instance shapes
+    and nowhere else; before 2026-11-15 the seed scan read full IRIs only,
+    so it was never vendored and Gate B could not tell."""
+    namespaces = tuple(s["namespace"] for s in vendoring.sources())
+    seeds = vendoring.seed_terms(namespaces)
+    assert "https://www.commoncoreontologies.org/ont00001833" in seeds
+    assert "http://purl.obolibrary.org/obo/BFO_0000115" in seeds
