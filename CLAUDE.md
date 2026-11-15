@@ -32,8 +32,12 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
   version. CM-02 (Agent Capability) is planned, not started. The
   vocabulary was under `vocab/` and the modules under `ontology/` until 2026-10-25;
   records, ADRs and reviews written before then use the old paths, and stay as written.
-- `src/05_ontology/apqc-cap.ttl` and `src/05_ontology/apqc-cap-desc.ttl` are empty `owl:Ontology` headers.
-  No BCO ontology term exists. The only `bco:` IRIs with triples are the controlled
+- **D6 is authorized for the first tranche** (`docs/decisions/2026-11-15-v05-transition-approved-d6-authorized.md`). `src/05_ontology/apqc-cap.ttl` holds
+  `bco:BusinessCapability` and 39 capability classes with their signed indexes, written by
+  `tools/ontology/formalize.py --write` from `src/05_ontology/tranche-1.yaml` and never by
+  hand; `apqc-cap-desc.ttl` is still an empty header. The tranche is implemented, not
+  complete: CP-1, CP-2 and the conceptual-fidelity trace remain (`src/05_ontology/README.md`).
+  Before the first tranche, the only `bco:` IRIs with triples were the controlled
   vocabulary's annotation properties and the `bco:PCFCode` datatype, declared in the generated
   `src/01_controlled_vocabulary/generated/bco-vocabulary.ttl` (accepted 2026-10-24, `docs/decisions/2026-10-24-p3-accepted.md`).
   The vocabulary holds 83 concepts (9 metamodel, 74 catalog: 5 pilots, 64 from
@@ -86,6 +90,8 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
 .venv/Scripts/python tools/licensing/disposition.py --check
 .venv/Scripts/python tools/ontology/vendor_upstream.py
 .venv/Scripts/python tools/ontology/validate.py --gate
+.venv/Scripts/python tools/ontology/formalize.py
+.venv/Scripts/python tools/ontology/reason.py --checkpoint
 .venv/Scripts/python tools/communications.py
 .venv/Scripts/python tools/vocab/build.py
 .venv/Scripts/python tools/conceptual/check_models.py

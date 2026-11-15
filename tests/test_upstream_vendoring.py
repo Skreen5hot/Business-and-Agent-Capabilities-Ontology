@@ -187,8 +187,8 @@ def test_the_spec_is_actually_read(vendoring, manifest):
     BFO, measured 2026-10-23 for v0.4 and again on 2026-11-15 for
     v0.5.0-draft.3. The only spec terms nothing describes are in the ex:
     namespace. v0.4 wrote ex: for the terms the BCO will mint too; v0.5
-    writes bco: for those, so what is left is BPO's annotation property
-    ex:enablesProcess, from a file not vendored.
+    writes bco: for those. Since D6 vendors capabilities_roles.ttl's
+    declaration of ex:enablesProcess, that one is described too.
     """
     spec = vendoring.spec_terms()
     # 55 names in v0.5.0-draft.3 (2026-11-15); v0.4's were over 80, most of
@@ -200,7 +200,7 @@ def test_the_spec_is_actually_read(vendoring, manifest):
         assert len(manifest["extracts"][key]["seed_terms"]) >= 6, key
 
     unresolved = manifest[vendoring.UNRESOLVED_KEY]
-    assert "ex:enablesProcess" in unresolved
+    assert "ex:enablesProcess" not in unresolved
     assert "ex:BusinessCapability" not in unresolved
     assert "ex:ActOfAcquisition" not in unresolved
     assert not [n for n in unresolved
@@ -349,8 +349,14 @@ def test_bpo_act_genera_are_processes_only_with_cco_and_bfo(layout,
     BPO alone the chain stops at the first CCO parent and no genus is a
     process. With all three, every one is.
     """
+    import rdflib
+
     bpo_only = extract(layout, "vendor.bpo")
-    genera = {str(s) for s in bpo_only.subjects()
+    # Classes only: since D6 the extract also declares the annotation
+    # property ex:enablesProcess, which is no act type. The act classes
+    # themselves (bpo:P...) are here too, and each must reach process.
+    genera = {str(s) for s in bpo_only.subjects(rdflib.RDF.type,
+                                                rdflib.OWL.Class)
               if str(s).startswith(BPO)}
     assert len(genera) >= 6, genera
 
@@ -467,7 +473,8 @@ def test_the_manifest_states_what_the_extracts_leave_out(manifest):
     assert any("anonymous class expression" in line
                for line in manifest["not_covered"])
     assert any("consistent" in line for line in manifest["not_covered"])
-    assert any("apqc-ext.ttl alone" in line
+    assert any("capabilities_wiring.ttl" in line
+               and "additional files" in line
                for line in manifest["not_covered"])
 
     dropped = sum(entry["axioms_dropped_anonymous_object"]

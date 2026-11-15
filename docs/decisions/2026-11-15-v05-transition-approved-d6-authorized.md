@@ -111,3 +111,27 @@ CCO `510dad76`, BPO `bc64e91`, unchanged):
 Provenance: the pins, their file digests and each extract's header are unchanged in
 form; `config/upstream-extracts.json` records the new seeds and digests. The validation
 gate, the vendoring check and the full suite pass on the regenerated extracts.
+
+## Integration under D
+
+PR #53 (branch `vocab/spec-v0.5-in-force`, commits `48be208` and `32176e2`) passed CI (Build
+and check; Contract, licensing, tests; Vocabulary schema) and its diff held only A, B and C:
+the specification transition, the site notice and CP-0 links, the regenerated extracts,
+and the records. It was merged on 2026-11-15 as
+`97f047b79ebcfab1848f94c8216f1d5f3904f9c5`. PR #52 had merged before it (`b0ffdd5`), so
+`main` at `97f047b` carries the D5 standard (`docs/standards/stage-05-ontology.md`), the D5
+decision and the v0.5 baseline together.
+
+Generated artifacts at `97f047b`, by SHA-256:
+
+| File | SHA-256 |
+| --- | --- |
+| `config/upstream-extracts.json` | `983527284a3d85d12e4641ff2b705c517228e473fee24e5803b108ecb2f159b1` |
+| `vendor/bfo/bfo-core-bco-extract.ttl` | `86c83303a4427f5939db0a3ce780d3b87ca4916262bae5a827b17cfd1a08783d` |
+| `vendor/cco/cco-bco-extract.ttl` | `8e82210bed0293582eda523c1d479366b920ac1b45f2acb07691e1b7d64884ad` |
+| `vendor/bpo/bpo-ext-bco-extract.ttl` | `059f01139ff5c02dcf070d8472c56854177e538015249102d353ea45ea25c4bd` |
+| `vendor/NOTICE.md` | `51e728d62667bf24a4e6801f5071861f853f575dd70a4bd9b36675daea56a1ba` |
+| `src/01_controlled_vocabulary/generated/bco-metamodel.ttl` | `babe3491ae2f8b39af642b0714da110fefca294dc233c71420c4efdaf0279ad1` |
+| `config/vocab-schema.json` | `81c4220aa94792e50281f73f5149abfec87bf6ffc4ec52350b597160c470fa66` |
+| `config/validation-baseline.json` | `ffb9a584beb62e3b3dfc53f198a7cfc50052c8f0516852681c86da686ce24d9d` |
+| `config/corpus-digest.json` | `9d9977676bf0a9f31d78d1e6aaeca1c48bc44914797921d937d2bc300ba4bbc1` |

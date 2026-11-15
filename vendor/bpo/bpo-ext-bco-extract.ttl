@@ -8,14 +8,29 @@
 #   sha256      a8119728796872a1814aace8130a32cc8e42961b0bd5feaa28b736d60a0cc6fd
 #   licence     MIT (https://github.com/Skreen5hot/BusinessProcessOntology/blob/bc64e91839378e1926189c01bf184d6a22d5c1b7/LICENSE)
 #   as stated   MIT License (https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/LICENSE)
+#   also        https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/ontology/slices/apqc_9_0.ttl
+#   sha256      a7247e5f0836bd27895d19c9e18bd2237b9ec44e2b5140f897001c612e12df6d
+#   taking      subjects matching ^https://fandaws\.com/ontology/bpo#P[0-9]+$
+#   not taking  https://fandaws.com/ontology/bpo#pcfID
+#   not taking  https://fandaws.com/ontology/bpo#hierarchyID
+#   not taking  https://fandaws.com/ontology/bpo#apqcSourceText
+#   also        https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/ontology/slices/apqc_12_0.ttl
+#   sha256      827e94b61f0054bd6d56212967e41f5ce6a2022a7a7a86a33570f47bc2fdbfec
+#   taking      subjects matching ^https://fandaws\.com/ontology/bpo#P[0-9]+$
+#   not taking  https://fandaws.com/ontology/bpo#pcfID
+#   not taking  https://fandaws.com/ontology/bpo#hierarchyID
+#   not taking  https://fandaws.com/ontology/bpo#apqcSourceText
+#   also        https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/ontology/capabilities_roles.ttl
+#   sha256      6a8aeaf8c3c4b94119399b9ae593538fecbf79ce01f517577c96d5997419ed7d
+#   taking      subjects matching ^https://fandaws\.com/ontology/bpo#enablesProcess$
 #
 # Business Process Ontology (BPO). Copyright (c) 2026 Aaron Damiano, licensed under the MIT License; the full licence text is at the licence url above, at the pinned commit.
 #
-# This is not Business Process Ontology. It carries 6 terms described in full and 0
+# This is not Business Process Ontology. It carries 161 terms described in full and 0
 # declared as stubs, selected because this repository names them or
 # because a selected term's ancestry passes through them.
 #
-# 0 axioms about the selected terms were dropped: every one whose
+# 248 axioms about the selected terms were dropped: every one whose
 # object is an anonymous class expression. A reasoner over this file
 # therefore derives less than one over the upstream, and it cannot be
 # used to claim consistency with Business Process Ontology.
@@ -34,11 +49,17 @@
 <https://fandaws.com/ontology/bco/vendor/bpo-ext-bco-extract> dcterms:source <https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/ontology/apqc-ext.ttl> .
 <https://fandaws.com/ontology/bco/vendor/bpo-ext-bco-extract> owl:versionInfo "Business Process Ontology v0.4.1 (main@bc64e91), partial extract for the Business Capability Ontology"@en .
 <https://fandaws.com/ontology/bco/vendor/bpo-ext-bco-extract> rdf:type owl:Ontology .
-<https://fandaws.com/ontology/bco/vendor/bpo-ext-bco-extract> rdfs:comment "Partial extract, not the upstream ontology. 0 axioms whose object is an anonymous class expression were dropped, so a reasoner over this file derives less than one over Business Process Ontology and cannot be used to claim consistency with it. Upstream licence as stated by the source: MIT License (https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/LICENSE)"@en .
+<https://fandaws.com/ontology/bco/vendor/bpo-ext-bco-extract> rdfs:comment "Partial extract, not the upstream ontology. 248 axioms whose object is an anonymous class expression were dropped, so a reasoner over this file derives less than one over Business Process Ontology and cannot be used to claim consistency with it. Upstream licence as stated by the source: MIT License (https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/LICENSE)"@en .
 
 dcterms:license rdf:type owl:AnnotationProperty .
 
 dcterms:source rdf:type owl:AnnotationProperty .
+
+ex:ActOfAccounting rdf:type owl:Class .
+ex:ActOfAccounting rdfs:comment "PROPOSE-EXT (D9). CCO 2.0 has no generic bookkeeping/record-keeping class; recording and reconciling transactions manipulates input ICEs into an updated record ICE, so it anchors under cco:ont00000366 (Act of Information Processing), per the GOLDEN PRINCIPLE. Rejected cco:ont00000950 'Act of Maintenance' (modifies Material Artifacts, not records). Distinct from bpo:ActOfFinancialTransaction (which moves the money itself). Recurs in accounting categories (9.0; likely 8.0)." .
+ex:ActOfAccounting rdfs:label "Act of Accounting" .
+ex:ActOfAccounting rdfs:subClassOf cco:ont00000366 .
+ex:ActOfAccounting skos:definition "An Act of Information Processing in which an Agent records, classifies, posts, or reconciles financial transactions and produces or updates a Descriptive Information Content Entity (such as a ledger, journal, or account record) that registers the organization's financial state." .
 
 ex:ActOfAcquisition rdf:type owl:Class .
 ex:ActOfAcquisition rdfs:comment "Local extension (D9). Rejected cco:ont00000950 'Act of Maintenance' (modifying Material Artifacts) and cco:ont00000402 'Act of Communication' (mere ICE transfer). Securing/obtaining a held entity anchors at the generic Planned Act. Expected to recur in procurement/asset-acquisition categories (4.0, 10.0)." .
@@ -46,17 +67,42 @@ ex:ActOfAcquisition rdfs:label "Act of Acquisition" .
 ex:ActOfAcquisition rdfs:subClassOf cco:ont00000228 .
 ex:ActOfAcquisition skos:definition "A Planned Act in which an Agent obtains from some authority or supplier an entity (such as an authorization, license, or resource) that the Agent did not previously hold." .
 
+ex:ActOfAnalysis rdf:type owl:Class .
+ex:ActOfAnalysis rdfs:comment "Local extension (D9). CCO 2.0 has no generic analysis class; analysis is information processing, so it is anchored under cco:ont00000366." .
+ex:ActOfAnalysis rdfs:label "Act of Analysis" .
+ex:ActOfAnalysis rdfs:subClassOf cco:ont00000366 .
+ex:ActOfAnalysis skos:definition "An Act of Information Processing in which an Agent examines one or more input Information Content Entities and produces an Information Content Entity that represents an understanding of their subject matter." .
+
 ex:ActOfDevelopment rdf:type owl:Class .
 ex:ActOfDevelopment rdfs:comment "PROPOSE-EXT (D9). Anchored at the generic cco:ont00000228 (Planned Act) because development spans both informational and material outputs (new technologies, software/hardware components, prototypes, delivery processes) and is broader than cco:ont00001359 (Act of Manufacturing, mass production) and cco:ont00000051 (Act of Construction, building to contract); a development act whose product is specifically a built/mass-produced material artifact should instead use those narrower CCO acts, attaching the material product via obo:BFO_0000057 (has participant), not has output (reserved for ICEs). Recurs across develop/build categories (2.0, 4.0, 8.0)." .
 ex:ActOfDevelopment rdfs:label "Act of Development" .
 ex:ActOfDevelopment rdfs:subClassOf cco:ont00000228 .
 ex:ActOfDevelopment skos:definition "A Planned Act in which an Agent brings a novel product, service, solution, technology, component, prototype, or process from a specification or concept into an existent realized state." .
 
+ex:ActOfFinancialTransaction rdf:type owl:Class .
+ex:ActOfFinancialTransaction rdfs:comment "PROPOSE-EXT (D9). Re-anchored from the bare cco:ont00000228 to cco:ont00000836 (Act of Financial Instrument Use): every subclass uses/transfers a Financial Instrument (money and cash are Financial Instruments in CCO -- cf. Portion of Cash cco:ont00000475 subClassOf 537), and CCO models settlements, loans, purchases, deposits, withdrawals and exchanges uniformly under 836. Rejected cco:ont00001334 'Act of Purchasing' and cco:ont00000389 'Act of Buying' (both acquire a good/service -- too narrow) and cco:ont00000366 'Act of Information Processing' (a payment moves a material/financial-instrument filler, not only an ICE). cco:ont00000228 co-asserted because 836 falls outside the S2 standalone-SHACL allowlist. Recurs in payment/treasury/trade categories (9.0)." .
+ex:ActOfFinancialTransaction rdfs:label "Act of Financial Transaction" .
+ex:ActOfFinancialTransaction rdfs:subClassOf cco:ont00000228 .
+ex:ActOfFinancialTransaction rdfs:subClassOf cco:ont00000836 .
+ex:ActOfFinancialTransaction skos:definition "A Planned Act in which an Agent transfers or uses money or a Financial Instrument to or from another Agent in settlement of an obligation, an investment, or an exchange." .
+
+ex:ActOfFormulation rdf:type owl:Class .
+ex:ActOfFormulation rdfs:comment "Local extension (D9). Anchored under cco:ont00000511 (Act of Planning) because formulating a strategy/mission/design is making a plan to achieve an objective; its output is a Directive ICE. Recurs across develop/define/compose-a-directive processes corpus-wide." .
+ex:ActOfFormulation rdfs:label "Act of Formulation" .
+ex:ActOfFormulation rdfs:subClassOf cco:ont00000511 .
+ex:ActOfFormulation skos:definition "An Act of Planning in which an Agent composes and articulates a Directive Information Content Entity - such as a mission, strategy, objective, design, roadmap, or business model - that prescribes an organization's intended course of action." .
+
 ex:ActOfImprovement rdf:type owl:Class .
 ex:ActOfImprovement rdfs:comment "PROPOSE-EXT (D9). Anchored under cco:ont00000228 (Planned Act): it alters an existing occurrent-type or system rather than merely processing information or composing a new plan. Distinct from bpo:ActOfImplementation (enacts a fixed directive). Rejected cco:ont00000950 'Act of Maintenance' (restores/preserves a Material Artifact's designed Qualities/Functions, whereas improvement raises performance of a process/system). Recurs in improve/reengineer/enhance/sustain processes (13.0)." .
 ex:ActOfImprovement rdfs:label "Act of Improvement" .
 ex:ActOfImprovement rdfs:subClassOf cco:ont00000228 .
 ex:ActOfImprovement skos:definition "A Planned Act in which an Agent modifies an existing process, system, or capability with the intent of raising its performance, quality, or fitness against stated objectives." .
+
+ex:ActOfMonitoring rdf:type owl:Class .
+ex:ActOfMonitoring rdfs:comment "PROPOSE-EXT (D9). CCO 2.0 has no generic monitoring/tracking class. Anchored under cco:ont00000366 (Act of Information Processing) because monitoring ingests repeated observations (including electronic records, not only senses) and yields a descriptive status/deviation ICE -- the GOLDEN PRINCIPLE (descriptive output => information-processing genus) holds. Rejected cco:ont00000037 (Act of Observation: a single sense-based acquisition, too narrow -- monitoring also processes ICEs and is sustained); cco:ont00000636 (Act of Appraisal: renders a single bounded value/quality judgement rather than tracking status over time); and cco:ont00000345 (Act of Measuring: a single quantification against a standard at one time -- at most a method sub-step of the monitoring cycle; a node that is purely one quantification, e.g. Calculate performance measures, anchors to cco:ont00000345 directly, not here). Distinct from bpo:ActOfAnalysis (one-shot examination of a fixed input set) by its continuous, longitudinal character. A standing 'Manage/Monitor X' function with no natural end is an Organization Capability (cco:ont00000568) realized in such acts, not itself a process. Recurs corpus-wide (slices 3.0/4.0/5.0/6.0/8.0/9.0/10.0/11.0/12.0/13.0). Reconciled from 10 divergent slice restatements to one definition." .
+ex:ActOfMonitoring rdfs:label "Act of Monitoring" .
+ex:ActOfMonitoring rdfs:subClassOf cco:ont00000366 .
+ex:ActOfMonitoring skos:definition "An Act of Information Processing in which an Agent repeatedly or continuously observes the state, progress, or performance of some process, system, or quantity over time and produces a Descriptive Information Content Entity that represents its tracked status against expected conditions, targets, or requirements." .
 
 ex:ActOfOrganizationalEstablishment rdf:type owl:Class .
 ex:ActOfOrganizationalEstablishment rdfs:comment "PROPOSE-EXT (D9). CCO 2.0 has no Act-of-Establishment/Organization class (verified: no 'Act of Establish/Organiz/Constitut/Found' label in the closure). REJECTED bpo:ActOfFormulation (Act of Planning): formulating composes a Directive ICE, but establishing a committee primarily constitutes an independent continuant (the body) rather than authoring a directive; the responsibility-assignment directive is a downstream byproduct of seating the body, not the act's primary product. Anchored at the generic cco:ont00000228 (Planned Act). Recurs in 9.0." .
@@ -77,3 +123,1029 @@ ex:ActOfReporting rdfs:label "Act of Reporting" .
 ex:ActOfReporting rdfs:subClassOf cco:ont00000228 .
 ex:ActOfReporting rdfs:subClassOf cco:ont00000379 .
 ex:ActOfReporting skos:definition "An Act of Representative Communication in which an Agent transfers to one or more recipients a Descriptive Information Content Entity (such as a report, statement, scorecard, or filing) that asserts, as true, a representation of an organization's condition or results." .
+
+ex:ActOfSelection rdf:type owl:Class .
+ex:ActOfSelection rdfs:comment "Local extension (D9). Anchored under cco:ont00000366 (Act of Information Processing): receives candidate-option ICEs and yields a decision ICE. Distinct from Act of Appraisal (judges without committing) and Act of Planning. NOTE: ratifying a single already-settled option is NOT selection (no candidate set) -- anchor such acts at cco:ont00000228 (Planned Act)." .
+ex:ActOfSelection rdfs:label "Act of Selection" .
+ex:ActOfSelection rdfs:subClassOf cco:ont00000366 .
+ex:ActOfSelection skos:definition "An Act of Information Processing in which an Agent chooses one or more options from a set of candidates and produces a Directive Information Content Entity that prescribes the chosen option(s)." .
+
+ex:P10729 rdf:type owl:Class .
+ex:P10729 rdfs:comment "Models APQC process group 9.2 as a bounded occurrent. Its APQC level-3 children are process parts (cco:ont00001777), not subclasses." .
+ex:P10729 rdfs:label "Perform revenue accounting" .
+ex:P10729 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10729 skos:definition "An Act of Accounting that reviews a period's revenue-related transactions and final-account entries and produces financial data comparing revenue targets to realized results." .
+ex:P10729 skos:example "A finance team's annual revenue close in which the year's customer transactions are reviewed to examine profits." .
+
+ex:P10767 rdf:type owl:Class .
+ex:P10767 rdfs:comment "Anchored to bpo:ActOfMonitoring (cco:ont00000366). GOLDEN PRINCIPLE: monitoring/forecasting yields a Descriptive ICE (the forecast), not a directive." .
+ex:P10767 rdfs:label "Monitor international rates" .
+ex:P10767 rdfs:subClassOf ex:ActOfMonitoring .
+ex:P10767 skos:definition "An Act of Monitoring that has as input market rate data and has as output a financial forecast describing anticipated changes in foreign-currency values and interest rates relevant to the organization." .
+ex:P10767 skos:example "A treasury analyst tracks global FX and interest-rate movements and issues a weekly currency-rate forecast." .
+
+ex:P10768 rdf:type owl:Class .
+ex:P10768 rdfs:comment "Anchored to bpo:ActOfFinancialTransaction (cco:ont00000228). Operations process: the transferred funds are a MATERIAL participant (bpo:PaymentInstrument via obo:BFO_0000057, not has output); the audit record is the informational has output (bpo:TransactionRecord). Tax-optimization and regulatory-avoidance objectives are typical sub-considerations, recorded here rather than as definitional restrictions." .
+ex:P10768 rdfs:label "Manage transactions" .
+ex:P10768 rdfs:subClassOf ex:ActOfFinancialTransaction .
+ex:P10768 skos:definition "An Act of Financial Transaction that transfers funds across borders in the course of trade or investment, converting between currencies, and produces a monetary payment and a record of the transaction." .
+ex:P10768 skos:example "A treasury operation converts EUR to USD and remits an intercompany payment to settle a cross-border purchase." .
+
+ex:P10769 rdf:type owl:Class .
+ex:P10769 rdfs:comment "Re-anchored from bpo:ActOfMonitoring to bpo:ActOfAnalysis (false-friend on the label word 'Monitor'). The source verb is 'Assessing exposure to potential financial losses ... Forecast the impact of movements' -- a bounded discernment/judgement producing a risk assessment and forecast, i.e. analysis, not continuous status-observation against expected parameters (the bpo:ActOfMonitoring differentia, which fits standing oversight such as bpo:P19583). This aligns the exposure-assessment core with the methodology's parallel treatment of identical content in 9.7.5: bpo:P19580 'Determine foreign exchange exposure' and bpo:P19576 'Determine interest rate exposure', both bpo:ActOfAnalysis producing bpo:RiskAssessment from bpo:MarketRateData (D2 sibling/parallel-row consistency). HEDGING FACET (second defect, intentionally collapsed at 9.10's coarse grain): the label is compound ('...hedge currency') and the source's third sentence ('Enter into financial transactions designed to offset or limit potential exposure to loss') names hedging as a core facet. APQC 9.10 is modeled coarse-grained and does NOT mint separate child rows for it; the hedge decision and execution are first-class acts in the finer-grained 9.7.5 decomposition -- bpo:P19581 (bpo:ActOfSelection -> Directive bpo:HedgeRequirementSpecification, the decision-to-hedge / GOLDEN-PRINCIPLE directive facet) and bpo:P19582 (bpo:ActOfFinancialTransaction, trade execution). This row is therefore scoped to the assessment/forecast facet and cross-references that decomposition rather than mislabelling hedging as a mere non-definitional 'typical consequence'. REJECTED candidate bpo:ActOfMonitoring (continuous-oversight reading; diverges from the 9.7.5 siblings)." .
+ex:P10769 rdfs:label "Monitor currency exposure/hedge currency" .
+ex:P10769 rdfs:subClassOf ex:ActOfAnalysis .
+ex:P10769 skos:definition "An Act of Analysis that examines market rate data and produces a financial risk assessment and a financial forecast describing the organization's exposure to losses from movements in foreign-currency values." .
+ex:P10769 skos:example "A treasurer measures net open EUR exposure and forecasts its loss potential (the offsetting hedge decision/execution being modeled finer-grained at 9.7.5: bpo:P19581 / bpo:P19582)." .
+
+ex:P10770 rdf:type owl:Class .
+ex:P10770 rdfs:comment "Anchored to bpo:ActOfReporting (cco:ont00000366). GOLDEN PRINCIPLE: reporting produces a Descriptive ICE (the financial report). The accounting entries reported on are modeled as bpo:TransactionRecord inputs." .
+ex:P10770 rdfs:label "Report results" .
+ex:P10770 rdfs:subClassOf ex:ActOfReporting .
+ex:P10770 skos:definition "An Act of Reporting that has as input transaction records of foreign-exchange accounting entries and has as output a financial report that formally states the gains or losses realized from foreign-exchange activity." .
+ex:P10770 skos:example "Accounting documents realized FX gains and issues the period's foreign-exchange results report." .
+
+ex:P10772 rdf:type owl:Class .
+ex:P10772 rdfs:comment "Directive output (GOLDEN PRINCIPLE): a budget prescribes intended allocation (cco:ont00000965). Method references (cost-based/zero-based budgeting) and the budget policies from 10771 are typical, not definitional, so not promoted to restrictions." .
+ex:P10772 rdfs:label "Prepare periodic budgets and plans" .
+ex:P10772 rdfs:subClassOf ex:ActOfFormulation .
+ex:P10772 skos:definition "An Act of Formulation that allocates funds over a period and produces a budget prescribing estimated revenues and expenses." .
+ex:P10772 skos:example "The annual departmental budget estimating next year's revenues and expenses." .
+
+ex:P10773 rdf:type owl:Class .
+ex:P10773 rdfs:comment "Re-anchored from bpo:ActOfAnalysis to cco:ont00000371 (Act of Prediction). The source text is purely predictive ('Creating estimates of the projected income and expenses ... Develop the projections of profit and loss statements, balance sheets, and the cash flow forecast') and CCO ships a dedicated verified class for exactly this: cco:ont00000371 (Act of Prediction) = 'A Planned Act that involves the generation of a Predictive Information Content entity that is intended to describe an uncertain possible future event, value, entity, or attribute', whose own examples include predicting a stock's future value. REJECTED candidate bpo:ActOfAnalysis (under Act of Information Processing): it is correct but under-committal and obscures the predictive nature; reuse-before-mint (D5) prefers the fitting verified CCO class over a broader local genus. Output bpo:FinancialForecast retyped under cco:ont00000626 (Predictive ICE, still a Descriptive ICE), so the GOLDEN PRINCIPLE holds under either genus and this is a pure act-genus specificity fix. P&L, balance-sheet, and cash-flow projections are facets of the one forecast." .
+ex:P10773 rdfs:label "Prepare periodic financial forecasts" .
+ex:P10773 rdfs:subClassOf cco:ont00000371 .
+ex:P10773 skos:definition "An Act of Prediction that examines financial data and generates a financial forecast projecting income and expenses over a predetermined time frame." .
+ex:P10773 skos:example "A quarterly cash-flow and P&L forecast for the next four quarters." .
+
+ex:P10774 rdf:type owl:Class .
+ex:P10774 rdfs:comment "Descriptive output: accounting records/statements (cco:ont00000853). The fixed-asset register is the definitional input that is updated; the financial statement is the definitional output." .
+ex:P10774 rdfs:label "Perform inventory accounting" .
+ex:P10774 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10774 skos:definition "An Act of Accounting that records inventory and asset values and accounts for the causes of their change, producing a financial statement of those assets." .
+ex:P10774 skos:example "Recording depreciation and obsolescence write-downs against the fixed-asset register." .
+
+ex:P10775 rdf:type owl:Class .
+ex:P10775 rdfs:comment "Descriptive output (cco:ont00000853). Genus bpo:ActOfAnalysis: examining cost data to produce an understanding." .
+ex:P10775 rdfs:label "Perform cost of sales analysis" .
+ex:P10775 rdfs:subClassOf ex:ActOfAnalysis .
+ex:P10775 skos:definition "An Act of Analysis that examines the expenses directly associated with products and produces a cost analysis of the cost of sales." .
+ex:P10775 skos:example "Breaking down manufacturing cost of goods sold by component." .
+
+ex:P10776 rdf:type owl:Class .
+ex:P10776 rdfs:comment "Descriptive output (cco:ont00000853). Genus bpo:ActOfAnalysis: derives a cost figure from resource-usage data." .
+ex:P10776 rdfs:label "Perform product costing" .
+ex:P10776 rdfs:subClassOf ex:ActOfAnalysis .
+ex:P10776 skos:definition "An Act of Analysis that examines every resource consumed in making a product and produces a cost analysis attributing the product's cost to the relevant cost center." .
+ex:P10776 skos:example "Allocating direct material, labor, and overhead to compute a unit product cost." .
+
+ex:P10777 rdf:type owl:Class .
+ex:P10777 rdfs:comment "Descriptive output (cco:ont00000853). Genus bpo:ActOfAnalysis. Distinct from 20136 (variance against forecasts/budgets at the planning level); this one operates on cost data." .
+ex:P10777 rdfs:label "Perform variance analysis" .
+ex:P10777 rdfs:subClassOf ex:ActOfAnalysis .
+ex:P10777 skos:definition "An Act of Analysis that compares planned and actual costing and produces a variance analysis of the differences." .
+ex:P10777 skos:example "Plotting actual-vs-standard cost variances on a trend line." .
+
+ex:P10782 rdf:type owl:Class .
+ex:P10782 rdfs:comment "Anchored at cco:ont00000636 (Act of Appraisal): the act evaluates/judges profitability. Descriptive output (cco:ont00000853)." .
+ex:P10782 rdfs:label "Assess customer and product profitability" .
+ex:P10782 rdfs:subClassOf cco:ont00000636 .
+ex:P10782 skos:definition "An Act of Appraisal that judges the profitability of customers and products after deducting delivery cost and produces a profitability analysis." .
+ex:P10782 skos:example "Ranking customer segments by net margin after cost-to-serve." .
+
+ex:P10783 rdf:type owl:Class .
+ex:P10783 rdfs:comment "Anchored at cco:ont00000636 (Act of Appraisal). Descriptive output (cco:ont00000853): a judgement of the product's viability." .
+ex:P10783 rdfs:label "Evaluate new products" .
+ex:P10783 rdfs:subClassOf cco:ont00000636 .
+ex:P10783 skos:definition "An Act of Appraisal that judges the demand and projected profitability of a new product in a market and produces a new-product evaluation." .
+ex:P10783 skos:example "Assessing whether a proposed product line is worth producing for a target segment." .
+
+ex:P10784 rdf:type owl:Class .
+ex:P10784 rdfs:comment "Descriptive output (cco:ont00000853). Genus bpo:ActOfAnalysis: derives stage-by-stage cost understanding from cost data." .
+ex:P10784 rdfs:label "Perform life cycle costing" .
+ex:P10784 rdfs:subClassOf ex:ActOfAnalysis .
+ex:P10784 skos:definition "An Act of Analysis that examines a product's full life cycle and produces a life-cycle cost analysis of the revenue and cost incurred at each stage." .
+ex:P10784 skos:example "Computing total cost of ownership across a product's design, production, and disposal stages." .
+
+ex:P10787 rdf:type owl:Class .
+ex:P10787 rdfs:comment "Descriptive output (cco:ont00000853): a performance measure is a representation of measured performance. Genus bpo:ActOfAnalysis: computes metrics from activity data." .
+ex:P10787 rdfs:label "Prepare activity-based performance measures" .
+ex:P10787 rdfs:subClassOf ex:ActOfAnalysis .
+ex:P10787 skos:definition "An Act of Analysis that derives performance metrics from activity data and produces activity-based performance measures." .
+ex:P10787 skos:example "Computing cost-per-transaction and cycle-time metrics for finance activities." .
+
+ex:P10794 rdf:type owl:Class .
+ex:P10794 rdfs:comment "Record-maintenance accounting act; output is the Descriptive customer master file." .
+ex:P10794 rdfs:label "Maintain customer/product master files" .
+ex:P10794 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10794 skos:definition "An Act of Accounting that creates and updates records of customers and the products they purchase and produces a customer master file." .
+ex:P10794 skos:example "A clerk updates the customer master file after a new product is sold." .
+
+ex:P10795 rdf:type owl:Class .
+ex:P10795 rdfs:comment "Output modeled as bpo:FinancialData (Descriptive ICE) covering price/quantity/product detail." .
+ex:P10795 rdfs:label "Generate customer billing data" .
+ex:P10795 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10795 skos:definition "An Act of Accounting that records and compiles the details of a customer's purchase transactions and produces customer billing data." .
+ex:P10795 skos:example "The billing system generates the line-item billing data for a customer's monthly statement." .
+
+ex:P10796 rdf:type owl:Class .
+ex:P10796 rdfs:comment "Re-anchored from bpo:ActOfReporting to cco:ont00000402 (Act of Communication). Transmit-only per the bpo:ActOfReporting carve-out: its rdfs:comment states 'Where a node only transmits an already-prepared report to a party, the group module reuses cco:ont00000402 instead.' The source text is delivery-only ('Providing information to customers ... Communicate the details ... Provide customers with a copy'); no new ICE is produced -- the invoice already exists from bpo:P10743/bpo:P10795. The invoice is therefore the transmitted ICE (has input), not an output, and the Customer is the recipient participant. cco:ont00000402 (Act of Communication) verified against CCO v2.0 (2024-11-06): 'A Planned Act in which some Information Content Entity is transferred from some Agent to Another.' Same transmit-only test applied to sibling 'provide a copy' nodes." .
+ex:P10796 rdfs:label "Transmit billing data to customers" .
+ex:P10796 rdfs:subClassOf cco:ont00000402 .
+ex:P10796 skos:definition "An Act of Communication that conveys a customer's purchase and billing details to that customer by delivering a copy of an already-prepared invoice." .
+ex:P10796 skos:example "The system emails a customer a copy of their invoice." .
+
+ex:P10797 rdf:type owl:Class .
+ex:P10797 rdfs:comment "Posting/registration accounting act; output is the Descriptive transaction record." .
+ex:P10797 rdfs:label "Post receivable entries" .
+ex:P10797 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10797 skos:definition "An Act of Accounting that registers receivable transactions and their scheduled payments and produces a transaction record." .
+ex:P10797 skos:example "Accounting posts the receivable entry for a newly invoiced sale." .
+
+ex:P10798 rdf:type owl:Class .
+ex:P10798 rdfs:comment "Resolution of billing records; the Customer participates as the inquiring party." .
+ex:P10798 rdfs:label "Resolve customer billing inquiries" .
+ex:P10798 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10798 skos:definition "An Act of Accounting that checks customer billing queries against the records and produces a corrected or clarified account statement resolving them." .
+ex:P10798 skos:example "A billing agent investigates and corrects an over-charge a customer disputed." .
+
+ex:P10800 rdf:type owl:Class .
+ex:P10800 rdfs:comment "Operations category permits material I/O: the input is a Monetary Payment (material entity); the booked entries are a Descriptive transaction record." .
+ex:P10800 rdfs:label "Receive/Deposit customer payments" .
+ex:P10800 rdfs:subClassOf ex:ActOfFinancialTransaction .
+ex:P10800 skos:definition "An Act of Financial Transaction that receives monetary payment from a customer, deposits it into a bank account, and books the corresponding entries as a transaction record." .
+ex:P10800 skos:example "A cashier deposits a customer's cash payment and records the receipt." .
+
+ex:P10801 rdf:type owl:Class .
+ex:P10801 rdfs:comment "Material input is a Monetary Payment (the remitted funds); the BankingPartner participates as the authorized remittance agent." .
+ex:P10801 rdfs:label "Apply cash remittances" .
+ex:P10801 rdfs:subClassOf ex:ActOfFinancialTransaction .
+ex:P10801 skos:definition "An Act of Financial Transaction that checks and moves monetary payments, typically through authorized remittance agents, and records the applied remittance." .
+ex:P10801 skos:example "Treasury applies an inbound cross-border remittance to the customer's account via an authorized agent." .
+
+ex:P10802 rdf:type owl:Class .
+ex:P10802 rdfs:comment "Genus Act of Reporting (Descriptive output)." .
+ex:P10802 rdfs:label "Prepare AR reports" .
+ex:P10802 rdfs:subClassOf ex:ActOfReporting .
+ex:P10802 skos:definition "An Act of Reporting that compiles outstanding receivable balances at a point in time into a financial report." .
+ex:P10802 skos:example "Accounting produces an aged-receivables report at month-end." .
+
+ex:P10803 rdf:type owl:Class .
+ex:P10803 rdfs:comment "Posting accounting act; output is the General Ledger (Descriptive ICE)." .
+ex:P10803 rdfs:label "Post AR activity to the general ledger" .
+ex:P10803 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10803 skos:definition "An Act of Accounting that transfers accounts-receivable journal entries into the general ledger accounts." .
+ex:P10803 skos:example "The accountant posts the AR sub-ledger entries to the general ledger." .
+
+ex:P10805 rdf:type owl:Class .
+ex:P10805 rdfs:comment "Genus Act of Analysis (information processing into a Descriptive judgement); input is the account statement." .
+ex:P10805 rdfs:label "Analyze delinquent account balances" .
+ex:P10805 rdfs:subClassOf ex:ActOfAnalysis .
+ex:P10805 skos:definition "An Act of Analysis that examines the balance statements and past payments of delinquent account holders and produces a credit assessment informing negotiation." .
+ex:P10805 skos:example "An analyst studies a defaulter's payment history before settlement talks." .
+
+ex:P10806 rdf:type owl:Class .
+ex:P10806 rdfs:comment "Genus Act of Formulation: the definitional output is a prescribed repayment arrangement (Directive ICE). The defaulting Customer participates." .
+ex:P10806 rdfs:label "Correspond/Negotiate with delinquent accounts" .
+ex:P10806 rdfs:subClassOf ex:ActOfFormulation .
+ex:P10806 skos:definition "An Act of Formulation that, through correspondence with a defaulting customer, determines and prescribes a repayment arrangement as a financial procedure." .
+ex:P10806 skos:example "A collections officer agrees an extended-time repayment plan with a customer in default." .
+
+ex:P10807 rdf:type owl:Class .
+ex:P10807 rdfs:comment "Directive output (Financial Procedure) -> Act of Formulation." .
+ex:P10807 rdfs:label "Discuss account resolution with internal parties" .
+ex:P10807 rdfs:subClassOf ex:ActOfFormulation .
+ex:P10807 skos:definition "An Act of Formulation in which internal parties determine and prescribe the rules for handling accounts and produce a financial procedure." .
+ex:P10807 skos:example "Department heads agree the rules for handling overdue accounts next quarter." .
+
+ex:P10808 rdf:type owl:Class .
+ex:P10808 rdfs:comment "Posting/adjustment accounting act; output is the Descriptive transaction record." .
+ex:P10808 rdfs:label "Process adjustments/write off balances" .
+ex:P10808 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10808 skos:definition "An Act of Accounting that adjusts or writes off uncollectible balances and maintains the related reserves, producing a transaction record." .
+ex:P10808 skos:example "Accounting writes off a bad debt and updates the allowance reserve." .
+
+ex:P10810 rdf:type owl:Class .
+ex:P10810 rdfs:comment "Genus Act of Analysis (information processing into a Descriptive analysis)." .
+ex:P10810 rdfs:label "Analyze adjustments" .
+ex:P10810 rdfs:subClassOf ex:ActOfAnalysis .
+ex:P10810 skos:definition "An Act of Analysis that examines the alterations made in the final accounts during the year and produces a variance analysis identifying errors or omissions to rectify." .
+ex:P10810 skos:example "An accountant reviews the year's account adjustments to flag posting errors." .
+
+ex:P10811 rdf:type owl:Class .
+ex:P10811 rdfs:comment "Genus Act of Formulation: the definitional output is a prescribed offer (Directive ICE). The Customer participates." .
+ex:P10811 rdfs:label "Correspond/Negotiate with customer" .
+ex:P10811 rdfs:subClassOf ex:ActOfFormulation .
+ex:P10811 skos:definition "An Act of Formulation that, through correspondence with a customer, determines and prescribes a suitable offer such as a discount as a financial procedure." .
+ex:P10811 skos:example "An agent offers a customer a settlement discount to clear an adjustment dispute." .
+
+ex:P10812 rdf:type owl:Class .
+ex:P10812 rdfs:comment "Directive output (Financial Procedure) -> Act of Formulation." .
+ex:P10812 rdfs:label "Discuss resolution with internal parties" .
+ex:P10812 rdfs:subClassOf ex:ActOfFormulation .
+ex:P10812 skos:definition "An Act of Formulation in which internal parties discuss and prescribe the rules to follow for handling adjustments in the coming months and produce a financial procedure." .
+ex:P10812 skos:example "Managers agree the rules for processing customer deductions next quarter." .
+
+ex:P10813 rdf:type owl:Class .
+ex:P10813 rdfs:comment "Output bpo:Invoice (Descriptive ICE) is the chargeback document; the Supplier participates as the chargeback recipient." .
+ex:P10813 rdfs:label "Prepare chargeback invoices" .
+ex:P10813 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10813 skos:definition "An Act of Accounting that prepares a chargeback invoice submitted to a supplier to recover an over-charged amount and produces that invoice." .
+ex:P10813 skos:example "A distributor issues a supplier chargeback invoice for an over-billed shipment." .
+
+ex:P10814 rdf:type owl:Class .
+ex:P10814 rdfs:comment "Posting accounting act; output is the Descriptive transaction record." .
+ex:P10814 rdfs:label "Process related entries" .
+ex:P10814 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10814 skos:definition "An Act of Accounting that records related business transactions as they occur to maintain balanced accounts for financial reporting and produces a transaction record." .
+ex:P10814 skos:example "The ledger clerk records the offsetting entries for a processed deduction." .
+
+ex:P10816 rdf:type owl:Class .
+ex:P10816 rdfs:comment "Genus Act of Formulation: output is a Financial Policy (Directive ICE)." .
+ex:P10816 rdfs:label "Establish accounting policies" .
+ex:P10816 rdfs:subClassOf ex:ActOfFormulation .
+ex:P10816 skos:definition "An Act of Formulation that composes the accounting policies and procedures governing how financial statements and disclosures are prepared." .
+ex:P10816 skos:example "A controller adopting a revenue-recognition policy for the organization." .
+
+ex:P10819 rdf:type owl:Class .
+ex:P10819 rdfs:label "Maintain chart of accounts" .
+ex:P10819 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10819 skos:definition "An Act of Accounting that lists and updates the set of accounts used in the general ledger to produce a current chart of accounts." .
+ex:P10819 skos:example "Adding a new expense account to the chart of accounts for a new business line." .
+
+ex:P10820 rdf:type owl:Class .
+ex:P10820 rdfs:label "Process journal entries" .
+ex:P10820 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10820 skos:definition "An Act of Accounting that records transactions as journal entries and posts them to produce the general ledger." .
+ex:P10820 skos:example "Posting the period's sales and purchase journals to the ledger." .
+
+ex:P10821 rdf:type owl:Class .
+ex:P10821 rdfs:comment "Budget is a definitional input (the basis for apportionment); allocations are recorded as transaction records." .
+ex:P10821 rdfs:label "Process allocations" .
+ex:P10821 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10821 skos:definition "An Act of Accounting that apportions funds across functions in line with the budget and records the allocations in centralized internal records." .
+ex:P10821 skos:example "Allocating shared overhead to business units per the approved budget." .
+
+ex:P10822 rdf:type owl:Class .
+ex:P10822 rdfs:label "Process period end adjustments" .
+ex:P10822 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10822 skos:definition "An Act of Accounting that updates journal entries to adjust income and expense balances at the close of an accounting period, updating the general ledger." .
+ex:P10822 skos:example "Booking accruals and deferrals at month-end close." .
+
+ex:P10823 rdf:type owl:Class .
+ex:P10823 rdfs:comment "Subsidiaries are typical participants; recorded here as commentary rather than a definitional restriction." .
+ex:P10823 rdfs:label "Post and reconcile intercompany transactions" .
+ex:P10823 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10823 skos:definition "An Act of Accounting that posts and reconciles transactions between a parent company and its subsidiaries and documents them in the general ledger." .
+ex:P10823 skos:example "Reconciling an intercompany loan between a parent and its subsidiary." .
+
+ex:P10824 rdf:type owl:Class .
+ex:P10824 rdfs:label "Reconcile general ledger accounts" .
+ex:P10824 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10824 skos:definition "An Act of Accounting that compares general-ledger account balances against source documents to validate their integrity and produce a reconciled general ledger." .
+ex:P10824 skos:example "Tying cash-account balances to bank statements during close." .
+
+ex:P10825 rdf:type owl:Class .
+ex:P10825 rdfs:label "Perform consolidations and process eliminations" .
+ex:P10825 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10825 skos:definition "An Act of Accounting that aggregates accounts across business processes and eliminates discontinued items to produce a consolidated general ledger." .
+ex:P10825 skos:example "Eliminating intercompany balances when consolidating group accounts." .
+
+ex:P10826 rdf:type owl:Class .
+ex:P10826 rdfs:comment "Output corrected from bpo:GeneralLedger to bpo:TrialBalance: 'Prepare trial balance' produces a balanced trial balance (a distinct derived statement), not the general ledger. bpo:GeneralLedger is retained as the definitional has input (the trial balance is computed from it)." .
+ex:P10826 rdfs:label "Prepare trial balance" .
+ex:P10826 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10826 skos:definition "An Act of Accounting that totals debit and credit balances to produce a balanced trial balance as the basis for final accounts." .
+ex:P10826 skos:example "Producing the adjusted trial balance prior to drafting statements." .
+
+ex:P10827 rdf:type owl:Class .
+ex:P10827 rdfs:label "Prepare and post management adjustments" .
+ex:P10827 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10827 skos:definition "An Act of Accounting that records management- and policy-driven adjustments in the accounts, updating the general ledger." .
+ex:P10827 skos:example "Posting a management override to reclassify expenses after a tax-law change." .
+
+ex:P10829 rdf:type owl:Class .
+ex:P10829 rdfs:label "Maintain fixed-asset master data files" .
+ex:P10829 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10829 skos:definition "An Act of Accounting that creates and keeps current the fixed-asset master data detailing price, life cycle, depreciation, and usage." .
+ex:P10829 skos:example "Updating an asset's useful-life parameter in the fixed-asset register." .
+
+ex:P10830 rdf:type owl:Class .
+ex:P10830 rdfs:label "Process and record fixed-asset additions and retires" .
+ex:P10830 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10830 skos:definition "An Act of Accounting that records additions and retirements of fixed assets during the fiscal year in the fixed-asset register." .
+ex:P10830 skos:example "Capitalizing a newly purchased machine and writing off a retired one." .
+
+ex:P10831 rdf:type owl:Class .
+ex:P10831 rdfs:label "Process and record fixed-asset adjustments, enhancements, revaluations, and transfers" .
+ex:P10831 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10831 skos:definition "An Act of Accounting that records fixed-asset adjustments, enhancements, revaluations, and inter-location transfers in the fixed-asset register." .
+ex:P10831 skos:example "Revaluing a building to current market price and recording the uplift." .
+
+ex:P10832 rdf:type owl:Class .
+ex:P10832 rdfs:label "Process and record fixed-asset maintenance and repair expenses" .
+ex:P10832 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10832 skos:definition "An Act of Accounting that records the maintenance and repair expenses incurred to preserve fixed assets in the fixed-asset register." .
+ex:P10832 skos:example "Expensing a routine servicing cost against a vehicle asset." .
+
+ex:P10833 rdf:type owl:Class .
+ex:P10833 rdfs:label "Calculate and record depreciation expense" .
+ex:P10833 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10833 skos:definition "An Act of Accounting that computes periodic depreciation on fixed assets and records the resulting expense and carrying value in the fixed-asset register." .
+ex:P10833 skos:example "Booking monthly straight-line depreciation for the asset base." .
+
+ex:P10834 rdf:type owl:Class .
+ex:P10834 rdfs:label "Reconcile fixed-asset ledger" .
+ex:P10834 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10834 skos:definition "An Act of Accounting that balances and corrects the fixed-asset ledger so that its account balances are accurate." .
+ex:P10834 skos:example "Reconciling the fixed-asset subledger to the general ledger control account." .
+
+ex:P10835 rdf:type owl:Class .
+ex:P10835 rdfs:comment "Genus Act of Monitoring (not Accounting): the act observes assets over time and reconciles them to a physical count, maintaining a representational record." .
+ex:P10835 rdfs:label "Track fixed-assets including physical inventory" .
+ex:P10835 rdfs:subClassOf ex:ActOfMonitoring .
+ex:P10835 skos:definition "An Act of Monitoring that checks fixed assets against physical inventory over time and updates the fixed-asset register to reflect their current state." .
+ex:P10835 skos:example "An annual physical-inventory count reconciled to the asset register." .
+
+ex:P10836 rdf:type owl:Class .
+ex:P10836 rdfs:comment "Genus Act of Reporting: the act disseminates fixed-asset information; the Fixed-Asset Register is the definitional input and the conveyed Financial Report the output." .
+ex:P10836 rdfs:label "Provide fixed-asset data to support tax, statutory, and regulatory reporting" .
+ex:P10836 rdfs:subClassOf ex:ActOfReporting .
+ex:P10836 skos:definition "An Act of Reporting that compiles fixed-asset data from the register and conveys it to support tax, statutory, and regulatory reporting." .
+ex:P10836 skos:example "Supplying depreciation schedules to the tax team for a return." .
+
+ex:P10837 rdf:type owl:Class .
+ex:P10837 rdfs:label "Prepare business unit financial statements" .
+ex:P10837 rdfs:subClassOf ex:ActOfReporting .
+ex:P10837 skos:definition "An Act of Reporting that prepares the financial statements of a single business unit from its general-ledger balances." .
+ex:P10837 skos:example "Producing a division's standalone income statement and balance sheet." .
+
+ex:P10838 rdf:type owl:Class .
+ex:P10838 rdfs:label "Prepare consolidated financial statements" .
+ex:P10838 rdfs:subClassOf ex:ActOfReporting .
+ex:P10838 skos:definition "An Act of Reporting that combines the accounts of a parent company and its subsidiaries to produce consolidated financial statements." .
+ex:P10838 skos:example "Preparing group consolidated statements at year-end." .
+
+ex:P10839 rdf:type owl:Class .
+ex:P10839 rdfs:label "Perform business unit reporting/review management reports" .
+ex:P10839 rdfs:subClassOf ex:ActOfReporting .
+ex:P10839 skos:definition "An Act of Reporting that prepares and reviews business-unit management reports breaking down results by function, client, product, and region." .
+ex:P10839 skos:example "Issuing a divisional profitability pack for the monthly management review." .
+
+ex:P10840 rdf:type owl:Class .
+ex:P10840 rdfs:comment "Variance analysis is a typical reviewed input; recorded as commentary rather than a definitional restriction." .
+ex:P10840 rdfs:label "Perform consolidated reporting/review of cost management reports" .
+ex:P10840 rdfs:subClassOf ex:ActOfReporting .
+ex:P10840 skos:definition "An Act of Reporting that prepares consolidated management reports combining all units' results and reviewing actual-versus-estimated cost variances." .
+ex:P10840 skos:example "Reviewing group cost variances alongside the consolidated results." .
+
+ex:P10841 rdf:type owl:Class .
+ex:P10841 rdfs:label "Prepare statements for board review" .
+ex:P10841 rdfs:subClassOf ex:ActOfReporting .
+ex:P10841 skos:definition "An Act of Reporting that prepares a draft of the financial statements for board review prior to audit." .
+ex:P10841 skos:example "Circulating draft annual statements to the audit committee." .
+
+ex:P10842 rdf:type owl:Class .
+ex:P10842 rdfs:label "Produce quarterly/annual filings and shareholder reports" .
+ex:P10842 rdfs:subClassOf ex:ActOfReporting .
+ex:P10842 skos:definition "An Act of Reporting that produces quarterly and annual financial filings and shareholder reports and presents them to stakeholders." .
+ex:P10842 skos:example "Publishing the annual report and 10-K filing." .
+
+ex:P10843 rdf:type owl:Class .
+ex:P10843 rdfs:label "Produce regulatory reports" .
+ex:P10843 rdfs:subClassOf ex:ActOfReporting .
+ex:P10843 skos:definition "An Act of Reporting that compiles final-account data in accordance with rules and regulations to produce a regulatory filing." .
+ex:P10843 skos:example "Filing statutory accounts with the securities regulator." .
+
+ex:P10847 rdf:type owl:Class .
+ex:P10847 rdfs:comment "Anchored to cco:ont00000636 (Act of Appraisal): it evaluates a business case's value. Output bpo:FinancialJustification is a Descriptive ICE (it represents an argument, it does not prescribe). Cost data is a typical input, recorded as comment not restriction (Phase-3)." .
+ex:P10847 rdfs:label "Conduct financial justification for project approval" .
+ex:P10847 rdfs:subClassOf cco:ont00000636 .
+ex:P10847 skos:definition "An Act of Appraisal that juxtaposes the projected benefits of a capital project against its costs and produces a financial justification substantiating the project's expected financial gains." .
+ex:P10847 skos:example "An analyst validates a project's business case and documents a cost-benefit justification recommending approval." .
+
+ex:P10848 rdf:type owl:Class .
+ex:P10848 rdfs:comment "Anchored to bpo:ActOfAccounting (creating classification codes within a system of accounts). Output bpo:ProjectAccountCode is a Descriptive ICE; bpo:ChartOfAccounts (the master structure) was rejected as too broad for a single per-project code." .
+ex:P10848 rdfs:label "Create project account codes" .
+ex:P10848 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10848 skos:definition "An Act of Accounting that assigns a reference account code to each capital project so that its transactions can be classified and tracked." .
+ex:P10848 skos:example "The ledger administrator opens a new project and issues it a unique cost-collection account code." .
+
+ex:P10849 rdf:type owl:Class .
+ex:P10849 rdfs:comment "Anchored to bpo:ActOfAccounting. Output bpo:TransactionRecord is a Descriptive ICE." .
+ex:P10849 rdfs:label "Record project-related transactions" .
+ex:P10849 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10849 skos:definition "An Act of Accounting that documents every financial transaction associated with a capital project into a centralized repository, producing the project's transaction records." .
+ex:P10849 skos:example "A clerk posts each invoice and payment for a construction project to the shared project ledger." .
+
+ex:P10850 rdf:type owl:Class .
+ex:P10850 rdfs:comment "Anchored to bpo:ActOfMonitoring. The Budget is definitional (the comparison reference), so it is asserted as an input restriction; cost data is a typical input recorded in comment only (Phase-3)." .
+ex:P10850 rdfs:label "Monitor and track capital projects and budget spending" .
+ex:P10850 rdfs:subClassOf ex:ActOfMonitoring .
+ex:P10850 skos:definition "An Act of Monitoring that observes the funds invested in a capital project, compares actual spending against its budget, and produces a variance analysis." .
+ex:P10850 skos:example "A controller tracks a project's cumulative spend against its approved budget and reports the variance each month." .
+
+ex:P10851 rdf:type owl:Class .
+ex:P10851 rdfs:comment "Re-anchored from bpo:ActOfAccounting to bpo:ActOfSelection (D2 / Phase-1 fix). The verbatim apqcSourceText is an APPRAISAL-and-DECISION act: 'Checking for returns generated from projects for decision making. Evaluate capital projects ... Decide whether to proceed based on the revenues generated.' It never mentions closing or capitalizing onto the fixed-asset register; the previous 'close/capitalize' genus and bpo:FixedAssetRegister output were supplied from the LABEL, discarding the row's evaluate+decide meaning. Per D2 the genus must come from the de-conflated description, which describes evaluation of returns plus a go/no-go decision -- the same act kind as its 9.4.2 siblings bpo:P10846 (review+approve) and bpo:P10852 (measure returns). GOLDEN PRINCIPLE + sibling consistency: the definitional product is a Directive go/no-go decision (bpo:ProjectContinuationDecision), so the genus is bpo:ActOfSelection (chooses among proceed/not-proceed, produces a Directive ICE), aligned with bpo:P10846. REJECTED candidates: bpo:ActOfAccounting (label-driven, asserts a bookkeeping capitalization the description does not describe) and cco:ont00000636 (Act of Appraisal) (would pair an Appraisal genus with a Directive decision output, breaking genus-output agreement -- see bpo:P10846). bpo:ProfitabilityAnalysis (returns data) is the Descriptive input baseline. If a genuine bookkeeping 'capitalize onto fixed-asset register' facet is intended, it should be split into a separate Act of Accounting child rather than overwriting this PCF row's evaluative meaning." .
+ex:P10851 rdfs:label "Close/capitalize projects" .
+ex:P10851 rdfs:subClassOf ex:ActOfSelection .
+ex:P10851 skos:definition "An Act of Selection that evaluates the returns generated by a capital project and decides whether to proceed with it, producing a project continuation decision." .
+ex:P10851 skos:example "On reviewing a project's realized returns, the committee decides to continue (or halt) the investment." .
+
+ex:P10854 rdf:type owl:Class .
+ex:P10854 rdfs:label "Collect and record employee time worked" .
+ex:P10854 rdfs:subClassOf cco:ont00000366 .
+ex:P10854 skos:definition "An Act of Information Processing that collects the daily hours worked by each employee and produces an employee time record." .
+ex:P10854 skos:example "Recording every employee's clock-in and billable hours each day." .
+
+ex:P10855 rdf:type owl:Class .
+ex:P10855 rdfs:label "Analyze and report paid and unpaid leave" .
+ex:P10855 rdfs:subClassOf ex:ActOfAnalysis .
+ex:P10855 skos:definition "An Act of Analysis that has as input employee time records and produces a leave report describing the paid and unpaid leave allowed to and taken by employees." .
+ex:P10855 skos:example "Producing a monthly leave-balance report from recorded time data." .
+
+ex:P10856 rdf:type owl:Class .
+ex:P10856 rdfs:comment "Anchored to bpo:ActOfMonitoring: ongoing daily observation of hours against company standards, output is a descriptive record." .
+ex:P10856 rdfs:label "Monitor regular, overtime, and other hours" .
+ex:P10856 rdfs:subClassOf ex:ActOfMonitoring .
+ex:P10856 skos:definition "An Act of Monitoring that tracks the regular, overtime, and other hours worked by employees and produces an employee time record registering them." .
+ex:P10856 skos:example "Daily tracking of overtime hours against the standard work week." .
+
+ex:P10857 rdf:type owl:Class .
+ex:P10857 rdfs:label "Analyze and report employee utilization" .
+ex:P10857 rdfs:subClassOf ex:ActOfAnalysis .
+ex:P10857 skos:definition "An Act of Analysis that has as input employee time records and produces an employee utilization report describing employees' productive hours." .
+ex:P10857 skos:example "Computing and reporting each employee's billable-utilization ratio." .
+
+ex:P10858 rdf:type owl:Class .
+ex:P10858 rdfs:label "Enter employee time worked into payroll system" .
+ex:P10858 rdfs:subClassOf cco:ont00000366 .
+ex:P10858 skos:definition "An Act of Information Processing that has as input an employee time record and registers the hours worked into the payroll system as a transaction record for salary calculation." .
+ex:P10858 skos:example "Importing approved timesheet hours into the payroll engine before a pay run." .
+
+ex:P10859 rdf:type owl:Class .
+ex:P10859 rdfs:comment "Re-anchored from bpo:ActOfMonitoring to bpo:ActOfAccounting (false-friend fix). The source text ('manage and update information pertaining to the structure of every employee's salary ... updating any changes ... in a central repository') describes record creation/maintenance, not observation. bpo:ActOfMonitoring is defined as observing an ongoing process/position over time AGAINST EXPECTED PARAMETERS; maintaining a salary-structure repository involves no comparison against expected parameters and is not status observation -- it is records upkeep, which bpo:ActOfAccounting's scope ('produces or UPDATES a Descriptive ICE ... maintain ledgers/master files') covers. The Descriptive output (bpo:EarningsInformation) and R5 hold; only the act genus changes. Anchored identically to its 'Maintain and administer' twin bpo:P10860." .
+ex:P10859 rdfs:label "Maintain and administer employee earnings information" .
+ex:P10859 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10859 skos:definition "An Act of Accounting that maintains and updates the employee earnings information held in a central repository, producing an updated employee-earnings record." .
+ex:P10859 skos:example "Updating an employee's salary-structure record after a raise." .
+
+ex:P10860 rdf:type owl:Class .
+ex:P10860 rdfs:comment "Re-anchored from bpo:ActOfMonitoring to bpo:ActOfAccounting (same false-friend fix as its twin bpo:P10859). The source verb is literally 'Processing'/'Keep and manage' ('Processing salary deductions for tax purposes. Keep and manage the details of every employee's salary deductions ...'), i.e. maintaining deduction records, not observing a position against expected parameters (the bpo:ActOfMonitoring differentia). Records upkeep falls under bpo:ActOfAccounting ('produces or UPDATES a Descriptive ICE ... maintain ledgers/master files'). Output bpo:PayrollDeductionRecord (Descriptive) and R5 are unchanged. Anchored identically to bpo:P10859 so the 'Maintain and administer' pair is consistent." .
+ex:P10860 rdfs:label "Maintain and administer applicable deductions" .
+ex:P10860 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10860 skos:definition "An Act of Accounting that keeps current the details of each employee's salary deductions and produces a payroll deduction record." .
+ex:P10860 skos:example "Recording an employee's updated investment declarations to adjust deductions." .
+
+ex:P10861 rdf:type owl:Class .
+ex:P10861 rdfs:comment "Anchored to bpo:ActOfMonitoring: ongoing tracking of tax-status changes; output is descriptive tax data." .
+ex:P10861 rdfs:label "Monitor changes in tax status of employees" .
+ex:P10861 rdfs:subClassOf ex:ActOfMonitoring .
+ex:P10861 skos:definition "An Act of Monitoring that tracks changes in employees' tax status and produces updated tax data for payroll deduction." .
+ex:P10861 skos:example "Detecting an employee's change of tax bracket and flagging it for the next pay run." .
+
+ex:P10862 rdf:type owl:Class .
+ex:P10862 rdfs:comment "Re-anchored from bpo:ActOfFinancialTransaction to bpo:ActOfRemuneration (the verified CCO leaf cco:ont00000449): an unambiguous employer->employee salary disbursement -- the exact differentia of Remuneration. The disbursed payment is a MATERIAL participant (obo:BFO_0000057), not has output." .
+ex:P10862 rdfs:label "Process and distribute payments" .
+ex:P10862 rdfs:subClassOf ex:ActOfRemuneration .
+ex:P10862 skos:definition "An Act of Remuneration that disburses salaries to employees, producing a monetary payment to each employee in compensation for services performed." .
+ex:P10862 skos:example "Paying every employee's net salary by direct deposit on payday." .
+
+ex:P10863 rdf:type owl:Class .
+ex:P10863 rdfs:comment "The monetary payment is a MATERIAL participant (obo:BFO_0000057), not has output; the off-cycle manual check corrects a prior payroll error. Substantively an Act of Remuneration (cco:ont00000449) but kept under bpo:ActOfFinancialTransaction: as an error-correction disbursement its differentia is rectifying an omission, one step removed from the canonical compensation-for-services run (cf. bpo:P10862, which moves to bpo:ActOfRemuneration)." .
+ex:P10863 rdfs:label "Process and distribute manual checks" .
+ex:P10863 rdfs:subClassOf ex:ActOfFinancialTransaction .
+ex:P10863 skos:definition "An Act of Financial Transaction that issues a manual payment to correct an incorrect or omitted salary payment, producing a monetary payment to the affected employee." .
+ex:P10863 skos:example "Cutting a manual check for an employee whose overtime was missed in the main run." .
+
+ex:P10864 rdf:type owl:Class .
+ex:P10864 rdfs:comment "Anchored to bpo:ActOfAccounting: reconciling/adjusting financial records; output is a descriptive ICE." .
+ex:P10864 rdfs:label "Process period-end adjustments" .
+ex:P10864 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10864 skos:definition "An Act of Accounting that reconciles and adjusts employees' salary deductions at the close of a tax period and produces a payroll period-end adjustment record." .
+ex:P10864 skos:example "Recomputing year-end tax deductions and posting the correcting adjustments." .
+
+ex:P10865 rdf:type owl:Class .
+ex:P10865 rdfs:label "Respond to employee payroll inquiries" .
+ex:P10865 rdfs:subClassOf cco:ont00000366 .
+ex:P10865 skos:definition "An Act of Information Processing that addresses an employee's salary-related query and produces a payroll inquiry response." .
+ex:P10865 skos:example "Answering an employee's question about why a deduction changed this month." .
+
+ex:P10866 rdf:type owl:Class .
+ex:P10866 rdfs:comment "The remitted Monetary Payment is a MATERIAL participant (obo:BFO_0000057), not has output; calculation per tax regulations is a sub-step. Certified accountants typically participate (rdfs:comment, not definitional)." .
+ex:P10866 rdfs:label "Calculate and pay applicable payroll taxes" .
+ex:P10866 rdfs:subClassOf ex:ActOfFinancialTransaction .
+ex:P10866 skos:definition "An Act of Financial Transaction that calculates the payroll-tax liability owed on employees' salaries and pays it to the tax authority, producing a monetary payment of tax." .
+ex:P10866 skos:example "Computing and remitting withheld income tax for the period to the revenue authority." .
+
+ex:P10867 rdf:type owl:Class .
+ex:P10867 rdfs:comment "Anchored to bpo:ActOfReporting: compiling and issuing a statement; output is a descriptive ICE delivered to employees." .
+ex:P10867 rdfs:label "Produce and distribute employee annual tax statements" .
+ex:P10867 rdfs:subClassOf ex:ActOfReporting .
+ex:P10867 skos:definition "An Act of Reporting that compiles and issues an employee annual tax statement describing the tax withheld from each employee's salary." .
+ex:P10867 skos:example "Issuing each employee a year-end statement of wages and taxes withheld." .
+
+ex:P10868 rdf:type owl:Class .
+ex:P10868 rdfs:comment "Anchored to bpo:ActOfReporting: compiling and issuing a filing to an authority; output is a descriptive ICE (regulatory filing)." .
+ex:P10868 rdfs:label "File regulatory payroll tax forms" .
+ex:P10868 rdfs:subClassOf ex:ActOfReporting .
+ex:P10868 skos:definition "An Act of Reporting that compiles and submits the required payroll-tax forms to a regulatory authority, producing a regulatory filing." .
+ex:P10868 skos:example "Submitting the quarterly payroll-tax return to the revenue authority." .
+
+ex:P10869 rdf:type owl:Class .
+ex:P10869 rdfs:comment "Anchored to cco:ont00000636 (Act of Appraisal): it judges an entry against a reference record, yielding a descriptive match judgement (GOLDEN PRINCIPLE)." .
+ex:P10869 rdfs:label "Verify AP pay file with purchase order vendor master file" .
+ex:P10869 rdfs:subClassOf cco:ont00000636 .
+ex:P10869 skos:definition "An Act of Appraisal that checks accounts-payable pay-file entries against the vendor master file and produces a payment match result." .
+ex:P10869 skos:example "An AP clerk three-way-matching an invoice to the PO and vendor master before release." .
+
+ex:P10871 rdf:type owl:Class .
+ex:P10871 rdfs:comment "Anchored to cco:ont00000636 (Act of Appraisal): auditing/evaluating registered bills judges them against records and yields a descriptive finding. Invoice is a typical input (commented, not definitional)." .
+ex:P10871 rdfs:label "Audit invoices and key data in AP system" .
+ex:P10871 rdfs:subClassOf cco:ont00000636 .
+ex:P10871 skos:definition "An Act of Appraisal that evaluates invoices and key data registered in the accounts-payable system and produces an invoice audit judgement." .
+ex:P10871 skos:example "An AP auditor reviewing posted invoices for accuracy and policy compliance." .
+
+ex:P10873 rdf:type owl:Class .
+ex:P10873 rdfs:comment "Anchored to bpo:ActOfAccounting (cco:ont00000366): bookkeeping entries are recorded into a descriptive ledger artifact." .
+ex:P10873 rdfs:label "Process financial accruals and reversals" .
+ex:P10873 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10873 skos:definition "An Act of Accounting that records accrual and reversal entries in the books of accounts and produces the corresponding transaction records." .
+ex:P10873 skos:example "Month-end posting of accrued expenses and the reversal of the prior period's adjusting entries." .
+
+ex:P10875 rdf:type owl:Class .
+ex:P10875 rdfs:comment "Anchored directly to cco:ont00000366 (Act of Information Processing): ad hoc research/resolution of a payable anomaly producing a descriptive disposition record." .
+ex:P10875 rdfs:label "Research/Resolve payable exceptions" .
+ex:P10875 rdfs:subClassOf cco:ont00000366 .
+ex:P10875 skos:definition "An Act of Information Processing that investigates an atypical or inconsistent accounts-payable situation and produces a payable exception resolution record." .
+ex:P10875 skos:example "An AP analyst researching a duplicate-payment exception and recording its resolution." .
+
+ex:P10876 rdf:type owl:Class .
+ex:P10876 rdfs:comment "Anchored to bpo:ActOfFinancialTransaction (cco:ont00000228). The disbursed monetary payment is a MATERIAL participant (obo:BFO_0000057), not has output (operations material-I/O rule). The supplier is a definitional participant (it receives the payment)." .
+ex:P10876 rdfs:label "Process payments" .
+ex:P10876 rdfs:subClassOf ex:ActOfFinancialTransaction .
+ex:P10876 skos:definition "An Act of Financial Transaction that disburses monetary payment for products or services on the due dates of an agreed payment cycle." .
+ex:P10876 skos:example "Releasing a scheduled ACH run to suppliers on invoice due dates." .
+
+ex:P10877 rdf:type owl:Class .
+ex:P10877 rdfs:comment "Anchored to cco:ont00000402 (Act of Communication, a Planned Act in which an ICE is transferred from one Agent to another). The transferred clarification is descriptive; the supplier is the definitional recipient/participant. Explicit rdfs:subClassOf cco:ont00000228 (Planned Act) added so the act-anchor chain is visible to the standalone SHACL run (ont00000402 is a CCO subclass of ont00000228, but the closure is not merged for Gate C). VERIFICATION (D6/§6): cco:ont00000402 verified against the pinned CCO v2.0 (2024-11-06) closure -- rdfs:label 'Act of Communication'@en, skos:definition 'A Planned Act in which some Information Content Entity is transferred from some Agent to Another', rdfs:subClassOf cco:ont00000228 (Planned Act). This is the correct verified communication class and is NOT the §6 false-friend reject cco:ont00001261 'Act of Identifying' (an Act of Representative Communication for discernment); ont00000402 genuinely denotes agent-to-agent ICE transfer, the act kind required for an inquiry response. It should be added to the §6 verified-core-terms table as the canonical Act-of-Communication anchor used corpus-wide (transmit-only nodes)." .
+ex:P10877 rdfs:label "Respond to AP inquiries" .
+ex:P10877 rdfs:subClassOf cco:ont00000228 .
+ex:P10877 rdfs:subClassOf cco:ont00000402 .
+ex:P10877 skos:definition "An Act of Communication that clarifies queries about accounts-payable particulars and transfers the clarifying information to the inquiring party." .
+ex:P10877 skos:example "AP staff answering a supplier's query about a payment date and discount taken." .
+
+ex:P10879 rdf:type owl:Class .
+ex:P10879 rdfs:comment "Anchored to bpo:ActOfAccounting (cco:ont00000366): correcting bookkeeping entries updates a descriptive record." .
+ex:P10879 rdfs:label "Adjust accounting records" .
+ex:P10879 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10879 skos:definition "An Act of Accounting that rectifies alterations that occurred while recording in the accounts and produces corrected transaction records." .
+ex:P10879 skos:example "Posting correcting journal entries for a mis-keyed invoice amount." .
+
+ex:P10881 rdf:type owl:Class .
+ex:P10881 rdfs:comment "Anchored to bpo:ActOfReporting (cco:ont00000366): pertinent information is compiled into a descriptive tax-data report." .
+ex:P10881 rdfs:label "Capture and report relevant tax data" .
+ex:P10881 rdfs:subClassOf ex:ActOfReporting .
+ex:P10881 skos:definition "An Act of Reporting that collects and reports the tax information pertinent to taxes paid by an organization's employees and produces tax data." .
+ex:P10881 skos:example "Compiling employee per-diem and reimbursement amounts for payroll-tax reporting." .
+
+ex:P10883 rdf:type owl:Class .
+ex:P10883 rdfs:comment "Anchored to bpo:ActOfFinancialTransaction (cco:ont00000228). The disbursed monetary payment is a MATERIAL participant; the employee is the definitional recipient. The source cross-reference licenses bfo:precedes from 10882 (see precedence block)." .
+ex:P10883 rdfs:label "Process reimbursements and advances" .
+ex:P10883 rdfs:subClassOf ex:ActOfFinancialTransaction .
+ex:P10883 skos:definition "An Act of Financial Transaction that disburses monetary payment to employees in settlement of approved expense-reimbursement and advance requests." .
+ex:P10883 skos:example "Paying an employee's approved expense claim by direct deposit." .
+
+ex:P10884 rdf:type owl:Class .
+ex:P10884 rdfs:comment "R5: despite the 'Manage' label the source ('Maintaining accounts') denotes discrete record-maintenance acts over personnel-account records, a bounded occurrent, not a no-end standing function. Anchored to bpo:ActOfAccounting (cco:ont00000366)." .
+ex:P10884 rdfs:label "Manage personnel accounts" .
+ex:P10884 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10884 skos:definition "An Act of Accounting that maintains the financial accounts of individuals connected with the business and produces updated account statements." .
+ex:P10884 skos:example "Updating an employee's advance/reimbursement balance after a settlement." .
+
+ex:P10886 rdf:type owl:Class .
+ex:P10886 rdfs:comment "Genus bpo:ActOfFormulation (Directive output). Reuses shared bpo:FinancialPolicy (treasury investment policy)." .
+ex:P10886 rdfs:label "Establish and publish treasury policies" .
+ex:P10886 rdfs:subClassOf ex:ActOfFormulation .
+ex:P10886 skos:definition "An Act of Formulation that has as output a financial policy that prescribes the organization's investment regulations." .
+ex:P10886 skos:example "Treasury issues and circulates the written corporate investment policy." .
+
+ex:P10887 rdf:type owl:Class .
+ex:P10887 rdfs:comment "Genus bpo:ActOfFormulation (Directive output). Reuses shared bpo:FinancialProcedure." .
+ex:P10887 rdfs:label "Develop treasury procedures" .
+ex:P10887 rdfs:subClassOf ex:ActOfFormulation .
+ex:P10887 skos:definition "An Act of Formulation that has as output a financial procedure prescribing the steps for executing investments." .
+ex:P10887 skos:example "Treasury drafts the step-by-step procedure for placing a bond trade." .
+
+ex:P10888 rdf:type owl:Class .
+ex:P10888 rdfs:comment "Genus bpo:ActOfMonitoring (Descriptive output) per GOLDEN PRINCIPLE: ongoing checking yields a judgement. Reuses shared bpo:FinancialProcedure and bpo:ControlEffectivenessAssessment." .
+ex:P10888 rdfs:label "Monitor treasury procedures" .
+ex:P10888 rdfs:subClassOf ex:ActOfMonitoring .
+ex:P10888 skos:definition "An Act of Monitoring that has as input a financial procedure and has as output a control-effectiveness assessment of treasury processes." .
+ex:P10888 skos:example "A treasury controller periodically reviews adherence to investment procedures." .
+
+ex:P10889 rdf:type owl:Class .
+ex:P10889 rdfs:comment "Genus cco:ont00000636 (Act of Appraisal): auditing evaluates and judges, producing a Descriptive ICE. Reuses shared bpo:ControlEffectivenessAssessment." .
+ex:P10889 rdfs:label "Audit treasury procedures" .
+ex:P10889 rdfs:subClassOf cco:ont00000636 .
+ex:P10889 skos:definition "An Act of Appraisal that examines the treasury function and has as output a control-effectiveness assessment." .
+ex:P10889 skos:example "Internal audit reviews treasury controls and issues an assessment." .
+
+ex:P10890 rdf:type owl:Class .
+ex:P10890 rdfs:comment "Genus bpo:ActOfFormulation (Directive output): revising reformulates a prescriptive procedure. Reuses shared bpo:ControlEffectivenessAssessment and bpo:FinancialProcedure." .
+ex:P10890 rdfs:label "Revise treasury procedures" .
+ex:P10890 rdfs:subClassOf ex:ActOfFormulation .
+ex:P10890 skos:definition "An Act of Formulation that has as input a control-effectiveness assessment and has as output a revised financial procedure." .
+ex:P10890 skos:example "Treasury updates its trading procedures in response to audit findings." .
+
+ex:P10893 rdf:type owl:Class .
+ex:P10893 rdfs:comment "Genus bpo:ActOfAccounting (info-processing; Descriptive output). Reuses shared bpo:GeneralLedger; output bpo:CashPosition minted locally." .
+ex:P10893 rdfs:label "Manage and reconcile cash positions" .
+ex:P10893 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10893 skos:definition "An Act of Accounting that has as input a general ledger and has as output a reconciled cash position." .
+ex:P10893 skos:example "Treasury reconciles bank statements against the ledger and corrects discrepancies." .
+
+ex:P10895 rdf:type owl:Class .
+ex:P10895 rdfs:comment "Genus bpo:ActOfFinancialTransaction (Planned Act). Operations category: the material filler bpo:PaymentInstrument is the transferred MATERIAL participant (obo:BFO_0000057), not has output (has output is reserved for ICE outputs)." .
+ex:P10895 rdfs:label "Process and oversee electronic fund transfers (EFTs)" .
+ex:P10895 rdfs:subClassOf ex:ActOfFinancialTransaction .
+ex:P10895 skos:definition "An Act of Financial Transaction in which monetary payments are transferred electronically between accounts." .
+ex:P10895 skos:example "Treasury executes a wire transfer to settle a supplier invoice." .
+
+ex:P10898 rdf:type owl:Class .
+ex:P10898 rdfs:comment "Genus bpo:ActOfReporting (Descriptive output). Reuses shared bpo:TransactionRecord and bpo:FinancialReport." .
+ex:P10898 rdfs:label "Produce cash management accounting transactions and reports" .
+ex:P10898 rdfs:subClassOf ex:ActOfReporting .
+ex:P10898 skos:definition "An Act of Reporting that has as input transaction records and has as output a financial report on cash-management activity." .
+ex:P10898 skos:example "Treasury issues the monthly cash-management activity report." .
+
+ex:P10902 rdf:type owl:Class .
+ex:P10902 rdfs:comment "Re-anchored from bpo:ActOfFinancialTransaction to the verified CCO leaf cco:ont00000884 (Act of Loaning): the in-house bank gives a Financial Instrument to the subsidiary as Debtor to receive repayments -- exactly 884's differentia, closer than the generic transaction genus. cco:ont00000228 (Planned Act) co-asserted because 884 is outside the standalone-SHACL S2 allowlist (884 -> 836 -> 566 -> 228). The loaned funds are a MATERIAL participant (obo:BFO_0000057)." .
+ex:P10902 rdfs:label "Manage and facilitate inter-company borrowing transactions" .
+ex:P10902 rdfs:subClassOf cco:ont00000228 .
+ex:P10902 rdfs:subClassOf cco:ont00000884 .
+ex:P10902 skos:definition "An Act of Loaning in which the in-house bank (Creditor) extends a loan to a subsidiary (Debtor) to receive repayments of greater financial value." .
+ex:P10902 skos:example "The in-house bank books an intercompany loan to a foreign subsidiary." .
+
+ex:P10903 rdf:type owl:Class .
+ex:P10903 rdfs:comment "Genus bpo:ActOfFinancialTransaction (Planned Act). Material filler bpo:PaymentInstrument is the definitional MATERIAL participant (obo:BFO_0000057, the payment disbursed), not has output." .
+ex:P10903 rdfs:label "Manage centralized outgoing payments on behalf of subsidiaries" .
+ex:P10903 rdfs:subClassOf ex:ActOfFinancialTransaction .
+ex:P10903 skos:definition "An Act of Financial Transaction in which the parent disburses monetary payments outward on behalf of its subsidiaries." .
+ex:P10903 skos:example "The parent pays a subsidiary's vendor through the central payments factory." .
+
+ex:P10904 rdf:type owl:Class .
+ex:P10904 rdfs:comment "Genus bpo:ActOfFinancialTransaction (Planned Act). Material filler bpo:PaymentInstrument is definitional (the payment collected)." .
+ex:P10904 rdfs:label "Manage central incoming payments on behalf of subsidiaries" .
+ex:P10904 rdfs:subClassOf ex:ActOfFinancialTransaction .
+ex:P10904 skos:definition "An Act of Financial Transaction in which the parent collects monetary payments inward on behalf of its subsidiaries." .
+ex:P10904 skos:example "The parent receives a customer remittance owed to a subsidiary." .
+
+ex:P10905 rdf:type owl:Class .
+ex:P10905 rdfs:comment "Genus bpo:ActOfFinancialTransaction (Planned Act). Recording produces a transaction record (Descriptive ICE), the definitional has output; the netted monetary payment is the MATERIAL participant (obo:BFO_0000057)." .
+ex:P10905 rdfs:label "Manage internal payments and netting transactions" .
+ex:P10905 rdfs:subClassOf ex:ActOfFinancialTransaction .
+ex:P10905 skos:definition "An Act of Financial Transaction in which internal payments across organizational units are settled on a netted basis and recorded." .
+ex:P10905 skos:example "The in-house bank nets intercompany balances and posts the residual settlement." .
+
+ex:P10906 rdf:type owl:Class .
+ex:P10906 rdfs:comment "Genus bpo:ActOfAccounting (info-processing; Descriptive output). Reuses shared bpo:GeneralLedger and bpo:TransactionRecord." .
+ex:P10906 rdfs:label "Calculate interest and fees for in-house bank accounts" .
+ex:P10906 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10906 skos:definition "An Act of Accounting that has as input a general ledger and has as output transaction records of computed interest and fees on in-house bank accounts." .
+ex:P10906 skos:example "The in-house bank computes and posts monthly interest on subsidiary balances." .
+
+ex:P10907 rdf:type owl:Class .
+ex:P10907 rdfs:comment "Re-anchored from bpo:ActOfReporting to cco:ont00000402 (Act of Communication). The source ('Facilitating account statements for all in-house banking activity') and the verb 'Provide/facilitate' read as delivering/transmitting an already-produced statement, not compiling it; the compilation is the sibling bpo:P10906 'Calculate interest and fees for in-house bank accounts' (which records the transactions and from which the statement is drawn). The bpo:ActOfReporting carve-out routes transmit-only nodes to cco:ont00000402: 'Where a node only transmits an already-prepared report to a party, the group module reuses cco:ont00000402 instead.' Keeping bpo:ActOfReporting would double-count the production step. The account statement is therefore the transmitted ICE (has input), and the subsidiary account holder is the recipient participant. cco:ont00000402 verified against CCO v2.0 (2024-11-06)." .
+ex:P10907 rdfs:label "Provide account statements for in-house bank accounts" .
+ex:P10907 rdfs:subClassOf cco:ont00000402 .
+ex:P10907 skos:definition "An Act of Communication that delivers an already-prepared account statement for in-house banking activity to the account holder." .
+ex:P10907 skos:example "The in-house bank issues each subsidiary its monthly account statement." .
+
+ex:P10915 rdf:type owl:Class .
+ex:P10915 rdfs:comment "Formulation (Directive output bpo:CodeOfEthics). The communication step is a typical downstream act, not definitional, so it is noted here rather than restricted." .
+ex:P10915 rdfs:label "Define and communicate code of ethics" .
+ex:P10915 rdfs:subClassOf ex:ActOfFormulation .
+ex:P10915 skos:definition "An Act of Formulation that composes a code of ethics prescribing the standards of responsible conduct for an organization's personnel." .
+ex:P10915 skos:example "A compliance office drafts the corporate code of ethics and distributes it to staff." .
+
+ex:P10918 rdf:type owl:Class .
+ex:P10918 rdfs:comment "Monitoring -> Descriptive output bpo:ControlEffectivenessAssessment (GOLDEN PRINCIPLE)." .
+ex:P10918 rdfs:label "Monitor control effectiveness" .
+ex:P10918 rdfs:subClassOf ex:ActOfMonitoring .
+ex:P10918 skos:definition "An Act of Monitoring that observes the operation of internal-control policies, procedures, and mechanisms and produces a control-effectiveness assessment of their adequacy in minimizing risk." .
+ex:P10918 skos:example "An auditor reviews whether reconciliation controls operated as designed and reports their effectiveness." .
+
+ex:P10923 rdf:type owl:Class .
+ex:P10923 rdfs:comment "Re-anchored from bpo:ActOfReporting to cco:ont00000402 (Act of Communication). The source ('Reporting to external auditors ...') is pure transmission of an already-prepared compliance report whose PRODUCTION is the parent bpo:P10764 (9.8.3); the bpo:ActOfReporting definition is the production/compilation step and its comment routes transmit-only nodes to cco:ont00000402. The previous has output bpo:ComplianceReport over-asserted that each instance independently compiles its OWN report, when all four 9.8.3.x children distribute the single report produced by 9.8.3; bpo:ComplianceReport is therefore consumed/transmitted (has input), not produced. Recipient bpo:Auditor is the definitional recipient participant. cco:ont00000402 verified against CCO v2.0 (2024-11-06). REJECTED candidate bpo:ActOfReporting (§6 false-friend caution: communication-sense vs production-sense)." .
+ex:P10923 rdfs:label "Report to external auditors" .
+ex:P10923 rdfs:subClassOf cco:ont00000402 .
+ex:P10923 skos:definition "An Act of Communication that transmits an already-prepared internal-controls compliance report to external auditors regarding the regulations governing critical data held by the organization." .
+ex:P10923 skos:example "Management furnishes the external audit firm with its internal-controls compliance report." .
+
+ex:P10924 rdf:type owl:Class .
+ex:P10924 rdfs:comment "Re-anchored from bpo:ActOfReporting to cco:ont00000402 (Act of Communication), consistent with its 9.8.3.x transmit-only siblings bpo:P10923/bpo:P10925/bpo:P10926. The compliance report is produced by the parent bpo:P10764 (9.8.3) and merely transmitted here, so bpo:ComplianceReport is has input, not has output. EXCEPTION retained per the Gate-F note: bpo:RegulatoryFiling IS genuinely compiled/produced in the act of filing with the regulator, so it is kept as a has output. Recipient bpo:RegulatoryAuthority is the definitional recipient participant. cco:ont00000402 verified against CCO v2.0 (2024-11-06). REJECTED candidate bpo:ActOfReporting for the compliance-report transmission (§6 false-friend caution)." .
+ex:P10924 rdfs:label "Report to regulators, share-/debt-holders, securities exchanges, etc." .
+ex:P10924 rdfs:subClassOf cco:ont00000402 .
+ex:P10924 skos:definition "An Act of Communication that transmits an already-prepared internal-controls compliance report to regulators, shareholders, debt holders, and securities exchanges, producing in the process a regulatory filing of the pertinent data." .
+ex:P10924 skos:example "A listed company files its internal-controls compliance attestation with the securities regulator and notifies bondholders." .
+
+ex:P10925 rdf:type owl:Class .
+ex:P10925 rdfs:comment "Re-anchored from bpo:ActOfReporting to cco:ont00000402 (Act of Communication), consistent with its 9.8.3.x transmit-only siblings. The compliance report is produced by the parent bpo:P10764 (9.8.3) and only distributed here, so bpo:ComplianceReport is has input, not has output. Recipients bpo:Supplier and bpo:Customer are the definitional recipient participants. cco:ont00000402 verified against CCO v2.0 (2024-11-06). REJECTED candidate bpo:ActOfReporting (§6 false-friend caution)." .
+ex:P10925 rdfs:label "Report to third parties" .
+ex:P10925 rdfs:subClassOf cco:ont00000402 .
+ex:P10925 skos:definition "An Act of Communication that transmits an already-prepared internal-controls compliance report to suppliers, customers, and business partners regarding IT regulations and pertinent data." .
+ex:P10925 skos:example "A vendor-management team shares the firm's data-controls compliance summary with key suppliers." .
+
+ex:P10926 rdf:type owl:Class .
+ex:P10926 rdfs:comment "Re-anchored from bpo:ActOfReporting to cco:ont00000402 (Act of Communication), consistent with its 9.8.3.x transmit-only siblings. The compliance report is produced by the parent bpo:P10764 (9.8.3) and only distributed here, so bpo:ComplianceReport is has input, not has output. Recipient bpo:Employee (covering staff, directors, and management as internal personnel) is the definitional recipient participant. cco:ont00000402 verified against CCO v2.0 (2024-11-06). REJECTED candidate bpo:ActOfReporting (§6 false-friend caution)." .
+ex:P10926 rdfs:label "Report to internal management" .
+ex:P10926 rdfs:subClassOf cco:ont00000402 .
+ex:P10926 skos:definition "An Act of Communication that transmits an already-prepared internal-controls compliance report to an organization's employees, directors, and management regarding IT regulations and pertinent data." .
+ex:P10926 skos:example "Leadership circulates an internal memo summarizing the company's controls-compliance status to all staff." .
+
+ex:P10927 rdf:type owl:Class .
+ex:P10927 rdfs:comment "R5=process. Directive output (Tax Strategy) -> bpo:ActOfFormulation." .
+ex:P10927 rdfs:label "Develop foreign, national, state, and local tax strategy" .
+ex:P10927 rdfs:subClassOf ex:ActOfFormulation .
+ex:P10927 skos:definition "An Act of Formulation that composes a tax strategy governing the organization's tax position across foreign, national, state, and local jurisdictions." .
+ex:P10927 skos:example "A multinational drafts a transfer-pricing and import/export tax strategy spanning its operating jurisdictions." .
+
+ex:P10928 rdf:type owl:Class .
+ex:P10928 rdfs:comment "R5=process. Although it draws on prior analysis of financial condition (a typical input, left as comment per Phase-3), its product is a consolidated directive plan, so genus is bpo:ActOfFormulation." .
+ex:P10928 rdfs:label "Consolidate and optimize total tax plan" .
+ex:P10928 rdfs:subClassOf ex:ActOfFormulation .
+ex:P10928 skos:definition "An Act of Formulation that combines and optimizes the organization's component tax plans into a single total tax plan aligning financial goals through efficient tax planning." .
+ex:P10928 skos:example "A finance team merges per-jurisdiction tax strategies into one optimized group tax plan." .
+
+ex:P10931 rdf:type owl:Class .
+ex:P10931 rdfs:comment "R5=process. Descriptive output (Tax Return) -> bpo:ActOfReporting. Employees are subjects of the per-employee filings (typical participant, left as comment); Tax Data is a typical input." .
+ex:P10931 rdfs:label "Prepare tax returns" .
+ex:P10931 rdfs:subClassOf ex:ActOfReporting .
+ex:P10931 skos:definition "An Act of Reporting that prepares and submits a tax return reporting the tax paid by and deducted on behalf of the organization and its employees to the relevant tax authority." .
+ex:P10931 skos:example "Payroll files year-end employee tax statements with the tax department." .
+
+ex:P10932 rdf:type owl:Class .
+ex:P10932 rdfs:comment "R5=process. Descriptive output (Tax Return covering foreign tax) -> bpo:ActOfReporting." .
+ex:P10932 rdfs:label "Prepare foreign taxes" .
+ex:P10932 rdfs:subClassOf ex:ActOfReporting .
+ex:P10932 skos:definition "An Act of Reporting that prepares a tax return reporting the foreign taxes paid or accrued by the organization to an overseas taxing jurisdiction." .
+ex:P10932 skos:example "A subsidiary's controller prepares the foreign-tax accrual report for an overseas jurisdiction." .
+
+ex:P10933 rdf:type owl:Class .
+ex:P10933 rdfs:comment "R5=process. Descriptive output (Tax Data) -> bpo:ActOfAccounting (info-processing genus; agrees with descriptive output). Financial data is a typical input." .
+ex:P10933 rdfs:label "Calculate deferred taxes" .
+ex:P10933 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10933 skos:definition "An Act of Accounting that computes the organization's deferred tax positions arising where income is recognized in a period different from the period in which the related tax is incurred, producing tax data on those positions." .
+ex:P10933 skos:example "An accountant computes the deferred tax liability from timing differences between book and tax depreciation." .
+
+ex:P10934 rdf:type owl:Class .
+ex:P10934 rdfs:comment "R5=process. Descriptive output (Tax Data) -> bpo:ActOfAccounting. General ledger / financial data are typical inputs (left as comment per Phase-3)." .
+ex:P10934 rdfs:label "Account for taxes" .
+ex:P10934 rdfs:subClassOf ex:ActOfAccounting .
+ex:P10934 skos:definition "An Act of Accounting that maintains the organization's financial accounts for tax purposes and records the tax paid in each country in which it operates, producing tax data." .
+ex:P10934 skos:example "A controller books and reconciles the tax accounts at period close." .
+
+ex:P10935 rdf:type owl:Class .
+ex:P10935 rdfs:comment "R5=process. Descriptive output (Compliance Report) -> bpo:ActOfMonitoring. Tax Data / Financial Policy are typical inputs (left as comment per Phase-3)." .
+ex:P10935 rdfs:label "Monitor tax compliance" .
+ex:P10935 rdfs:subClassOf ex:ActOfMonitoring .
+ex:P10935 skos:definition "An Act of Monitoring that checks the organization's tax policies and practices against applicable rules and regulations and produces a compliance report identifying and prompting correction of deviations." .
+ex:P10935 skos:example "An internal-controls reviewer audits VAT treatment against the tax code and flags exceptions." .
+
+ex:P10936 rdf:type owl:Class .
+ex:P10936 rdfs:comment "R5=process. Descriptive output (Tax Inquiry Response) -> bpo:ActOfReporting. The Regulatory Authority that raised the query is definitional to the act, so it is a participant restriction; reviewed historical records (Tax Data) are a typical input left as comment." .
+ex:P10936 rdfs:label "Address tax inquiries" .
+ex:P10936 rdfs:subClassOf ex:ActOfReporting .
+ex:P10936 skos:definition "An Act of Reporting that reviews the organization's historical taxation records and produces a tax inquiry response answering a query raised by a regulatory or government authority." .
+ex:P10936 skos:example "A tax manager researches prior filings and replies to an information request from the revenue authority." .
+
+ex:P11042 rdf:type owl:Class .
+ex:P11042 rdfs:comment "GOLDEN PRINCIPLE: a representative-communication (reporting) act asserting facts, so the definitional output bpo:FinancialResultsReport is a Descriptive ICE (cco:ont00000853). Financial data is a definitional input (one cannot report results without it). The Board of Directors / management are modeled as recipients of the communicated report; release to the public is a typical further recipient noted in the source text." .
+ex:P11042 rdfs:label "Report financial results" .
+ex:P11042 rdfs:subClassOf ex:ActOfReporting .
+ex:P11042 skos:definition "An Act of Reporting that has as input financial data and has as output a financial results report asserting an organization's financial statements to management and the public." .
+ex:P11042 skos:example "A controller's office issues the quarterly income statement, balance sheet, and statement of cash flows to the board and to the public." .
+
+ex:P11213 rdf:type owl:Class .
+ex:P11213 rdfs:comment "Genus bpo:ActOfSelection (Directive output) per GOLDEN PRINCIPLE: the act culminates in selecting an option. Output bpo:HedgeSelectionDecision minted locally." .
+ex:P11213 rdfs:label "Evaluate and refine hedging positions" .
+ex:P11213 rdfs:subClassOf ex:ActOfSelection .
+ex:P11213 skos:definition "An Act of Selection that examines available hedging options and has as output a hedge selection decision prescribing the chosen option." .
+ex:P11213 skos:example "The desk compares collar structures and selects one to refine the hedge." .
+
+ex:P11250 rdf:type owl:Class .
+ex:P11250 rdfs:comment "Formulation: the primary output is a Directive process-control objective (GOLDEN PRINCIPLE); the descriptive bpo:RiskAssessment is a co-output capturing the determined risks." .
+ex:P11250 rdfs:label "Define business process objectives and risks" .
+ex:P11250 rdfs:subClassOf ex:ActOfFormulation .
+ex:P11250 skos:definition "An Act of Formulation that prescribes the control objectives of a business process and produces a risk assessment describing the risks attached to that process." .
+ex:P11250 skos:example "A process owner documents the objectives of the payroll process and the risks that threaten them." .
+
+ex:P11251 rdf:type owl:Class .
+ex:P11251 rdfs:comment "Formulation (Directive output bpo:RiskToleranceSpecification): tolerances are binding limits, distinct from a descriptive bpo:RiskAssessment of current exposure." .
+ex:P11251 rdfs:label "Define entity/unit risk tolerances" .
+ex:P11251 rdfs:subClassOf ex:ActOfFormulation .
+ex:P11251 skos:definition "An Act of Formulation that prescribes the maximum acceptable risk, in quantitative terms, for organizational units and the organization as a whole across risk subcategories." .
+ex:P11251 skos:example "A risk committee sets a maximum tolerable compliance-risk threshold for each business unit." .
+
+ex:P14007 rdf:type owl:Class .
+ex:P14007 rdfs:comment "Genus Act of Formulation: the definitional output is the revised agreement terms (Directive ICE). The defaulting Customer participates." .
+ex:P14007 rdfs:label "Perform recovery workout" .
+ex:P14007 rdfs:subClassOf ex:ActOfFormulation .
+ex:P14007 skos:definition "An Act of Formulation that renegotiates the terms of a loan agreement with a defaulting debtor and prescribes revised repayment terms as a financial procedure to recoup the debt." .
+ex:P14007 skos:example "A workout specialist renegotiates a defaulted loan into a restructured repayment schedule." .
+
+ex:P14074 rdf:type owl:Class .
+ex:P14074 rdfs:comment "Genus Act of Accounting (not Reporting): the act combines and converts ledger data rather than merely conveying it; its output feeds the reporting acts of 9.3.4." .
+ex:P14074 rdfs:label "Perform legal and management consolidation" .
+ex:P14074 rdfs:subClassOf ex:ActOfAccounting .
+ex:P14074 skos:definition "An Act of Accounting that performs legal and management consolidation - currency conversion, balance carry-forward, and journal-entry consolidation - to produce consolidated financial statements." .
+ex:P14074 skos:example "Consolidating foreign-subsidiary ledgers into the group reporting currency." .
+
+ex:P14090 rdf:type owl:Class .
+ex:P14090 rdfs:comment "Anchored to cco:ont00000636 (Act of Appraisal) because the act evaluates and judges parties against an approved list; its output is a Descriptive ICE (a clearance judgement), satisfying the GOLDEN PRINCIPLE." .
+ex:P14090 rdfs:label "Screen sanctioned party list" .
+ex:P14090 rdfs:subClassOf cco:ont00000636 .
+ex:P14090 skos:definition "An Act of Appraisal that has as input a sanctioned party list and has as output a sanctioned-party screening result judging whether the parties to a prospective transaction are cleared to engage in international trade." .
+ex:P14090 skos:example "A compliance officer screens both counterparties of a shipment against the denied-parties list before release." .
+
+ex:P14092 rdf:type owl:Class .
+ex:P14092 rdfs:comment "Anchored to bpo:ActOfAnalysis (subClassOf cco:ont00000366) because categorizing offerings against standards processes input information into a classification ICE; the Descriptive output satisfies the GOLDEN PRINCIPLE." .
+ex:P14092 rdfs:label "Classify products" .
+ex:P14092 rdfs:subClassOf ex:ActOfAnalysis .
+ex:P14092 skos:definition "An Act of Analysis that examines an organization's products and services against national and international trade standards and has as output a product trade classification." .
+ex:P14092 skos:example "A trade analyst assigns HS tariff codes to each item in the product catalogue." .
+
+ex:P14093 rdf:type owl:Class .
+ex:P14093 rdfs:comment "Anchored to bpo:ActOfAccounting (subClassOf cco:ont00000366) because computing duty owed is a financial calculation that processes input information into a numeric Descriptive ICE, satisfying the GOLDEN PRINCIPLE." .
+ex:P14093 rdfs:label "Calculate duty" .
+ex:P14093 rdfs:subClassOf ex:ActOfAccounting .
+ex:P14093 skos:definition "An Act of Accounting that computes the excise duty payable on an international-trade transaction and has as output a duty calculation." .
+ex:P14093 skos:example "A customs broker computes the excise duty owed on a consignment before clearance." .
+
+ex:P14094 rdf:type owl:Class .
+ex:P14094 rdfs:comment "Anchored to cco:ont00000402 (Act of Communication): an ICE (legally-mandated trade particulars) is transferred from one Agent to another. The Regulatory Authority is the definitional recipient; customs information is the definitional transferred ICE. Explicit rdfs:subClassOf cco:ont00000228 (Planned Act) added so the act-anchor chain is visible to the standalone SHACL run (ont00000402 is a CCO subclass of ont00000228, but the closure is not merged for Gate C)." .
+ex:P14094 rdfs:label "Communicate with customs" .
+ex:P14094 rdfs:subClassOf cco:ont00000228 .
+ex:P14094 rdfs:subClassOf cco:ont00000402 .
+ex:P14094 skos:definition "An Act of Communication in which an organization transfers customs information to the government customs authority in order to ensure compliance with international-trade law." .
+ex:P14094 skos:example "Filing the mandated electronic declaration with the national customs agency for a shipment." .
+
+ex:P14095 rdf:type owl:Class .
+ex:P14095 rdfs:comment "Anchored to bpo:ActOfReporting (subClassOf cco:ont00000366) because documenting/recording a trade gives a detailed account that processes input information into a Descriptive ICE, satisfying the GOLDEN PRINCIPLE." .
+ex:P14095 rdfs:label "Document trade" .
+ex:P14095 rdfs:subClassOf ex:ActOfReporting .
+ex:P14095 skos:definition "An Act of Reporting that records the particulars of a trade transaction -- including description, quality, quantity, transport medium, indemnity, and inspection -- and has as output trade documentation." .
+ex:P14095 skos:example "A logistics clerk records the bill of lading, packing list, and inspection certificate for a shipment." .
+
+ex:P14096 rdf:type owl:Class .
+ex:P14096 rdfs:comment "Anchored to bpo:ActOfReporting (subClassOf cco:ont00000366): preparing trade-under-preference paperwork records eligibility, processing input information into a Descriptive ICE (GOLDEN PRINCIPLE)." .
+ex:P14096 rdfs:label "Process trade preferences" .
+ex:P14096 rdfs:subClassOf ex:ActOfReporting .
+ex:P14096 skos:definition "An Act of Reporting that prepares the documentation establishing a shipment's eligibility for trade under preference and has as output trade preference documentation." .
+ex:P14096 skos:example "Preparing a certificate of origin to claim a preferential tariff under a free-trade agreement." .
+
+ex:P14098 rdf:type owl:Class .
+ex:P14098 rdfs:comment "Anchored to bpo:ActOfFormulation (inlined, subClassOf cco:ont00000511, Act of Planning) because creating a letter of credit composes a Directive ICE that prescribes a payment guarantee, satisfying the GOLDEN PRINCIPLE." .
+ex:P14098 rdfs:label "Prepare letter of credit" .
+ex:P14098 rdfs:subClassOf ex:ActOfFormulation .
+ex:P14098 skos:definition "An Act of Formulation that composes a letter of credit prescribing the conditions under which a bank guarantees payment to a seller upon fulfilment of specified delivery conditions." .
+ex:P14098 skos:example "A bank issues a documentary letter of credit guaranteeing payment to an exporter on presentation of shipping documents." .
+
+ex:P19575 rdf:type owl:Class .
+ex:P19575 rdfs:comment "Genus bpo:ActOfMonitoring (info-processing; Descriptive output): ongoing collection/storage of market data. Reuses shared bpo:MarketRateData." .
+ex:P19575 rdfs:label "Manage interest rate market data" .
+ex:P19575 rdfs:subClassOf ex:ActOfMonitoring .
+ex:P19575 skos:definition "An Act of Monitoring that collects and stores interest-rate market data and has as output a market rate data record." .
+ex:P19575 skos:example "The rates desk feeds live swap curves into its data store." .
+
+ex:P19576 rdf:type owl:Class .
+ex:P19576 rdfs:comment "Genus bpo:ActOfAnalysis (Descriptive output). Reuses shared bpo:MarketRateData and bpo:RiskAssessment." .
+ex:P19576 rdfs:label "Determine interest rate exposure for all markets" .
+ex:P19576 rdfs:subClassOf ex:ActOfAnalysis .
+ex:P19576 skos:definition "An Act of Analysis that has as input market rate data and has as output a financial risk assessment of interest-rate exposure across markets." .
+ex:P19576 skos:example "The desk computes the portfolio's DV01 by market." .
+
+ex:P19577 rdf:type owl:Class .
+ex:P19577 rdfs:comment "Genus bpo:ActOfSelection (Directive output) per GOLDEN PRINCIPLE: deciding requirements commits to prescribed hedges. Reuses shared bpo:RiskAssessment and bpo:FinancialPolicy (risk policy); output bpo:HedgeRequirementSpecification minted locally." .
+ex:P19577 rdfs:label "Determine interest rate hedge requirements in accordance with risk policy" .
+ex:P19577 rdfs:subClassOf ex:ActOfSelection .
+ex:P19577 skos:definition "An Act of Selection that has as input a financial risk assessment and a financial policy and has as output a hedge requirement specification for interest-rate exposure." .
+ex:P19577 skos:example "The desk sets the required futures hedge given the accepted risk policy." .
+
+ex:P19578 rdf:type owl:Class .
+ex:P19578 rdfs:comment "Genus bpo:ActOfFinancialTransaction (Planned Act). Recording yields a transaction record (Descriptive ICE)." .
+ex:P19578 rdfs:label "Execute interest rate trades" .
+ex:P19578 rdfs:subClassOf ex:ActOfFinancialTransaction .
+ex:P19578 skos:definition "An Act of Financial Transaction in which interest-rate instruments are traded to implement a hedge." .
+ex:P19578 skos:example "The desk executes an interest-rate futures order." .
+
+ex:P19579 rdf:type owl:Class .
+ex:P19579 rdfs:comment "Genus bpo:ActOfMonitoring (Descriptive output). Reuses shared bpo:MarketRateData." .
+ex:P19579 rdfs:label "Manage foreign exchange market data" .
+ex:P19579 rdfs:subClassOf ex:ActOfMonitoring .
+ex:P19579 skos:definition "An Act of Monitoring that handles and processes foreign-exchange rate data and has as output a market rate data record." .
+ex:P19579 skos:example "The FX desk ingests live spot and forward rates." .
+
+ex:P19580 rdf:type owl:Class .
+ex:P19580 rdfs:comment "Genus bpo:ActOfAnalysis (Descriptive output). Reuses shared bpo:MarketRateData and bpo:RiskAssessment." .
+ex:P19580 rdfs:label "Determine foreign exchange exposure for all currencies" .
+ex:P19580 rdfs:subClassOf ex:ActOfAnalysis .
+ex:P19580 skos:definition "An Act of Analysis that has as input market rate data and has as output a financial risk assessment of foreign-exchange exposure across currencies." .
+ex:P19580 skos:example "The desk reports net open position by currency." .
+
+ex:P19581 rdf:type owl:Class .
+ex:P19581 rdfs:comment "Genus bpo:ActOfSelection (Directive output). Reuses shared bpo:RiskAssessment and bpo:FinancialPolicy; output bpo:HedgeRequirementSpecification reused (minted locally)." .
+ex:P19581 rdfs:label "Determine foreign exchange hedge requirements in accordance with risk policy" .
+ex:P19581 rdfs:subClassOf ex:ActOfSelection .
+ex:P19581 skos:definition "An Act of Selection that has as input a financial risk assessment and a financial policy and has as output a hedge requirement specification for foreign-exchange exposure." .
+ex:P19581 skos:example "The desk sets required forward cover given the FX risk policy." .
+
+ex:P19582 rdf:type owl:Class .
+ex:P19582 rdfs:comment "Genus bpo:ActOfFinancialTransaction (Planned Act). Recording yields a transaction record (Descriptive ICE)." .
+ex:P19582 rdfs:label "Execute foreign exchange trades" .
+ex:P19582 rdfs:subClassOf ex:ActOfFinancialTransaction .
+ex:P19582 skos:definition "An Act of Financial Transaction in which currencies are bought, sold, or exchanged in the foreign-exchange market." .
+ex:P19582 skos:example "The desk executes a spot EUR/USD trade." .
+
+ex:P19583 rdf:type owl:Class .
+ex:P19583 rdfs:comment "Genus bpo:ActOfMonitoring (Descriptive output): continuous oversight producing a risk judgement. Reuses shared bpo:RiskAssessment." .
+ex:P19583 rdfs:label "Manage foreign exchange balance sheet risk" .
+ex:P19583 rdfs:subClassOf ex:ActOfMonitoring .
+ex:P19583 skos:definition "An Act of Monitoring that oversees the foreign-exchange balance sheet and has as output a financial risk assessment of translation and settlement risk." .
+ex:P19583 skos:example "The desk tracks translation risk on non-base-currency balances." .
+
+ex:P19584 rdf:type owl:Class .
+ex:P19584 rdfs:comment "Genus bpo:ActOfAnalysis (Descriptive output). Reuses shared bpo:RiskAssessment. Phase-3 consistency fix: a definitional has input (bpo:RiskExposureData) was added to match the input pattern of its structurally parallel exposure-determination peers bpo:P19576 and bpo:P19580 (both has input bpo:MarketRateData). An exposure-determination analysis cannot occur without exposure/position data as input, so the input is definitional for all three; this row previously lacked it, making it look less constrained than its twins." .
+ex:P19584 rdfs:label "Determine current customer exposures and limit exceptions" .
+ex:P19584 rdfs:subClassOf ex:ActOfAnalysis .
+ex:P19584 skos:definition "An Act of Analysis that has as input risk exposure data and has as output a financial risk assessment describing current customer exposures and exceptions to exposure limits." .
+ex:P19584 skos:example "The team flags counterparties breaching their exposure limit." .
+
+ex:P19585 rdf:type owl:Class .
+ex:P19585 rdfs:comment "Genus bpo:ActOfSelection (Directive output) per GOLDEN PRINCIPLE: resolving a case commits to a prescribed remedy. Reuses shared bpo:RiskAssessment; output bpo:ExposureLimitResolution minted locally." .
+ex:P19585 rdfs:label "Resolve customer exposure limit violations" .
+ex:P19585 rdfs:subClassOf ex:ActOfSelection .
+ex:P19585 skos:definition "An Act of Selection that has as input a financial risk assessment and has as output an exposure limit resolution prescribing the settlement of a limit violation." .
+ex:P19585 skos:example "The team requires additional margin to cure a limit breach." .
+
+ex:P19586 rdf:type owl:Class .
+ex:P19586 rdfs:comment "Genus bpo:ActOfFinancialTransaction (Planned Act). Reuses shared bpo:Customer as participant and bpo:FinancialInstrument as the collateral material entity (definitional)." .
+ex:P19586 rdfs:label "Manage customer collateral" .
+ex:P19586 rdfs:subClassOf ex:ActOfFinancialTransaction .
+ex:P19586 skos:definition "An Act of Financial Transaction in which customer securities held as collateral are realized to recover unpaid loans, with the customer bearing a debtor role." .
+ex:P19586 skos:example "The bank liquidates pledged shares to cover a defaulted margin loan." .
+
+ex:P19587 rdf:type owl:Class .
+ex:P19587 rdfs:comment "Genus cco:ont00000636 (Act of Appraisal; Descriptive output) per GOLDEN PRINCIPLE: a credit review judges creditworthiness. Reuses shared bpo:CreditScoringHistory, bpo:CreditAssessment, and bpo:Customer." .
+ex:P19587 rdfs:label "Perform annual customer credit reviews" .
+ex:P19587 rdfs:subClassOf cco:ont00000636 .
+ex:P19587 skos:definition "An Act of Appraisal that has as input a credit scoring history and has as output a credit assessment about a customer." .
+ex:P19587 skos:example "Credit risk re-rates a corporate customer at its annual review." .
+
+ex:P19588 rdf:type owl:Class .
+ex:P19588 rdfs:comment "Genus cco:ont00000636 (Act of Appraisal; Descriptive output): measuring/evaluating positions yields a judgement. Reuses shared bpo:RiskAssessment." .
+ex:P19588 rdfs:label "Measure physical positions" .
+ex:P19588 rdfs:subClassOf cco:ont00000636 .
+ex:P19588 skos:definition "An Act of Appraisal that has as output a financial risk assessment of the physical positions held to offset opposing-market risk." .
+ex:P19588 skos:example "The desk marks the offsetting commodity position to market." .
+
+ex:P19589 rdf:type owl:Class .
+ex:P19589 rdfs:comment "Re-anchored from bpo:ActOfFinancialTransaction to bpo:ActOfSelection (critical fix). The verbatim source is 'Determining which hedge options to execute' -- i.e. CHOOSING among candidate hedges, a decision/selection act with a directive outcome, not the later execution. GOLDEN PRINCIPLE: the act's product is a directive (a chosen hedge to put on), so genus is bpo:ActOfSelection and the output is the Directive bpo:HedgeSelectionDecision, NOT a Descriptive TransactionRecord. This aligns the row with its near-identical direct sibling bpo:P11213 'Evaluate and refine hedging positions' ('Examining options in the market for hedging investments. Select an option.'), already modeled as bpo:ActOfSelection -> bpo:HedgeSelectionDecision; the two parallel rows now share one genus. The actual transacting/execution of the chosen hedge is covered by the trade-execution rows (bpo:P19582), not by this decision row. REJECTED candidate bpo:ActOfFinancialTransaction: it conflated the decision with the later execution and gave a Descriptive output for a directive product." .
+ex:P19589 rdfs:label "Establish hedges" .
+ex:P19589 rdfs:subClassOf ex:ActOfSelection .
+ex:P19589 skos:definition "An Act of Selection that determines which hedge options to execute and produces a hedge selection decision prescribing the chosen option(s)." .
+ex:P19589 skos:example "The desk decides which put-option hedge to put on against an equity holding." .
+
+ex:P19590 rdf:type owl:Class .
+ex:P19590 rdfs:comment "Genus bpo:ActOfFinancialTransaction (Planned Act). Recording yields a transaction record (Descriptive ICE)." .
+ex:P19590 rdfs:label "Unwind hedges" .
+ex:P19590 rdfs:subClassOf ex:ActOfFinancialTransaction .
+ex:P19590 skos:definition "An Act of Financial Transaction in which an open hedging position is closed out or derivatives are settled early." .
+ex:P19590 skos:example "The desk closes a futures hedge ahead of expiry." .
+
+ex:P19593 rdf:type owl:Class .
+ex:P19593 rdfs:comment "Re-anchored from bpo:ActOfFinancialTransaction to bpo:ActOfAnalysis (subClassOf cco:ont00000366) (genus/output mismatch + false-friend fix). The source ('Identifying current exchange rates between two currencies and converting the foreign currency to that of the local monetary unit') and the output bpo:CurrencyConversionRecord (a Descriptive ICE) describe a COMPUTATION that identifies rates and produces a record of the equivalent amount -- no money or Financial Instrument is actually transferred between agents, so bpo:ActOfFinancialTransaction's differentia ('transfers money or a Financial Instrument ... in settlement') is not satisfied ('conversion' is a false friend for a financial act). GOLDEN PRINCIPLE: a Descriptive-record output pairs with an information-processing genus. Note also that bpo:ActOfFinancialTransaction itself rejected cco:ont00000366 on the ground that 'a payment moves a material/financial-instrument filler, not only an ICE' -- this act has only an ICE output, confirming it does not fit the transaction genus. bpo:MarketRateData (current exchange rates) is the definitional input; the conversion record is the Descriptive output. REJECTED candidate bpo:ActOfFinancialTransaction (reserved for nodes that actually move money/instruments between agents, e.g. 9.5/9.6 disbursement and 9.11 settlement nodes)." .
+ex:P19593 rdfs:label "Perform currency conversion" .
+ex:P19593 rdfs:subClassOf ex:ActOfAnalysis .
+ex:P19593 skos:definition "An Act of Analysis that examines market rate data to convert a monetary amount from a foreign currency to the local monetary unit, producing a currency conversion record." .
+ex:P19593 skos:example "Converting an invoice denominated in yen into US dollars at the current spot rate." .
+
+ex:P20136 rdf:type owl:Class .
+ex:P20136 rdfs:comment "Descriptive output (GOLDEN PRINCIPLE): a variance analysis represents the gap between plan and actuals (cco:ont00000853). Budget and forecast are definitional inputs." .
+ex:P20136 rdfs:label "Perform variance analysis against forecasts and budgets" .
+ex:P20136 rdfs:subClassOf ex:ActOfAnalysis .
+ex:P20136 skos:definition "An Act of Analysis that compares actual financial behavior against the budget and the financial forecast and produces a variance analysis." .
+ex:P20136 skos:example "A monthly budget-versus-actual variance report." .
+
+ex:P20604 rdf:type owl:Class .
+ex:P20604 rdfs:comment "Re-anchored from bpo:ActOfReporting to cco:ont00000402 (Act of Communication). Two defects fixed: (1) GOLDEN-PRINCIPLE break -- bpo:ActOfReporting compiles a Descriptive ICE, but the asserted output was bpo:FinancialPolicy, a Directive ICE (cco:ont00000965); (2) the act merely disseminates an already-formulated policy (input == output == FinancialPolicy), i.e. transfer of an existing ICE between agents, which the bpo:ActOfReporting comment routes to cco:ont00000402: 'Where a node only transmits an already-prepared report to a party, the group module reuses cco:ont00000402 instead.' Publishing transmits the same ICE; it does not produce a new descriptive one, so the has output bpo:FinancialPolicy restriction is dropped and bpo:FinancialPolicy is kept as has input (the transmitted ICE). cco:ont00000402 verified against CCO v2.0 (2024-11-06): 'A Planned Act in which some Information Content Entity is transferred from some Agent to Another.'" .
+ex:P20604 rdfs:label "Publish accounting policies" .
+ex:P20604 rdfs:subClassOf cco:ont00000402 .
+ex:P20604 skos:definition "An Act of Communication that conveys an already-formulated accounting policy to the public." .
+ex:P20604 skos:example "Posting the firm's accounting-policy manual on its investor-relations website." .
+
+ex:enablesProcess rdf:type owl:AnnotationProperty .
+ex:enablesProcess rdfs:comment "Capability -> process class whose execution it enables. Operational inverse of bpo:requiresCapability; BFO grounding is 'has realization' (a capability is realized in such processes). Used for authoring scope and wiring-coherence checks." .
+ex:enablesProcess rdfs:label "enables process" .

@@ -8,9 +8,9 @@
       "shape_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "triples_touching": 0
     },
-    "ground_sha256": "5fc5f6fa167a2a570cfcee8cca7a4733a17b8429c887755f12eca8667b834722",
-    "ground_triples": 8,
-    "triples": 8
+    "ground_sha256": "1dfd89183a24b0568cf19408a250e8c54dc998a2534c58a0a3b120d4561c92a4",
+    "ground_triples": 329,
+    "triples": 329
   },
   "note": "Ground triples and blank-node shape together cover every triple. Blank nodes are renamed by every parse, so their identities are erased and only their structure is digested.",
   "per_file": {
@@ -32,9 +32,9 @@
         "shape_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "triples_touching": 0
       },
-      "ground_sha256": "01b38cbdffc51bfbfcd2bdfbd5e3eb1786950d2d6fc5392bb034e6a40de4b22b",
-      "ground_triples": 4,
-      "triples": 4
+      "ground_sha256": "6222a1ef82afb40b9eead8b7176d72a7a3c4c4e144fa52162536709e3dadb1d0",
+      "ground_triples": 325,
+      "triples": 325
     }
   },
   "scope": {

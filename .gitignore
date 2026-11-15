@@ -53,6 +53,11 @@ _site_again/
 # config/upstream-sources.yaml fetch them again byte-for-byte.
 .upstream-cache/
 
+# The pinned ROBOT jar (config/reasoner-pins.yaml), fetched by
+# tools/ontology/reason.py --fetch and checked against its SHA-256. A
+# third-party binary, not redistributed from here.
+.tools-cache/
+
 # The validation report is a measurement, not a pin. Committing it would
 # put a file in the tree that agrees with the ontology only until the
 # next edit, and nothing here compares the two.

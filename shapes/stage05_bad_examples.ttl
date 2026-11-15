@@ -1,0 +1,157 @@
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix obo:  <http://purl.obolibrary.org/obo/> .
+@prefix cco:  <https://www.commoncoreontologies.org/> .
+@prefix ex:   <https://fandaws.com/ontology/bpo#> .
+@prefix bco:  <https://fandaws.com/ontology/bco#> .
+
+# Graphs built to break stage05_shapes.ttl, one case per constraint, with
+# positive controls that must survive.
+#
+# Loaded ALONE (with the other fixtures, never with the extracts), so it
+# states the ancestry its cases walk: a fixture genus under Planned Act, and
+# Organization Capability. The upstream IRIs below are the real ones, checked
+# against the vendored extracts; the ex:Fixture* acts are not BPO's and exist
+# only here. Every bco: class has one label and one definition, so the
+# wellformedness shapes have nothing to say about this file.
+
+# -- the ancestry the cases need -------------------------------------
+
+cco:ont00000568 a owl:Class .
+cco:ont00000228 a owl:Class .
+cco:ont00000853 a owl:Class .
+obo:BFO_0000016 a owl:Class .
+obo:BFO_0000034 a owl:Class .
+ex:enablesProcess a owl:AnnotationProperty .
+
+ex:FixtureGenus a owl:Class ;
+    rdfs:subClassOf cco:ont00000228 .
+ex:FixtureGoodAct a owl:Class ;
+    rdfs:subClassOf ex:FixtureGenus .
+ex:FixtureNotAnAct a owl:Class ;
+    rdfs:subClassOf cco:ont00000853 .
+ex:FixtureCapabilityTypedAct a owl:Class ;
+    rdfs:subClassOf cco:ont00000228 , cco:ont00000568 .
+# ex:FixtureUndeclaredAct is named below and declared nowhere, on purpose.
+
+# -- positive controls ------------------------------------------------
+
+# The parent: under Organization Capability and disposition, no index (CAP-03
+# excepts it).
+bco:BusinessCapability a owl:Class ;
+    rdfs:label "Business Capability"@en ;
+    skos:definition "The fixture's parent."@en ;
+    rdfs:subClassOf cco:ont00000568 , obo:BFO_0000016 .
+
+# A specific class as standard S3 writes one.
+bco:FixtureGoodCapability a owl:Class ;
+    rdfs:label "Fixture good capability"@en ;
+    skos:definition "A business capability of an organization to perform the fixture's act, grounded in the organization's members as organized."@en ;
+    rdfs:subClassOf bco:BusinessCapability ;
+    ex:enablesProcess ex:FixtureGoodAct .
+
+# A two-step K1 class (a retained kind-of link written under S6): K1 by
+# reaching the parent, not by naming it.
+bco:FixtureGoodNarrower a owl:Class ;
+    rdfs:label "Fixture good narrower"@en ;
+    skos:definition "A business capability of an organization to perform part of the fixture's act, grounded in the organization's members as organized."@en ;
+    rdfs:subClassOf bco:FixtureGoodCapability ;
+    ex:enablesProcess ex:FixtureGoodAct .
+
+# A BCO class outside the capability module's reach, with no index: not K1,
+# and nothing here applies to it.
+bco:FixtureDescriptionClass a owl:Class ;
+    rdfs:label "Fixture description class"@en ;
+    skos:definition "A Descriptive ICE standing in for a description-layer class."@en ;
+    rdfs:subClassOf cco:ont00000853 .
+
+# -- S05-C1: an index outside the parent -------------------------------
+
+bco:FixtureIndexOutsideParent a owl:Class ;
+    rdfs:label "Fixture index outside parent"@en ;
+    skos:definition "Carries an index and is not under the parent."@en ;
+    ex:enablesProcess ex:FixtureGoodAct .
+
+# -- S05-C1: staged under Organization Capability ----------------------
+
+bco:FixtureStagedCapability a owl:Class ;
+    rdfs:label "Fixture staged capability"@en ;
+    skos:definition "Under Organization Capability alone, as CD3's staging allows only before G1-T."@en ;
+    rdfs:subClassOf cco:ont00000568 .
+
+# -- S05-C2: some restriction on has realization (the spec's bco:BadCap) --
+
+bco:FixtureSomeRealization a owl:Class ;
+    rdfs:label "Fixture some realization"@en ;
+    skos:definition "Says every bearer has been realized."@en ;
+    rdfs:subClassOf bco:BusinessCapability ,
+        [ a owl:Restriction ; owl:onProperty obo:BFO_0000054 ;
+          owl:someValuesFrom ex:FixtureGoodAct ] ;
+    ex:enablesProcess ex:FixtureGoodAct .
+
+# -- S05-C3: no index --------------------------------------------------
+
+bco:FixtureNoIndex a owl:Class ;
+    rdfs:label "Fixture no index"@en ;
+    skos:definition "A specific class with no realization index."@en ;
+    rdfs:subClassOf bco:BusinessCapability .
+
+# -- S05-C3: an undeclared member --------------------------------------
+
+bco:FixtureUndeclaredMember a owl:Class ;
+    rdfs:label "Fixture undeclared member"@en ;
+    skos:definition "Names an act no extract declares."@en ;
+    rdfs:subClassOf bco:BusinessCapability ;
+    ex:enablesProcess ex:FixtureUndeclaredAct .
+
+# -- S05-C3: a member that is no act -----------------------------------
+
+bco:FixtureNonActMember a owl:Class ;
+    rdfs:label "Fixture non-act member"@en ;
+    skos:definition "Names a class that does not reach Planned Act."@en ;
+    rdfs:subClassOf bco:BusinessCapability ;
+    ex:enablesProcess ex:FixtureNotAnAct .
+
+# -- S05-C3: a capability-typed member ---------------------------------
+
+bco:FixtureCapabilityMember a owl:Class ;
+    rdfs:label "Fixture capability member"@en ;
+    skos:definition "Names a member under Organization Capability."@en ;
+    rdfs:subClassOf bco:BusinessCapability ;
+    ex:enablesProcess ex:FixtureCapabilityTypedAct .
+
+# -- S05-C5: a deontic definition (the specification's own example) ----
+
+bco:FixtureDeonticDefinition a owl:Class ;
+    rdfs:label "Fixture deontic definition"@en ;
+    skos:definition "The capacity to fulfil its regulatory mandate."@en ;
+    rdfs:subClassOf bco:BusinessCapability ;
+    ex:enablesProcess ex:FixtureGoodAct .
+
+# -- S05-C6: under Function, unrecorded --------------------------------
+
+bco:FixtureFunctionCapability a owl:Class ;
+    rdfs:label "Fixture function capability"@en ;
+    skos:definition "Placed under Function with no CD6 record."@en ;
+    rdfs:subClassOf bco:BusinessCapability , obo:BFO_0000034 ;
+    ex:enablesProcess ex:FixtureGoodAct .
+
+# -- S05-C6: disjoint from Function ------------------------------------
+
+bco:FixtureDisjointFromFunction a owl:Class ;
+    rdfs:label "Fixture disjoint from function"@en ;
+    skos:definition "Declared disjoint from Function."@en ;
+    rdfs:subClassOf bco:BusinessCapability ;
+    owl:disjointWith obo:BFO_0000034 ;
+    ex:enablesProcess ex:FixtureGoodAct .
+
+# -- S05-C7: an only restriction, unreviewed ---------------------------
+
+bco:FixtureOnlyRestriction a owl:Class ;
+    rdfs:label "Fixture only restriction"@en ;
+    skos:definition "Has an only restriction with no CAP-30 record."@en ;
+    rdfs:subClassOf bco:BusinessCapability ,
+        [ a owl:Restriction ; owl:onProperty obo:BFO_0000054 ;
+          owl:allValuesFrom ex:FixtureGoodAct ] ;
+    ex:enablesProcess ex:FixtureGoodAct .
