@@ -1018,11 +1018,15 @@ def build(inputs: Inputs) -> Result:
             if kind == "metamodel":
                 local = cid[len(prefix) + 1:]
                 spec_row = record.get("spec_row")
-                if spec_row != "ex:" + local:
+                # The row's prefix is the one the specification in force
+                # writes: ex: in v0.4, bco: in v0.5 (spec_terms).
+                expected = next((r.spec_iri for r in rows.values()
+                                 if r.local == local), "bco:" + local)
+                if spec_row != expected:
                     findings.append(Finding(
                         "D4-spec-row-mismatch",
                         "%s spec_row %r; the concept bcom:%s wraps the row "
-                        "ex:%s" % (where, spec_row, local, local)))
+                        "%s" % (where, spec_row, local, expected)))
                 elif spec_row not in rows:
                     findings.append(Finding(
                         "D4-no-row",

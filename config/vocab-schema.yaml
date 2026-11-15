@@ -232,10 +232,11 @@ slots:
   spec_row:
     slot_uri: bcovocab:specRow
     range: string
-    pattern: "^ex:[A-Z][A-Za-z0-9]*$"
+    pattern: "^bco:[A-Z][A-Za-z0-9]*$"
     description: >-
       ADR-003 D4: the specification section 4 row this metamodel concept
-      wraps, by the ex: IRI the row names.
+      wraps, by the IRI the row names. v0.5.0-draft.3, the specification
+      in force since 2026-11-15, writes bco: (v0.4.0-draft.1 wrote ex:).
 
   broader:
     slot_uri: skos:broader

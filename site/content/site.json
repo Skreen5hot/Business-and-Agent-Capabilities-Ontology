@@ -23,7 +23,7 @@
   ],
   "notices": {
     "draft": {
-      "text": "Draft. The specification awaits ratification, and nothing in it is normative until the architect ratifies it.",
+      "text": "The Business Capability Ontology is under development and has not been released. Its v0.5 specification commitments have been ratified under CP-0. Forty-two Business Capability types have passed G1-T admission, but their OWL classes have not yet been implemented. Controlled-vocabulary ratification and ontology formalization are separate activities, and the remaining vocabulary records retain their applicable review statuses.",
       "why": "A validator reading a requirement on a public site will reasonably take it as settled. Every page says otherwise, because the one page that does not is the one somebody links to."
     },
     "iri_resolution": {
@@ -50,6 +50,22 @@
       "text": "No conceptual model has been written yet. CM-01, the Business Capability Conceptual Domain Model, is the first planned; it appears here when it is committed.",
       "why": "An empty page with no explanation reads as a broken build. That CM-01 comes first is the architect's choice (docs/decisions/2026-10-25-stage-02-choices.md), so it is words a person chose rather than a figure the build can read."
     },
+    "ratification": {
+      "text": "Specification v0.5.0-draft.3 is the specification in force. Its commitments were ratified under CP-0 by the decision records below, which control; the table that follows is the specification's own register, as it stands at this commit. Ratification settles what the design commits to. It does not mean any requirement has passed executable validation: the Validation section below says what the checks currently find.",
+      "records": [
+        "docs/decisions/2026-11-04-d4-rp1-rp10-ratified-option-b.md",
+        "docs/decisions/2026-11-04-rp2-ratified.md",
+        "docs/decisions/2026-11-05-cd6-cd11-ratified.md",
+        "docs/decisions/2026-11-06-rp3-ratified.md",
+        "docs/decisions/2026-11-06-rp4-ratified.md",
+        "docs/decisions/2026-11-06-rp6-rp9-ratified.md",
+        "docs/decisions/2026-11-07-rp5-ratified.md",
+        "docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md",
+        "docs/decisions/2026-11-15-spec-v0.5-in-force.md",
+        "docs/decisions/2026-11-15-v05-transition-approved-d6-authorized.md"
+      ],
+      "why": "The architect's direction of 2026-11-15 (B): the specification's ratification status is linked to the controlling CP-0 records, and it must not read as a claim that every requirement has passed executable validation. The list is words a person chose; the build refuses a path that is not a decision record."
+    },
     "build_label": {
       "text": "latest from main",
       "why": "A Pages build is not a release. The source commit is shown beside this label."
@@ -58,7 +74,7 @@
   "home": {
     "summary": "The Business Capability Ontology (BCO) says what an organization can do. The Business Process Ontology (BPO) says what it does. The BCO takes its act types from the BPO reality layer and adds the dispositions those acts realize.",
     "for_validators": [
-      "Read the specification. It states seventeen design decisions (CD1 to CD17), the requirements that would check them (CAP-01 onward), and ten ratification points (RP-1 to RP-10) that are open.",
+      "Read the specification. It states seventeen design decisions (CD1 to CD17), the requirements that would check them (CAP-01 onward), and the ten ratification points (RP-1 to RP-10) through which the architect ratified them.",
       "Explore the terms. Today the explorer holds the upstream BFO, CCO and BPO terms the specification builds on, each marked upstream. BCO terms appear beside them as they are written.",
       "Check the status page for what has been ratified, what the validation gate currently finds, and which terms the specification names that nothing yet defines.",
       "Raise anything you find as an issue in the repository. A finding with the section or term it concerns is the most useful kind."

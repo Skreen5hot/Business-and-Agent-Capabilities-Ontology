@@ -183,20 +183,25 @@ def test_the_spec_is_actually_read(vendoring, manifest):
     """Guards the two tests above and the excuse list: a spec reader that
     found nothing would excuse nothing and fail nothing.
 
-    Every cco: and obo: term the v0.4 spec names is described by CCO v2.0
-    or BFO, measured 2026-10-23. The only spec terms nothing describes
-    are in the ex: namespace -- terms the BCO will mint, and BPO terms
-    from files not vendored.
+    Every cco: and obo: term the spec names is described by CCO v2.0 or
+    BFO, measured 2026-10-23 for v0.4 and again on 2026-11-15 for
+    v0.5.0-draft.3. The only spec terms nothing describes are in the ex:
+    namespace. v0.4 wrote ex: for the terms the BCO will mint too; v0.5
+    writes bco: for those, so what is left is BPO's annotation property
+    ex:enablesProcess, from a file not vendored.
     """
     spec = vendoring.spec_terms()
-    assert len(spec) > 80, len(spec)
+    # 55 names in v0.5.0-draft.3 (2026-11-15); v0.4's were over 80, most of
+    # them its ex: examples, which v0.5 writes as bco:
+    assert len(spec) >= 50, len(spec)
     assert ORGANIZATION in spec
 
     for key in ("bfo", "cco"):
         assert len(manifest["extracts"][key]["seed_terms"]) >= 6, key
 
     unresolved = manifest[vendoring.UNRESOLVED_KEY]
-    assert "ex:BusinessCapability" in unresolved
+    assert "ex:enablesProcess" in unresolved
+    assert "ex:BusinessCapability" not in unresolved
     assert "ex:ActOfAcquisition" not in unresolved
     assert not [n for n in unresolved
                 if n.startswith(("cco:", "obo:"))], unresolved

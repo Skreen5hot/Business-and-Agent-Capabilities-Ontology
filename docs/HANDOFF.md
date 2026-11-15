@@ -11,7 +11,8 @@ stale.
 
 This repository develops the **Business Capability Ontology (BCO)**: what an organization
 *can* do, alongside the Business Process Ontology's account of what it *does*. The design
-is specification v0.4.0-draft.1, which is a draft awaiting ratification. **No BCO term has
+is specification v0.5.0-draft.3, ratified (ADR-002) and, since 2026-11-15, the specification
+in force for the tooling (`docs/decisions/2026-11-15-spec-v0.5-in-force.md`). **No BCO term has
 been written.** What exists is the setup to write them under: ARO's layout contract,
 licensing classification, pinned upstream vendoring (BFO, CCO v2.0 and now BPO), a SHACL
 gate with falsification fixtures, a corpus digest, CI, and the method in
@@ -23,7 +24,8 @@ evidence the checks work.
 
 | Path | What | Trust |
 |---|---|---|
-| `specifications/…v0.4.0-draft.1.md` | the spec in force: CD1–CD17, CAP-01–CAP-29, RP-1–RP-10 | DRAFT; nothing normative until ratified |
+| `specifications/…v0.5.0-draft.3.md` | the spec in force since 2026-11-15: CD1–CD17, CAP-01–CAP-35 | ratified point by point (RP-1 to RP-10); accepted as ADR-002 |
+| `specifications/…v0.4.0-draft.1.md` | the prior version, in force until 2026-11-15 | provenance; older records cite it |
 | `specifications/…v0.3.0-draft.1.md` | superseded predecessor | provenance only |
 | `reviews/R5-v0.4-artifact-review.md` | review of v0.4 against the v0.1 package | recommendations, not ratified |
 | `reviews/R6-vocabulary-review.md`, `reviews/R6-disposition.md` | external review of the 14 Draft vocabulary terms, filed verbatim; the disposition of it, accepted 2026-10-24 | the review is the reviewer's; the disposition was accepted (section 5.13) |
@@ -133,6 +135,14 @@ On 2026-11-15 the architect accepted PR #51 as complete (`docs/decisions/2026-11
   exception. The locator updates are deferred. OWL still needs a D6 implementation
   authorization, and the parent's vocabulary definition, still on v0.4's wording, must be
   aligned first.
+- The architect chose to make v0.5.0-draft.3 the specification in force (`docs/decisions/2026-11-15-spec-v0.5-in-force.md`). The nine
+  metamodel records now wrap its §4 rows, each as a `revises` record, and
+  `bcom:BusinessCapability` carries the ratified definition, which clears that blocker. Four
+  definitions changed text. The BFO and CCO extracts were regenerated from v0.5's seeds:
+  Contractor Role (`ont00000506`) left the extract, and role (`BFO_0000023`) became a stub.
+  Directive ICE (`ont00000965`) is no longer a seed but stays in full, as the ancestor of
+  Plan and Objective. The architect approved the transition and authorized D6 for the
+  first tranche (`docs/decisions/2026-11-15-v05-transition-approved-d6-authorized.md`).
 
 R5 records further blockers: material basis policy, maturity-value encoding, instance
 evidence, and migration of BPO existential restrictions. R6 (section 5.13) adds wording
@@ -750,6 +760,6 @@ specification v0.5, in Stage 05). The Ontology Template is not adopted
 |---|---|
 | how to run things | `docs/DEVELOPMENT.md` |
 | why it is built this way | `docs/process/PROCESS.md` |
-| the design | `specifications/Business-Capability-Ontology-v0.4.0-draft.1.md` |
+| the design | `specifications/Business-Capability-Ontology-v0.5.0-draft.3.md` |
 | what was decided, by whom | `docs/decisions/` |
 | what is vendored, and what is not | `config/upstream-extracts.json`, `vendor/NOTICE.md` |

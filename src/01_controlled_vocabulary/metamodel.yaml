@@ -61,7 +61,7 @@
 version: 1
 concepts:
   - id: bcom:BusinessCapability
-    spec_row: ex:BusinessCapability
+    spec_row: bco:BusinessCapability
     sources:
       - source: SRC-FO-01
         locator: >-
@@ -184,7 +184,7 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-10-24T12:12:31Z"
     authored_status: Draft
-    revises: 8dd8ce8adf61b6dc4ee2490b21f78ce57cb1a82b650a548cb64adde8a3e5e3a6
+    revises: 0f59bddbceeb7e37f301cdc810dc30b213cd8d11a95673fa456fcd9371e51058
     change_note:
       - >-
         2026-10-24, review R6 section 6.1: each consistent-with source now
@@ -192,9 +192,18 @@ concepts:
         definition says) or contextual (it backs only the general view the
         scheme rests on). No definition, locator or relation changed; the
         definition is still specification section 4's.
+      - >-
+        2026-11-15, the architect's decision of that date
+        (docs/decisions/2026-11-15-spec-v0.5-in-force.md): specification
+        v0.5.0-draft.3, ratified as ADR-002, is the specification in force,
+        so this record wraps its section 4 row, which writes bco: where
+        v0.4.0-draft.1 wrote ex:. The row's definition, Does not imply cell
+        and Parents cell (a note on its admission) differ from v0.4's, and
+        the built concept follows v0.5. No source, locator or relation
+        changed.
 
   - id: bcom:CapabilityMap
-    spec_row: ex:CapabilityMap
+    spec_row: bco:CapabilityMap
     sources:
       - source: SRC-IND-08
         locator: >-
@@ -232,7 +241,7 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-10-24T12:12:31Z"
     authored_status: Draft
-    revises: eb7553a803fed6f271a4c94739421b82dca1426df9bfc476737cc55db9faa8b4
+    revises: 8990750ede14ef874db394050f675de1424c5c61c7898b9f2cbb775b01b31d4a
     change_note:
       - >-
         2026-10-24, review R6 section 6.1: each consistent-with source now
@@ -240,9 +249,16 @@ concepts:
         definition says) or contextual (it backs only the general view the
         scheme rests on). No definition, locator or relation changed; the
         definition is still specification section 4's.
+      - >-
+        2026-11-15, the architect's decision of that date
+        (docs/decisions/2026-11-15-spec-v0.5-in-force.md): specification
+        v0.5.0-draft.3, ratified as ADR-002, is the specification in force,
+        so this record wraps its section 4 row, which writes bco: where
+        v0.4.0-draft.1 wrote ex:. The row's text is otherwise unchanged. No
+        source, locator or relation changed.
 
   - id: bcom:CapabilityAssessment
-    spec_row: ex:CapabilityAssessment
+    spec_row: bco:CapabilityAssessment
     sources:
       - source: SRC-BA-07
         locator: >-
@@ -273,7 +289,7 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-10-24T12:12:31Z"
     authored_status: Draft
-    revises: 139d2fb5029f9114d178ca12e9dd505b10194ade38b8bd598b7e571730580aaa
+    revises: 2b60a140d1cc6b63ff60e35989730dcc30a258f35700ac958db8f3dc80271166
     change_note:
       - >-
         2026-10-24, review R6 section 6.1: each consistent-with source now
@@ -281,9 +297,17 @@ concepts:
         definition says) or contextual (it backs only the general view the
         scheme rests on). No definition, locator or relation changed; the
         definition is still specification section 4's.
+      - >-
+        2026-11-15, the architect's decision of that date
+        (docs/decisions/2026-11-15-spec-v0.5-in-force.md): specification
+        v0.5.0-draft.3, ratified as ADR-002, is the specification in force,
+        so this record wraps its section 4 row, which writes bco: where
+        v0.4.0-draft.1 wrote ex:. The row's definition and Does not imply
+        cell differ from v0.4's, and the built concept follows v0.5. No
+        source, locator or relation changed.
 
   - id: bcom:CapabilityMaturityRating
-    spec_row: ex:CapabilityMaturityRating
+    spec_row: bco:CapabilityMaturityRating
     sources:
       - source: SRC-OMG-01
         locator: >-
@@ -333,7 +357,7 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-10-24T12:12:31Z"
     authored_status: Draft
-    revises: 910faf3ec4efe42f78820f9deff6874e05c784fbb5273c5482182eb8f0883693
+    revises: 14ce501c1cb9c3bbd54e88d3065910ad1dc1fc9f8b3f9fd6df64c52b5623ed30
     change_note:
       - >-
         2026-10-24, review R6 section 6.1: each consistent-with source now
@@ -341,9 +365,17 @@ concepts:
         definition says) or contextual (it backs only the general view the
         scheme rests on). No definition, locator or relation changed; the
         definition is still specification section 4's.
+      - >-
+        2026-11-15, the architect's decision of that date
+        (docs/decisions/2026-11-15-spec-v0.5-in-force.md): specification
+        v0.5.0-draft.3, ratified as ADR-002, is the specification in force,
+        so this record wraps its section 4 row, which writes bco: where
+        v0.4.0-draft.1 wrote ex:. The row's definition differs from v0.4's,
+        and the built concept follows v0.5. No source, locator or relation
+        changed.
 
   - id: bcom:CapabilitySourcingStatement
-    spec_row: ex:CapabilitySourcingStatement
+    spec_row: bco:CapabilitySourcingStatement
     sources:
       - source: SRC-OMG-01
         locator: >-
@@ -368,7 +400,7 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-10-24T12:12:31Z"
     authored_status: Draft
-    revises: 4b5cc2fa04dd95b38e945ade5b93697638e62013b5bc37ffe9851f48353aa072
+    revises: cd99f6d4c0bbac12acb25a477886152f40df2e55a9eeb8ed88af0d792ce8c1fd
     change_note:
       - >-
         2026-10-24, review R6 section 6.1: each consistent-with source now
@@ -376,9 +408,16 @@ concepts:
         definition says) or contextual (it backs only the general view the
         scheme rests on). No definition, locator or relation changed; the
         definition is still specification section 4's.
+      - >-
+        2026-11-15, the architect's decision of that date
+        (docs/decisions/2026-11-15-spec-v0.5-in-force.md): specification
+        v0.5.0-draft.3, ratified as ADR-002, is the specification in force,
+        so this record wraps its section 4 row, which writes bco: where
+        v0.4.0-draft.1 wrote ex:. The row's text is otherwise unchanged. No
+        source, locator or relation changed.
 
   - id: bcom:CapabilitySourcingAssessment
-    spec_row: ex:CapabilitySourcingAssessment
+    spec_row: bco:CapabilitySourcingAssessment
     sources:
       - source: SRC-BA-07
         locator: >-
@@ -396,7 +435,7 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-10-24T12:12:31Z"
     authored_status: Draft
-    revises: 1a9a1e024bcc0d7e8bf9f3319664c3cb3c5f1b6d3de900fb5e08f65c0a19530d
+    revises: dff945888bb53b831eeeeb866689fecb4a420ab26612a06662e2fd9904a5b4ff
     change_note:
       - >-
         2026-10-24, review R6 section 6.1: each consistent-with source now
@@ -404,9 +443,17 @@ concepts:
         definition says) or contextual (it backs only the general view the
         scheme rests on). No definition, locator or relation changed; the
         definition is still specification section 4's.
+      - >-
+        2026-11-15, the architect's decision of that date
+        (docs/decisions/2026-11-15-spec-v0.5-in-force.md): specification
+        v0.5.0-draft.3, ratified as ADR-002, is the specification in force,
+        so this record wraps its section 4 row, which writes bco: where
+        v0.4.0-draft.1 wrote ex:. The row's definition differs from v0.4's,
+        and the built concept follows v0.5. No source, locator or relation
+        changed.
 
   - id: bcom:CapabilityTarget
-    spec_row: ex:CapabilityTarget
+    spec_row: bco:CapabilityTarget
     sources:
       - source: SRC-GOV-04
         locator: >-
@@ -431,7 +478,7 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-10-24T12:12:31Z"
     authored_status: Draft
-    revises: fdf4c859d656eed9f5dfc9e3b130b7570fcdc33b40c1c62be66a94b3c90eb558
+    revises: 7dac0900ecaff8ceb0ebf2a57a931d95eba3442fdc00b02e7c3ddba4af885576
     change_note:
       - >-
         2026-10-24, review R6 section 6.1: each consistent-with source now
@@ -439,9 +486,16 @@ concepts:
         definition says) or contextual (it backs only the general view the
         scheme rests on). No definition, locator or relation changed; the
         definition is still specification section 4's.
+      - >-
+        2026-11-15, the architect's decision of that date
+        (docs/decisions/2026-11-15-spec-v0.5-in-force.md): specification
+        v0.5.0-draft.3, ratified as ADR-002, is the specification in force,
+        so this record wraps its section 4 row, which writes bco: where
+        v0.4.0-draft.1 wrote ex:. The row's text is otherwise unchanged. No
+        source, locator or relation changed.
 
   - id: bcom:CapabilityTargetStateSpecification
-    spec_row: ex:CapabilityTargetStateSpecification
+    spec_row: bco:CapabilityTargetStateSpecification
     sources:
       - source: SRC-OMG-02
         locator: >-
@@ -460,7 +514,7 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-10-24T12:12:31Z"
     authored_status: Draft
-    revises: dbfa1cbfe514cf21ac606073669221eab0ffe4f0b6ef6fe610a6f4d96c314cb3
+    revises: 52118424cb435fabc28a985e066b4fc5f2a3b07c80c9934cc4eb632f1debf280
     change_note:
       - >-
         2026-10-24, review R6 section 6.1: each consistent-with source now
@@ -468,9 +522,16 @@ concepts:
         definition says) or contextual (it backs only the general view the
         scheme rests on). No definition, locator or relation changed; the
         definition is still specification section 4's.
+      - >-
+        2026-11-15, the architect's decision of that date
+        (docs/decisions/2026-11-15-spec-v0.5-in-force.md): specification
+        v0.5.0-draft.3, ratified as ADR-002, is the specification in force,
+        so this record wraps its section 4 row, which writes bco: where
+        v0.4.0-draft.1 wrote ex:. The row's text is otherwise unchanged. No
+        source, locator or relation changed.
 
   - id: bcom:AuthorizationRecord
-    spec_row: ex:AuthorizationRecord
+    spec_row: bco:AuthorizationRecord
     sources:
       - source: SRC-FO-09
         locator: >-
@@ -494,7 +555,7 @@ concepts:
     drafted_by: bcoa:claude-opus-5-5
     created: "2026-10-24T12:12:31Z"
     authored_status: Draft
-    revises: 6dab2b7ae1d2d79bf9fc73165ce1bd8877b5903bf8043b7a36ef440538ef6c24
+    revises: 0c69107b029613aa512db30ceab5ed15acd20b3d96b7ccc50b3c168ac15c6e64
     change_note:
       - >-
         2026-10-24, review R6 section 6.1: each consistent-with source now
@@ -502,3 +563,10 @@ concepts:
         definition says) or contextual (it backs only the general view the
         scheme rests on). No definition, locator or relation changed; the
         definition is still specification section 4's.
+      - >-
+        2026-11-15, the architect's decision of that date
+        (docs/decisions/2026-11-15-spec-v0.5-in-force.md): specification
+        v0.5.0-draft.3, ratified as ADR-002, is the specification in force,
+        so this record wraps its section 4 row, which writes bco: where
+        v0.4.0-draft.1 wrote ex:. The row's text is otherwise unchanged. No
+        source, locator or relation changed.

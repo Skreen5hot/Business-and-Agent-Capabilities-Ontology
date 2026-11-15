@@ -42,9 +42,14 @@ SPEC_ROWS = ["BusinessCapability", "CapabilityMap", "CapabilityAssessment",
              "CapabilitySourcingAssessment", "CapabilityTarget",
              "CapabilityTargetStateSpecification", "AuthorizationRecord"]
 TEMPLATE_TERMS = [
-    "Specific capability classes (`ex:StrategicPlanningCapability` and the rest)",
-    "Realization union `ex:<Name>Realization`",
+    "Specific capability classes (strategic planning capability and the rest)",
+    "Realization union `bco:<Name>Realization`",
+    "Functional Adequacy Assessment *(new, R9; representation open)*",
 ]
+#: The specification in force until 2026-11-15. The build still parses it,
+#: at every older commit whose layout contract had it in force, to describe
+#: the prior records (R7 Finding B), so its rows must read as they always did.
+V04 = ROOT / "specifications/Business-Capability-Ontology-v0.4.0-draft.1.md"
 
 
 def load_registered(name: str, relative: str):
@@ -128,7 +133,7 @@ def source(**kw):
 
 
 def meta(local="CapabilityMap", **kw):
-    record = {"id": "bcom:" + local, "spec_row": "ex:" + local,
+    record = {"id": "bcom:" + local, "spec_row": "bco:" + local,
               "sources": [source()], "drafted_by": AGENT,
               "created": "2026-10-24T00:00:00Z", "authored_status": "Draft"}
     record.update(kw)
@@ -190,6 +195,7 @@ def test_the_spec_parser_excludes_the_template_rows_by_rule(st, spec_path):
     assert [term for _, term, _ in parsed.excluded] == TEMPLATE_TERMS
     reasons = [reason for _, _, reason in parsed.excluded]
     assert "and the rest" in reasons[0] and "placeholder" in reasons[1]
+    assert "representation is open" in reasons[2]
     # The annotation-properties table is skipped by header, by name.
     assert [layer for _, layer, _ in parsed.skipped_tables] == [
         "Annotation properties"]
@@ -202,9 +208,17 @@ def test_the_spec_parser_keeps_cells_verbatim(st, spec_path):
         assert "| %s |" % row.definition in text
         assert "| %s |" % row.does_not_imply in text
     assert rows["CapabilityAssessment"].does_not_imply.endswith(
-        "That `partial` is a fraction of a disposition.")
+        "That an incomplete evaluation is an assessment.")
     assert rows["BusinessCapability"].parents == (
         ("cco", "ont00000568"), ("obo", "BFO_0000016"))
+    # The prose after the parent row's code spans is kept, verbatim, as a
+    # note the digest covers; the other rows have none.
+    assert rows["BusinessCapability"].parents_note.startswith(
+        "Admitted by the architect's ratification of CD1 to CD3")
+    assert "parents_note" in rows["BusinessCapability"].content()
+    assert not any(r.parents_note for k, r in rows.items()
+                   if k != "BusinessCapability")
+    assert {r.spec_iri for r in rows.values()} == {"bco:" + r for r in SPEC_ROWS}
     assert rows["CapabilityTargetStateSpecification"].label == \
         "Capability Target-State Specification"
 
@@ -238,6 +252,66 @@ def test_the_spec_parser_positive_control(st):
         "CapabilityMap"]
 
 
+def test_the_prior_specification_still_parses_as_it_did(st, vb):
+    """v0.4 reads exactly as before the parser learned v0.5: nine ex: rows,
+    two templates, no parents note -- so every digest recorded against it
+    is unchanged. test_the_real_prior_records_resolve_and_verify then
+    recomputes each prior record's digest at its own commit."""
+    parsed = st.parse(V04)
+    assert not parsed.failures, parsed.failures
+    assert [r.spec_iri for r in parsed.rows] == ["ex:" + r for r in SPEC_ROWS]
+    assert len(parsed.excluded) == 2
+    assert not any(r.parents_note for r in parsed.rows)
+    assert all("parents_note" not in r.content() for r in parsed.rows)
+
+
+@pytest.mark.parametrize("term, needle", [
+    ("Realization union `bco:<Name>Realization`", "placeholder"),
+    ("Specific capability classes (strategic planning capability and the rest)",
+     "and the rest"),
+    ("Specific capability classes (`bco:StrategicPlanningCapability` and the rest)",
+     "and the rest"),
+    ("Functional Adequacy Assessment *(new, R9; representation open)*",
+     "representation is open"),
+])
+def test_the_spec_parser_excludes_v05_templates(st, term, needle):
+    # with one concrete row beside it: a section of templates alone has no
+    # term, which is a failure of its own
+    parsed = st.parse_text(SECTION % (GOOD_ROW + "\n| %s | A. | `cco:x` | N. |"
+                                      % term))
+    assert not parsed.failures, parsed.failures
+    assert [r.local for r in parsed.rows] == ["CapabilityMap"]
+    assert [needle in reason for _, _, reason in parsed.excluded] == [True]
+
+
+@pytest.mark.parametrize("row, needle", [
+    # a label with no IRI and no "representation open" note is no term
+    ("| Functional Adequacy Assessment *(new, R9)* | A. | `cco:x` | N. |",
+     "neither a concrete term nor a recognised template"),
+    # prose after the parents must follow a full stop
+    ("| Capability Map `bco:CapabilityMap` | A. | `cco:ont00000853` admitted | N. |",
+     "Parents cell"),
+    # only ex: and bco: name BCO terms
+    ("| Capability Map `cco:CapabilityMap` | A. | `cco:ont00000853` | N. |",
+     "neither a concrete term nor a recognised template"),
+])
+def test_the_spec_parser_refuses_near_misses_of_v05_rows(st, row, needle):
+    parsed = st.parse_text(SECTION % row)
+    assert any(needle in message for _, message in parsed.failures), \
+        parsed.failures
+
+
+def test_the_spec_parser_keeps_a_parents_note(st):
+    row = ("| Capability Map `bco:CapabilityMap` | A. | `cco:ont00000853`. "
+           "Admitted by ratification (CD3) | N. |")
+    parsed = st.parse_text(SECTION % row)
+    assert not parsed.failures, parsed.failures
+    [r] = parsed.rows
+    assert r.spec_iri == "bco:CapabilityMap"
+    assert r.parents == (("cco", "ont00000853"),)
+    assert r.parents_note == "Admitted by ratification (CD3)"
+
+
 def test_a_spec_without_section_4_is_a_failure(st):
     assert st.parse_text("# Nothing here\n").failures
 
@@ -245,8 +319,8 @@ def test_a_spec_without_section_4_is_a_failure(st):
 def test_an_unreadable_spec_fails_the_build(vb, layout, spec_path, tmp_path):
     bad = tmp_path / "spec.md"
     text = spec_path.read_bytes().decode("utf-8")
-    mutated = text.replace("Capability Map `ex:CapabilityMap`",
-                           "Capability Mop `ex:CapabilityMap`")
+    mutated = text.replace("Capability Map `bco:CapabilityMap`",
+                           "Capability Mop `bco:CapabilityMap`")
     assert mutated != text
     bad.write_bytes(mutated.encode("utf-8"))
     refused(vb, make(tmp_path, vb, layout, spec_path, spec=bad),
@@ -276,7 +350,7 @@ def test_a_metamodel_definition_is_refused(vb, layout, spec_path, tmp_path):
 
 def test_a_record_must_name_its_own_row(vb, layout, spec_path, tmp_path):
     refused(vb, make(tmp_path, vb, layout, spec_path,
-                     metamodel=[meta(spec_row="ex:CapabilityTarget")]),
+                     metamodel=[meta(spec_row="bco:CapabilityTarget")]),
             "D4-spec-row-mismatch")
 
 
@@ -295,7 +369,7 @@ def test_staging_one_record_requires_every_row(vb, layout, spec_path,
                               metamodel=[meta()]), "D4-row-uncovered")
     uncovered = sorted(f.message.split()[3] for f in result.findings
                        if f.code == "D4-row-uncovered")
-    assert uncovered == sorted("ex:" + r for r in SPEC_ROWS
+    assert uncovered == sorted("bco:" + r for r in SPEC_ROWS
                                if r != "CapabilityMap")
 
 
@@ -1183,8 +1257,9 @@ def test_the_real_prior_records_resolve_and_verify(vb, repo):
     # tranche 2 revised TreasuryManagement; the G1-T batch decision of 2026-11-14
     # revised 15 tranche-2 records (13 of Batch B, Corporate Card and Customer Credit), and
     # the directions on the supplementary review and on T2-25 revised Financial Performance
-    # Analysis twice, so both of its earlier records are prior.
-    assert len(targets) == 37, len(targets)
+    # Analysis twice, so both of its earlier records are prior. Making v0.5.0-draft.3 the
+    # specification in force (2026-11-15) revised the nine metamodel records once more.
+    assert len(targets) == 46, len(targets)
     verified = 0
     for target in targets:
         digest = str(graph.value(target, sha))
@@ -1195,8 +1270,9 @@ def test_the_real_prior_records_resolve_and_verify(vb, repo):
         cid = "vocab.%s" % kind
         text = git(repo, "show", "%s:%s" % (commit,
                                             declared_path(repo, commit, cid)))
-        spec = git(repo, "show", "%s:specifications/"
-                   "Business-Capability-Ontology-v0.4.0-draft.1.md" % commit)
+        # The specification that commit's own layout contract had in force.
+        spec = git(repo, "show", "%s:%s" % (
+            commit, declared_path(repo, commit, "spec.current")))
         rows = {r.spec_iri: r for r in vb.spec_terms.parse_text(spec).rows}
         found = []
         for record in yaml.safe_load(text)["concepts"]:
@@ -1216,7 +1292,7 @@ def test_the_real_prior_records_resolve_and_verify(vb, repo):
         if at_parent and before.returncode == 0:
             assert digest[:16] not in before.stdout.decode("utf-8")
         verified += 1
-    assert verified == 37
+    assert verified == 46
 
 
 # ================================================================ record digest

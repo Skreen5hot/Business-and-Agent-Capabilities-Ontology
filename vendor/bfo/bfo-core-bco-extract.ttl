@@ -11,7 +11,7 @@
 #
 # Basic Formal Ontology (BFO) 2020, ISO/IEC 21838-2. Copyright the BFO contributors, licensed CC BY 4.0.
 #
-# This is not Basic Formal Ontology. It carries 23 terms described in full and 2
+# This is not Basic Formal Ontology. It carries 22 terms described in full and 3
 # declared as stubs, selected because this repository names them or
 # because a selected term's ancestry passes through them.
 #
@@ -104,13 +104,8 @@ obo:BFO_0000020 skos:definition "b is a specifically dependent continuant =Def b
 obo:BFO_0000020 skos:example "(with multiple bearers) John's love for Mary; the ownership relation between John and this statue; the relation of authority between John and his subordinates"@en .
 obo:BFO_0000020 skos:example "(with one bearer) The mass of this tomato; the pink colour of a medium rare piece of grilled filet mignon at its centre; the smell of this portion of mozzarella; the disposition of this fish to decay; the role of being a doctor; the function of this heart to pump blood; the shape of this hole"@en .
 
-obo:BFO_0000023 <http://purl.org/dc/elements/1.1/identifier> "061-BFO" .
 obo:BFO_0000023 rdf:type owl:Class .
 obo:BFO_0000023 rdfs:label "role"@en .
-obo:BFO_0000023 rdfs:subClassOf obo:BFO_0000017 .
-obo:BFO_0000023 skos:altLabel "externally-grounded realizable entity"@en .
-obo:BFO_0000023 skos:definition "(Elucidation) A role b is a realizable entity such that b exists because there is some single bearer that is in some special physical, social, or institutional set of circumstances in which this bearer does not have to be & b is not such that, if it ceases to exist, then the physical make-up of the bearer is thereby changed"@en .
-obo:BFO_0000023 skos:example "The priest role; the student role; the role of subject in a clinical trial; the role of a stone in marking a property boundary; the role of a boundary to demarcate two neighbouring administrative territories; the role of a building in serving as a military target"@en .
 
 obo:BFO_0000027 <http://purl.org/dc/elements/1.1/identifier> "025-BFO" .
 obo:BFO_0000027 rdf:type owl:Class .

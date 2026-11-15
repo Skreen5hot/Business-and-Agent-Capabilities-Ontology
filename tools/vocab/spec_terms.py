@@ -20,10 +20,11 @@ HOW A ROW IS CLASSIFIED -- the rule the tests pin
 
 A row is CONCRETE when its Term cell is exactly
 
-    <Label> `ex:<LocalName>`            optionally followed by *(...)*
+    <Label> `<p>:<LocalName>`           optionally followed by *(...)*
 
 where the label is plain words (no backtick, bracket or angle bracket),
-the code span holds one `ex:` name with no placeholder, and the label
+the code span holds one name with no placeholder, <p> is `ex:` (the
+prefix v0.4 writes for BCO terms) or `bco:` (v0.5's correction), and the label
 with every non-alphanumeric character removed equals the local name
 ("Capability Target-State Specification" -> CapabilityTargetStateSpecification).
 A row that has that shape but whose label and local name disagree is a
@@ -31,19 +32,27 @@ FAILURE, not an exclusion: the spec has a typo or the rule is wrong, and
 either way a person must look.
 
 A row is a TEMPLATE, excluded with its reason, when its Term cell
-names an `ex:` IRI that is
 
-  - a placeholder pattern: the code span holds `<...>`
-    (`ex:<Name>Realization`), or
-  - an example standing for a family: the code span sits inside a
-    parenthetical that says "and the rest"
-    (`(`ex:StrategicPlanningCapability` and the rest)`).
+  - names a placeholder pattern: the code span holds `<...>`
+    (`ex:<Name>Realization`, `bco:<Name>Realization`);
+  - names a family by one example, in a parenthetical that says "and the
+    rest": an IRI (v0.4, `(`ex:StrategicPlanningCapability` and the
+    rest)`) or plain words (v0.5, `(strategic planning capability and
+    the rest)`); or
+  - names no IRI because its representation is open: a plain label and a
+    note that says "representation open" (v0.5, `Functional Adequacy
+    Assessment *(new, R9; representation open)*`, whose parent is "To be
+    chosen at Stage 05 (CD17)"). Nothing can wrap a row with no IRI.
 
 Any other row is a FAILURE. A new row in a shape nobody anticipated is
 reported rather than classified by a guess in either direction.
 
 For a concrete row the Parents cell must be one or more code spans of
-`prefix:local`, separated by commas, and nothing else.
+`prefix:local`, separated by commas, optionally followed by a full stop
+and prose (v0.5's parent row: "... `obo:BFO_0000016`. Admitted by the
+architect's ratification ..."). The prose is kept verbatim as the row's
+parents note, and the record digest covers it. A row without one has no
+`parents_note` key, so the digest of every v0.4 row is unchanged.
 
 Cell text is kept verbatim (stripped of surrounding whitespace),
 Markdown and all: D4 requires the built definition to equal the row's
@@ -65,13 +74,20 @@ TERM_HEADERS = (
     ("Term", "Definition", "Parent", "Does not imply"),
 )
 CONCRETE = re.compile(
-    r"^(?P<label>[A-Za-z][^`()<>*]*?)\s+`ex:(?P<local>[A-Za-z][A-Za-z0-9]*)`"
+    r"^(?P<label>[A-Za-z][^`()<>*]*?)\s+"
+    r"`(?P<prefix>ex|bco):(?P<local>[A-Za-z][A-Za-z0-9]*)`"
     r"(?:\s+\*\((?P<note>[^)]*)\)\*)?$")
-PLACEHOLDER_IRI = re.compile(r"`ex:[^`]*<[^`>]+>[^`]*`")
-FAMILY_EXAMPLE = re.compile(r"\(\s*`ex:[A-Za-z0-9]+`\s+and the rest\s*\)")
+PLACEHOLDER_IRI = re.compile(r"`(?:ex|bco):[^`]*<[^`>]+>[^`]*`")
+FAMILY_EXAMPLE = re.compile(
+    r"\(\s*(?:`(?:ex|bco):[A-Za-z0-9]+`|[a-z][a-z ]*[a-z])"
+    r"\s+and the rest\s*\)")
+REPRESENTATION_OPEN = re.compile(
+    r"^[A-Za-z][^`()<>*]*?\s+\*\((?:[^)]*;\s*)?representation open\)\*$")
 PARENT = re.compile(r"`([a-z]+):([A-Za-z_][A-Za-z0-9_]*)`")
 PARENTS_CELL = re.compile(
-    r"^`[a-z]+:[A-Za-z_][A-Za-z0-9_]*`(?:\s*,\s*`[a-z]+:[A-Za-z_][A-Za-z0-9_]*`)*$")
+    r"^(?P<spans>`[a-z]+:[A-Za-z_][A-Za-z0-9_]*`"
+    r"(?:\s*,\s*`[a-z]+:[A-Za-z_][A-Za-z0-9_]*`)*)"
+    r"(?:\.\s+(?P<note>\S.*))?$")
 
 
 @dataclass(frozen=True)
@@ -86,20 +102,25 @@ class Row:
     parents: tuple  # of (prefix, local)
     does_not_imply: str
     line: int
+    prefix: str = "ex"
+    parents_note: str = ""
 
     @property
     def spec_iri(self) -> str:
-        return "ex:" + self.local
+        return "%s:%s" % (self.prefix, self.local)
 
     def content(self) -> dict:
         """What the row says, as the record digest includes it."""
-        return {
+        out = {
             "label": self.label,
             "iri": self.spec_iri,
             "definition": self.definition,
             "parents": ["%s:%s" % p for p in self.parents],
             "does_not_imply": self.does_not_imply,
         }
+        if self.parents_note:
+            out["parents_note"] = self.parents_note
+        return out
 
 
 @dataclass
@@ -133,6 +154,9 @@ def classify(term: str):
     if FAMILY_EXAMPLE.search(term):
         return "template", ("names one example standing for a family "
                             "('and the rest'), not one term")
+    if REPRESENTATION_OPEN.fullmatch(term):
+        return "template", ("names no IRI: its representation is open, to "
+                            "be chosen at Stage 05")
     return "unknown", "neither a concrete term nor a recognised template"
 
 
@@ -180,9 +204,9 @@ def parse_text(text: str) -> Parsed:
     locals_seen = {}
     for row in out.rows:
         if row.local in locals_seen:
-            out.failures.append((row.line, "ex:%s is named by two rows "
+            out.failures.append((row.line, "%s is named by two rows "
                                            "(lines %d and %d)"
-                                 % (row.local, locals_seen[row.local],
+                                 % (row.spec_iri, locals_seen[row.local],
                                     row.line)))
         locals_seen.setdefault(row.local, row.line)
     return out
@@ -206,20 +230,24 @@ def _row(out: Parsed, layer: str, row: list, line: int) -> None:
         out.failures.append((line, "Terms row label %r does not spell its "
                                    "IRI ex:%s" % (label, local)))
         return
-    if not PARENTS_CELL.fullmatch(parents):
-        out.failures.append((line, "ex:%s: the Parents cell %r is not a "
+    prefix = detail.group("prefix")
+    cell = PARENTS_CELL.fullmatch(parents)
+    if not cell:
+        out.failures.append((line, "%s:%s: the Parents cell %r is not a "
                                    "comma-separated list of code-span names"
-                             % (local, parents)))
+                             % (prefix, local, parents)))
         return
     if not definition or not does_not_imply:
-        out.failures.append((line, "ex:%s has an empty Definition or Does "
-                                   "not imply cell" % local))
+        out.failures.append((line, "%s:%s has an empty Definition or Does "
+                                   "not imply cell" % (prefix, local)))
         return
     out.rows.append(Row(layer=layer, label=label, local=local,
                         note=(detail.group("note") or "").strip(),
                         definition=definition,
-                        parents=tuple(PARENT.findall(parents)),
-                        does_not_imply=does_not_imply, line=line))
+                        parents=tuple(PARENT.findall(cell.group("spans"))),
+                        does_not_imply=does_not_imply, line=line,
+                        prefix=prefix,
+                        parents_note=(cell.group("note") or "").strip()))
 
 
 def parse(path: Path) -> Parsed:
