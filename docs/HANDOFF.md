@@ -128,6 +128,11 @@ On 2026-11-15 the architect accepted PR #51 as complete (`docs/decisions/2026-11
 - The D5 readiness package (`docs/proposals/2026-11-15-d5-readiness-package.md`, with the proposed
   Stage 05 standard) awaits the architect's approval. It proposes the parent and 39 of the 42 as the first
   tranche; the other 3 follow their source checks.
+- The architect then approved the inquiry and D5-1 to D5-7 (`docs/decisions/2026-11-15-bpo-inquiry-and-d5-approved.md`). The Stage 05
+  standard is `docs/standards/stage-05-ontology.md`. D5-4 is a first-tranche-only terminology
+  exception. The locator updates are deferred. OWL still needs a D6 implementation
+  authorization, and the parent's vocabulary definition, still on v0.4's wording, must be
+  aligned first.
 
 R5 records further blockers: material basis policy, maturity-value encoding, instance
 evidence, and migration of BPO existential restrictions. R6 (section 5.13) adds wording

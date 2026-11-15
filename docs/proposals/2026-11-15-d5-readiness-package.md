@@ -2,7 +2,7 @@
 
 | Field | Value |
 |---|---|
-| Status | **For the architect's approval** (direction of 2026-11-15, F, `docs/decisions/2026-11-15-tranche-2-remaining-issues-and-d5-preparation.md`). It authorizes no Stage 05 implementation and no OWL capability class. Section 1 lists what is asked |
+| Status | **Approved** 2026-11-15, D5-1 to D5-7, with conditions (`docs/decisions/2026-11-15-bpo-inquiry-and-d5-approved.md`); the approved text is this file at `cd81767`, SHA-256 `2743c27b21c13809000f26acdb209834cbb5d1b995f2b087f2a5a79e8c4f112f`, and only this row has changed since. D5 is complete for the first tranche. It authorizes no OWL: that needs a D6 implementation authorization. Prepared under the direction of 2026-11-15, F (`docs/decisions/2026-11-15-tranche-2-remaining-issues-and-d5-preparation.md`) |
 | Date | 2026-11-15 |
 | Prepared by | Claude Code (`claude-opus-5-5`), for the BCO team |
 | Baseline | `main` at `e41eb072b32f8ce726ded8d71d16c17f400f4764`, PR #51 merged. Upstream pins: BFO `044490fc`, CCO `510dad76`, BPO `bc64e918` (`config/upstream-sources.yaml`) |

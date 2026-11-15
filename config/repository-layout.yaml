@@ -354,8 +354,12 @@ components:
       filed verbatim, never edited here. Stage 03 (Taxonomy) was drafted by
       the team and ratified by the architect, with two binding
       clarifications, on 2026-11-07
-      (docs/decisions/2026-11-07-stage-03-ratified-g1t-review-authorized.md);
-      a substantive change to either is a new, reviewed version.
+      (docs/decisions/2026-11-07-stage-03-ratified-g1t-review-authorized.md).
+      Stage 05 (Ontology) was drafted by the team and approved by the
+      architect as D5-1 on 2026-11-15
+      (docs/decisions/2026-11-15-bpo-inquiry-and-d5-approved.md); only its
+      status row differs from the approved proposal. A substantive change
+      to any of them is a new, reviewed version.
 
   - id: docs.sources
     path: docs/sources
