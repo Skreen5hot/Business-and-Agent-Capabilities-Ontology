@@ -354,8 +354,12 @@ components:
       filed verbatim, never edited here. Stage 03 (Taxonomy) was drafted by
       the team and ratified by the architect, with two binding
       clarifications, on 2026-11-07
-      (docs/decisions/2026-11-07-stage-03-ratified-g1t-review-authorized.md);
-      a substantive change to either is a new, reviewed version.
+      (docs/decisions/2026-11-07-stage-03-ratified-g1t-review-authorized.md).
+      Stage 05 (Ontology) was drafted by the team and approved by the
+      architect as D5-1 on 2026-11-15
+      (docs/decisions/2026-11-15-bpo-inquiry-and-d5-approved.md); only its
+      status row differs from the approved proposal. A substantive change
+      to any of them is a new, reviewed version.
 
   - id: docs.sources
     path: docs/sources
@@ -664,6 +668,16 @@ components:
       depend on, its typing, and its module and line at the I-1 pin, for the
       architect's separate decision (decision of 2026-11-07, tranche 2
       accepted, B). Read from the generated records; proposes no act type.
+
+  - id: catalog.tranche-2-followup
+    path: docs/catalog/tranche-2-followup.md
+    role: documentation
+    description: >-
+      Tranche 2's follow-up after the G1-T signature (decision of 2026-11-15,
+      D and E): the triage of the supplementary review's non-blocking notes,
+      the errata to the signed batch (which keeps its bytes), the focused
+      source checks due before an affected type is formalized, and bpo:P14057
+      queued for semantic curation. Not a review; admits and changes nothing.
 
   - id: catalog.admission
     path: docs/catalog/admission
