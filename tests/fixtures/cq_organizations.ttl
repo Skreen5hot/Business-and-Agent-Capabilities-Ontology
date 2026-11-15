@@ -1,0 +1,93 @@
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix obo:  <http://purl.obolibrary.org/obo/> .
+@prefix cco:  <https://www.commoncoreontologies.org/> .
+@prefix ex:   <https://fandaws.com/ontology/bpo#> .
+@prefix bco:  <https://fandaws.com/ontology/bco#> .
+
+# Controlled fixture organizations for the competency questions (CP-2;
+# docs/decisions/2026-11-15-d6-class-increment-accepted.md, D).
+#
+# TEST-ONLY. Nothing here is a capability claim about a real organization,
+# and none of it is Stage 06 or a knowledge graph. It is loaded only by
+# tests/test_competency_questions.py, together with the real module
+# (src/05_ontology/apqc-cap.ttl) and the vendored extracts, so its
+# individuals use the real written classes and the real BPO act classes:
+#
+#   bco:PayrollProcessing   index P10858 to P10868 (P10862: process and
+#                           distribute payments)
+#   bco:CashManagement      index P10893, P10895, P10898
+#   bco:AccountsPayableProcessing  index P10869 ... P10879
+#
+# One class is declared here and nowhere else: bco:FixtureCqStagedClass, a
+# staged Organization Capability class, so that CQ-1 has a staged claim to
+# report apart and CQ-10 has a class that has not passed G1-T.
+
+bco:FixtureCqStagedClass a owl:Class ;
+    rdfs:label "Fixture CQ staged class"@en ;
+    skos:definition "An Organization Capability class that has not passed G1-T; test-only."@en ;
+    rdfs:subClassOf cco:ont00000568 .
+
+# -- Organization one -------------------------------------------------------
+
+bco:fixture_cq_org a cco:ont00001180 ;
+    obo:BFO_0000115 bco:fixture_cq_clerk , bco:fixture_cq_treasurer ;
+    cco:ont00001954 bco:fixture_cq_payroll , bco:fixture_cq_staged .
+bco:fixture_cq_clerk a cco:ont00001262 .
+bco:fixture_cq_treasurer a cco:ont00001262 .
+
+# Bearing asserted from the organization.
+bco:fixture_cq_payroll a bco:PayrollProcessing ;
+    obo:BFO_0000218 bco:fixture_cq_clerk .
+
+# Bearing asserted the other way round; CQ-1 normalizes it.
+bco:fixture_cq_cash a bco:CashManagement ;
+    cco:ont00001889 bco:fixture_cq_org ;
+    obo:BFO_0000218 bco:fixture_cq_treasurer .
+
+# A staged claim: reported apart, never as a Business Capability (CD2).
+bco:fixture_cq_staged a bco:FixtureCqStagedClass .
+
+# -- Organization two -------------------------------------------------------
+
+bco:fixture_cq_other a cco:ont00001180 ;
+    obo:BFO_0000115 bco:fixture_cq_other_clerk ;
+    cco:ont00001954 bco:fixture_cq_other_ap .
+bco:fixture_cq_other_clerk a cco:ont00001262 .
+bco:fixture_cq_other_ap a bco:AccountsPayableProcessing ;
+    obo:BFO_0000218 bco:fixture_cq_other_clerk .
+
+# -- A vendor ---------------------------------------------------------------
+
+bco:fixture_cq_vendor a cco:ont00001180 ;
+    obo:BFO_0000115 bco:fixture_cq_vendor_staff .
+bco:fixture_cq_vendor_staff a cco:ont00001262 .
+
+# -- Acts -------------------------------------------------------------------
+
+# A payroll run the clerk performs: realizes payroll processing.
+bco:fixture_cq_run_october a ex:P10862 ;
+    obo:BFO_0000055 bco:fixture_cq_payroll ;
+    cco:ont00001833 bco:fixture_cq_clerk .
+
+# The vendor case: the vendor's staff perform it and the clerk only takes
+# part. Asserted to realize payroll processing; CQ-3 must not return it
+# (CAP-34).
+bco:fixture_cq_run_vendor a ex:P10862 ;
+    obo:BFO_0000055 bco:fixture_cq_payroll ;
+    cco:ont00001833 bco:fixture_cq_vendor_staff ;
+    obo:BFO_0000057 bco:fixture_cq_clerk .
+
+# A misfiled act: asserted only as revenue accounting (P10729), outside
+# payroll's index. CQ-3 must not return it (CAP-21).
+bco:fixture_cq_misfiled a ex:P10729 ;
+    obo:BFO_0000055 bco:fixture_cq_payroll ;
+    cco:ont00001833 bco:fixture_cq_clerk .
+
+# A cash act the treasurer performs, written with has realization from the
+# capability and agent in from the treasurer.
+bco:fixture_cq_cash a bco:CashManagement ;
+    obo:BFO_0000054 bco:fixture_cq_cash_position .
+bco:fixture_cq_cash_position a ex:P10893 .
+bco:fixture_cq_treasurer cco:ont00001787 bco:fixture_cq_cash_position .

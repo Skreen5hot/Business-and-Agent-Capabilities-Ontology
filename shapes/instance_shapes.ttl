@@ -1,0 +1,213 @@
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix inst:  <https://fandaws.com/ontology/bco/shapes/instances#> .
+
+# CP-1's instance-level checks that need no unminted term
+# (docs/decisions/2026-11-15-d6-class-increment-accepted.md, C): CAP-08,
+# CAP-11, CAP-12, CAP-19, CAP-21 (Gate C-A), CAP-25, CAP-34 and CAP-35.
+#
+# The rules that need the description layer -- Capability Assessment, Map,
+# Target, Authorization Record, sourcing statements, Functional Adequacy
+# Assessment, bco:concernsType, bco:assessedPresence -- are not here, because
+# none of those terms is minted. They are listed in src/05_ontology/README.md
+# for the architect's decision.
+#
+# WHAT A BUSINESS CAPABILITY INSTANCE IS HERE
+#
+# An individual typed with a class that is bco:BusinessCapability or reaches
+# it through rdfs:subClassOf: an instance of a K1 class. A staged class (under
+# cco:ont00000568 and not under the parent) is not one (CD2 a2).
+#
+# ENCODING CHOSEN AT STAGE 05 (spec section 5, CAP-34)
+#
+# "Is performed by" (CM-01 RL-14) is cco:ont00001833 has agent, with its
+# inverse cco:ont00001787 agent in: "y is causally active in x". The Extended
+# Relation Ontology has no relation for agency (39 object properties at the
+# CCO pin, none on agents, acts or membership), so section 3.1's reuse order
+# passes to CCO's Agent Ontology. Taking part (obo:BFO_0000057 has
+# participant, of which has agent is a sub-property) does not satisfy CAP-34.
+# No property is minted.
+#
+# AN AGENT, IN THE ASSERTED GRAPH
+#
+# CCO places Person and Group of Agents under Agent through anonymous class
+# expressions, which the vendored extracts drop. So "a named agent" is a
+# type under Agent (cco:ont00001017), Person (cco:ont00001262) or Group of
+# Agents (cco:ont00000300), each verified at the CCO pin.
+#
+# ASSERTED, NOT INFERRED
+#
+# validate.py runs every shape set with inference "none", before any
+# reasoner, so CAP-21 here is Gate C-A by construction: the act's asserted
+# type must fall under an index member in the asserted hierarchy.
+
+inst:prefixes
+    a owl:Ontology ;
+    sh:declare
+        [ sh:prefix "rdfs" ; sh:namespace "http://www.w3.org/2000/01/rdf-schema#"^^xsd:anyURI ] ,
+        [ sh:prefix "owl"  ; sh:namespace "http://www.w3.org/2002/07/owl#"^^xsd:anyURI ] ,
+        [ sh:prefix "obo"  ; sh:namespace "http://purl.obolibrary.org/obo/"^^xsd:anyURI ] ,
+        [ sh:prefix "cco"  ; sh:namespace "https://www.commoncoreontologies.org/"^^xsd:anyURI ] ,
+        [ sh:prefix "ex"   ; sh:namespace "https://fandaws.com/ontology/bpo#"^^xsd:anyURI ] ,
+        [ sh:prefix "bco"  ; sh:namespace "https://fandaws.com/ontology/bco#"^^xsd:anyURI ] .
+
+
+# ---------------------------------------------------------------------
+# Business Capability instances
+# ---------------------------------------------------------------------
+
+inst:BusinessCapabilityInstanceShape
+    a sh:NodeShape ;
+    sh:target [
+        a sh:SPARQLTarget ;
+        sh:prefixes inst:prefixes ;
+        sh:select """SELECT DISTINCT ?this WHERE {
+          ?this a ?K .
+          ?K rdfs:subClassOf* bco:BusinessCapability .
+          FILTER NOT EXISTS { ?this a owl:Class }
+        }""" ] ;
+
+    # CAP-08: the bearer, in either direction of has capability.
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-08: the bearer of a Business Capability instance, in either direction of has capability, is not an Organization." ;
+        sh:prefixes inst:prefixes ;
+        sh:select """SELECT $this ?bearer WHERE {
+          { ?bearer cco:ont00001954 $this } UNION { $this cco:ont00001889 ?bearer }
+          FILTER NOT EXISTS { ?bearer a ?T . ?T rdfs:subClassOf* cco:ont00001180 } }""" ] ;
+
+    # CAP-12: member-wise claims only.
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-12: aggregate has capability (cco:ont00001898) has a Business Capability instance as its object." ;
+        sh:prefixes inst:prefixes ;
+        sh:select """SELECT $this ?holder WHERE { ?holder cco:ont00001898 $this . }""" ] ;
+
+    # CAP-35: the grounding witness.
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-35: a Business Capability instance has no material basis (obo:BFO_0000218); every instance needs at least one member agent of its bearer as its grounding witness." ;
+        sh:prefixes inst:prefixes ;
+        sh:select """SELECT $this WHERE {
+          FILTER NOT EXISTS { $this obo:BFO_0000218 ?basis } }""" ] ;
+
+    # CAP-25 and CAP-35: each basis object is a member part of the bearer.
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-25: a material-basis object is not a member part of the capability's bearer (obo:BFO_0000115 / obo:BFO_0000129)." ;
+        sh:prefixes inst:prefixes ;
+        sh:select """SELECT $this ?basis WHERE {
+          $this obo:BFO_0000218 ?basis .
+          FILTER NOT EXISTS {
+            { ?bearer cco:ont00001954 $this } UNION { $this cco:ont00001889 ?bearer }
+            { ?bearer obo:BFO_0000115 ?basis } UNION { ?basis obo:BFO_0000129 ?bearer } } }""" ] ;
+
+    # CAP-25: never an artifact.
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-25: a material-basis object is an artifact (cco:ont00000995); an artifact is an enabling condition, never the basis." ;
+        sh:prefixes inst:prefixes ;
+        sh:select """SELECT $this ?basis WHERE {
+          $this obo:BFO_0000218 ?basis .
+          ?basis a ?T . ?T rdfs:subClassOf* cco:ont00000995 . }""" ] ;
+
+    # CAP-25: a named agent.
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-25: a material-basis object is not a named agent (under Agent, Person or Group of Agents)." ;
+        sh:prefixes inst:prefixes ;
+        sh:select """SELECT $this ?basis WHERE {
+          $this obo:BFO_0000218 ?basis .
+          FILTER NOT EXISTS {
+            ?basis a ?T . ?T rdfs:subClassOf* ?agent .
+            FILTER(?agent IN (cco:ont00001017, cco:ont00001262, cco:ont00000300)) } }""" ] ;
+
+    # CAP-21, Gate C-A: the realizing act's asserted type is under an index member.
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-21: an act realizing a Business Capability instance is not asserted under any member of the capability class's index (Gate C-A, asserted graph)." ;
+        sh:prefixes inst:prefixes ;
+        sh:select """SELECT $this ?act WHERE {
+          { ?act obo:BFO_0000055 $this } UNION { $this obo:BFO_0000054 ?act }
+          FILTER NOT EXISTS {
+            $this a ?K . ?K ex:enablesProcess ?member .
+            ?act a ?T . ?T rdfs:subClassOf* ?member } }""" ] ;
+
+    # CAP-34: a member agent of the bearer performs the realizing act.
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-34: no member agent of the bearer performs an act realizing this capability (has agent, cco:ont00001833); taking part, or naming only the organization, does not count." ;
+        sh:prefixes inst:prefixes ;
+        sh:select """SELECT $this ?act WHERE {
+          { ?act obo:BFO_0000055 $this } UNION { $this obo:BFO_0000054 ?act }
+          FILTER NOT EXISTS {
+            { ?bearer cco:ont00001954 $this } UNION { $this cco:ont00001889 ?bearer }
+            { ?act cco:ont00001833 ?agent } UNION { ?agent cco:ont00001787 ?act }
+            { ?bearer obo:BFO_0000115 ?agent } UNION { ?agent obo:BFO_0000129 ?bearer } } }""" ] .
+
+
+# ---------------------------------------------------------------------
+# CAP-25: no basis on an instance of a staged class
+# ---------------------------------------------------------------------
+
+inst:StagedInstanceShape
+    a sh:NodeShape ;
+    sh:target [
+        a sh:SPARQLTarget ;
+        sh:prefixes inst:prefixes ;
+        sh:select """SELECT DISTINCT ?this WHERE {
+          ?this a ?K .
+          ?K rdfs:subClassOf+ cco:ont00000568 .
+          FILTER NOT EXISTS { ?K rdfs:subClassOf* bco:BusinessCapability }
+          FILTER NOT EXISTS { ?this a owl:Class }
+        }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-25: has material basis is asserted on an instance of a class that has not passed G1-T (a staged Organization Capability class)." ;
+        sh:prefixes inst:prefixes ;
+        sh:select """SELECT $this WHERE { $this obo:BFO_0000218 ?basis . }""" ] .
+
+
+# ---------------------------------------------------------------------
+# CAP-11 and CAP-19: information content entities
+# ---------------------------------------------------------------------
+#
+# CAP-11 speaks of K3 individuals. The K3 classes are not minted, and every
+# one of them is, by specification section 4, under a CCO information
+# content entity, so the rule is stated over information content entities.
+
+inst:InformationContentEntityShape
+    a sh:NodeShape ;
+    sh:target [
+        a sh:SPARQLTarget ;
+        sh:prefixes inst:prefixes ;
+        sh:select """SELECT DISTINCT ?this WHERE {
+          ?this a ?T . ?T rdfs:subClassOf* cco:ont00000958 .
+          FILTER NOT EXISTS { ?this a owl:Class }
+        }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-11: an information content entity has a capability, realizes something or has a realization." ;
+        sh:prefixes inst:prefixes ;
+        sh:select """SELECT $this ?p WHERE {
+          $this ?p ?o .
+          FILTER(?p IN (cco:ont00001954, obo:BFO_0000055, obo:BFO_0000054)) }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-19: an information content entity is the bearer of a realizable entity." ;
+        sh:prefixes inst:prefixes ;
+        sh:select """SELECT $this WHERE {
+          { $this obo:BFO_0000196 ?r } UNION { ?r obo:BFO_0000197 $this } }""" ] .

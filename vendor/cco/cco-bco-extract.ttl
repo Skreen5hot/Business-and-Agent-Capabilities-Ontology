@@ -11,7 +11,7 @@
 #
 # Common Core Ontologies v2.0. Copyright (c) 2017 CUBRC, Inc., licensed BSD-3-Clause.
 #
-# This is not Common Core Ontologies. It carries 49 terms described in full and 4
+# This is not Common Core Ontologies. It carries 55 terms described in full and 4
 # declared as stubs, selected because this repository names them or
 # because a selected term's ancestry passes through them.
 #
@@ -123,6 +123,19 @@ cco:ont00000511 rdfs:label "Act of Planning"@en .
 cco:ont00000511 rdfs:subClassOf cco:ont00000228 .
 cco:ont00000511 skos:definition "A Planned Act that involves making a Plan to achieve some specified Objective."@en .
 
+cco:ont00000551 cco:ont00001760 "https://www.commoncoreontologies.org/AgentOntology"^^xsd:anyURI .
+cco:ont00000551 rdf:type owl:Class .
+cco:ont00000551 rdfs:label "Organism"@en .
+cco:ont00000551 rdfs:subClassOf obo:BFO_0000030 .
+cco:ont00000551 skos:definition "An Object that is an Animal or Plant."@en .
+
+cco:ont00000562 cco:ont00001754 "https://en.wikipedia.org/w/index.php?title=Animal&oldid=1063873549"^^xsd:anyURI .
+cco:ont00000562 cco:ont00001760 "https://www.commoncoreontologies.org/AgentOntology"^^xsd:anyURI .
+cco:ont00000562 rdf:type owl:Class .
+cco:ont00000562 rdfs:label "Animal"@en .
+cco:ont00000562 rdfs:subClassOf cco:ont00000551 .
+cco:ont00000562 skos:definition "An Organism that is multicellular, eukaryotic, heterotrophic, and capable of motility for part of its life."@en .
+
 cco:ont00000566 cco:ont00001760 "https://www.commoncoreontologies.org/EventOntology"^^xsd:anyURI .
 cco:ont00000566 rdf:type owl:Class .
 cco:ont00000566 rdfs:label "Act of Artifact Employment"@en .
@@ -198,6 +211,12 @@ cco:ont00000974 rdfs:label "Plan"@en .
 cco:ont00000974 rdfs:subClassOf cco:ont00000965 .
 cco:ont00000974 skos:definition "A Directive Information Content Entity that prescribes some set of intended Intentional Acts through which some Agent expects to achieve some Objective."@en .
 
+cco:ont00000995 cco:ont00001760 "https://www.commoncoreontologies.org/ArtifactOntology"^^xsd:anyURI .
+cco:ont00000995 rdf:type owl:Class .
+cco:ont00000995 rdfs:label "Material Artifact"@en .
+cco:ont00000995 rdfs:subClassOf obo:BFO_0000040 .
+cco:ont00000995 skos:definition "A Material Entity that was designed by some Agent to realize a certain Function."@en .
+
 cco:ont00001010 cco:ont00001760 "https://www.commoncoreontologies.org/InformationEntityOntology"^^xsd:anyURI .
 cco:ont00001010 owl:disjointWith cco:ont00001022 .
 cco:ont00001010 owl:disjointWith cco:ont00001364 .
@@ -234,6 +253,14 @@ cco:ont00001180 rdfs:comment "Members of organizations are either Organizations 
 cco:ont00001180 rdfs:label "Organization"@en .
 cco:ont00001180 rdfs:subClassOf cco:ont00000300 .
 cco:ont00001180 skos:definition "A Group of Agents which can be the bearer of roles, has members, and has a set of organization rules."@en .
+
+cco:ont00001262 cco:ont00001754 "https://en.wikipedia.org/w/index.php?title=Human&oldid=1063145185"^^xsd:anyURI .
+cco:ont00001262 cco:ont00001760 "https://www.commoncoreontologies.org/AgentOntology"^^xsd:anyURI .
+cco:ont00001262 rdf:type owl:Class .
+cco:ont00001262 rdfs:label "Person"@en .
+cco:ont00001262 rdfs:subClassOf cco:ont00000562 .
+cco:ont00001262 skos:altLabel "Human"@en .
+cco:ont00001262 skos:definition "An Animal that is a member of the species Homo sapiens."@en .
 
 cco:ont00001324 cco:ont00001760 "https://www.commoncoreontologies.org/AgentOntology"^^xsd:anyURI .
 cco:ont00001324 rdf:type owl:Class .
@@ -276,6 +303,13 @@ cco:ont00001754 rdfs:label "definition source"@en .
 cco:ont00001760 rdf:type owl:AnnotationProperty .
 cco:ont00001760 rdfs:label "is curated in ontology"@en .
 
+cco:ont00001787 cco:ont00001760 "https://www.commoncoreontologies.org/AgentOntology"^^xsd:anyURI .
+cco:ont00001787 owl:inverseOf cco:ont00001833 .
+cco:ont00001787 rdf:type owl:ObjectProperty .
+cco:ont00001787 rdfs:label "agent in"@en .
+cco:ont00001787 rdfs:subPropertyOf obo:BFO_0000056 .
+cco:ont00001787 skos:definition "x agent_in y iff y is an instance of Process and x is an instance of Agent, such that x is causally active in y."@en .
+
 cco:ont00001801 cco:ont00001760 "https://www.commoncoreontologies.org/InformationEntityOntology"^^xsd:anyURI .
 cco:ont00001801 owl:inverseOf cco:ont00001808 .
 cco:ont00001801 rdf:type owl:ObjectProperty .
@@ -305,6 +339,12 @@ cco:ont00001811 rdfs:domain cco:ont00001010 .
 cco:ont00001811 rdfs:label "is a ordinal measurement of"@en .
 cco:ont00001811 rdfs:subPropertyOf cco:ont00001966 .
 cco:ont00001811 skos:definition "x is_a_ordinal_measurement_of y iff x is an instance of Information Content Entity and y is an instance of Entity, such that x describes some attribute of y relative to a scale ordered by rank."@en .
+
+cco:ont00001833 cco:ont00001760 "https://www.commoncoreontologies.org/AgentOntology"^^xsd:anyURI .
+cco:ont00001833 rdf:type owl:ObjectProperty .
+cco:ont00001833 rdfs:label "has agent"@en .
+cco:ont00001833 rdfs:subPropertyOf obo:BFO_0000057 .
+cco:ont00001833 skos:definition "x has_agent y iff x is an instance of Process and y is an instance of Agent, such that y is causally active in x."@en .
 
 cco:ont00001836 cco:ont00001760 "https://www.commoncoreontologies.org/ExtendedRelationOntology"^^xsd:anyURI .
 cco:ont00001836 rdf:type owl:ObjectProperty .
@@ -430,7 +470,15 @@ dcterms:license rdf:type owl:AnnotationProperty .
 
 dcterms:source rdf:type owl:AnnotationProperty .
 
+obo:BFO_0000056 skos:scopeNote "Users that require more sophisticated representations of time are encouraged to import a temporal extension of BFO-Core provided by the BFO development team. See documentation for guidance: <https://github.com/BFO-ontology/BFO-2020/tree/master/src/owl/profiles/temporal%20extensions>"@en .
+
+obo:BFO_0000057 skos:scopeNote "Users that require more sophisticated representations of time are encouraged to import a temporal extension of BFO-Core provided by the BFO development team. See documentation for guidance: <https://github.com/BFO-ontology/BFO-2020/tree/master/src/owl/profiles/temporal%20extensions>"@en .
+
+obo:BFO_0000115 skos:scopeNote "Users that require more sophisticated representations of time are encouraged to import a temporal extension of BFO-Core provided by the BFO development team. See documentation for guidance: <https://github.com/BFO-ontology/BFO-2020/tree/master/src/owl/profiles/temporal%20extensions>"@en .
+
 obo:BFO_0000127 skos:scopeNote "Users that require more sophisticated representations of time are encouraged to import a temporal extension of BFO-Core provided by the BFO development team. See documentation for guidance: <https://github.com/BFO-ontology/BFO-2020/tree/master/src/owl/profiles/temporal%20extensions>"@en .
+
+obo:BFO_0000129 skos:scopeNote "Users that require more sophisticated representations of time are encouraged to import a temporal extension of BFO-Core provided by the BFO development team. See documentation for guidance: <https://github.com/BFO-ontology/BFO-2020/tree/master/src/owl/profiles/temporal%20extensions>"@en .
 
 obo:BFO_0000176 skos:scopeNote "Users that require more sophisticated representations of time are encouraged to import a temporal extension of BFO-Core provided by the BFO development team. See documentation for guidance: <https://github.com/BFO-ontology/BFO-2020/tree/master/src/owl/profiles/temporal%20extensions>"@en .
 

@@ -11,11 +11,11 @@
 #
 # Basic Formal Ontology (BFO) 2020, ISO/IEC 21838-2. Copyright the BFO contributors, licensed CC BY 4.0.
 #
-# This is not Basic Formal Ontology. It carries 22 terms described in full and 3
+# This is not Basic Formal Ontology. It carries 27 terms described in full and 3
 # declared as stubs, selected because this repository names them or
 # because a selected term's ancestry passes through them.
 #
-# 22 axioms about the selected terms were dropped: every one whose
+# 26 axioms about the selected terms were dropped: every one whose
 # object is an anonymous class expression. A reasoner over this file
 # therefore derives less than one over the upstream, and it cannot be
 # used to claim consistency with Basic Formal Ontology.
@@ -34,7 +34,7 @@
 <https://fandaws.com/ontology/bco/vendor/bfo-core-bco-extract> dcterms:source <https://raw.githubusercontent.com/BFO-ontology/BFO-2020/044490fc5100ffed6df7d4d15cbc167698b6fdee/src/owl/bfo-core.ttl> .
 <https://fandaws.com/ontology/bco/vendor/bfo-core-bco-extract> owl:versionInfo "Basic Formal Ontology release-2024-01-29, partial extract for the Business Capability Ontology"@en .
 <https://fandaws.com/ontology/bco/vendor/bfo-core-bco-extract> rdf:type owl:Ontology .
-<https://fandaws.com/ontology/bco/vendor/bfo-core-bco-extract> rdfs:comment "Partial extract, not the upstream ontology. 22 axioms whose object is an anonymous class expression were dropped, so a reasoner over this file derives less than one over Basic Formal Ontology and cannot be used to claim consistency with it. Upstream licence as stated by the source: https://creativecommons.org/licenses/by/4.0/"@en .
+<https://fandaws.com/ontology/bco/vendor/bfo-core-bco-extract> rdfs:comment "Partial extract, not the upstream ontology. 26 axioms whose object is an anonymous class expression were dropped, so a reasoner over this file derives less than one over Basic Formal Ontology and cannot be used to claim consistency with it. Upstream licence as stated by the source: https://creativecommons.org/licenses/by/4.0/"@en .
 
 dcterms:license rdf:type owl:AnnotationProperty .
 
@@ -116,6 +116,14 @@ obo:BFO_0000027 skos:example "The aggregate of the musicians in a symphony orche
 obo:BFO_0000027 skos:scopeNote "'Exactly' means that there are no parts of the object aggregate other than its member parts." .
 obo:BFO_0000027 skos:scopeNote "The unit can, at certain times, consist of exactly one object, for example, when a wolf litter loses all but one of its pups, but it must at some time have a plurality of member parts." .
 
+obo:BFO_0000030 <http://purl.org/dc/elements/1.1/identifier> "024-BFO" .
+obo:BFO_0000030 rdf:type owl:Class .
+obo:BFO_0000030 rdfs:label "object"@en .
+obo:BFO_0000030 rdfs:subClassOf obo:BFO_0000040 .
+obo:BFO_0000030 skos:definition "(Elucidation) An object is a material entity which manifests causal unity & is of a type instances of which are maximal relative to the sort of causal unity manifested"@en .
+obo:BFO_0000030 skos:example "An organism; a fish tank; a planet; a laptop; a valve; a block of marble; an ice cube"@en .
+obo:BFO_0000030 skos:scopeNote "A description of three primary sorts of causal unity is provided in Basic Formal Ontology 2.0. Specification and User Guide"@en .
+
 obo:BFO_0000031 <http://purl.org/dc/elements/1.1/identifier> "074-BFO" .
 obo:BFO_0000031 rdf:type owl:Class .
 obo:BFO_0000031 rdfs:label "generically dependent continuant"@en .
@@ -158,6 +166,31 @@ obo:BFO_0000055 skos:definition "(Elucidation) realizes is a relation between a 
 obo:BFO_0000055 skos:example "A balding process realizes a disposition to go bald; a studying process realizes a student role; a process of pumping blood realizes the pumping function of a heart"@en .
 obo:BFO_0000055 skos:scopeNote "Users that require more sophisticated representations of time are encouraged to import a temporal extension of BFO-Core provided by the BFO development team. See documentation for guidance: <Link>"@en .
 
+obo:BFO_0000056 <http://purl.org/dc/elements/1.1/identifier> "250-BFO" .
+obo:BFO_0000056 owl:inverseOf obo:BFO_0000057 .
+obo:BFO_0000056 rdf:type owl:ObjectProperty .
+obo:BFO_0000056 rdfs:label "participates in"@en .
+obo:BFO_0000056 rdfs:range obo:BFO_0000015 .
+obo:BFO_0000056 skos:definition "(Elucidation) participates in holds between some b that is either a specifically dependent continuant or generically dependent continuant or independent continuant that is not a spatial region & some process p such that b participates in p some way"@en .
+obo:BFO_0000056 skos:scopeNote "Users that require more sophisticated representations of time are encouraged to import a temporal extension of BFO-Core provided by the BFO development team. See documentation for guidance: <Link>"@en .
+
+obo:BFO_0000057 <http://purl.org/dc/elements/1.1/identifier> "248-BFO" .
+obo:BFO_0000057 rdf:type owl:ObjectProperty .
+obo:BFO_0000057 rdfs:domain obo:BFO_0000015 .
+obo:BFO_0000057 rdfs:label "has participant"@en .
+obo:BFO_0000057 skos:definition "p has participant c =Def c participates in p"@en .
+obo:BFO_0000057 skos:scopeNote "Users that require more sophisticated representations of time are encouraged to import a temporal extension of BFO-Core provided by the BFO development team. See documentation for guidance: <Link>"@en .
+
+obo:BFO_0000115 <http://purl.org/dc/elements/1.1/identifier> "230-BFO" .
+obo:BFO_0000115 owl:inverseOf obo:BFO_0000129 .
+obo:BFO_0000115 rdf:type owl:ObjectProperty .
+obo:BFO_0000115 rdfs:domain obo:BFO_0000040 .
+obo:BFO_0000115 rdfs:label "has member part"@en .
+obo:BFO_0000115 rdfs:range obo:BFO_0000040 .
+obo:BFO_0000115 rdfs:subPropertyOf obo:BFO_0000178 .
+obo:BFO_0000115 skos:definition "b has member part c =Def c member part of b"@en .
+obo:BFO_0000115 skos:scopeNote "Users that require more sophisticated representations of time are encouraged to import a temporal extension of BFO-Core provided by the BFO development team. See documentation for guidance: <Link>"@en .
+
 obo:BFO_0000127 <http://purl.org/dc/elements/1.1/identifier> "244-BFO" .
 obo:BFO_0000127 owl:inverseOf obo:BFO_0000218 .
 obo:BFO_0000127 rdf:type owl:ObjectProperty .
@@ -166,6 +199,15 @@ obo:BFO_0000127 rdfs:label "material basis of"@en .
 obo:BFO_0000127 rdfs:range obo:BFO_0000016 .
 obo:BFO_0000127 skos:definition "b material basis of c =Def c has material basis b"@en .
 obo:BFO_0000127 skos:scopeNote "Users that require more sophisticated representations of time are encouraged to import a temporal extension of BFO-Core provided by the BFO development team. See documentation for guidance: <Link>"@en .
+
+obo:BFO_0000129 <http://purl.org/dc/elements/1.1/identifier> "228-BFO" .
+obo:BFO_0000129 rdf:type owl:ObjectProperty .
+obo:BFO_0000129 rdfs:domain obo:BFO_0000040 .
+obo:BFO_0000129 rdfs:label "member part of"@en .
+obo:BFO_0000129 rdfs:range obo:BFO_0000040 .
+obo:BFO_0000129 rdfs:subPropertyOf obo:BFO_0000176 .
+obo:BFO_0000129 skos:definition "b member part of c =Def b is an object & c is a material entity & there is some time t such that b continuant part of c at t & there is a mutually exhaustive and pairwise disjoint partition of c into objects x1, ..., xn (for some n ≠ 1) with b = xi (for some 1 <= i <= n)"@en .
+obo:BFO_0000129 skos:scopeNote "Users that require more sophisticated representations of time are encouraged to import a temporal extension of BFO-Core provided by the BFO development team. See documentation for guidance: <Link>"@en .
 
 obo:BFO_0000141 rdf:type owl:Class .
 obo:BFO_0000141 rdfs:label "immaterial entity"@en .

@@ -327,6 +327,17 @@ def seed_terms(namespaces: tuple) -> set:
         for namespace in namespaces:
             found.update(re.findall(re.escape(namespace) + r"[A-Za-z0-9_]+",
                                     text))
+        # SPARQL inside a constraint names terms as prefix:local, under the
+        # sh:declare prefixes, which are the pins' (cco:, obo:, ex:). Read
+        # those too: a term a constraint names only that way was otherwise
+        # never vendored, and Gate B could not see it (found 2026-11-15,
+        # when the instance shapes named cco:ont00001833 and nothing else
+        # did).
+        for source in sources():
+            pattern = (r"(?<![A-Za-z0-9_/#:])" + re.escape(source["prefix"])
+                       + r":([A-Za-z_][A-Za-z0-9_]*)")
+            for local in re.findall(pattern, text):
+                found.add(source["namespace"] + local)
     return found
 
 

@@ -49,19 +49,41 @@ and a stage-completion record are met (standard, section 7).
   - an inconsistent case, rejected (HermiT);
   - CAP-10's fixture (an intersection of two capability classes), detected (HermiT).
 
-## What CP-1 and CP-2 still need
+## CP-1 and CP-2: where they stand
 
-Specification §10 asks for more than this tranche writes:
+Under the decision of 2026-11-15, C and D
+(`docs/decisions/2026-11-15-d6-class-increment-accepted.md`), test-only individuals
+exercise what can be encoded with existing terms. The full account, with every result, is
+the stage-completion record (`docs/proposals/2026-11-15-stage05-tranche1-completion-record.md`).
 
-- **CP-1:** fixtures for Gates C-A, G and M, CAP-21 and CAP-25 to CAP-35. These are
-  instance-level checks, which the standard (section 5) defers to the first tranche that
-  writes individuals or description-layer classes.
-- **CP-2:**
-  - CQ-1 to CQ-14 answered over a fixture organization, with CAP-18's positive and
-    negative cases.
-  - D2 at an accepted checkpoint, with the architect's acceptance.
+**Demonstrated:**
 
-The conceptual-fidelity trace (RL-01, RL-02) is not recorded yet.
+- **Instance shapes** (`shapes/instance_shapes.ttl`, 11 constraints, each firing on its
+  own test-only case, with 6 positive controls). They check CAP-08, CAP-11, CAP-12,
+  CAP-19, CAP-21 (Gate C-A), CAP-25, CAP-34 and CAP-35.
+- **The performance relation** (CAP-34, an encoding chosen at Stage 05): CCO's
+  `has agent` / `agent in` (`cco:ont00001833` / `cco:ont00001787`). The Extended
+  Relation Ontology has none.
+- **Competency questions** CQ-1, CQ-2, CQ-3 and CQ-10, as SPARQL over two fixture
+  organizations, the real module and the extracts
+  (`tests/test_competency_questions.py`).
+- **Gate G:** the index generator's tests (`tests/test_formalization.py`); CAP-29 holds
+  because nothing generates assessments.
+- **CAP-10 and CAP-16 fixtures** under HermiT (`tools/ontology/reason.py`).
+- **The conceptual-fidelity trace:** `fidelity-trace-tranche-1.md`.
+
+**Not demonstrated**, for the architect's decision, because each needs a term that is not
+minted or an encoding that does not exist:
+
+- **The description layer:** Capability Assessment, Map, Target, Maturity Rating, Sourcing
+  Statement and Assessment, Target-State Specification, Authorization Record, Functional
+  Adequacy Assessment, and the annotations `bco:concernsType` and `bco:assessedPresence`.
+  These block CAP-17, CAP-20, CAP-23, CAP-24, CAP-26, CAP-27, CAP-28, CAP-31 and CAP-33,
+  and CQ-5 to CQ-8, CQ-13 and CQ-14.
+- **The CD15 completeness manifest and its schema (Gate M):** blocks CQ-4, CQ-5 and CAP-18.
+- **The coverage register (CD16, Stage 06's) and the BPO import boundary:** block CQ-9
+  and CQ-12.
+- **A development relation (OI-4):** blocks CQ-11.
 
 These files were under `ontology/` until 2026-10-25. Their git history is under that
 path; `git log --follow` reaches it.
