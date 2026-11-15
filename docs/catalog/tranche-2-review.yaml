@@ -377,12 +377,10 @@ candidates:
   batch: 3
   disposition: accepted
   concept: bcoc:InternalControl
-  classification: capability type
-  g1t: 'not ready: no designating act type, since BPO''s InternalControlCapability is a capability
-    class (Q-12); BPO''s enablesProcess names three act types (P10762, P21574, P10764), each
-    the designating act of one of its three components, so an index would be the union of
-    theirs; whether it is a capability area (CD16, E4) is open, and its link to the root is
-    unresolved'
+  classification: 'capability area: treated as one for now, under the Q-12 disposition (CD16,
+    E4); not a G1-T failure'
+  g1t: 'not proposed: a capability area for now (docs/decisions/2026-11-15-tranche-2-remaining-issues-and-d5-preparation.md, B1); not a G1-T failure;
+    a distinct whole-function type needs its own justification and admission record'
   act_types:
     in_evidence: 3
     usable: 3
@@ -553,9 +551,10 @@ candidates:
   batch: 2
   disposition: accepted
   concept: bcoc:FinancialPlanningAndManagementAccounting
-  classification: capability type
-  g1t: 'not ready: every act type in its evidence is typed under a capability class (Q-12);
-    an index waits for BPO'
+  classification: 'capability area: treated as one for now, under the Q-12 disposition (CD16,
+    E4); not a G1-T failure'
+  g1t: 'not proposed: a capability area for now (docs/decisions/2026-11-15-tranche-2-remaining-issues-and-d5-preparation.md, B1); not a G1-T failure;
+    a distinct whole-function type needs its own justification and admission record'
   act_types:
     in_evidence: 1
     usable: 0
@@ -700,8 +699,9 @@ candidates:
   classification: capability type
   g1t: 'not ready: no designating act type, since BPO''s DefaultAccountManagementCapability
     is a capability class (Q-12); BPO''s enablesProcess names only P14007 (recovery workout,
-    PCF 9.2.4.6), which Collections Management''s index also takes; whether that one act suffices
-    is the reviewer''s question'
+    PCF 9.2.4.6), which Collections Management''s index also takes; it is kept as relevant
+    evidence, but not enough alone: G1-T is reconsidered only on a defensible match to the
+    concept''s meaning (docs/decisions/2026-11-15-tranche-2-remaining-issues-and-d5-preparation.md, B4)'
   act_types:
     in_evidence: 1
     usable: 1
@@ -737,10 +737,10 @@ candidates:
   batch: 3
   disposition: accepted
   concept: bcoc:TaxManagement
-  classification: capability type
-  g1t: 'not ready: no designating act type, since BPO''s TaxManagementCapability is a capability
-    class (Q-12); BPO''s enablesProcess names only P10866 (payroll taxes), Payroll Tax Processing''s
-    act, which does not cover the definition'
+  classification: 'capability area: treated as one for now, under the Q-12 disposition (CD16,
+    E4); not a G1-T failure'
+  g1t: 'not proposed: a capability area for now (docs/decisions/2026-11-15-tranche-2-remaining-issues-and-d5-preparation.md, B1); not a G1-T failure;
+    a distinct whole-function type needs its own justification and admission record'
   act_types:
     in_evidence: 1
     usable: 1
@@ -779,7 +779,8 @@ candidates:
   classification: capability type
   g1t: 'not ready: its designating class P10734 is typed under a capability class (Q-12);
     BPO''s enablesProcess names four act types (P10885, P10893, P12974, P14079), one from
-    each of four components; its definition is preserved pending its recorded revision (R26)'
+    each of four components; its definition is preserved pending its recorded revision (R26),
+    and the union of its components'' acts is not its index (docs/decisions/2026-11-15-tranche-2-remaining-issues-and-d5-preparation.md, B3)'
   act_types:
     in_evidence: 5
     usable: 4

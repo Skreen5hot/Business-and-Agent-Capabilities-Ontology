@@ -2,7 +2,7 @@
 
 | Field | Value |
 |---|---|
-| Status | **For the architect's separate decision** (`docs/decisions/2026-11-07-tranche-2-accepted-g1t-preparation-authorized.md`, B): an upstream correction, or an existing valid act-type mapping. Decides nothing, and proposes no act type |
+| Status | **Decided 2026-11-15** (`docs/decisions/2026-11-15-tranche-2-remaining-issues-and-d5-preparation.md`, B): three are capability areas for now, and ten stay blocked (section 5). Prepared for the architect's separate decision (`docs/decisions/2026-11-07-tranche-2-accepted-g1t-preparation-authorized.md`, B). Proposes no act type |
 | Date | 2026-11-07 |
 | BPO pin | `bc64e91839378e1926189c01bf184d6a22d5c1b7` (Phase I-1), read through `docs/catalog/bpo-act-types.yaml` and `docs/sources/inventory/bpo-entries.yaml` |
 | Question | CM-01 Q-12: an index member must be an act type (CAP-03). BPO types some of the classes the catalog would index under a capability class, `cco:ont00000568` (Organization Capability), so they cannot be index members |
@@ -10,7 +10,8 @@
 Derived in part from the APQC Process Classification Framework® 7.4 (element names and
 IDs, under APQC's notice in `NOTICE.md`). APQC does not endorse this work.
 
-The 13 concepts stay blocked: none is in the G1-T batch. Every IRI, typing, module and line
+Thirteen concepts were blocked, and none is in the G1-T batch. Since 2026-11-15, three of
+them are capability areas, and ten stay blocked (section 5). Every IRI, typing, module and line
 below is read from the generated records, not from memory.
 
 ## 1. Nine concepts whose only act evidence is capability-typed
@@ -112,3 +113,27 @@ batch. The designating class is excluded from each index (CAP-03), as the batch 
 
 Either way, no act type is invented here, and none of the 13 is admitted until it has an
 index and a signed G1-T record.
+
+## 5. The architect's dispositions (2026-11-15)
+
+The decision is recorded in `docs/decisions/2026-11-15-tranche-2-remaining-issues-and-d5-preparation.md`, part B. The figures in sections 1 to 4 are unchanged.
+
+| Concept | Disposition | What follows |
+|---|---|---|
+| Financial Planning and Management Accounting (BCC-ca61edb4) | A capability area for now (B1) | Not a G1-T failure. Its terminology, provenance and component links are kept. A distinct whole-function type may be proposed later, only with its own justification and admission record |
+| Internal Control (BCC-5a4bc396) | A capability area for now (B1) | As above. BPO's wiring to its components' acts is not taken as its index |
+| Tax Management (BCC-c64ca466) | A capability area for now (B1) | As above |
+| The eight concepts whose designating element is a leaf process: Continuous Cost Improvement, Banking Relationship Management, Cash Equivalent Management, Cash Flow Management, Financial Intermediary Relationship Management, Issuer Credit Exposure Management, Liquidity Management, Financial Fraud and Dispute Case Management | Blocked (B2) | No BPO class typed under `cco:ont00000568` is used as an index member. No BPO class is retyped and no act genus is invented here. They wait for BPO's answer to the inquiry (`communications/bpo/outgoing/2026-11-15-q12-capability-typing-inquiry.md`) |
+| Treasury Management (BCC-0ba10d44) | Blocked (B3) | It keeps its definition and its outstanding R26 review. The union of its components' acts is not taken as its own index |
+| Default Account Management (BCC-38b3c836) | Blocked (B4) | Not admitted on `bpo:P14007` (recovery workout) alone. The act is kept as relevant evidence. G1-T is reconsidered only on a defensible match to the concept's meaning |
+
+None of the ten blocks any of the 42 admitted types (`docs/proposals/2026-11-15-d5-readiness-package.md`,
+section 6).
+
+Drafting the inquiry showed something new about the 39 BPO classes typed under
+`cco:ont00000568`. Each one carries an `rdfs:comment` applying BPO's ADR-001 rule R5 (the
+bounded-occurrent test) to classify it as a standing function, and 33 of them also name R6
+(function enrichment). Five record that BPO re-modeled them at its Gate F, from an act to a
+capability. Their typing therefore looks intended, not mistaken. Section
+1's reading that "a correction upstream would retype that class" is BPO's to confirm, which
+the inquiry asks it to do.

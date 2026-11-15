@@ -665,6 +665,16 @@ components:
       architect's separate decision (decision of 2026-11-07, tranche 2
       accepted, B). Read from the generated records; proposes no act type.
 
+  - id: catalog.tranche-2-followup
+    path: docs/catalog/tranche-2-followup.md
+    role: documentation
+    description: >-
+      Tranche 2's follow-up after the G1-T signature (decision of 2026-11-15,
+      D and E): the triage of the supplementary review's non-blocking notes,
+      the errata to the signed batch (which keeps its bytes), the focused
+      source checks due before an affected type is formalized, and bpo:P14057
+      queued for semantic curation. Not a review; admits and changes nothing.
+
   - id: catalog.admission
     path: docs/catalog/admission
     role: documentation

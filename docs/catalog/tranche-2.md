@@ -18,7 +18,7 @@
 | Proposed links | **89**, each with a disposition: 70 retained, 11 incorrect, 8 unresolved (section 1a, after the gate) |
 | Links added by review | **7**: 5 retained, 2 unresolved under C1 |
 | `broader` written to the vocabulary | **60**: 55 `part-of` and 5 `kind-of` (section 1a). 66 before the gate |
-| Ready for G1-T admission | **43** (section 5) when prepared; decided 2026-11-14 (section 1b): 33 approved on signature, 7 pending a supplementary review, 3 withdrawn as capability areas; 40 signed PASS and admitted 2026-11-14 (section 1d). 2 already admitted (T1-02, T1-03); 15 not ready |
+| Ready for G1-T admission | **43** (section 5) when prepared; decided 2026-11-14 (section 1b): 33 approved on signature, 7 pending a supplementary review, 3 withdrawn as capability areas; 40 signed PASS and admitted 2026-11-14 (section 1d). 2 already admitted (T1-02, T1-03); 12 not ready, after 3 of the 15 were decided capability areas on 2026-11-15 (section 1e) |
 
 ## 1a. Reconciliation (revision 2; updated 2026-11-14)
 
@@ -30,8 +30,8 @@ Every figure here is counted from `docs/catalog/tranche-2-review.yaml` and
 | Status | Concepts | Which |
 |---|---|---|
 | Admitted | 42 | Payroll Processing (T1-02), Accounts Payable Processing (T1-03), signed PASS 2026-11-05; and the 40 of tranche 2's consolidated signature record (`docs/catalog/admission/G1T-T2-signature.md`), signed PASS 2026-11-14 (section 1d): Batch A (17), Batch B (16), the six accepted after the supplementary review, and Financial Performance Analysis. T1-01 (customer complaint management) is admitted too, but has no vocabulary concept yet |
-| Not ready | 15 | 9 whose only act evidence is a class BPO types as a capability (Q-12); 4 whose designating class is a BPO capability class but whose BPO wiring names act types, each a component's; 2 with no act type in their evidence (section 5; `docs/catalog/tranche-2-q12.md`) |
-| Outside G1-T review scope | 17 | 5 tranche-2 capability areas (Financial Resource Management, Payables and Reimbursement Management, Capital Expenditure Management, Global Trade Management, Debt and Investment Management), broad or conjunctive (CD16, E4); 3 more withdrawn from G1-T as capability areas on 2026-11-14 (Financial Accounting, Revenue and Receivables Management, Financial Risk Management); the 5 functional groupings the narrowed types came from (Capital Planning, Internal Control Design, Cost Management, Financial Performance Management, Internal Control Operation and Monitoring), kept unchanged; the 4 P5 pilots outside the tranche (Strategic Planning, Business Model Governance, Competitive Analysis, Customer Experience Management), which no tranche has curated |
+| Not ready | 12 | 10 blocked by Q-12 (decided 2026-11-15, section 1e): 8 whose only act evidence is a class BPO types as a capability, Treasury Management and Default Account Management; 2 with no act type in their evidence (section 5; `docs/catalog/tranche-2-q12.md`) |
+| Outside G1-T review scope | 20 | 3 decided capability areas on 2026-11-15 under the Q-12 disposition (Financial Planning and Management Accounting, Internal Control, Tax Management), not G1-T failures; 5 tranche-2 capability areas (Financial Resource Management, Payables and Reimbursement Management, Capital Expenditure Management, Global Trade Management, Debt and Investment Management), broad or conjunctive (CD16, E4); 3 more withdrawn from G1-T as capability areas on 2026-11-14 (Financial Accounting, Revenue and Receivables Management, Financial Risk Management); the 5 functional groupings the narrowed types came from (Capital Planning, Internal Control Design, Cost Management, Financial Performance Management, Internal Control Operation and Monitoring), kept unchanged; the 4 P5 pilots outside the tranche (Strategic Planning, Business Model Governance, Competitive Analysis, Customer Experience Management), which no tranche has curated |
 | **Total** | **74** | 70 from tranche 2 (65 normalized, 5 narrowed types added 2026-11-14), 4 P5 pilots |
 
 ## 1b. The G1-T batch decision (2026-11-14)
@@ -81,6 +81,18 @@ The named reviewer, Aaron Damiano, signed PASS for all 40 classes of
 byte. He extended the Formulation reading to T2-17 and kept `P10787` in T2-25's index. The
 40 are admitted under G1-T. That is not G1-I: no organization is said to bear them. No OWL
 is written, and the vocabulary's concepts stay Draft.
+
+## 1e. The Q-12 dispositions and the follow-up (2026-11-15)
+
+The architect's direction (`docs/decisions/2026-11-15-tranche-2-remaining-issues-and-d5-preparation.md`) accepts PR #51 as complete, keeps the 42 admissions, and:
+
+- treats Financial Planning and Management Accounting, Internal Control and Tax Management as
+  capability areas for now, with their terminology, provenance and links kept;
+- keeps 10 concepts blocked (`docs/catalog/tranche-2-q12.md`, section 5) and authorizes one
+  inquiry to BPO;
+- dispositions the supplementary review's notes and queues `P14057`
+  (`docs/catalog/tranche-2-followup.md`);
+- authorizes the D5 readiness package (`docs/proposals/2026-11-15-d5-readiness-package.md`).
 
 **Links by disposition.**
 

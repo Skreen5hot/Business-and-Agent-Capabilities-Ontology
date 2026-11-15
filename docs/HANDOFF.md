@@ -118,6 +118,16 @@ excludes `P10786` (CD5); revision 5 applies it and adds T2-25, so the signature 
 classes. The named reviewer signed PASS for all 40 on 2026-11-14
 (`docs/decisions/2026-11-14-g1t-tranche-2-signed.md`), against revision 5 of the batch by its SHA-256; the 40
 are admitted under G1-T (not G1-I). No OWL is written: Stage 05 waits for D5.
+On 2026-11-15 the architect accepted PR #51 as complete (`docs/decisions/2026-11-15-tranche-2-remaining-issues-and-d5-preparation.md`):
+- Three of the 13 Q-12 concepts are capability areas for now, and ten stay blocked
+  (`docs/catalog/tranche-2-q12.md`, section 5).
+- One inquiry to BPO is drafted (`communications/bpo/outgoing/2026-11-15-q12-capability-typing-inquiry.md`).
+  It is sent on the architect's approval of its text.
+- The supplementary review's notes are triaged, and `P14057` is queued
+  (`docs/catalog/tranche-2-followup.md`).
+- The D5 readiness package (`docs/proposals/2026-11-15-d5-readiness-package.md`, with the proposed
+  Stage 05 standard) awaits the architect's approval. It proposes the parent and 39 of the 42 as the first
+  tranche; the other 3 follow their source checks.
 
 R5 records further blockers: material basis policy, maturity-value encoding, instance
 evidence, and migration of BPO existential restrictions. R6 (section 5.13) adds wording

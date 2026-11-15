@@ -524,8 +524,9 @@ def test_the_reconciled_tranche_2_figures_follow_the_records(tranche2):
     # The direction on the supplementary review (2026-11-14): the six that passed join the 33;
     # Financial Performance Analysis joins them under the final direction on T2-25.
     # The G1-T signature of 2026-11-14 admits the 40 (decision record ...-signed.md).
-    assert counts == {"admitted": 42, "ready": 0, "pending review": 0, "not ready": 15,
-                      "not proposed": 13}
+    # The Q-12 dispositions of 2026-11-15 (B1) make three of the blocked concepts capability areas.
+    assert counts == {"admitted": 42, "ready": 0, "pending review": 0, "not ready": 12,
+                      "not proposed": 16}
     assert sum(counts.values()) == len(status)
     assert len(outside) == 4 and len(catalog) == 74
     links = review["links"] + review["added_links"]
@@ -537,8 +538,8 @@ def test_the_reconciled_tranche_2_figures_follow_the_records(tranche2):
     assert sum(1 for l in links if l.get("kind") == "kind-of") == 15
     report = (ROOT / "docs/catalog/tranche-2.md").read_text(encoding="utf-8")
     for figure in ("| Admitted | 42 |",
-                   "| Not ready | 15 |",
-                   "| Outside G1-T review scope | 17 |", "| **Total** | **74** |",
+                   "| Not ready | 12 |",
+                   "| Outside G1-T review scope | 20 |", "| **Total** | **74** |",
                    "| **Total** | **89** | **7** | **60** | **36** |"):
         assert figure in report
 
@@ -607,12 +608,18 @@ def test_the_narrowed_types_are_new_concepts_under_their_kept_groupings(tranche2
         assert " ".join(new["definition"].split()) in " ".join(text.split())
 
 
-def test_the_q12_list_names_the_thirteen_blocked_concepts(tranche2):
+def test_the_q12_list_names_the_thirteen_concepts_and_their_dispositions(tranche2):
     review, _ = tranche2
     blocked = {r["id"] for r in review["candidates"]
                if r["disposition"] == "accepted" and "Q-12" in r["g1t"]
                and r["g1t"].startswith("not ready")}
-    assert len(blocked) == 13
+    # The dispositions of 2026-11-15: ten stay blocked (B2 to B4), three are areas (B1).
+    areas = {r["id"] for r in review["candidates"]
+             if r["disposition"] == "accepted" and "Q-12 disposition" in str(r["classification"])}
+    assert len(blocked) == 10 and areas == {"BCC-ca61edb4", "BCC-5a4bc396", "BCC-c64ca466"}
+    assert all(r["g1t"].startswith("not proposed: a capability area for now")
+               for r in review["candidates"] if r["id"] in areas)
+    blocked |= areas
     text = (ROOT / "docs/catalog/tranche-2-q12.md").read_text(encoding="utf-8")
     cited = set(re.findall(r"BCC-[0-9a-f]{8}", text.split("## 3.")[0]))
     assert cited == blocked
