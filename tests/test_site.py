@@ -654,7 +654,7 @@ def test_the_specification_is_rendered_whole(built, repo):
     assert len(headings) >= 15, len(headings)
     assert page.count("<h1") == 1
     assert len(re.findall(r"<h[2-5] id=", page)) >= len(headings)
-    assert "nothing here is a released ontology" in page
+    assert "has not been released" in page
 
 
 # ------------------------------------------------ the checker can fail
@@ -988,3 +988,34 @@ def test_the_rp_table_is_read_at_either_width(builder):
         builder.ratification_rows("| RP-1 | Grounding | Ratified |\n")
     with pytest.raises(builder.Refused):
         builder.ratification_rows("No table here.\n")
+
+
+def test_the_ratification_status_links_its_controlling_records(built):
+    """Direction of 2026-11-15, B: the status page links the specification's
+    ratification to the CP-0 records, and says ratification is not
+    executable validation."""
+    out, _ = built
+    page = (out / "status/index.html").read_text(encoding="utf-8")
+    for name in ("2026-11-04-d4-rp1-rp10-ratified-option-b.md",
+                 "2026-11-07-adr002-accepted-cp0-complete.md"):
+        assert name in page, name
+    assert "does not mean any requirement has passed executable validation" \
+        in page
+
+
+def test_a_ratification_record_that_is_not_a_decision_is_refused(
+        builder, tmp_path, monkeypatch):
+    """Falsifies the link check: a mistyped record path fails the build
+    rather than publishing a dead link."""
+    real = builder.read_json
+
+    def content(relative):
+        data = real(relative)
+        if relative == builder.CONTENT:
+            data["notices"]["ratification"]["records"] = [
+                "docs/decisions/2026-11-04-no-such-record.md"]
+        return data
+
+    monkeypatch.setattr(builder, "read_json", content)
+    with pytest.raises(builder.Refused, match="no decision record"):
+        builder.build(tmp_path / "_site")

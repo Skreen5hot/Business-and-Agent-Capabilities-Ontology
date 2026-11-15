@@ -1365,12 +1365,24 @@ def build(out: Path) -> list[tuple[str, str]]:
             ])))
 
     rp_rows = ratification_rows(spec_text)
+    # The controlling CP-0 records, as the content file names them; each
+    # must be a decision record in the tree, so a renamed or mistyped one
+    # fails the build instead of rendering a dead link.
+    held = {relative(p) for p in data["decisions"]}
+    named = ctx_site["notices"]["ratification"]["records"]
+    missing = [p for p in named if p not in held]
+    if missing:
+        raise Refused("the ratification notice names %s, which is no "
+                      "decision record" % ", ".join(missing))
+    controlling = "\n".join(
+        "  <li>%s</li>" % source_link(
+            ctx, p, (_root / p).read_text(encoding="utf-8")
+            .splitlines()[0].lstrip("# ").strip())
+        for p in named)
     ratification = (
-        "<p>The specification lists ten decisions that need ratification "
-        "before any requirement is promoted. This is its own table, "
-        "rendered as it stands in the specification at this commit; a "
-        "ratification is recorded in the decision record below.</p>\n"
-        '<div class="scroll-x"><table class="rp">\n<thead><tr><th>ID</th>'
+        "<p>%s</p>\n<ul class=\"cp0\">\n%s\n</ul>\n"
+        % (esc(ctx_site["notices"]["ratification"]["text"]), controlling)
+        + '<div class="scroll-x"><table class="rp">\n<thead><tr><th>ID</th>'
         "<th>Decision</th><th>Proposal</th><th>Status</th></tr></thead>\n"
         "<tbody>\n%s\n</tbody></table></div>\n"
         "<h3>Acceptance checklist</h3>\n<ul class=\"checklist\">\n%s\n</ul>"

@@ -138,8 +138,11 @@ On 2026-11-15 the architect accepted PR #51 as complete (`docs/decisions/2026-11
 - The architect chose to make v0.5.0-draft.3 the specification in force (`docs/decisions/2026-11-15-spec-v0.5-in-force.md`). The nine
   metamodel records now wrap its §4 rows, each as a `revises` record, and
   `bcom:BusinessCapability` carries the ratified definition, which clears that blocker. Four
-  definitions changed text. The BFO and CCO extracts were regenerated from v0.5's seeds,
-  which dropped two incidental CCO mentions (`ont00000506`, `ont00000965`).
+  definitions changed text. The BFO and CCO extracts were regenerated from v0.5's seeds:
+  Contractor Role (`ont00000506`) left the extract, and role (`BFO_0000023`) became a stub.
+  Directive ICE (`ont00000965`) is no longer a seed but stays in full, as the ancestor of
+  Plan and Objective. The architect approved the transition and authorized D6 for the
+  first tranche (`docs/decisions/2026-11-15-v05-transition-approved-d6-authorized.md`).
 
 R5 records further blockers: material basis policy, maturity-value encoding, instance
 evidence, and migration of BPO existential restrictions. R6 (section 5.13) adds wording
