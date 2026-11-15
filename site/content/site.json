@@ -23,7 +23,7 @@
   ],
   "notices": {
     "draft": {
-      "text": "The Business Capability Ontology is under development and has not been released. Its v0.5 specification commitments have been ratified under CP-0. Forty-two Business Capability types have passed G1-T admission, but their OWL classes have not yet been implemented. Controlled-vocabulary ratification and ontology formalization are separate activities, and the remaining vocabulary records retain their applicable review statuses.",
+      "text": "The Business Capability Ontology is under development and has not been released. Its v0.5 specification commitments were ratified under CP-0. Forty-two specific Business Capability types have passed G1-T admission. Thirty-nine of those types, together with the generic Business Capability parent, are implemented as OWL classes in the first Stage 05 tranche. The implementation has passed its reported class-level validation against pinned partial ontology extracts. Instance-level validation, CP-1/CP-2 completion, and full upstream ontology conformance remain outstanding. No production knowledge graph or ontology release has been approved.",
       "why": "A validator reading a requirement on a public site will reasonably take it as settled. Every page says otherwise, because the one page that does not is the one somebody links to."
     },
     "iri_resolution": {
@@ -62,7 +62,8 @@
         "docs/decisions/2026-11-07-rp5-ratified.md",
         "docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md",
         "docs/decisions/2026-11-15-spec-v0.5-in-force.md",
-        "docs/decisions/2026-11-15-v05-transition-approved-d6-authorized.md"
+        "docs/decisions/2026-11-15-v05-transition-approved-d6-authorized.md",
+        "docs/decisions/2026-11-15-d6-class-increment-accepted.md"
       ],
       "why": "The architect's direction of 2026-11-15 (B): the specification's ratification status is linked to the controlling CP-0 records, and it must not read as a claim that every requirement has passed executable validation. The list is words a person chose; the build refuses a path that is not a decision record."
     },

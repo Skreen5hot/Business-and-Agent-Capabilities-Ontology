@@ -33,32 +33,30 @@
     "bpo": {
       "additional_files": [
         {
-          "exclude_predicates": [
-            "https://fandaws.com/ontology/bpo#pcfID",
-            "https://fandaws.com/ontology/bpo#hierarchyID",
-            "https://fandaws.com/ontology/bpo#apqcSourceText"
-          ],
           "path": "ontology/slices/apqc_9_0.ttl",
           "sha256": "a7247e5f0836bd27895d19c9e18bd2237b9ec44e2b5140f897001c612e12df6d",
           "subjects": "^https://fandaws\\.com/ontology/bpo#P[0-9]+$",
+          "take_predicates": [
+            "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+          ],
           "url": "https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/ontology/slices/apqc_9_0.ttl"
         },
         {
-          "exclude_predicates": [
-            "https://fandaws.com/ontology/bpo#pcfID",
-            "https://fandaws.com/ontology/bpo#hierarchyID",
-            "https://fandaws.com/ontology/bpo#apqcSourceText"
-          ],
           "path": "ontology/slices/apqc_12_0.ttl",
           "sha256": "827e94b61f0054bd6d56212967e41f5ce6a2022a7a7a86a33570f47bc2fdbfec",
           "subjects": "^https://fandaws\\.com/ontology/bpo#P[0-9]+$",
+          "take_predicates": [
+            "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+          ],
           "url": "https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/ontology/slices/apqc_12_0.ttl"
         },
         {
-          "exclude_predicates": [],
           "path": "ontology/capabilities_roles.ttl",
           "sha256": "6a8aeaf8c3c4b94119399b9ae593538fecbf79ce01f517577c96d5997419ed7d",
           "subjects": "^https://fandaws\\.com/ontology/bpo#enablesProcess$",
+          "take_predicates": [],
           "url": "https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/ontology/capabilities_roles.ttl"
         }
       ],
@@ -66,7 +64,7 @@
       "commit": "bc64e91839378e1926189c01bf184d6a22d5c1b7",
       "extract": "vendor/bpo/bpo-ext-bco-extract.ttl",
       "extract_on_disk_matches": true,
-      "extract_sha256": "e4db134f3f7dfc67b4ba24c53b47c16f5b876f4e18ff5003f855de7cb94443ef",
+      "extract_sha256": "0471b10c68a815a59b93cc3bbceeb48bd5d4dc88eb2809dc01dc447c9a8218a0",
       "licence_as_stated_by_source": "MIT License (https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/LICENSE)",
       "licence_spdx": "MIT",
       "licence_url": "https://github.com/Skreen5hot/BusinessProcessOntology/blob/bc64e91839378e1926189c01bf184d6a22d5c1b7/LICENSE",
@@ -384,7 +382,7 @@
       "source_url": "https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/ontology/apqc-ext.ttl",
       "terms_declared_as_stubs": 0,
       "terms_described_in_full": 161,
-      "triples": 941
+      "triples": 372
     },
     "cco": {
       "additional_files": [],

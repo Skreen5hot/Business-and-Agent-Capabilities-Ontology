@@ -33,6 +33,15 @@ Business Process Ontology (BPO). Copyright (c) 2026 Aaron Damiano, licensed unde
 - as stated by the source: MIT License (https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/LICENSE)
 - 161 terms in full, 0 stubs, 248 axioms dropped
 
+APQC Process Classification Framework (PCF) material: the act class IRIs
+taken from BPO's slices (bpo:P<id>) embed PCF 7.4 element IDs, as
+identifiers. The acts' names and descriptions, which derive from PCF
+element names and descriptions, are not included: they may be published
+only from a BPO commit that carries BPO's NOTICE.md (decision of
+2026-10-29), and this pin (bc64e91) does not. APQC's notice is
+reproduced in NOTICE.md at the root of this repository. APQC does not
+endorse this work.
+
 ## Common Core Ontologies v2.0-2024-11-06
 
 Common Core Ontologies v2.0. Copyright (c) 2017 CUBRC, Inc., licensed BSD-3-Clause.

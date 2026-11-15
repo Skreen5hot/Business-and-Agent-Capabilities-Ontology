@@ -420,16 +420,32 @@ def test_q13_each_genus_has_one_declaration(data_graph):
             assert len(defs) <= 1, (genus, defs)
 
 
-def test_the_extract_carries_no_pcf_annotations(repo):
-    """The slices' PCF annotations are not taken, so the BPO extract is not
-    PCF-bearing (tools/licensing/pcf_notice.py)."""
+def test_the_extract_carries_no_pcf_literal(repo):
+    """F (docs/decisions/2026-11-15-d6-class-increment-accepted.md): the BPO
+    pin predates BPO's NOTICE.md, so no PCF-derived literal on an act class
+    is published -- no name, description, comment, example or PCF
+    annotation. Only each act's type and parents, which validation walks.
+    The header says why, and names APQC's notice."""
+    import re
+
     import rdflib
 
-    graph = rdflib.Graph().parse(repo / "vendor/bpo/bpo-ext-bco-extract.ttl",
-                                 format="turtle")
+    path = repo / "vendor/bpo/bpo-ext-bco-extract.ttl"
+    graph = rdflib.Graph().parse(path, format="turtle")
+    act = re.compile("^" + re.escape(BPO) + r"P\d+$")
+    acts = {s for s in graph.subjects() if act.match(str(s))}
+    assert len(acts) >= 147, len(acts)
+    for s in acts:
+        for p, o in graph.predicate_objects(s):
+            assert p in (rdflib.RDF.type, rdflib.RDFS.subClassOf), (s, p)
+            assert not isinstance(o, rdflib.Literal), (s, p, o)
     for local in ("pcfID", "hierarchyID", "apqcSourceText"):
         assert not list(graph.triples((None, rdflib.URIRef(BPO + local),
                                        None))), local
+    head = path.read_text(encoding="utf-8")[:4000]
+    assert "embed PCF 7.4" in head and "NOTICE.md" in head, head[:500]
+    notice = (repo / "vendor/NOTICE.md").read_text(encoding="utf-8")
+    assert "embed PCF 7.4" in notice and "APQC does not" in notice
 
 
 def test_an_additional_file_must_be_pinned_to_the_source_commit(

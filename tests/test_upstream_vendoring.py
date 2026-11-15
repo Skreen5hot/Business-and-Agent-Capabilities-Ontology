@@ -490,7 +490,10 @@ def test_each_extract_says_in_its_own_header_that_it_is_partial(layout):
     paths = layout.vendored_files()
     assert len(paths) == 3, paths
     for path in paths:
-        head = path.read_text(encoding="utf-8")[:3000]
+        # The header, which since D6 also lists BPO's additional files and
+        # their APQC attribution; the first triple ends it.
+        text = path.read_text(encoding="utf-8")
+        head = text[:text.index("\n@prefix")]
         assert "partial extract" in head.lower(), path.name
         assert "cannot be" in head and "consistency" in head, path.name
         assert "axioms about the selected terms were dropped" in head, \

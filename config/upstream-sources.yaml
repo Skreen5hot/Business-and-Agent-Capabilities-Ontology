@@ -111,13 +111,25 @@ sources:
           https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/ontology/slices/apqc_9_0.ttl
         sha256: a7247e5f0836bd27895d19c9e18bd2237b9ec44e2b5140f897001c612e12df6d
         subjects: '^https://fandaws\.com/ontology/bpo#P[0-9]+$'
-        exclude_predicates:
-          # BPO's PCF annotations: the element id, the hierarchy id and the
-          # APQC description. Not needed to validate, and taking them would
-          # make the extract PCF-bearing.
-          - https://fandaws.com/ontology/bpo#pcfID
-          - https://fandaws.com/ontology/bpo#hierarchyID
-          - https://fandaws.com/ontology/bpo#apqcSourceText
+        take_predicates:
+          # What validation walks, and nothing else. Every literal on a
+          # bpo:P<id> class is PCF material (docs/sources/inventory/README.md,
+          # the rights rule), and this pin predates BPO's NOTICE.md, which
+          # the APQC decision of 2026-10-29 requires before PCF names or
+          # descriptions are published (docs/decisions/2026-11-15-d6-class-
+          # increment-accepted.md, F). So no label, definition, comment,
+          # example or PCF annotation is taken.
+          - http://www.w3.org/1999/02/22-rdf-syntax-ns#type
+          - http://www.w3.org/2000/01/rdf-schema#subClassOf
+        attribution: >-
+          APQC Process Classification Framework (PCF) material: the act
+          class IRIs taken from BPO's slices (bpo:P<id>) embed PCF 7.4
+          element IDs, as identifiers. The acts' names and descriptions,
+          which derive from PCF element names and descriptions, are not
+          included: they may be published only from a BPO commit that
+          carries BPO's NOTICE.md (decision of 2026-10-29), and this pin
+          (bc64e91) does not. APQC's notice is reproduced in NOTICE.md at
+          the root of this repository. APQC does not endorse this work.
         reason: >-
           Declares 146 of the first tranche's 147 index acts. Act classes
           only: the slice's genus redeclarations (Q-13) and its
@@ -127,13 +139,25 @@ sources:
           https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/ontology/slices/apqc_12_0.ttl
         sha256: 827e94b61f0054bd6d56212967e41f5ce6a2022a7a7a86a33570f47bc2fdbfec
         subjects: '^https://fandaws\.com/ontology/bpo#P[0-9]+$'
-        exclude_predicates:
-          # BPO's PCF annotations: the element id, the hierarchy id and the
-          # APQC description. Not needed to validate, and taking them would
-          # make the extract PCF-bearing.
-          - https://fandaws.com/ontology/bpo#pcfID
-          - https://fandaws.com/ontology/bpo#hierarchyID
-          - https://fandaws.com/ontology/bpo#apqcSourceText
+        take_predicates:
+          # What validation walks, and nothing else. Every literal on a
+          # bpo:P<id> class is PCF material (docs/sources/inventory/README.md,
+          # the rights rule), and this pin predates BPO's NOTICE.md, which
+          # the APQC decision of 2026-10-29 requires before PCF names or
+          # descriptions are published (docs/decisions/2026-11-15-d6-class-
+          # increment-accepted.md, F). So no label, definition, comment,
+          # example or PCF annotation is taken.
+          - http://www.w3.org/1999/02/22-rdf-syntax-ns#type
+          - http://www.w3.org/2000/01/rdf-schema#subClassOf
+        attribution: >-
+          APQC Process Classification Framework (PCF) material: the act
+          class IRIs taken from BPO's slices (bpo:P<id>) embed PCF 7.4
+          element IDs, as identifiers. The acts' names and descriptions,
+          which derive from PCF element names and descriptions, are not
+          included: they may be published only from a BPO commit that
+          carries BPO's NOTICE.md (decision of 2026-10-29), and this pin
+          (bc64e91) does not. APQC's notice is reproduced in NOTICE.md at
+          the root of this repository. APQC does not endorse this work.
         reason: >-
           Declares the tranche's one remaining index act. Act classes only,
           as above.

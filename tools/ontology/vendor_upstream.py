@@ -270,15 +270,18 @@ def source_graph(source: dict, cache: Path):
         whole = rdflib.Graph()
         whole.parse(data=data.decode("utf-8"), format="turtle")
         wanted = re.compile(extra["subjects"])
-        # Predicates the pin says not to take, such as BPO's PCF annotations:
-        # validation needs none of them, and taking them would make the
-        # extract PCF-bearing (tools/licensing/pcf_notice.py).
-        dropped = {rdflib.URIRef(iri)
-                   for iri in extra.get("exclude_predicates") or []}
+        # An allow-list of predicates, where the pin gives one: what
+        # validation walks and nothing else. BPO's act classes carry
+        # PCF-derived literals (names, descriptions, PCF ids) that this pin
+        # may not publish (docs/decisions/2026-11-15-d6-class-increment-
+        # accepted.md, F), so for them only rdf:type and rdfs:subClassOf
+        # are taken.
+        allowed = {rdflib.URIRef(iri)
+                   for iri in extra.get("take_predicates") or []}
         for triple in whole:
             if (isinstance(triple[0], rdflib.URIRef)
                     and wanted.fullmatch(str(triple[0]))
-                    and triple[1] not in dropped):
+                    and (not allowed or triple[1] in allowed)):
                 graph.add(triple)
     return graph
 
@@ -622,10 +625,12 @@ def header_lines(source: dict, stated: str, counts: dict) -> list:
         "  also        %s" % extra["url"],
         "  sha256      %s" % extra["sha256"],
         "  taking      subjects matching %s" % extra["subjects"],
-    ) + tuple("  not taking  %s" % iri
-              for iri in extra.get("exclude_predicates") or [])] + [
+    ) + tuple("  only        %s" % iri
+              for iri in extra.get("take_predicates") or [])] + [
         "",
         licence["attribution"].strip(),
+    ] + [line for note in third_party_notes(source)
+         for line in [""] + _wrap(note)] + [
         "",
         "This is not %s. It carries %d terms described in full and %d"
         % (source["project"], counts["full"], counts["stubs"]),
@@ -638,6 +643,24 @@ def header_lines(source: dict, stated: str, counts: dict) -> list:
         "therefore derives less than one over the upstream, and it cannot be",
         "used to claim consistency with %s." % source["project"],
     ]
+
+
+def third_party_notes(source: dict) -> list:
+    """Each additional file's `attribution`: material of a third party that
+    the source carries (for BPO, APQC's PCF), said once per distinct text,
+    in the extract's header and in vendor/NOTICE.md."""
+    out = []
+    for extra in source.get("additional_files") or []:
+        note = " ".join(str(extra.get("attribution") or "").split())
+        if note and note not in out:
+            out.append(note)
+    return out
+
+
+def _wrap(text: str, width: int = 72) -> list:
+    import textwrap
+
+    return textwrap.wrap(text, width)
 
 
 def ontology_triples(source: dict, stated: str, counts: dict) -> list:
@@ -777,7 +800,7 @@ def manifest_of(built: dict) -> dict:
             "additional_files": [
                 {"path": extra["path"], "url": extra["url"],
                  "sha256": extra["sha256"], "subjects": extra["subjects"],
-                 "exclude_predicates": extra.get("exclude_predicates") or []}
+                 "take_predicates": extra.get("take_predicates") or []}
                 for extra in entry.get("additional_files") or []],
             "licence_spdx": entry["licence"]["spdx"],
             "licence_url": entry["licence"]["url"],
@@ -878,7 +901,8 @@ def notice_of(built: dict) -> str:
             % (record["counts"]["full"], record["counts"]["stubs"],
                record["counts"]["dropped"]),
             "",
-        ]
+        ] + [line for note in third_party_notes(entry)
+             for line in _wrap(note) + [""]]
     return chr(10).join(lines)
 
 
