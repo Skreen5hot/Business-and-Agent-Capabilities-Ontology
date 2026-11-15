@@ -809,8 +809,10 @@ def test_the_real_claims_and_records_are_selected(layout):
     # the final direction on T2-25. 37 records revise another: the 14 pilot-era
     # current records, the 5 R6 catalog records, that one, the 15, and Financial
     # Performance Analysis's current and second records. The other 4 narrowed
-    # types of 2026-11-14 are new records, revising none.
-    assert (len(current), len(records), len(revising)) == (83, 120, 37), (
+    # types of 2026-11-14 are new records, revising none. Making v0.5.0-draft.3
+    # the specification in force (2026-11-15) revised the 9 metamodel records
+    # again: 9 more prior records, each of which revises its own predecessor.
+    assert (len(current), len(records), len(revising)) == (83, 129, 46), (
         len(current), len(records), len(revising))
     stripped = real_vocabulary(layout)
     stripped.remove((None, digest, None))

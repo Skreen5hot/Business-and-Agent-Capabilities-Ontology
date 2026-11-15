@@ -643,7 +643,7 @@ def test_the_specification_is_rendered_whole(built, repo):
     level down -- the page owns the only <h1>."""
     out, _ = built
     source = (repo / "specifications/"
-              "Business-Capability-Ontology-v0.4.0-draft.1.md").read_text(
+              "Business-Capability-Ontology-v0.5.0-draft.3.md").read_text(
         encoding="utf-8")
     page = (out / "specification/index.html").read_text(encoding="utf-8")
     # Fenced code first: the spec's Turtle examples carry `# ...` comment
@@ -654,7 +654,7 @@ def test_the_specification_is_rendered_whole(built, repo):
     assert len(headings) >= 15, len(headings)
     assert page.count("<h1") == 1
     assert len(re.findall(r"<h[2-5] id=", page)) >= len(headings)
-    assert "nothing in it is normative" in page
+    assert "nothing here is a released ontology" in page
 
 
 # ------------------------------------------------ the checker can fail
@@ -972,3 +972,19 @@ def test_fetch_refuses_any_host_but_the_registry(vendor_tool):
     with pytest.raises(SystemExit) as error:
         vendor_tool.download("https://cdn.invalid/mermaid.tgz")
     assert "refusing to fetch" in str(error.value)
+
+
+def test_the_rp_table_is_read_at_either_width(builder):
+    """v0.5's register has four columns; v0.4's had five, with an R4
+    position the page does not show. Both read as [id, decision, proposal,
+    status]; any other width is refused rather than guessed at."""
+    four = "| RP-1 | Grounding | As decided | Ratified |\n"
+    five = "| RP-1 | Grounding | Proposed | Revise | Ratified |\n"
+    assert builder.ratification_rows(four) == [
+        ["RP-1", "Grounding", "As decided", "Ratified"]]
+    assert builder.ratification_rows(five) == [
+        ["RP-1", "Grounding", "Proposed", "Ratified"]]
+    with pytest.raises(builder.Refused):
+        builder.ratification_rows("| RP-1 | Grounding | Ratified |\n")
+    with pytest.raises(builder.Refused):
+        builder.ratification_rows("No table here.\n")

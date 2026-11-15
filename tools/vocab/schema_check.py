@@ -70,7 +70,7 @@ COMMON = {"sources": [SOURCE,
           "change_note": ["Wording tightened."]}
 BASES = {
     "MetamodelFile": {"version": 1, "concepts": [dict(
-        COMMON, id="bcom:CapabilityMap", spec_row="ex:CapabilityMap",
+        COMMON, id="bcom:CapabilityMap", spec_row="bco:CapabilityMap",
         is_replaced_by="bcom:CapabilityAssessment")]},
     "CatalogFile": {"version": 1, "concepts": [dict(
         COMMON, id="bcoc:TreasuryManagement",
@@ -117,7 +117,7 @@ CASES = {
     "metamodel-owl-deprecated-authored": m_set("MetamodelFile", C0 + ("deprecated",), True),
     "metamodel-pref-label-authored": m_set("MetamodelFile", C0 + ("pref_label",), [{"value": "x", "language": "en"}]),
     "metamodel-without-spec-row": m_del("MetamodelFile", C0 + ("spec_row",)),
-    "metamodel-spec-row-not-ex": m_set("MetamodelFile", C0 + ("spec_row",), "bco:CapabilityMap"),
+    "metamodel-spec-row-not-bco": m_set("MetamodelFile", C0 + ("spec_row",), "ex:CapabilityMap"),
     "metamodel-id-in-catalog": m_set("MetamodelFile", C0 + ("id",), "bcoc:CapabilityMap"),
     "authored-status-ratified": m_set("MetamodelFile", C0 + ("authored_status",), "Ratified"),
     "created-not-a-utc-timestamp": m_set("MetamodelFile", C0 + ("created",), "yesterday"),

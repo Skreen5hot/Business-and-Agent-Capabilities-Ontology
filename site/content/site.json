@@ -23,7 +23,7 @@
   ],
   "notices": {
     "draft": {
-      "text": "Draft. The specification awaits ratification, and nothing in it is normative until the architect ratifies it.",
+      "text": "Draft. The specification is ratified, but no ontology term has been written and every vocabulary concept is still Draft, so nothing here is a released ontology.",
       "why": "A validator reading a requirement on a public site will reasonably take it as settled. Every page says otherwise, because the one page that does not is the one somebody links to."
     },
     "iri_resolution": {
@@ -58,7 +58,7 @@
   "home": {
     "summary": "The Business Capability Ontology (BCO) says what an organization can do. The Business Process Ontology (BPO) says what it does. The BCO takes its act types from the BPO reality layer and adds the dispositions those acts realize.",
     "for_validators": [
-      "Read the specification. It states seventeen design decisions (CD1 to CD17), the requirements that would check them (CAP-01 onward), and ten ratification points (RP-1 to RP-10) that are open.",
+      "Read the specification. It states seventeen design decisions (CD1 to CD17), the requirements that would check them (CAP-01 onward), and the ten ratification points (RP-1 to RP-10) through which the architect ratified them.",
       "Explore the terms. Today the explorer holds the upstream BFO, CCO and BPO terms the specification builds on, each marked upstream. BCO terms appear beside them as they are written.",
       "Check the status page for what has been ratified, what the validation gate currently finds, and which terms the specification names that nothing yet defines.",
       "Raise anything you find as an issue in the repository. A finding with the section or term it concerns is the most useful kind."

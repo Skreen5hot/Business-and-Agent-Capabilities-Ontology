@@ -11,7 +11,7 @@
 #
 # Common Core Ontologies v2.0. Copyright (c) 2017 CUBRC, Inc., licensed BSD-3-Clause.
 #
-# This is not Common Core Ontologies. It carries 44 terms described in full and 4
+# This is not Common Core Ontologies. It carries 43 terms described in full and 4
 # declared as stubs, selected because this repository names them or
 # because a selected term's ancestry passes through them.
 #
@@ -90,13 +90,6 @@ cco:ont00000476 rdf:type owl:Class .
 cco:ont00000476 rdfs:label "Objective"@en .
 cco:ont00000476 rdfs:subClassOf cco:ont00000965 .
 cco:ont00000476 skos:definition "A Directive Information Content Entity that prescribes some projected state that some Agent intends to achieve."@en .
-
-cco:ont00000506 cco:ont00001760 "https://www.commoncoreontologies.org/AgentOntology"^^xsd:anyURI .
-cco:ont00000506 rdf:type owl:Class .
-cco:ont00000506 rdfs:label "Contractor Role"@en .
-cco:ont00000506 rdfs:subClassOf obo:BFO_0000023 .
-cco:ont00000506 skos:definition "A Role that inheres in an Agent or Group of Agents by virtue of that Agent or Group of Agents entering into a Contract to provide materials or labor to perform a service or complete a task."@en .
-cco:ont00000506 skos:scopeNote "A Contractor Role differs from an Occupation Role in at least two ways. First, the Contract that binds the two parties together is not one of employment. Second, a Contractor Role is occupationally neutral in that an Agent can be contracted to perform any number of Occupational Roles."@en .
 
 cco:ont00000566 cco:ont00001760 "https://www.commoncoreontologies.org/EventOntology"^^xsd:anyURI .
 cco:ont00000566 rdf:type owl:Class .

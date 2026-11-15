@@ -17,7 +17,9 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
   `docs/decisions/2026-11-07-rp5-ratified.md`); the first record is also the architectural
   admission of the parent `bco:BusinessCapability`, which is not minted. **ADR-002 is
   accepted and CP-0 is complete** (2026-11-07, `docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md`); the ratified commitments
-  are binding, and draft.3 is kept as the historical ratification baseline. Do not implement an unratified
+  are binding, and draft.3 is kept as the historical ratification baseline. Since 2026-11-15
+  draft.3 is also the specification in force for the tooling (layout role `specification`;
+  `docs/decisions/2026-11-15-spec-v0.5-in-force.md`), so the metamodel definitions are its §4 rows. Do not implement an unratified
   CAP item as if it were decided. Under Option B, G1-T review may now record PASS or
   FAIL, signed by the named reviewer; OWL waits for D5, which CP-0 does not authorize. v0.4.0-draft.1 is kept as the prior
   version.
