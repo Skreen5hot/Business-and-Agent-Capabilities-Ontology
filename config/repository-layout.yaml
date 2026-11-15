@@ -124,6 +124,16 @@ components:
       and the three types held for source checks. formalize.py verifies
       every field against the records it names.
 
+  - id: ontology.fidelity-trace-1
+    path: src/05_ontology/fidelity-trace-tranche-1.md
+    role: documentation
+    description: >-
+      The first tranche's conceptual-fidelity trace (D6 acceptance, H): each
+      CM-01 element the tranche touches, with its encoding and the check that
+      holds it, and each of the 40 classes traced to CM-01, its signed G1-T
+      record and its concept digest. A test holds the class table to the
+      module and the tranche record.
+
   - id: ontology.cap-desc
     path: src/05_ontology/apqc-cap-desc.ttl
     role: ontology-module

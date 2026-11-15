@@ -567,3 +567,43 @@ def test_the_reasoner_pins_name_versions_digests_and_licences(reason):
     assert len(data["robot"]["sha256"]) == 64
     assert {r["name"]: r["licence"] for r in data["reasoners"]} == {
         "ELK": "Apache-2.0", "HermiT": "LGPL-3.0-or-later"}
+
+
+def test_the_fidelity_trace_matches_the_module(repo, tranche, module_graph):
+    """The conceptual-fidelity trace's class table (section 2) has one row
+    per written class, in the tranche record's order, each naming the
+    class, its signed record's commit and digest, its concept digest, the
+    parent the module asserts and the index size the module carries; and
+    CM-01 is the approved version the trace cites."""
+    import hashlib
+
+    import rdflib
+
+    text = (repo / "src/05_ontology/fidelity-trace-tranche-1.md").read_text(
+        encoding="utf-8")
+    table = text.split("## 2. The 40 classes")[1].split("## 3.")[0]
+    rows = [r for r in table.splitlines()
+            if r.startswith("| ") and "`bco:" in r]
+    assert len(rows) == 40, len(rows)
+    assert "`bco:BusinessCapability` | Business Capability |" in rows[0]
+    enables = rdflib.URIRef(BPO + "enablesProcess")
+    for row, entry in zip(rows[1:], tranche["classes"]):
+        cells = [c.strip() for c in row.strip().strip("|").split("|")]
+        assert cells[0] == entry["g1t"], (cells[0], entry["g1t"])
+        assert cells[1] == "`%s`" % entry["class"]
+        record = entry["signed_record"]
+        assert record["commit"][:7] in cells[3], cells[3]
+        assert record["sha256"][:12] in cells[3], cells[3]
+        assert entry["concept_record_sha256"][:12] in cells[4]
+        cls = rdflib.URIRef(BCO + entry["class"][4:])
+        supers = {str(o) for o in module_graph.objects(
+            cls, rdflib.RDFS.subClassOf)}
+        assert supers == {BCO + "BusinessCapability"}
+        assert cells[5] == "`bco:BusinessCapability`"
+        assert int(cells[6]) == len(list(module_graph.objects(
+            cls, enables))) == len(entry["index"])
+    cm01 = repo / "src/02_conceptual_models/CM-01-business-capability.md"
+    digest = hashlib.sha256(cm01.read_bytes()).hexdigest()
+    assert digest == ("292c8f36d64075b9663e159985a15b448aa933c3b5ed4baff3b2a"
+                      "556ca861ccc")
+    assert digest in text
