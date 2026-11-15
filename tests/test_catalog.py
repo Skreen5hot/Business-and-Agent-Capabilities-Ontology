@@ -523,7 +523,8 @@ def test_the_reconciled_tranche_2_figures_follow_the_records(tranche2):
               for k in ("admitted", "ready", "pending review", "not ready", "not proposed")}
     # The direction on the supplementary review (2026-11-14): the six that passed join the 33;
     # Financial Performance Analysis joins them under the final direction on T2-25.
-    assert counts == {"admitted": 2, "ready": 40, "pending review": 0, "not ready": 15,
+    # The G1-T signature of 2026-11-14 admits the 40 (decision record ...-signed.md).
+    assert counts == {"admitted": 42, "ready": 0, "pending review": 0, "not ready": 15,
                       "not proposed": 13}
     assert sum(counts.values()) == len(status)
     assert len(outside) == 4 and len(catalog) == 74
@@ -535,7 +536,7 @@ def test_the_reconciled_tranche_2_figures_follow_the_records(tranche2):
     assert len(written) == 60
     assert sum(1 for l in links if l.get("kind") == "kind-of") == 15
     report = (ROOT / "docs/catalog/tranche-2.md").read_text(encoding="utf-8")
-    for figure in ("| Admitted | 2 |", "| Ready, approved for admission on signature | 40 |",
+    for figure in ("| Admitted | 42 |",
                    "| Not ready | 15 |",
                    "| Outside G1-T review scope | 17 |", "| **Total** | **74** |",
                    "| **Total** | **89** | **7** | **60** | **36** |"):
@@ -555,7 +556,9 @@ def test_the_g1t_batch_covers_the_ready_candidates_and_signs_nothing(tranche2):
     # passed, 2 of them reworded in place (the 5 narrowed rows carry their status in
     # narrowed_to). Nothing is signed here (part 6): every confirmation row is empty.
     g1t = {b: next(r["g1t"] for r in review["candidates"] if r["id"] == c) for b, c in batch}
-    assert sum(1 for v in g1t.values() if v.startswith("ready")) == 35
+    # The signature of 2026-11-14 admits them; this record stays byte for byte as signed.
+    assert sum(1 for v in g1t.values() if v.startswith("ready")) == 0
+    assert sum(1 for v in g1t.values() if v.startswith("admitted")) == 35
     assert sum(1 for v in g1t.values() if v.startswith("pending review")) == 0
     assert sum(1 for v in g1t.values() if "narrowed_to" in v) == 5
     assert sum(1 for v in g1t.values() if "withdrawn from G1-T" in v) == 3
@@ -563,7 +566,7 @@ def test_the_g1t_batch_covers_the_ready_candidates_and_signs_nothing(tranche2):
     assert "not signed" in text and "Correction proposed" not in text
 
 
-def test_the_signature_record_lists_the_40_and_is_not_signed(tranche2):
+def test_the_signature_record_lists_the_40_and_holds_the_signature(tranche2):
     # Decision of 2026-11-14, part 6: one consolidated record for the approved 33, citing the
     # batch record it signs by digest; the signature is the reviewer's own, never filled in here.
     # The direction on the supplementary review adds the 6 that passed, and the final
@@ -571,13 +574,17 @@ def test_the_signature_record_lists_the_40_and_is_not_signed(tranche2):
     review, _ = tranche2
     approved = sorted(r["g1t_batch"] for r in review["candidates"]
                       if r.get("g1t_batch")
-                      and r.get("narrowed_to", r)["g1t"].startswith("ready"))
+                      and r.get("narrowed_to", r)["g1t"].startswith("admitted"))
     assert len(approved) == 40 and "T2-25" in approved
     sig = (ROOT / "docs/catalog/admission/G1T-T2-signature.md").read_text(encoding="utf-8")
     assert sorted(re.findall(r"^\| (T2-\d\d) \| BCC-", sig, re.M)) == approved
     batch = (ROOT / "docs/catalog/admission/G1T-T2-batch.md").read_bytes()
     assert "SHA-256 `%s`" % hashlib.sha256(batch).hexdigest() in sig
-    assert "Not signed" in sig and sig.count("|  |  |  |  |  |") == 1
+    # Signed 2026-11-14, against the batch record as above, which is kept byte for byte.
+    assert "b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef" in sig
+    assert "**Signed: PASS, 2026-11-14**" in sig and "|  |  |  |  |  |" not in sig
+    assert "| PASS | all 40 of section 1 | Aaron Damiano" in sig
+    assert "I confirm PASS for all 40 capability types" in sig
 
 
 def test_the_narrowed_types_are_new_concepts_under_their_kept_groupings(tranche2):

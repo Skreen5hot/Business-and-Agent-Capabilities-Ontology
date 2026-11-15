@@ -88,7 +88,7 @@ candidates:
   disposition: accepted
   concept: bcoc:PaymentProcessing
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch B); not admitted until signed'
+  g1t: 'admitted: T2-01, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-01
   g1t_prepared: ready
   act_types:
@@ -101,7 +101,7 @@ candidates:
   disposition: accepted
   concept: bcoc:CorporateCardManagement
   classification: capability type
-  g1t: 'ready: approved for admission on signature (corrected in revision 3, docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, part 4; supplementary review 2026-11-14: PASS; entered in the signature record, docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md); not admitted until signed'
+  g1t: 'admitted: T2-02, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-02
   g1t_prepared: ready; the index excludes its deontic acts (G1-T question 4); a development act needs
     a recorded reason (CAP-06)
@@ -117,7 +117,7 @@ candidates:
   disposition: accepted
   concept: bcoc:ExpenseReimbursementProcessing
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch B); not admitted until signed'
+  g1t: 'admitted: T2-03, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-03
   g1t_prepared: ready; the index excludes its deontic acts (G1-T question 4)
   act_types:
@@ -148,7 +148,7 @@ candidates:
   narrowed_to:
     concept: bcoc:CapitalInvestmentAppraisal
     kind: part-of
-    g1t: 'ready: approved for admission on signature (corrected in revision 3, docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, part 4; supplementary review 2026-11-14: PASS; entered in the signature record, docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md); not admitted until signed'
+    g1t: 'admitted: T2-04, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
     reason: "coverage: preparing and evaluating the financial justification for proposed investments is part of the broader's evaluation of them; Capital Planning is retained as a functional grouping, and the narrowed type is not equivalent to it"
   g1t_prepared: ready
   act_types:
@@ -161,7 +161,7 @@ candidates:
   disposition: accepted
   concept: bcoc:CapitalProjectAccounting
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch B); not admitted until signed'
+  g1t: 'admitted: T2-05, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-05
   g1t_prepared: ready
   act_types:
@@ -188,7 +188,7 @@ candidates:
   disposition: accepted
   concept: bcoc:AccountingPolicyManagement
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch B); not admitted until signed'
+  g1t: 'admitted: T2-07, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-07
   g1t_prepared: 'ready; the index excludes P10817 (setting approval limits: deontic) and P10815 (service-level
     agreements: not policy work); P10818 (common financial systems) needs a CAP-06 record
@@ -203,7 +203,7 @@ candidates:
   disposition: accepted
   concept: bcoc:FinancialReporting
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch A); not admitted until signed'
+  g1t: 'admitted: T2-08, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-08
   g1t_prepared: ready
   act_types:
@@ -217,7 +217,7 @@ candidates:
   disposition: accepted
   concept: bcoc:FixedAssetAccounting
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch A); not admitted until signed'
+  g1t: 'admitted: T2-09, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-09
   g1t_prepared: ready
   act_types:
@@ -230,7 +230,7 @@ candidates:
   disposition: accepted
   concept: bcoc:GeneralLedgerAccounting
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch A); not admitted until signed'
+  g1t: 'admitted: T2-10, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-10
   g1t_prepared: ready
   act_types:
@@ -301,7 +301,7 @@ candidates:
   disposition: accepted
   concept: bcoc:LetterOfCreditManagement
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch B); not admitted until signed'
+  g1t: 'admitted: T2-11, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-11
   g1t_prepared: ready
   act_types:
@@ -314,7 +314,7 @@ candidates:
   disposition: accepted
   concept: bcoc:TradeProductClassification
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch A); not admitted until signed'
+  g1t: 'admitted: T2-12, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-12
   g1t_prepared: ready; the index takes only PCF 9.11.3's acts; the homonym records' are out
   act_types:
@@ -339,7 +339,7 @@ candidates:
   disposition: accepted
   concept: bcoc:RestrictedPartyScreening
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch A); not admitted until signed'
+  g1t: 'admitted: T2-13, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-13
   g1t_prepared: ready
   act_types:
@@ -352,7 +352,7 @@ candidates:
   disposition: accepted
   concept: bcoc:TradeDocumentation
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch B); not admitted until signed'
+  g1t: 'admitted: T2-14, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-14
   g1t_prepared: ready
   act_types:
@@ -365,7 +365,7 @@ candidates:
   disposition: accepted
   concept: bcoc:TradePreferenceManagement
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch A); not admitted until signed'
+  g1t: 'admitted: T2-15, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-15
   g1t_prepared: ready
   act_types:
@@ -394,7 +394,7 @@ candidates:
   disposition: accepted
   concept: bcoc:InternalControlReporting
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch A); not admitted until signed'
+  g1t: 'admitted: T2-16, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-16
   g1t_prepared: ready
   act_types:
@@ -412,7 +412,7 @@ candidates:
   narrowed_to:
     concept: bcoc:ControlEnvironmentAndRiskObjectiveFormulation
     kind: part-of
-    g1t: 'ready: approved for admission on signature (corrected in revision 3, docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, part 4; supplementary review 2026-11-14: PASS; entered in the signature record, docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md); not admitted until signed'
+    g1t: 'admitted: T2-17, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
     reason: "coverage: formulating the code of ethics, the process objectives and risks and the risk tolerances is part of designing the organization's internal controls; Internal Control Design is retained as a functional grouping, and the narrowed type does not establish the whole of it"
   g1t_prepared: ready; a development act needs a recorded reason (CAP-06)
   act_types:
@@ -450,7 +450,7 @@ candidates:
   disposition: accepted
   concept: bcoc:InternationalRateMonitoring
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch A); not admitted until signed'
+  g1t: 'admitted: T2-18, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-18
   g1t_prepared: ready
   act_types:
@@ -490,7 +490,7 @@ candidates:
   disposition: accepted
   concept: bcoc:CrossBorderFundsTransferManagement
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch A); not admitted until signed'
+  g1t: 'admitted: T2-19, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-19
   g1t_prepared: ready
   act_types:
@@ -515,7 +515,7 @@ candidates:
   disposition: accepted
   concept: bcoc:PayManagement
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch B); not admitted until signed'
+  g1t: 'admitted: T2-20, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-20
   g1t_prepared: ready
   act_types:
@@ -528,7 +528,7 @@ candidates:
   disposition: accepted
   concept: bcoc:PayrollTaxProcessing
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch B); not admitted until signed'
+  g1t: 'admitted: T2-21, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-21
   g1t_prepared: ready
   act_types:
@@ -541,7 +541,7 @@ candidates:
   disposition: accepted
   concept: bcoc:TimeReporting
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch A); not admitted until signed'
+  g1t: 'admitted: T2-22, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-22
   g1t_prepared: ready
   act_types:
@@ -567,7 +567,7 @@ candidates:
   disposition: accepted
   concept: bcoc:CostAccounting
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch B); not admitted until signed'
+  g1t: 'admitted: T2-23, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-23
   g1t_prepared: ready
   act_types:
@@ -586,7 +586,7 @@ candidates:
   narrowed_to:
     concept: bcoc:CostDriverAndCriticalActivityAnalysis
     kind: part-of
-    g1t: 'ready: approved for admission on signature (corrected in revision 3, docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, part 4; supplementary review 2026-11-14: PASS; entered in the signature record, docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md); not admitted until signed'
+    g1t: 'admitted: T2-24, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
     reason: "coverage: identifying and measuring cost drivers and critical activities is part of the analysis on which managing costs draws; Cost Management is retained as a functional grouping, and no ability to plan, control or reduce spending is inferred from the analysis"
   g1t_prepared: ready
   act_types:
@@ -605,7 +605,7 @@ candidates:
   narrowed_to:
     concept: bcoc:FinancialPerformanceAnalysis
     kind: part-of
-    g1t: 'ready: eligible for admission on signature (corrected in revision 5 under the architect''s final direction, docs/decisions/2026-11-14-g1t-tranche-2-t2-25-final.md; entered in the signature record); not admitted until signed'
+    g1t: 'admitted: T2-25, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
     reason: "coverage: assessing profitability and financial performance is the analysis part of managing financial performance; Financial Performance Management is retained as a functional grouping, and acting on the results is not part of the narrowed type"
   g1t_prepared: ready
   act_types:
@@ -632,7 +632,7 @@ candidates:
   disposition: accepted
   concept: bcoc:FinancialPlanningBudgetingAndForecasting
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch B); not admitted until signed'
+  g1t: 'admitted: T2-26, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-26
   g1t_prepared: ready
   act_types:
@@ -659,7 +659,7 @@ candidates:
   disposition: accepted
   concept: bcoc:AccountsReceivableProcessing
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch A); not admitted until signed'
+  g1t: 'admitted: T2-28, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-28
   g1t_prepared: ready
   act_types:
@@ -672,7 +672,7 @@ candidates:
   disposition: accepted
   concept: bcoc:CustomerDeductionManagement
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch A); not admitted until signed'
+  g1t: 'admitted: T2-29, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-29
   g1t_prepared: ready
   act_types:
@@ -685,7 +685,7 @@ candidates:
   disposition: accepted
   concept: bcoc:CollectionsManagement
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch A); not admitted until signed'
+  g1t: 'admitted: T2-30, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-30
   g1t_prepared: ready
   act_types:
@@ -712,7 +712,7 @@ candidates:
   disposition: accepted
   concept: bcoc:CustomerCreditManagement
   classification: capability type
-  g1t: 'ready: approved for admission on signature (corrected in revision 3, docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, part 4; supplementary review 2026-11-14: PASS; entered in the signature record, docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md); not admitted until signed'
+  g1t: 'admitted: T2-31, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-31
   g1t_prepared: ready
   act_types:
@@ -725,7 +725,7 @@ candidates:
   disposition: accepted
   concept: bcoc:CustomerInvoicing
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch B); not admitted until signed'
+  g1t: 'admitted: T2-32, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-32
   g1t_prepared: ready
   act_types:
@@ -751,7 +751,7 @@ candidates:
   disposition: accepted
   concept: bcoc:TaxPlanning
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch B); not admitted until signed'
+  g1t: 'admitted: T2-33, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-33
   g1t_prepared: ready
   act_types:
@@ -764,7 +764,7 @@ candidates:
   disposition: accepted
   concept: bcoc:TaxProcessing
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch A); not admitted until signed'
+  g1t: 'admitted: T2-34, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-34
   g1t_prepared: ready
   act_types:
@@ -791,7 +791,7 @@ candidates:
   disposition: accepted
   concept: bcoc:CashManagement
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch B); not admitted until signed'
+  g1t: 'admitted: T2-35, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-35
   g1t_prepared: 'ready; P10896 (cash flow forecasts: Cash Flow Management''s) and P10900 (bank fees:
     Banking Relationship Management''s) are out'
@@ -909,7 +909,7 @@ candidates:
   disposition: accepted
   concept: bcoc:InHouseBankAccountManagement
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch A); not admitted until signed'
+  g1t: 'admitted: T2-36, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-36
   g1t_prepared: ready
   act_types:
@@ -950,7 +950,7 @@ candidates:
   disposition: accepted
   concept: bcoc:CounterpartyCreditExposureManagement
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch B); not admitted until signed'
+  g1t: 'admitted: T2-38, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-38
   g1t_prepared: ready
   act_types:
@@ -964,7 +964,7 @@ candidates:
   disposition: accepted
   concept: bcoc:ForeignExchangeRiskManagement
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch A); not admitted until signed'
+  g1t: 'admitted: T2-39, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-39
   g1t_prepared: ready
   act_types:
@@ -978,7 +978,7 @@ candidates:
   disposition: accepted
   concept: bcoc:HedgingTransactionExecution
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch B); not admitted until signed'
+  g1t: 'admitted: T2-40, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-40
   g1t_prepared: ready
   act_types:
@@ -992,7 +992,7 @@ candidates:
   disposition: accepted
   concept: bcoc:InterestRateRiskManagement
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch A); not admitted until signed'
+  g1t: 'admitted: T2-41, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-41
   g1t_prepared: ready
   act_types:
@@ -1006,7 +1006,7 @@ candidates:
   disposition: accepted
   concept: bcoc:TreasuryPolicyManagement
   classification: capability type
-  g1t: 'ready: approved for admission on signature (docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, Batch B); not admitted until signed'
+  g1t: 'admitted: T2-42, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
   g1t_batch: T2-42
   g1t_prepared: 'ready; P10885 (establishing treasury governance) needs a CAP-06 record; P10891 (treasury
     internal controls: Internal Control Design''s) and P10892 (system security requirements)
@@ -1027,7 +1027,7 @@ candidates:
   narrowed_to:
     concept: bcoc:InternalControlEffectivenessMonitoring
     kind: part-of
-    g1t: 'ready: approved for admission on signature (corrected in revision 3, docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md, part 4; supplementary review 2026-11-14: PASS; entered in the signature record, docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md); not admitted until signed'
+    g1t: 'admitted: T2-43, signed PASS 2026-11-14 (docs/decisions/2026-11-14-g1t-tranche-2-signed.md)'
     reason: "coverage: monitoring whether controls operate as intended is part of operating and monitoring them; the narrowed type does not establish the ability to operate every control"
   g1t_prepared: ready
   scope_addition: PCF 9.8.2, a level-3 element of 9.0; the generator broke a cycle and left

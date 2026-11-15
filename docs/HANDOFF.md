@@ -115,7 +115,9 @@ REVIEW; on the architect's direction (`docs/decisions/2026-11-14-g1t-tranche-2-t
 corrects T2-25 as the review required and adds the six to the signature record, which now covers
 39 classes. His final direction on T2-25 (`docs/decisions/2026-11-14-g1t-tranche-2-t2-25-final.md`) gives its definition and
 excludes `P10786` (CD5); revision 5 applies it and adds T2-25, so the signature record covers 40
-classes. Nothing is admitted until the signature is recorded.
+classes. The named reviewer signed PASS for all 40 on 2026-11-14
+(`docs/decisions/2026-11-14-g1t-tranche-2-signed.md`), against revision 5 of the batch by its SHA-256; the 40
+are admitted under G1-T (not G1-I). No OWL is written: Stage 05 waits for D5.
 
 R5 records further blockers: material basis policy, maturity-value encoding, instance
 evidence, and migration of BPO existential restrictions. R6 (section 5.13) adds wording

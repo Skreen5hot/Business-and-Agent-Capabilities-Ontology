@@ -2,14 +2,14 @@
 
 | Field | Value |
 |---|---|
-| Status | **Prepared for signature. Not signed.** Prepared under `docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md`, part 6, for Batches A and B (33); the six that the supplementary review found PASS were added under `docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md`, and T2-25 as eligible for admission under `docs/decisions/2026-11-14-g1t-tranche-2-t2-25-final.md`. No class below is admitted until the named reviewer's signature is recorded here, in his own words |
+| Status | **Signed: PASS, 2026-11-14**, all 40 classes, by the named reviewer in his own words (section 3; `docs/decisions/2026-11-14-g1t-tranche-2-signed.md`). The record was prepared under `docs/decisions/2026-11-14-g1t-tranche-2-batch-decided.md`, part 6, for Batches A and B (33); the six that the supplementary review found PASS were added under `docs/decisions/2026-11-14-g1t-tranche-2-t2-25-and-the-six.md`, and T2-25 as eligible for admission under `docs/decisions/2026-11-14-g1t-tranche-2-t2-25-final.md`. As prepared, before the signature, its SHA-256 is `6cfca8eeef7b49d10d4bf8b640fdaefbc6305c19869c472e69229e712695403d`; the batch record it signs is kept byte for byte |
 | Signing reviewer | Aaron Damiano, Product Owner and Ontology Architect (part 6) |
 | Records signed | `docs/catalog/admission/G1T-T2-batch.md`, revision 5, SHA-256 `b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef`: the 40 sections listed below, each with its definition, grounding, realization index, exclusions, worked cases, taxonomy and five G1-T answers |
 | Vocabulary | each concept's record digest below, as `tools/vocab/build.py --digest <concept>` prints it |
 | Independent evidence | `docs/catalog/admission/G1T-T2-review-2026-11-07.md` (SHA-256 `7c7efb831cf6a5276fe6e173cea34f4a3f40af7f4d5adae3e8e881c175671e08`): PASS for the 33 of Batches A and B; `docs/catalog/admission/G1T-T2-supplementary-review.md` (SHA-256 `1430f89ba10d29044ba10e5d21388798959bb21852c50391b9dc6f4d9a42b648`): PASS for the six, as corrected in revision 3. Both are analytical evidence, not the signature. T2-25 was left PENDING REVIEW by the supplementary review and is corrected under `docs/decisions/2026-11-14-g1t-tranche-2-t2-25-final.md`, which requires no further general synthetic review: its G1-T finding is the signing reviewer's |
 | To confirm on signing | T2-17 passes on the Formulation reading, which the decision approved by name for T2-07 and T2-42 only (part 2); the supplementary review extends it to T2-17 and asks the signer to confirm it (its section 4) |
 | Not here | the 3 withdrawn capability areas (part 3) |
-| Prepared by | Claude Code (`claude-opus-5-5`), 2026-11-14. It records no finding and no signature |
+| Prepared by | Claude Code (`claude-opus-5-5`), 2026-11-14. It records no finding and no signature of its own: section 3 transcribes the reviewer's |
 
 A signed PASS licenses asserting the class under `obo:BFO_0000016` (disposition), and so under `bco:BusinessCapability`, for that class only (CAP-04). It licenses no organization's claim to bear one (G1-I). No OWL is written before D5.
 
@@ -224,8 +224,46 @@ Index: `bpo:P10782`, `bpo:P10783`, `bpo:P10784`, `bpo:P10787`.
 
 ## 3. Signature
 
-To be completed by the signing reviewer only. As for tranche 1, the signature is his own confirmation given in session, transcribed verbatim with a decision record citing this file's SHA-256. Claude Code does not complete it. A class he does not confirm stays unadmitted, and a FAIL is reclassified or removed, not staged (b4).
+Given by the signing reviewer in session on 2026-11-14 and transcribed verbatim, with the
+decision record `docs/decisions/2026-11-14-g1t-tranche-2-signed.md`, which cites this file's SHA-256 as prepared. Before it was recorded,
+every class's candidate, concept IRI, definition, realization index and record digest above
+was checked against the batch record at the signed digest and the vocabulary: none differs.
 
 | Finding (PASS / FAIL) | Classes | Reviewer | Date | Notes |
 |---|---|---|---|---|
-|  |  |  |  |  |
+| PASS | all 40 of section 1 | Aaron Damiano, Product Owner and Ontology Architect | 2026-11-14 | Signed against `G1T-T2-batch.md`, revision 5, SHA-256 `b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef`. T2-17: Formulation reading extended, three members kept. T2-25: `P10787` kept; four members; `P10786`, `P10785`, `P10741` excluded. The signature, verbatim, is below |
+
+````text
+Subject: Architect Signature — G1-T Tranche 2, 40 Business Capability Types
+Decision: G1-T PASS — ALL 40 CLASSES APPROVED AND SIGNED.
+Acting in my capacity as Product Owner and Ontology Architect, I approve and sign the consolidated G1-T Tranche 2 admission record:
+`docs/catalog/admission/G1T-T2-signature.md`
+This approval applies to the 40 candidate classes and their finalized definitions, grounding rationales, realization indexes, exclusions and admission findings, as identified in `G1T-T2-batch.md`, revision 5, SHA-256:
+`b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef`
+Confirmation 1 — T2-17
+APPROVED — PASS.
+I explicitly extend the previously approved Formulation reading of G1-T question 4 to T2-17, Control Environment and Risk Objective Formulation.
+Formulating and communicating codes, objectives, risk descriptions and tolerances is distinguishable from authoritatively adopting them or assigning standing.
+Retain the three approved realization-index members. No change to the approved definition is required.
+Confirmation 2 — T2-25
+APPROVED — PASS.
+Retain `bpo:P10787` in the Financial Performance Analysis realization index.
+I accept the source-supported interpretation that the act evaluates performance using activity-based measures, rather than establishing the authoritative measures governing that evaluation.
+Retain the four-member index established in revision 5. The exclusions of `P10786`, `P10785` and summary act `P10741` remain binding.
+Consolidated G1-T Signature
+I confirm PASS for all 40 capability types enumerated in the consolidated signature record, including:
+
+* 17 Batch A types.
+* 16 Batch B types with approved definition corrections.
+* Six types accepted following supplementary review.
+* T2-25, Financial Performance Analysis, as finally corrected.
+
+This is my explicit architectural G1-T admission signature for those 40 types. It does not extend to withdrawn capability areas, unresolved concepts or Q-12-blocked candidates.
+Recording and Implementation
+Please record this signature verbatim in the consolidated signature record and the corresponding decision record, citing the exact SHA-256 digest of the signed baseline.
+Verify that no definitions, concept identifiers or realization indexes have changed from the reviewed baseline.
+You may commit and integrate the signature and resulting administrative status updates after the required repository checks.
+G1-T admission is not G1-I attribution. This signature establishes admissibility of the 40 capability types, not that any particular organization possesses them.
+No OWL generation or Stage 05 formalization is authorized by this signature.
+Final decision: All 40 Tranche 2 capability types are admitted under G1-T. Proceed with recording the signature and preparation for the next authorized ontology-development stage.
+````

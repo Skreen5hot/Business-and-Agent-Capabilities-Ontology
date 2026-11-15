@@ -18,7 +18,7 @@
 | Proposed links | **89**, each with a disposition: 70 retained, 11 incorrect, 8 unresolved (section 1a, after the gate) |
 | Links added by review | **7**: 5 retained, 2 unresolved under C1 |
 | `broader` written to the vocabulary | **60**: 55 `part-of` and 5 `kind-of` (section 1a). 66 before the gate |
-| Ready for G1-T admission | **43** (section 5) when prepared; decided 2026-11-14 (section 1b): 33 approved on signature, 7 pending a supplementary review, 3 withdrawn as capability areas. 2 already admitted (T1-02, T1-03); 15 not ready |
+| Ready for G1-T admission | **43** (section 5) when prepared; decided 2026-11-14 (section 1b): 33 approved on signature, 7 pending a supplementary review, 3 withdrawn as capability areas; 40 signed PASS and admitted 2026-11-14 (section 1d). 2 already admitted (T1-02, T1-03); 15 not ready |
 
 ## 1a. Reconciliation (revision 2; updated 2026-11-14)
 
@@ -29,8 +29,7 @@ Every figure here is counted from `docs/catalog/tranche-2-review.yaml` and
 
 | Status | Concepts | Which |
 |---|---|---|
-| Admitted | 2 | Payroll Processing (T1-02), Accounts Payable Processing (T1-03), signed PASS 2026-11-05. T1-01 (customer complaint management) is admitted too, but has no vocabulary concept yet |
-| Ready, approved for admission on signature | 40 | Batch A (17) and Batch B (16) of `docs/catalog/admission/G1T-T2-batch.md`, the six the supplementary review found PASS (Corporate Card Management, Customer Credit Management, Capital Investment Appraisal, Control Environment and Risk Objective Formulation, Cost Driver and Critical Activity Analysis, Internal Control Effectiveness Monitoring), and Financial Performance Analysis under the architect's final direction (section 1c), revision 5; the signature record is `docs/catalog/admission/G1T-T2-signature.md`. None is admitted until signed |
+| Admitted | 42 | Payroll Processing (T1-02), Accounts Payable Processing (T1-03), signed PASS 2026-11-05; and the 40 of tranche 2's consolidated signature record (`docs/catalog/admission/G1T-T2-signature.md`), signed PASS 2026-11-14 (section 1d): Batch A (17), Batch B (16), the six accepted after the supplementary review, and Financial Performance Analysis. T1-01 (customer complaint management) is admitted too, but has no vocabulary concept yet |
 | Not ready | 15 | 9 whose only act evidence is a class BPO types as a capability (Q-12); 4 whose designating class is a BPO capability class but whose BPO wiring names act types, each a component's; 2 with no act type in their evidence (section 5; `docs/catalog/tranche-2-q12.md`) |
 | Outside G1-T review scope | 17 | 5 tranche-2 capability areas (Financial Resource Management, Payables and Reimbursement Management, Capital Expenditure Management, Global Trade Management, Debt and Investment Management), broad or conjunctive (CD16, E4); 3 more withdrawn from G1-T as capability areas on 2026-11-14 (Financial Accounting, Revenue and Receivables Management, Financial Risk Management); the 5 functional groupings the narrowed types came from (Capital Planning, Internal Control Design, Cost Management, Financial Performance Management, Internal Control Operation and Monitoring), kept unchanged; the 4 P5 pilots outside the tranche (Strategic Planning, Business Model Governance, Competitive Analysis, Customer Experience Management), which no tranche has curated |
 | **Total** | **74** | 70 from tranche 2 (65 normalized, 5 narrowed types added 2026-11-14), 4 P5 pilots |
@@ -72,6 +71,16 @@ Analysis PENDING REVIEW. The architect directed (`docs/decisions/2026-11-14-g1t-
   admission on signature (revision 5).
 - **The six** are added to `docs/catalog/admission/G1T-T2-signature.md`, which covers 39
   classes (40 with Financial Performance Analysis). None is admitted until signed.
+
+## 1d. The G1-T signature (2026-11-14)
+
+The named reviewer, Aaron Damiano, signed PASS for all 40 classes of
+`docs/catalog/admission/G1T-T2-signature.md` (`docs/decisions/2026-11-14-g1t-tranche-2-signed.md`), against
+`docs/catalog/admission/G1T-T2-batch.md` revision 5, SHA-256
+`b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef`, which is kept byte for
+byte. He extended the Formulation reading to T2-17 and kept `P10787` in T2-25's index. The
+40 are admitted under G1-T. That is not G1-I: no organization is said to bear them. No OWL
+is written, and the vocabulary's concepts stay Draft.
 
 **Links by disposition.**
 
