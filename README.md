@@ -1,8 +1,9 @@
 # Business and Agent Capabilities Ontology
 
 > **New here?** Read [`docs/HANDOFF.md`](docs/HANDOFF.md) first. It states what is actually
-> in this repository and what is not — in particular, that the specification is a draft
-> and **no ontology term has been written yet**. [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md)
+> in this repository and what is not — in particular, that the first Stage 05 tranche
+> (the Business Capability parent and 39 capability classes) is implemented but **not
+> released**. [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md)
 > is how to run things; [`docs/process/PROCESS.md`](docs/process/PROCESS.md) is why it is
 > built this way.
 

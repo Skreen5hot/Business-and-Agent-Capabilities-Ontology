@@ -534,7 +534,17 @@ def test_the_status_page_counts_the_vocabulary_it_validates(built, repo):
     assert "<dt>Ontology terms checked</dt>" in page
     assert "Authored terms checked" not in page
     assert "every shape set conforms vacuously" not in page
-    assert "check the %d vocabulary concept(s)" % expected in page
+    # Since D6 the module has classes, so the ontology rungs are no longer
+    # vacuous and the page must not say they are; the count it shows is the
+    # modules' own.
+    classes = rdflib.Graph()
+    for path in sorted((repo / "src/05_ontology").glob("*.ttl")):
+        classes.parse(path, format="turtle")
+    written = {s for s in classes.subjects(rdflib.RDF.type, rdflib.OWL.Class)
+               if str(s).startswith("https://fandaws.com/ontology/bco#")}
+    assert len(written) == 40, len(written)
+    assert "<dt>Ontology terms checked</dt><dd>%d</dd>" % len(written) in page
+    assert "No BCO ontology term is written yet" not in page
 
 
 def test_ids_on_the_reviews_page_are_unique_and_prefixed(built):

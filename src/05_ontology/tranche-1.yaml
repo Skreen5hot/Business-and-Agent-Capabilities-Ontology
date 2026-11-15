@@ -1,0 +1,652 @@
+# The first Stage 05 formalization tranche: its tranche record (Stage 05
+# standard, sections 2 and 5, S05-T1). Authored data, read by
+# tools/ontology/formalize.py, which verifies every field below against the
+# records it names and writes src/05_ontology/apqc-cap.ttl from it.
+#
+# Approved as D5-3 (docs/decisions/2026-11-15-bpo-inquiry-and-d5-approved.md);
+# implementation authorized as D6, E (docs/decisions/2026-11-15-v05-transition-
+# approved-d6-authorized.md). The parent and the 39 rows of the readiness
+# package's section 2 marked "ready". Excluded, until their source checks
+# (docs/catalog/tranche-2-followup.md, section 3): T2-02, T2-24, T2-31. Not
+# here, as never admitted: the Q-12 blocked concepts and capability areas.
+#
+# Per class:
+#   g1t                     the G1-T id
+#   concept, class, label   as the readiness package's table gives them
+#   signed_record           the signed G1-T record: its path, the commit
+#                           whose bytes were signed, and (T2) its section.
+#                           The SHA-256 the signature names is checked
+#                           against those bytes, never against the working
+#                           tree, whose status rows have moved on since
+#   concept_record_sha256   the vocabulary concept's record digest
+#                           (tools/vocab/build.py --digest), checked against
+#                           the build, the signature record (T2) and the
+#                           readiness package's prefix
+#   index                   the realization index, member by member, in the
+#                           signed order; each becomes one ex:enablesProcess
+#   development_members     CAP-06 (S05-C4): every member under a CD5
+#                           development genus, with its signed review reason.
+#                           None in this tranche; the key is then omitted
+#
+# Edit only through change control (standard S9): a change to an index or a
+# definition here is refused unless the signed record says the same.
+
+version: 1
+tranche: Stage 05, first tranche
+module: src/05_ontology/apqc-cap.ttl
+readiness:
+  path: docs/proposals/2026-11-15-d5-readiness-package.md
+  commit: cd817676e805d263aa2022e5630bc35a5570b59a
+  sha256: 2743c27b21c13809000f26acdb209834cbb5d1b995f2b087f2a5a79e8c4f112f
+signatures:
+  G1T-T2:
+    path: docs/catalog/admission/G1T-T2-signature.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    sha256: 18b0e1569beb18c5b88643b54be3d8b431506da8d44566426d3962384b4d9f1e
+    signs:
+      path: docs/catalog/admission/G1T-T2-batch.md
+      sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  G1T-T1:
+    path: docs/decisions/2026-11-05-g1t-tranche-1-signed.md
+    signs:
+      docs/catalog/admission/G1T-T1-02-payroll-processing.md: f41e29cc40df6ed4ef84064bb40677cedc7aff7f4003c2977f7150164a87cee4
+      docs/catalog/admission/G1T-T1-03-accounts-payable-processing.md: b49935b79b4046d34d84080f46b5e1bff17f5e277d3aab5b607a343c20594c2d
+parent:
+  concept: bcom:BusinessCapability
+  class: bco:BusinessCapability
+  parents:
+  - cco:ont00000568
+  - obo:BFO_0000016
+  admitted_by: docs/decisions/2026-11-04-d4-rp1-rp10-ratified-option-b.md
+excluded:
+  T2-02: source check SC-1
+  T2-24: source check SC-2
+  T2-31: source check SC-3
+classes:
+- g1t: T1-02
+  concept: bcoc:PayrollProcessing
+  class: bco:PayrollProcessing
+  label: Payroll Processing
+  signed_record:
+    path: docs/catalog/admission/G1T-T1-02-payroll-processing.md
+    commit: 7515f441b7d3a3c4801e60fc6d67bb0123913ddf
+    sha256: f41e29cc40df6ed4ef84064bb40677cedc7aff7f4003c2977f7150164a87cee4
+  concept_record_sha256: defbd4f3400fa08d79627af675a91ad68f17d874a0ad9d3ab792136ffbd2d643
+  index:
+  - P10858
+  - P10859
+  - P10860
+  - P10861
+  - P10862
+  - P10863
+  - P10864
+  - P10865
+  - P10866
+  - P10867
+  - P10868
+- g1t: T1-03
+  concept: bcoc:AccountsPayableProcessing
+  class: bco:AccountsPayableProcessing
+  label: Accounts Payable Processing
+  signed_record:
+    path: docs/catalog/admission/G1T-T1-03-accounts-payable-processing.md
+    commit: 7515f441b7d3a3c4801e60fc6d67bb0123913ddf
+    sha256: b49935b79b4046d34d84080f46b5e1bff17f5e277d3aab5b607a343c20594c2d
+  concept_record_sha256: 7d60551d087070a4383f53e766124ce3ffa64328a5a0dd08654e1b590bba9e91
+  index:
+  - P10869
+  - P10871
+  - P10873
+  - P10875
+  - P10876
+  - P10877
+  - P10879
+- g1t: T2-08
+  concept: bcoc:FinancialReporting
+  class: bco:FinancialReporting
+  label: Financial Reporting
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-08
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: 84e3c1a7ea9b2743db2f7ed54ce1d2d835be92c3551dbc6e439496d307abe718
+  index:
+  - P10837
+  - P10838
+  - P10839
+  - P10840
+  - P10841
+  - P10842
+  - P10843
+  - P14074
+  - P10770
+  - P11042
+- g1t: T2-09
+  concept: bcoc:FixedAssetAccounting
+  class: bco:FixedAssetAccounting
+  label: Fixed-Asset Accounting
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-09
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: d7432dbd92113a3f0b4169b5819967a60285e518b8163f69973db30947e50757
+  index:
+  - P10829
+  - P10830
+  - P10831
+  - P10832
+  - P10833
+  - P10834
+  - P10835
+  - P10836
+- g1t: T2-10
+  concept: bcoc:GeneralLedgerAccounting
+  class: bco:GeneralLedgerAccounting
+  label: General Ledger Accounting
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-10
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: d7c19172b362dd43d1c1f2fc0276619b4a7903ed533d932c6656903aecb799b8
+  index:
+  - P10819
+  - P10820
+  - P10821
+  - P10822
+  - P10823
+  - P10824
+  - P10825
+  - P10826
+  - P10827
+- g1t: T2-12
+  concept: bcoc:TradeProductClassification
+  class: bco:TradeProductClassification
+  label: Trade Product Classification
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-12
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: 578838efeef4dd0a6e188832eb8ace1048e5a80e5ec5bfce3321e177d9a6e298
+  index:
+  - P14092
+- g1t: T2-13
+  concept: bcoc:RestrictedPartyScreening
+  class: bco:RestrictedPartyScreening
+  label: Restricted Party Screening
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-13
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: 1e5990ec6e5bc10934c92a209bdf9cb167c29623dc9a2408396ab10f8f7900f8
+  index:
+  - P14090
+- g1t: T2-15
+  concept: bcoc:TradePreferenceManagement
+  class: bco:TradePreferenceManagement
+  label: Trade Preference Management
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-15
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: c005bde58329c3929abf16a3874b14e076ced6c2983464e2ecd00ab4ed505474
+  index:
+  - P14096
+- g1t: T2-16
+  concept: bcoc:InternalControlReporting
+  class: bco:InternalControlReporting
+  label: Internal Control Reporting
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-16
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: f92d825518267ec8653d0103db63e5b90deabb11a8a3c6a4ff7bdc4f5a427f3a
+  index:
+  - P10923
+  - P10924
+  - P10925
+  - P10926
+- g1t: T2-18
+  concept: bcoc:InternationalRateMonitoring
+  class: bco:InternationalRateMonitoring
+  label: International Rate Monitoring
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-18
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: 768596eaf4e876ad90684fc805c2ea1e07731df3a528e6b1fb15a8fea9619808
+  index:
+  - P10767
+- g1t: T2-19
+  concept: bcoc:CrossBorderFundsTransferManagement
+  class: bco:CrossBorderFundsTransferManagement
+  label: Cross-Border Funds Transfer Management
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-19
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: 7d28476b319f61682d966ad8a1bf88f42a9315974526ca489a43460ee8e03b27
+  index:
+  - P10768
+- g1t: T2-22
+  concept: bcoc:TimeReporting
+  class: bco:TimeReporting
+  label: Time Reporting
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-22
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: eee8ad6a36343a04a02b477f265e47c5de80e7ad18ace551435cb74b686c5141
+  index:
+  - P10854
+  - P10855
+  - P10856
+  - P10857
+- g1t: T2-28
+  concept: bcoc:AccountsReceivableProcessing
+  class: bco:AccountsReceivableProcessing
+  label: Accounts Receivable Processing
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-28
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: fb5d4e1f8541402b1de97d78b9d07fa512dc65f96210a8fb9bd1f147fcf68dbd
+  index:
+  - P10800
+  - P10801
+  - P10802
+  - P10803
+- g1t: T2-29
+  concept: bcoc:CustomerDeductionManagement
+  class: bco:CustomerDeductionManagement
+  label: Customer Deduction and Adjustment Management
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-29
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: 955724f77555d30bc5e3998574348f3a9d80f95922c4bdf0cc1f942c543219a3
+  index:
+  - P10810
+  - P10811
+  - P10812
+  - P10813
+  - P10814
+- g1t: T2-30
+  concept: bcoc:CollectionsManagement
+  class: bco:CollectionsManagement
+  label: Collections Management
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-30
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: f88b4eacc76eecd8d544fd8b51d53ae596f7fd1974b620bec5303cb6abe1725b
+  index:
+  - P10805
+  - P10806
+  - P10807
+  - P10808
+  - P14007
+- g1t: T2-34
+  concept: bcoc:TaxProcessing
+  class: bco:TaxProcessing
+  label: Tax Processing
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-34
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: 66fa1dc7eb2e5eebdf796e0db9a4393cd272b9e9c3ea4d43843e50b5cde987ac
+  index:
+  - P10931
+  - P10932
+  - P10933
+  - P10934
+  - P10935
+  - P10936
+- g1t: T2-36
+  concept: bcoc:InHouseBankAccountManagement
+  class: bco:InHouseBankAccountManagement
+  label: In-House Bank Account Management
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-36
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: 76db9f3f639ca399378c9ef2bfe195f8ba42aaccc63961d9b4f7df71c865ad09
+  index:
+  - P10902
+  - P10903
+  - P10904
+  - P10905
+  - P10906
+  - P10907
+- g1t: T2-39
+  concept: bcoc:ForeignExchangeRiskManagement
+  class: bco:ForeignExchangeRiskManagement
+  label: Foreign Exchange Risk Management
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-39
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: d89a321f2a826f1c91953c3ce2f0e3a9a493d2ddeb4ada105faf3033893ca198
+  index:
+  - P19579
+  - P19580
+  - P19581
+  - P19582
+  - P19583
+  - P10769
+- g1t: T2-41
+  concept: bcoc:InterestRateRiskManagement
+  class: bco:InterestRateRiskManagement
+  label: Interest Rate Risk Management
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-41
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: 274a45072c919794f6bf8c82d851ab94955a303db777afdbb5fa89864c3e40c9
+  index:
+  - P19575
+  - P19576
+  - P19577
+  - P19578
+- g1t: T2-01
+  concept: bcoc:PaymentProcessing
+  class: bco:PaymentProcessing
+  label: Payment Processing
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-01
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: daea7d6c004030621483dd05fd2e3e7e817ddd225cac55a1b5d4a5fd4731a081
+  index:
+  - P10862
+  - P10876
+- g1t: T2-03
+  concept: bcoc:ExpenseReimbursementProcessing
+  class: bco:ExpenseReimbursementProcessing
+  label: Expense Reimbursement Processing
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-03
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: 8987978e0bf5f2fdb87b4431ea2500d7bef6f2119415a18bd1975c6209fa0d87
+  index:
+  - P10881
+  - P10883
+  - P10884
+- g1t: T2-05
+  concept: bcoc:CapitalProjectAccounting
+  class: bco:CapitalProjectAccounting
+  label: Capital Project Accounting
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-05
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: 9a41381d4c1fbfc86412753f330602b139644ea4b8d5263cdea61200469db915
+  index:
+  - P10848
+  - P10849
+  - P10850
+  - P10851
+- g1t: T2-07
+  concept: bcoc:AccountingPolicyManagement
+  class: bco:AccountingPolicyManagement
+  label: Accounting Policy Management
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-07
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: e4b4f0aa8ca7f1fadb6f3f14ce41b0522caf8e20cb44eaf32d6cb5e31cd3fef5
+  index:
+  - P10816
+  - P20604
+- g1t: T2-11
+  concept: bcoc:LetterOfCreditManagement
+  class: bco:LetterOfCreditManagement
+  label: Letter of Credit Management
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-11
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: 33ef90f2c43d8788d679e30dfee187a9604ddef286725a8e11868599b5d54711
+  index:
+  - P14098
+- g1t: T2-14
+  concept: bcoc:TradeDocumentation
+  class: bco:TradeDocumentation
+  label: Trade and Customs Documentation
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-14
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: d5db68e30409c5a92d66b67af64bccb3538970cbc392a929b87af1582b0a4b2e
+  index:
+  - P14095
+  - P14094
+  - P19593
+  - P14093
+- g1t: T2-20
+  concept: bcoc:PayManagement
+  class: bco:PayManagement
+  label: Pay Management
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-20
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: ac7202489c6ed17bad3673841de5748f7712d7d5efebbaf7202f8ae12312f46d
+  index:
+  - P10858
+  - P10859
+  - P10860
+  - P10861
+  - P10862
+  - P10863
+  - P10864
+  - P10865
+- g1t: T2-21
+  concept: bcoc:PayrollTaxProcessing
+  class: bco:PayrollTaxProcessing
+  label: Payroll Tax Processing
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-21
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: c044f73d0943b84f5affc5a5d133b45e4b219fb2f21ce7d6728d97f728f66d70
+  index:
+  - P10866
+  - P10867
+  - P10868
+- g1t: T2-23
+  concept: bcoc:CostAccounting
+  class: bco:CostAccounting
+  label: Cost Accounting
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-23
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: 3675f36e660957fa2a8dba61af0b15a11fbb42324b6fdc3d8a7613a6b8df684c
+  index:
+  - P10774
+  - P10775
+  - P10776
+  - P10777
+- g1t: T2-26
+  concept: bcoc:FinancialPlanningBudgetingAndForecasting
+  class: bco:FinancialPlanningBudgetingAndForecasting
+  label: Financial Planning, Budgeting and Forecasting
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-26
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: d24cefca10738718f9d013928ca67d5084a47eb765527e8c712fde8d9d906642
+  index:
+  - P10772
+  - P10773
+  - P20136
+- g1t: T2-32
+  concept: bcoc:CustomerInvoicing
+  class: bco:CustomerInvoicing
+  label: Customer Invoicing
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-32
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: 092b0d0ab20129442ab9e02309e5257d99d310055215346e8f026f7844b143e9
+  index:
+  - P10794
+  - P10795
+  - P10796
+  - P10797
+  - P10798
+- g1t: T2-33
+  concept: bcoc:TaxPlanning
+  class: bco:TaxPlanning
+  label: Tax Planning
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-33
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: 48d1d244d6c7d1856293d3e4a3175d3ef1cded68cc3a7762c07e3938ac7e053c
+  index:
+  - P10927
+  - P10928
+- g1t: T2-35
+  concept: bcoc:CashManagement
+  class: bco:CashManagement
+  label: Cash Management
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-35
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: f6a47b9b2f0701cd2ad100be024ed9c625ae964710f5da9537cf4239385dff8f
+  index:
+  - P10893
+  - P10895
+  - P10898
+- g1t: T2-38
+  concept: bcoc:CounterpartyCreditExposureManagement
+  class: bco:CounterpartyCreditExposureManagement
+  label: Counterparty Credit Exposure Management
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-38
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: eb9144e87f75cc267eded102d57ac4b62f257bc74e7b5b89c95f03b5ada7a7ee
+  index:
+  - P19584
+  - P19585
+  - P19586
+  - P19587
+- g1t: T2-40
+  concept: bcoc:HedgingTransactionExecution
+  class: bco:HedgingTransactionExecution
+  label: Hedging Transaction Execution
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-40
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: 8cddd97309477f744e505c4103da61b63a186a8ab3cc22dd217dbaf697e34a9f
+  index:
+  - P19588
+  - P19589
+  - P19590
+  - P11213
+- g1t: T2-42
+  concept: bcoc:TreasuryPolicyManagement
+  class: bco:TreasuryPolicyManagement
+  label: Treasury Policy Management
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-42
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: 08579dbf7b83f4269ee0226be37629d212633aca89102369032aed7687ef0a19
+  index:
+  - P10886
+  - P10887
+  - P10888
+  - P10889
+  - P10890
+- g1t: T2-04
+  concept: bcoc:CapitalInvestmentAppraisal
+  class: bco:CapitalInvestmentAppraisal
+  label: Capital Investment Appraisal
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-04
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: 5abaec58e928e27020f1922e1dcf494b1d09b7264299f549fef5365fe80547e9
+  index:
+  - P10847
+- g1t: T2-17
+  concept: bcoc:ControlEnvironmentAndRiskObjectiveFormulation
+  class: bco:ControlEnvironmentAndRiskObjectiveFormulation
+  label: Control Environment and Risk Objective Formulation
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-17
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: f2d245a014d678d65f0968ffa83db6c31246be8212c08dd804fc6ec03845520f
+  index:
+  - P10915
+  - P11250
+  - P11251
+- g1t: T2-43
+  concept: bcoc:InternalControlEffectivenessMonitoring
+  class: bco:InternalControlEffectivenessMonitoring
+  label: Internal Control Effectiveness Monitoring
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-43
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: 706f8aeaeba1a1663ae2c180f9c5925a70fd6bb84054b3047dc082bd3abb2156
+  index:
+  - P10918
+- g1t: T2-25
+  concept: bcoc:FinancialPerformanceAnalysis
+  class: bco:FinancialPerformanceAnalysis
+  label: Financial Performance Analysis
+  signed_record:
+    path: docs/catalog/admission/G1T-T2-batch.md
+    commit: 1fdb2c552ae1a1ffd77e7908fab58fab0712d6ba
+    section: T2-25
+    sha256: b44ec9ea2af76a9cbf48fcb125a94b93c88076475603532bf23fc32106bd90ef
+  concept_record_sha256: d72a4c76071b6c3fb585f287d5e4ba4f9f1ad290103d9f17ab17534878e3eab7
+  index:
+  - P10782
+  - P10783
+  - P10784
+  - P10787

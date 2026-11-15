@@ -352,6 +352,7 @@ TARGET_FILTERS = [
     ("validation.vocabulary", 2),
     ("validation.vocabulary", 3),
     ("validation.vocabulary", 4),
+    ("validation.stage05", 0),
 ]
 NEGATIVE_FILTERS = [("validation.vocabulary", 0)]
 

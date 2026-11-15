@@ -8,14 +8,36 @@
 #   sha256      a8119728796872a1814aace8130a32cc8e42961b0bd5feaa28b736d60a0cc6fd
 #   licence     MIT (https://github.com/Skreen5hot/BusinessProcessOntology/blob/bc64e91839378e1926189c01bf184d6a22d5c1b7/LICENSE)
 #   as stated   MIT License (https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/LICENSE)
+#   also        https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/ontology/slices/apqc_9_0.ttl
+#   sha256      a7247e5f0836bd27895d19c9e18bd2237b9ec44e2b5140f897001c612e12df6d
+#   taking      subjects matching ^https://fandaws\.com/ontology/bpo#P[0-9]+$
+#   only        http://www.w3.org/1999/02/22-rdf-syntax-ns#type
+#   only        http://www.w3.org/2000/01/rdf-schema#subClassOf
+#   also        https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/ontology/slices/apqc_12_0.ttl
+#   sha256      827e94b61f0054bd6d56212967e41f5ce6a2022a7a7a86a33570f47bc2fdbfec
+#   taking      subjects matching ^https://fandaws\.com/ontology/bpo#P[0-9]+$
+#   only        http://www.w3.org/1999/02/22-rdf-syntax-ns#type
+#   only        http://www.w3.org/2000/01/rdf-schema#subClassOf
+#   also        https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/ontology/capabilities_roles.ttl
+#   sha256      6a8aeaf8c3c4b94119399b9ae593538fecbf79ce01f517577c96d5997419ed7d
+#   taking      subjects matching ^https://fandaws\.com/ontology/bpo#enablesProcess$
 #
 # Business Process Ontology (BPO). Copyright (c) 2026 Aaron Damiano, licensed under the MIT License; the full licence text is at the licence url above, at the pinned commit.
 #
-# This is not Business Process Ontology. It carries 6 terms described in full and 0
+# APQC Process Classification Framework (PCF) material: the act class IRIs
+# taken from BPO's slices (bpo:P<id>) embed PCF 7.4 element IDs, as
+# identifiers. The acts' names and descriptions, which derive from PCF
+# element names and descriptions, are not included: they may be published
+# only from a BPO commit that carries BPO's NOTICE.md (decision of
+# 2026-10-29), and this pin (bc64e91) does not. APQC's notice is
+# reproduced in NOTICE.md at the root of this repository. APQC does not
+# endorse this work.
+#
+# This is not Business Process Ontology. It carries 161 terms described in full and 0
 # declared as stubs, selected because this repository names them or
 # because a selected term's ancestry passes through them.
 #
-# 0 axioms about the selected terms were dropped: every one whose
+# 248 axioms about the selected terms were dropped: every one whose
 # object is an anonymous class expression. A reasoner over this file
 # therefore derives less than one over the upstream, and it cannot be
 # used to claim consistency with Business Process Ontology.
@@ -34,11 +56,17 @@
 <https://fandaws.com/ontology/bco/vendor/bpo-ext-bco-extract> dcterms:source <https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/ontology/apqc-ext.ttl> .
 <https://fandaws.com/ontology/bco/vendor/bpo-ext-bco-extract> owl:versionInfo "Business Process Ontology v0.4.1 (main@bc64e91), partial extract for the Business Capability Ontology"@en .
 <https://fandaws.com/ontology/bco/vendor/bpo-ext-bco-extract> rdf:type owl:Ontology .
-<https://fandaws.com/ontology/bco/vendor/bpo-ext-bco-extract> rdfs:comment "Partial extract, not the upstream ontology. 0 axioms whose object is an anonymous class expression were dropped, so a reasoner over this file derives less than one over Business Process Ontology and cannot be used to claim consistency with it. Upstream licence as stated by the source: MIT License (https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/LICENSE)"@en .
+<https://fandaws.com/ontology/bco/vendor/bpo-ext-bco-extract> rdfs:comment "Partial extract, not the upstream ontology. 248 axioms whose object is an anonymous class expression were dropped, so a reasoner over this file derives less than one over Business Process Ontology and cannot be used to claim consistency with it. Upstream licence as stated by the source: MIT License (https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/LICENSE)"@en .
 
 dcterms:license rdf:type owl:AnnotationProperty .
 
 dcterms:source rdf:type owl:AnnotationProperty .
+
+ex:ActOfAccounting rdf:type owl:Class .
+ex:ActOfAccounting rdfs:comment "PROPOSE-EXT (D9). CCO 2.0 has no generic bookkeeping/record-keeping class; recording and reconciling transactions manipulates input ICEs into an updated record ICE, so it anchors under cco:ont00000366 (Act of Information Processing), per the GOLDEN PRINCIPLE. Rejected cco:ont00000950 'Act of Maintenance' (modifies Material Artifacts, not records). Distinct from bpo:ActOfFinancialTransaction (which moves the money itself). Recurs in accounting categories (9.0; likely 8.0)." .
+ex:ActOfAccounting rdfs:label "Act of Accounting" .
+ex:ActOfAccounting rdfs:subClassOf cco:ont00000366 .
+ex:ActOfAccounting skos:definition "An Act of Information Processing in which an Agent records, classifies, posts, or reconciles financial transactions and produces or updates a Descriptive Information Content Entity (such as a ledger, journal, or account record) that registers the organization's financial state." .
 
 ex:ActOfAcquisition rdf:type owl:Class .
 ex:ActOfAcquisition rdfs:comment "Local extension (D9). Rejected cco:ont00000950 'Act of Maintenance' (modifying Material Artifacts) and cco:ont00000402 'Act of Communication' (mere ICE transfer). Securing/obtaining a held entity anchors at the generic Planned Act. Expected to recur in procurement/asset-acquisition categories (4.0, 10.0)." .
@@ -46,17 +74,42 @@ ex:ActOfAcquisition rdfs:label "Act of Acquisition" .
 ex:ActOfAcquisition rdfs:subClassOf cco:ont00000228 .
 ex:ActOfAcquisition skos:definition "A Planned Act in which an Agent obtains from some authority or supplier an entity (such as an authorization, license, or resource) that the Agent did not previously hold." .
 
+ex:ActOfAnalysis rdf:type owl:Class .
+ex:ActOfAnalysis rdfs:comment "Local extension (D9). CCO 2.0 has no generic analysis class; analysis is information processing, so it is anchored under cco:ont00000366." .
+ex:ActOfAnalysis rdfs:label "Act of Analysis" .
+ex:ActOfAnalysis rdfs:subClassOf cco:ont00000366 .
+ex:ActOfAnalysis skos:definition "An Act of Information Processing in which an Agent examines one or more input Information Content Entities and produces an Information Content Entity that represents an understanding of their subject matter." .
+
 ex:ActOfDevelopment rdf:type owl:Class .
 ex:ActOfDevelopment rdfs:comment "PROPOSE-EXT (D9). Anchored at the generic cco:ont00000228 (Planned Act) because development spans both informational and material outputs (new technologies, software/hardware components, prototypes, delivery processes) and is broader than cco:ont00001359 (Act of Manufacturing, mass production) and cco:ont00000051 (Act of Construction, building to contract); a development act whose product is specifically a built/mass-produced material artifact should instead use those narrower CCO acts, attaching the material product via obo:BFO_0000057 (has participant), not has output (reserved for ICEs). Recurs across develop/build categories (2.0, 4.0, 8.0)." .
 ex:ActOfDevelopment rdfs:label "Act of Development" .
 ex:ActOfDevelopment rdfs:subClassOf cco:ont00000228 .
 ex:ActOfDevelopment skos:definition "A Planned Act in which an Agent brings a novel product, service, solution, technology, component, prototype, or process from a specification or concept into an existent realized state." .
 
+ex:ActOfFinancialTransaction rdf:type owl:Class .
+ex:ActOfFinancialTransaction rdfs:comment "PROPOSE-EXT (D9). Re-anchored from the bare cco:ont00000228 to cco:ont00000836 (Act of Financial Instrument Use): every subclass uses/transfers a Financial Instrument (money and cash are Financial Instruments in CCO -- cf. Portion of Cash cco:ont00000475 subClassOf 537), and CCO models settlements, loans, purchases, deposits, withdrawals and exchanges uniformly under 836. Rejected cco:ont00001334 'Act of Purchasing' and cco:ont00000389 'Act of Buying' (both acquire a good/service -- too narrow) and cco:ont00000366 'Act of Information Processing' (a payment moves a material/financial-instrument filler, not only an ICE). cco:ont00000228 co-asserted because 836 falls outside the S2 standalone-SHACL allowlist. Recurs in payment/treasury/trade categories (9.0)." .
+ex:ActOfFinancialTransaction rdfs:label "Act of Financial Transaction" .
+ex:ActOfFinancialTransaction rdfs:subClassOf cco:ont00000228 .
+ex:ActOfFinancialTransaction rdfs:subClassOf cco:ont00000836 .
+ex:ActOfFinancialTransaction skos:definition "A Planned Act in which an Agent transfers or uses money or a Financial Instrument to or from another Agent in settlement of an obligation, an investment, or an exchange." .
+
+ex:ActOfFormulation rdf:type owl:Class .
+ex:ActOfFormulation rdfs:comment "Local extension (D9). Anchored under cco:ont00000511 (Act of Planning) because formulating a strategy/mission/design is making a plan to achieve an objective; its output is a Directive ICE. Recurs across develop/define/compose-a-directive processes corpus-wide." .
+ex:ActOfFormulation rdfs:label "Act of Formulation" .
+ex:ActOfFormulation rdfs:subClassOf cco:ont00000511 .
+ex:ActOfFormulation skos:definition "An Act of Planning in which an Agent composes and articulates a Directive Information Content Entity - such as a mission, strategy, objective, design, roadmap, or business model - that prescribes an organization's intended course of action." .
+
 ex:ActOfImprovement rdf:type owl:Class .
 ex:ActOfImprovement rdfs:comment "PROPOSE-EXT (D9). Anchored under cco:ont00000228 (Planned Act): it alters an existing occurrent-type or system rather than merely processing information or composing a new plan. Distinct from bpo:ActOfImplementation (enacts a fixed directive). Rejected cco:ont00000950 'Act of Maintenance' (restores/preserves a Material Artifact's designed Qualities/Functions, whereas improvement raises performance of a process/system). Recurs in improve/reengineer/enhance/sustain processes (13.0)." .
 ex:ActOfImprovement rdfs:label "Act of Improvement" .
 ex:ActOfImprovement rdfs:subClassOf cco:ont00000228 .
 ex:ActOfImprovement skos:definition "A Planned Act in which an Agent modifies an existing process, system, or capability with the intent of raising its performance, quality, or fitness against stated objectives." .
+
+ex:ActOfMonitoring rdf:type owl:Class .
+ex:ActOfMonitoring rdfs:comment "PROPOSE-EXT (D9). CCO 2.0 has no generic monitoring/tracking class. Anchored under cco:ont00000366 (Act of Information Processing) because monitoring ingests repeated observations (including electronic records, not only senses) and yields a descriptive status/deviation ICE -- the GOLDEN PRINCIPLE (descriptive output => information-processing genus) holds. Rejected cco:ont00000037 (Act of Observation: a single sense-based acquisition, too narrow -- monitoring also processes ICEs and is sustained); cco:ont00000636 (Act of Appraisal: renders a single bounded value/quality judgement rather than tracking status over time); and cco:ont00000345 (Act of Measuring: a single quantification against a standard at one time -- at most a method sub-step of the monitoring cycle; a node that is purely one quantification, e.g. Calculate performance measures, anchors to cco:ont00000345 directly, not here). Distinct from bpo:ActOfAnalysis (one-shot examination of a fixed input set) by its continuous, longitudinal character. A standing 'Manage/Monitor X' function with no natural end is an Organization Capability (cco:ont00000568) realized in such acts, not itself a process. Recurs corpus-wide (slices 3.0/4.0/5.0/6.0/8.0/9.0/10.0/11.0/12.0/13.0). Reconciled from 10 divergent slice restatements to one definition." .
+ex:ActOfMonitoring rdfs:label "Act of Monitoring" .
+ex:ActOfMonitoring rdfs:subClassOf cco:ont00000366 .
+ex:ActOfMonitoring skos:definition "An Act of Information Processing in which an Agent repeatedly or continuously observes the state, progress, or performance of some process, system, or quantity over time and produces a Descriptive Information Content Entity that represents its tracked status against expected conditions, targets, or requirements." .
 
 ex:ActOfOrganizationalEstablishment rdf:type owl:Class .
 ex:ActOfOrganizationalEstablishment rdfs:comment "PROPOSE-EXT (D9). CCO 2.0 has no Act-of-Establishment/Organization class (verified: no 'Act of Establish/Organiz/Constitut/Found' label in the closure). REJECTED bpo:ActOfFormulation (Act of Planning): formulating composes a Directive ICE, but establishing a committee primarily constitutes an independent continuant (the body) rather than authoring a directive; the responsibility-assignment directive is a downstream byproduct of seating the body, not the act's primary product. Anchored at the generic cco:ont00000228 (Planned Act). Recurs in 9.0." .
@@ -77,3 +130,460 @@ ex:ActOfReporting rdfs:label "Act of Reporting" .
 ex:ActOfReporting rdfs:subClassOf cco:ont00000228 .
 ex:ActOfReporting rdfs:subClassOf cco:ont00000379 .
 ex:ActOfReporting skos:definition "An Act of Representative Communication in which an Agent transfers to one or more recipients a Descriptive Information Content Entity (such as a report, statement, scorecard, or filing) that asserts, as true, a representation of an organization's condition or results." .
+
+ex:ActOfSelection rdf:type owl:Class .
+ex:ActOfSelection rdfs:comment "Local extension (D9). Anchored under cco:ont00000366 (Act of Information Processing): receives candidate-option ICEs and yields a decision ICE. Distinct from Act of Appraisal (judges without committing) and Act of Planning. NOTE: ratifying a single already-settled option is NOT selection (no candidate set) -- anchor such acts at cco:ont00000228 (Planned Act)." .
+ex:ActOfSelection rdfs:label "Act of Selection" .
+ex:ActOfSelection rdfs:subClassOf cco:ont00000366 .
+ex:ActOfSelection skos:definition "An Act of Information Processing in which an Agent chooses one or more options from a set of candidates and produces a Directive Information Content Entity that prescribes the chosen option(s)." .
+
+ex:P10729 rdf:type owl:Class .
+ex:P10729 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10767 rdf:type owl:Class .
+ex:P10767 rdfs:subClassOf ex:ActOfMonitoring .
+
+ex:P10768 rdf:type owl:Class .
+ex:P10768 rdfs:subClassOf ex:ActOfFinancialTransaction .
+
+ex:P10769 rdf:type owl:Class .
+ex:P10769 rdfs:subClassOf ex:ActOfAnalysis .
+
+ex:P10770 rdf:type owl:Class .
+ex:P10770 rdfs:subClassOf ex:ActOfReporting .
+
+ex:P10772 rdf:type owl:Class .
+ex:P10772 rdfs:subClassOf ex:ActOfFormulation .
+
+ex:P10773 rdf:type owl:Class .
+ex:P10773 rdfs:subClassOf cco:ont00000371 .
+
+ex:P10774 rdf:type owl:Class .
+ex:P10774 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10775 rdf:type owl:Class .
+ex:P10775 rdfs:subClassOf ex:ActOfAnalysis .
+
+ex:P10776 rdf:type owl:Class .
+ex:P10776 rdfs:subClassOf ex:ActOfAnalysis .
+
+ex:P10777 rdf:type owl:Class .
+ex:P10777 rdfs:subClassOf ex:ActOfAnalysis .
+
+ex:P10782 rdf:type owl:Class .
+ex:P10782 rdfs:subClassOf cco:ont00000636 .
+
+ex:P10783 rdf:type owl:Class .
+ex:P10783 rdfs:subClassOf cco:ont00000636 .
+
+ex:P10784 rdf:type owl:Class .
+ex:P10784 rdfs:subClassOf ex:ActOfAnalysis .
+
+ex:P10787 rdf:type owl:Class .
+ex:P10787 rdfs:subClassOf ex:ActOfAnalysis .
+
+ex:P10794 rdf:type owl:Class .
+ex:P10794 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10795 rdf:type owl:Class .
+ex:P10795 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10796 rdf:type owl:Class .
+ex:P10796 rdfs:subClassOf cco:ont00000402 .
+
+ex:P10797 rdf:type owl:Class .
+ex:P10797 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10798 rdf:type owl:Class .
+ex:P10798 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10800 rdf:type owl:Class .
+ex:P10800 rdfs:subClassOf ex:ActOfFinancialTransaction .
+
+ex:P10801 rdf:type owl:Class .
+ex:P10801 rdfs:subClassOf ex:ActOfFinancialTransaction .
+
+ex:P10802 rdf:type owl:Class .
+ex:P10802 rdfs:subClassOf ex:ActOfReporting .
+
+ex:P10803 rdf:type owl:Class .
+ex:P10803 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10805 rdf:type owl:Class .
+ex:P10805 rdfs:subClassOf ex:ActOfAnalysis .
+
+ex:P10806 rdf:type owl:Class .
+ex:P10806 rdfs:subClassOf ex:ActOfFormulation .
+
+ex:P10807 rdf:type owl:Class .
+ex:P10807 rdfs:subClassOf ex:ActOfFormulation .
+
+ex:P10808 rdf:type owl:Class .
+ex:P10808 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10810 rdf:type owl:Class .
+ex:P10810 rdfs:subClassOf ex:ActOfAnalysis .
+
+ex:P10811 rdf:type owl:Class .
+ex:P10811 rdfs:subClassOf ex:ActOfFormulation .
+
+ex:P10812 rdf:type owl:Class .
+ex:P10812 rdfs:subClassOf ex:ActOfFormulation .
+
+ex:P10813 rdf:type owl:Class .
+ex:P10813 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10814 rdf:type owl:Class .
+ex:P10814 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10816 rdf:type owl:Class .
+ex:P10816 rdfs:subClassOf ex:ActOfFormulation .
+
+ex:P10819 rdf:type owl:Class .
+ex:P10819 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10820 rdf:type owl:Class .
+ex:P10820 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10821 rdf:type owl:Class .
+ex:P10821 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10822 rdf:type owl:Class .
+ex:P10822 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10823 rdf:type owl:Class .
+ex:P10823 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10824 rdf:type owl:Class .
+ex:P10824 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10825 rdf:type owl:Class .
+ex:P10825 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10826 rdf:type owl:Class .
+ex:P10826 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10827 rdf:type owl:Class .
+ex:P10827 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10829 rdf:type owl:Class .
+ex:P10829 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10830 rdf:type owl:Class .
+ex:P10830 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10831 rdf:type owl:Class .
+ex:P10831 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10832 rdf:type owl:Class .
+ex:P10832 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10833 rdf:type owl:Class .
+ex:P10833 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10834 rdf:type owl:Class .
+ex:P10834 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10835 rdf:type owl:Class .
+ex:P10835 rdfs:subClassOf ex:ActOfMonitoring .
+
+ex:P10836 rdf:type owl:Class .
+ex:P10836 rdfs:subClassOf ex:ActOfReporting .
+
+ex:P10837 rdf:type owl:Class .
+ex:P10837 rdfs:subClassOf ex:ActOfReporting .
+
+ex:P10838 rdf:type owl:Class .
+ex:P10838 rdfs:subClassOf ex:ActOfReporting .
+
+ex:P10839 rdf:type owl:Class .
+ex:P10839 rdfs:subClassOf ex:ActOfReporting .
+
+ex:P10840 rdf:type owl:Class .
+ex:P10840 rdfs:subClassOf ex:ActOfReporting .
+
+ex:P10841 rdf:type owl:Class .
+ex:P10841 rdfs:subClassOf ex:ActOfReporting .
+
+ex:P10842 rdf:type owl:Class .
+ex:P10842 rdfs:subClassOf ex:ActOfReporting .
+
+ex:P10843 rdf:type owl:Class .
+ex:P10843 rdfs:subClassOf ex:ActOfReporting .
+
+ex:P10847 rdf:type owl:Class .
+ex:P10847 rdfs:subClassOf cco:ont00000636 .
+
+ex:P10848 rdf:type owl:Class .
+ex:P10848 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10849 rdf:type owl:Class .
+ex:P10849 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10850 rdf:type owl:Class .
+ex:P10850 rdfs:subClassOf ex:ActOfMonitoring .
+
+ex:P10851 rdf:type owl:Class .
+ex:P10851 rdfs:subClassOf ex:ActOfSelection .
+
+ex:P10854 rdf:type owl:Class .
+ex:P10854 rdfs:subClassOf cco:ont00000366 .
+
+ex:P10855 rdf:type owl:Class .
+ex:P10855 rdfs:subClassOf ex:ActOfAnalysis .
+
+ex:P10856 rdf:type owl:Class .
+ex:P10856 rdfs:subClassOf ex:ActOfMonitoring .
+
+ex:P10857 rdf:type owl:Class .
+ex:P10857 rdfs:subClassOf ex:ActOfAnalysis .
+
+ex:P10858 rdf:type owl:Class .
+ex:P10858 rdfs:subClassOf cco:ont00000366 .
+
+ex:P10859 rdf:type owl:Class .
+ex:P10859 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10860 rdf:type owl:Class .
+ex:P10860 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10861 rdf:type owl:Class .
+ex:P10861 rdfs:subClassOf ex:ActOfMonitoring .
+
+ex:P10862 rdf:type owl:Class .
+ex:P10862 rdfs:subClassOf ex:ActOfRemuneration .
+
+ex:P10863 rdf:type owl:Class .
+ex:P10863 rdfs:subClassOf ex:ActOfFinancialTransaction .
+
+ex:P10864 rdf:type owl:Class .
+ex:P10864 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10865 rdf:type owl:Class .
+ex:P10865 rdfs:subClassOf cco:ont00000366 .
+
+ex:P10866 rdf:type owl:Class .
+ex:P10866 rdfs:subClassOf ex:ActOfFinancialTransaction .
+
+ex:P10867 rdf:type owl:Class .
+ex:P10867 rdfs:subClassOf ex:ActOfReporting .
+
+ex:P10868 rdf:type owl:Class .
+ex:P10868 rdfs:subClassOf ex:ActOfReporting .
+
+ex:P10869 rdf:type owl:Class .
+ex:P10869 rdfs:subClassOf cco:ont00000636 .
+
+ex:P10871 rdf:type owl:Class .
+ex:P10871 rdfs:subClassOf cco:ont00000636 .
+
+ex:P10873 rdf:type owl:Class .
+ex:P10873 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10875 rdf:type owl:Class .
+ex:P10875 rdfs:subClassOf cco:ont00000366 .
+
+ex:P10876 rdf:type owl:Class .
+ex:P10876 rdfs:subClassOf ex:ActOfFinancialTransaction .
+
+ex:P10877 rdf:type owl:Class .
+ex:P10877 rdfs:subClassOf cco:ont00000228 .
+ex:P10877 rdfs:subClassOf cco:ont00000402 .
+
+ex:P10879 rdf:type owl:Class .
+ex:P10879 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10881 rdf:type owl:Class .
+ex:P10881 rdfs:subClassOf ex:ActOfReporting .
+
+ex:P10883 rdf:type owl:Class .
+ex:P10883 rdfs:subClassOf ex:ActOfFinancialTransaction .
+
+ex:P10884 rdf:type owl:Class .
+ex:P10884 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10886 rdf:type owl:Class .
+ex:P10886 rdfs:subClassOf ex:ActOfFormulation .
+
+ex:P10887 rdf:type owl:Class .
+ex:P10887 rdfs:subClassOf ex:ActOfFormulation .
+
+ex:P10888 rdf:type owl:Class .
+ex:P10888 rdfs:subClassOf ex:ActOfMonitoring .
+
+ex:P10889 rdf:type owl:Class .
+ex:P10889 rdfs:subClassOf cco:ont00000636 .
+
+ex:P10890 rdf:type owl:Class .
+ex:P10890 rdfs:subClassOf ex:ActOfFormulation .
+
+ex:P10893 rdf:type owl:Class .
+ex:P10893 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10895 rdf:type owl:Class .
+ex:P10895 rdfs:subClassOf ex:ActOfFinancialTransaction .
+
+ex:P10898 rdf:type owl:Class .
+ex:P10898 rdfs:subClassOf ex:ActOfReporting .
+
+ex:P10902 rdf:type owl:Class .
+ex:P10902 rdfs:subClassOf cco:ont00000228 .
+ex:P10902 rdfs:subClassOf cco:ont00000884 .
+
+ex:P10903 rdf:type owl:Class .
+ex:P10903 rdfs:subClassOf ex:ActOfFinancialTransaction .
+
+ex:P10904 rdf:type owl:Class .
+ex:P10904 rdfs:subClassOf ex:ActOfFinancialTransaction .
+
+ex:P10905 rdf:type owl:Class .
+ex:P10905 rdfs:subClassOf ex:ActOfFinancialTransaction .
+
+ex:P10906 rdf:type owl:Class .
+ex:P10906 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10907 rdf:type owl:Class .
+ex:P10907 rdfs:subClassOf cco:ont00000402 .
+
+ex:P10915 rdf:type owl:Class .
+ex:P10915 rdfs:subClassOf ex:ActOfFormulation .
+
+ex:P10918 rdf:type owl:Class .
+ex:P10918 rdfs:subClassOf ex:ActOfMonitoring .
+
+ex:P10923 rdf:type owl:Class .
+ex:P10923 rdfs:subClassOf cco:ont00000402 .
+
+ex:P10924 rdf:type owl:Class .
+ex:P10924 rdfs:subClassOf cco:ont00000402 .
+
+ex:P10925 rdf:type owl:Class .
+ex:P10925 rdfs:subClassOf cco:ont00000402 .
+
+ex:P10926 rdf:type owl:Class .
+ex:P10926 rdfs:subClassOf cco:ont00000402 .
+
+ex:P10927 rdf:type owl:Class .
+ex:P10927 rdfs:subClassOf ex:ActOfFormulation .
+
+ex:P10928 rdf:type owl:Class .
+ex:P10928 rdfs:subClassOf ex:ActOfFormulation .
+
+ex:P10931 rdf:type owl:Class .
+ex:P10931 rdfs:subClassOf ex:ActOfReporting .
+
+ex:P10932 rdf:type owl:Class .
+ex:P10932 rdfs:subClassOf ex:ActOfReporting .
+
+ex:P10933 rdf:type owl:Class .
+ex:P10933 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10934 rdf:type owl:Class .
+ex:P10934 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P10935 rdf:type owl:Class .
+ex:P10935 rdfs:subClassOf ex:ActOfMonitoring .
+
+ex:P10936 rdf:type owl:Class .
+ex:P10936 rdfs:subClassOf ex:ActOfReporting .
+
+ex:P11042 rdf:type owl:Class .
+ex:P11042 rdfs:subClassOf ex:ActOfReporting .
+
+ex:P11213 rdf:type owl:Class .
+ex:P11213 rdfs:subClassOf ex:ActOfSelection .
+
+ex:P11250 rdf:type owl:Class .
+ex:P11250 rdfs:subClassOf ex:ActOfFormulation .
+
+ex:P11251 rdf:type owl:Class .
+ex:P11251 rdfs:subClassOf ex:ActOfFormulation .
+
+ex:P14007 rdf:type owl:Class .
+ex:P14007 rdfs:subClassOf ex:ActOfFormulation .
+
+ex:P14074 rdf:type owl:Class .
+ex:P14074 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P14090 rdf:type owl:Class .
+ex:P14090 rdfs:subClassOf cco:ont00000636 .
+
+ex:P14092 rdf:type owl:Class .
+ex:P14092 rdfs:subClassOf ex:ActOfAnalysis .
+
+ex:P14093 rdf:type owl:Class .
+ex:P14093 rdfs:subClassOf ex:ActOfAccounting .
+
+ex:P14094 rdf:type owl:Class .
+ex:P14094 rdfs:subClassOf cco:ont00000228 .
+ex:P14094 rdfs:subClassOf cco:ont00000402 .
+
+ex:P14095 rdf:type owl:Class .
+ex:P14095 rdfs:subClassOf ex:ActOfReporting .
+
+ex:P14096 rdf:type owl:Class .
+ex:P14096 rdfs:subClassOf ex:ActOfReporting .
+
+ex:P14098 rdf:type owl:Class .
+ex:P14098 rdfs:subClassOf ex:ActOfFormulation .
+
+ex:P19575 rdf:type owl:Class .
+ex:P19575 rdfs:subClassOf ex:ActOfMonitoring .
+
+ex:P19576 rdf:type owl:Class .
+ex:P19576 rdfs:subClassOf ex:ActOfAnalysis .
+
+ex:P19577 rdf:type owl:Class .
+ex:P19577 rdfs:subClassOf ex:ActOfSelection .
+
+ex:P19578 rdf:type owl:Class .
+ex:P19578 rdfs:subClassOf ex:ActOfFinancialTransaction .
+
+ex:P19579 rdf:type owl:Class .
+ex:P19579 rdfs:subClassOf ex:ActOfMonitoring .
+
+ex:P19580 rdf:type owl:Class .
+ex:P19580 rdfs:subClassOf ex:ActOfAnalysis .
+
+ex:P19581 rdf:type owl:Class .
+ex:P19581 rdfs:subClassOf ex:ActOfSelection .
+
+ex:P19582 rdf:type owl:Class .
+ex:P19582 rdfs:subClassOf ex:ActOfFinancialTransaction .
+
+ex:P19583 rdf:type owl:Class .
+ex:P19583 rdfs:subClassOf ex:ActOfMonitoring .
+
+ex:P19584 rdf:type owl:Class .
+ex:P19584 rdfs:subClassOf ex:ActOfAnalysis .
+
+ex:P19585 rdf:type owl:Class .
+ex:P19585 rdfs:subClassOf ex:ActOfSelection .
+
+ex:P19586 rdf:type owl:Class .
+ex:P19586 rdfs:subClassOf ex:ActOfFinancialTransaction .
+
+ex:P19587 rdf:type owl:Class .
+ex:P19587 rdfs:subClassOf cco:ont00000636 .
+
+ex:P19588 rdf:type owl:Class .
+ex:P19588 rdfs:subClassOf cco:ont00000636 .
+
+ex:P19589 rdf:type owl:Class .
+ex:P19589 rdfs:subClassOf ex:ActOfSelection .
+
+ex:P19590 rdf:type owl:Class .
+ex:P19590 rdfs:subClassOf ex:ActOfFinancialTransaction .
+
+ex:P19593 rdf:type owl:Class .
+ex:P19593 rdfs:subClassOf ex:ActOfAnalysis .
+
+ex:P20136 rdf:type owl:Class .
+ex:P20136 rdfs:subClassOf ex:ActOfAnalysis .
+
+ex:P20604 rdf:type owl:Class .
+ex:P20604 rdfs:subClassOf cco:ont00000402 .
+
+ex:enablesProcess rdf:type owl:AnnotationProperty .
+ex:enablesProcess rdfs:comment "Capability -> process class whose execution it enables. Operational inverse of bpo:requiresCapability; BFO grounding is 'has realization' (a capability is realized in such processes). Used for authoring scope and wiring-coherence checks." .
+ex:enablesProcess rdfs:label "enables process" .

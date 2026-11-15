@@ -11,7 +11,7 @@
 #
 # Common Core Ontologies v2.0. Copyright (c) 2017 CUBRC, Inc., licensed BSD-3-Clause.
 #
-# This is not Common Core Ontologies. It carries 43 terms described in full and 4
+# This is not Common Core Ontologies. It carries 49 terms described in full and 4
 # declared as stubs, selected because this repository names them or
 # because a selected term's ancestry passes through them.
 #
@@ -61,6 +61,32 @@ cco:ont00000300 rdfs:label "Group of Agents"@en .
 cco:ont00000300 rdfs:subClassOf obo:BFO_0000027 .
 cco:ont00000300 skos:definition "An Object Aggregate that has only Agents as parts."@en .
 
+cco:ont00000345 cco:ont00001760 "https://www.commoncoreontologies.org/EventOntology"^^xsd:anyURI .
+cco:ont00000345 rdf:type owl:Class .
+cco:ont00000345 rdfs:label "Act of Measuring"@en .
+cco:ont00000345 rdfs:subClassOf cco:ont00000228 .
+cco:ont00000345 skos:definition "A Planned Act that involves determining the extent, dimensions, quanity, or quality of an Entity relative to some standard."@en .
+cco:ont00000345 skos:example "putting an object on a scale to measure its weight in kilograms" .
+cco:ont00000345 skos:example "rating Hollywood movies on a 1 to 5 star scale" .
+cco:ont00000345 skos:example "using a tape measure to determine the height and width of a doorway in inches" .
+
+cco:ont00000366 cco:ont00001760 "https://www.commoncoreontologies.org/EventOntology"^^xsd:anyURI .
+cco:ont00000366 rdf:type owl:Class .
+cco:ont00000366 rdfs:label "Act of Information Processing"@en .
+cco:ont00000366 rdfs:subClassOf cco:ont00000228 .
+cco:ont00000366 skos:definition "A Planned Act in which one or more input Information Content Entities are received, manipulated, transferred, or stored by an Agent."@en .
+
+cco:ont00000371 cco:ont00001760 "https://www.commoncoreontologies.org/EventOntology"^^xsd:anyURI .
+cco:ont00000371 rdf:type owl:Class .
+cco:ont00000371 rdfs:comment "An Act of Prediction may involve the use of some or no relevant information. An Act of Prediction that utilizes relevant information may also be (or at least involve) an Act of Estimation. Hence, these two classes are not disjoint. Furthermore, neither class subsumes the other since estimates can be made about existing entities and not all predictions produce measurements (e.g. predicting that it will rain tomorrow)."@en .
+cco:ont00000371 rdfs:label "Act of Prediction"@en .
+cco:ont00000371 rdfs:subClassOf cco:ont00000228 .
+cco:ont00000371 skos:definition "A Planned Act that involves the generation of a Predictive Information Content entity that is intended to describe an uncertain possible future event, value, entity, or attribute of an entity."@en .
+cco:ont00000371 skos:example "a chess master predicting the next 8 moves his opponent will make" .
+cco:ont00000371 skos:example "predicting that a particular stock will double in value over the next fiscal quarter" .
+cco:ont00000371 skos:example "using sample exit polls data to predict the winners of an election" .
+cco:ont00000371 skos:scopeNote "Predictions can only be made about things that are not yet the case (i.e. future things) and are further restricted to being about things that do not have a probability of either 1 (necessary) or 0 (impossible). For example, assuming that no organism is immortal, one cannot predict of a given organism that it will eventually die; however, one may predict uncertain things about the organism's eventual death, such as its precise cause or time."@en .
+
 cco:ont00000379 cco:ont00001754 "Derived (loosely) from: John Searle's Speech Acts: An Essay in the Philosophy of Language" .
 cco:ont00000379 cco:ont00001760 "https://www.commoncoreontologies.org/EventOntology"^^xsd:anyURI .
 cco:ont00000379 rdf:type owl:Class .
@@ -91,6 +117,12 @@ cco:ont00000476 rdfs:label "Objective"@en .
 cco:ont00000476 rdfs:subClassOf cco:ont00000965 .
 cco:ont00000476 skos:definition "A Directive Information Content Entity that prescribes some projected state that some Agent intends to achieve."@en .
 
+cco:ont00000511 cco:ont00001760 "https://www.commoncoreontologies.org/EventOntology"^^xsd:anyURI .
+cco:ont00000511 rdf:type owl:Class .
+cco:ont00000511 rdfs:label "Act of Planning"@en .
+cco:ont00000511 rdfs:subClassOf cco:ont00000228 .
+cco:ont00000511 skos:definition "A Planned Act that involves making a Plan to achieve some specified Objective."@en .
+
 cco:ont00000566 cco:ont00001760 "https://www.commoncoreontologies.org/EventOntology"^^xsd:anyURI .
 cco:ont00000566 rdf:type owl:Class .
 cco:ont00000566 rdfs:label "Act of Artifact Employment"@en .
@@ -102,6 +134,17 @@ cco:ont00000568 rdf:type owl:Class .
 cco:ont00000568 rdfs:label "Organization Capability"@en .
 cco:ont00000568 rdfs:subClassOf cco:ont00001379 .
 cco:ont00000568 skos:definition "An Agent Capability that inheres in an Organization to the extent of that Organization's capacity to realize it in Intentional Acts of a certain type."@en .
+
+cco:ont00000636 cco:ont00001760 "https://www.commoncoreontologies.org/EventOntology"^^xsd:anyURI .
+cco:ont00000636 rdf:type owl:Class .
+cco:ont00000636 rdfs:comment "Note that, while most if not all Acts of Appraisal involve some estimating and many Acts of Estimation involve some appraising (i.e. these classes are not disjoint), neither class subsumes the other. For example, some Acts of Appraisal (e.g. a tax assessor appraising the value of a building) impart a normative element to the measured value while others (e.g. a gustatory appraisal that fresh green beans taste better than canned green beans) involve complete information. Furthermore, many Acts of Estimation (e.g. estimating the height of a tree) are concerned solely with determining a numerical value (as opposed to the nature, value, importance, condition, or quality)."@en .
+cco:ont00000636 rdfs:label "Act of Appraisal"@en .
+cco:ont00000636 rdfs:subClassOf cco:ont00000345 .
+cco:ont00000636 skos:definition "An Act of Measuring that involves evaluating, assessing, estimating, or judging the nature, value, importance, condition, or quality of something or someone."@en .
+cco:ont00000636 skos:example "a food critic rating the quality of a restaurant's ambiance, service, and food" .
+cco:ont00000636 skos:example "a mechanic assessing whether a damaged vehicle is repairable" .
+cco:ont00000636 skos:example "an insurance agent appraising the financial value of a building" .
+cco:ont00000636 skos:scopeNote "In the context of an Act of Appraisal, the terms 'value', 'condition', and 'quality' do not have the same meanings as their counterparts that are defined in the Common Core Ontologies. For example, a knife may be appraised to be of high quality if it is sharp and sturdy or to be of inferior quality if it is dull or fragile."@en .
 
 cco:ont00000751 cco:ont00001760 "https://www.commoncoreontologies.org/AgentOntology"^^xsd:anyURI .
 cco:ont00000751 rdf:type owl:Class .
@@ -124,6 +167,13 @@ cco:ont00000853 rdfs:label "Descriptive Information Content Entity"@en .
 cco:ont00000853 rdfs:subClassOf cco:ont00000958 .
 cco:ont00000853 skos:altLabel "Descriptive ICE"@en .
 cco:ont00000853 skos:definition "An Information Content Entity that consists of a set of propositions that describe some Entity."@en .
+
+cco:ont00000884 cco:ont00001754 "https://en.wikipedia.org/w/index.php?title=Loan&oldid=1063513958"^^xsd:anyURI .
+cco:ont00000884 cco:ont00001760 "https://www.commoncoreontologies.org/EventOntology"^^xsd:anyURI .
+cco:ont00000884 rdf:type owl:Class .
+cco:ont00000884 rdfs:label "Act of Loaning"@en .
+cco:ont00000884 rdfs:subClassOf cco:ont00000836 .
+cco:ont00000884 skos:definition "An Act of Financial Instrument Use wherein a Financial Instrument is given by an Agent (the Creditor) to another Agent (the Debtor) in order to receive Repayments from the Debtor which are of greater Financial Value."@en .
 
 cco:ont00000958 cco:ont00001754 "http://purl.obolibrary.org/obo/IAO_0000030" .
 cco:ont00000958 cco:ont00001760 "https://www.commoncoreontologies.org/InformationEntityOntology"^^xsd:anyURI .

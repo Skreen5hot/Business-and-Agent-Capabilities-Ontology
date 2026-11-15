@@ -41,6 +41,8 @@ python tools/licensing/disposition.py         # one disposition per tracked file
 python tools/licensing/disposition.py --check # nothing unpublishable is tracked
 python tools/ontology/vendor_upstream.py      # the extracts cover what is named
 python tools/ontology/validate.py --gate      # no new ontology findings
+python tools/ontology/formalize.py            # the capability module is its tranche record's build (S05-T1)
+python tools/ontology/reason.py --checkpoint  # ELK and HermiT, falsified (S05-D, D2); --fetch the pinned jar once
 python tools/ontology/corpus_digest.py        # measure the authored ontology
 python tools/ontology/validate.py             # the SHACL ladder
 python tools/sources/build_register.py        # the citation register's rules; Markdown is fresh
@@ -116,9 +118,12 @@ Before the first term is minted:
    that is not vendored at all (slices, catalog), that is the widening listed in
    `docs/HANDOFF.md` §5.
 
-Then, in the same commit as the term:
+Since D6 (`docs/decisions/2026-11-15-v05-transition-approved-d6-authorized.md`), a capability class is never written by hand. Add it to a tranche
+record (`src/05_ontology/tranche-1.yaml` for the first) under the architect's approval,
+then regenerate:
 
 ```bash
+python tools/ontology/formalize.py --write             # verifies the record, writes apqc-cap.ttl
 python tools/ontology/vendor_upstream.py --rebuild     # if it names a new upstream term
 python tools/ontology/validate.py --gate               # wellformedness now has a subject
 python tools/ontology/corpus_digest.py -o config/corpus-digest.json

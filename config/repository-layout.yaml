@@ -108,9 +108,21 @@ components:
     path: src/05_ontology/apqc-cap.ttl
     role: ontology-module
     description: >-
-      The capability module: Business Capability, the capability classes
-      with their realization index, reviewed unions. Empty; specified, not
-      written.
+      The capability module: bco:BusinessCapability and the 39 specific
+      capability classes of the first Stage 05 tranche, each with its signed
+      realization index as bpo:enablesProcess annotations (D6). Written by
+      tools/ontology/formalize.py --write from tranche.first, never by hand;
+      the tool's check mode fails when the two differ (S05-T1).
+
+  - id: tranche.first
+    path: src/05_ontology/tranche-1.yaml
+    role: configuration
+    description: >-
+      The first tranche's record (Stage 05 standard, sections 2 and 5): the
+      parent and the 39 classes D5-3 approved, each with its signed G1-T
+      record (path, commit, SHA-256), concept digest and realization index,
+      and the three types held for source checks. formalize.py verifies
+      every field against the records it names.
 
   - id: ontology.cap-desc
     path: src/05_ontology/apqc-cap-desc.ttl
@@ -150,6 +162,17 @@ components:
       references. Every constraint has an sh:message, and every message is
       listed by name in tests/test_ontology_checks.py.
 
+  - id: validation.stage05
+    path: shapes/stage05_shapes.ttl
+    role: ontology-validation
+    description: >-
+      The Stage 05 checks SHACL can state (standard section 5): S05-C1
+      (what should be under bco:BusinessCapability is), C2 (no some on has
+      realization), C3 (an index on every specific class; each member
+      declared, an act, never capability-typed), C5 (deontic terms, a
+      warning), C6 (Function) and C7 (only restrictions). Every message is
+      listed in tests/test_formalization.py.
+
   # ---- Deliberately invalid ------------------------------------------
 
   - id: fixture.wellformedness-bad-examples
@@ -160,6 +183,15 @@ components:
       controls beside them -- including the multilingual label pair that
       sh:maxCount 1 would have rejected, so the false positive is a test
       rather than something somebody remembers.
+
+  - id: fixture.stage05-bad-examples
+    path: shapes/stage05_bad_examples.ttl
+    role: test-fixture
+    description: >-
+      One case per Stage 05 constraint, with positive controls (the parent,
+      a specific class, a two-step class, a description-layer class) that
+      must survive. Loaded alone, so it states the small upstream ancestry
+      its cases walk.
 
   - id: fixture.vocabulary-bad-examples
     path: shapes/vocabulary_bad_examples.ttl
@@ -1275,6 +1307,30 @@ components:
       Fetches the pinned upstreams, extracts the referenced terms and
       their ancestry, and writes the extracts, the notice and the
       manifest. Verifies offline by default; rebuilding needs the network.
+
+  - id: tool.formalize
+    path: tools/ontology/formalize.py
+    role: tool
+    description: >-
+      Writes the capability module from the tranche record, after checking
+      every field against the readiness package, the signed G1-T records,
+      the vocabulary build and the BPO act register (D6; S05-T1, C4, C9).
+
+  - id: tool.reason
+    path: tools/ontology/reason.py
+    role: tool
+    description: >-
+      Runs ELK (S05-D) and HermiT (S05-D2) through the pinned ROBOT jar over
+      the modules and the extracts, each run falsified by a case built to be
+      unsatisfiable or inconsistent. SKIP where absent, FAIL at a checkpoint.
+
+  - id: config.reasoner-pins
+    path: config/reasoner-pins.yaml
+    role: configuration
+    description: >-
+      ROBOT's release, commit, URL, size, SHA-256 and licence, and the ELK
+      and HermiT versions and licences it bundles (D5-7). The jar is
+      fetched to .tools-cache/, never committed.
 
   - id: tool.validate
     path: tools/ontology/validate.py

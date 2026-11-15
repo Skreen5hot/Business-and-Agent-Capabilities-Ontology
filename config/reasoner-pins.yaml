@@ -1,0 +1,56 @@
+# The reasoners, pinned (D5-7, docs/decisions/2026-11-15-bpo-inquiry-and-d5-approved.md;
+# D6 E2, docs/decisions/2026-11-15-v05-transition-approved-d6-authorized.md).
+#
+# ELK and HermiT run through one ROBOT jar, which bundles both. The jar is
+# not committed: tools/ontology/reason.py --fetch downloads it to
+# .tools-cache/ (ignored) and refuses bytes that are not these. Java is the
+# machine's; the version that ran is printed with every result.
+#
+# Verified 2026-11-15: the release, its tag's commit, the asset's size and
+# SHA-256 (GitHub's asset digest, then recomputed over the downloaded
+# bytes), ROBOT's own `--version`, and the bundled reasoners' Maven
+# coordinates read from the jar's META-INF.
+
+version: 1
+
+robot:
+  project: ROBOT (ontodev/robot)
+  release: v1.9.11
+  published: "2026-10-01"
+  commit: 37d514d2ac8970b6ce7b9f5cfe83ba08dc97e9d8
+  url: https://github.com/ontodev/robot/releases/download/v1.9.11/robot.jar
+  bytes: 82708624
+  sha256: 53cd275c8e4c0dad1fc2c1c34174876795cd7d6b6926e1444adcbb0cb3c7ab26
+  cache: .tools-cache/robot-v1.9.11/robot.jar
+  reports_version: ROBOT version 1.9.11
+  licence:
+    spdx: BSD-3-Clause
+    url: https://github.com/ontodev/robot/blob/37d514d2ac8970b6ce7b9f5cfe83ba08dc97e9d8/LICENSE.txt
+
+reasoners:
+  - name: ELK
+    coordinates: io.github.liveontologies:elk-owlapi:0.6.0
+    licence: Apache-2.0
+    gate: S05-D
+    runs: every commit; SKIP where Java or the jar is absent
+    note: >-
+      An OWL 2 EL reasoner. Axioms outside EL are ignored, not refused, so
+      ELK's pass is classification and satisfiability of the EL part only.
+  - name: HermiT
+    coordinates: net.sourceforge.owlapi:org.semanticweb.hermit:1.4.5.456
+    licence: LGPL-3.0-or-later
+    gate: S05-D2
+    runs: >-
+      at a checkpoint (release and acceptance), where an absent reasoner is
+      a FAIL, not a SKIP; on an ordinary commit only when asked
+    note: >-
+      A complete OWL 2 DL reasoner: consistency and satisfiability (CAP-16),
+      and the inferred subsumptions between capability classes reported as
+      CAP-10 candidates, never asserted.
+
+limits: >-
+  The reasoners see the module and the vendored extracts, not the upstream
+  ontologies. The extracts drop every axiom whose object is an anonymous
+  class expression (config/upstream-extracts.json, not_covered), so a pass
+  here is satisfiability and consistency against the extracts, and does not
+  establish consistency with BFO, CCO or BPO as published.

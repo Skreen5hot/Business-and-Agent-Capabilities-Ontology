@@ -184,6 +184,21 @@ def sources() -> list[dict]:
                 raise Refused(
                     "%s names a licence statement_url and no "
                     "statement_sha256" % entry["id"])
+    for entry in declared:
+        for extra in entry.get("additional_files") or []:
+            for required in ("path", "url", "sha256", "subjects", "reason"):
+                if not extra.get(required):
+                    raise Refused("%s: an additional file declares no %r: %r"
+                                  % (entry["id"], required, extra))
+            if entry["commit"] not in extra["url"]:
+                raise Refused(
+                    "%s: the additional file %s is not pinned to %s"
+                    % (entry["id"], extra["path"], entry["commit"]))
+            try:
+                re.compile(extra["subjects"])
+            except re.error as error:
+                raise Refused("%s: %s's subjects pattern does not compile: "
+                              "%s" % (entry["id"], extra["path"], error))
     prefixes = [entry["prefix"] for entry in declared]
     if len(prefixes) != len(set(prefixes)):
         raise Refused("two sources in %s share a prefix: %s"
@@ -232,6 +247,43 @@ def fetch_pinned(source_id: str, url: str, sha256: str, cache: Path,
 def fetch(source: dict, cache: Path) -> bytes:
     return fetch_pinned(source["id"], source["url"], source["sha256"],
                         cache, source["id"] + ".ttl")
+
+
+def source_graph(source: dict, cache: Path):
+    """The source's pinned file, plus each additional file it declares, at
+    the same commit and digest-checked, contributing only the triples whose
+    subject matches that file's `subjects` pattern.
+
+    The pattern is what keeps an additional file narrow. BPO's slices
+    redeclare the genera apqc-ext.ttl already declares, with different
+    text (Q-13), and they declare BPO's capability classes too, which
+    never enter the BCO (RP-3; Stage 05 standard, section 4). Taking only
+    the act classes from a slice leaves each genus with the one
+    declaration its registry gives it."""
+    import rdflib
+
+    graph = rdflib.Graph()
+    graph.parse(data=fetch(source, cache).decode("utf-8"), format="turtle")
+    for extra in source.get("additional_files") or []:
+        data = fetch_pinned(source["id"], extra["url"], extra["sha256"], cache,
+                            "%s-%s.ttl" % (source["id"], extra["sha256"][:16]))
+        whole = rdflib.Graph()
+        whole.parse(data=data.decode("utf-8"), format="turtle")
+        wanted = re.compile(extra["subjects"])
+        # An allow-list of predicates, where the pin gives one: what
+        # validation walks and nothing else. BPO's act classes carry
+        # PCF-derived literals (names, descriptions, PCF ids) that this pin
+        # may not publish (docs/decisions/2026-11-15-d6-class-increment-
+        # accepted.md, F), so for them only rdf:type and rdfs:subClassOf
+        # are taken.
+        allowed = {rdflib.URIRef(iri)
+                   for iri in extra.get("take_predicates") or []}
+        for triple in whole:
+            if (isinstance(triple[0], rdflib.URIRef)
+                    and wanted.fullmatch(str(triple[0]))
+                    and (not allowed or triple[1] in allowed)):
+                graph.add(triple)
+    return graph
 
 
 # --------------------------------------------------------- selection
@@ -569,8 +621,16 @@ def header_lines(source: dict, stated: str, counts: dict) -> list:
         "  sha256      %s" % source["sha256"],
         "  licence     %s (%s)" % (licence["spdx"], licence["url"]),
         "  as stated   %s" % stated,
+    ] + [line for extra in source.get("additional_files") or [] for line in (
+        "  also        %s" % extra["url"],
+        "  sha256      %s" % extra["sha256"],
+        "  taking      subjects matching %s" % extra["subjects"],
+    ) + tuple("  only        %s" % iri
+              for iri in extra.get("take_predicates") or [])] + [
         "",
         licence["attribution"].strip(),
+    ] + [line for note in third_party_notes(source)
+         for line in [""] + _wrap(note)] + [
         "",
         "This is not %s. It carries %d terms described in full and %d"
         % (source["project"], counts["full"], counts["stubs"]),
@@ -583,6 +643,24 @@ def header_lines(source: dict, stated: str, counts: dict) -> list:
         "therefore derives less than one over the upstream, and it cannot be",
         "used to claim consistency with %s." % source["project"],
     ]
+
+
+def third_party_notes(source: dict) -> list:
+    """Each additional file's `attribution`: material of a third party that
+    the source carries (for BPO, APQC's PCF), said once per distinct text,
+    in the extract's header and in vendor/NOTICE.md."""
+    out = []
+    for extra in source.get("additional_files") or []:
+        note = " ".join(str(extra.get("attribution") or "").split())
+        if note and note not in out:
+            out.append(note)
+    return out
+
+
+def _wrap(text: str, width: int = 72) -> list:
+    import textwrap
+
+    return textwrap.wrap(text, width)
 
 
 def ontology_triples(source: dict, stated: str, counts: dict) -> list:
@@ -626,9 +704,7 @@ def build(cache: Path) -> dict:
     upstream = rdflib.Graph()
     per_source = {}
     for entry in declared:
-        data = fetch(entry, cache)
-        graph = rdflib.Graph()
-        graph.parse(data=data.decode("utf-8"), format="turtle")
+        graph = source_graph(entry, cache)
         per_source[entry["id"]] = graph
         for triple in graph:
             upstream.add(triple)
@@ -721,6 +797,11 @@ def manifest_of(built: dict) -> dict:
             "commit": entry["commit"],
             "source_url": entry["url"],
             "source_sha256": entry["sha256"],
+            "additional_files": [
+                {"path": extra["path"], "url": extra["url"],
+                 "sha256": extra["sha256"], "subjects": extra["subjects"],
+                 "take_predicates": extra.get("take_predicates") or []}
+                for extra in entry.get("additional_files") or []],
             "licence_spdx": entry["licence"]["spdx"],
             "licence_url": entry["licence"]["url"],
             "licence_as_stated_by_source": record["stated_licence"],
@@ -752,10 +833,12 @@ def manifest_of(built: dict) -> dict:
             "These extracts cannot be used to claim the ontology is "
             "consistent with BFO, CCO or BPO. They support the subClassOf "
             "reachability the shapes ask about.",
-            "BPO is vendored from apqc-ext.ttl alone. Its reality-layer "
-            "slices, catalog and capability modules are not here, so a BPO "
-            "process class the specification names is listed under "
-            + UNRESOLVED_KEY + " rather than described.",
+            "BPO is vendored from apqc-ext.ttl and, for the act classes and "
+            "the one annotation property this repository names, from the "
+            "additional files its pin lists, each taking only the subjects "
+            "its pattern matches. BPO's catalog, capabilities_wiring.ttl, "
+            "delivery_processes.ttl and capability classes are not here "
+            "(RP-3; Stage 05 standard, section 4).",
             "Specification seeds are read from the draft specification's "
             "text. A term it names that no pinned file describes is "
             "recorded, not refused: some are terms the BCO will mint, some "
@@ -818,7 +901,8 @@ def notice_of(built: dict) -> str:
             % (record["counts"]["full"], record["counts"]["stubs"],
                record["counts"]["dropped"]),
             "",
-        ]
+        ] + [line for note in third_party_notes(entry)
+             for line in _wrap(note) + [""]]
     return chr(10).join(lines)
 
 

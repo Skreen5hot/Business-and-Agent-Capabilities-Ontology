@@ -12,13 +12,14 @@ stale.
 This repository develops the **Business Capability Ontology (BCO)**: what an organization
 *can* do, alongside the Business Process Ontology's account of what it *does*. The design
 is specification v0.5.0-draft.3, ratified (ADR-002) and, since 2026-11-15, the specification
-in force for the tooling (`docs/decisions/2026-11-15-spec-v0.5-in-force.md`). **No BCO term has
-been written.** What exists is the setup to write them under: ARO's layout contract,
-licensing classification, pinned upstream vendoring (BFO, CCO v2.0 and now BPO), a SHACL
-gate with falsification fixtures, a corpus digest, CI, and the method in
-`docs/process/PROCESS.md`. The two ontology modules the spec names are empty headers, so
-every green check about the ontology is green about nothing — the fixtures are the only
-evidence the checks work.
+in force for the tooling (`docs/decisions/2026-11-15-spec-v0.5-in-force.md`). **The first
+Stage 05 tranche is implemented, not released** (D6, `docs/decisions/2026-11-15-v05-transition-approved-d6-authorized.md`): `bco:BusinessCapability` and
+39 capability classes with their signed indexes, in `src/05_ontology/apqc-cap.ttl`, written
+by `tools/ontology/formalize.py` from its tranche record and checked by SHACL, pytest and
+two reasoners (`src/05_ontology/README.md`). Around it: ARO's layout contract, licensing
+classification, pinned upstream vendoring (BFO, CCO v2.0 and BPO), a SHACL gate with
+falsification fixtures, a corpus digest, CI, and the method in `docs/process/PROCESS.md`.
+The description module is still an empty header.
 
 ## 2. What is in the tree
 
