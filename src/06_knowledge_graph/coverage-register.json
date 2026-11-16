@@ -1,0 +1,339 @@
+{
+  "format": 1,
+  "version": 1,
+  "batch": 1,
+  "status": "proposed for the architect's acceptance as one batch (docs/decisions/2026-11-16-stage06-standard-and-first-increment.md, D), after a separate synthetic domain review",
+  "check": "S06-R1, S06-R2, S06-R3 (docs/standards/stage-06-knowledge-graph.md, section 4)",
+  "generator": "tools/kg/register.py --write",
+  "source": "docs/catalog/tranche-2-review.yaml",
+  "rule": "Components are capability types as written class IRIs only (OI-13, version 1). A component list implies no organization possesses them, and possessing them establishes no integration, availability or adequacy. No subclass link is generated (CAP-29).",
+  "apqc_notice": "©2024 APQC. ALL RIGHTS RESERVED. This Process Classification Framework® (“PCF”) is the copyrighted intellectual property of APQC. APQC encourages the wide distribution, discussion, and use of the PCF for classifying and defining organizational processes. Accordingly, APQC hereby grants you a perpetual, worldwide, royalty-free license to use, copy, publish, modify, and create derivative works of the PCF, provided that all copies of the PCF and any derivative works contain a copy of this notice.",
+  "functions": [
+    {
+      "key": "https://fandaws.com/ontology/bpo#PCF_10730",
+      "pcf_element_id": "10730",
+      "grouping": "BCC-60d672db",
+      "concept": "bcoc:FinancialAccounting",
+      "whole_function_class": null,
+      "components": [
+        {
+          "class": "https://fandaws.com/ontology/bco#AccountingPolicyManagement",
+          "concept": "bcoc:AccountingPolicyManagement",
+          "g1t": "T2-07",
+          "link": {
+            "record": "docs/catalog/tranche-2-review.yaml",
+            "narrower": "BCC-e8acc1f8",
+            "broader": "BCC-60d672db"
+          }
+        },
+        {
+          "class": "https://fandaws.com/ontology/bco#FinancialReporting",
+          "concept": "bcoc:FinancialReporting",
+          "g1t": "T2-08",
+          "link": {
+            "record": "docs/catalog/tranche-2-review.yaml",
+            "narrower": "BCC-792537f9",
+            "broader": "BCC-60d672db"
+          }
+        },
+        {
+          "class": "https://fandaws.com/ontology/bco#FixedAssetAccounting",
+          "concept": "bcoc:FixedAssetAccounting",
+          "g1t": "T2-09",
+          "link": {
+            "record": "docs/catalog/tranche-2-review.yaml",
+            "narrower": "BCC-e3c8bd37",
+            "broader": "BCC-60d672db"
+          }
+        },
+        {
+          "class": "https://fandaws.com/ontology/bco#GeneralLedgerAccounting",
+          "concept": "bcoc:GeneralLedgerAccounting",
+          "g1t": "T2-10",
+          "link": {
+            "record": "docs/catalog/tranche-2-review.yaml",
+            "narrower": "BCC-8b431985",
+            "broader": "BCC-60d672db"
+          }
+        }
+      ],
+      "rights": {
+        "status": "established",
+        "basis": "docs/decisions/2026-10-29-apqc-pcf-sourcing-decided.md, sections 1 and 3",
+        "source": "BPO ontology/apqc-catalog.ttl at 2e55edd9e86a0bc20fa88a21595cc61402faa5dc, as harvested in docs/sources/inventory/pcf-7.4-entries.yaml",
+        "content": "the catalog node's IRI and its element id only; no PCF name, description or hierarchy id"
+      },
+      "notes": []
+    },
+    {
+      "key": "https://fandaws.com/ontology/bpo#PCF_10736",
+      "pcf_element_id": "10736",
+      "grouping": "BCC-c64ca466",
+      "concept": "bcoc:TaxManagement",
+      "whole_function_class": null,
+      "components": [
+        {
+          "class": "https://fandaws.com/ontology/bco#PayrollTaxProcessing",
+          "concept": "bcoc:PayrollTaxProcessing",
+          "g1t": "T2-21",
+          "link": {
+            "record": "docs/catalog/tranche-2-review.yaml",
+            "narrower": "BCC-394909c1",
+            "broader": "BCC-c64ca466"
+          }
+        },
+        {
+          "class": "https://fandaws.com/ontology/bco#TaxPlanning",
+          "concept": "bcoc:TaxPlanning",
+          "g1t": "T2-33",
+          "link": {
+            "record": "docs/catalog/tranche-2-review.yaml",
+            "narrower": "BCC-ce052840",
+            "broader": "BCC-c64ca466"
+          }
+        },
+        {
+          "class": "https://fandaws.com/ontology/bco#TaxProcessing",
+          "concept": "bcoc:TaxProcessing",
+          "g1t": "T2-34",
+          "link": {
+            "record": "docs/catalog/tranche-2-review.yaml",
+            "narrower": "BCC-52f0795a",
+            "broader": "BCC-c64ca466"
+          }
+        }
+      ],
+      "rights": {
+        "status": "established",
+        "basis": "docs/decisions/2026-10-29-apqc-pcf-sourcing-decided.md, sections 1 and 3",
+        "source": "BPO ontology/apqc-catalog.ttl at 2e55edd9e86a0bc20fa88a21595cc61402faa5dc, as harvested in docs/sources/inventory/pcf-7.4-entries.yaml",
+        "content": "the catalog node's IRI and its element id only; no PCF name, description or hierarchy id"
+      },
+      "notes": [
+        "PayrollTaxProcessing is a component by a reviewed part-of link, though its own PCF element is outside this key's subtree; a join on the PCF hierarchy alone would not find it."
+      ]
+    },
+    {
+      "key": "https://fandaws.com/ontology/bpo#PCF_10754",
+      "pcf_element_id": "10754",
+      "grouping": "BCC-d105ff07",
+      "concept": "bcoc:PayManagement",
+      "whole_function_class": "https://fandaws.com/ontology/bco#PayManagement",
+      "components": [
+        {
+          "class": "https://fandaws.com/ontology/bco#PaymentProcessing",
+          "concept": "bcoc:PaymentProcessing",
+          "g1t": "T2-01",
+          "link": {
+            "record": "docs/catalog/tranche-2-review.yaml",
+            "narrower": "BCC-9511900a",
+            "broader": "BCC-d105ff07"
+          }
+        }
+      ],
+      "rights": {
+        "status": "established",
+        "basis": "docs/decisions/2026-10-29-apqc-pcf-sourcing-decided.md, sections 1 and 3",
+        "source": "BPO ontology/apqc-catalog.ttl at 2e55edd9e86a0bc20fa88a21595cc61402faa5dc, as harvested in docs/sources/inventory/pcf-7.4-entries.yaml",
+        "content": "the catalog node's IRI and its element id only; no PCF name, description or hierarchy id"
+      },
+      "notes": [
+        "Not a complete breakdown: the function's work outside the listed components belongs to the whole-function class itself, whose own realization index holds it.",
+        "PaymentProcessing is also a component of PCF_10756. A shared capability type says nothing about whether one arrangement serves both functions."
+      ]
+    },
+    {
+      "key": "https://fandaws.com/ontology/bpo#PCF_10756",
+      "pcf_element_id": "10756",
+      "grouping": "BCC-62e789bf",
+      "concept": "bcoc:AccountsPayableProcessing",
+      "whole_function_class": "https://fandaws.com/ontology/bco#AccountsPayableProcessing",
+      "components": [
+        {
+          "class": "https://fandaws.com/ontology/bco#PaymentProcessing",
+          "concept": "bcoc:PaymentProcessing",
+          "g1t": "T2-01",
+          "link": {
+            "record": "docs/catalog/tranche-2-review.yaml",
+            "narrower": "BCC-9511900a",
+            "broader": "BCC-62e789bf"
+          }
+        }
+      ],
+      "rights": {
+        "status": "established",
+        "basis": "docs/decisions/2026-10-29-apqc-pcf-sourcing-decided.md, sections 1 and 3",
+        "source": "BPO ontology/apqc-catalog.ttl at 2e55edd9e86a0bc20fa88a21595cc61402faa5dc, as harvested in docs/sources/inventory/pcf-7.4-entries.yaml",
+        "content": "the catalog node's IRI and its element id only; no PCF name, description or hierarchy id"
+      },
+      "notes": [
+        "Not a complete breakdown: the function's work outside the listed components belongs to the whole-function class itself, whose own realization index holds it.",
+        "PaymentProcessing is also a component of PCF_10754. A shared capability type says nothing about whether one arrangement serves both functions."
+      ]
+    }
+  ],
+  "waiting": [
+    {
+      "grouping": "BCC-05445216",
+      "concept": "bcoc:GlobalTradeManagement",
+      "reasons": [
+        "a part-of link was merged in review, so the component list is not as reviewed",
+        "an unresolved link points to it",
+        "component bcoc:ExportAndImportControl is not a written class"
+      ]
+    },
+    {
+      "grouping": "BCC-0ba10d44",
+      "concept": "bcoc:TreasuryManagement",
+      "reasons": [
+        "an unresolved link points to it",
+        "component bcoc:DebtAndInvestmentManagement is not a written class",
+        "component bcoc:FinancialRiskManagement is not a written class",
+        "its concept cites no single PCF 7.4 element"
+      ]
+    },
+    {
+      "grouping": "BCC-0fe1f7f0",
+      "concept": "bcoc:PayablesAndReimbursementManagement",
+      "reasons": [
+        "component bcoc:CorporateCardManagement is not a written class"
+      ]
+    },
+    {
+      "grouping": "BCC-12db59b1",
+      "concept": null,
+      "reasons": [
+        "a part-of link was kept-outside in review, so the component list is not as reviewed",
+        "no BCO concept for the grouping"
+      ]
+    },
+    {
+      "grouping": "BCC-132e1b29",
+      "concept": "bcoc:FinancialRiskManagement",
+      "reasons": [
+        "it has kind-of subtypes; whether possessing a subtype bears on coverage is not decided"
+      ]
+    },
+    {
+      "grouping": "BCC-15e92684",
+      "concept": "bcoc:CapitalPlanning",
+      "reasons": [
+        "narrowed: the grouping keeps more than its narrowed type, so its components are not all listed"
+      ]
+    },
+    {
+      "grouping": "BCC-17c72571",
+      "concept": null,
+      "reasons": [
+        "a part-of link was merged in review, so the component list is not as reviewed",
+        "no BCO concept for the grouping"
+      ]
+    },
+    {
+      "grouping": "BCC-1cccc689",
+      "concept": "bcoc:RevenueAndReceivablesManagement",
+      "reasons": [
+        "component bcoc:CustomerCreditManagement is not a written class"
+      ]
+    },
+    {
+      "grouping": "BCC-4fda51aa",
+      "concept": "bcoc:FinancialResourceManagement",
+      "reasons": [
+        "an unresolved link points to it",
+        "component bcoc:CapitalExpenditureManagement is not a written class",
+        "component bcoc:FinancialAccounting is not a written class",
+        "component bcoc:FinancialPlanningAndManagementAccounting is not a written class",
+        "component bcoc:InternationalFundsManagement is not a written class",
+        "component bcoc:PayablesAndReimbursementManagement is not a written class",
+        "component bcoc:RevenueAndReceivablesManagement is not a written class",
+        "component bcoc:TaxManagement is not a written class",
+        "component bcoc:TreasuryManagement is not a written class"
+      ]
+    },
+    {
+      "grouping": "BCC-5a4bc396",
+      "concept": "bcoc:InternalControl",
+      "reasons": [
+        "component bcoc:InternalControlDesign is not a written class"
+      ]
+    },
+    {
+      "grouping": "BCC-80a63f8e",
+      "concept": "bcoc:InternalControlDesign",
+      "reasons": [
+        "narrowed: the grouping keeps more than its narrowed type, so its components are not all listed"
+      ]
+    },
+    {
+      "grouping": "BCC-87e3a26b",
+      "concept": "bcoc:InternationalFundsManagement",
+      "reasons": [
+        "a part-of link was merged in review, so the component list is not as reviewed",
+        "an unresolved link points to it"
+      ]
+    },
+    {
+      "grouping": "BCC-9305456f",
+      "concept": "bcoc:CapitalExpenditureManagement",
+      "reasons": [
+        "component bcoc:CapitalPlanning is not a written class"
+      ]
+    },
+    {
+      "grouping": "BCC-a1c5454d",
+      "concept": "bcoc:CashManagement",
+      "reasons": [
+        "an unresolved link points to it",
+        "component bcoc:CashEquivalentManagement is not a written class"
+      ]
+    },
+    {
+      "grouping": "BCC-b47b8fed",
+      "concept": "bcoc:CostManagement",
+      "reasons": [
+        "component bcoc:CostDriverAndCriticalActivityAnalysis is not a written class",
+        "narrowed: the grouping keeps more than its narrowed type, so its components are not all listed"
+      ]
+    },
+    {
+      "grouping": "BCC-ca61edb4",
+      "concept": "bcoc:FinancialPlanningAndManagementAccounting",
+      "reasons": [
+        "component bcoc:CostManagement is not a written class",
+        "component bcoc:FinancialPerformanceManagement is not a written class"
+      ]
+    },
+    {
+      "grouping": "BCC-cedf0899",
+      "concept": "bcoc:FinancialPerformanceManagement",
+      "reasons": [
+        "a part-of link was retargeted in review, so the component list is not as reviewed",
+        "narrowed: the grouping keeps more than its narrowed type, so its components are not all listed"
+      ]
+    },
+    {
+      "grouping": "BCC-d95f68fd",
+      "concept": "bcoc:PayrollProcessing",
+      "reasons": [
+        "its concept cites no single PCF 7.4 element"
+      ]
+    },
+    {
+      "grouping": "BCC-ded8ed18",
+      "concept": "bcoc:InternalControlOperation",
+      "reasons": [
+        "narrowed: the grouping keeps more than its narrowed type, so its components are not all listed"
+      ]
+    },
+    {
+      "grouping": "BCC-ec93ca56",
+      "concept": "bcoc:DebtAndInvestmentManagement",
+      "reasons": [
+        "a part-of link was retargeted in review, so the component list is not as reviewed",
+        "component bcoc:FinancialIntermediaryRelationshipManagement is not a written class",
+        "component bcoc:IssuerCreditExposureManagement is not a written class"
+      ]
+    }
+  ]
+}

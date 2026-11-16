@@ -1,0 +1,63 @@
+{
+  "format": 1,
+  "check": "S06-U2 (docs/standards/stage-06-knowledge-graph.md, section 4)",
+  "generator": "tools/ontology/reason.py --complete --record",
+  "robot": "ROBOT version 1.9.11",
+  "java": "java version \"23\" 2024-09-17",
+  "claim": "The BCO modules are consistent, and every class satisfiable, together with the complete BFO and CCO at their pins.",
+  "not_claimed": "BPO is loaded as its extract only. The Stage 05 import boundary (docs/standards/stage-05-ontology.md, section 4; RP-3) excludes the BPO modules whose capability assertions the BCO does not admit, so conformance with the complete BPO is not claimed.",
+  "closure": [
+    {
+      "path": "src/05_ontology/apqc-cap.ttl",
+      "role": "BCO module",
+      "sha256": "3b2f8a50e204a2a2ce45039e3ef69966a873f999c4036ac2d0b54f619baa979b"
+    },
+    {
+      "path": "src/05_ontology/apqc-cap-desc.ttl",
+      "role": "BCO module",
+      "sha256": "be9fea20dece2f41a5637ae19352eea05d15606e36602652c9435e74759e7048"
+    },
+    {
+      "path": ".upstream-cache/bfo.ttl",
+      "role": "complete BFO at its pin",
+      "url": "https://raw.githubusercontent.com/BFO-ontology/BFO-2020/044490fc5100ffed6df7d4d15cbc167698b6fdee/src/owl/bfo-core.ttl",
+      "commit": "044490fc5100ffed6df7d4d15cbc167698b6fdee",
+      "sha256": "6944e2c96a0d8709dc15ae5364792019e208061eda3f32311af4f3b8d8443a3b"
+    },
+    {
+      "path": ".upstream-cache/cco.ttl",
+      "role": "complete CCO (merged) at its pin",
+      "url": "https://raw.githubusercontent.com/CommonCoreOntology/CommonCoreOntologies/510dad76be0ef710b65a421075af912af25342b7/src/cco-merged/CommonCoreOntologiesMerged.ttl",
+      "commit": "510dad76be0ef710b65a421075af912af25342b7",
+      "sha256": "e609db27478a2c8b52b9bb5eb5ac979ac323510e851c368e4d9ec7d1c153fe5b"
+    },
+    {
+      "path": "vendor/bpo/bpo-ext-bco-extract.ttl",
+      "role": "BPO extract (import boundary)",
+      "sha256": "a44e67632d53d9c822e13132398c1744fc00a1ea6aad296aa48bdd78cb95f5de"
+    }
+  ],
+  "results": [
+    {
+      "reasoner": "ELK",
+      "result": "PASS",
+      "real_input": "PASS",
+      "cases": {
+        "unsatisfiable": "rejected",
+        "CAP-16": "rejected"
+      }
+    },
+    {
+      "reasoner": "HermiT",
+      "result": "PASS",
+      "real_input": "PASS",
+      "cases": {
+        "unsatisfiable": "rejected",
+        "CAP-16": "rejected",
+        "inconsistent": "rejected",
+        "CAP-10": "detected"
+      },
+      "cap10_candidates": []
+    }
+  ]
+}

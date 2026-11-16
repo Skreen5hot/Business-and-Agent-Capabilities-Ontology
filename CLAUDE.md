@@ -106,6 +106,7 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
 .venv/Scripts/python tools/ontology/validate.py --gate
 .venv/Scripts/python tools/ontology/formalize.py
 .venv/Scripts/python tools/ontology/manifests.py
+.venv/Scripts/python tools/kg/register.py
 .venv/Scripts/python tools/ontology/reason.py --checkpoint
 .venv/Scripts/python tools/communications.py
 .venv/Scripts/python tools/vocab/build.py

@@ -43,6 +43,8 @@ python tools/ontology/vendor_upstream.py      # the extracts cover what is named
 python tools/ontology/validate.py --gate      # no new ontology findings
 python tools/ontology/formalize.py            # the capability and description modules are their tranche records' builds (S05-T1)
 python tools/ontology/manifests.py            # Gate M: the CD15 manifest schema and its fixtures (B-2)
+python tools/kg/register.py                   # Stage 06: scope audit, coverage register, bc: migration (S06-A1, R1, R2, MG)
+python tools/ontology/reason.py --complete    # S06-U2: ELK and HermiT with the complete pinned BFO and CCO
 python tools/ontology/reason.py --checkpoint  # ELK and HermiT, falsified (S05-D, D2); --fetch the pinned jar once
 python tools/ontology/corpus_digest.py        # measure the authored ontology
 python tools/ontology/validate.py             # the SHACL ladder

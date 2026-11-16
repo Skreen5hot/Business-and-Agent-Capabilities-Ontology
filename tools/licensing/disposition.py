@@ -368,11 +368,17 @@ ADJUDICATIONS = "config/licensing-adjudications.yaml"
 #: it carries a consequence: tools/conceptual/check_models.py checks every
 #: file in the role against the model format, and the site renders each
 #: one on its Models page.
+#:
+#: `register-data`: Stage 06 register and migration data written by hand
+#: (src/06_knowledge_graph/bc-migration.yaml), under the Stage 06
+#: standard. Content under the project licence. A role of its own because
+#: it carries a consequence: tools/kg/register.py checks it, and it is data
+#: rather than prose. Generated register data is `generated-artifact`.
 CONTENT_ROLES = {"ontology-module", "ontology-module-set",
                  "ontology-validation", "test-fixture", "documentation",
                  "generated-artifact", "specification", "historical-draft",
                  "site-source", "communication", "spike-artifact",
-                 "conceptual-model"}
+                 "conceptual-model", "register-data"}
 
 #: Roles that are software rather than published content.
 SOFTWARE_ROLES = {"tool", "configuration"}

@@ -147,7 +147,7 @@ def test_ci_runs_the_check_and_the_weekly_confirmation(repo):
     jobs = workflow["jobs"]
     main_runs = [s.get("run", "").strip() for s in jobs["checks"]["steps"]]
     assert "python tools/inventory/rights.py" in main_runs
-    weekly = [s.get("run", "").strip() for s in jobs["vendored"]["steps"]]
+    weekly = [s.get("run", "").strip() for s in jobs["federal"]["steps"]]
     assert "python tools/inventory/rights.py --confirm" in weekly
 
 
