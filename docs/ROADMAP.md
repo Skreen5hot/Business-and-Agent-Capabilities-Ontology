@@ -97,7 +97,7 @@ unfinished.
 | Stage 03, taxonomy | standard ratified 2026-11-07 (`docs/standards/stage-03-taxonomy.md`); tranche 2 (PCF 9.0) validated: 60 `broader` links, 15 `kind-of` proposals, 10 unresolved (`docs/catalog/tranche-2-review.yaml`) |
 | Stage 04, thesaurus | not started; no standard |
 | Stage 05, ontology | standard approved 2026-11-15 (`docs/standards/stage-05-ontology.md`); D5 complete for the first tranche; D6 authorized 2026-11-15 and the first tranche implemented (`src/05_ontology/README.md`), and the description tranche under B-1; **the first capability tranche and the description tranche complete**, accepted 2026-11-16 (`docs/decisions/2026-11-16-stage05-completion-accepted.md`), validated against test fixtures; Stage 06 not authorized |
-| Stage 06, knowledge graph | not started; no standard |
+| Stage 06, knowledge graph | not started; standard and first increment proposed 2026-11-16, not approved |
 
 ## 4. The decision path
 
@@ -240,7 +240,7 @@ These run beside the decision path. None writes an OWL axiom.
 | Stage 03, taxonomy | Stage 03 standard | ratified 2026-11-07 (`docs/standards/stage-03-taxonomy.md`) | Stage 03 (T8) |
 | Stage 04, thesaurus | Stage 04 standard | not supplied | Stage 04 (T8) |
 | Stage 05, ontology | Stage 05 standard, with the validation architecture | approved 2026-11-15, D5-1 and D5-2 (`docs/standards/stage-05-ontology.md`); was: not supplied; the specification's gates exist | D6 |
-| Stage 06, knowledge graph | Stage 06 standard | not supplied | D7 |
+| Stage 06, knowledge graph | Stage 06 standard | proposed 2026-11-16 (`docs/proposals/2026-11-16-stage-06-knowledge-graph-standard.md`), with the first increment (`docs/proposals/2026-11-16-stage06-first-increment-proposal.md`); not approved | D7 |
 | Release | release standard | not supplied | D8 |
 
 ### Stage-completion record
