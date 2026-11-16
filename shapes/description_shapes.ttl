@@ -1,0 +1,560 @@
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix bco:   <https://fandaws.com/ontology/bco#> .
+@prefix cco:   <https://www.commoncoreontologies.org/> .
+@prefix desc:  <https://fandaws.com/ontology/bco/shapes/description#> .
+
+# CP-1's checks on the description layer and the evidence register
+# (decision of 2026-11-15, B-1 and B-2;
+# docs/decisions/2026-11-15-b1-b4-approved-cap34-confirmed.md): CAP-17,
+# CAP-20, CAP-23, CAP-24, CAP-26, CAP-27, CAP-28, CAP-31 and CAP-33, with
+# the CD14 and CD17 rules the definitions state. CAP-18 is a query
+# requirement, checked with the CD15 manifests by tools/ontology/manifests.py
+# (Gate M) and tests/test_manifests.py, not here.
+#
+# THE CLASSES
+#
+# Written by tools/ontology/formalize.py into src/05_ontology/apqc-cap-desc.ttl.
+# The shapes target them with sh:targetClass, so an instance of a subclass is
+# a target too. A "capability instance" (K1 individual) is an individual of a
+# class under cco:ont00000568 Organization Capability, staged or admitted
+# (specification section 6, class kinds); a "capability class" is such a
+# class; an "act class" is a class under cco:ont00000228 Planned Act.
+#
+# ENCODINGS CHOSEN AT STAGE 05, WITH NO TERM MINTED
+#
+# - The maturity rating's ordinal value (CAP-20, R5-02) is schema:ratingValue
+#   (https://schema.org/ratingValue, "The rating for the content"). schema.org
+#   states its domain only as domainIncludes Rating, so it entails no type for
+#   the rating, and it is not one of CCO's value properties, all of which have
+#   the domain Information Bearing Entity (cco:ont00000253), which a rating,
+#   an ICE, is not.
+# - A Functional Adequacy Assessment's three findings (CAP-33, CD17) are its
+#   continuant parts (obo:BFO_0000178), each a Descriptive ICE: the dimension
+#   is schema:reviewAspect ("This Review or Rating is relevant to this part or
+#   facet of the itemReviewed"), with one of the three values section 4 names;
+#   the finding is schema:ratingValue, "met", "partly met" or "not met"; and
+#   each carries dct:conformsTo, dct:source and dct:date, as an assessment
+#   does. The assessment describes its Organization (cco:ont00001982) and is
+#   about its Standing Function's APQC catalog concept (cco:ont00001808), which
+#   is a skos:Concept, the key CD16 gives a standing function.
+# - Dublin Core and schema.org are the specification's own choices (section 4,
+#   "Reused without change"); the schema.org IRIs were checked at schema.org.
+#
+# WHAT SHACL CANNOT DECIDE (Gate F, human review)
+#
+# Whether the evidence cited for an absent, partial, not met or partly met
+# finding establishes it, and whether evidence is sufficient against the
+# stated threshold (CAP-27, CAP-33); whether a source is an organization
+# chart, charter or responsibility assignment (CAP-26: no class marks them).
+# These shapes check that criteria, evidence and dates are cited.
+#
+# ASSERTED, NOT INFERRED
+#
+# validate.py runs every shape set with inference "none".
+
+desc:prefixes
+    a owl:Ontology ;
+    sh:declare
+        [ sh:prefix "rdf"    ; sh:namespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#"^^xsd:anyURI ] ,
+        [ sh:prefix "rdfs"   ; sh:namespace "http://www.w3.org/2000/01/rdf-schema#"^^xsd:anyURI ] ,
+        [ sh:prefix "owl"    ; sh:namespace "http://www.w3.org/2002/07/owl#"^^xsd:anyURI ] ,
+        [ sh:prefix "xsd"    ; sh:namespace "http://www.w3.org/2001/XMLSchema#"^^xsd:anyURI ] ,
+        [ sh:prefix "skos"   ; sh:namespace "http://www.w3.org/2004/02/skos/core#"^^xsd:anyURI ] ,
+        [ sh:prefix "dct"    ; sh:namespace "http://purl.org/dc/terms/"^^xsd:anyURI ] ,
+        [ sh:prefix "schema" ; sh:namespace "https://schema.org/"^^xsd:anyURI ] ,
+        [ sh:prefix "obo"    ; sh:namespace "http://purl.obolibrary.org/obo/"^^xsd:anyURI ] ,
+        [ sh:prefix "cco"    ; sh:namespace "https://www.commoncoreontologies.org/"^^xsd:anyURI ] ,
+        [ sh:prefix "ex"     ; sh:namespace "https://fandaws.com/ontology/bpo#"^^xsd:anyURI ] ,
+        [ sh:prefix "bco"    ; sh:namespace "https://fandaws.com/ontology/bco#"^^xsd:anyURI ] .
+
+
+# ---------------------------------------------------------------------
+# CAP-17: type references
+# ---------------------------------------------------------------------
+
+desc:ConcernsTypeShape
+    a sh:NodeShape ;
+    sh:targetClass bco:CapabilityAssessment , bco:CapabilityTarget ,
+                   bco:CapabilitySourcingStatement , bco:AuthorizationRecord ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-17: a Capability Assessment, Capability Target, Capability Sourcing Statement or Authorization Record does not carry exactly one bco:concernsType." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE {
+          { SELECT $this (COUNT(?t) AS ?n) WHERE { OPTIONAL { $this bco:concernsType ?t } } GROUP BY $this }
+          FILTER(?n != 1) }""" ] .
+
+desc:ConcernsCapabilityShape
+    a sh:NodeShape ;
+    sh:targetClass bco:CapabilityAssessment , bco:CapabilityTarget ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-17: a Capability Assessment or Capability Target concerns a type that is not a capability class (under cco:ont00000568)." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this ?type WHERE {
+          $this bco:concernsType ?type .
+          FILTER NOT EXISTS { ?type rdfs:subClassOf+ cco:ont00000568 } }""" ] .
+
+desc:ConcernsActShape
+    a sh:NodeShape ;
+    sh:targetClass bco:CapabilitySourcingStatement , bco:AuthorizationRecord ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-17: a Capability Sourcing Statement or Authorization Record concerns a type that is not an act class (under cco:ont00000228)." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this ?type WHERE {
+          $this bco:concernsType ?type .
+          FILTER NOT EXISTS { ?type rdfs:subClassOf* cco:ont00000228 . ?type a owl:Class } }""" ] .
+
+desc:NoConcernsTypeShape
+    a sh:NodeShape ;
+    sh:targetClass bco:CapabilityMap , bco:CapabilitySourcingAssessment ,
+                   bco:FunctionalAdequacyAssessment ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-17: a Capability Map, Capability Sourcing Assessment or Functional Adequacy Assessment carries bco:concernsType." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this ?type WHERE { $this bco:concernsType ?type . }""" ] .
+
+desc:MapShape
+    a sh:NodeShape ;
+    sh:targetClass bco:CapabilityMap ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-17: a Capability Map has no Capability Assessment or Capability Target entry (obo:BFO_0000178)." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE {
+          FILTER NOT EXISTS {
+            $this obo:BFO_0000178 ?entry .
+            { ?entry a/rdfs:subClassOf* bco:CapabilityAssessment }
+            UNION { ?entry a/rdfs:subClassOf* bco:CapabilityTarget } } }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-17: a Capability Map has an entry that is not a Capability Assessment or Capability Target; a Functional Adequacy Assessment is never an entry." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this ?entry WHERE {
+          $this obo:BFO_0000178 ?entry .
+          FILTER NOT EXISTS {
+            { ?entry a/rdfs:subClassOf* bco:CapabilityAssessment }
+            UNION { ?entry a/rdfs:subClassOf* bco:CapabilityTarget } } }""" ] .
+
+
+# ---------------------------------------------------------------------
+# CAP-27 and CD14: every completed assessment states one finding,
+# against criteria, on evidence, as of a date
+# ---------------------------------------------------------------------
+
+desc:AssessmentShape
+    a sh:NodeShape ;
+    sh:targetClass bco:CapabilityAssessment ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-27: a Capability Assessment does not have exactly one bco:assessedPresence, valued present, absent or partial." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE {
+          { SELECT $this (COUNT(?p) AS ?n) (SUM(IF(STR(?p) IN ("present", "absent", "partial"), 1, 0)) AS ?ok)
+            WHERE { OPTIONAL { $this bco:assessedPresence ?p } } GROUP BY $this }
+          FILTER(?n != 1 || ?ok != 1) }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-27: a Capability Assessment names no criteria (dct:conformsTo)." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE { FILTER NOT EXISTS { $this dct:conformsTo ?c } }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-27: a Capability Assessment's criteria carry no dct:identifier that can be reported." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this ?criteria WHERE {
+          $this dct:conformsTo ?criteria .
+          FILTER NOT EXISTS { ?criteria dct:identifier ?id } }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-27: a Capability Assessment cites no evidence (dct:source)." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE { FILTER NOT EXISTS { $this dct:source ?s } }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-27: a Capability Assessment does not have exactly one dct:date typed xsd:date." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE {
+          { SELECT $this (COUNT(?d) AS ?n) (COUNT(?y) AS ?ok)
+            WHERE { OPTIONAL { $this dct:date ?d . BIND(IF(DATATYPE(?d) = xsd:date, ?d, ?none) AS ?y) } }
+            GROUP BY $this }
+          FILTER(?n != 1 || ?ok != 1) }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CD14: an absent Capability Assessment is about a capability instance; an absent finding links none." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this ?instance WHERE {
+          $this bco:assessedPresence ?p ; cco:ont00001808 ?instance .
+          FILTER(STR(?p) = "absent")
+          ?instance a ?K . ?K rdfs:subClassOf+ cco:ont00000568 . }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-33: a Capability Assessment states an integration, availability or adequacy finding." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE {
+          { $this schema:reviewAspect ?a } UNION { $this obo:BFO_0000178 ?f . ?f schema:reviewAspect ?a } }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CD17: a present-finding Capability Assessment cites a Functional Adequacy Assessment as its evidence; adequacy is never evidence that a capability is possessed." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this ?faa WHERE {
+          $this bco:assessedPresence ?p ; dct:source ?faa .
+          FILTER(STR(?p) = "present")
+          ?faa a/rdfs:subClassOf* bco:FunctionalAdequacyAssessment . }""" ] .
+
+
+# ---------------------------------------------------------------------
+# CAP-26: every capability-bearing claim has one Organization bearer and a
+# supporting present-finding assessment
+# ---------------------------------------------------------------------
+
+desc:CapabilityInstanceShape
+    a sh:NodeShape ;
+    sh:target [
+        a sh:SPARQLTarget ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT DISTINCT ?this WHERE {
+          ?this a ?K . ?K rdfs:subClassOf+ cco:ont00000568 .
+          FILTER NOT EXISTS { ?this a owl:Class }
+        }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-26: a capability instance does not have exactly one Organization bearer, whichever direction the bearing is asserted in." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE {
+          { SELECT $this (COUNT(DISTINCT ?org) AS ?n) WHERE {
+              OPTIONAL { { ?org cco:ont00001954 $this } UNION { $this cco:ont00001889 ?org }
+                         ?org a/rdfs:subClassOf* cco:ont00001180 } } GROUP BY $this }
+          FILTER(?n != 1) }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-26: a capability instance has no supporting Capability Assessment that describes its bearer, is about it, concerns its class and finds it present." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE {
+          FILTER NOT EXISTS {
+            { ?org cco:ont00001954 $this } UNION { $this cco:ont00001889 ?org }
+            $this a ?class .
+            ?a a/rdfs:subClassOf* bco:CapabilityAssessment ;
+               cco:ont00001982 ?org ; cco:ont00001808 $this ;
+               bco:concernsType ?class ; bco:assessedPresence ?p .
+            FILTER(STR(?p) = "present") } }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-26: no supporting assessment of a capability instance cites evidence other than an Authorization Record or a past realization of the capability." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE {
+          { ?org cco:ont00001954 $this } UNION { $this cco:ont00001889 ?org }
+          $this a ?class .
+          ?a a/rdfs:subClassOf* bco:CapabilityAssessment ;
+             cco:ont00001982 ?org ; cco:ont00001808 $this ;
+             bco:concernsType ?class ; bco:assessedPresence ?p .
+          FILTER(STR(?p) = "present")
+          FILTER NOT EXISTS {
+            ?b a/rdfs:subClassOf* bco:CapabilityAssessment ;
+               cco:ont00001982 ?org ; cco:ont00001808 $this ;
+               bco:concernsType ?class ; bco:assessedPresence ?q ;
+               dct:source ?evidence .
+            FILTER(STR(?q) = "present")
+            FILTER NOT EXISTS { ?evidence a/rdfs:subClassOf* bco:AuthorizationRecord }
+            FILTER NOT EXISTS { ?evidence obo:BFO_0000055 $this }
+            FILTER NOT EXISTS { $this obo:BFO_0000054 ?evidence } } }""" ] .
+
+
+# ---------------------------------------------------------------------
+# CAP-20: the maturity rating
+# ---------------------------------------------------------------------
+
+desc:MaturityRatingShape
+    a sh:NodeShape ;
+    sh:targetClass bco:CapabilityMaturityRating ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-20: a Capability Maturity Rating is not an ordinal measurement (cco:ont00001811) of exactly one existing capability instance." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE {
+          { SELECT $this (COUNT(DISTINCT ?x) AS ?n) (COUNT(DISTINCT ?y) AS ?ok)
+            WHERE { OPTIONAL { $this cco:ont00001811 ?x .
+                               OPTIONAL { ?x a ?K . ?K rdfs:subClassOf+ cco:ont00000568 . BIND(?x AS ?y) } } }
+            GROUP BY $this }
+          FILTER(?n != 1 || ?ok != 1) }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-20: a Capability Maturity Rating does not have exactly one ordinal value (schema:ratingValue, the Stage 05 encoding)." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE {
+          { SELECT $this (COUNT(?v) AS ?n) WHERE { OPTIONAL { $this schema:ratingValue ?v } } GROUP BY $this }
+          FILTER(?n != 1) }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-20: a Capability Maturity Rating does not conform to exactly one scale (dct:conformsTo)." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE {
+          { SELECT $this (COUNT(?s) AS ?n) WHERE { OPTIONAL { $this dct:conformsTo ?s } } GROUP BY $this }
+          FILTER(?n != 1) }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-20: a Capability Maturity Rating cites no Capability Assessment as its source (dct:source)." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE {
+          FILTER NOT EXISTS { $this dct:source ?a . ?a a/rdfs:subClassOf* bco:CapabilityAssessment } }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-20: a Capability Maturity Rating carries the ordinal measurement annotation (cco:ont00001739), which is reserved for the measured entity." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this ?v WHERE { $this cco:ont00001739 ?v . }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-20: a Capability Maturity Rating's value is given by a property whose domain is Information Bearing Entity (cco:ont00000253), which a rating is not." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this ?p WHERE {
+          $this ?p ?v . ?p rdfs:domain/rdfs:subClassOf* cco:ont00000253 . }""" ] .
+
+
+# ---------------------------------------------------------------------
+# CAP-23 and CD17: sourcing
+# ---------------------------------------------------------------------
+
+desc:SourcingStatementShape
+    a sh:NodeShape ;
+    sh:targetClass bco:CapabilitySourcingStatement ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-23: a Capability Sourcing Statement does not describe exactly one Organization (the consumer)." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE {
+          { SELECT $this (COUNT(DISTINCT ?d) AS ?n) (COUNT(DISTINCT ?y) AS ?ok)
+            WHERE { OPTIONAL { $this cco:ont00001982 ?d .
+                               OPTIONAL { ?d a/rdfs:subClassOf* cco:ont00001180 . BIND(?d AS ?y) } } }
+            GROUP BY $this }
+          FILTER(?n != 1 || ?ok != 1) }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-23: a Capability Sourcing Statement is not about exactly one Organization other than the one it describes (the provider)." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE {
+          { SELECT $this (COUNT(DISTINCT ?p) AS ?n) WHERE {
+              OPTIONAL { $this cco:ont00001808 ?p . ?p a/rdfs:subClassOf* cco:ont00001180
+                         FILTER NOT EXISTS { $this cco:ont00001982 ?p } } } GROUP BY $this }
+          FILTER(?n != 1) }""" ] .
+
+desc:SourcingAssessmentShape
+    a sh:NodeShape ;
+    sh:targetClass bco:CapabilitySourcingAssessment ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CD17: a Capability Sourcing Assessment is not about exactly one Capability Sourcing Statement." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE {
+          { SELECT $this (COUNT(DISTINCT ?s) AS ?n) WHERE {
+              OPTIONAL { $this cco:ont00001808 ?s . ?s a/rdfs:subClassOf* bco:CapabilitySourcingStatement } } GROUP BY $this }
+          FILTER(?n != 1) }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CD17: a Capability Sourcing Assessment states no criteria (dct:conformsTo) or cites no evidence (dct:source)." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE {
+          FILTER(NOT EXISTS { $this dct:conformsTo ?c } || NOT EXISTS { $this dct:source ?s }) }""" ] .
+
+
+# ---------------------------------------------------------------------
+# CAP-24 and CAP-28: the evidence register
+# ---------------------------------------------------------------------
+
+desc:AuthorizationRecordShape
+    a sh:NodeShape ;
+    sh:targetClass bco:AuthorizationRecord ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-24: an Authorization Record is not about exactly one agent." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE {
+          { SELECT $this (COUNT(DISTINCT ?x) AS ?n) (COUNT(DISTINCT ?y) AS ?ok)
+            WHERE { OPTIONAL { $this cco:ont00001808 ?x .
+                               OPTIONAL { ?x a ?T . ?T rdfs:subClassOf* ?A .
+                                          FILTER(?A IN (cco:ont00001017, cco:ont00001262, cco:ont00000300, cco:ont00001180))
+                                          BIND(?x AS ?y) } } }
+            GROUP BY $this }
+          FILTER(?n != 1 || ?ok != 1) }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-24: an Authorization Record does not have exactly one schema:validFrom and one schema:validThrough, each typed xsd:date." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE {
+          { SELECT $this (COUNT(DISTINCT ?f) AS ?nf) (COUNT(DISTINCT ?t) AS ?nt)
+              (SUM(IF(BOUND(?f) && DATATYPE(?f) != xsd:date, 1, 0)) AS ?badf)
+              (SUM(IF(BOUND(?t) && DATATYPE(?t) != xsd:date, 1, 0)) AS ?badt)
+            WHERE { OPTIONAL { $this schema:validFrom ?f } OPTIONAL { $this schema:validThrough ?t } }
+            GROUP BY $this }
+          FILTER(?nf != 1 || ?nt != 1 || ?badf > 0 || ?badt > 0) }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-24: an Authorization Record cites no authority (dct:source)." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE { FILTER NOT EXISTS { $this dct:source ?s } }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-28: an Authorization Record is typed Action Permission (cco:ont00000751)." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE { $this a/rdfs:subClassOf* cco:ont00000751 . }""" ] .
+
+desc:ActionPermissionShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ont00000751 ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-28: an Action Permission (cco:ont00000751) permits no asserted act instance; a prospective authorization is an Authorization Record." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE {
+          FILTER NOT EXISTS {
+            $this cco:ont00001910 ?act .
+            ?act a/rdfs:subClassOf* ?P . FILTER(?P IN (cco:ont00000228, obo:BFO_0000015)) } }""" ] .
+
+
+# ---------------------------------------------------------------------
+# CAP-31: the target-state specification
+# ---------------------------------------------------------------------
+
+desc:TargetStateShape
+    a sh:NodeShape ;
+    sh:targetClass bco:CapabilityTargetStateSpecification ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-31: a Capability Target-State Specification has no named Capability Target as a continuant part (obo:BFO_0000178)." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE {
+          FILTER NOT EXISTS {
+            $this obo:BFO_0000178 ?t . ?t a/rdfs:subClassOf* bco:CapabilityTarget .
+            FILTER(isIRI(?t)) } }""" ] .
+
+
+# ---------------------------------------------------------------------
+# CAP-33 and CD17: the functional adequacy assessment
+# ---------------------------------------------------------------------
+
+desc:AdequacyAssessmentShape
+    a sh:NodeShape ;
+    sh:targetClass bco:FunctionalAdequacyAssessment ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-33: a Functional Adequacy Assessment does not describe exactly one Organization." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE {
+          { SELECT $this (COUNT(DISTINCT ?d) AS ?n) (COUNT(DISTINCT ?y) AS ?ok)
+            WHERE { OPTIONAL { $this cco:ont00001982 ?d .
+                               OPTIONAL { ?d a/rdfs:subClassOf* cco:ont00001180 . BIND(?d AS ?y) } } }
+            GROUP BY $this }
+          FILTER(?n != 1 || ?ok != 1) }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-33: a Functional Adequacy Assessment is not about exactly one Standing Function (its APQC catalog concept, a skos:Concept)." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE {
+          { SELECT $this (COUNT(DISTINCT ?f) AS ?n) (COUNT(DISTINCT ?y) AS ?ok)
+            WHERE { OPTIONAL { $this cco:ont00001808 ?f .
+                               OPTIONAL { ?f a skos:Concept . BIND(?f AS ?y) } } }
+            GROUP BY $this }
+          FILTER(?n != 1 || ?ok != 1) }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-33: a Functional Adequacy Assessment does not state exactly three findings, one each for integration and coordination, operational availability, and adequacy for the function." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE {
+          { SELECT $this (COUNT(DISTINCT ?f) AS ?n) (COUNT(DISTINCT ?aspect) AS ?k) WHERE {
+              OPTIONAL { $this obo:BFO_0000178 ?f .
+                         OPTIONAL { ?f schema:reviewAspect ?a .
+                                    FILTER(STR(?a) IN ("integration and coordination", "operational availability", "adequacy for the function"))
+                                    BIND(STR(?a) AS ?aspect) } } } GROUP BY $this }
+          FILTER(?n != 3 || ?k != 3) }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-33: a Functional Adequacy Assessment carries bco:assessedPresence; it states no presence finding (CD17)." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this ?p WHERE { $this bco:assessedPresence ?p . }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-33: an individual is both a Functional Adequacy Assessment and a Capability Assessment; it is a sibling of Capability Assessment, never a kind of it (CD17)." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE { $this a/rdfs:subClassOf* bco:CapabilityAssessment . }""" ] .
+
+desc:AdequacyFindingShape
+    a sh:NodeShape ;
+    sh:target [
+        a sh:SPARQLTarget ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT DISTINCT ?this WHERE {
+          ?faa a/rdfs:subClassOf* bco:FunctionalAdequacyAssessment ; obo:BFO_0000178 ?this .
+        }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-33: an adequacy finding is not exactly one of met, partly met or not met (schema:ratingValue)." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE {
+          { SELECT $this (COUNT(?v) AS ?n) (SUM(IF(STR(?v) IN ("met", "partly met", "not met"), 1, 0)) AS ?ok)
+            WHERE { OPTIONAL { $this schema:ratingValue ?v } } GROUP BY $this }
+          FILTER(?n != 1 || ?ok != 1) }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-33: an adequacy finding names no criteria (dct:conformsTo)." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE { FILTER NOT EXISTS { $this dct:conformsTo ?c } }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-33: an adequacy finding cites no evidence that establishes it (dct:source)." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE { FILTER NOT EXISTS { $this dct:source ?s } }""" ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:severity sh:Violation ;
+        sh:message "CAP-33: an adequacy finding does not have exactly one dct:date typed xsd:date." ;
+        sh:prefixes desc:prefixes ;
+        sh:select """SELECT $this WHERE {
+          { SELECT $this (COUNT(?d) AS ?n) (COUNT(?y) AS ?ok)
+            WHERE { OPTIONAL { $this dct:date ?d . BIND(IF(DATATYPE(?d) = xsd:date, ?d, ?none) AS ?y) } }
+            GROUP BY $this }
+          FILTER(?n != 1 || ?ok != 1) }""" ] .

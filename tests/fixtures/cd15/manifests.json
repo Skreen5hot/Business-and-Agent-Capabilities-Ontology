@@ -1,0 +1,163 @@
+{
+  "comment": "Test-only CD15 completeness manifests (decision of 2026-11-15, B-2). 'valid' are built to pass Gate M; the first four are the scenario manifests tests/test_manifests.py answers questions under, over tests/fixtures/cd15/evidence.trig. 'invalid' are built to fail Gate M, one reason each. No manifest here is about a real organization, and none is Stage 06.",
+  "valid": [
+    {
+      "case": "M1 authorizations, 2026",
+      "manifest": {
+        "graph": "bco:fixture_cd15_graph_auth",
+        "organization": "bco:fixture_cq_org",
+        "acting_agents": ["bco:fixture_cq_clerk", "bco:fixture_cq_treasurer"],
+        "act_classes": ["ex:ActOfReporting", "ex:ActOfRemuneration"],
+        "start": "2026-01-01",
+        "end": "2026-12-31",
+        "authority_sources": ["bco:fixture_cd15_regulator", "bco:fixture_cd15_internal_register"]
+      }
+    },
+    {
+      "case": "M2 authorizations, 2025, a graph holding a record with no authority",
+      "manifest": {
+        "graph": "bco:fixture_cd15_graph_flawed",
+        "organization": "bco:fixture_cq_org",
+        "acting_agents": ["bco:fixture_cq_clerk"],
+        "act_classes": ["ex:ActOfRemuneration"],
+        "start": "2025-01-01",
+        "end": "2025-12-31",
+        "authority_sources": ["bco:fixture_cd15_regulator"]
+      }
+    },
+    {
+      "case": "M3 realization log, October 2026",
+      "manifest": {
+        "graph": "bco:fixture_cd15_graph_log",
+        "organization": "bco:fixture_cq_org",
+        "acting_agents": ["bco:fixture_cq_clerk", "bco:fixture_cq_treasurer"],
+        "act_classes": ["cco:ont00000228"],
+        "start": "2026-10-01",
+        "end": "2026-10-31",
+        "authority_sources": ["bco:fixture_cd15_payroll_system"]
+      }
+    },
+    {
+      "case": "M5 the specification's example shape, full IRIs",
+      "manifest": {
+        "graph": "https://example.org/fixture/graph_authorizations",
+        "organization": "https://example.org/fixture/org",
+        "acting_agents": ["https://example.org/fixture/org"],
+        "act_classes": ["https://fandaws.com/ontology/bpo#ActOfReporting"],
+        "start": "2026-01-01",
+        "end": "2026-12-31",
+        "authority_sources": ["https://example.org/fixture/internal_register", "https://example.org/fixture/state_regulator_portal"]
+      }
+    }
+  ],
+  "invalid": [
+    {
+      "case": "M4 start after end (covers 2027 if it were read)",
+      "manifest": {
+        "graph": "bco:fixture_cd15_graph_auth",
+        "organization": "bco:fixture_cq_org",
+        "acting_agents": ["bco:fixture_cq_clerk"],
+        "act_classes": ["ex:ActOfReporting"],
+        "start": "2027-12-31",
+        "end": "2027-01-01",
+        "authority_sources": ["bco:fixture_cd15_regulator"]
+      }
+    },
+    {
+      "case": "no authority sources",
+      "manifest": {
+        "graph": "bco:fixture_cd15_graph_auth",
+        "organization": "bco:fixture_cq_org",
+        "acting_agents": ["bco:fixture_cq_clerk"],
+        "act_classes": ["ex:ActOfReporting"],
+        "start": "2026-01-01",
+        "end": "2026-12-31"
+      }
+    },
+    {
+      "case": "a field CD15 does not have: revocation is not representable (OI-21)",
+      "manifest": {
+        "graph": "bco:fixture_cd15_graph_auth",
+        "organization": "bco:fixture_cq_org",
+        "acting_agents": ["bco:fixture_cq_clerk"],
+        "act_classes": ["ex:ActOfReporting"],
+        "start": "2026-01-01",
+        "end": "2026-12-31",
+        "authority_sources": ["bco:fixture_cd15_regulator"],
+        "revoked_records": ["bco:fixture_cd15_r_reporting_clerk"]
+      }
+    },
+    {
+      "case": "a month that does not exist",
+      "manifest": {
+        "graph": "bco:fixture_cd15_graph_auth",
+        "organization": "bco:fixture_cq_org",
+        "acting_agents": ["bco:fixture_cq_clerk"],
+        "act_classes": ["ex:ActOfReporting"],
+        "start": "2026-13-01",
+        "end": "2026-12-31",
+        "authority_sources": ["bco:fixture_cd15_regulator"]
+      }
+    },
+    {
+      "case": "a day that does not exist",
+      "manifest": {
+        "graph": "bco:fixture_cd15_graph_auth",
+        "organization": "bco:fixture_cq_org",
+        "acting_agents": ["bco:fixture_cq_clerk"],
+        "act_classes": ["ex:ActOfReporting"],
+        "start": "2026-01-01",
+        "end": "2026-02-30",
+        "authority_sources": ["bco:fixture_cd15_regulator"]
+      }
+    },
+    {
+      "case": "no acting agents",
+      "manifest": {
+        "graph": "bco:fixture_cd15_graph_auth",
+        "organization": "bco:fixture_cq_org",
+        "acting_agents": [],
+        "act_classes": ["ex:ActOfReporting"],
+        "start": "2026-01-01",
+        "end": "2026-12-31",
+        "authority_sources": ["bco:fixture_cd15_regulator"]
+      }
+    },
+    {
+      "case": "a prefix the tool does not know",
+      "manifest": {
+        "graph": "acme:graph_acme_authorizations",
+        "organization": "acme:acme",
+        "acting_agents": ["acme:acme"],
+        "act_classes": ["ex:ActOfReporting"],
+        "start": "2026-01-01",
+        "end": "2026-12-31",
+        "authority_sources": ["acme:internal_register"]
+      }
+    },
+    {
+      "case": "an act class listed twice",
+      "manifest": {
+        "graph": "bco:fixture_cd15_graph_auth",
+        "organization": "bco:fixture_cq_org",
+        "acting_agents": ["bco:fixture_cq_clerk"],
+        "act_classes": ["ex:ActOfReporting", "ex:ActOfReporting"],
+        "start": "2026-01-01",
+        "end": "2026-12-31",
+        "authority_sources": ["bco:fixture_cd15_regulator"]
+      }
+    },
+    {
+      "case": "a graph that is not a name",
+      "manifest": {
+        "graph": 42,
+        "organization": "bco:fixture_cq_org",
+        "acting_agents": ["bco:fixture_cq_clerk"],
+        "act_classes": ["ex:ActOfReporting"],
+        "start": "2026-01-01",
+        "end": "2026-12-31",
+        "authority_sources": ["bco:fixture_cd15_regulator"]
+      }
+    }
+  ]
+}

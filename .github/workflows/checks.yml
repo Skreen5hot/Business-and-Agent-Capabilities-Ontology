@@ -148,8 +148,13 @@ jobs:
       # Stage 05 (D6): the capability module is what its tranche record
       # produces, and every field of the record agrees with the readiness
       # package, the signed G1-T records and the vocabulary build (S05-T1).
-      - name: The capability module is its tranche record's build
+      - name: The capability and description modules are their tranche records' builds
         run: python tools/ontology/formalize.py
+
+      # Gate M (decision of 2026-11-15, B-2): the CD15 completeness
+      # manifest schema, and every fixture manifest built to pass or fail.
+      - name: Gate M, the completeness manifests match the CD15 schema
+        run: python tools/ontology/manifests.py
 
       # S05-D: ELK over the modules and extracts through the pinned ROBOT
       # jar, falsified by a case built to be unsatisfiable. The jar is

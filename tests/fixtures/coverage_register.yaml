@@ -1,0 +1,22 @@
+# A minimal TEST-ONLY coverage register (CD16; decision of 2026-11-15, B-3),
+# enough to demonstrate CQ-9 and CQ-12 over fixture data. It is not the
+# production coverage register, which is Stage 06's and is not implemented.
+#
+# Keyed by a standing function's catalog node. Here the nodes are test-only
+# stand-ins for APQC catalog concepts, declared as skos:Concept in
+# tests/fixtures/cq_description.ttl, with no PCF identifier or text. Each
+# lists the component capability classes the function requires: real written
+# classes from src/05_ontology/apqc-cap.ttl. Listing a component creates no
+# subclass link, and a whole-function class is never among its own
+# function's components (CAP-22).
+
+version: 1
+standing_functions:
+  bco:fixture_cq_node_payroll_function:
+    components:
+      - bco:PayrollProcessing
+      - bco:PayrollTaxProcessing
+  bco:fixture_cq_node_treasury_function:
+    components:
+      - bco:CashManagement
+      - bco:InHouseBankAccountManagement

@@ -1,0 +1,149 @@
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:    <http://purl.org/dc/terms/> .
+@prefix schema: <https://schema.org/> .
+@prefix obo:    <http://purl.obolibrary.org/obo/> .
+@prefix cco:    <https://www.commoncoreontologies.org/> .
+@prefix ex:     <https://fandaws.com/ontology/bpo#> .
+@prefix bco:    <https://fandaws.com/ontology/bco#> .
+
+# The description layer for the fixture organizations of
+# tests/fixtures/cq_organizations.ttl (CP-2; decision of 2026-11-15, B-1 and
+# B-3): assessments, a map, targets, sourcing, an adequacy assessment, and the
+# catalog-node designations of the test-only coverage register
+# (tests/fixtures/coverage_register.yaml).
+#
+# TEST-ONLY. Nothing here is a claim about a real organization, and none of
+# it is Stage 06. The catalog nodes are test-only stand-ins for APQC catalog
+# concepts: they carry no PCF identifier, name or text. The one class declared
+# here, bco:FixtureCqWholePayrollFunction, is a test-only whole-function class
+# that a standing function designates; it is in no module.
+
+bco:FixtureCqWholePayrollFunction a owl:Class ;
+    rdfs:label "Fixture CQ whole payroll function"@en ;
+    skos:definition "A whole-function capability class a test-only standing function designates; test-only."@en ;
+    rdfs:subClassOf bco:BusinessCapability .
+
+# -- A second payroll capability for organization one ----------------------------
+
+bco:fixture_cq_org cco:ont00001954 bco:fixture_cq_paytax .
+bco:fixture_cq_paytax a bco:PayrollTaxProcessing ;
+    obo:BFO_0000218 bco:fixture_cq_clerk .
+
+# -- Assessments (CQ-6, CQ-13) --------------------------------------------------------
+
+bco:fixture_cq_criteria dct:identifier "FIXTURE-CQ-CRIT" .
+bco:fixture_cq_staffing dct:date "2026-09-01"^^xsd:date .
+
+bco:fixture_cq_assess_payroll a bco:CapabilityAssessment ;
+    cco:ont00001982 bco:fixture_cq_org ;
+    cco:ont00001808 bco:fixture_cq_payroll ;
+    bco:concernsType bco:PayrollProcessing ;
+    bco:assessedPresence "present" ;
+    dct:date "2026-09-30"^^xsd:date ;
+    dct:conformsTo bco:fixture_cq_criteria ;
+    dct:source bco:fixture_cq_staffing .
+
+bco:fixture_cq_assess_paytax a bco:CapabilityAssessment ;
+    cco:ont00001982 bco:fixture_cq_org ;
+    cco:ont00001808 bco:fixture_cq_paytax ;
+    bco:concernsType bco:PayrollTaxProcessing ;
+    bco:assessedPresence "present" ;
+    dct:date "2026-09-30"^^xsd:date ;
+    dct:conformsTo bco:fixture_cq_criteria ;
+    dct:source bco:fixture_cq_staffing .
+
+bco:fixture_cq_assess_ap_absent a bco:CapabilityAssessment ;
+    cco:ont00001982 bco:fixture_cq_org ;
+    bco:concernsType bco:AccountsPayableProcessing ;
+    bco:assessedPresence "absent" ;
+    dct:date "2026-09-30"^^xsd:date ;
+    dct:conformsTo bco:fixture_cq_criteria ;
+    dct:source bco:fixture_cq_staffing .
+
+# An incomplete evaluation of the cash capability: no finding, so not a
+# Capability Assessment and not a map entry (CD14). CQ-13 still reports the
+# cash claim as unsupported.
+bco:fixture_cq_cash_evaluation_in_progress a cco:ont00000853 ;
+    cco:ont00001982 bco:fixture_cq_org ;
+    cco:ont00001808 bco:fixture_cq_cash .
+
+# -- Targets and the map (CQ-6, CQ-8) ------------------------------------------------
+
+bco:fixture_cq_target_payroll a bco:CapabilityTarget ;
+    cco:ont00001808 bco:fixture_cq_org ;
+    bco:concernsType bco:PayrollProcessing .
+bco:fixture_cq_target_cash a bco:CapabilityTarget ;
+    cco:ont00001808 bco:fixture_cq_org ;
+    bco:concernsType bco:CashManagement .
+bco:fixture_cq_target_ap a bco:CapabilityTarget ;
+    cco:ont00001808 bco:fixture_cq_org ;
+    bco:concernsType bco:AccountsPayableProcessing .
+
+bco:fixture_cq_map a bco:CapabilityMap ;
+    cco:ont00001982 bco:fixture_cq_org ;
+    obo:BFO_0000178 bco:fixture_cq_assess_payroll , bco:fixture_cq_assess_ap_absent ,
+                    bco:fixture_cq_target_payroll , bco:fixture_cq_target_cash ,
+                    bco:fixture_cq_target_ap .
+
+bco:fixture_cq_plan a bco:CapabilityTargetStateSpecification ;
+    obo:BFO_0000178 bco:fixture_cq_target_cash , bco:fixture_cq_target_ap .
+
+# -- Sourcing (CQ-7, CQ-14) ------------------------------------------------------------
+
+# Hybrid: the vendor performs remuneration acts, and organization one bears
+# payroll processing, whose index has an act under Act of Remuneration.
+bco:fixture_cq_sourcing_pay a bco:CapabilitySourcingStatement ;
+    cco:ont00001982 bco:fixture_cq_org ;
+    cco:ont00001808 bco:fixture_cq_vendor ;
+    bco:concernsType ex:ActOfRemuneration .
+bco:fixture_cq_sourcing_pay_assessment a bco:CapabilitySourcingAssessment ;
+    cco:ont00001808 bco:fixture_cq_sourcing_pay ;
+    dct:conformsTo bco:fixture_cq_criteria ;
+    dct:source bco:fixture_cq_staffing .
+
+# Sourced only: an accounts-payable act, which no capability of organization
+# one indexes. No sourcing assessment (CQ-14 reports it).
+bco:fixture_cq_sourcing_ap a bco:CapabilitySourcingStatement ;
+    cco:ont00001982 bco:fixture_cq_org ;
+    cco:ont00001808 bco:fixture_cq_vendor ;
+    bco:concernsType ex:P10869 .
+
+# -- The coverage register's catalog nodes (CQ-9) ------------------------------------
+
+# A standing function that designates a whole-function class.
+bco:fixture_cq_node_payroll_function a skos:Concept ;
+    ex:designatesProcessType bco:FixtureCqWholePayrollFunction .
+# A standing function with no whole-function class: only its register entry.
+bco:fixture_cq_node_treasury_function a skos:Concept .
+# A process node designating an act class, which is not a capability class.
+bco:fixture_cq_node_process a skos:Concept ;
+    ex:designatesProcessType ex:P10862 .
+
+# -- An adequacy assessment of the payroll function (CQ-12's boundary) -------------
+
+bco:fixture_cq_faa_payroll a bco:FunctionalAdequacyAssessment ;
+    cco:ont00001982 bco:fixture_cq_org ;
+    cco:ont00001808 bco:fixture_cq_node_payroll_function ;
+    obo:BFO_0000178 bco:fixture_cq_faa_integration , bco:fixture_cq_faa_availability ,
+                    bco:fixture_cq_faa_adequacy .
+bco:fixture_cq_faa_integration a cco:ont00000853 ;
+    schema:reviewAspect "integration and coordination" ;
+    schema:ratingValue "partly met" ;
+    dct:conformsTo bco:fixture_cq_criteria ;
+    dct:source bco:fixture_cq_staffing ;
+    dct:date "2026-09-30"^^xsd:date .
+bco:fixture_cq_faa_availability a cco:ont00000853 ;
+    schema:reviewAspect "operational availability" ;
+    schema:ratingValue "met" ;
+    dct:conformsTo bco:fixture_cq_criteria ;
+    dct:source bco:fixture_cq_sourcing_pay ;
+    dct:date "2026-09-30"^^xsd:date .
+bco:fixture_cq_faa_adequacy a cco:ont00000853 ;
+    schema:reviewAspect "adequacy for the function" ;
+    schema:ratingValue "not met" ;
+    dct:conformsTo bco:fixture_cq_criteria ;
+    dct:source bco:fixture_cq_staffing ;
+    dct:date "2026-09-30"^^xsd:date .

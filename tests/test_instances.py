@@ -3,10 +3,11 @@ increment-accepted.md, C): shapes/instance_shapes.ttl against its fixture of
 test-only individuals.
 
 Each constraint fires on its own case; the positive controls survive; the
-encoding choices are the ones the shape file records. The CP-1 rules that
-need description-layer terms, which are not minted, are listed in
-BLOCKED and asserted absent from the shapes, so that none is counted as
-covered by accident.
+encoding choices are the ones the shape file records; CAP-34's, has agent and
+agent in, was confirmed by the architect on 2026-11-15 (N-4,
+docs/decisions/2026-11-15-b1-b4-approved-cap34-confirmed.md). The
+description-layer rules are tests/test_description.py's; CAP-18, a query
+rule, is listed in BLOCKED and asserted absent from every shape set.
 """
 
 from __future__ import annotations
@@ -53,6 +54,9 @@ INSTANCE_CONSTRAINTS = {
 #: A second case for CAP-34: only the organization is named as performer.
 SECOND_CASES = {
     BCO + "fixture_cap_org_performer": "CAP-34:",
+    # The specification's CAP-11 case, on a written description class
+    # (shapes/description_bad_examples.ttl).
+    BCO + "fixture_d_map_has_capability": "CAP-11:",
 }
 
 #: Built to conform.
@@ -62,14 +66,13 @@ POSITIVE_CONTROLS = [
     BCO + "fixture_good_act", BCO + "fixture_joint_act",
 ]
 
-#: CP-1 rules that cannot be encoded without an unminted term (the
-#: description layer: Capability Assessment, Map, Target, Maturity Rating,
-#: Sourcing Statement and Assessment, Target-State Specification,
-#: Authorization Record, Functional Adequacy Assessment; the annotations
-#: bco:concernsType and bco:assessedPresence), or without a completeness
-#: manifest schema (Gate M). Reported, never counted.
-BLOCKED = ("CAP-17", "CAP-18", "CAP-20", "CAP-23", "CAP-24", "CAP-26",
-           "CAP-27", "CAP-28", "CAP-31", "CAP-33")
+#: CP-1 rules no shape may claim. The description-layer rules (CAP-17,
+#: CAP-20, CAP-23, CAP-24, CAP-26 to CAP-28, CAP-31, CAP-33) are in
+#: shapes/description_shapes.ttl since the decision of 2026-11-15, B-1
+#: (tests/test_description.py). CAP-18 is a query rule: it is checked with the
+#: CD15 manifests (tools/ontology/manifests.py, tests/test_manifests.py), and
+#: a shape claiming it would be claiming what SHACL cannot check.
+BLOCKED = ("CAP-18",)
 
 
 @pytest.fixture(scope="module")
@@ -137,8 +140,8 @@ def test_the_vendor_case_is_participation_not_performance(repo):
 
 
 def test_no_blocked_rule_is_claimed_by_a_shape(layout):
-    """The rules that need unminted terms are not in any shape file, so a
-    green ladder cannot be read as covering them."""
+    """CAP-18 is in no shape file, so a green ladder cannot be read as
+    covering it."""
     from test_ontology_checks import shape_messages
 
     for entry in layout.components("ontology-validation"):

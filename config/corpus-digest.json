@@ -8,9 +8,9 @@
       "shape_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "triples_touching": 0
     },
-    "ground_sha256": "1dfd89183a24b0568cf19408a250e8c54dc998a2534c58a0a3b120d4561c92a4",
-    "ground_triples": 329,
-    "triples": 329
+    "ground_sha256": "ea02b74b03e2cac8c14d8c56ab768bb4370af3e22841a2f10ea0a9efd02a08a0",
+    "ground_triples": 371,
+    "triples": 371
   },
   "note": "Ground triples and blank-node shape together cover every triple. Blank nodes are renamed by every parse, so their identities are erased and only their structure is digested.",
   "per_file": {
@@ -21,9 +21,9 @@
         "shape_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "triples_touching": 0
       },
-      "ground_sha256": "50f7c7e97281ccad40d3b78b5aa2ad8296a896ac9160a3e2c1868577ebcc3bfe",
-      "ground_triples": 4,
-      "triples": 4
+      "ground_sha256": "2e125d89484e3bd790fcf239b173c39537d96b2f78217063838b8768570580ea",
+      "ground_triples": 46,
+      "triples": 46
     },
     "src/05_ontology/apqc-cap.ttl": {
       "blank_nodes": {

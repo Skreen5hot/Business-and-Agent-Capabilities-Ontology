@@ -31,7 +31,7 @@ Business Process Ontology (BPO). Copyright (c) 2026 Aaron Damiano, licensed unde
 - commit: `bc64e91839378e1926189c01bf184d6a22d5c1b7`
 - licence: MIT -- https://github.com/Skreen5hot/BusinessProcessOntology/blob/bc64e91839378e1926189c01bf184d6a22d5c1b7/LICENSE
 - as stated by the source: MIT License (https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/LICENSE)
-- 161 terms in full, 0 stubs, 248 axioms dropped
+- 162 terms in full, 0 stubs, 248 axioms dropped
 
 APQC Process Classification Framework (PCF) material: the act class IRIs
 taken from BPO's slices (bpo:P<id>) embed PCF 7.4 element IDs, as
@@ -51,4 +51,4 @@ Common Core Ontologies v2.0. Copyright (c) 2017 CUBRC, Inc., licensed BSD-3-Clau
 - commit: `510dad76be0ef710b65a421075af912af25342b7`
 - licence: BSD-3-Clause -- https://github.com/CommonCoreOntology/CommonCoreOntologies/blob/510dad76be0ef710b65a421075af912af25342b7/LICENSE
 - as stated by the source: BSD 3-Clause: https://github.com/CommonCoreOntology/CommonCoreOntologies/blob/master/LICENSE
-- 55 terms in full, 4 stubs, 12 axioms dropped
+- 56 terms in full, 4 stubs, 13 axioms dropped

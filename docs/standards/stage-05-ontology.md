@@ -3,7 +3,7 @@
 
 | Field | Value |
 |---|---|
-| Status | **Approved** on 2026-11-15 as D5-1, with the validation architecture as D5-2 (`docs/decisions/2026-11-15-bpo-inquiry-and-d5-approved.md`). The approved text is `docs/proposals/2026-11-15-stage-05-ontology-standard.md` at `cd81767`, SHA-256 `128a81493f904a4211ebf170dede317a9d227a784a1608b58c37871a5afac77c`; only this status row differs from it. Under D5-2, a skipped or unavailable reasoner is not a passing checkpoint result. It authorizes no OWL: writing the first tranche needs a D6 implementation authorization. A substantive change is a new, reviewed version |
+| Status | **Approved** on 2026-11-15 as D5-1, with the validation architecture as D5-2 (`docs/decisions/2026-11-15-bpo-inquiry-and-d5-approved.md`). The approved text is `docs/proposals/2026-11-15-stage-05-ontology-standard.md` at `cd81767`, SHA-256 `128a81493f904a4211ebf170dede317a9d227a784a1608b58c37871a5afac77c`; only this status row and §9, the amendment history, differ from it. Under D5-2, a skipped or unavailable reasoner is not a passing checkpoint result. It authorizes no OWL: writing the first tranche needs a D6 implementation authorization. A substantive change is a new, reviewed version |
 | Date | 2026-11-15 |
 | Drafted by | Claude Code (`claude-opus-5-5`), for the BCO team |
 | Applies to | The modules under `src/05_ontology/`, the shapes and fixtures that validate them, the vendored upstream extracts they rest on, and the tranche records that admit terms into them |
@@ -170,3 +170,17 @@ This standard:
 Each of those is a later tranche, with its own record. A class whose source check is open
 (`docs/catalog/tranche-2-followup.md`, §3) waits for the check, and if a defect is found,
 it goes back to the architect alone.
+
+## 9. Amendment history
+
+Amendments the architect has decided, recorded here so the approved text above keeps
+its meaning. None changes the specification baseline (v0.5.0-draft.3), which is
+preserved.
+
+| Date | Decision | What it changes |
+|---|---|---|
+| 2026-11-15 | B-1 (`docs/decisions/2026-11-15-b1-b4-approved-cap34-confirmed.md`) | **The description tranche is authorized**, notwithstanding §8's "does not write the description layer". It covers the seven description-layer classes, `bco:AuthorizationRecord`, `bco:FunctionalAdequacyAssessment` (under `cco:ont00000853`) and the annotation properties `bco:concernsType` and `bco:assessedPresence`, written into `apqc-cap-desc.ttl` from `src/05_ontology/tranche-2-description.yaml` (readiness record `docs/proposals/2026-11-15-stage05-description-tranche-readiness.md`). §2's per-class items apply as far as they can: a vocabulary concept and digest, and the parent. G1-T, the realization index and CAP-06 do not apply to information terms. The instance-level checks §5 deferred to this tranche are `shapes/description_shapes.ttl` |
+| 2026-11-15 | B-3 | **§4's import boundary admits one more declaration:** BPO's `bpo:designatesProcessType` as an `owl:AnnotationProperty`, from `ontology/apqc-catalog.ttl` at the pin, for CQ-9's test-only coverage register. Catalog nodes and their text still never enter |
+| 2026-11-15 | B-4 | **CQ-11 method exception.** The competency questions are answered by SPARQL over fixture data (specification §7), except CQ-11. CQ-11 is answered by a reproducible extraction over the CAP-06 review records, the signed G1-T records (`tools/ontology/review_records.py`), with an executable expected-answer test. It is a review-record answer, not an OWL inference or a SPARQL answer from the module. A class with no recorded development act has none recorded, never none that exists. OI-4 stays open, and no development property is authorized |
+| 2026-11-15 | B-2 | **Gate M** (`tools/ontology/manifests.py`, `config/completeness-manifest.schema.json`) joins §5's checks, run on every commit. It applies to fixture manifests only until evidence graphs exist (Stage 06) |
+| 2026-11-15 | N-4 | **CAP-34's performance relation** is confirmed as `cco:ont00001833` has agent / `cco:ont00001787` agent in. OI-8's relation selection is resolved for CAP-34 |

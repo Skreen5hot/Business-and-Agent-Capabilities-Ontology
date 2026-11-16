@@ -1,0 +1,72 @@
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix dct:    <http://purl.org/dc/terms/> .
+@prefix schema: <https://schema.org/> .
+@prefix obo:    <http://purl.obolibrary.org/obo/> .
+@prefix cco:    <https://www.commoncoreontologies.org/> .
+@prefix ex:     <https://fandaws.com/ontology/bpo#> .
+@prefix bco:    <https://fandaws.com/ontology/bco#> .
+
+# Test-only named evidence graphs for CD15 and CAP-18 (decision of
+# 2026-11-15, B-2), bounded by the manifests in manifests.json. Their agents
+# and organization are tests/fixtures/cq_organizations.ttl's; their act
+# classes are the real BPO classes in the vendored extract (P10867 and
+# P10868, under ex:ActOfReporting; P10862, under ex:ActOfRemuneration).
+# Nothing here is about a real organization, and none of it is Stage 06.
+
+# -- Authorizations, 2026 (M1) -------------------------------------------------
+
+bco:fixture_cd15_graph_auth {
+
+    # The clerk, any reporting act, first half of 2026 (the regulator).
+    bco:fixture_cd15_r_reporting_clerk a bco:AuthorizationRecord ;
+        cco:ont00001808 bco:fixture_cq_clerk ;
+        bco:concernsType ex:ActOfReporting ;
+        schema:validFrom "2026-01-01"^^xsd:date ;
+        schema:validThrough "2026-06-30"^^xsd:date ;
+        dct:source bco:fixture_cd15_regulator .
+
+    # The clerk again, overlapping, from another authority.
+    bco:fixture_cd15_r_reporting_clerk_h2 a bco:AuthorizationRecord ;
+        cco:ont00001808 bco:fixture_cq_clerk ;
+        bco:concernsType ex:ActOfReporting ;
+        schema:validFrom "2026-06-15"^^xsd:date ;
+        schema:validThrough "2026-09-30"^^xsd:date ;
+        dct:source bco:fixture_cd15_internal_register .
+
+    # The treasurer, only P10867, all 2026.
+    bco:fixture_cd15_r_p10867_treasurer a bco:AuthorizationRecord ;
+        cco:ont00001808 bco:fixture_cq_treasurer ;
+        bco:concernsType ex:P10867 ;
+        schema:validFrom "2026-01-01"^^xsd:date ;
+        schema:validThrough "2026-12-31"^^xsd:date ;
+        dct:source bco:fixture_cd15_regulator .
+
+    # The organization itself, remuneration, all 2026.
+    bco:fixture_cd15_r_org_remuneration a bco:AuthorizationRecord ;
+        cco:ont00001808 bco:fixture_cq_org ;
+        bco:concernsType ex:ActOfRemuneration ;
+        schema:validFrom "2026-01-01"^^xsd:date ;
+        schema:validThrough "2026-12-31"^^xsd:date ;
+        dct:source bco:fixture_cd15_regulator .
+}
+
+# -- Authorizations, 2025 (M2): one record cites no authority -------------------
+
+bco:fixture_cd15_graph_flawed {
+
+    bco:fixture_cd15_r_no_authority a bco:AuthorizationRecord ;
+        cco:ont00001808 bco:fixture_cq_clerk ;
+        bco:concernsType ex:ActOfRemuneration ;
+        schema:validFrom "2025-01-01"^^xsd:date ;
+        schema:validThrough "2025-12-31"^^xsd:date .
+}
+
+# -- A realization log, October 2026 (M3) ----------------------------------------
+
+bco:fixture_cd15_graph_log {
+
+    bco:fixture_cd15_log_run a ex:P10862 ;
+        obo:BFO_0000055 bco:fixture_cq_payroll ;
+        cco:ont00001833 bco:fixture_cq_clerk ;
+        dct:date "2026-10-25"^^xsd:date .
+}

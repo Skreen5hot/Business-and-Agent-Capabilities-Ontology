@@ -394,8 +394,10 @@ def test_s05_c8_the_boundary_check_can_fail():
 
 def test_s05_c8_no_excluded_bpo_module_is_pinned(repo):
     """RP-3: the modules that assert bpo:requiresCapability are never a
-    source, and an additional file takes act classes or the one annotation
-    property, nothing wider."""
+    source, and an additional file takes act classes or one of two
+    annotation property declarations, nothing wider: enablesProcess, and
+    designatesProcessType, which B-3 admits for CQ-9's test-only register
+    (decision of 2026-11-15; Stage 05 standard, section 9)."""
     import yaml
 
     pins = yaml.safe_load((repo / "config/upstream-sources.yaml")
@@ -405,7 +407,8 @@ def test_s05_c8_no_excluded_bpo_module_is_pinned(repo):
     assert not [u for u in named if u.endswith(EXCLUDED_MODULES)], named
     patterns = {f["subjects"] for f in bpo["additional_files"]}
     assert patterns == {"^https://fandaws\\.com/ontology/bpo#P[0-9]+$",
-                        "^https://fandaws\\.com/ontology/bpo#enablesProcess$"}
+                        "^https://fandaws\\.com/ontology/bpo#enablesProcess$",
+                        "^https://fandaws\\.com/ontology/bpo#designatesProcessType$"}
 
 
 def test_q13_each_genus_has_one_declaration(data_graph):

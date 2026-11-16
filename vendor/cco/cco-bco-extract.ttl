@@ -11,11 +11,11 @@
 #
 # Common Core Ontologies v2.0. Copyright (c) 2017 CUBRC, Inc., licensed BSD-3-Clause.
 #
-# This is not Common Core Ontologies. It carries 55 terms described in full and 4
+# This is not Common Core Ontologies. It carries 56 terms described in full and 4
 # declared as stubs, selected because this repository names them or
 # because a selected term's ancestry passes through them.
 #
-# 12 axioms about the selected terms were dropped: every one whose
+# 13 axioms about the selected terms were dropped: every one whose
 # object is an anonymous class expression. A reasoner over this file
 # therefore derives less than one over the upstream, and it cannot be
 # used to claim consistency with Common Core Ontologies.
@@ -34,7 +34,7 @@
 <https://fandaws.com/ontology/bco/vendor/cco-bco-extract> dcterms:source <https://raw.githubusercontent.com/CommonCoreOntology/CommonCoreOntologies/510dad76be0ef710b65a421075af912af25342b7/src/cco-merged/CommonCoreOntologiesMerged.ttl> .
 <https://fandaws.com/ontology/bco/vendor/cco-bco-extract> owl:versionInfo "Common Core Ontologies v2.0-2024-11-06, partial extract for the Business Capability Ontology"@en .
 <https://fandaws.com/ontology/bco/vendor/cco-bco-extract> rdf:type owl:Ontology .
-<https://fandaws.com/ontology/bco/vendor/cco-bco-extract> rdfs:comment "Partial extract, not the upstream ontology. 12 axioms whose object is an anonymous class expression were dropped, so a reasoner over this file derives less than one over Common Core Ontologies and cannot be used to claim consistency with it. Upstream licence as stated by the source: BSD 3-Clause: https://github.com/CommonCoreOntology/CommonCoreOntologies/blob/master/LICENSE"@en .
+<https://fandaws.com/ontology/bco/vendor/cco-bco-extract> rdfs:comment "Partial extract, not the upstream ontology. 13 axioms whose object is an anonymous class expression were dropped, so a reasoner over this file derives less than one over Common Core Ontologies and cannot be used to claim consistency with it. Upstream licence as stated by the source: BSD 3-Clause: https://github.com/CommonCoreOntology/CommonCoreOntologies/blob/master/LICENSE"@en .
 
 cco:ont00000005 cco:ont00001760 "https://www.commoncoreontologies.org/EventOntology"^^xsd:anyURI .
 cco:ont00000005 rdf:type owl:Class .
@@ -54,6 +54,14 @@ cco:ont00000228 rdfs:label "Planned Act"@en .
 cco:ont00000228 rdfs:subClassOf cco:ont00000005 .
 cco:ont00000228 skos:altLabel "Intentional Act"@en .
 cco:ont00000228 skos:definition "An Act in which at least one Agent plays a causative role and which is prescribed by some Directive Information Content Entity held by at least one of the Agents."@en .
+
+cco:ont00000253 cco:ont00001754 "http://purl.obolibrary.org/obo/IAO_0000178"^^xsd:anyURI .
+cco:ont00000253 cco:ont00001760 "https://www.commoncoreontologies.org/InformationEntityOntology"^^xsd:anyURI .
+cco:ont00000253 rdf:type owl:Class .
+cco:ont00000253 rdfs:label "Information Bearing Entity"@en .
+cco:ont00000253 rdfs:subClassOf obo:BFO_0000030 .
+cco:ont00000253 skos:altLabel "IBE"@en .
+cco:ont00000253 skos:definition "An Object upon which an Information Content Entity generically depends."@en .
 
 cco:ont00000300 cco:ont00001760 "https://www.commoncoreontologies.org/AgentOntology"^^xsd:anyURI .
 cco:ont00000300 rdf:type owl:Class .

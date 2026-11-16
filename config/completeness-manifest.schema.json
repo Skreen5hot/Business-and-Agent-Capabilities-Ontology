@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fandaws.com/ontology/bco/schemas/completeness-manifest.schema.json",
+  "title": "CD15 completeness manifest",
+  "description": "The scope within which one named evidence graph is declared complete (specification v0.5.0-draft.3, CD15; Gate M). A JSON artifact outside OWL: it changes nothing about OWL's open-world reading, and it is never loaded as RDF. Outside the scope it declares, an absence question returns unknown (CAP-18). The fields are CD15's, and no other field is allowed: revocation and supersession are not representable in v0.5 (OI-21), so a manifest cannot declare them. Names are absolute http(s) IRIs or CURIEs with a prefix tools/ontology/manifests.py knows (bco, ex, cco, obo).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["graph", "organization", "acting_agents", "act_classes", "start", "end", "authority_sources"],
+  "properties": {
+    "graph": {
+      "description": "The IRI of the named evidence graph declared complete.",
+      "$ref": "#/$defs/name"
+    },
+    "organization": {
+      "description": "The Organization whose evidence the graph holds.",
+      "$ref": "#/$defs/name"
+    },
+    "acting_agents": {
+      "description": "The agents whose authorizations, or whose acts, the graph covers. Each is judged by identity alone: a member is not the organization, nor the reverse (CD15, Agent).",
+      "$ref": "#/$defs/names"
+    },
+    "act_classes": {
+      "description": "The act classes covered, each with every class under it in the asserted hierarchy (CD15, Act type).",
+      "$ref": "#/$defs/names"
+    },
+    "start": {
+      "description": "The first date covered, inclusive.",
+      "$ref": "#/$defs/date"
+    },
+    "end": {
+      "description": "The last date covered, inclusive. Not before start.",
+      "$ref": "#/$defs/date"
+    },
+    "authority_sources": {
+      "description": "The authorities, or sources of record, whose records the graph is complete for.",
+      "$ref": "#/$defs/names"
+    }
+  },
+  "$defs": {
+    "name": {
+      "type": "string",
+      "pattern": "^(https?://[^\\s<>\"{}|\\\\^`]+|[A-Za-z][A-Za-z0-9_-]*:[A-Za-z0-9_][A-Za-z0-9_.-]*)$"
+    },
+    "names": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/name" }
+    },
+    "date": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
+    }
+  }
+}

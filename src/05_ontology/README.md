@@ -1,7 +1,9 @@
 # Stage 05 — Ontology
 
 **Status:** first tranche implemented under D6
-(`docs/decisions/2026-11-15-v05-transition-approved-d6-authorized.md`, E), against the
+(`docs/decisions/2026-11-15-v05-transition-approved-d6-authorized.md`, E), and the
+description tranche under B-1 (`docs/decisions/2026-11-15-b1-b4-approved-cap34-confirmed.md`),
+against the
 Stage 05 standard (`docs/standards/stage-05-ontology.md`) and specification
 v0.5.0-draft.3. Not released, and not a claim of conformance with BFO, CCO or BPO as
 published: the reasoners see the vendored extracts, which drop every anonymous class
@@ -12,7 +14,9 @@ and a stage-completion record are met (standard, section 7).
 |---|---|
 | `apqc-cap.ttl` | `bco:BusinessCapability` and the first tranche's 39 specific capability classes, each with its signed realization index. Written by `tools/ontology/formalize.py --write`; never edit it |
 | `tranche-1.yaml` | The tranche record the module is written from: each class's signed G1-T record (path, commit, SHA-256), concept digest and index, and the three types held back |
-| `apqc-cap-desc.ttl` | The description layer. Still an `owl:Ontology` header: T3 has not reconciled its terms, and no tranche covers it |
+| `apqc-cap-desc.ttl` | The description layer (B-1): seven description-layer classes, `bco:AuthorizationRecord`, `bco:FunctionalAdequacyAssessment`, and the annotation properties `bco:concernsType` and `bco:assessedPresence`. Written by `formalize.py --write` from `tranche-2-description.yaml`; never edit it |
+| `tranche-2-description.yaml` | The description tranche's record: each information class with its concept, digest and one CCO parent, and the two annotation properties. Readiness record: `docs/proposals/2026-11-15-stage05-description-tranche-readiness.md` |
+| `fidelity-trace-tranche-1.md` | The first tranche's conceptual-fidelity trace |
 
 ## What the first tranche is
 
@@ -51,39 +55,36 @@ and a stage-completion record are met (standard, section 7).
 
 ## CP-1 and CP-2: where they stand
 
-Under the decision of 2026-11-15, C and D
-(`docs/decisions/2026-11-15-d6-class-increment-accepted.md`), test-only individuals
-exercise what can be encoded with existing terms. The full account, with every result, is
-the stage-completion record (`docs/proposals/2026-11-15-stage05-tranche1-completion-record.md`).
+Test-only individuals exercise every CP-1 rule and every competency question, under the
+decisions of 2026-11-15 (`docs/decisions/2026-11-15-d6-class-increment-accepted.md`, C and
+D; `docs/decisions/2026-11-15-b1-b4-approved-cap34-confirmed.md`, B-1 to B-4). The full
+account is the stage-completion record
+(`docs/proposals/2026-11-15-stage05-tranche1-completion-record.md`), which waits on the
+architect's acceptance. Stage 05 is not complete until then.
 
-**Demonstrated:**
+| Evidence | Where | Covers |
+|---|---|---|
+| Instance shapes, 11 constraints | `shapes/instance_shapes.ttl`; `tests/test_instances.py` | CAP-08, CAP-11, CAP-12, CAP-19, CAP-21 (Gate C-A), CAP-25, CAP-34 (has agent, confirmed N-4), CAP-35 |
+| Description shapes, 42 constraints | `shapes/description_shapes.ttl`; `tests/test_description.py` | CAP-17, CAP-20, CAP-23, CAP-24, CAP-26, CAP-27, CAP-28, CAP-31, CAP-33, and the CD14 and CD17 rules |
+| Gate M and CD15's answers | `tools/ontology/manifests.py`; `config/completeness-manifest.schema.json`; `tests/test_manifests.py` | CAP-18 and each CD15 applicability rule, positive and negative; CQ-4, CQ-5 |
+| Competency questions | `tests/test_competency_questions.py` | CQ-1 to CQ-14, each by its authorized method (below) |
+| Gate G | `tests/test_formalization.py`; CQ-12's no-write test | CAP-29 |
+| CAP-10, CAP-16 | `tools/ontology/reason.py` | HermiT fixtures |
 
-- **Instance shapes** (`shapes/instance_shapes.ttl`, 11 constraints, each firing on its
-  own test-only case, with 6 positive controls). They check CAP-08, CAP-11, CAP-12,
-  CAP-19, CAP-21 (Gate C-A), CAP-25, CAP-34 and CAP-35.
-- **The performance relation** (CAP-34, an encoding chosen at Stage 05): CCO's
-  `has agent` / `agent in` (`cco:ont00001833` / `cco:ont00001787`). The Extended
-  Relation Ontology has none.
-- **Competency questions** CQ-1, CQ-2, CQ-3 and CQ-10, as SPARQL over two fixture
-  organizations, the real module and the extracts
-  (`tests/test_competency_questions.py`).
-- **Gate G:** the index generator's tests (`tests/test_formalization.py`); CAP-29 holds
-  because nothing generates assessments.
-- **CAP-10 and CAP-16 fixtures** under HermiT (`tools/ontology/reason.py`).
-- **The conceptual-fidelity trace:** `fidelity-trace-tranche-1.md`.
+How each question is answered:
 
-**Not demonstrated**, for the architect's decision, because each needs a term that is not
-minted or an encoding that does not exist:
+- **SPARQL over fixture organizations:** CQ-1, CQ-2, CQ-3, CQ-6, CQ-7, CQ-8, CQ-10, CQ-13
+  and CQ-14.
+- **CQ-9 and CQ-12, over a test-only coverage register**
+  (`tests/fixtures/coverage_register.yaml`). They are demonstrated over fixture data only;
+  the production register is Stage 06's and is not implemented.
+- **CQ-4 and CQ-5, within CD15 manifests.** The answer is recorded, none recorded or
+  unknown, never "not authorized".
+- **CQ-11 from the signed review records** (`tools/ontology/review_records.py`). This is
+  the B-4 exception: a review-record answer, not an OWL or SPARQL one. OI-4 stays open.
 
-- **The description layer:** Capability Assessment, Map, Target, Maturity Rating, Sourcing
-  Statement and Assessment, Target-State Specification, Authorization Record, Functional
-  Adequacy Assessment, and the annotations `bco:concernsType` and `bco:assessedPresence`.
-  These block CAP-17, CAP-20, CAP-23, CAP-24, CAP-26, CAP-27, CAP-28, CAP-31 and CAP-33,
-  and CQ-5 to CQ-8, CQ-13 and CQ-14.
-- **The CD15 completeness manifest and its schema (Gate M):** blocks CQ-4, CQ-5 and CAP-18.
-- **The coverage register (CD16, Stage 06's) and the BPO import boundary:** block CQ-9
-  and CQ-12.
-- **A development relation (OI-4):** blocks CQ-11.
+Not covered by any shape: the Gate F judgments (whether evidence establishes a negative
+finding or is sufficient against its threshold), which are review work.
 
 These files were under `ontology/` until 2026-10-25. Their git history is under that
 path; `git log --follow` reaches it.

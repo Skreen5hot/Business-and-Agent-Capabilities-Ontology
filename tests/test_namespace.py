@@ -225,7 +225,12 @@ def test_every_declared_prefix_is_authored_or_pinned(turtle, namespaces,
                                                      upstream):
     """A prefix pointing somewhere else is either an upstream vocabulary
     nobody pinned or a mistake, and the two look identical in a diff."""
-    standard = ("http://www.w3.org/", "http://purl.org/dc/")
+    # schema.org is reused by the specification itself (section 4, "Reused
+    # without change": schema:validFrom, schema:validThrough), and by the
+    # Stage 05 encodings the description shapes record (schema:ratingValue,
+    # schema:reviewAspect). It is never vendored: no class of it is used.
+    standard = ("http://www.w3.org/", "http://purl.org/dc/",
+                "https://schema.org/")
     authored = tuple(ns.rstrip("#") for ns in namespaces)
     stray = []
     for path in turtle:

@@ -542,8 +542,15 @@ def test_the_status_page_counts_the_vocabulary_it_validates(built, repo):
         classes.parse(path, format="turtle")
     written = {s for s in classes.subjects(rdflib.RDF.type, rdflib.OWL.Class)
                if str(s).startswith("https://fandaws.com/ontology/bco#")}
-    assert len(written) == 40, len(written)
-    assert "<dt>Ontology terms checked</dt><dd>%d</dd>" % len(written) in page
+    # 40 capability classes and, since B-1, the 9 description-layer classes
+    # and the 2 annotation properties.
+    assert len(written) == 49, len(written)
+    properties = {s for s in classes.subjects(rdflib.RDF.type,
+                                              rdflib.OWL.AnnotationProperty)
+                  if str(s).startswith("https://fandaws.com/ontology/bco#")}
+    assert len(properties) == 2, len(properties)
+    assert "<dt>Ontology terms checked</dt><dd>%d</dd>" % (
+        len(written) + len(properties)) in page
     assert "No BCO ontology term is written yet" not in page
 
 
