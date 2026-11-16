@@ -40,9 +40,12 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
   annotation properties `bco:concernsType` and `bco:assessedPresence`), written the same way
   from `src/05_ontology/tranche-2-description.yaml`. Gate M (`tools/ontology/manifests.py`)
   checks the CD15 manifests. CQ-11 is answered from the signed review records, by an
-  approved exception; CAP-34's has agent is confirmed. Stage 05 is not complete: the
-  completion record waits on the architect's acceptance (`src/05_ontology/README.md`), and
-  Stage 06 is not authorized.
+  approved exception; CAP-34's has agent is confirmed. **Both Stage 05 tranches are
+  complete** (accepted 2026-11-16, `docs/decisions/2026-11-16-stage05-completion-accepted.md`),
+  validated against test fixtures, with CP-1 and CP-2 under the qualifications of the
+  completion record's section 9; CAP-20's and CAP-33's schema.org encodings are confirmed as
+  encoding conventions only. No release, no production G1-I assertion, and Stage 06 is not
+  authorized; the next submission is a Stage 06 standard and bounded proposal.
   Before the first tranche, the only `bco:` IRIs with triples were the controlled
   vocabulary's annotation properties and the `bco:PCFCode` datatype, declared in the generated
   `src/01_controlled_vocabulary/generated/bco-vocabulary.ttl` (accepted 2026-10-24, `docs/decisions/2026-10-24-p3-accepted.md`).
