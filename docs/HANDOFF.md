@@ -25,8 +25,10 @@ manifests. **The first capability tranche and the description tranche of Stage 0
 complete**, validated against test fixtures: the architect accepted the completion record
 on 2026-11-16 (`docs/decisions/2026-11-16-stage05-completion-accepted.md`), with CP-1 and CP-2 satisfied under
 recorded qualifications and the CAP-20 and CAP-33 encodings confirmed. Not a release;
-Stage 06 is not authorized. The next submission is a concise Stage 06 standard and a
-bounded implementation proposal.
+Stage 06 runs under its approved standard (`docs/standards/stage-06-knowledge-graph.md`,
+`docs/decisions/2026-11-16-stage06-standard-and-first-increment.md`): only the register-first increment toward
+CP-3 is authorized. Real organization evidence (the second increment) is not, and Stage 06
+completion needs it.
 
 ## 2. What is in the tree
 
