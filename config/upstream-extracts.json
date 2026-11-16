@@ -14,6 +14,7 @@
       "project": "Basic Formal Ontology",
       "release": "release-2024-01-29",
       "seed_terms": [
+        "http://purl.obolibrary.org/obo/BFO_0000015",
         "http://purl.obolibrary.org/obo/BFO_0000016",
         "http://purl.obolibrary.org/obo/BFO_0000034",
         "http://purl.obolibrary.org/obo/BFO_0000054",
@@ -27,6 +28,7 @@
         "http://purl.obolibrary.org/obo/BFO_0000218"
       ],
       "seed_terms_from_corpus_and_shapes": [
+        "http://purl.obolibrary.org/obo/BFO_0000015",
         "http://purl.obolibrary.org/obo/BFO_0000016",
         "http://purl.obolibrary.org/obo/BFO_0000034",
         "http://purl.obolibrary.org/obo/BFO_0000054",
@@ -34,6 +36,7 @@
         "http://purl.obolibrary.org/obo/BFO_0000057",
         "http://purl.obolibrary.org/obo/BFO_0000115",
         "http://purl.obolibrary.org/obo/BFO_0000129",
+        "http://purl.obolibrary.org/obo/BFO_0000178",
         "http://purl.obolibrary.org/obo/BFO_0000196",
         "http://purl.obolibrary.org/obo/BFO_0000197",
         "http://purl.obolibrary.org/obo/BFO_0000218"
@@ -72,13 +75,20 @@
           "subjects": "^https://fandaws\\.com/ontology/bpo#enablesProcess$",
           "take_predicates": [],
           "url": "https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/ontology/capabilities_roles.ttl"
+        },
+        {
+          "path": "ontology/apqc-catalog.ttl",
+          "sha256": "593b438ab44d14445a92917b6fb357eaa2ef542845b0bf7ccc30ab3fa0888602",
+          "subjects": "^https://fandaws\\.com/ontology/bpo#designatesProcessType$",
+          "take_predicates": [],
+          "url": "https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/ontology/apqc-catalog.ttl"
         }
       ],
       "axioms_dropped_anonymous_object": 248,
       "commit": "bc64e91839378e1926189c01bf184d6a22d5c1b7",
       "extract": "vendor/bpo/bpo-ext-bco-extract.ttl",
       "extract_on_disk_matches": true,
-      "extract_sha256": "0471b10c68a815a59b93cc3bbceeb48bd5d4dc88eb2809dc01dc447c9a8218a0",
+      "extract_sha256": "a44e67632d53d9c822e13132398c1744fc00a1ea6aad296aa48bdd78cb95f5de",
       "licence_as_stated_by_source": "MIT License (https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/LICENSE)",
       "licence_spdx": "MIT",
       "licence_url": "https://github.com/Skreen5hot/BusinessProcessOntology/blob/bc64e91839378e1926189c01bf184d6a22d5c1b7/LICENSE",
@@ -240,6 +250,7 @@
         "https://fandaws.com/ontology/bpo#P19593",
         "https://fandaws.com/ontology/bpo#P20136",
         "https://fandaws.com/ontology/bpo#P20604",
+        "https://fandaws.com/ontology/bpo#designatesProcessType",
         "https://fandaws.com/ontology/bpo#enablesProcess"
       ],
       "seed_terms_from_corpus_and_shapes": [
@@ -395,16 +406,16 @@
       "source_sha256": "a8119728796872a1814aace8130a32cc8e42961b0bd5feaa28b736d60a0cc6fd",
       "source_url": "https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/ontology/apqc-ext.ttl",
       "terms_declared_as_stubs": 0,
-      "terms_described_in_full": 161,
-      "triples": 372
+      "terms_described_in_full": 162,
+      "triples": 375
     },
     "cco": {
       "additional_files": [],
-      "axioms_dropped_anonymous_object": 12,
+      "axioms_dropped_anonymous_object": 13,
       "commit": "510dad76be0ef710b65a421075af912af25342b7",
       "extract": "vendor/cco/cco-bco-extract.ttl",
       "extract_on_disk_matches": true,
-      "extract_sha256": "ceb15871c2916a7d6f07d771159d86e6ae141c853366f20e64a988710740927c",
+      "extract_sha256": "7249b027fd524476b4f310f8e8a59f09fdc1ae206d6998199ef58fae4aca3862",
       "licence_as_stated_by_source": "BSD 3-Clause: https://github.com/CommonCoreOntology/CommonCoreOntologies/blob/master/LICENSE",
       "licence_spdx": "BSD-3-Clause",
       "licence_url": "https://github.com/CommonCoreOntology/CommonCoreOntologies/blob/510dad76be0ef710b65a421075af912af25342b7/LICENSE",
@@ -414,6 +425,7 @@
       "seed_terms": [
         "https://www.commoncoreontologies.org/ont00000089",
         "https://www.commoncoreontologies.org/ont00000228",
+        "https://www.commoncoreontologies.org/ont00000253",
         "https://www.commoncoreontologies.org/ont00000300",
         "https://www.commoncoreontologies.org/ont00000476",
         "https://www.commoncoreontologies.org/ont00000568",
@@ -441,9 +453,11 @@
       ],
       "seed_terms_from_corpus_and_shapes": [
         "https://www.commoncoreontologies.org/ont00000228",
+        "https://www.commoncoreontologies.org/ont00000253",
         "https://www.commoncoreontologies.org/ont00000300",
         "https://www.commoncoreontologies.org/ont00000476",
         "https://www.commoncoreontologies.org/ont00000568",
+        "https://www.commoncoreontologies.org/ont00000751",
         "https://www.commoncoreontologies.org/ont00000853",
         "https://www.commoncoreontologies.org/ont00000958",
         "https://www.commoncoreontologies.org/ont00000974",
@@ -452,17 +466,22 @@
         "https://www.commoncoreontologies.org/ont00001017",
         "https://www.commoncoreontologies.org/ont00001180",
         "https://www.commoncoreontologies.org/ont00001262",
+        "https://www.commoncoreontologies.org/ont00001739",
         "https://www.commoncoreontologies.org/ont00001787",
+        "https://www.commoncoreontologies.org/ont00001808",
+        "https://www.commoncoreontologies.org/ont00001811",
         "https://www.commoncoreontologies.org/ont00001833",
         "https://www.commoncoreontologies.org/ont00001889",
         "https://www.commoncoreontologies.org/ont00001898",
-        "https://www.commoncoreontologies.org/ont00001954"
+        "https://www.commoncoreontologies.org/ont00001910",
+        "https://www.commoncoreontologies.org/ont00001954",
+        "https://www.commoncoreontologies.org/ont00001982"
       ],
       "source_sha256": "e609db27478a2c8b52b9bb5eb5ac979ac323510e851c368e4d9ec7d1c153fe5b",
       "source_url": "https://raw.githubusercontent.com/CommonCoreOntology/CommonCoreOntologies/510dad76be0ef710b65a421075af912af25342b7/src/cco-merged/CommonCoreOntologiesMerged.ttl",
       "terms_declared_as_stubs": 4,
-      "terms_described_in_full": 55,
-      "triples": 386
+      "terms_described_in_full": 56,
+      "triples": 393
     }
   },
   "format_version": 2,
@@ -497,16 +516,15 @@
     "ex:RequiredCapabilityList",
     "ex:StrategicPlanningCapability",
     "ex:assessedPresence",
-    "ex:concernsType",
-    "ex:designatesProcessType"
+    "ex:concernsType"
   ],
   "totals": {
-    "dropped": 286,
-    "full": 243,
-    "seeds": 192,
-    "seeds_from_corpus_and_shapes": 175,
-    "seeds_from_specification": 33,
-    "spec_terms_unresolved": 22,
+    "dropped": 287,
+    "full": 245,
+    "seeds": 195,
+    "seeds_from_corpus_and_shapes": 184,
+    "seeds_from_specification": 34,
+    "spec_terms_unresolved": 21,
     "stubs": 7
   }
 }

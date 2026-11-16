@@ -95,3 +95,29 @@ Every row is verified by `formalize.py` before the module is written:
   that disposition parent itself, because the architect's ratification of CD1 to CD3
   admitted the parent (CD3, R10-04). CM-01 predates that ratification; the D5 record's
   parent-alignment table recorded the same point as aligned in effect.
+
+## 4. Addendum: the description tranche (B-1)
+
+Section 1's last row ("not encoded") described the first tranche. Under the decision of
+2026-11-15, B-1 (`docs/decisions/2026-11-15-b1-b4-approved-cap34-confirmed.md`), the
+description layer is now written in `apqc-cap-desc.ttl`. Its classes are information terms
+that CM-01 names, not Capability Types, so no G1-T record traces them; each traces to its
+metamodel concept and its section 4 row (`src/05_ontology/tranche-2-description.yaml`,
+checked by `formalize.py`).
+
+| CM-01 element | Encoded as | Held by |
+|---|---|---|
+| Capability Map, Capability Assessment, Capability Maturity Rating, Capability Sourcing Statement, Capability Sourcing Assessment, Capability Target, Capability Target-State Specification, Authorization Record | one `owl:Class` each, under its section 4 CCO parent, with its concept's label and definition | `formalize.py`; `tests/test_description.py` |
+| Functional Adequacy Assessment | `bco:FunctionalAdequacyAssessment` under `cco:ont00000853` (B-1); its three findings as continuant parts (readiness record, section 4) | CAP-33 shapes |
+| RL-16 describes | `cco:ont00001982` | CAP-23, CAP-26, CAP-33 |
+| RL-17 has entry | `obo:BFO_0000178` | CAP-17 |
+| RL-18 concerns type | `bco:concernsType` (annotation) | CAP-17 |
+| RL-19 states | `bco:assessedPresence` (annotation) | CAP-27 |
+| RL-20 cites as evidence | `dct:source` | CAP-26, CAP-27 |
+| RL-21 conforms to | `dct:conformsTo` | CAP-20, CAP-27, CAP-33 |
+| RL-22 is about | `cco:ont00001808` | CAP-26; the CD14 absent-finding rule |
+| RL-23 supports bearing of | not a relation: a present assessment that describes the bearer, is about the instance and concerns its class (DP-2, Option A) | CAP-26; CQ-13 |
+
+No subclass link, object property or individual was added. Agent Manifest (RL-18's other
+subject) is not in the tranche: specification §4 mints no class for it (CD13).
+

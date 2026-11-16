@@ -17,6 +17,10 @@
 #               and vendoring tools read the pins and adjudications
 #   rdflib      reading the ontology without a reasoner
 #   pyshacl     the SHACL validation ladder
+#   jsonschema  Gate M: tools/ontology/manifests.py validates the CD15
+#               completeness manifests against their JSON Schema (decision
+#               of 2026-11-15, B-2). ARO's pin, 4.26.0, the version the vocab
+#               environment already runs
 #   Markdown    tools/site/build_site.py renders the specification and the
 #               review for the public site. 3.11 rather than the newest
 #               3.11.x: the newest was days old when this was pinned.
@@ -28,14 +32,15 @@
 #               the newest 6.21.x: the newest were days old when this was
 #               pinned (6.20.1 was released 2026-10-12).
 #
-# ARO also pins jsonschema and owlrl. Nothing ported here imports either,
-# and ARO's own rule is to take out a pin nothing exercises, so they are
-# not carried over. Add them back in the commit that adds the check that
-# needs them.
+# ARO also pins owlrl. Nothing ported here imports it, and ARO's own rule
+# is to take out a pin nothing exercises, so it is not carried over. Add it
+# back in the commit that adds the check that needs it. jsonschema came back
+# with Gate M.
 
 pytest==9.1.1
 PyYAML==6.0.3
 rdflib==7.6.0
 pyshacl==0.40.1
+jsonschema==4.26.0
 Markdown==3.11
 pypdf==6.20.1

@@ -35,8 +35,14 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
 - **D6 is authorized for the first tranche** (`docs/decisions/2026-11-15-v05-transition-approved-d6-authorized.md`). `src/05_ontology/apqc-cap.ttl` holds
   `bco:BusinessCapability` and 39 capability classes with their signed indexes, written by
   `tools/ontology/formalize.py --write` from `src/05_ontology/tranche-1.yaml` and never by
-  hand; `apqc-cap-desc.ttl` is still an empty header. The tranche is implemented, not
-  complete: CP-1, CP-2 and the conceptual-fidelity trace remain (`src/05_ontology/README.md`).
+  hand. Under B-1 to B-4 (`docs/decisions/2026-11-15-b1-b4-approved-cap34-confirmed.md`)
+  `apqc-cap-desc.ttl` holds the description layer (nine information classes and the
+  annotation properties `bco:concernsType` and `bco:assessedPresence`), written the same way
+  from `src/05_ontology/tranche-2-description.yaml`. Gate M (`tools/ontology/manifests.py`)
+  checks the CD15 manifests. CQ-11 is answered from the signed review records, by an
+  approved exception; CAP-34's has agent is confirmed. Stage 05 is not complete: the
+  completion record waits on the architect's acceptance (`src/05_ontology/README.md`), and
+  Stage 06 is not authorized.
   Before the first tranche, the only `bco:` IRIs with triples were the controlled
   vocabulary's annotation properties and the `bco:PCFCode` datatype, declared in the generated
   `src/01_controlled_vocabulary/generated/bco-vocabulary.ttl` (accepted 2026-10-24, `docs/decisions/2026-10-24-p3-accepted.md`).
@@ -91,6 +97,7 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
 .venv/Scripts/python tools/ontology/vendor_upstream.py
 .venv/Scripts/python tools/ontology/validate.py --gate
 .venv/Scripts/python tools/ontology/formalize.py
+.venv/Scripts/python tools/ontology/manifests.py
 .venv/Scripts/python tools/ontology/reason.py --checkpoint
 .venv/Scripts/python tools/communications.py
 .venv/Scripts/python tools/vocab/build.py

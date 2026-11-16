@@ -1,0 +1,88 @@
+# The Stage 05 description tranche: its tranche record (Stage 05 standard,
+# sections 2 and 5, S05-T1). Authored data, read by
+# tools/ontology/formalize.py, which verifies every field below against the
+# records it names and writes src/05_ontology/apqc-cap-desc.ttl from it.
+#
+# Authorized, with its readiness record, by the architect's decision of
+# 2026-11-15, B-1 (docs/decisions/2026-11-15-b1-b4-approved-cap34-confirmed.md):
+# the seven description-layer classes of specification v0.5 section 4, the
+# Authorization Record (CD15), bco:FunctionalAdequacyAssessment under
+# cco:ont00000853 (CD17, as decided), and the annotation properties
+# bco:concernsType and bco:assessedPresence. These are information-layer
+# terms (K3), not capability types, so G1-T does not apply to them, and no
+# class here is under cco:ont00000568.
+#
+# The readiness record is docs/proposals/2026-11-15-stage05-description-
+# tranche-readiness.md.
+#
+# Per class:
+#   class                   the IRI, in bco#. Its local name is the concept's
+#                           (S1)
+#   concept                 the metamodel concept (bcom:) whose label and
+#                           definition the class carries; its record names the
+#                           section 4 row, and the vocabulary's
+#                           bco:designatesClass must be this class. Absent only
+#                           for bco:FunctionalAdequacyAssessment, whose section
+#                           4 row has no IRI ("representation open"), so the
+#                           vocabulary has no record for it (D4-no-row); its
+#                           label and definition are read from that row
+#   concept_record_sha256   the concept's record digest (tools/vocab/build.py
+#                           --digest), checked against the build
+#   parent                  the one named parent. Checked against the section
+#                           4 row's Parent cell, or, for the adequacy
+#                           assessment, against the decision that chose it
+#
+# Per annotation property: its IRI, the label section 5's relation table
+# gives it, and its use, which must be section 4's "Use" cell verbatim.
+
+version: 1
+tranche: Stage 05, description tranche
+module: src/05_ontology/apqc-cap-desc.ttl
+authorized_by:
+  path: docs/decisions/2026-11-15-b1-b4-approved-cap34-confirmed.md
+specification:
+  path: specifications/Business-Capability-Ontology-v0.5.0-draft.3.md
+  sha256: 2224f869b0ec7a1e31b0afc1c2b403ad222ea290c334bff48a93ebbb6516c574
+classes:
+- class: bco:CapabilityMap
+  concept: bcom:CapabilityMap
+  concept_record_sha256: d762f799e086bb823f0b630bf0c26c9f942ee194f13ad9a5df5937e2c72402da
+  parent: cco:ont00000853
+- class: bco:CapabilityAssessment
+  concept: bcom:CapabilityAssessment
+  concept_record_sha256: b027d5a8891fb80702a9e8aa02813468d28ed56ab924fc220a3a6381a3140fa7
+  parent: cco:ont00000853
+- class: bco:CapabilityMaturityRating
+  concept: bcom:CapabilityMaturityRating
+  concept_record_sha256: 591c5e0c298fb9500eafd4cfa6de9c1d8b1c392bb9e6f92fc99f9c50e166d8a8
+  parent: cco:ont00001010
+- class: bco:CapabilitySourcingStatement
+  concept: bcom:CapabilitySourcingStatement
+  concept_record_sha256: 4b9b70a16165bb44908c4f7c02f0f39e92bacebb64f58c9db3444bf9e15aba88
+  parent: cco:ont00000853
+- class: bco:CapabilitySourcingAssessment
+  concept: bcom:CapabilitySourcingAssessment
+  concept_record_sha256: 460d4b1d480f11482d040cfdc40e2408529ff5bab972bb0aeb8c2f7f21dc6bc0
+  parent: cco:ont00000853
+- class: bco:CapabilityTarget
+  concept: bcom:CapabilityTarget
+  concept_record_sha256: b4945a8dee4e7ad09f2ea9a7c57fc1d07f40f018e380196def10e83cfe64067c
+  parent: cco:ont00000476
+- class: bco:CapabilityTargetStateSpecification
+  concept: bcom:CapabilityTargetStateSpecification
+  concept_record_sha256: d65c797315db6db91567b8780a9158ea7e63e0c7ede886b0d02521d8afcbe9b8
+  parent: cco:ont00000974
+- class: bco:AuthorizationRecord
+  concept: bcom:AuthorizationRecord
+  concept_record_sha256: d2f3430f2fad493db2b2f35135b60c6d6b231f392908edd49e662476c44e69af
+  parent: cco:ont00000853
+- class: bco:FunctionalAdequacyAssessment
+  label: Functional Adequacy Assessment
+  parent: cco:ont00000853
+annotation_properties:
+- property: bco:concernsType
+  label: concerns type
+  use: Identifies the capability class or act class an ICE concerns (CD14)
+- property: bco:assessedPresence
+  label: assessed presence
+  use: Records the finding of every Capability Assessment (CD14)

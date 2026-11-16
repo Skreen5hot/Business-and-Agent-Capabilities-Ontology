@@ -1,0 +1,471 @@
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:    <http://purl.org/dc/terms/> .
+@prefix schema: <https://schema.org/> .
+@prefix obo:    <http://purl.obolibrary.org/obo/> .
+@prefix cco:    <https://www.commoncoreontologies.org/> .
+@prefix ex:     <https://fandaws.com/ontology/bpo#> .
+@prefix bco:    <https://fandaws.com/ontology/bco#> .
+
+# Cases built to break description_shapes.ttl, one per constraint, with
+# positive controls that must survive.
+#
+# TEST-ONLY INDIVIDUALS (decision of 2026-11-15, B-1; the D6 acceptance, C).
+# Nothing here is a claim about any real organization, and none of it is
+# Stage 06. Individuals are in bco# with a fixture_d_ prefix.
+#
+# Loaded with the other fixtures and never with the extracts. It reuses the
+# instance fixture's organization, members, capability class and acts
+# (shapes/instance_bad_examples.ttl), and the stage 05 fixture's parent,
+# which it places under Organization Capability. Its own ancestry is below.
+# It also gives the instance fixture's positive capabilities the supporting
+# assessments CAP-26 asks for, so that they stay positive controls under
+# these shapes too.
+
+# -- ancestry ----------------------------------------------------------------
+
+cco:ont00000751 a owl:Class .
+# The description classes under their CCO parents, as apqc-cap-desc.ttl
+# writes them, so that CAP-11 and CAP-19 (instance shapes) see them as
+# information content entities.
+bco:CapabilityMap rdfs:subClassOf cco:ont00000853 .
+bco:CapabilityAssessment rdfs:subClassOf cco:ont00000853 .
+bco:CapabilitySourcingStatement rdfs:subClassOf cco:ont00000853 .
+bco:CapabilitySourcingAssessment rdfs:subClassOf cco:ont00000853 .
+bco:AuthorizationRecord rdfs:subClassOf cco:ont00000853 .
+bco:FunctionalAdequacyAssessment rdfs:subClassOf cco:ont00000853 .
+cco:ont00000253 a owl:Class .
+# Verified at the CCO pin: has integer value is defined on Information
+# Bearing Entity.
+cco:ont00001773 rdfs:domain cco:ont00000253 .
+
+# -- shared evidence, criteria and a standing function ------------------------
+
+bco:fixture_d_criteria dct:identifier "FIXTURE-CRIT-1" .
+bco:fixture_d_criteria_unnamed rdfs:comment "Criteria with no identifier." .
+bco:fixture_d_staffing_record rdfs:comment "A staffing record showing the positions are filled." .
+bco:fixture_d_scale dct:identifier "FIXTURE-SCALE-1" .
+bco:fixture_d_authority rdfs:comment "An issuing authority." .
+bco:fixture_d_function a skos:Concept ;
+    skos:prefLabel "Fixture standing function"@en .
+bco:fixture_d_provider2 a cco:ont00001180 .
+
+# =============================================================================
+# Positive controls
+# =============================================================================
+
+# Supporting assessments for the instance fixture's positive capabilities.
+bco:fixture_d_assess_good_cap a bco:CapabilityAssessment ;
+    cco:ont00001982 bco:fixture_org ;
+    cco:ont00001808 bco:fixture_good_cap ;
+    bco:concernsType bco:FixtureInstanceCapability ;
+    bco:assessedPresence "present" ;
+    dct:date "2026-09-30"^^xsd:date ;
+    dct:conformsTo bco:fixture_d_criteria ;
+    dct:source bco:fixture_d_staffing_record , bco:fixture_good_act .
+
+bco:fixture_d_assess_inverse_cap a bco:CapabilityAssessment ;
+    cco:ont00001982 bco:fixture_org ;
+    cco:ont00001808 bco:fixture_inverse_cap ;
+    bco:concernsType bco:FixtureInstanceCapability ;
+    bco:assessedPresence "present" ;
+    dct:date "2026-09-30"^^xsd:date ;
+    dct:conformsTo bco:fixture_d_criteria ;
+    dct:source bco:fixture_d_staffing_record .
+
+# The staged instance is a claim on a staged class: it has a bearer and a
+# supporting assessment, and still no basis (CD2 a2).
+bco:fixture_org cco:ont00001954 bco:fixture_staged_no_basis .
+bco:fixture_d_assess_staged a bco:CapabilityAssessment ;
+    cco:ont00001982 bco:fixture_org ;
+    cco:ont00001808 bco:fixture_staged_no_basis ;
+    bco:concernsType bco:FixtureStagedInstanceClass ;
+    bco:assessedPresence "present" ;
+    dct:date "2026-09-30"^^xsd:date ;
+    dct:conformsTo bco:fixture_d_criteria ;
+    dct:source bco:fixture_d_staffing_record .
+
+# An absent finding: no instance link, evidence that establishes the lack.
+bco:fixture_d_assess_absent a bco:CapabilityAssessment ;
+    cco:ont00001982 bco:fixture_vendor ;
+    bco:concernsType bco:FixtureInstanceCapability ;
+    bco:assessedPresence "absent" ;
+    dct:date "2026-09-30"^^xsd:date ;
+    dct:conformsTo bco:fixture_d_criteria ;
+    dct:source bco:fixture_d_staffing_record .
+
+bco:fixture_d_target_good a bco:CapabilityTarget ;
+    cco:ont00001808 bco:fixture_org ;
+    bco:concernsType bco:FixtureInstanceCapability .
+
+bco:fixture_d_map_good a bco:CapabilityMap ;
+    cco:ont00001982 bco:fixture_org ;
+    obo:BFO_0000178 bco:fixture_d_assess_good_cap , bco:fixture_d_target_good .
+
+bco:fixture_d_tss_good a bco:CapabilityTargetStateSpecification ;
+    obo:BFO_0000178 bco:fixture_d_target_good .
+
+bco:fixture_d_rating_good a bco:CapabilityMaturityRating ;
+    cco:ont00001811 bco:fixture_good_cap ;
+    schema:ratingValue 3 ;
+    dct:conformsTo bco:fixture_d_scale ;
+    dct:source bco:fixture_d_assess_good_cap .
+
+bco:fixture_d_sourcing_good a bco:CapabilitySourcingStatement ;
+    cco:ont00001982 bco:fixture_org ;
+    cco:ont00001808 bco:fixture_vendor ;
+    bco:concernsType ex:FixtureInstanceAct .
+
+bco:fixture_d_sa_good a bco:CapabilitySourcingAssessment ;
+    cco:ont00001808 bco:fixture_d_sourcing_good ;
+    dct:conformsTo bco:fixture_d_criteria ;
+    dct:source bco:fixture_d_staffing_record .
+
+bco:fixture_d_auth_good a bco:AuthorizationRecord ;
+    cco:ont00001808 bco:fixture_member ;
+    bco:concernsType ex:FixtureInstanceAct ;
+    schema:validFrom "2026-01-01"^^xsd:date ;
+    schema:validThrough "2026-12-31"^^xsd:date ;
+    dct:source bco:fixture_d_authority .
+
+# An Action Permission for an act that occurred, and that it permits.
+bco:fixture_d_permission_good a cco:ont00000751 ;
+    cco:ont00001910 bco:fixture_good_act .
+
+# A complete adequacy assessment; one finding is "not met", on evidence.
+bco:fixture_d_faa_good a bco:FunctionalAdequacyAssessment ;
+    cco:ont00001982 bco:fixture_org ;
+    cco:ont00001808 bco:fixture_d_function ;
+    obo:BFO_0000178 bco:fixture_d_faa_good_f1 , bco:fixture_d_faa_good_f2 ,
+                    bco:fixture_d_faa_good_f3 .
+bco:fixture_d_faa_good_f1 a cco:ont00000853 ;
+    schema:reviewAspect "integration and coordination" ;
+    schema:ratingValue "partly met" ;
+    dct:conformsTo bco:fixture_d_criteria ;
+    dct:source bco:fixture_d_staffing_record ;
+    dct:date "2026-09-30"^^xsd:date .
+bco:fixture_d_faa_good_f2 a cco:ont00000853 ;
+    schema:reviewAspect "operational availability" ;
+    schema:ratingValue "met" ;
+    dct:conformsTo bco:fixture_d_criteria ;
+    dct:source bco:fixture_d_sourcing_good ;
+    dct:date "2026-09-30"^^xsd:date .
+bco:fixture_d_faa_good_f3 a cco:ont00000853 ;
+    schema:reviewAspect "adequacy for the function" ;
+    schema:ratingValue "not met" ;
+    dct:conformsTo bco:fixture_d_criteria ;
+    dct:source bco:fixture_d_staffing_record ;
+    dct:date "2026-09-30"^^xsd:date .
+
+# =============================================================================
+# Cases
+# =============================================================================
+
+# -- CAP-17 --------------------------------------------------------------------
+
+bco:fixture_d_assess_two_types a bco:CapabilityAssessment ;
+    bco:concernsType bco:FixtureInstanceCapability , bco:FixtureStagedInstanceClass ;
+    bco:assessedPresence "absent" ;
+    dct:date "2026-09-30"^^xsd:date ;
+    dct:conformsTo bco:fixture_d_criteria ;
+    dct:source bco:fixture_d_staffing_record .
+
+bco:fixture_d_target_act_type a bco:CapabilityTarget ;
+    bco:concernsType ex:FixtureInstanceAct .
+
+bco:fixture_d_auth_cap_type a bco:AuthorizationRecord ;
+    cco:ont00001808 bco:fixture_member ;
+    bco:concernsType bco:FixtureInstanceCapability ;
+    schema:validFrom "2026-01-01"^^xsd:date ;
+    schema:validThrough "2026-12-31"^^xsd:date ;
+    dct:source bco:fixture_d_authority .
+
+bco:fixture_d_map_typed a bco:CapabilityMap ;
+    bco:concernsType bco:FixtureInstanceCapability ;
+    obo:BFO_0000178 bco:fixture_d_target_good .
+
+bco:fixture_d_map_empty a bco:CapabilityMap ;
+    cco:ont00001982 bco:fixture_org .
+
+bco:fixture_d_map_faa_entry a bco:CapabilityMap ;
+    obo:BFO_0000178 bco:fixture_d_target_good , bco:fixture_d_faa_good .
+
+# -- CAP-27 and CD14 -----------------------------------------------------------
+
+# An evaluation typed as an assessment with no finding.
+bco:fixture_d_assess_no_finding a bco:CapabilityAssessment ;
+    bco:concernsType bco:FixtureInstanceCapability ;
+    dct:date "2026-09-30"^^xsd:date ;
+    dct:conformsTo bco:fixture_d_criteria ;
+    dct:source bco:fixture_d_staffing_record .
+
+bco:fixture_d_assess_two_findings a bco:CapabilityAssessment ;
+    bco:concernsType bco:FixtureInstanceCapability ;
+    bco:assessedPresence "absent" , "partial" ;
+    dct:date "2026-09-30"^^xsd:date ;
+    dct:conformsTo bco:fixture_d_criteria ;
+    dct:source bco:fixture_d_staffing_record .
+
+bco:fixture_d_assess_no_criteria a bco:CapabilityAssessment ;
+    bco:concernsType bco:FixtureInstanceCapability ;
+    bco:assessedPresence "absent" ;
+    dct:date "2026-09-30"^^xsd:date ;
+    dct:source bco:fixture_d_staffing_record .
+
+bco:fixture_d_assess_criteria_no_id a bco:CapabilityAssessment ;
+    bco:concernsType bco:FixtureInstanceCapability ;
+    bco:assessedPresence "absent" ;
+    dct:date "2026-09-30"^^xsd:date ;
+    dct:conformsTo bco:fixture_d_criteria_unnamed ;
+    dct:source bco:fixture_d_staffing_record .
+
+bco:fixture_d_assess_no_source a bco:CapabilityAssessment ;
+    bco:concernsType bco:FixtureInstanceCapability ;
+    bco:assessedPresence "absent" ;
+    dct:date "2026-09-30"^^xsd:date ;
+    dct:conformsTo bco:fixture_d_criteria .
+
+bco:fixture_d_assess_no_date a bco:CapabilityAssessment ;
+    bco:concernsType bco:FixtureInstanceCapability ;
+    bco:assessedPresence "absent" ;
+    dct:conformsTo bco:fixture_d_criteria ;
+    dct:source bco:fixture_d_staffing_record .
+
+bco:fixture_d_assess_two_dates a bco:CapabilityAssessment ;
+    bco:concernsType bco:FixtureInstanceCapability ;
+    bco:assessedPresence "absent" ;
+    dct:date "2026-09-30"^^xsd:date , "2026-10-31"^^xsd:date ;
+    dct:conformsTo bco:fixture_d_criteria ;
+    dct:source bco:fixture_d_staffing_record .
+
+bco:fixture_d_assess_absent_linked a bco:CapabilityAssessment ;
+    cco:ont00001808 bco:fixture_good_cap ;
+    bco:concernsType bco:FixtureInstanceCapability ;
+    bco:assessedPresence "absent" ;
+    dct:date "2026-09-30"^^xsd:date ;
+    dct:conformsTo bco:fixture_d_criteria ;
+    dct:source bco:fixture_d_staffing_record .
+
+# -- CAP-33 and CD17 on a Capability Assessment ----------------------------------
+
+bco:fixture_d_assess_integration a bco:CapabilityAssessment ;
+    bco:concernsType bco:FixtureInstanceCapability ;
+    bco:assessedPresence "partial" ;
+    schema:reviewAspect "integration and coordination" ;
+    dct:date "2026-09-30"^^xsd:date ;
+    dct:conformsTo bco:fixture_d_criteria ;
+    dct:source bco:fixture_d_staffing_record .
+
+bco:fixture_d_assess_cites_faa a bco:CapabilityAssessment ;
+    bco:concernsType bco:FixtureInstanceCapability ;
+    bco:assessedPresence "present" ;
+    dct:date "2026-09-30"^^xsd:date ;
+    dct:conformsTo bco:fixture_d_criteria ;
+    dct:source bco:fixture_d_faa_good .
+
+# -- CAP-26 ----------------------------------------------------------------------
+
+# Two Organization bearers.
+bco:fixture_d_cap_two_bearers a bco:FixtureInstanceCapability ;
+    obo:BFO_0000218 bco:fixture_member .
+bco:fixture_org cco:ont00001954 bco:fixture_d_cap_two_bearers .
+bco:fixture_vendor cco:ont00001954 bco:fixture_d_cap_two_bearers .
+
+# A grounded bearing claim with no supporting assessment.
+bco:fixture_d_cap_unsupported a bco:FixtureInstanceCapability ;
+    obo:BFO_0000218 bco:fixture_member .
+bco:fixture_org cco:ont00001954 bco:fixture_d_cap_unsupported .
+
+# Bearing asserted only as capability of, with no assessment.
+bco:fixture_d_cap_inverse_unsupported a bco:FixtureInstanceCapability ;
+    cco:ont00001889 bco:fixture_org ;
+    obo:BFO_0000218 bco:fixture_member .
+
+# Supported only by an Authorization Record.
+bco:fixture_d_cap_auth_only a bco:FixtureInstanceCapability ;
+    obo:BFO_0000218 bco:fixture_member .
+bco:fixture_org cco:ont00001954 bco:fixture_d_cap_auth_only .
+bco:fixture_d_assess_auth_only a bco:CapabilityAssessment ;
+    cco:ont00001982 bco:fixture_org ;
+    cco:ont00001808 bco:fixture_d_cap_auth_only ;
+    bco:concernsType bco:FixtureInstanceCapability ;
+    bco:assessedPresence "present" ;
+    dct:date "2026-09-30"^^xsd:date ;
+    dct:conformsTo bco:fixture_d_criteria ;
+    dct:source bco:fixture_d_auth_good .
+
+# Supported only by a past realization.
+bco:fixture_d_cap_past_only a bco:FixtureInstanceCapability ;
+    obo:BFO_0000218 bco:fixture_member .
+bco:fixture_org cco:ont00001954 bco:fixture_d_cap_past_only .
+bco:fixture_d_cap_past_act a ex:FixtureInstanceAct ;
+    obo:BFO_0000055 bco:fixture_d_cap_past_only ;
+    cco:ont00001833 bco:fixture_member .
+bco:fixture_d_assess_past_only a bco:CapabilityAssessment ;
+    cco:ont00001982 bco:fixture_org ;
+    cco:ont00001808 bco:fixture_d_cap_past_only ;
+    bco:concernsType bco:FixtureInstanceCapability ;
+    bco:assessedPresence "present" ;
+    dct:date "2026-09-30"^^xsd:date ;
+    dct:conformsTo bco:fixture_d_criteria ;
+    dct:source bco:fixture_d_cap_past_act .
+
+# -- CAP-20 ----------------------------------------------------------------------
+
+bco:fixture_d_rating_no_target a bco:CapabilityMaturityRating ;
+    schema:ratingValue 2 ;
+    dct:conformsTo bco:fixture_d_scale ;
+    dct:source bco:fixture_d_assess_good_cap .
+
+bco:fixture_d_rating_no_value a bco:CapabilityMaturityRating ;
+    cco:ont00001811 bco:fixture_good_cap ;
+    dct:conformsTo bco:fixture_d_scale ;
+    dct:source bco:fixture_d_assess_good_cap .
+
+bco:fixture_d_rating_no_scale a bco:CapabilityMaturityRating ;
+    cco:ont00001811 bco:fixture_good_cap ;
+    schema:ratingValue 2 ;
+    dct:source bco:fixture_d_assess_good_cap .
+
+bco:fixture_d_rating_no_assessment a bco:CapabilityMaturityRating ;
+    cco:ont00001811 bco:fixture_good_cap ;
+    schema:ratingValue 2 ;
+    dct:conformsTo bco:fixture_d_scale ;
+    dct:source bco:fixture_d_staffing_record .
+
+bco:fixture_d_rating_annotation a bco:CapabilityMaturityRating ;
+    cco:ont00001811 bco:fixture_good_cap ;
+    schema:ratingValue 2 ;
+    cco:ont00001739 "2" ;
+    dct:conformsTo bco:fixture_d_scale ;
+    dct:source bco:fixture_d_assess_good_cap .
+
+bco:fixture_d_rating_ibe a bco:CapabilityMaturityRating ;
+    cco:ont00001811 bco:fixture_good_cap ;
+    cco:ont00001773 2 ;
+    schema:ratingValue 2 ;
+    dct:conformsTo bco:fixture_d_scale ;
+    dct:source bco:fixture_d_assess_good_cap .
+
+# -- CAP-23 and CD17 (sourcing) --------------------------------------------------
+
+bco:fixture_d_sourcing_two_consumers a bco:CapabilitySourcingStatement ;
+    cco:ont00001982 bco:fixture_org , bco:fixture_d_provider2 ;
+    cco:ont00001808 bco:fixture_vendor ;
+    bco:concernsType ex:FixtureInstanceAct .
+
+bco:fixture_d_sourcing_two_providers a bco:CapabilitySourcingStatement ;
+    cco:ont00001982 bco:fixture_org ;
+    cco:ont00001808 bco:fixture_vendor , bco:fixture_d_provider2 ;
+    bco:concernsType ex:FixtureInstanceAct .
+
+bco:fixture_d_sa_no_statement a bco:CapabilitySourcingAssessment ;
+    cco:ont00001808 bco:fixture_org ;
+    dct:conformsTo bco:fixture_d_criteria ;
+    dct:source bco:fixture_d_staffing_record .
+
+bco:fixture_d_sa_no_criteria a bco:CapabilitySourcingAssessment ;
+    cco:ont00001808 bco:fixture_d_sourcing_good ;
+    dct:source bco:fixture_d_staffing_record .
+
+# -- CAP-24 and CAP-28 -------------------------------------------------------------
+
+bco:fixture_d_auth_two_agents a bco:AuthorizationRecord ;
+    cco:ont00001808 bco:fixture_member , bco:fixture_treasurer ;
+    bco:concernsType ex:FixtureInstanceAct ;
+    schema:validFrom "2026-01-01"^^xsd:date ;
+    schema:validThrough "2026-12-31"^^xsd:date ;
+    dct:source bco:fixture_d_authority .
+
+bco:fixture_d_auth_string_date a bco:AuthorizationRecord ;
+    cco:ont00001808 bco:fixture_member ;
+    bco:concernsType ex:FixtureInstanceAct ;
+    schema:validFrom "2026-01-01" ;
+    schema:validThrough "2026-12-31"^^xsd:date ;
+    dct:source bco:fixture_d_authority .
+
+bco:fixture_d_auth_no_authority a bco:AuthorizationRecord ;
+    cco:ont00001808 bco:fixture_member ;
+    bco:concernsType ex:FixtureInstanceAct ;
+    schema:validFrom "2026-01-01"^^xsd:date ;
+    schema:validThrough "2026-12-31"^^xsd:date .
+
+bco:fixture_d_auth_as_permission a bco:AuthorizationRecord , cco:ont00000751 ;
+    cco:ont00001808 bco:fixture_member ;
+    bco:concernsType ex:FixtureInstanceAct ;
+    schema:validFrom "2026-01-01"^^xsd:date ;
+    schema:validThrough "2026-12-31"^^xsd:date ;
+    dct:source bco:fixture_d_authority ;
+    cco:ont00001910 bco:fixture_good_act .
+
+# A prospective license typed Action Permission: it permits no act.
+bco:fixture_d_prospective_license a cco:ont00000751 .
+
+# -- CAP-31 ------------------------------------------------------------------------
+
+bco:fixture_d_tss_empty a bco:CapabilityTargetStateSpecification .
+
+# -- CAP-33 ------------------------------------------------------------------------
+
+bco:fixture_d_faa_no_org a bco:FunctionalAdequacyAssessment ;
+    cco:ont00001808 bco:fixture_d_function ;
+    obo:BFO_0000178 bco:fixture_d_faa_good_f1 , bco:fixture_d_faa_good_f2 ,
+                    bco:fixture_d_faa_good_f3 .
+
+bco:fixture_d_faa_no_function a bco:FunctionalAdequacyAssessment ;
+    cco:ont00001982 bco:fixture_org ;
+    cco:ont00001808 bco:fixture_org ;
+    obo:BFO_0000178 bco:fixture_d_faa_good_f1 , bco:fixture_d_faa_good_f2 ,
+                    bco:fixture_d_faa_good_f3 .
+
+bco:fixture_d_faa_two_findings a bco:FunctionalAdequacyAssessment ;
+    cco:ont00001982 bco:fixture_org ;
+    cco:ont00001808 bco:fixture_d_function ;
+    obo:BFO_0000178 bco:fixture_d_faa_good_f1 , bco:fixture_d_faa_good_f2 .
+
+bco:fixture_d_faa_presence a bco:FunctionalAdequacyAssessment ;
+    cco:ont00001982 bco:fixture_org ;
+    cco:ont00001808 bco:fixture_d_function ;
+    bco:assessedPresence "present" ;
+    obo:BFO_0000178 bco:fixture_d_faa_good_f1 , bco:fixture_d_faa_good_f2 ,
+                    bco:fixture_d_faa_good_f3 .
+
+bco:fixture_d_faa_as_assessment a bco:FunctionalAdequacyAssessment , bco:CapabilityAssessment ;
+    cco:ont00001982 bco:fixture_org ;
+    cco:ont00001808 bco:fixture_d_function ;
+    obo:BFO_0000178 bco:fixture_d_faa_good_f1 , bco:fixture_d_faa_good_f2 ,
+                    bco:fixture_d_faa_good_f3 .
+
+# An assessment whose findings each break one rule: an unknown value, no
+# criteria, a "not met" with no source, no date.
+bco:fixture_d_faa_bad_findings a bco:FunctionalAdequacyAssessment ;
+    cco:ont00001982 bco:fixture_org ;
+    cco:ont00001808 bco:fixture_d_function ;
+    obo:BFO_0000178 bco:fixture_d_finding_bad_value , bco:fixture_d_finding_no_criteria ,
+                    bco:fixture_d_finding_no_source .
+bco:fixture_d_finding_bad_value a cco:ont00000853 ;
+    schema:reviewAspect "integration and coordination" ;
+    schema:ratingValue "unknown" ;
+    dct:conformsTo bco:fixture_d_criteria ;
+    dct:source bco:fixture_d_staffing_record ;
+    dct:date "2026-09-30"^^xsd:date .
+bco:fixture_d_finding_no_criteria a cco:ont00000853 ;
+    schema:reviewAspect "operational availability" ;
+    schema:ratingValue "met" ;
+    dct:source bco:fixture_d_staffing_record .
+bco:fixture_d_finding_no_source a cco:ont00000853 ;
+    schema:reviewAspect "adequacy for the function" ;
+    schema:ratingValue "not met" ;
+    dct:conformsTo bco:fixture_d_criteria ;
+    dct:date "2026-09-30"^^xsd:date .
+
+# -- CAP-11 (instance shapes), the specification's own case: a map that has a
+#    capability ----------------------------------------------------------------
+
+bco:fixture_d_map_has_capability a bco:CapabilityMap ;
+    cco:ont00001982 bco:fixture_org ;
+    obo:BFO_0000178 bco:fixture_d_target_good ;
+    cco:ont00001954 bco:fixture_cap_held_by_map .
+

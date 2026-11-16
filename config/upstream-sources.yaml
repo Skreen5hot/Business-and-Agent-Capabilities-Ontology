@@ -169,6 +169,17 @@ sources:
         reason: >-
           Declares bpo:enablesProcess as an owl:AnnotationProperty. That
           declaration alone; nothing else in the module is taken.
+      - path: ontology/apqc-catalog.ttl
+        url: >-
+          https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/ontology/apqc-catalog.ttl
+        sha256: 593b438ab44d14445a92917b6fb357eaa2ef542845b0bf7ccc30ab3fa0888602
+        subjects: '^https://fandaws\.com/ontology/bpo#designatesProcessType$'
+        reason: >-
+          Declares bpo:designatesProcessType as an owl:AnnotationProperty,
+          which CQ-9's test-only coverage register uses (decision of
+          2026-11-15, B-3: verify its declaration at the pin). That
+          declaration alone: no catalog node (bpo:PCF_...), no APQC text,
+          and no designation from the module is taken.
     licence:
       spdx: MIT
       url: >-

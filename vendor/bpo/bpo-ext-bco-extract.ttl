@@ -21,6 +21,9 @@
 #   also        https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/ontology/capabilities_roles.ttl
 #   sha256      6a8aeaf8c3c4b94119399b9ae593538fecbf79ce01f517577c96d5997419ed7d
 #   taking      subjects matching ^https://fandaws\.com/ontology/bpo#enablesProcess$
+#   also        https://raw.githubusercontent.com/Skreen5hot/BusinessProcessOntology/bc64e91839378e1926189c01bf184d6a22d5c1b7/ontology/apqc-catalog.ttl
+#   sha256      593b438ab44d14445a92917b6fb357eaa2ef542845b0bf7ccc30ab3fa0888602
+#   taking      subjects matching ^https://fandaws\.com/ontology/bpo#designatesProcessType$
 #
 # Business Process Ontology (BPO). Copyright (c) 2026 Aaron Damiano, licensed under the MIT License; the full licence text is at the licence url above, at the pinned commit.
 #
@@ -33,7 +36,7 @@
 # reproduced in NOTICE.md at the root of this repository. APQC does not
 # endorse this work.
 #
-# This is not Business Process Ontology. It carries 161 terms described in full and 0
+# This is not Business Process Ontology. It carries 162 terms described in full and 0
 # declared as stubs, selected because this repository names them or
 # because a selected term's ancestry passes through them.
 #
@@ -583,6 +586,10 @@ ex:P20136 rdfs:subClassOf ex:ActOfAnalysis .
 
 ex:P20604 rdf:type owl:Class .
 ex:P20604 rdfs:subClassOf cco:ont00000402 .
+
+ex:designatesProcessType rdf:type owl:AnnotationProperty .
+ex:designatesProcessType rdfs:comment "ADR-001 R4 bridge: catalog node -> reality-layer process universal or capability. Populated during reality-layer modeling, NOT by the catalog generator." .
+ex:designatesProcessType rdfs:label "designates process type" .
 
 ex:enablesProcess rdf:type owl:AnnotationProperty .
 ex:enablesProcess rdfs:comment "Capability -> process class whose execution it enables. Operational inverse of bpo:requiresCapability; BFO grounding is 'has realization' (a capability is realized in such processes). Used for authoring scope and wiring-coherence checks." .
