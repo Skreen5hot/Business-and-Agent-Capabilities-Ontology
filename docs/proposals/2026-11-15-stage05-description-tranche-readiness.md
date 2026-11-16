@@ -104,7 +104,11 @@ schema.org:
   itemReviewed", domainIncludes Guide, Rating and Review, rangeIncludes Text.
 
 schema.org's domainIncludes entails no type, so neither puts the subject under a
-schema.org class.
+schema.org class. Both encodings were confirmed on 2026-11-16
+(`docs/decisions/2026-11-16-stage05-completion-accepted.md`) as RDF/SHACL encoding conventions:
+a rating stays a CCO Ordinal Measurement Information Content Entity and a finding a
+Descriptive Information Content Entity, neither a Schema.org Rating or Review, and no
+equivalence is asserted.
 
 ## 4. Encodings chosen at Stage 05 (no term minted)
 

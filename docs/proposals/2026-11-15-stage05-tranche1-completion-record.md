@@ -1,8 +1,8 @@
-# Stage-completion record — Stage 05, first tranche and description tranche (for the architect's acceptance)
+# Stage-completion record — Stage 05, first tranche and description tranche (accepted)
 
 | Field | Value |
 |---|---|
-| Status | **Prepared for the architect's final acceptance**, updated under the decision of 2026-11-15 on B-1 to B-4 and N-4 (`docs/decisions/2026-11-15-b1-b4-approved-cap34-confirmed.md`, "Validation and Completion"). It completes nothing: Stage 05 completion is reserved to the architect. Its recommendation is in section 8 |
+| Status | **Accepted** by the architect on 2026-11-16 (`docs/decisions/2026-11-16-stage05-completion-accepted.md`). The reviewed version is this file at `2a9c6b1`, SHA-256 `95c65a47b67e3b6911d269cf9b77d2fd6cc358e56da8e8b36a4d81eaef0719c5`. Only the title, this row, CAP-13's and the encodings' rows in section 5, N-6 and N-9 in section 6, and section 9 differ from it. The first capability tranche and the description tranche of Stage 05 are complete under the standard's section 7, validated against test fixtures. Not a release |
 | Date | 2026-11-15 |
 | Prepared by | Claude Code (`claude-opus-5-5`), for the BCO team |
 | Form | roadmap §10, "Stage-completion record". It cites artifacts by digest and does not copy them |
@@ -104,7 +104,7 @@ on branch `d6/tranche-2`. SHA-256 of each artifact as this record cites it:
 | CAP-01, K3 part | `tests/test_description.py`: the description module holds exactly the 9 authorized information classes, each under one CCO information class | **PASS** |
 | CAP-02 to CAP-10, CAP-12, CAP-14, CAP-16, CAP-30, CAP-32 | as recorded at `2b49eb5`: Stage 05 shapes, `test_formalization.py`, `reason.py`, instance shapes | **PASS** |
 | CAP-05 (K2 unions) | no union exists; S05-C7 holds that no `only` restriction exists | **PASS, vacuously**. Stated so it is not mistaken for coverage |
-| CAP-13 (`capability_scope.json`) | not exercised. The indexes are the signed G1-T indexes (D5-3); no scope file is an input to the module, so there is nothing to resolve | **NOT EXERCISED**: no fixture, not counted |
+| CAP-13 (`capability_scope.json`) | not exercised. The indexes are the signed G1-T indexes (D5-3); no scope file is an input to the module, so there is nothing to resolve | **NOT APPLICABLE TO THIS TRANCHE** (the decision of 2026-11-16): no fixture, not counted as a pass |
 | CAP-11, CAP-19 | instance shapes, now also on a written `bco:CapabilityMap` that has a capability (the specification's case) | **PASS** |
 | CAP-17 | 6 description constraints, each failing on its case: a map with a type annotation; an assessment with two; an Authorization Record naming a capability class; a map with an adequacy assessment as an entry; a map with no entry; a target naming an act class | **PASS** |
 | CAP-18 | Gate M and `manifests.py`: a date outside the manifest returns *unknown*, never an empty set; an in-scope question returns *none recorded*; each CD15 rule has a positive and a negative case (`tests/test_manifests.py`, 24 tests) | **PASS** |
@@ -118,7 +118,7 @@ on branch `d6/tranche-2`. SHA-256 of each artifact as this record cites it:
 | CAP-29 (Gate G) | the index generator's tests; CQ-12 adds no triple when run | **PASS** |
 | CAP-33 | 9 constraints: two findings; a finding without criteria, date or source; an unknown value; a presence finding on the adequacy assessment; an individual typed as both; a Capability Assessment stating an integration finding | **PASS** at Gate C. Gate F's part is review work |
 | Gate M | `tools/ontology/manifests.py`: the schema is valid JSON Schema 2020-12; 4 fixture manifests built to pass pass, and 9 built to fail fail, one reason each | **PASS**, over fixture manifests only (no evidence graph exists before Stage 06) |
-| Encodings marked *at Stage 05* | CAP-20: `schema:ratingValue`. CAP-33: findings as continuant parts with `schema:reviewAspect` and `schema:ratingValue`. CAP-34: has agent (confirmed). R5-02 and CD17's open representation are now chosen | **CHOSEN**: CAP-20 and CAP-33's for the architect's confirmation (N-6) |
+| Encodings marked *at Stage 05* | CAP-20: `schema:ratingValue`. CAP-33: findings as continuant parts with `schema:reviewAspect` and `schema:ratingValue`. CAP-34: has agent (confirmed). R5-02 and CD17's open representation are now chosen | **CONFIRMED** on 2026-11-16 (section 9): encoding conventions only, not Schema.org Ratings or Reviews |
 
 **CP-1: MET**, over test-only fixtures. Two qualifications:
 
@@ -179,10 +179,10 @@ resolved by the decision of 2026-11-15.
 | N-2 | **The act labels** stay out of the BPO extract until BPO is re-pinned to a commit that carries its `NOTICE.md` | architect | a reviewed repin |
 | N-3 | **T2-02, T2-24 and T2-31** wait for source checks SC-1 to SC-3 | Ontologist, then architect | the next tranche |
 | N-5 | **The Q-12 inquiry** to BPO is unanswered | BPO, then architect | the Q-12 concepts' tranche |
-| N-6 | **Confirm the two encodings chosen at Stage 05:** CAP-20's `schema:ratingValue`, and CAP-33's findings as continuant parts with `schema:reviewAspect` and `schema:ratingValue` (readiness record, section 4). A change edits shapes and fixtures, not the module | architect | acceptance of this record |
+| N-6 | **Confirm the two encodings chosen at Stage 05:** CAP-20's `schema:ratingValue`, and CAP-33's findings as continuant parts with `schema:reviewAspect` and `schema:ratingValue` (readiness record, section 4). A change edits shapes and fixtures, not the module | architect | **Resolved** 2026-11-16: both confirmed (section 9) |
 | N-7 | **Evidence graphs, the production coverage register and Gate F on real evidence** are Stage 06's. Today Gate M checks fixture manifests only, and the Gate F judgments of CAP-26, CAP-27 and CAP-33 have no real evidence to judge | architect | Stage 06 authorization |
 | N-8 | **What v0.5 leaves unrepresented:** revocation and supersession of Authorization Records (OI-21), supersession of assessments (OI-24), recorded content beyond the finding (OI-25), incomplete evaluations (OI-23) and the development relation (OI-4). Each answer states the limit that applies | architect | their own decisions |
-| N-9 | **CAP-13** is not exercised, since no scope file is an input (the indexes are the signed ones). If a later tranche generates its index from `capability_scope.json`, CAP-13 needs its fixture then | Ontologist | that tranche |
+| N-9 | **CAP-13** is not exercised, since no scope file is an input (the indexes are the signed ones). If a later tranche generates its index from `capability_scope.json`, CAP-13 needs its fixture then. Recorded as not applicable to this tranche (2026-11-16) | Ontologist | that tranche |
 
 ## 7. Upstream dependencies and pins
 
@@ -225,3 +225,42 @@ What acceptance would and would not mean:
 
 Before or with acceptance, the architect may wish to confirm or change the two encodings in
 N-6.
+
+## 9. Acceptance
+
+The architect accepted this record on 2026-11-16 (`docs/decisions/2026-11-16-stage05-completion-accepted.md`): CP-1 and CP-2 are satisfied for
+the approved first capability tranche and description tranche, with the recorded
+qualifications. Those qualifications stay binding, here and in any future release
+documentation:
+
+- CAP-13 is not applicable to this tranche: the index-generation workflow does not consume
+  `capability_scope.json`. It is not a passing test.
+- CAP-05's union restriction check is vacuous: the tranche has no K2 union.
+- CQ-9 and CQ-12 use the test-only coverage register.
+- CQ-11 uses the CAP-06 review-record method; OI-4 stays unresolved.
+- CQ-4, CQ-5 and Gate M operate on fixture evidence and manifests.
+- Gate F has not established that any real-world evidence is sufficient.
+- ELK and HermiT results apply to the pinned partial BFO, CCO and BPO extracts, not to the
+  complete published ontologies.
+- The upstream extract-refetch check was not exercised in CI. The local pin evidence
+  (section 7) is kept, and the reproducibility check is required before any release or
+  claim of full upstream conformance.
+
+**Confirmed encodings.**
+
+- **CAP-20.** A Capability Maturity Rating carries its ordinal value as
+  `schema:ratingValue`: exactly one value, an identified ordinal scale, and the Capability
+  Assessment as its source. The rating stays a CCO Ordinal Measurement Information Content
+  Entity. It is not typed `schema:Rating`, and no OWL equivalence is asserted.
+- **CAP-33.** A Functional Adequacy Assessment's three findings are continuant parts of it
+  (`obo:BFO_0000178`). Each stays a Descriptive Information Content Entity, with
+  `schema:reviewAspect` for its dimension (integration and coordination, operational
+  availability, adequacy for the function), `schema:ratingValue` for "met", "partly met" or
+  "not met", and its criteria, evidence and date. This is an RDF/SHACL encoding convention,
+  not an assertion that the findings are Schema.org Reviews or Ratings.
+
+No new property or class, assessment subclass relationship or capability-bearing inference
+is authorized by either. N-1 to N-9 stay open with their scopes, except N-6, now resolved.
+CP-3 and the source-coverage, migration and production-register obligations stay open
+where applicable. The acceptance does not authorize a release, production G1-I assertions
+or Stage 06 implementation, and does not mean every possible BCO capability is formalized.

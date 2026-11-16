@@ -21,8 +21,12 @@ classification, pinned upstream vendoring (BFO, CCO v2.0 and BPO), a SHACL gate 
 falsification fixtures, a corpus digest, CI, and the method in `docs/process/PROCESS.md`.
 The description module holds the description layer, written the same way under B-1
 (`docs/decisions/2026-11-15-b1-b4-approved-cap34-confirmed.md`), with Gate M for the CD15
-manifests; CP-1 and CP-2 evidence is complete over test-only fixtures, and Stage 05
-completion waits on the architect's acceptance of the completion record.
+manifests. **The first capability tranche and the description tranche of Stage 05 are
+complete**, validated against test fixtures: the architect accepted the completion record
+on 2026-11-16 (`docs/decisions/2026-11-16-stage05-completion-accepted.md`), with CP-1 and CP-2 satisfied under
+recorded qualifications and the CAP-20 and CAP-33 encodings confirmed. Not a release;
+Stage 06 is not authorized. The next submission is a concise Stage 06 standard and a
+bounded implementation proposal.
 
 ## 2. What is in the tree
 

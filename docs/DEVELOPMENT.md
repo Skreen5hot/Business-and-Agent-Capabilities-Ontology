@@ -90,16 +90,18 @@ python tools/ontology/corpus_digest.py -o config/corpus-digest.json
 
 ---
 
-## Writing the first BCO term
+## Writing a BCO term
 
-The two modules spec v0.4 §2 names exist as `owl:Ontology` headers only:
+**Status (2026-11-16):** both Stage 05 tranches are complete, validated against test
+fixtures (`docs/decisions/2026-11-16-stage05-completion-accepted.md`). Not released, and
+Stage 06 is not authorized.
 
-| File | Will hold |
+| File | Holds |
 |---|---|
-| `src/05_ontology/apqc-cap.ttl` | Business Capability, the capability classes with their `enablesProcess` index, reviewed unions |
-| `src/05_ontology/apqc-cap-desc.ttl` | the seven description-layer classes and the Authorization Record |
+| `src/05_ontology/apqc-cap.ttl` | `bco:BusinessCapability` and 39 capability classes with their signed `enablesProcess` indexes (first tranche) |
+| `src/05_ontology/apqc-cap-desc.ttl` | the description layer: nine information classes (seven description-layer classes, the Authorization Record, the Functional Adequacy Assessment) and two annotation properties |
 
-Before the first term is minted:
+Before the first term was minted (kept as the record of what a new term still needs):
 
 1. **ADR-002 is ratified.** Done: every RP and CD was ratified between 2026-11-04 and
    2026-11-07, and ADR-002 was accepted with CP-0 complete on 2026-11-07 (`docs/decisions/2026-11-07-adr002-accepted-cp0-complete.md`).

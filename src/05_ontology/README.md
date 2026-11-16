@@ -7,8 +7,10 @@ against the
 Stage 05 standard (`docs/standards/stage-05-ontology.md`) and specification
 v0.5.0-draft.3. Not released, and not a claim of conformance with BFO, CCO or BPO as
 published: the reasoners see the vendored extracts, which drop every anonymous class
-expression. The tranche is not complete until CP-1 and CP-2, the conceptual-fidelity trace
-and a stage-completion record are met (standard, section 7).
+expression. **Both tranches are complete** under the standard's section 7: the
+architect accepted the completion record on 2026-11-16 (`docs/decisions/2026-11-16-stage05-completion-accepted.md`),
+with CP-1 and CP-2 satisfied against test fixtures and the qualifications recorded in its
+section 9. Stage 06 is not authorized.
 
 | Path | Holds |
 |---|---|
@@ -59,8 +61,9 @@ Test-only individuals exercise every CP-1 rule and every competency question, un
 decisions of 2026-11-15 (`docs/decisions/2026-11-15-d6-class-increment-accepted.md`, C and
 D; `docs/decisions/2026-11-15-b1-b4-approved-cap34-confirmed.md`, B-1 to B-4). The full
 account is the stage-completion record
-(`docs/proposals/2026-11-15-stage05-tranche1-completion-record.md`), which waits on the
-architect's acceptance. Stage 05 is not complete until then.
+(`docs/proposals/2026-11-15-stage05-tranche1-completion-record.md`), accepted on
+2026-11-16 (`docs/decisions/2026-11-16-stage05-completion-accepted.md`). CP-1 and CP-2 are satisfied for these
+tranches with its qualifications, which stay binding (its section 9).
 
 | Evidence | Where | Covers |
 |---|---|---|
