@@ -77,7 +77,7 @@ the pin itself: the FIBF pages' asset build number restored (the pin
 reproduced exactly), or the GSA website policies page compared with its
 Internet Archive baseline (verified against the pin, fetched from
 web.archive.org only) outside the header navigation, the Drupal settings
-script and asset versions. Every mismatch is printed with one of three
+script, asset versions and same-site script assets. Every mismatch is printed with one of three
 statuses: exact pinned-byte match, verified presentation-only drift, or
 substantive or unexplained drift, which fails. Nothing classified becomes
 a pin, and any other document stays byte-strict.
@@ -798,16 +798,22 @@ def archived_baseline(item: dict, entry: dict, cache: Path,
 
 class _GsaEvents:
     """The comparable events of a GSA Drupal page: every tag with its
-    attributes and every text run, except the three documented regions --
-    the header navigation subtree (div.usa-nav__inner inside
-    header.usa-header), the Drupal settings script's body, and the version
-    part of stylesheet and script URLs. Whitespace is collapsed."""
+    attributes and every text run, except the documented regions -- the
+    header navigation subtree (div.usa-nav__inner inside header.usa-header),
+    the Drupal settings script's body, the version part of stylesheet and
+    script URLs, and same-site script assets (a script with a src path and
+    no body), which are listed rather than compared (decision of
+    2026-11-17, gsa-script-assets-tolerated). An inline script, a script
+    with a body or a script from another host is still compared. Whitespace
+    is collapsed."""
 
     def __init__(self, document: bytes):
         from html.parser import HTMLParser
 
         events, stack = [], []
-        state = {"nav": 0, "settings": 0, "skip": 0, "in_settings": False}
+        state = {"nav": 0, "settings": 0, "skip": 0, "in_settings": False,
+                 "in_asset": False}
+        self.scripts = []
         owner = self
 
         class Parser(HTMLParser):
@@ -821,7 +827,9 @@ class _GsaEvents:
                 owner._end(tag, events, stack, state)
 
             def handle_data(self, data):
-                if state["skip"] or state["in_settings"]:
+                if state["in_asset"] and data.strip():
+                    raise ValueError("a script asset has a body")
+                if state["skip"] or state["in_settings"] or state["in_asset"]:
                     return
                 text = " ".join(data.split())
                 if text:
@@ -863,6 +871,15 @@ class _GsaEvents:
             state["skip"] = 1
             events.append(("navigation",))
             return
+        src = dict(attrs).get("src") or ""
+        if tag == "script" and src.startswith("/") and \
+                not src.startswith("//") and not void:
+            # A same-site script asset may be added, removed or reordered
+            # (decision of 2026-11-17, docs/decisions/2026-11-17-gsa-script-
+            # assets-tolerated.md); it is listed, not compared.
+            self.scripts.append(self._asset(tag, [("src", src)])[0][1])
+            state["in_asset"] = True
+            return
         if tag == "script" and dict(attrs).get("data-drupal-selector") == \
                 "drupal-settings-json":
             state["settings"] += 1
@@ -874,6 +891,9 @@ class _GsaEvents:
     def _end(self, tag, events, stack, state):
         if state["skip"]:
             state["skip"] -= 1
+            return
+        if tag == "script" and state["in_asset"]:
+            state["in_asset"] = False
             return
         if tag == "script":
             state["in_settings"] = False
@@ -923,10 +943,17 @@ def compare_gsa_page(baseline: bytes, served: bytes, quotes: list) -> Drift:
         return Drift(FAILURE, "%d unexplained difference(s) outside the "
                      "navigation, Drupal settings and asset versions; the "
                      "first: %s" % (len(diffs), shown[:600]))
+    added = sorted(set(new.scripts) - set(old.scripts))
+    removed = sorted(set(old.scripts) - set(new.scripts))
+    scripts = ""
+    if added or removed:
+        scripts = "; same-site script assets added: %s; removed: %s" % (
+            ", ".join(added) or "none", ", ".join(removed) or "none")
     return Drift(PRESENTATION, "only the header navigation, the Drupal "
-                 "settings and asset versions differ from the approved "
-                 "baseline; all other tags, attributes, links and text, and "
-                 "the quoted rights language, are unchanged", baseline)
+                 "settings, asset versions and same-site script assets "
+                 "differ from the approved baseline%s; all other tags, "
+                 "attributes, links and text, and the quoted rights language, "
+                 "are unchanged" % scripts, baseline)
 
 
 def classify(item: dict, served: bytes, rules: dict, cache: Path,

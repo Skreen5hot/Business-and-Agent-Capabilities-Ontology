@@ -185,14 +185,34 @@ def test_gsa_navigation_settings_and_asset_changes_pass(rights, tmp_path):
     assert verdict.pinned == gsa_page()
 
 
+def test_an_added_same_site_script_asset_passes_and_is_named(rights,
+                                                             tmp_path):
+    """The decision of 2026-11-17 (gsa-script-assets-tolerated)."""
+    served = gsa_page(extra_script='<script src="/core/assets/vendor/ckeditor5/'
+                                   'ckeditor5-dll.js?v=47.6.3"></script>')
+    verdict = gsa_verdict(rights, tmp_path, served)
+    assert verdict.status == rights.PRESENTATION, verdict.detail
+    assert "added: /core/assets/vendor/ckeditor5/ckeditor5-dll.js" in         verdict.detail
+    removed = gsa_page(extra_script="").replace(
+        b'<script src="/modules/contrib/google_tag/js/gtag.js?tnc3er"></script>',
+        b"")
+    verdict = gsa_verdict(rights, tmp_path, removed)
+    assert verdict.status == rights.PRESENTATION and "removed: /modules" in         verdict.detail
+
+
 # ---------------- 5. GSA rights language, content or a relevant link changing
 
 @pytest.mark.parametrize("change, needle", [
     ({"quote": "subject to copyright and may not be copied"}, "rights language"),
     ({"body": "Some GSA material is"}, "unexplained"),
     ({"privacy": "/website-information/other"}, "unexplained"),
-    ({"extra_script": '<script src="/core/assets/new.js?v=1"></script>'},
+    ({"extra_script": '<script>track(1)</script>'}, "unexplained"),
+    ({"extra_script": '<script src="https://other.example/x.js"></script>'},
      "unexplained"),
+    ({"extra_script": '<script src="//other.example/x.js"></script>'},
+     "unexplained"),
+    ({"extra_script": '<script src="/core/x.js">run()</script>'},
+     "could not be compared"),
 ])
 def test_a_gsa_substantive_or_link_change_fails(rights, tmp_path, change,
                                                 needle):
