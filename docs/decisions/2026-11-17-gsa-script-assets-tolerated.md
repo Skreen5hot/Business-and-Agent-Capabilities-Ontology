@@ -48,3 +48,22 @@ asset changes (a wider tolerance, needing approval), or keep the rule and let th
   - the strictness of every other document;
   - every pin;
   - the licensing disposition.
+
+## Closure of the FIBF source-drift issue
+
+The decision of 2026-11-17 (`docs/decisions/2026-11-17-fibf-drift-disposition-accepted.md`,
+section 7) closes the issue once the corrected check passes against the documented
+evidence. It did, in CI run 44072906624, dispatched on `sources/gsa-script-assets` at
+`8377273` and merged into `main` as `26d477f` (PR #62):
+
+- **`rights.py --confirm`:** 73 evidence items re-confirmed. 27 byte mismatches, each
+  classified as verified presentation-only drift, and every pin stands:
+  - 26 FIBF pages: the asset build number;
+  - the GSA policies page: navigation, Drupal settings, asset versions and the added
+    same-site script `ckeditor5-dll.js`.
+- **`harvest_federal.py --confirm`:** it ran again, after being blocked since 2026-11-02.
+  Every federal inventory output is byte-identical to a fresh harvest of the refetched
+  documents.
+
+**The FIBF source-drift issue is closed.** CP-3, the accepted register batch and the
+licensing decisions were not reopened.
