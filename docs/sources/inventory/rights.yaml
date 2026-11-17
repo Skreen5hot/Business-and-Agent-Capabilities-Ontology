@@ -1488,6 +1488,199 @@ sources:
           draft status and duplication are recorded on the entries.
     architect_decision:
       record: docs/decisions/2026-10-28-i2a-decided.md
+    presentation_drift:
+      decision: docs/decisions/2026-11-17-fibf-drift-disposition-accepted.md
+      disposition: docs/proposals/2026-11-17-fibf-source-drift-disposition.md
+      finding: >-
+        Since 2026-11-02 the 26 FIBF HTML pages and GSA's website policies
+        page are served with bytes that differ from their pins. The architect
+        accepted on 2026-11-17 that no source content, rights language or
+        licensing changed: the FIBF pages differ only in the asset build
+        number, and the policies page only in navigation, Drupal settings
+        and assets. Every original sha256 pin above stands; the digests below
+        are observations, never replacement pins. The source identity, the
+        licensing disposition and the 2026-10-28 decision are unchanged.
+      asset_build_number:
+        baseline: '1790778396531677562'
+        unchanged: ['1617716038051754794']
+        observed_2026_11_17: '1794604162961183849'
+        rule: >-
+          Each page links its stylesheets and scripts with a 19-digit build
+          number as a cache-busting query. Restoring the baseline number in
+          place of a single new one must reproduce the pinned sha256 exactly;
+          any other difference fails (rights.py --confirm).
+        evidence:
+          - fibf-index-page
+          - fibf-page-cw
+          - fibf-page-cyb-cvd
+          - fibf-page-cyb-soc
+          - fibf-page-erm
+          - fibf-page-fm
+          - fibf-page-gm
+          - fibf-page-hr-hcm
+          - fibf-page-hr-hcs
+          - fibf-page-hr-hce
+          - fibf-page-hr-ac
+          - fibf-page-hr-td
+          - fibf-page-hr-epm
+          - fibf-page-hr-cb
+          - fibf-page-hr-sep-ret
+          - fibf-page-hr-ea
+          - fibf-page-hr-lr
+          - fibf-page-hr-hca
+          - fibf-page-hr-par
+          - fibf-page-mom
+          - fibf-page-rpm
+          - fibf-page-travel
+          - fibf-page-eeo
+          - fibf-page-foia
+          - fibf-page-its
+          - fibf-page-rm
+      archived_baseline:
+        - evidence: gsa-website-policies
+          archive: https://web.archive.org/web/20261028084510id_/https://www.gsa.gov/website-information/website-policies
+          also_archived: ['20261023063449']
+          comparison: gsa-drupal-page
+        - evidence: fibf-index-page
+          archive: https://web.archive.org/web/20261107030843id_/https://ussm.gsa.gov/fibf/
+          also_archived: []
+          comparison: none
+      observations:
+        - evidence: fibf-index-page
+          retrieved: 2026-11-17
+          observed_sha256: 4a8a1e24e8ab987344b7992bf68bc821df3dae2c93304dba5dbb38238efc0e1b
+          bytes: 101877
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: fibf-page-cw
+          retrieved: 2026-11-17
+          observed_sha256: d96ec28f8d7a1bd00d1bfb221f881c72312526b25033c62b853f6ff370e61c0a
+          bytes: 83227
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: fibf-page-cyb-cvd
+          retrieved: 2026-11-17
+          observed_sha256: c6dc472fb95a1fcb21a9ee42c7b86a00b099b86e516046d3e5011afb1ce15530
+          bytes: 79832
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: fibf-page-cyb-soc
+          retrieved: 2026-11-17
+          observed_sha256: b6362ed871b0cc2d00947fc90405aa9ab27a9a58c58f84ccf2877e62525ffd3c
+          bytes: 87056
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: fibf-page-erm
+          retrieved: 2026-11-17
+          observed_sha256: 39d1d3d9621a6c9a742192092fde0e8219c38f335cd361b91e22286e585aae0f
+          bytes: 83683
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: fibf-page-fm
+          retrieved: 2026-11-17
+          observed_sha256: 721f6537afe7ac24cad628ba3803048e238e2dd8c0cb8709883b3e08b06b4ead
+          bytes: 95294
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: fibf-page-gm
+          retrieved: 2026-11-17
+          observed_sha256: 32e2820cb4c0af8be3cb4f490488f7d96fd3d994ed2e007313b3df0a7ecfca66
+          bytes: 86754
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: fibf-page-hr-hcm
+          retrieved: 2026-11-17
+          observed_sha256: 5a1cde92a28499fad27d1637d999f5c9405b01420823dc1e8535ec240de1e9f4
+          bytes: 75915
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: fibf-page-hr-hcs
+          retrieved: 2026-11-17
+          observed_sha256: f83e14608430d24923a43904af1f5d027675e34d0acfb1fa8a76d0d08cab9733
+          bytes: 89574
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: fibf-page-hr-hce
+          retrieved: 2026-11-17
+          observed_sha256: babab167131bde1b7a50f2fbd16cf0c0cf15066573e71c6358fe20806cb2be15
+          bytes: 86267
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: fibf-page-hr-ac
+          retrieved: 2026-11-17
+          observed_sha256: c186a7360095ccc1f7f1bd3072546a20ba729cf2fa59b4a38e4efb9072d46425
+          bytes: 90437
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: fibf-page-hr-td
+          retrieved: 2026-11-17
+          observed_sha256: 106f693196b008fc23f137bb98e038909dfa153a79f10abf22e756d8af129558
+          bytes: 88002
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: fibf-page-hr-epm
+          retrieved: 2026-11-17
+          observed_sha256: 819e6a9ecfcbef348b477b062dc8ab7a8e86c97224c8c554b7d3c679fca1f1d9
+          bytes: 88362
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: fibf-page-hr-cb
+          retrieved: 2026-11-17
+          observed_sha256: c1b7cadec0f8212e104c16aa144d8f507c2b0173fae378f86ee45a38885a2474
+          bytes: 88688
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: fibf-page-hr-sep-ret
+          retrieved: 2026-11-17
+          observed_sha256: b84f101133a4897181e5f3ce4ecf1db05924491fd72e1ec481b50291e3efd579
+          bytes: 86929
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: fibf-page-hr-ea
+          retrieved: 2026-11-17
+          observed_sha256: 6c1b697915033809f4c38acb9eb6a7512523ef50aedb2ba095f607bf81876f28
+          bytes: 87374
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: fibf-page-hr-lr
+          retrieved: 2026-11-17
+          observed_sha256: 6627131dc1c60ebedfc91caf48002057678c036fa53ec2caab59b8f639add93d
+          bytes: 87982
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: fibf-page-hr-hca
+          retrieved: 2026-11-17
+          observed_sha256: 054dc00a599294693d8a95ff14c5104ff5bc725ea134892e04c7c95bf103d7a8
+          bytes: 90250
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: fibf-page-hr-par
+          retrieved: 2026-11-17
+          observed_sha256: f943f8e81fc8775a005e6a31a42e19c876786a5a8a1e8418c9310c33597f90d6
+          bytes: 86692
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: fibf-page-mom
+          retrieved: 2026-11-17
+          observed_sha256: 33f3f3b5311817c862ce9a10398537af8eb5684c4a7ee82d936a3de395fc1613
+          bytes: 84641
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: fibf-page-rpm
+          retrieved: 2026-11-17
+          observed_sha256: a6aa3a7a87d4a0be5d7c13e25c201ab7674a71e0f62aed42a80e0eed6e227495
+          bytes: 89690
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: fibf-page-travel
+          retrieved: 2026-11-17
+          observed_sha256: a06bbf2963f1791a0c4bd71b5595ffe1310b86ca3197f7ad5638f6d49a3e9d61
+          bytes: 85560
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: fibf-page-eeo
+          retrieved: 2026-11-17
+          observed_sha256: 6ab565522a47b825bad9268c0512735f7892920c024eb3a304dc99b2186f1252
+          bytes: 88557
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: fibf-page-foia
+          retrieved: 2026-11-17
+          observed_sha256: 566617860197916d408b32a7c23fb27371a2c31bbb2ad7b18a9bb450fb9fdf9c
+          bytes: 75617
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: fibf-page-its
+          retrieved: 2026-11-17
+          observed_sha256: 6b46626096e7b0f694fab97f87c7b1a5108b54c6356fb2fecaf5f919ba54796c
+          bytes: 76544
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: fibf-page-rm
+          retrieved: 2026-11-17
+          observed_sha256: d5908e922e809873a9c0f89af708b7f0fe2587a8abd135339d10ab9ab2f613d8
+          bytes: 75387
+          classification: asset build number only; restoring the baseline build number reproduces the pin
+        - evidence: gsa-website-policies
+          retrieved: 2026-11-17
+          observed_sha256: 2d78cea2e4f4ca7dde5af08fa65855ede9e8a19c3e1a3511f9393218a10b0e56
+          bytes: 185387
+          classification: navigation, Drupal settings and asset changes; main content and rights language unchanged; see the disposition
 
 summary_for_the_architect: >-
   APQC PCF 7.4: the workbook's own notice is a broad, clear grant (use,
