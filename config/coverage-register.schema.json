@@ -27,6 +27,15 @@
         },
         "properties": {
           "key": {"type": "string", "pattern": "^https://fandaws\\.com/ontology/bpo#PCF_[0-9]+$"},
+          "key_choice": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["chosen_from", "decision"],
+            "properties": {
+              "chosen_from": {"type": "array", "minItems": 2, "items": {"type": "string", "pattern": "^[0-9]+$"}},
+              "decision": {"type": "string", "minLength": 1}
+            }
+          },
           "grouping": {"type": "string", "pattern": "^BCC-[0-9a-f]{8}$"},
           "concept": {"type": "string", "pattern": "^bcoc:[A-Za-z]+$"},
           "whole_function_class": {

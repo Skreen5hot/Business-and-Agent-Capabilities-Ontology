@@ -2,7 +2,7 @@
   "format": 1,
   "version": 1,
   "batch": 1,
-  "status": "proposed for the architect's acceptance as one batch (docs/decisions/2026-11-16-stage06-standard-and-first-increment.md, D), after a separate synthetic domain review",
+  "status": "accepted by the architect as one batch on 2026-11-16 (docs/decisions/2026-11-16-register-batch-1-accepted.md), after a separate synthetic domain review (docs/decisions/2026-11-16-stage06-standard-and-first-increment.md, D)",
   "check": "S06-R1, S06-R2, S06-R3 (docs/standards/stage-06-knowledge-graph.md, section 4)",
   "generator": "tools/kg/register.py --write",
   "source": "docs/catalog/tranche-2-review.yaml",
@@ -66,6 +66,52 @@
       "notes": []
     },
     {
+      "key": "https://fandaws.com/ontology/bpo#PCF_10732",
+      "pcf_element_id": "10732",
+      "key_choice": {
+        "chosen_from": [
+          "10497",
+          "10732"
+        ],
+        "decision": "docs/decisions/2026-11-16-register-batch-1-accepted.md (RD-1)"
+      },
+      "grouping": "BCC-d95f68fd",
+      "concept": "bcoc:PayrollProcessing",
+      "whole_function_class": "https://fandaws.com/ontology/bco#PayrollProcessing",
+      "components": [
+        {
+          "class": "https://fandaws.com/ontology/bco#PayManagement",
+          "concept": "bcoc:PayManagement",
+          "g1t": "T2-20",
+          "link": {
+            "record": "docs/catalog/tranche-2-review.yaml",
+            "narrower": "BCC-d105ff07",
+            "broader": "BCC-d95f68fd"
+          }
+        },
+        {
+          "class": "https://fandaws.com/ontology/bco#PayrollTaxProcessing",
+          "concept": "bcoc:PayrollTaxProcessing",
+          "g1t": "T2-21",
+          "link": {
+            "record": "docs/catalog/tranche-2-review.yaml",
+            "narrower": "BCC-394909c1",
+            "broader": "BCC-d95f68fd"
+          }
+        }
+      ],
+      "rights": {
+        "status": "established",
+        "basis": "docs/decisions/2026-10-29-apqc-pcf-sourcing-decided.md, sections 1 and 3",
+        "source": "BPO ontology/apqc-catalog.ttl at 2e55edd9e86a0bc20fa88a21595cc61402faa5dc, as harvested in docs/sources/inventory/pcf-7.4-entries.yaml",
+        "content": "the catalog node's IRI and its element id only; no PCF name, description or hierarchy id"
+      },
+      "notes": [
+        "Not a complete breakdown: the function's work outside the listed components belongs to the whole-function class itself, whose own realization index holds it.",
+        "PayrollTaxProcessing is also a component of PCF_10736. A shared capability type says nothing about whether one arrangement serves both functions."
+      ]
+    },
+    {
       "key": "https://fandaws.com/ontology/bpo#PCF_10736",
       "pcf_element_id": "10736",
       "grouping": "BCC-c64ca466",
@@ -110,7 +156,8 @@
         "content": "the catalog node's IRI and its element id only; no PCF name, description or hierarchy id"
       },
       "notes": [
-        "PayrollTaxProcessing is a component by a reviewed part-of link, though its own PCF element is outside this key's subtree; a join on the PCF hierarchy alone would not find it."
+        "PayrollTaxProcessing is a component by a reviewed part-of link, though its own PCF element is outside this key's subtree; a join on the PCF hierarchy alone would not find it.",
+        "PayrollTaxProcessing is also a component of PCF_10732. A shared capability type says nothing about whether one arrangement serves both functions."
       ]
     },
     {
@@ -310,13 +357,6 @@
       "reasons": [
         "a part-of link was retargeted in review, so the component list is not as reviewed",
         "narrowed: the grouping keeps more than its narrowed type, so its components are not all listed"
-      ]
-    },
-    {
-      "grouping": "BCC-d95f68fd",
-      "concept": "bcoc:PayrollProcessing",
-      "reasons": [
-        "its concept cites no single PCF 7.4 element"
       ]
     },
     {

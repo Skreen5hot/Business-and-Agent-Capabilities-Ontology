@@ -153,6 +153,36 @@ def test_no_pcf_name_description_or_hierarchy_id_enters_the_register(
         assert element["description"][:40] not in text
 
 
+def test_rd1_keys_payroll_processing_to_10732(register):
+    """RD-1 (docs/decisions/2026-11-16-register-batch-1-accepted.md): the
+    architect's key choice, recorded with both elements the concept cites."""
+    payroll = next(f for f in register["functions"]
+                   if f["grouping"] == "BCC-d95f68fd")
+    assert payroll["key"] == BPO + "PCF_10732"
+    assert payroll["key_choice"]["chosen_from"] == ["10497", "10732"]
+    assert "register-batch-1-accepted" in payroll["key_choice"]["decision"]
+    assert payroll["whole_function_class"] == BCO + "PayrollProcessing"
+    assert {c["class"] for c in payroll["components"]} == {
+        BCO + "PayManagement", BCO + "PayrollTaxProcessing"}
+    assert "accepted" in register["status"]
+    assert len(register["functions"]) == 5
+    assert all("key_choice" not in f for f in register["functions"]
+               if f["grouping"] != "BCC-d95f68fd")
+
+
+def test_a_key_choice_outside_the_cited_elements_is_refused(tool, monkeypatch):
+    monkeypatch.setitem(tool.KEY_CHOICES, "BCC-d95f68fd",
+                        {"pcf_element_id": "17058", "decision": "x"})
+    with pytest.raises(tool.Refused, match="not among the elements"):
+        tool.register()
+
+
+def test_without_a_key_choice_payroll_processing_waits(tool, monkeypatch):
+    monkeypatch.delitem(tool.KEY_CHOICES, "BCC-d95f68fd")
+    reg = tool.register()
+    assert "BCC-d95f68fd" in {w["grouping"] for w in reg["waiting"]}
+
+
 def test_waiting_groupings_each_give_a_reason(register):
     for w in register["waiting"]:
         assert w["reasons"]

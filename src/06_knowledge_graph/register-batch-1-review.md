@@ -2,12 +2,12 @@
 
 | Field | Value |
 |---|---|
-| Batch | `src/06_knowledge_graph/coverage-register.json`, batch 1: 4 functions, 20 groupings waiting |
+| Batch | `src/06_knowledge_graph/coverage-register.json`, batch 1 as reviewed: 4 functions, 20 groupings waiting (5 and 19 after RD-1) |
 | Authority | The decision of 2026-11-16, D (`docs/decisions/2026-11-16-stage06-standard-and-first-increment.md`): one batch, a separate synthetic domain review, and only substantive disputes escalated with the batch |
 | Reviewer | A synthetic domain practitioner (finance, accounting, tax and payroll operations), `claude-opus-5-5`: an independent agent instance given the files only and working read-only, as product-owner-authorized synthetic practitioner validation (`docs/decisions/2026-11-02-r11-practitioner-validation-decided.md`). It does not decide anything |
 | Drafting | Claude Code (`claude-opus-5-5`), the Ontologist |
 | Date | 2026-11-16 |
-| Status | For the architect's acceptance of the batch as a whole, with dispute RD-1 |
+| Status | Batch accepted by the architect on 2026-11-16, and RD-1 decided as option (a) (`docs/decisions/2026-11-16-register-batch-1-accepted.md`) |
 
 ## What the reviewer was given
 
@@ -49,6 +49,7 @@ The reviewer's overall judgment: **accept with the substantive findings applied.
   - (c) leave it waiting.
 - **Recommendation:** (a), as the reviewer suggests. The register is drawn from the financial-resources tranche, and the 10497 placement is the one Stage 03 kept outside the tranche.
 - **What changes:** either (a) or (b) adds a key choice to the generator's inputs. Nothing in the ontology changes.
+- **Decided:** option (a), on 2026-11-16 (`docs/decisions/2026-11-16-register-batch-1-accepted.md`). The generator's `KEY_CHOICES` keys `BCC-d95f68fd` to `PCF_10732`, and the register records both cited elements.
 
 ## Catalog gaps the review recorded
 

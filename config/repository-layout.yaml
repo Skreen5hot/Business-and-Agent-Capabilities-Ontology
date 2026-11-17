@@ -113,8 +113,8 @@ components:
     role: generated-artifact
     generator: tool.kg-register
     description: >-
-      The coverage register (CD16), batch 1, proposed for acceptance as one
-      batch: standing functions keyed by BPO catalog nodes, each listing
+      The coverage register (CD16), batch 1, accepted as one batch on
+      2026-11-16 (docs/decisions/2026-11-16-register-batch-1-accepted.md): standing functions keyed by BPO catalog nodes, each listing
       component capability types as written class IRIs only (OI-13 v1), and
       the groupings still waiting, with reasons. PCF element IDs only, with
       APQC's notice; no PCF names, descriptions or hierarchy IDs.

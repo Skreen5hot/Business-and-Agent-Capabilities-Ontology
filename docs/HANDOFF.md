@@ -29,8 +29,9 @@ Stage 06 runs under its approved standard (`docs/standards/stage-06-knowledge-gr
 `docs/decisions/2026-11-16-stage06-standard-and-first-increment.md`): only the register-first increment toward
 CP-3 is authorized. It is implemented in `src/06_knowledge_graph/`:
 - the 41-entry scope audit;
-- coverage-register batch 1, with 4 functions and 20 waiting, which awaits the architect's
-  acceptance;
+- coverage-register batch 1, with 5 functions and 19 waiting, accepted by the architect on
+  2026-11-16 with RD-1 decided: Payroll Processing keyed to `PCF_10732`
+  (`docs/decisions/2026-11-16-register-batch-1-accepted.md`);
 - the `bc:` migration manifest;
 - S06-U2, ELK and HermiT with the complete pinned BFO and CCO, which pass.
 

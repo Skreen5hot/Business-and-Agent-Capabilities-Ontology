@@ -118,6 +118,16 @@ STAGING = {
     "none": "staged: no BCO concept accepts it; nothing is written",
 }
 
+ACCEPTANCE = "docs/decisions/2026-11-16-register-batch-1-accepted.md"
+
+#: A grouping whose concept cites more than one PCF 7.4 element has no key
+#: under the batch rule. The architect chooses its key; the choice must be
+#: one of the elements its concept cites. Nothing else is chosen here.
+KEY_CHOICES = {
+    "BCC-d95f68fd": {"pcf_element_id": "10732",
+                     "decision": ACCEPTANCE + " (RD-1)"},
+}
+
 PCF_LOCATOR = re.compile(r"PCF 7\.4 element (\d+) \(hierarchy [\d.]+\)")
 
 
@@ -155,12 +165,36 @@ def concepts() -> dict:
     return {c["id"]: c for c in load_yaml(CATALOG)["concepts"]}
 
 
-def pcf_element(concept: dict) -> str | None:
-    """The single PCF 7.4 element a concept's sources cite, or None."""
+def pcf_elements(concept: dict) -> set:
+    """Every PCF 7.4 element a concept's sources cite."""
     found = set()
     for source in concept.get("sources") or []:
         found.update(PCF_LOCATOR.findall(source.get("locator", "")))
+    return found
+
+
+def pcf_element(concept: dict) -> str | None:
+    """The single PCF 7.4 element a concept's sources cite, or None."""
+    found = pcf_elements(concept)
     return found.pop() if len(found) == 1 else None
+
+
+def keyed_element(grouping: str, concept: dict) -> tuple[str | None, dict | None]:
+    """The grouping's key element: the single element its concept cites, or
+    else the architect's recorded choice among the elements it cites."""
+    element = pcf_element(concept)
+    if element is not None:
+        return element, None
+    choice = KEY_CHOICES.get(grouping)
+    if choice is None:
+        return None, None
+    cited = pcf_elements(concept)
+    if choice["pcf_element_id"] not in cited:
+        raise Refused("%s: the chosen key %s is not among the elements its "
+                      "concept cites (%s)" % (grouping, choice["pcf_element_id"],
+                                              ", ".join(sorted(cited))))
+    return choice["pcf_element_id"], {
+        "chosen_from": sorted(cited), "decision": choice["decision"]}
 
 
 # ------------------------------------------------------------------ audit
@@ -341,7 +375,8 @@ def register() -> dict:
         part = [l for l in links if l["disposition"] == "retained"
                 and l.get("kind") == "part-of"]
         reasons = []
-        element = pcf_element(catalog[concept]) if concept in catalog else None
+        element, key_choice = (keyed_element(bcc, catalog[concept])
+                               if concept in catalog else (None, None))
         if concept is None:
             reasons.append("no BCO concept for the grouping")
         elif element is None:
@@ -392,9 +427,13 @@ def register() -> dict:
             raise Refused("%s: the whole-function class is among its own "
                           "components (CAP-22)" % bcc)
         components.sort(key=lambda c: c["class"])
-        functions.append({
+        entry = {
             "key": nodes[element],
             "pcf_element_id": element,
+        }
+        if key_choice:
+            entry["key_choice"] = key_choice
+        functions.append(dict(entry, **{
             "grouping": bcc,
             "concept": concept,
             "whole_function_class": whole,
@@ -408,16 +447,16 @@ def register() -> dict:
                 "content": "the catalog node's IRI and its element id only; "
                            "no PCF name, description or hierarchy id",
             },
-        })
+        }))
     functions.sort(key=lambda f: f["key"])
     add_notes(functions, catalog)
     return {
         "format": 1,
         "version": 1,
         "batch": 1,
-        "status": "proposed for the architect's acceptance as one batch "
-                  "(%s, D), after a separate synthetic domain review"
-                  % DECISION,
+        "status": "accepted by the architect as one batch on 2026-11-16 "
+                  "(%s), after a separate synthetic domain review (%s, D)"
+                  % (ACCEPTANCE, DECISION),
         "check": "S06-R1, S06-R2, S06-R3 (%s, section 4)" % STANDARD,
         "generator": "tools/kg/register.py --write",
         "source": REVIEW,
