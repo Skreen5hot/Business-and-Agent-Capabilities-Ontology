@@ -432,6 +432,16 @@ def fetch(url: str) -> bytes:
         return response.read()
 
 
+def rights_module():
+    """tools/inventory/rights.py, imported by path for its drift rules."""
+    spec = importlib.util.spec_from_file_location(
+        "bco_rights_for_federal",
+        layout.repository_root() / "tools/inventory/rights.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 class Bytes:
     """The pinned documents, by evidence id, digest checked on every read.
 
@@ -457,11 +467,21 @@ class Bytes:
         if data is None:
             data = fetch(item["url"])
             if sha256(data) != key:
-                raise Refused(
-                    "%s served bytes digesting to %s; rights.yaml pins %s for "
-                    "%s. A moved digest is a new edition for the architect, "
-                    "not a re-pin." % (item["url"], sha256(data), key,
-                                       item["id"]))
+                # Only the bounded presentation-drift rules of rights.py
+                # (decision of 2026-11-17) may stand in, and only by
+                # recovering bytes whose digest is the pin itself.
+                verdict = rights_module().recover(
+                    layout.repository_root(), item, data, self.cache)
+                if verdict.pinned is None or sha256(verdict.pinned) != key:
+                    raise Refused(
+                        "%s served bytes digesting to %s; rights.yaml pins %s "
+                        "for %s (%s). A moved digest is a new edition for the "
+                        "architect, not a re-pin." % (
+                            item["url"], sha256(data), key, item["id"],
+                            verdict.detail))
+                print("  drift   %s: %s; the pinned bytes are used"
+                      % (item["id"], verdict.detail))
+                data = verdict.pinned
             self.cache.mkdir(parents=True, exist_ok=True)
             path.write_bytes(data)
         self.read[key] = data

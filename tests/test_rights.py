@@ -27,7 +27,10 @@ SOURCING = "docs/decisions/2026-10-29-apqc-pcf-sourcing-decided.md"
 SUPERSEDED = {"apqc-pcf-7.4", "apqc-pcf-8.0"}
 COPIED = (RIGHTS, "docs/sources/register.yaml", "tools/ontology/validate.py",
           "tools/inventory/harvest_bpo.py", AUTHORITY, DECIDED, SOURCING,
-          "docs/proposals/2026-10-28-inventory-i2-public-catalogs.md")
+          "docs/proposals/2026-10-28-inventory-i2-public-catalogs.md",
+          # the presentation-drift addendum names these (decision of 2026-11-17)
+          "docs/decisions/2026-11-17-fibf-drift-disposition-accepted.md",
+          "docs/proposals/2026-11-17-fibf-source-drift-disposition.md")
 
 
 @pytest.fixture(scope="module")

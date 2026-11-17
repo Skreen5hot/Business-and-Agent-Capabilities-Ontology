@@ -67,6 +67,20 @@ raw.githubusercontent.com at the pinned commit. Browser-read text
 clients and its terms forbid automated access, so it is reported as
 manual. A digest that moved means the publisher changed the document;
 that is a finding for the record, not something to re-pin silently.
+
+PRESENTATION DRIFT (decision of 2026-11-17)
+
+Strict byte matching is always the first check. A mismatch is classified
+only for evidence the source's `presentation_drift` block names, by one of
+two bounded rules, and only when the rule recovers bytes whose sha256 is
+the pin itself: the FIBF pages' asset build number restored (the pin
+reproduced exactly), or the GSA website policies page compared with its
+Internet Archive baseline (verified against the pin, fetched from
+web.archive.org only) outside the header navigation, the Drupal settings
+script and asset versions. Every mismatch is printed with one of three
+statuses: exact pinned-byte match, verified presentation-only drift, or
+substantive or unexplained drift, which fails. Nothing classified becomes
+a pin, and any other document stays byte-strict.
 """
 
 from __future__ import annotations
@@ -117,7 +131,23 @@ TOP_REQUIRED = TOP_KEYS
 SOURCE_KEYS = {"id", "register", "rightsholder", "work", "edition", "status",
                "terms", "gap_reason", "evidence", "unpinned_observations",
                "excluded_from_snapshot", "findings", "quotes",
-               "open_questions", "decision_points", "architect_decision"}
+               "open_questions", "decision_points", "architect_decision",
+               "presentation_drift"}
+DRIFT_KEYS = {"decision", "disposition", "finding", "asset_build_number",
+              "archived_baseline", "observations"}
+BUILD_KEYS = {"baseline", "unchanged", "observed_2026_11_17", "rule",
+              "evidence"}
+ARCHIVED_KEYS = {"evidence", "archive", "also_archived", "comparison"}
+DRIFT_OBSERVATION_KEYS = {"evidence", "retrieved", "observed_sha256", "bytes",
+                          "classification"}
+#: The comparisons --confirm knows. Each is bounded to the one documented
+#: case it was approved for (decision of 2026-11-17); a new name is a new
+#: decision, not a configuration.
+COMPARISONS = ("gsa-drupal-page", "none")
+BUILD_HOST = "ussm.gsa.gov"
+GSA_HOST = "www.gsa.gov"
+ARCHIVE = re.compile(r"^https://web\.archive\.org/web/(\d{14})id_/(https://.+)$")
+BUILD_NUMBER = re.compile(r"^\d{19}$")
 SOURCE_REQUIRED = {"id", "register", "rightsholder", "work", "edition",
                    "status", "terms", "gap_reason", "evidence", "findings",
                    "open_questions", "decision_points", "architect_decision"}
@@ -428,6 +458,10 @@ def _source(source, where, known_register, base, out) -> None:
             _keys(option, OPTION_KEYS, OPTION_KEYS,
                   "%s/options/%d" % (pw, m), out)
 
+    drift = source.get("presentation_drift")
+    if drift is not None:
+        _drift(drift, where + "/presentation_drift", source, base, out)
+
     decision = source.get("architect_decision")
     if decision is not None:
         dw = where + "/architect_decision"
@@ -440,6 +474,76 @@ def _source(source, where, known_register, base, out) -> None:
                                "record in %s. The decision is the architect's "
                                "act, recorded there" % (dw, key, record,
                                                         DECISIONS))
+
+
+def _drift(drift, where, source, base, out) -> None:
+    """The presentation-drift addendum (decision of 2026-11-17): the
+    observed digests are observations, and every rule is bounded to the
+    evidence it names, on the host it was approved for."""
+    if not _keys(drift, DRIFT_KEYS, DRIFT_KEYS, where, out):
+        return
+    evidence = {e.get("id"): e for e in source.get("evidence") or []
+                if isinstance(e, dict)}
+    for key in ("decision", "disposition"):
+        if not (base / str(drift.get(key, ""))).is_file():
+            out.append("%s/%s names %r, which does not exist"
+                       % (where, key, drift.get(key)))
+    if not str(drift.get("decision", "")).startswith(DECISIONS):
+        out.append("%s/decision is not a record in %s" % (where, DECISIONS))
+    if not _text(drift.get("finding")):
+        out.append("%s has no finding" % where)
+    build = drift.get("asset_build_number")
+    bw = where + "/asset_build_number"
+    if _keys(build, BUILD_KEYS, BUILD_KEYS, bw, out):
+        tokens = [build.get("baseline"), build.get("observed_2026_11_17")] + \
+            list(build.get("unchanged") or [])
+        if not all(BUILD_NUMBER.match(str(t)) for t in tokens):
+            out.append("%s has a build number that is not 19 digits" % bw)
+        for ref in build.get("evidence") or []:
+            item = evidence.get(ref)
+            if item is None:
+                out.append("%s names %r, which this source's evidence does "
+                           "not list" % (bw, ref))
+            elif item.get("kind") != "url" or _host(item.get("url", "")) \
+                    != BUILD_HOST or not item["url"].endswith("/"):
+                out.append("%s names %r, which is not an HTML page on %s; "
+                           "the build-number rule is bounded to those"
+                           % (bw, ref, BUILD_HOST))
+    for n, entry in enumerate(drift.get("archived_baseline") or []):
+        aw = "%s/archived_baseline/%d" % (where, n)
+        if not _keys(entry, ARCHIVED_KEYS, ARCHIVED_KEYS, aw, out):
+            continue
+        item = evidence.get(entry.get("evidence"))
+        match = ARCHIVE.match(str(entry.get("archive", "")))
+        if item is None:
+            out.append("%s names evidence %r, which this source does not "
+                       "list" % (aw, entry.get("evidence")))
+        elif not match or match.group(2) != item.get("url"):
+            out.append("%s archive is not an Internet Archive id_ capture "
+                       "of the evidence's own URL" % aw)
+        if entry.get("comparison") not in COMPARISONS:
+            out.append("%s has comparison %r; expected one of %s"
+                       % (aw, entry.get("comparison"), ", ".join(COMPARISONS)))
+        if entry.get("comparison") == "gsa-drupal-page" and item is not None \
+                and _host(item.get("url", "")) != GSA_HOST:
+            out.append("%s applies gsa-drupal-page to a page not on %s"
+                       % (aw, GSA_HOST))
+    for n, obs in enumerate(drift.get("observations") or []):
+        ow = "%s/observations/%d" % (where, n)
+        if not _keys(obs, DRIFT_OBSERVATION_KEYS, DRIFT_OBSERVATION_KEYS, ow,
+                     out):
+            continue
+        item = evidence.get(obs.get("evidence"))
+        if item is None:
+            out.append("%s names evidence %r, which this source does not "
+                       "list" % (ow, obs.get("evidence")))
+        if not HEX64.match(str(obs.get("observed_sha256", ""))):
+            out.append("%s has no observed sha256 of 64 hex digits" % ow)
+        elif item is not None and obs["observed_sha256"] == item.get("sha256"):
+            out.append("%s observes the pinned digest; an observation records "
+                       "drift" % ow)
+        if not DATE.match(str(obs.get("retrieved", ""))):
+            out.append("%s has no retrieval date" % ow)
 
 
 def _content_findings(data, out) -> None:
@@ -574,8 +678,291 @@ def _bpo_bytes(item: dict, base: Path, cache: Path) -> tuple[bytes, str]:
     return _get(url), url
 
 
-def confirm(base: Path, cache: Path) -> list[str]:
+# ------------------------------------------------- presentation drift
+#
+# The decision of 2026-11-17 (docs/decisions/2026-11-17-fibf-drift-
+# disposition-accepted.md) lets --confirm classify a byte mismatch on two
+# documented kinds of page, and nothing else. Strict byte matching stays the
+# first check; a mismatch is always reported; a classified mismatch never
+# becomes a pin. Each rule recovers bytes whose sha256 IS the pin, so what a
+# rule accepts is the approved evidence itself, not something like it.
+
+EXACT, PRESENTATION, FAILURE = ("exact pinned-byte match",
+                                "verified presentation-only drift",
+                                "substantive or unexplained drift")
+#: A stylesheet or script reference carrying a 19-digit build number.
+_BUILD_REF = re.compile(rb'(\.(?:css|js)\?)(\d{19})(?=")')
+#: A Drupal aggregate's content-hash file name.
+_AGGREGATE = re.compile(r"/(js|css)_[A-Za-z0-9_-]{20,}\.(js|css)$")
+_VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link",
+         "meta", "param", "source", "track", "wbr"}
+
+
+class Drift:
+    def __init__(self, status: str, detail: str, pinned: bytes | None = None):
+        self.status, self.detail, self.pinned = status, detail, pinned
+
+    def __repr__(self):
+        return "Drift(%r, %r)" % (self.status, self.detail)
+
+
+def drift_rules(data) -> dict:
+    """evidence id -> (rule, its block, the source's quotes for it)."""
+    rules = {}
+    for source in data.get("sources") or []:
+        drift = source.get("presentation_drift")
+        if not drift:
+            continue
+        build = drift.get("asset_build_number") or {}
+        for ref in build.get("evidence") or []:
+            rules[ref] = ("build-number", build, [])
+        for entry in drift.get("archived_baseline") or []:
+            if entry.get("comparison") == "gsa-drupal-page":
+                quotes = [q["quote"] for q in source.get("quotes") or []
+                          if q.get("evidence") == entry["evidence"]]
+                rules[entry["evidence"]] = ("gsa-drupal-page", entry, quotes)
+    return rules
+
+
+def restore_build_number(item: dict, served: bytes, build: dict) -> Drift:
+    """A FIBF page whose one difference is a new build number: put the
+    baseline number back and require the pinned sha256 exactly."""
+    if _host(item.get("url", "")) != BUILD_HOST:
+        return Drift(FAILURE, "the build-number rule does not apply off %s"
+                     % BUILD_HOST)
+    baseline = str(build["baseline"])
+    known = {baseline} | {str(t) for t in build.get("unchanged") or []}
+    found = [m.group(2).decode() for m in _BUILD_REF.finditer(served)]
+    if not found:
+        return Drift(FAILURE, "no asset build number in the served page, so "
+                     "the difference is not the documented one")
+    new = sorted(set(found) - known)
+    if not new:
+        return Drift(FAILURE, "the build numbers are the baseline's, so the "
+                     "difference is something else")
+    if len(new) > 1:
+        return Drift(FAILURE, "%d new build numbers (%s); which one replaced "
+                     "the baseline is ambiguous" % (len(new), ", ".join(new)))
+    restored = _BUILD_REF.sub(
+        lambda m: m.group(1) + (baseline.encode() if m.group(2).decode()
+                                == new[0] else m.group(2)), served)
+    if sha256(restored) != item["sha256"]:
+        return Drift(FAILURE, "restoring build number %s to %s leaves bytes "
+                     "digesting to %s, not the pin: an unexplained difference "
+                     "remains" % (new[0], baseline, sha256(restored)))
+    return Drift(PRESENTATION, "asset build number %s in place of %s (%d "
+                 "reference(s)); restoring it reproduces the pin exactly"
+                 % (new[0], baseline, found.count(new[0])), restored)
+
+
+def _get_archive(url: str) -> bytes:
+    if not ARCHIVE.match(url):
+        raise Refused("refusing to fetch %s: not an Internet Archive id_ "
+                      "capture" % url)
+    request = urllib.request.Request(url, headers={
+        "User-Agent": "bco-inventory-rights (+tools/inventory/rights.py)",
+        "Accept-Encoding": "identity"})
+    last = None
+    for _attempt in range(3):
+        try:
+            with urllib.request.urlopen(request, timeout=180) as response:
+                data = response.read()
+            if data[:2] == b"\x1f\x8b":
+                import gzip
+                data = gzip.decompress(data)
+            return data
+        except OSError as error:
+            last = error
+    raise OSError("the archive did not answer: %s" % last)
+
+
+def archived_baseline(item: dict, entry: dict, cache: Path,
+                      fetch=None) -> tuple[bytes | None, str]:
+    """The approved bytes from the independent archive, or why not."""
+    cached = cache / item["sha256"]
+    if cached.is_file() and sha256(cached.read_bytes()) == item["sha256"]:
+        return cached.read_bytes(), "cache"
+    try:
+        data = (fetch or _get_archive)(entry["archive"])
+    except Exception as error:  # fail closed on any retrieval failure
+        return None, "the approved baseline could not be retrieved (%s)" \
+            % error
+    if sha256(data) != item["sha256"]:
+        return None, ("the archived baseline digests to %s, not the pin, so "
+                      "the approved baseline cannot be verified"
+                      % sha256(data))
+    cache.mkdir(parents=True, exist_ok=True)
+    cached.write_bytes(data)
+    return data, entry["archive"]
+
+
+class _GsaEvents:
+    """The comparable events of a GSA Drupal page: every tag with its
+    attributes and every text run, except the three documented regions --
+    the header navigation subtree (div.usa-nav__inner inside
+    header.usa-header), the Drupal settings script's body, and the version
+    part of stylesheet and script URLs. Whitespace is collapsed."""
+
+    def __init__(self, document: bytes):
+        from html.parser import HTMLParser
+
+        events, stack = [], []
+        state = {"nav": 0, "settings": 0, "skip": 0, "in_settings": False}
+        owner = self
+
+        class Parser(HTMLParser):
+            def handle_starttag(self, tag, attrs):
+                owner._start(tag, attrs, events, stack, state)
+
+            def handle_startendtag(self, tag, attrs):
+                owner._start(tag, attrs, events, stack, state, void=True)
+
+            def handle_endtag(self, tag):
+                owner._end(tag, events, stack, state)
+
+            def handle_data(self, data):
+                if state["skip"] or state["in_settings"]:
+                    return
+                text = " ".join(data.split())
+                if text:
+                    events.append(("text", text))
+
+            def handle_comment(self, data):
+                if not state["skip"]:
+                    events.append(("comment", " ".join(data.split())))
+
+        parser = Parser(convert_charrefs=True)
+        parser.feed(document.decode("utf-8"))
+        parser.close()
+        if state["skip"]:
+            raise ValueError("the navigation region never closes")
+        self.events, self.nav, self.settings = (events, state["nav"],
+                                                state["settings"])
+
+    @staticmethod
+    def _asset(tag, attrs):
+        out = []
+        for key, value in attrs:
+            value = value or ""
+            if (tag, key) in (("script", "src"), ("link", "href")) and \
+                    value.startswith("/"):
+                path = value.split("?", 1)[0]
+                value = _AGGREGATE.sub(r"/\1_*.\2", path)
+            out.append((key, value))
+        return tuple(sorted(out))
+
+    def _start(self, tag, attrs, events, stack, state, void=False):
+        classes = (dict(attrs).get("class") or "").split()
+        if state["skip"]:
+            if tag not in _VOID and not void:
+                state["skip"] += 1
+            return
+        if tag == "div" and "usa-nav__inner" in classes and any(
+                t == "header" and "usa-header" in c for t, c in stack):
+            state["nav"] += 1
+            state["skip"] = 1
+            events.append(("navigation",))
+            return
+        if tag == "script" and dict(attrs).get("data-drupal-selector") == \
+                "drupal-settings-json":
+            state["settings"] += 1
+            state["in_settings"] = True
+        events.append(("start", tag, self._asset(tag, attrs)))
+        if tag not in _VOID and not void:
+            stack.append((tag, classes))
+
+    def _end(self, tag, events, stack, state):
+        if state["skip"]:
+            state["skip"] -= 1
+            return
+        if tag == "script":
+            state["in_settings"] = False
+        events.append(("end", tag))
+        for i in range(len(stack) - 1, -1, -1):
+            if stack[i][0] == tag:
+                del stack[i:]
+                break
+
+
+def _plain(document: bytes) -> str:
+    import html
+
+    text = re.sub(r"<(script|style)\b.*?</\1>", " ",
+                  document.decode("utf-8"), flags=re.S | re.I)
+    return " ".join(html.unescape(re.sub(r"<[^>]+>", " ", text)).split())
+
+
+def compare_gsa_page(baseline: bytes, served: bytes, quotes: list) -> Drift:
+    """The GSA website policies page against its approved baseline."""
+    text = _plain(served)
+    for quote in quotes:
+        if " ".join(quote.split()) not in text:
+            return Drift(FAILURE, "the rights language quoted in the review "
+                         "(%s ...) is no longer on the page"
+                         % " ".join(quote.split()[:5]))
+    try:
+        old, new = _GsaEvents(baseline), _GsaEvents(served)
+    except Exception as error:  # an unsupported page fails closed
+        return Drift(FAILURE, "the page could not be compared: %s" % error)
+    for name, a, b in (("header navigation region", old.nav, new.nav),
+                       ("Drupal settings script", old.settings, new.settings)):
+        if a != 1 or b != 1:
+            return Drift(FAILURE, "the %s occurs %d time(s) in the baseline "
+                         "and %d in the served page; the comparison needs "
+                         "exactly one in each" % (name, a, b))
+    if old.events != new.events:
+        import difflib
+
+        matcher = difflib.SequenceMatcher(None, old.events, new.events,
+                                          autojunk=False)
+        diffs = [op for op in matcher.get_opcodes() if op[0] != "equal"]
+        tag, i1, i2, j1, j2 = diffs[0]
+        shown = "; ".join(
+            ["was %s" % (e,) for e in old.events[i1:i2][:2]] +
+            ["now %s" % (e,) for e in new.events[j1:j2][:2]])
+        return Drift(FAILURE, "%d unexplained difference(s) outside the "
+                     "navigation, Drupal settings and asset versions; the "
+                     "first: %s" % (len(diffs), shown[:600]))
+    return Drift(PRESENTATION, "only the header navigation, the Drupal "
+                 "settings and asset versions differ from the approved "
+                 "baseline; all other tags, attributes, links and text, and "
+                 "the quoted rights language, are unchanged", baseline)
+
+
+def classify(item: dict, served: bytes, rules: dict, cache: Path,
+             fetch=None) -> Drift:
+    """Strict bytes first; then, only for evidence a rule names, the
+    documented comparison; everything else fails."""
+    if sha256(served) == item["sha256"]:
+        return Drift(EXACT, "the pinned bytes", served)
+    rule = rules.get(item["id"])
+    if rule is None:
+        return Drift(FAILURE, "no presentation-drift rule covers this "
+                     "document, so its bytes must match exactly")
+    name, block, quotes = rule
+    if name == "build-number":
+        return restore_build_number(item, served, block)
+    if name == "gsa-drupal-page":
+        if _host(item.get("url", "")) != GSA_HOST:
+            return Drift(FAILURE, "gsa-drupal-page applies only on %s"
+                         % GSA_HOST)
+        baseline, origin = archived_baseline(item, block, cache, fetch)
+        if baseline is None:
+            return Drift(FAILURE, origin)
+        return compare_gsa_page(baseline, served, quotes)
+    return Drift(FAILURE, "unknown rule %r" % name)
+
+
+def recover(base: Path, item: dict, served: bytes, cache: Path) -> Drift:
+    """For the federal harvest: the classification of served bytes against
+    this record's rules, with the approved bytes when they are recovered."""
     _text_, data = load(base)
+    return classify(item, served, drift_rules(data), cache)
+
+
+def confirm(base: Path, cache: Path, drifts: list | None = None) -> list[str]:
+    _text_, data = load(base)
+    rules = drift_rules(data)
     out = []
     for source in data["sources"]:
         for item in source["evidence"]:
@@ -594,12 +981,27 @@ def confirm(base: Path, cache: Path) -> list[str]:
                 data_bytes, origin = _get(item["url"]), item["url"]
             got = sha256(data_bytes)
             if got != item["sha256"]:
-                out.append("%s: %s served %d bytes digesting to %s; the pin "
-                           "says %s. The publisher changed the document, or "
-                           "something between us did -- either way the "
-                           "record describes bytes that are no longer "
-                           "served" % (where, origin, len(data_bytes), got,
-                                       item["sha256"]))
+                mismatch = ("%s: %s served %d bytes digesting to %s; the pin "
+                            "says %s" % (where, origin, len(data_bytes), got,
+                                         item["sha256"]))
+                verdict = classify(item, data_bytes, rules, cache) \
+                    if item["kind"] == "url" else \
+                    Drift(FAILURE, "no presentation-drift rule covers this "
+                          "document")
+                if verdict.status == PRESENTATION:
+                    line = "%s. %s: %s. The pin stands; the served bytes are " \
+                           "not evidence" % (mismatch, verdict.status,
+                                             verdict.detail)
+                    print("  drift   " + line)
+                    if drifts is not None:
+                        drifts.append(line)
+                    cache.mkdir(parents=True, exist_ok=True)
+                    (cache / item["sha256"]).write_bytes(verdict.pinned)
+                    continue
+                out.append("%s. %s: %s. The publisher changed the document, "
+                           "or something between us did -- either way the "
+                           "record describes bytes that are no longer served"
+                           % (mismatch, FAILURE, verdict.detail))
                 continue
             cache.mkdir(parents=True, exist_ok=True)
             (cache / got).write_bytes(data_bytes)
@@ -635,8 +1037,11 @@ def main(argv=None) -> int:
         return 1
     if args.confirm:
         cache = Path(args.cache) if args.cache else base / CACHE
-        drifted = confirm(base, cache)
+        drifts: list = []
+        drifted = confirm(base, cache, drifts)
         if drifted:
+            print("  %d byte mismatch(es) above classified as %s"
+                  % (len(drifts), PRESENTATION))
             for problem in drifted:
                 print("  FINDING: %s" % problem)
             return 1
@@ -647,6 +1052,9 @@ def main(argv=None) -> int:
           "(%s)" % (counts["sources"], counts["evidence"],
                     " and re-confirmed" if args.confirm else "",
                     MAX_QUOTE_WORDS, statuses))
+    if args.confirm:
+        print("  %d byte mismatch(es) classified as %s; every pin stands"
+              % (len(drifts), PRESENTATION))
     return 0
 
 
