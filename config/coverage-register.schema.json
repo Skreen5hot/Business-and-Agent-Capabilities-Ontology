@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fandaws.com/ontology/bco/coverage-register.schema.json",
+  "title": "BCO coverage register, version 1 (CD16; OI-13 decided 2026-11-16)",
+  "description": "S06-R1 (docs/standards/stage-06-knowledge-graph.md). Each function is keyed by a BPO catalog node and lists component capability types as written BCO class IRIs only: never an individual, a functional unit, an act type or an APQC process node (K8). The PCF element id field is declared under patternProperties, so that this schema, which carries no PCF material, is not read as PCF-bearing by tools/licensing/pcf_notice.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["format", "version", "batch", "status", "check", "generator", "source", "rule", "apqc_notice", "functions", "waiting"],
+  "properties": {
+    "format": {"const": 1},
+    "version": {"const": 1},
+    "batch": {"type": "integer", "minimum": 1},
+    "status": {"type": "string", "minLength": 1},
+    "check": {"type": "string", "minLength": 1},
+    "generator": {"type": "string", "minLength": 1},
+    "source": {"type": "string", "minLength": 1},
+    "rule": {"type": "string", "minLength": 1},
+    "apqc_notice": {"type": "string", "minLength": 1},
+    "functions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["key", "pcf_element_id", "grouping", "concept", "whole_function_class", "components", "rights", "notes"],
+        "patternProperties": {
+          "^pcf_element_id$": {"type": "string", "pattern": "^[0-9]+$"}
+        },
+        "properties": {
+          "key": {"type": "string", "pattern": "^https://fandaws\\.com/ontology/bpo#PCF_[0-9]+$"},
+          "key_choice": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["chosen_from", "decision"],
+            "properties": {
+              "chosen_from": {"type": "array", "minItems": 2, "items": {"type": "string", "pattern": "^[0-9]+$"}},
+              "decision": {"type": "string", "minLength": 1}
+            }
+          },
+          "grouping": {"type": "string", "pattern": "^BCC-[0-9a-f]{8}$"},
+          "concept": {"type": "string", "pattern": "^bcoc:[A-Za-z]+$"},
+          "whole_function_class": {
+            "oneOf": [
+              {"type": "null"},
+              {"type": "string", "pattern": "^https://fandaws\\.com/ontology/bco#[A-Za-z]+$"}
+            ]
+          },
+          "components": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["class", "concept", "g1t", "link"],
+              "properties": {
+                "class": {"type": "string", "pattern": "^https://fandaws\\.com/ontology/bco#[A-Za-z]+$"},
+                "concept": {"type": "string", "pattern": "^bcoc:[A-Za-z]+$"},
+                "g1t": {"type": "string", "pattern": "^T[12]-[0-9]{2}$"},
+                "link": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["record", "narrower", "broader"],
+                  "properties": {
+                    "record": {"type": "string", "minLength": 1},
+                    "narrower": {"type": "string", "pattern": "^BCC-[0-9a-f]{8}$"},
+                    "broader": {"type": "string", "pattern": "^BCC-[0-9a-f]{8}$"}
+                  }
+                }
+              }
+            }
+          },
+          "notes": {"type": "array", "items": {"type": "string", "minLength": 1}},
+          "rights": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["status", "basis", "source", "content"],
+            "properties": {
+              "status": {"enum": ["established", "withheld"]},
+              "basis": {"type": "string", "minLength": 1},
+              "source": {"type": "string", "minLength": 1},
+              "content": {"type": "string", "minLength": 1}
+            }
+          }
+        }
+      }
+    },
+    "waiting": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["grouping", "concept", "reasons"],
+        "properties": {
+          "grouping": {"type": "string", "pattern": "^BCC-[0-9a-f]{8}$"},
+          "concept": {"oneOf": [{"type": "null"}, {"type": "string", "pattern": "^bcoc:[A-Za-z]+$"}]},
+          "reasons": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+        }
+      }
+    }
+  }
+}

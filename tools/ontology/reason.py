@@ -5,6 +5,8 @@
     python tools/ontology/reason.py --hermit      # also HermiT (S05-D2)
     python tools/ontology/reason.py --checkpoint  # both; absence is a FAIL
     python tools/ontology/reason.py --fetch       # download the pinned jar
+    python tools/ontology/reason.py --complete    # S06-U2: complete BFO and CCO
+    python tools/ontology/reason.py --complete --record src/06_knowledge_graph/upstream-conformance.json
 
 WHAT IS REASONED OVER
 
@@ -13,6 +15,18 @@ vendored extracts, through ROBOT's `merge` and `reason`. Not the vocabulary,
 which is SKOS and asserts no OWL class axioms. ROBOT fails a `reason` that
 finds the input inconsistent or a class unsatisfiable; that failure is this
 tool's FAIL.
+
+THE COMPLETE CLOSURE (S06-U2)
+
+With --complete, the BFO and CCO extracts are replaced by the complete
+files at their pins (config/upstream-sources.yaml), fetched through
+vendor_upstream.py's digest-checked fetch into its cache. BPO stays its
+extract: the Stage 05 import boundary (standard section 4; RP-3) excludes
+the BPO modules whose capability assertions the BCO does not admit, so no
+complete-BPO conformance is claimed, and the record says so. Both reasoners
+run, falsified as below, and an absent one is a FAIL. --record writes what
+was loaded (each file, its role and SHA-256), the versions that ran and the
+results, with no timestamp, so the same inputs write the same bytes.
 
 EVERY RUN IS FALSIFIED
 
@@ -156,6 +170,55 @@ def inputs() -> list[Path]:
     return modules + list(layout.vendored_files())
 
 
+#: The complete files S06-U2 loads in place of the extracts.
+COMPLETE_ROLES = {"bfo": "complete BFO at its pin",
+                  "cco": "complete CCO (merged) at its pin"}
+BOUNDARY = ("BPO is loaded as its extract only. The Stage 05 import boundary "
+            "(docs/standards/stage-05-ontology.md, section 4; RP-3) excludes "
+            "the BPO modules whose capability assertions the BCO does not "
+            "admit, so conformance with the complete BPO is not claimed.")
+
+
+def vendor_upstream():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "vendor_upstream_for_reason", HERE / "vendor_upstream.py")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+def complete_closure() -> list[dict]:
+    """S06-U2's input: the BCO modules, the complete pinned BFO and CCO,
+    and the BPO extract. Each item has its path, role and SHA-256."""
+    root = layout.repository_root()
+    vu = vendor_upstream()
+    cache = root / vu.CACHE
+    items = []
+    for module in layout.components("ontology-module"):
+        path = module.resolve()
+        items.append({"path": path.relative_to(root).as_posix(),
+                      "role": "BCO module",
+                      "sha256": hashlib.sha256(path.read_bytes()).hexdigest()})
+    by_id = {s["id"]: s for s in vu.sources()}
+    for source_id, role in COMPLETE_ROLES.items():
+        source = by_id[source_id]
+        vu.fetch(source, cache)            # digest-checked; refuses others
+        path = cache / (source_id + ".ttl")
+        items.append({"path": path.relative_to(root).as_posix(),
+                      "role": role, "url": source["url"],
+                      "commit": source["commit"], "sha256": source["sha256"]})
+    for path in layout.vendored_files():
+        resolved = path.resolve()
+        if "/vendor/bpo/" in resolved.as_posix():
+            items.append({"path": resolved.relative_to(root).as_posix(),
+                          "role": "BPO extract (import boundary)",
+                          "sha256": hashlib.sha256(
+                              resolved.read_bytes()).hexdigest()})
+    return items
+
+
 def robot_reason(data: dict, reasoner: str, files: list[Path],
                  extra: str | None, out: Path) -> tuple[bool, str]:
     """(passed, ROBOT's last lines). `extra` is appended Turtle."""
@@ -230,8 +293,9 @@ bco:ReasonerCap10Case a owl:Class ;
 """
 
 
-def run_reasoner(data: dict, reasoner: str, work: Path) -> dict:
-    files = inputs()
+def run_reasoner(data: dict, reasoner: str, work: Path,
+                 files: list[Path] | None = None) -> dict:
+    files = inputs() if files is None else files
     out = work / ("reasoned-%s.ttl" % reasoner)
     passed, tail = robot_reason(data, reasoner, files, None, out)
     result = {"reasoner": reasoner, "input_files": len(files),
@@ -286,7 +350,16 @@ def main(argv=None) -> int:
                     help="also run HermiT (S05-D2)")
     ap.add_argument("--checkpoint", action="store_true",
                     help="run ELK and HermiT; an absent reasoner is a FAIL")
+    ap.add_argument("--complete", action="store_true",
+                    help="S06-U2: ELK and HermiT over the modules with the "
+                    "complete pinned BFO and CCO; an absent reasoner is a FAIL")
+    ap.add_argument("--record", metavar="PATH",
+                    help="with --complete, write the closure and the results")
     args = ap.parse_args(argv)
+    if args.record and not args.complete:
+        ap.error("--record needs --complete")
+    if args.complete:
+        args.checkpoint = True
     data = pins()
     if args.fetch:
         fetch(data)
@@ -310,10 +383,22 @@ def main(argv=None) -> int:
         raise Refused("the jar reports %r, not %r"
                       % (seen["robot"], data["robot"]["reports_version"]))
     print("  %s; %s" % (seen["robot"], seen["java"]))
+    closure = complete_closure() if args.complete else None
+    files = None
+    if closure is not None:
+        root = layout.repository_root()
+        files = [root / item["path"] for item in closure]
+        print("  complete closure, %d file(s):" % len(files))
+        for item in closure:
+            print("    %-33s %s  %s" % (item["role"], item["sha256"][:16],
+                                       item["path"]))
+        print("  " + BOUNDARY)
+    results = []
     failed = False
     with tempfile.TemporaryDirectory(prefix="bco-reason-") as tmp:
         for name in wanted:
-            result = run_reasoner(data, name, Path(tmp))
+            result = run_reasoner(data, name, Path(tmp), files)
+            results.append(result)
             failed = failed or result["result"] != "PASS"
             print("  %-7s %s  real input %s over %d file(s); falsification: %s"
                   % (name, result["result"], result["real_input"],
@@ -329,7 +414,34 @@ def main(argv=None) -> int:
             if result["detail"]:
                 print("          " + result["detail"].replace(
                     "\n", "\n          "))
+    if args.record:
+        write_record(Path(args.record), seen, closure, results)
     return 1 if failed else 0
+
+
+def write_record(path: Path, seen: dict, closure: list, results: list) -> None:
+    """S06-U2's record: what was loaded and what each reasoner found."""
+    import json
+    record = {
+        "format": 1,
+        "check": "S06-U2 (docs/standards/stage-06-knowledge-graph.md, section 4)",
+        "generator": "tools/ontology/reason.py --complete --record",
+        "robot": seen["robot"],
+        "java": seen["java"],
+        "claim": ("The BCO modules are consistent, and every class satisfiable, "
+                  "together with the complete BFO and CCO at their pins."),
+        "not_claimed": BOUNDARY,
+        "closure": closure,
+        "results": [],
+    }
+    for r in results:
+        entry = {k: r[k] for k in ("reasoner", "result", "real_input", "cases")}
+        if "cap10_candidates" in r:
+            entry["cap10_candidates"] = r["cap10_candidates"]
+        record["results"].append(entry)
+    path.write_bytes((json.dumps(record, indent=2, ensure_ascii=False) + "\n")
+                     .encode("utf-8"))
+    print("  recorded %s" % path.as_posix())
 
 
 if __name__ == "__main__":

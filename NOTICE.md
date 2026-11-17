@@ -30,6 +30,7 @@ PCF material is taken only from BPO at a pinned commit that carries BPO's `NOTIC
 - `docs/catalog/bpo-act-types.yaml`: PCF element IDs, as `pcf_element_id` on each BPO act type (Phase I-4). Carries the notice.
 - `docs/catalog/candidates.yaml`: PCF element IDs, hierarchy codes and element names on the candidates' source records, and candidate names and definitions derived from them (Phase I-4). Carries the notice.
 - `docs/catalog/crosswalk.yaml`: PCF element IDs and hierarchy codes on every PCF record, and the object phrases read from PCF element names (Phase I-4). Carries the notice.
+- `src/06_knowledge_graph/coverage-register.json`: PCF element IDs, and the BPO catalog node IRIs that carry them, as the keys of the coverage register's standing functions; no names, descriptions or hierarchy IDs (Stage 06, register batch 1). Carries the notice.
 
 `tools/licensing/pcf_notice.py` fails when a tracked file carries PCF content and is not listed here, or lacks the notice without a recorded exception.
 

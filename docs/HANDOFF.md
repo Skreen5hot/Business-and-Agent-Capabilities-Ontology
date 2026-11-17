@@ -27,7 +27,15 @@ on 2026-11-16 (`docs/decisions/2026-11-16-stage05-completion-accepted.md`), with
 recorded qualifications and the CAP-20 and CAP-33 encodings confirmed. Not a release;
 Stage 06 runs under its approved standard (`docs/standards/stage-06-knowledge-graph.md`,
 `docs/decisions/2026-11-16-stage06-standard-and-first-increment.md`): only the register-first increment toward
-CP-3 is authorized. Real organization evidence (the second increment) is not, and Stage 06
+CP-3 is authorized. It is implemented in `src/06_knowledge_graph/`:
+- the 41-entry scope audit;
+- coverage-register batch 1, with 5 functions and 19 waiting, accepted by the architect on
+  2026-11-16 with RD-1 decided: Payroll Processing keyed to `PCF_10732`
+  (`docs/decisions/2026-11-16-register-batch-1-accepted.md`);
+- the `bc:` migration manifest;
+- S06-U2, ELK and HermiT with the complete pinned BFO and CCO, which pass.
+
+Real organization evidence (the second increment) is not authorized, and Stage 06
 completion needs it.
 
 ## 2. What is in the tree

@@ -1,0 +1,117 @@
+# The bc: migration manifest (specification v0.5.0-draft.3, section 9.1; CP-3;
+# docs/standards/stage-06-knowledge-graph.md, K10 and S06-MG).
+#
+# One row per class the v0.1 package declares in
+# https://example.org/BusinessCapabilityOntology#, read as text from
+# drafts/BusinessCapabilityOntology_draft_v0.1.0/ under its SHA256SUMS, and never
+# loaded as ontology. Each row keeps the identifier migration apart from the
+# semantic relation: a migration says which written BCO class takes over the
+# v0.1 term's role, and the semantic relation says how their meanings compare.
+# No row asserts equivalence: no owl:sameAs and no owl:equivalentClass is
+# written anywhere (TM-5, because every definition changed), and no new IRI
+# is created here. Every target is a class already written in a Stage 05
+# module, under the decisions cited.
+#
+# Hand-authored; tools/kg/register.py checks it (S06-MG).
+
+format: 1
+check: S06-MG (docs/standards/stage-06-knowledge-graph.md, section 4)
+decision: docs/decisions/2026-11-16-stage06-standard-and-first-increment.md
+source:
+  package: drafts/BusinessCapabilityOntology_draft_v0.1.0
+  namespace: https://example.org/BusinessCapabilityOntology#
+  checksums: drafts/BusinessCapabilityOntology_draft_v0.1.0/SHA256SUMS.txt
+  specification: specifications/Business-Capability-Ontology-v0.5.0-draft.3.md, section 9.1
+rule: >-
+  Identifier migration is not semantic equivalence. A rename records which BCO class
+  takes over the v0.1 term's role; it states no sameness of meaning. The v0.1 namespace
+  was never published, so no redirect or deprecation triple is written.
+
+classes:
+  - old_iri: https://example.org/BusinessCapabilityOntology#BusinessCapability
+    identifier_migration:
+      kind: rename
+      to: [https://fandaws.com/ontology/bco#BusinessCapability]
+    semantic_relation:
+      relation: >-
+        Not equivalent. The BCO class is grounded in the organization's members as
+        organized (CD2), a commitment the v0.1 definition did not make.
+      equivalence_asserted: false
+    definition_change: revised (CD2)
+    decision: specification section 9.1 (ratified, ADR-002); the parent admitted by ratification (docs/decisions/2026-11-04-d4-rp1-rp10-ratified-option-b.md) and written under D6 (docs/decisions/2026-11-15-v05-transition-approved-d6-authorized.md)
+
+  - old_iri: https://example.org/BusinessCapabilityOntology#BusinessCapabilityDescription
+    identifier_migration:
+      kind: not-carried
+      to: []
+    semantic_relation:
+      relation: >-
+        No BCO counterpart. Type-level meaning lives in class definitions and catalog
+        nodes (TM-1, OI-17).
+      equivalence_asserted: false
+    definition_change: not carried
+    decision: specification section 9.1 (ratified, ADR-002)
+
+  - old_iri: https://example.org/BusinessCapabilityOntology#BusinessCapabilityMap
+    identifier_migration:
+      kind: rename
+      to: [https://fandaws.com/ontology/bco#CapabilityMap]
+    semantic_relation:
+      relation: >-
+        Not equivalent. The BCO map's entries are constrained to assessments and
+        targets (CAP-11, CAP-17).
+      equivalence_asserted: false
+    definition_change: narrowed
+    decision: specification section 9.1 (ratified, ADR-002); written under B-1 (docs/decisions/2026-11-15-b1-b4-approved-cap34-confirmed.md)
+
+  - old_iri: https://example.org/BusinessCapabilityOntology#BusinessCapabilityAssessment
+    identifier_migration:
+      kind: rename
+      to: [https://fandaws.com/ontology/bco#CapabilityAssessment]
+    semantic_relation:
+      relation: >-
+        Not equivalent. The BCO class is narrowed to possession findings, with a
+        mandatory finding (CD14, CAP-27).
+      equivalence_asserted: false
+    definition_change: narrowed
+    decision: specification section 9.1 (ratified, ADR-002); written under B-1 (docs/decisions/2026-11-15-b1-b4-approved-cap34-confirmed.md)
+
+  - old_iri: https://example.org/BusinessCapabilityOntology#BusinessCapabilityMaturityAssessment
+    identifier_migration:
+      kind: split
+      to:
+        - https://fandaws.com/ontology/bco#CapabilityAssessment
+        - https://fandaws.com/ontology/bco#CapabilityMaturityRating
+    semantic_relation:
+      relation: >-
+        Not equivalent to either. The evaluation becomes a Capability Assessment, and
+        the ordinal result a Capability Maturity Rating that cites it (TM-4, CAP-20).
+      equivalence_asserted: false
+    definition_change: split
+    decision: specification section 9.1 (ratified, ADR-002); written under B-1 (docs/decisions/2026-11-15-b1-b4-approved-cap34-confirmed.md)
+
+  - old_iri: https://example.org/BusinessCapabilityOntology#BusinessCapabilitySourcingAssessment
+    identifier_migration:
+      kind: rename
+      to: [https://fandaws.com/ontology/bco#CapabilitySourcingAssessment]
+    semantic_relation:
+      relation: >-
+        Not equivalent. The BCO class is about a Capability Sourcing Statement, which
+        is now a separate class (TM-2).
+      equivalence_asserted: false
+    definition_change: revised (TM-2)
+    decision: specification section 9.1 (ratified, ADR-002); written under B-1 (docs/decisions/2026-11-15-b1-b4-approved-cap34-confirmed.md)
+
+  - old_iri: https://example.org/BusinessCapabilityOntology#BusinessCapabilityTargetStateSpecification
+    identifier_migration:
+      kind: rename
+      to: [https://fandaws.com/ontology/bco#CapabilityTargetStateSpecification]
+    semantic_relation:
+      relation: >-
+        Not equivalent. The BCO class's parent is CCO Plan (cco:ont00000974), and the
+        end state it serves is a separate Capability Target (TM-3). Its v0.1 scope of
+        obtaining external capacity survives: a Target-State Specification may
+        prescribe a sourcing arrangement as one of its acts.
+      equivalence_asserted: false
+    definition_change: revised (TM-3)
+    decision: specification section 9.1 (ratified, ADR-002); written under B-1 (docs/decisions/2026-11-15-b1-b4-approved-cap34-confirmed.md)

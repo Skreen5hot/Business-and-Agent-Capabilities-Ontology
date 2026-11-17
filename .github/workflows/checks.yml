@@ -156,6 +156,12 @@ jobs:
       - name: Gate M, the completeness manifests match the CD15 schema
         run: python tools/ontology/manifests.py
 
+      # Stage 06 register data (S06-A1, S06-R1, S06-R2, S06-MG): the scope
+      # audit and the coverage register are their reviewed inputs' builds,
+      # the register matches its schema, and the bc: migration keeps its rules.
+      - name: Stage 06 register data are their inputs' builds and keep their rules
+        run: python tools/kg/register.py
+
       # S05-D: ELK over the modules and extracts through the pinned ROBOT
       # jar, falsified by a case built to be unsatisfiable. The jar is
       # cached by its SHA-256 and fetched only on a miss; --fetch refuses
@@ -215,6 +221,12 @@ jobs:
     # above would make every pull request depend on three external hosts
     # being up, and a check that fails for reasons unrelated to the
     # change is a check people learn to re-run rather than read.
+    #
+    # Since Stage 06 (docs/standards/stage-06-knowledge-graph.md, S06-U1
+    # and S06-U2) this job holds only what comes from the ontology pins and
+    # BPO. The federal rights documents have their own job below, so that
+    # a moved government web page cannot hide, or be hidden by, an upstream
+    # ontology result. Neither job is weakened: each runs every step it ran.
     name: Extracts still rebuild from the pinned sources
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
@@ -230,8 +242,22 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements-dev.txt
 
+      # S06-U1: every pinned upstream file is refetched and its digest
+      # verified, and the committed extracts are rebuilt and compared.
       - name: Fetch the pinned upstreams and compare
         run: python tools/ontology/vendor_upstream.py --confirm
+
+      # S06-U2: ELK and HermiT over the BCO modules with the complete BFO
+      # and CCO at their pins (BPO as its extract, the import boundary),
+      # each run falsified; the closure loaded and the results are printed.
+      - name: Cache the pinned ROBOT jar
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .tools-cache
+          key: robot-53cd275c8e4c0dad1fc2c1c34174876795cd7d6b6926e1444adcbb0cb3c7ab26
+
+      - name: The reasoners over the complete pinned BFO and CCO (S06-U2)
+        run: python tools/ontology/reason.py --fetch --complete
 
       # The same question for the inventory: are the committed outputs what
       # harvesting BPO at the pinned commits (and the baseline) produces?
@@ -239,11 +265,36 @@ jobs:
       - name: Harvest BPO at the pinned commits and compare
         run: python tools/inventory/harvest_bpo.py --confirm
 
-      # And for the rights review: do the rights holders still serve the
-      # documents I-2a pinned? A moved digest is a new edition for the
-      # architect to review, not something to re-pin silently. Fetches from
-      # obamawhitehouse.archives.gov, ussm.gsa.gov, www.gsa.gov and
-      # raw.githubusercontent.com only; apqc.org is never fetched.
+      # And for I-2b: do BPO's catalog and NOTICE.md at the pinned commit
+      # still build the committed PCF entries and NOTICE.md byte for byte?
+      # Fetches from raw.githubusercontent.com at the pinned commit only;
+      # nothing is ever fetched from apqc.org.
+      - name: Rebuild the PCF entries and NOTICE.md from BPO and compare
+        run: python tools/inventory/harvest_pcf.py --confirm
+
+  federal:
+    # The rights review's pinned documents, refetched from the rights
+    # holders. A moved digest is a new edition for the architect to review,
+    # not something to re-pin silently. Network-bound like the job above,
+    # and run on the same schedule.
+    name: Rights documents are still served as pinned
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+
+      - name: Install the pinned dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-dev.txt
+
+      # Fetches from obamawhitehouse.archives.gov, ussm.gsa.gov,
+      # www.gsa.gov and raw.githubusercontent.com only; apqc.org is never
+      # fetched.
       - name: Refetch the rights review's pinned documents and compare
         run: python tools/inventory/rights.py --confirm
 
@@ -254,10 +305,3 @@ jobs:
       # workbook's, which needs those workbooks' bytes.
       - name: Harvest the federal catalogs from the refetched documents and compare
         run: python tools/inventory/harvest_federal.py --confirm
-
-      # And for I-2b: do BPO's catalog and NOTICE.md at the pinned commit
-      # still build the committed PCF entries and NOTICE.md byte for byte?
-      # Fetches from raw.githubusercontent.com at the pinned commit only;
-      # nothing is ever fetched from apqc.org.
-      - name: Rebuild the PCF entries and NOTICE.md from BPO and compare
-        run: python tools/inventory/harvest_pcf.py --confirm

@@ -92,7 +92,58 @@ components:
   - id: stage.06-knowledge-graph.readme
     path: src/06_knowledge_graph/README.md
     role: documentation
-    description: Stage 06 (Knowledge Graph) -- its status; nothing here yet.
+    description: Stage 06 (Knowledge Graph) -- its status and contents.
+
+  # Stage 06 register data (docs/standards/stage-06-knowledge-graph.md;
+  # decision of 2026-11-16). Register and migration data only: no
+  # organization, person or evidence graph is here (the second increment is
+  # not authorized).
+  - id: stage06.scope-audit
+    path: src/06_knowledge_graph/scope-audit.yaml
+    role: generated-artifact
+    generator: tool.kg-register
+    description: >-
+      The CP-3 audit of BPO's 41 capability_scope.json entries at the pin
+      (S06-A1): what BPO declares, kept apart from what the BCO has
+      independently accepted, with a staging status per entry. Admits
+      nothing and asserts no subclass (K10).
+
+  - id: stage06.coverage-register
+    path: src/06_knowledge_graph/coverage-register.json
+    role: generated-artifact
+    generator: tool.kg-register
+    description: >-
+      The coverage register (CD16), batch 1, accepted as one batch on
+      2026-11-16 (docs/decisions/2026-11-16-register-batch-1-accepted.md): standing functions keyed by BPO catalog nodes, each listing
+      component capability types as written class IRIs only (OI-13 v1), and
+      the groupings still waiting, with reasons. PCF element IDs only, with
+      APQC's notice; no PCF names, descriptions or hierarchy IDs.
+
+  - id: stage06.bc-migration
+    path: src/06_knowledge_graph/bc-migration.yaml
+    role: register-data
+    description: >-
+      The bc: migration manifest (specification section 9.1; S06-MG): one
+      row per v0.1 class, its identifier migration kept apart from its
+      semantic relation, and no equivalence. Hand-authored; checked by
+      tools/kg/register.py.
+
+  - id: stage06.register-batch-1-review
+    path: src/06_knowledge_graph/register-batch-1-review.md
+    role: documentation
+    description: >-
+      The separate synthetic domain review of coverage-register batch 1
+      (decision of 2026-11-16, D), its findings and their dispositions.
+
+  - id: stage06.upstream-conformance
+    path: src/06_knowledge_graph/upstream-conformance.json
+    role: generated-artifact
+    generator: tool.reason
+    description: >-
+      S06-U2's record: the closure ELK and HermiT loaded (the BCO modules,
+      the complete BFO and CCO at their pins, the BPO extract), with each
+      file's SHA-256, the versions that ran, and the falsified results. No
+      complete-BPO conformance is claimed.
 
   # ---- Authored ontology -------------------------------------------
   #
@@ -1399,6 +1450,23 @@ components:
       Also answers CD15's bounded questions (CQ-4, CQ-5, CAP-18): recorded,
       none recorded or unknown, never "not authorized". No production
       evidence manifest exists; the gate says it checked fixtures only.
+
+  - id: config.coverage-register-schema
+    path: config/coverage-register.schema.json
+    role: configuration
+    description: >-
+      The coverage register's JSON Schema (2020-12), version 1 (S06-R1):
+      functions keyed by BPO catalog nodes, components as written BCO class
+      IRIs only, each function's rights status, and the waiting groupings.
+
+  - id: tool.kg-register
+    path: tools/kg/register.py
+    role: tool
+    description: >-
+      Stage 06 register data: writes the CP-3 scope audit and the coverage
+      register from reviewed records, checks both against their committed
+      bytes and the register schema, and checks the bc: migration manifest
+      (S06-A1, S06-R1, S06-R2, S06-MG).
 
   - id: config.completeness-manifest-schema
     path: config/completeness-manifest.schema.json

@@ -181,5 +181,10 @@ pcf_bearing:
     carries: >-
       PCF element IDs and hierarchy codes on every PCF record, and the
       object phrases read from PCF element names (Phase I-4)
+  - path: src/06_knowledge_graph/coverage-register.json
+    carries: >-
+      PCF element IDs, and the BPO catalog node IRIs that carry them, as the
+      keys of the coverage register's standing functions; no names,
+      descriptions or hierarchy IDs (Stage 06, register batch 1)
 
 exceptions: []

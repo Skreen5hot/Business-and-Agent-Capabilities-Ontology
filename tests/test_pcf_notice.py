@@ -29,6 +29,9 @@ BPO_ENTRIES = "docs/sources/inventory/bpo-entries.yaml"
 #: element IDs and derives names from PCF element names.
 CATALOG_FILES = ["docs/catalog/bpo-act-types.yaml", "docs/catalog/candidates.yaml",
                  "docs/catalog/crosswalk.yaml"]
+#: Stage 06 (decision of 2026-11-16, E): the coverage register's keys are
+#: PCF element IDs and the catalog nodes that carry them, identifiers only.
+STAGE06_FILES = ["src/06_knowledge_graph/coverage-register.json"]
 SCHEME = "https://fandaws.com/ontology/bpo/scheme#PCF"
 
 
@@ -305,7 +308,7 @@ def test_every_finding_has_a_negative_fixture(gate):
 def test_the_repository_passes_the_gate(gate):
     problems, report = gate.findings(ROOT)
     assert problems == []
-    assert report["bearing"] == dict.fromkeys([ENTRIES, BPO_ENTRIES] + CATALOG_FILES)
+    assert report["bearing"] == dict.fromkeys([ENTRIES, BPO_ENTRIES] + CATALOG_FILES + STAGE06_FILES)
     assert report["excepted"] == []
 
 
@@ -320,7 +323,7 @@ def test_the_exception_list_is_empty_since_e7(h):
 
 def test_root_notice_lists_every_pcf_bearing_file(h):
     text = (ROOT / "NOTICE.md").read_bytes().decode("utf-8")
-    assert h.listed_files(text) == [ENTRIES, BPO_ENTRIES] + CATALOG_FILES
+    assert h.listed_files(text) == [ENTRIES, BPO_ENTRIES] + CATALOG_FILES + STAGE06_FILES
 
 
 def test_the_vendored_bpo_extract_carries_no_pcf_material(gate):
