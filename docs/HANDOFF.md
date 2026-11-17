@@ -35,6 +35,9 @@ CP-3 is authorized. It is implemented in `src/06_knowledge_graph/`:
 - the `bc:` migration manifest;
 - S06-U2, ELK and HermiT with the complete pinned BFO and CCO, which pass.
 
+**CP-3 is closed** (declared by the architect on 2026-11-17 at `ff49142`, `docs/decisions/2026-11-17-cp3-closed.md`). CP-3 is
+not Stage 06 completion.
+
 Real organization evidence (the second increment) is not authorized, and Stage 06
 completion needs it.
 

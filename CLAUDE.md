@@ -49,8 +49,8 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
   `docs/decisions/2026-11-16-stage06-standard-and-first-increment.md`). Only the register-first increment is
   authorized: the 41-entry scope audit, a coverage-register batch, the `bc:` migration
   manifest and the upstream checks. No real organization evidence, no instance IRI, no APQC
-  names or definitions. CP-3 is not Stage 06 completion, which needs a real, authorized
-  organization evidence graph.
+  names or definitions. **CP-3 is closed** (2026-11-17, `docs/decisions/2026-11-17-cp3-closed.md`), but CP-3 is not Stage 06
+  completion, which needs a real, authorized organization evidence graph.
   Before the first tranche, the only `bco:` IRIs with triples were the controlled
   vocabulary's annotation properties and the `bco:PCFCode` datatype, declared in the generated
   `src/01_controlled_vocabulary/generated/bco-vocabulary.ttl` (accepted 2026-10-24, `docs/decisions/2026-10-24-p3-accepted.md`).

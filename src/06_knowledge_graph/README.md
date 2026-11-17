@@ -4,7 +4,7 @@
 `docs/standards/stage-06-knowledge-graph.md` and the decision of 2026-11-16
 (`docs/decisions/2026-11-16-stage06-standard-and-first-increment.md`). Coverage-register batch 1 was accepted as
 one batch on 2026-11-16, with RD-1 decided (`docs/decisions/2026-11-16-register-batch-1-accepted.md`).
-CP-3 is not closed, and Stage 06 is not complete: completion also needs a
+CP-3 is closed (2026-11-17, `docs/decisions/2026-11-17-cp3-closed.md`), but Stage 06 is not complete: completion also needs a
 real, authorized organization evidence graph, and that second increment is not
 authorized. No organization, person, evidence graph or instance IRI is here.
 
