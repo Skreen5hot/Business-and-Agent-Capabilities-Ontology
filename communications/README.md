@@ -44,14 +44,23 @@ These add to the protocol and do not contradict it.
    `tools/communications.py`. The checker refuses a message folder for a team it does not
    know. A new team also needs its entry in `correspondents.yaml` (§ Codes).
 3. **Decisions.** The decision record is `docs/decisions/` (Rule 4).
-4. **Sending is the architect's call.** That includes posting an alert or commenting on
-   the board. An agent may draft a message and preview its alert (with the communications
-   repository's `tools/alert.py`, without `--post`), but posts nothing without the
-   architect's say-so. Whatever it posts is named as an agent's (Rule 5).
+4. **Sending under a standing authorization.** Since 2026-11-17 an agent may act on
+   requests from communications without asking each time
+   (`docs/decisions/2026-11-17-communications-standing-authorization.md`). It may file
+   copies, send replies, post their alerts (`tools/alert.py --post`) and comment on the
+   board, and it may do the non-destructive work a request asks for. The architect's own
+   work comes first. These still go to the architect first:
+   - a dangerous, destructive or irreversible ask;
+   - a licence, rights or pin change;
+   - a reply that would commit the project to something;
+   - any decision.
+
+   Whatever an agent posts is named as an agent's (Rule 5).
 5. **The inbox at session start.** An agent gets no GitHub notifications. When a session
    starts, it checks the board's **Alerts** category for messages to `BCO` not yet held in
-   `incoming/`, with the communications repository's `tools/inbox.py --code BCO`, and
-   reports any it finds to the architect.
+   `incoming/`, with the communications repository's `tools/inbox.py --code BCO`. It
+   handles what it finds under rule 4 and tells the architect what came in and what was
+   done.
 6. **Messages before the board.** Every message recorded before this adoption was sent
    before the board existed. None of them needs an alert (§ Alerts, 1).
 
