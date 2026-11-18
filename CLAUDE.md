@@ -29,7 +29,10 @@ from the Business Process Ontology (BPO). Read `docs/HANDOFF.md` for the state,
   `docs/standards/stage-02-conceptual-modeling.md`. CM-01 (Business Capability) was approved
   on 2026-10-26 as the Stage 02 baseline (`docs/decisions/2026-10-26-cm01-approved-r8-r9-accepted.md`);
   never change an approved model silently — a substantive change is a new, reviewed
-  version. CM-02 (Agent Capability) is planned, not started. The
+  version. CM-02 (Agent Capability) was started on 2026-11-18, C-1 first
+  (`docs/decisions/2026-11-18-cm02-started-c1-first.md`). C-1 is decided (Option A, the
+  functional interpretation as evidence criteria; `docs/decisions/2026-11-18-cm02-c1-decided.md`);
+  the model itself is not approved. The
   vocabulary was under `vocab/` and the modules under `ontology/` until 2026-10-25;
   records, ADRs and reviews written before then use the old paths, and stay as written.
 - **D6 is authorized for the first tranche** (`docs/decisions/2026-11-15-v05-transition-approved-d6-authorized.md`). `src/05_ontology/apqc-cap.ttl` holds
