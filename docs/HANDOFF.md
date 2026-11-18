@@ -44,8 +44,10 @@ completion needs it.
 **CM-02 was started on 2026-11-18**, with C-1 (how one activity kind, such as mail
 sorting, stands across persons, organizations and artificial systems) as its first issue
 (`docs/decisions/2026-11-18-cm02-started-c1-first.md`). The analysis,
-`docs/proposals/2026-11-18-cm02-c1-capability-analysis.md`, is proposed and awaits the
-architect's decision.
+`docs/proposals/2026-11-18-cm02-c1-capability-analysis.md`, was decided the same day as
+the C-1 baseline (`docs/decisions/2026-11-18-cm02-c1-decided.md`): Option A, and the
+functional interpretation as BCO evidence criteria, not an OWL definition. CM-02's model is
+in progress; no formalization, class, property or catalogue ingestion is authorized.
 
 ## 2. What is in the tree
 

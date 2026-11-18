@@ -2,8 +2,9 @@
 
 | Field | Value |
 |---|---|
-| Status | **Proposed.** For the architect's decision. Nothing here is decided |
+| Status | **Decided 2026-11-18: the C-1 baseline.** Option A, interpretation (b) with evidence requirements, and the information-artifact distinction are adopted (`docs/decisions/2026-11-18-cm02-c1-decided.md`). Revision 2 applies the decision's three corrections and its list of limitations |
 | Date | 2026-11-18 |
+| Revision | 1, proposed at `78d4c6e`. 2, the architect's decision applied: sections 2, 5, 6, 8 and 9 |
 | Prepared by | Claude Code (`claude-opus-5-5`), for the BCO team |
 | Arises from | The architect's direction of 2026-11-18 (`docs/decisions/2026-11-18-cm02-started-c1-first.md`) |
 | Governed by | The Stage 02 standard (`docs/standards/stage-02-conceptual-modeling.md`); the approved CM-02 scope note (`docs/proposals/2026-10-31-cm02-scope-note.md`), C-1 |
@@ -84,11 +85,22 @@ A mail-sorting ability is therefore a pair: one shared answer to A, and a differ
 to B for each bearer. The activity kind is never redefined per bearer. Only the
 classification of the individual capacity changes.
 
-The shared answer to A is not automatically a BPO act type. An Act needs an Agent playing
-a causative role. Where an organization deploys a machine, the sorting is the
-organization's act, and BPO's act type covers it (case 4 below). A sorting process with no
-agent in it at all would be a process, not an act. No current source gives a
-bearer-neutral process type for it (section 5, gap G2).
+The shared answer to A is not automatically a BPO act type. BFO's Process
+(`obo:BFO_0000015`) is the bearer-neutral class every activity kind falls under. CCO's Act,
+and Planned Act within it, are narrower: an Act needs an Agent playing a causative role,
+and a Planned Act also needs a directive.
+
+- **Where an organization deploys a machine,** the sorting is the organization's act, and
+  BPO's act type covers it (case 4 below).
+- **A sorting process with no agent in it** is a process, not an act. Not every
+  machine-executed process is a BPO Planned Act.
+
+What is missing is narrower: a verified, specific mail-sorting process type usable across
+human and artificial implementations (section 5, gap G2).
+
+Sharing an activity kind does not make two capacities the same capacity. Nor does it give
+them the same realization conditions. Joe, the post office and a machine sort mail under
+different conditions, and each capacity is classified and evidenced on its own.
 
 ## 3. The worked example: mail sorting
 
@@ -101,7 +113,7 @@ illustrative. This note does not assert that BPO or CCO declares such a type.
 | 2 | **The post office**, an organization | **Organization Capability**, and a Business Capability if the type is admitted under G1-T and attributed under G1-I | The organization can sort mail through its members *as organized*, its arrangements included (DP-1). Joe's skill is evidence for this (G1-I question 2), never the capability itself | The sum of its staff's skills. Several staff each able to sort is member-wise (case 3) |
 | 3 | **A sorting team** with no organization rules | **No capability of its own.** Each member's Skill, attributed to the group with *aggregate has capability* | The members each bear the skill. Whether such a team can bear a capability of its own is C-2, still open | Treating the attribution as an Organization Capability (CD10) |
 | 4 | **A deployed sorting machine** with a machine-learning address reader, run in the post office's process | **Artifact Function** of the material system (the hardware running the model), not an Agent Capability. The organization's act realizes the organization's capability, and the machine is an enabling condition of it (DP-1) | The system was designed to sort mail, and its make-up grounds the ability: the trained model, concretized in its memory, is part of that make-up. Here the organization is the agent, and the machine is used (CCO *uses*) | Its behaviour looking autonomous. Apparent autonomy alone does not establish agency (scope note §1) |
-| 5 | **An autonomous sorting system** that takes, interprets and carries out sorting work with no operator in the act | **Artifact Function by default. Agent Capability only if the C-1 test (section 6) is passed and recorded.** If it is passed, CCO then *infers* that the system is an Agent | Recommendation R2 below | Being classified as a **Skill**: that would need the system to be a Person. Asserting it, as with any other conclusion here, without the recorded test |
+| 5 | **An autonomous sorting system** that takes, interprets and carries out sorting work with no operator in the act | **Artifact Function by default. Agent Capability only if a review finds the C-1 evidence criteria met (section 8, R2).** If they are met, CCO then *infers* that the system is an Agent | All four R2 criteria are established for the deployed system in its actual configuration, by design, configuration, deployment or operational evidence. No prior successful exercise is required | Being classified as a **Skill**: that would need the system to be a Person. Asserting it, as with any other conclusion here, without the recorded test |
 | 6 | **An AI skill package** (for example a `SKILL.md` with code), an **A2A Agent Card** entry "mail-sorting", or an **agent manifest** | **No capacity at all.** An Information Content Entity. The package is a Directive ICE (it prescribes how to sort). The card and the manifest are descriptive ICEs about a claimed ability (CD13) | Always: an ICE is a generically dependent continuant, and in BFO only an independent continuant can bear a realizable entity | Anything. An advertisement is a claim to be tested, at most evidence. Installing the package can change a machine's make-up, and so ground case 4 or 5, but then the machine bears the ability, not the package |
 
 Read down the "classified as" column, and the activity kind never changes: in every row
@@ -150,10 +162,15 @@ example in section 3 is stated entirely in existing terms.
   annotation index. It cannot be *reasoned over*. Making it reasoned would need a new
   property or a modal pattern, which is a Stage 05 decision. This note does not propose
   one.
-- **G2. No bearer-neutral activity type.** BPO's act types are Planned Acts, so they
-  require an agent. In the deployed case (case 4) that is enough, because the act is the
-  organization's. For a process with no agent in it, a mail-sorting *process* type is
-  needed, and none exists in BPO or the pinned CCO.
+- **G2. No specific mail-sorting process type.** The bearer-neutral class exists: BFO's
+  Process (`obo:BFO_0000015`). What the verified source terminology lacks is a specific
+  mail-sorting process type that can be used consistently across human and artificial
+  implementations.
+  - BPO's act types are Planned Acts, so they require an agent.
+  - In the deployed case (case 4) a BPO act type is enough, because the act is the
+    organization's.
+  - For a process with no agent in it, nothing in BPO or the pinned CCO names the kind.
+  - This analysis introduces no such class.
 - **G3. No named common class.** "Mail-sorting capability" as one class over every bearer
   would have to sit under realizable entity, not under Agent Capability. Under Agent
   Capability, the Agent equivalence would make every bearer an Agent. Realizable entity
@@ -185,11 +202,30 @@ anything.
   - Agent is defined through Agent Capability. Agent Capability is defined through Planned
     Act. Planned Act is defined through Agent, and through a directive "held by" an agent,
     a relation CCO never formalizes.
+  - Planned Act asks that the directive be held by *at least one* of the agents. It does
+    not ask that every causative participant hold it.
   - CCO therefore gives no independent test of agency. Any test for an artificial system
-    has to be stated by BCO, as a policy. It cannot be read off CCO.
-- **L5. Attribution commits you to agency.** Because of the Agent equivalence, CCO cannot
-  say "this system has an agent-like capability, its agency undetermined". Case 5 must
-  stay an Artifact Function until the test is passed.
+    has to be stated by BCO, as an evidence criterion (section 8, R2). It cannot be read
+    off CCO, and it must not presuppose that the system is already an Agent.
+- **L5. Attribution commits you to agency.** Because of the Agent equivalence, attributing
+  an Agent Capability to a material entity entails that it is a CCO Agent. CCO cannot say
+  "this system has an agent-like capability, its agency undetermined". Case 5 stays an
+  Artifact Function until the evidence is reviewed and passes.
+- **L6. Agent Capability is not a disposition by CCO's axioms.** It sits under realizable
+  entity, not under BFO disposition. Whether a given capability is a disposition is a
+  separate claim. For business capabilities, BCO makes it only after G1-T (DP-2).
+- **L7. Agent Capability and Artifact Function are not disjoint.** CCO declares no
+  disjointness between them, and this analysis assumes none.
+- **L8. Realization relations do not express capacity.** BFO's *realizes* and *has
+  realization* relate actual processes to realizable entities. They must not be used in a
+  way that makes past exercise a condition of having a capability (G1; CD8).
+- **L9. Capable members do not make a capable group.** A group whose members are each
+  capable does not thereby bear a capability of its own, and certainly not an
+  organizational one (CD10; case 3). CCO's *aggregate has capability* records member-wise
+  attribution only.
+
+These limitations are part of the analysis. They are not defects to repair by extending
+the ontology without authorization.
 
 ## 7. Options for C-1
 
@@ -200,44 +236,71 @@ anything.
 | **C. Everything under Agent Capability** | Treat capable artificial systems as Agents | Rejected. The Agent equivalence makes agency a side effect of classification, against the direction and the scope note |
 | **D. Bearer-specific parallel vocabularies** | Separate "mail-sorting skill", "mail-sorting organization capability" and "mail-sorting function" types with no shared anchor | Rejected. It creates exactly the artificial distinction between activity kinds that the direction rules out |
 
-## 8. Recommendation
+## 8. Recommendation, as decided
 
-- **R1. Adopt Option A** as CM-02's pattern. The activity kind is shared across bearers,
-  through the realization type, and the capacity's classification is bearer-specific.
-- **R2. C-1's attribution test.** An Agent Capability is attributed to an entity *x* only
-  when a recorded review finds all four of:
-  1. *x* is a material entity: a deployed system, not software and not an ICE;
-  2. *x* plays a causative role (*agent in*) in acts of the type, not merely participates
-     in them as something used;
-  3. those acts are prescribed by a Directive ICE that *x* holds, in a sense BCO states as
-     policy, because CCO leaves "held by" undefined (L4). The architect chooses the
-     reading from these:
-     - **(a) strict:** only an entity already known to be an agent holds a directive. No
-       artificial system qualifies, which is CCO's circle, applied literally;
-     - **(b) functional:** *x* represents the directive, selects among acts to satisfy it,
-       and adjusts when conditions change. Merely storing an instruction does not count:
-       a thermostat's setpoint fails;
-  4. the capacity is *x*'s own, not lent to *x* act by act by an operator that uses it.
+The architect adopted R1 to R4 on 2026-11-18, R2 in a refined form
+(`docs/decisions/2026-11-18-cm02-c1-decided.md`). They are stated here as adopted.
 
-  Failing any one of them, the ability is an Artifact Function (or a BFO function) of the
-  material system. Never a Skill, unless *x* is a Person. A pass makes *x* a CCO Agent by
-  inference, and the review must say so.
-- **R3. ICEs never bear.** Skill packages, agent cards and manifests are classified as
-  ICEs: directive when they prescribe, descriptive when they advertise. They are evidence
-  at most.
-- **R4. Record the limitations.** L1 to L5 and gaps G1 to G3 are recorded in CM-02, and G1
+- **R1. Option A.** An activity kind is described once, through the process type its
+  capacities are realized in. Each particular capacity is classified by its bearer, using
+  the applicable CCO class. Information artifacts that describe or advertise it are kept
+  apart. Sharing an activity kind does not equate two capacities, and does not give them
+  the same realization conditions.
+- **R2. C-1: the functional interpretation, as evidence criteria.** Whether an artificial
+  material system bears an Agent Capability is assessed case by case. The assessment must
+  establish all four of these:
+  1. **The bearer.** A deployed material system is the proposed bearer, not a software
+     package, a model file or a descriptive information artifact.
+  2. **A causative role.** The system has a capacity to play a causative role in the
+     relevant objective-directed activity, and is not merely a passive instrument.
+  3. **Operational control of a directive.** The system can operationally represent and
+     use a directive or plan, select relevant actions toward its objective, and respond
+     appropriately to relevant changes in circumstances.
+  4. **The system's own capacity.** The capacity belongs to the deployed system in its
+     actual configuration. It is not attributed solely from human operators,
+     organizational arrangements, documentation or vendor claims.
+
+  How the criteria are to be read:
+
+  - **They are evidence criteria, not an axiom.** They are BCO's criteria for review. They
+    are not an OWL definition of Agent Capability, and they introduce no "holds directive"
+    relation.
+  - **They go beyond CCO's own requirement.** CCO's Planned Act requires that at least one
+    involved Agent hold the directive. Criterion 3 asks more of an artificial system whose
+    own capability is in question (L4).
+  - **No circularity.** They do not presuppose that the system is already an Agent.
+  - **No prior exercise is required.** Design, configuration, deployment and operational
+    evidence can establish an unexercised capacity (CD8).
+  - **What does not count.** A thermostat's stored setpoint, a simple fixed automation, an
+    advertised AI skill, or a human operator's instructions do not establish agency merely
+    by existing.
+  - **Being nonhuman does not exclude a system.** Where the evidence establishes the
+    capacity, CCO permits an Agent Capability, and the system's classification as an Agent
+    follows from CCO's unchanged equivalence axiom. The review must say so.
+  - **Failing a criterion.** A system that fails any criterion has its ability classified
+    as an Artifact Function, or a BFO function, of the material system. It is never a
+    Skill unless the bearer is a Person.
+- **R3. Information artifacts never bear.** AI skill packages, agent cards and manifests
+  are information artifacts: directive when they prescribe, descriptive when they
+  advertise. They are evidence at most. The deployed material system is evaluated on its
+  own.
+- **R4. The limitations are recorded.** L1 to L9 stand as stated in section 6, and gaps G1
   to G3 are carried to Stage 05 as questions. None is answered by redefining CCO.
 
-## 9. Decisions requested
+## 9. What the decision settles and leaves open
 
-1. Adopt Option A (R1) as CM-02's pattern for capabilities across bearers.
-2. Adopt R2 as C-1's attribution test, choosing reading (a) or (b) of "held by".
-3. Accept R3, and record L1 to L5 and G1 to G3 as stated (R4).
+**Settled.** C-1 is resolved conceptually, through Option A and the qualified functional
+interpretation. This analysis is the C-1 baseline for CM-02.
 
-Approving these settles C-1's conceptual answer for CM-02. They would authorize no class,
-property, IRI, axiom or source ingestion, and would not approve CM-02. CM-02 still needs
-its own model, competency questions, practitioner review and approval under the Stage 02
-standard.
+**Not authorized.** The decision authorizes:
+
+- no OWL formalization;
+- no class, object property, IRI or axiom;
+- no ingestion of external skill catalogues;
+- no change to any CCO definition.
+
+**Still needed.** CM-02 needs its own model, competency questions, practitioner review and
+approval under the Stage 02 standard.
 
 ## Sources
 
