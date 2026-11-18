@@ -41,6 +41,12 @@ not Stage 06 completion.
 Real organization evidence (the second increment) is not authorized, and Stage 06
 completion needs it.
 
+**CM-02 was started on 2026-11-18**, with C-1 (how one activity kind, such as mail
+sorting, stands across persons, organizations and artificial systems) as its first issue
+(`docs/decisions/2026-11-18-cm02-started-c1-first.md`). The analysis,
+`docs/proposals/2026-11-18-cm02-c1-capability-analysis.md`, is proposed and awaits the
+architect's decision.
+
 ## 2. What is in the tree
 
 | Path | What | Trust |
