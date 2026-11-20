@@ -3,8 +3,10 @@
 #
 # ELK and HermiT run through one ROBOT jar, which bundles both. The jar is
 # not committed: tools/ontology/reason.py --fetch downloads it to
-# .tools-cache/ (ignored) and refuses bytes that are not these. Java is the
-# machine's; the version that ran is printed with every result.
+# .tools-cache/ (ignored) and refuses bytes that are not these. Locally, Java is
+# the machine's; CI pins Temurin 17 with actions/setup-java (2026-11-20,
+# docs/decisions/2026-11-20-ci-java-17-pinned.md). The version that ran is
+# printed with every result.
 #
 # Verified 2026-11-15: the release, its tag's commit, the asset's size and
 # SHA-256 (GitHub's asset digest, then recomputed over the downloaded
