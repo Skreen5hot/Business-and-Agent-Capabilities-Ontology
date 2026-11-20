@@ -167,6 +167,15 @@ jobs:
       # cached by its SHA-256 and fetched only on a miss; --fetch refuses
       # bytes that are not the pinned ones. HermiT (S05-D2) runs too: it is
       # cheap at this size, and a checkpoint needs its result.
+      # Java is pinned to Temurin 17: the runner's default moved from 17 to
+      # 25 on 2026-11-20, and under 25 the reasoners' falsification cases
+      # were not rejected (docs/decisions/2026-11-20-ci-java-17-pinned.md).
+      - name: Set up Java 17 for ROBOT
+        uses: actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880 # v6.3.0
+        with:
+          distribution: temurin
+          java-version: '17'
+
       - name: Cache the pinned ROBOT jar
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
@@ -250,6 +259,15 @@ jobs:
       # S06-U2: ELK and HermiT over the BCO modules with the complete BFO
       # and CCO at their pins (BPO as its extract, the import boundary),
       # each run falsified; the closure loaded and the results are printed.
+      # Java is pinned to Temurin 17: the runner's default moved from 17 to
+      # 25 on 2026-11-20, and under 25 the reasoners' falsification cases
+      # were not rejected (docs/decisions/2026-11-20-ci-java-17-pinned.md).
+      - name: Set up Java 17 for ROBOT
+        uses: actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880 # v6.3.0
+        with:
+          distribution: temurin
+          java-version: '17'
+
       - name: Cache the pinned ROBOT jar
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
